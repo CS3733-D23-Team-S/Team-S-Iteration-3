@@ -1,11 +1,11 @@
-package edu.wpi.teamname.controllers.ServiceRequestControllers;
+package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
-import static edu.wpi.teamname.controllers.ServiceRequestControllers.MealDeliveryController.clickedFoodID;
+import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController.clickedFoodID;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.controllers.HomeController;
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -15,21 +15,22 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
 public class ProductDetailsController {
-  @FXML MFXButton back3;
-  @FXML MFXButton addCart;
-  @FXML MFXButton clear;
-  @FXML MFXTextField quantity;
+  @FXML private MFXButton back3;
+  @FXML private MFXButton addCart;
+  @FXML private MFXButton clear;
+  @FXML private MFXTextField quantity;
 
-  @FXML MFXTextField request;
-  @FXML FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
-  @FXML HBox foodName;
-  @FXML HBox fDescription;
-  @FXML HBox fPrice;
-  static int orderID;
+  @FXML private MFXTextField request;
+  @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
+  @FXML private HBox foodName;
+  @FXML private HBox fDescription;
+  @FXML private HBox fPrice;
+
+  public static int orderID;
 
   public static int itemCount;
 
-  static OrderItem cart = new OrderItem(HomeController.cartID);
+  public static OrderItem cart = new OrderItem(HomeController.cartID);
 
   public void initialize() {
 

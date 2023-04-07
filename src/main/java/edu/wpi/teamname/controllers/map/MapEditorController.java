@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers;
+package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.Map.Edge;
 import edu.wpi.teamname.Map.Node;

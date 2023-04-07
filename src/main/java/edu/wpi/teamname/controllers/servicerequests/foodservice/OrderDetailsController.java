@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.ServiceRequestControllers;
+package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
@@ -14,14 +14,14 @@ import javafx.scene.layout.VBox;
 
 public class OrderDetailsController {
 
-  @FXML MFXButton back2;
-  @FXML MFXButton submit;
-  @FXML MFXButton clear2;
-  @FXML VBox orderVBox;
-  @FXML MFXTextField roomNum;
-  @FXML MFXTextField empNum;
+  @FXML private MFXButton back2;
+  @FXML private MFXButton submit;
+  @FXML private MFXButton clear2;
+  @FXML private VBox orderVBox;
+  @FXML private MFXTextField roomNum;
+  @FXML private MFXTextField empNum;
 
-  static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
+  public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
 
   @FXML
   public void initialize() {

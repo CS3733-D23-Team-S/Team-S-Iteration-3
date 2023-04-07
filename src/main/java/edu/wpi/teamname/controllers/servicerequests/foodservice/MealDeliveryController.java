@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.ServiceRequestControllers;
+package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
