@@ -2,9 +2,9 @@ package edu.wpi.teamname.controllers.ServiceRequestControllers;
 
 import static edu.wpi.teamname.controllers.ServiceRequestControllers.MealDeliveryController.clickedFoodID;
 
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.Food;
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.FoodDAOImpl;
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
+import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.controllers.HomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;

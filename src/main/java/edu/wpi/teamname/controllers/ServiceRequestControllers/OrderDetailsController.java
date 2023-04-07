@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers.ServiceRequestControllers;
 
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.Food;
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.Database.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

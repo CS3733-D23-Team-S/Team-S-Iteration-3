@@ -3,10 +3,10 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import edu.wpi.teamname.Database.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.Database.ServiceRequests.ConferenceRoom.RoomRequestDAO;
-import edu.wpi.teamname.Database.ServiceRequests.Room;
-import edu.wpi.teamname.Database.ServiceRequests.Status;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Room;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import org.junit.jupiter.api.Test;

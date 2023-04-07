@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+/*package edu.wpi.teamname;
 
 public class RoomBooking {
 
@@ -20,4 +20,4 @@ public class RoomBooking {
   public static void setBookTime(String bookTime) {
     BookTime = bookTime;
   }
-}
+}*/

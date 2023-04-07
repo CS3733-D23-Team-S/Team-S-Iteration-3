@@ -1,11 +1,11 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.Database.Map.Edge;
-import edu.wpi.teamname.Database.Map.Node;
-import edu.wpi.teamname.Database.Map.NodeType;
-import edu.wpi.teamname.MapEditorEntity;
+import edu.wpi.teamname.Map.Edge;
+import edu.wpi.teamname.Map.Node;
+import edu.wpi.teamname.Map.NodeType;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.pathfinding.MapEditorEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Date;
 import java.time.LocalDate;

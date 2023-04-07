@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import static edu.wpi.teamname.navigation.Screen.HOME;
 
-import edu.wpi.teamname.Database.Login.LoginDAOImpl;
+import edu.wpi.teamname.Login.LoginDAOImpl;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

@@ -1,9 +1,9 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.Database.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.Database.ServiceRequests.ConferenceRoom.RoomRequestDAO;
-import edu.wpi.teamname.Database.ServiceRequests.Room;
-import edu.wpi.teamname.Database.ServiceRequests.Status;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Room;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;

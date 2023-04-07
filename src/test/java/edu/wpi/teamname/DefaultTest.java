@@ -7,8 +7,8 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.Database.LoaderDAO;
-import edu.wpi.teamname.Database.Login.LoginDAOImpl;
-import edu.wpi.teamname.algorithms.AStar;
+import edu.wpi.teamname.Login.LoginDAOImpl;
+import edu.wpi.teamname.pathfinding.AStar;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

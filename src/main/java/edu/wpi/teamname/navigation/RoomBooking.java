@@ -2,8 +2,8 @@ package edu.wpi.teamname.navigation;
 
 import static javafx.geometry.Pos.*;
 
-import edu.wpi.teamname.Database.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.Database.ServiceRequests.Room;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Room;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
