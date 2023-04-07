@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers;
+package edu.wpi.teamname.controllers.mainpages;
 
 import static edu.wpi.teamname.navigation.Screen.HOME;
 

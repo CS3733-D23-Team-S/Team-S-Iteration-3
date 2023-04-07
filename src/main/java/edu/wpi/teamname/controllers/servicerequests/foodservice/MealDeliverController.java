@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.ServiceRequestControllers;
+package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
