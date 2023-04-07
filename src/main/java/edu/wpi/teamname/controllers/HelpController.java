@@ -5,11 +5,9 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 
-public class ServiceRequestController {
-
+public class HelpController {
   @FXML MFXButton backButton;
 
-  @FXML
   public void initialize() {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }

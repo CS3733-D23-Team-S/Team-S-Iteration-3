@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RoomBookingDetailsController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Room Booking Confirmation" textFill="#1d3d94" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </TextField2TableCell>
+        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <children>
+                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Room Location (ID)" textFill="#1d3d94">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </TextField2TableCell>
+                <MFXTextField fx:id="roomLocationText" prefHeight="13.0" prefWidth="631.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font></MFXTextField>
+                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Start Time                                     End Time" textFill="#1d3d94">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+                </TextField2TableCell>
+            <HBox prefHeight="55.0" prefWidth="1392.0">
+               <children>
+                  <MFXTextField fx:id="startTimeText" prefHeight="51.0" prefWidth="270.0">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </MFXTextField>
+                      <MFXTextField fx:id="endTimeText" prefHeight="51.0" prefWidth="270.0">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="90.0" />
+                     </HBox.margin>
+                  </MFXTextField>
+               </children>
+            </HBox>
+                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Event Title" textFill="#1d3d94">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </TextField2TableCell>
+                <MFXTextField fx:id="eventTitleText" prefHeight="20.0" prefWidth="631.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding></MFXTextField>
+                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Event Description" textFill="#1d3d94">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </TextField2TableCell>
+                <MFXTextField fx:id="eventDescriptionText" prefHeight="0.0" prefWidth="631.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font></MFXTextField>
+            <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Staff Member " textFill="#1d3d94">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField2TableCell>
+            <MFXTextField fx:id="staffMemberText" prefHeight="0.0" prefWidth="631.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+            </MFXTextField>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                      <MFXButton fx:id="submitDetailsButton" onAction="#submitDetails" style="-fx-background-color: #1D3D94;" text="Submit" textFill="WHITE">
+                          <font>
+                              <Font size="20.0" />
+                          </font>
+                      </MFXButton>
+                  <MFXButton fx:id="clearButton" onAction="#clearFields" text="Clear" textFill="#030303">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
+            </children>
+        </VBox>
+        <MFXButton fx:id="backButton" layoutX="783.0" layoutY="844.0" prefHeight="30.0" prefWidth="30.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </MFXButton>
+    </children>
+</GridPane>

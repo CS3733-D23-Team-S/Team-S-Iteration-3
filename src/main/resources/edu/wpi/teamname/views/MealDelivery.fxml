@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="900.0" minWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestControllers.MealDeliveryController">
+    <top>
+        <AnchorPane prefHeight="200.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#012d5a" height="150.0" layoutY="49.0" stroke="BLACK" strokeType="INSIDE" width="1599.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="49.0" />
+                <MFXTextField layoutX="166.0" layoutY="88.0" prefHeight="51.0" prefWidth="840.0" promptText="Search for food..." AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="594.0" AnchorPane.topAnchor="88.0" />
+                <HBox layoutX="25.0" layoutY="160.0" prefHeight="738.0" prefWidth="1569.0" spacing="200.0" AnchorPane.bottomAnchor="-638.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="160.0">
+                    <children>
+                        <MFXButton prefHeight="38.0" prefWidth="68.0" style="-fx-background-color: d9d9d9;" text="Burgers" HBox.hgrow="ALWAYS" />
+                        <MFXButton prefHeight="34.0" prefWidth="52.0" style="-fx-background-color: d9d9d9;" text="Asian" HBox.hgrow="ALWAYS" />
+                        <MFXButton prefHeight="40.0" prefWidth="63.0" style="-fx-background-color: d9d9d9;" text="Pizza" HBox.hgrow="ALWAYS" />
+                        <MFXButton prefHeight="34.0" prefWidth="96.0" style="-fx-background-color: d9d9d9;" text="Mexican " />
+                        <MFXButton prefHeight="40.0" prefWidth="81.0" style="-fx-background-color: d9d9d9;" text="Desserts" />
+                        <MFXButton prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: d9d9d9;" text="Sandwiches">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></MFXButton>
+                    </children>
+                </HBox>
+            <MenuButton layoutX="1280.0" layoutY="101.0" mnemonicParsing="false" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Vegetarian" />
+                <MenuItem mnemonicParsing="false" text="gluten free" />
+              </items>
+            </MenuButton>
+            </children>
+        </AnchorPane>
+    </top>
+    <center>
+        <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="1599.0" spacing="25.0" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Delivery" />
+                <HBox prefHeight="70.0" prefWidth="1594.0" spacing="100.0" style="-fx-background-color: d9d9d9;">
+               <children>
+                  <MFXButton fx:id="friesButton" buttonType="RAISED" prefHeight="71.0" prefWidth="130.0" text="Fries" />
+                  <MFXButton fx:id="burgersButton" buttonType="RAISED" prefHeight="77.0" prefWidth="120.0" text="Burger" />
+                  <MFXButton fx:id="soupButton" buttonType="RAISED" prefHeight="75.0" prefWidth="113.0" text="Soup" />
+               </children></HBox>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wallet Friendly" />
+                <HBox prefHeight="78.0" prefWidth="1598.0" spacing="100.0" style="-fx-background-color: d9d9d9;">
+               <children>
+                  <MFXButton fx:id="pizzaButton" buttonType="RAISED" prefHeight="102.0" prefWidth="120.0" text="Pizza" />
+                  <MFXButton fx:id="coffeeButton" buttonType="RAISED" prefHeight="91.0" prefWidth="109.0" text="Coffee" />
+               </children></HBox>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Most Popular" />
+                <HBox prefHeight="76.0" prefWidth="1600.0" spacing="100.0" style="-fx-background-color: d9d9d9;">
+               <children>
+                  <MFXButton fx:id="icecreamButton" buttonType="RAISED" prefHeight="82.0" prefWidth="111.0" text="Ice Cream" />
+                  <MFXButton fx:id="cakeButton" buttonType="RAISED" prefHeight="80.0" prefWidth="113.0" text="Cake" />
+               </children></HBox>
+            </children>
+            <padding>
+                <Insets left="70.0" right="70.0" />
+            </padding>
+        </VBox>
+    </center>
+   <bottom>
+      <HBox prefHeight="102.0" prefWidth="1138.0" spacing="500.0" BorderPane.alignment="TOP_RIGHT">
+         <children>
+              <MFXButton fx:id="backButton" prefHeight="73.0" prefWidth="106.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
+                  <font>
+                      <Font size="40.0" />
+                  </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+              </MFXButton>
+            <MFXTextField fx:id="roomNum" prefHeight="54.0" prefWidth="205.0" promptText="Enter Room Number" />
+            <MFXButton fx:id="submitButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="130.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submit    &gt;" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
