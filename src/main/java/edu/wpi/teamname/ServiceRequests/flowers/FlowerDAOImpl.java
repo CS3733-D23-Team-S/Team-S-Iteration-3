@@ -166,15 +166,15 @@ public class FlowerDAOImpl {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
                 Flower flower =
-                        new Flower(
-                                Integer.parseInt(fields[0]),
-                                fields[1],
-                                fields[2],
-                                Double.parseDouble(fields[3]),
-                                Integer.parseInt(fields[4]),
-                                Boolean.parseBoolean(fields[5]),
-                                fields[6],
-                                fields[7]);
+                    new Flower(
+                        Integer.parseInt(fields[0]),
+                        fields[1],
+                        fields[2],
+                        Double.parseDouble(fields[3]),
+                        Integer.parseInt(fields[4]),
+                        Boolean.parseBoolean(fields[5]),
+                        fields[6],
+                        fields[7]);
                 flowers.put(Integer.valueOf(fields[0]), flower);
             }
         } catch (IOException e) {
