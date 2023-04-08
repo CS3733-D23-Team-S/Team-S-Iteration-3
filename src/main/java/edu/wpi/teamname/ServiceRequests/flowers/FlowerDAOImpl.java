@@ -14,7 +14,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
-public class FlowerDAOImpl {
+/* TODO:
+        make updateFlower() method body
+ */
+public class FlowerDAOImpl implements FlowerDAO_I {
     private static FlowerDAOImpl single_instance;
     @Getter
     private HashMap<Integer, Flower> flowers = new HashMap<>();
