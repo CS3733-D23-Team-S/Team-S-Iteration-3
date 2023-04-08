@@ -80,7 +80,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
                         + " (deliveryID, cartID, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) "
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setInt(1, request.getID());
-            preparedStatement.setString(1, request.getCart());
+            preparedStatement.setInt(1, request.getCartID());
             preparedStatement.setDate(1, request.getDate());
             preparedStatement.setTime(1, request.getTime());
             preparedStatement.setInt(1, request.getRoom());

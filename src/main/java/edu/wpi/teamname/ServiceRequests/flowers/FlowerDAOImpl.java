@@ -122,7 +122,23 @@ public class FlowerDAOImpl implements FlowerDAO_I {
         }
     }
 
-    public void updateFlower(int ID){}
+    /*public void updateFlower(int ID) {
+
+        Flower flower = flowers.get(ID);
+
+        try {
+            PreparedStatement preparedStatement =
+                connection
+                    .getConnection()
+                    .prepareStatement(
+                            "Update "
+                            + flowersTable
+                    )
+
+        } catch (SQLException e) {
+
+        }
+    }*/
 
     public Flower retrieveFlower(int ID) {
         if (flowers.get(ID) == null) {
