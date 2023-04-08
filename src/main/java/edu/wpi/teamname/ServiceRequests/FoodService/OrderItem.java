@@ -6,11 +6,15 @@ import lombok.Getter;
 public class OrderItem {
   // This is the cart class
   @Getter private int cartID;
-  @Getter private HashMap<Integer, Food> theCart;
+  private HashMap<Integer, Food> theCart;
 
   public OrderItem(int cartID) {
     this.cartID = cartID;
     theCart = new HashMap<Integer, Food>();
+  }
+
+  public HashMap<Integer, Food> getTheCart() {
+    return theCart;
   }
 
   public double getTotalPrice() {

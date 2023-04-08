@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 
 public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
   protected static final String schemaName = "hospitaldb";
@@ -38,7 +37,7 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
       preparedStatement.setTime(4, request.getTime());
-      preparedStatement.setInt(5, request.getRoom());
+      preparedStatement.setString(5, request.getLocation().getLongName());
       preparedStatement.setString(6, request.getOrderer());
       preparedStatement.setString(7, request.getAssignedTo());
       preparedStatement.setString(8, request.getOrderStatus());
@@ -56,8 +55,8 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
   }
 
   @Override
-  public List<FoodDelivery> getAllRequests() {
-    return null;
+  public HashMap<Integer, FoodDelivery> getAllRequests() {
+    return requests;
   }
 
   @Override
@@ -104,12 +103,14 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
               + "cartID Varchar(100),"
               + "orderDate Date,"
               + "orderTime time,"
-              + "room int,"
+              + "location Varchar(100),"
               + "orderedBy Varchar(100),"
               + "assignedTo Varchar(100),"
               + "Status Varchar(100),"
               + "cost int,"
-              + "notes Varchar(255))";
+              + "notes Varchar(255),"
+              + "foreign key (location) references "
+              + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
       st.execute(dropFoodRequestsTable);
       st.execute(foodRequestsTableConstruct);

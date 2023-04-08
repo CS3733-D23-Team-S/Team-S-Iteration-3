@@ -5,7 +5,6 @@ import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliv
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -27,30 +26,27 @@ public class ProductDetailsController {
   @FXML private HBox fPrice;
 
   public static int orderID;
-
   public static int itemCount;
 
-  public static OrderItem cart = new OrderItem(HomeController.cartID);
+  public static OrderItem cart = new OrderItem(1);
 
   public void initialize() {
 
     back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = foodDAO.retrieveFood(clickedFoodID);
-    cart.addFoodItem(currentFood);
+    Food currentFood = foodDAO.retrieveFood(1);
 
     addCart.setOnMouseClicked(
         event -> {
           try {
-            cart.getTheCart()
-                .get(HomeController.cartID)
-                .setQuantity(
-                    Integer.parseInt(quantity.getText())); // needs bounds if non int entered
+            currentFood.setQuantity(
+                Integer.parseInt(quantity.getText())); // needs bounds if non int entered
 
-            cart.getTheCart()
-                .get(HomeController.cartID)
-                .setNote(request.getText()); // bounds for if non string entered
-            System.out.println(request.getText());
+            currentFood.setNote(request.getText()); // bounds for if non string entered
+
+            cart.addFoodItem(currentFood);
+
+            Navigation.navigate(Screen.MEAL_DELIVERY1);
 
           } catch (Exception e) {
             e.printStackTrace();
@@ -65,7 +61,7 @@ public class ProductDetailsController {
     foodNamer();
     foodDescription();
     foodPrice();
-    addCart.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    //
   }
 
   public void count(String x) {

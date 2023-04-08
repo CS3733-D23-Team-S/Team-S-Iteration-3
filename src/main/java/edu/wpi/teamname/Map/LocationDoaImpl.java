@@ -41,7 +41,7 @@ public class LocationDoaImpl implements LocationDOA_I {
         "CREATE TABLE IF NOT EXISTS "
             + name
             + " "
-            + "(longname varchar(100),"
+            + "(longname varchar(100) UNIQUE PRIMARY KEY,"
             + "shortname varchar(100),"
             + "nodetype int)";
     System.out.println("Created the location table");

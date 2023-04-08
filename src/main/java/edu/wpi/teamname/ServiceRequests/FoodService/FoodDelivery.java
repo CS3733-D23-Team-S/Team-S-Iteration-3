@@ -1,5 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.Map.Location;
 import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ public class FoodDelivery {
   @Getter private String cart;
   @Getter @Setter private Date date;
   @Getter @Setter private Time time;
-  @Getter private int room;
+  @Getter private Location location;
   @Getter @Setter private String orderer;
   @Getter @Setter private String assignedTo;
   @Getter @Setter private String orderStatus;
@@ -22,7 +23,7 @@ public class FoodDelivery {
       OrderItem cart,
       Date date,
       Time time,
-      int room,
+      Location location,
       String orderedBy,
       String assignedTo,
       String orderStatus,
@@ -31,7 +32,7 @@ public class FoodDelivery {
     this.cart = cart.toString();
     this.date = date;
     this.time = time;
-    this.room = room;
+    this.location = location;
     this.orderer = orderedBy;
     this.assignedTo = assignedTo;
     this.orderStatus = orderStatus;

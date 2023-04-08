@@ -19,7 +19,6 @@ public class LoaderDAO implements LoaderDAOI {
   final String locationTable = schemaName + "." + "locations";
   final String moveTable = schemaName + "." + "moves";
   final String roomrequestsTable = schemaName + "." + "roomReservations";
-
   final String loginTable = schemaName + "." + "login";
   final String defaultNodePath = "src/main/java/edu/wpi/teamname/defaultCSV/Node.csv";
   final String defaultEdgePath = "src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv";

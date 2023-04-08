@@ -1,9 +1,9 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import java.util.List;
+import java.util.HashMap;
 
 public interface FoodDeliveryDAO_I {
-  public List<FoodDelivery> getAllRequests();
+  public HashMap<Integer, FoodDelivery> getAllRequests();
 
   public FoodDelivery getRequest(int target);
 

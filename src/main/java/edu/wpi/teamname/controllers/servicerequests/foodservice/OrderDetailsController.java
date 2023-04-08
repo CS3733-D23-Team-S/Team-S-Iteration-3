@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
+import edu.wpi.teamname.Map.Location;
+import edu.wpi.teamname.Map.LocationDoaImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
@@ -7,6 +9,8 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.sql.Time;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,24 +37,40 @@ public class OrderDetailsController {
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     submit.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
 
-    java.sql.Date d = new java.sql.Date(2023, 4, 6);
-    java.sql.Time t = new java.sql.Time(11, 35, 45);
+    java.util.Date current = new java.util.Date();
 
-    // FoodDelivery currentFoodDev;
+    Location temp = LocationDoaImpl.getInstance().getLocation("NeuroScience Waiting Room");
+
+    String whoOrdered = "George Washington";
 
     submit.setOnMouseClicked(
         event -> {
           try {
+
+            // Get the time when button is clicked
+            int year = current.getYear();
+            int month = current.getMonth();
+            int day = current.getDay();
+
+            java.sql.Date theDate = new Date(year, month, day);
+
+            int hour = current.getHours();
+            int minute = current.getMinutes();
+            int second = current.getSeconds();
+
+            java.sql.Time theTime = new Time(hour, minute, second);
+
+            // Get the employee
             String Emp = empNum.getText();
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
                     1,
                     ProductDetailsController.cart,
-                    d,
-                    t,
-                    5,
-                    "John Doe",
+                    theDate,
+                    theTime,
+                    temp,
+                    whoOrdered,
                     Emp,
                     "In Progress",
                     "These are not the notes you are looking for");
