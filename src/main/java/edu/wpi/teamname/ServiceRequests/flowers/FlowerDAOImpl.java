@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 
 /* TODO:
-        make updateFlower() method body
+        make sure updateQuantity() works
  */
 public class FlowerDAOImpl implements FlowerDAO_I {
     private static FlowerDAOImpl single_instance;
@@ -122,7 +122,7 @@ public class FlowerDAOImpl implements FlowerDAO_I {
         }
     }
 
-    /*public void updateFlower(int ID) {
+    public void updateQuantity(int ID) {
 
         Flower flower = flowers.get(ID);
 
@@ -131,14 +131,21 @@ public class FlowerDAOImpl implements FlowerDAO_I {
                 connection
                     .getConnection()
                     .prepareStatement(
-                            "Update "
-                            + flowersTable
-                    )
+                        "Update "
+                        + flowersTable
+                            + " SET Quantity = ?, "
+                            + "WHERE FlowerID = ?");
+
+            preparedStatement.setInt(1, flower.getQuantity());
+            preparedStatement.setInt(2, flower.getID());
+
+            System.out.println("Flower quantity updated");
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
+            System.out.println(e.getSQLState());
         }
-    }*/
+    }
 
     public Flower retrieveFlower(int ID) {
         if (flowers.get(ID) == null) {
