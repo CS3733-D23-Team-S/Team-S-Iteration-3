@@ -5,6 +5,7 @@ import edu.wpi.teamname.Map.LocationDoaImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -65,7 +66,7 @@ public class OrderDetailsController {
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    1,
+                    (HomeController.numRequests++),
                     ProductDetailsController.cart,
                     theDate,
                     theTime,

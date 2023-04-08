@@ -42,6 +42,7 @@ public class HomeController {
   @FXML MFXButton homeToPathfindingButton;
 
   public static int cartID = 1;
+  public static int numRequests = 0;
 
   @FXML
   public void initialize() {
