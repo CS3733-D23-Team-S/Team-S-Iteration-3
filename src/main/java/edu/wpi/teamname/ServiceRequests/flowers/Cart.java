@@ -10,13 +10,13 @@ import java.util.HashMap;
  * Cart is represented as a HashMap with Integer: id and Flower: flower
  *
  */
-public class OrderItem {
+public class Cart {
     @Getter @Setter
     private int cartID;
     @Getter @Setter
     private HashMap<Integer, Flower> cartItems;
 
-    public OrderItem(int cartID) {
+    public Cart(int cartID) {
         this.cartID = cartID;
         cartItems = new HashMap<Integer, Flower>();
     }
