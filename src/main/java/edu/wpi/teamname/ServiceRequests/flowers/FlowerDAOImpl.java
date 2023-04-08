@@ -158,37 +158,24 @@ public class FlowerDAOImpl {
      *
      * @param csvFilePath
      */
-    /*
+
     public void csvToFlower(String csvFilePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
             String headerLine = reader.readLine();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
-                Flower thisFlower =
+                Flower flower =
                         new Flower(
                                 Integer.parseInt(fields[0]),
-                                (fields[1]),
-                                (fields[2]),
-                                Integer.parseInt(fields[3]),
-                                fields[4],
-                                Double.parseDouble(fields[5]),
+                                fields[1],
+                                fields[2],
+                                Double.parseDouble(fields[3]),
+                                Integer.parseInt(fields[4]),
+                                Boolean.parseBoolean(fields[5]),
                                 fields[6],
-                                Integer.parseInt(fields[7]),
-                                Boolean.parseBoolean(fields[8]),
-                                fields[9],
-                                Integer.parseInt(fields[10]),
-                                fields[11],
-                                Boolean.parseBoolean(fields[12]),
-                                Boolean.parseBoolean(fields[13]),
-                                Boolean.parseBoolean(fields[14]),
-                                Boolean.parseBoolean(fields[15]),
-                                Boolean.parseBoolean(fields[16]),
-                                Boolean.parseBoolean(fields[17]),
-                                Boolean.parseBoolean(fields[18]),
-                                Boolean.parseBoolean(fields[19]),
-                                Boolean.parseBoolean(fields[20]));
-                foods.put(Integer.valueOf(fields[0]), thisFood);
+                                fields[7]);
+                flowers.put(Integer.valueOf(fields[0]), flower);
             }
         } catch (IOException e) {
             e.printStackTrace();
