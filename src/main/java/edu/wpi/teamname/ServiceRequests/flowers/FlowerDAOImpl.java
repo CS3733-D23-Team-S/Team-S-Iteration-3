@@ -5,8 +5,13 @@ import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import lombok.Getter;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 public class FlowerDAOImpl {
@@ -24,6 +29,39 @@ public class FlowerDAOImpl {
         return single_instance;
     }
 
+    public void init() {
+        try {
+            Statement st = connection.getConnection().createStatement();
+            String dropFlowerTable = "DROP TABLE IF EXISTS " + flowersTable + " CASCADE";
+
+            String flowerTableConstruct =
+                    "CREATE TABLE IF NOT EXISTS "
+                            + flowersTable
+                            + " "
+                            + "(ID int UNIQUE PRIMARY KEY,"
+                            + "Name Varchar(100),"
+                            + "Size Varchar(100),"
+                            + "Price double precision,"
+                            + "Quantity int,"
+                            + "SoldOut boolean,"
+                            + "Description Varchar(100),"
+                            + "Image Varchar(100),";
+
+            st.execute(dropFlowerTable);
+            st.execute(flowerTableConstruct);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getSQLState());
+            System.out.println("Database creation error");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Adds flower to database
+     * @param thisFlower
+     */
     public void addFlower(Flower thisFlower) {
         try {
             PreparedStatement preparedStatement =
@@ -42,6 +80,12 @@ public class FlowerDAOImpl {
             preparedStatement.setBoolean(1, thisFlower.getIsSoldOut());
             preparedStatement.setString(1, thisFlower.getDescription());
             preparedStatement.setString(1, thisFlower.getImage());
+
+            preparedStatement.executeUpdate();
+
+            flowers.put(thisFlower.getID(), thisFlower);
+
+            System.out.println("Flower added");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +111,7 @@ public class FlowerDAOImpl {
             // remove from local Hashmap
             flowers.remove(ID);
 
-            System.out.println("Food deleted");
+            System.out.println("Flower deleted");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,7 +119,80 @@ public class FlowerDAOImpl {
         }
     }
 
+    public void updateFlower(int ID){}
 
+    public Flower retrieveFlower(int ID) {
+        if (flowers.get(ID) == null) {
+            throw new NullPointerException("Flower not in database\n");
+        } else {
+            return flowers.get(ID);
+        }
+    }
 
+    public void loadToRemote() {
 
+        try {
+            Statement st = connection.getConnection().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM " + flowersTable);
+
+            while (rs.next()) {
+                Integer ID = rs.getInt("ID");
+                String name = rs.getString("name");
+                String size = rs.getString("size");
+                Double price = rs.getDouble("price");
+                Integer quantity = rs.getInt("quantity");
+                Boolean isSoldOut = rs.getBoolean("isSoldOut");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
+
+                Flower flower = new Flower(ID, name, size, price, quantity, isSoldOut, description, image);
+                flowers.put(ID, flower);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param csvFilePath
+     */
+    /*
+    public void csvToFlower(String csvFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            String headerLine = reader.readLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                Flower thisFlower =
+                        new Flower(
+                                Integer.parseInt(fields[0]),
+                                (fields[1]),
+                                (fields[2]),
+                                Integer.parseInt(fields[3]),
+                                fields[4],
+                                Double.parseDouble(fields[5]),
+                                fields[6],
+                                Integer.parseInt(fields[7]),
+                                Boolean.parseBoolean(fields[8]),
+                                fields[9],
+                                Integer.parseInt(fields[10]),
+                                fields[11],
+                                Boolean.parseBoolean(fields[12]),
+                                Boolean.parseBoolean(fields[13]),
+                                Boolean.parseBoolean(fields[14]),
+                                Boolean.parseBoolean(fields[15]),
+                                Boolean.parseBoolean(fields[16]),
+                                Boolean.parseBoolean(fields[17]),
+                                Boolean.parseBoolean(fields[18]),
+                                Boolean.parseBoolean(fields[19]),
+                                Boolean.parseBoolean(fields[20]));
+                foods.put(Integer.valueOf(fields[0]), thisFood);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }*/
 }
