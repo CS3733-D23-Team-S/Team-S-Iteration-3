@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,71 +54,75 @@
                 </MFXButton>
             </children>
         </HBox>
-        <HBox fx:id="conferenceRoomsHBox" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-            <children>
-                <VBox alignment="TOP_CENTER" prefHeight="612.0" prefWidth="229.0">
-                    <children>
-                        <TextField2TableCell alignment="CENTER" prefHeight="86.0" prefWidth="247.0" style="-fx-border-style: hidden solid hidden hidden;" text="Conference Room 1" textAlignment="CENTER" textFill="#1d3d94">
-                            <font>
-                                <Font size="20.0" />
-                            </font>
-                        </TextField2TableCell>
-                        <Group>
-                            <children>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c5ee" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="171.0" />
-                                <Text fill="#1d3d94" layoutX="5.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Title">
-                                    <font>
-                                        <Font name="Arial Bold" size="15.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="#1d3d94" layoutX="4.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Organizer">
-                                    <font>
-                                        <Font size="15.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="#1d3e91cc" layoutX="8.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartTime - EndTime">
-                                    <font>
-                                        <Font name="Open Sans Regular" size="15.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </Group>
-                    </children>
-                </VBox>
-                <VBox prefHeight="612.0" prefWidth="229.0">
-                    <children>
-                        <TextField2TableCell alignment="CENTER" prefHeight="86.0" prefWidth="247.0" style="-fx-border-style: hidden solid hidden hidden;" text="Conference Room 1" textAlignment="CENTER" textFill="#1d3d94">
-                            <font>
-                                <Font name="Open Sans Regular" size="20.0" />
-                            </font>
-                        </TextField2TableCell>
-                        <Group>
-                            <children>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c5ee" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="187.0" />
-                                <Text fill="#1d3d94" layoutX="5.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Title">
-                                    <font>
-                                        <Font name="Arial Bold" size="15.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="#1d3d94" layoutX="4.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Organizer">
-                                    <font>
-                                        <Font name="Open Sans Regular" size="15.0" />
-                                    </font>
-                                </Text>
-                                <Text fill="#1d3e91cc" layoutX="8.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartTime - EndTime">
-                                    <font>
-                                        <Font size="15.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                        </Group>
-                    </children>
-                </VBox>
-            </children>
-            <GridPane.margin>
-                <Insets top="30.0" />
-            </GridPane.margin>
-        </HBox>
+      <ScrollPane vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets top="30.0" />
+         </GridPane.margin>
+         <content>
+              <HBox fx:id="conferenceRoomsHBox" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                      <VBox alignment="TOP_CENTER" prefHeight="612.0" prefWidth="229.0">
+                          <children>
+                              <TextField2TableCell alignment="CENTER" prefHeight="86.0" prefWidth="247.0" style="-fx-border-style: hidden solid hidden hidden;" text="Conference Room 1" textAlignment="CENTER" textFill="#1d3d94">
+                                  <font>
+                                      <Font size="20.0" />
+                                  </font>
+                              </TextField2TableCell>
+                              <Group>
+                                  <children>
+                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c5ee" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="room-request-rect" width="171.0" />
+                                      <Text fill="#1d3d94" layoutX="5.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Title">
+                                          <font>
+                                              <Font name="Arial Bold" size="15.0" />
+                                          </font>
+                                      </Text>
+                                      <Text fill="#1d3d94" layoutX="4.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Organizer">
+                                          <font>
+                                              <Font size="15.0" />
+                                          </font>
+                                      </Text>
+                                      <Text fill="#1d3e91cc" layoutX="8.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartTime - EndTime">
+                                          <font>
+                                              <Font name="Open Sans Regular" size="15.0" />
+                                          </font>
+                                      </Text>
+                                  </children>
+                              </Group>
+                          </children>
+                      </VBox>
+                      <VBox prefHeight="612.0" prefWidth="229.0">
+                          <children>
+                              <TextField2TableCell alignment="CENTER" prefHeight="86.0" prefWidth="247.0" style="-fx-border-style: hidden solid hidden hidden;" text="Conference Room 1" textAlignment="CENTER" textFill="#1d3d94">
+                                  <font>
+                                      <Font name="Open Sans Regular" size="20.0" />
+                                  </font>
+                              </TextField2TableCell>
+                              <Group>
+                                  <children>
+                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c5ee" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="room-request-rect" width="187.0" />
+                                      <Text fill="#1d3d94" layoutX="5.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Title">
+                                          <font>
+                                              <Font name="Arial Bold" size="15.0" />
+                                          </font>
+                                      </Text>
+                                      <Text fill="#1d3d94" layoutX="4.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meeting Organizer">
+                                          <font>
+                                              <Font name="Open Sans Regular" size="15.0" />
+                                          </font>
+                                      </Text>
+                                      <Text fill="#1d3e91cc" layoutX="8.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartTime - EndTime">
+                                          <font>
+                                              <Font size="15.0" />
+                                          </font>
+                                      </Text>
+                                  </children>
+                              </Group>
+                          </children>
+                      </VBox>
+                  </children>
+              </HBox>
+         </content>
+      </ScrollPane>
         <MFXButton fx:id="addMeetingButton" onMouseClicked="#initialize" prefHeight="46.0" prefWidth="173.0" style="-fx-background-color: #1d3d94;" text="+ Add Meeting" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <font>
                 <Font size="16.0" />
