@@ -4,9 +4,9 @@ import java.util.HashMap;
 import lombok.Getter;
 
 /* TODO:
-        add Java Docs
-        StringBuilder for finale in toString()?
- */
+       add Java Docs
+       StringBuilder for finale in toString()?
+*/
 public class OrderItem {
   // This is the cart class
   @Getter private int cartID;

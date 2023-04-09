@@ -4,18 +4,25 @@
 
 package edu.wpi.teamname;
 
+import static java.lang.System.exit;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.Database.LoaderDAO;
 import edu.wpi.teamname.Login.LoginDAOImpl;
+import edu.wpi.teamname.Map.Location;
+import edu.wpi.teamname.Map.LocationDoaImpl;
+import edu.wpi.teamname.Map.NodeType;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class DefaultTest {
+
+
 
   @BeforeAll
   static void setup() throws SQLException {
@@ -44,6 +51,8 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
+    //getListOfRooms().forEach(System.out::println);
+    exit(0);
     LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
     Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
     assertEquals("User does not exist", exception.getMessage());

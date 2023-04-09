@@ -3,9 +3,9 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 
 /* TODO:
-        add @Setter @Getter
-        remove static
- */
+       add @Setter @Getter
+       remove static
+*/
 public class MealDeliverySubmission {
   static String food;
   static MFXTextField room;
