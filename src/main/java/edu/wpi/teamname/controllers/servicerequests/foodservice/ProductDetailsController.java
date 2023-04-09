@@ -4,7 +4,7 @@ import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliv
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
-import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,8 +28,6 @@ public class ProductDetailsController {
   public static int orderID;
   public static int itemCount;
 
-  public static OrderItem cart = new OrderItem(1);
-
   public void initialize() {
 
     back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
@@ -44,7 +42,7 @@ public class ProductDetailsController {
 
             currentFood.setNote(request.getText()); // bounds for if non string entered
 
-            cart.addFoodItem(currentFood);
+            HomeController.cart.addFoodItem(currentFood);
 
             Navigation.navigate(Screen.MEAL_DELIVERY1);
 

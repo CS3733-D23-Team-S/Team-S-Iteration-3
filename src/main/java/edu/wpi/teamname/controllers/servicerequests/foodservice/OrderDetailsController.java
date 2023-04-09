@@ -33,7 +33,7 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
-    System.out.println(ProductDetailsController.cart.toString());
+    System.out.println(HomeController.cart.toString());
 
     FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
 
@@ -73,7 +73,7 @@ public class OrderDetailsController {
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
                     (HomeController.numRequests++),
-                    ProductDetailsController.cart,
+                    HomeController.cart,
                     theDate,
                     theTime,
                     temp,
@@ -103,7 +103,7 @@ public class OrderDetailsController {
 
   public void addedOrder() {
 
-    for (Food aFood : ProductDetailsController.cart.getTheCart().values()) {
+    for (Food aFood : HomeController.cart.getTheCart().values()) {
       System.out.println("works");
       Label newItemName = new Label();
       Label newItemQuantity = new Label();

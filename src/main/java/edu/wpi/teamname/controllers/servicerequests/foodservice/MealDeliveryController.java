@@ -41,64 +41,66 @@ public class MealDeliveryController {
 
   @FXML
   public void initialize() {
+    /*
+       // Dietary Restriction
+       MenuItem vegetarian = new MenuItem("Vegetarian");
+       MenuItem gf = new MenuItem("Gluten Free");
+       MenuItem h = new MenuItem("Halal");
+       MenuItem k = new MenuItem("Kosher");
+       MenuItem v = new MenuItem("Vegan");
+       System.out.println(gf.getText());
 
-    // Dietary Restriction
-    MenuItem vegetarian = new MenuItem("Vegetarian");
-    MenuItem gf = new MenuItem("Gluten Free");
-    MenuItem h = new MenuItem("Halal");
-    MenuItem k = new MenuItem("Kosher");
-    MenuItem v = new MenuItem("Vegan");
-    System.out.println(gf.getText());
+       dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
 
-    dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
+       // Cuisine
+       MenuItem Am = new MenuItem("American");
+       MenuItem It = new MenuItem("Italian");
+       MenuItem Mex = new MenuItem("Mexican");
+       MenuItem Ind = new MenuItem("Indian");
 
-    // Cuisine
-    MenuItem Am = new MenuItem("American");
-    MenuItem It = new MenuItem("Italian");
-    MenuItem Mex = new MenuItem("Mexican");
-    MenuItem Ind = new MenuItem("Indian");
+       System.out.println(gf.getText());
 
-    System.out.println(gf.getText());
+       cuisine.getItems().addAll(Am, It, Mex, Ind);
 
-    cuisine.getItems().addAll(Am, It, Mex, Ind);
+       // add filters to filters hbox
+       vegetarian.setOnAction(
+           (e) -> {
+             addFilter(vegetarian);
+           });
+       gf.setOnAction(
+           (e) -> {
+             addFilter(gf);
+           });
+       h.setOnAction(
+           (e) -> {
+             addFilter(h);
+           });
+       k.setOnAction(
+           (e) -> {
+             addFilter(k);
+           });
+       v.setOnAction(
+           (e) -> {
+             addFilter(v);
+           });
+       Am.setOnAction(
+           (e) -> {
+             addFilter(Am);
+           });
+       It.setOnAction(
+           (e) -> {
+             addFilter(It);
+           });
+       Mex.setOnAction(
+           (e) -> {
+             addFilter(Mex);
+           });
+       Ind.setOnAction(
+           (e) -> {
+             addFilter(Ind);
+           });
 
-    // add filters to filters hbox
-    vegetarian.setOnAction(
-        (e) -> {
-          addFilter(vegetarian);
-        });
-    gf.setOnAction(
-        (e) -> {
-          addFilter(gf);
-        });
-    h.setOnAction(
-        (e) -> {
-          addFilter(h);
-        });
-    k.setOnAction(
-        (e) -> {
-          addFilter(k);
-        });
-    v.setOnAction(
-        (e) -> {
-          addFilter(v);
-        });
-    Am.setOnAction(
-        (e) -> {
-          addFilter(Am);
-        });
-    It.setOnAction(
-        (e) -> {
-          addFilter(It);
-        });
-    Mex.setOnAction(
-        (e) -> {
-          addFilter(Mex);
-        });
-    Ind.setOnAction(
-        (e) -> {
-          addFilter(Ind);
-        });
+    */
     apply.setOnMouseClicked(event -> clear1());
 
     clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
