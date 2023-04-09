@@ -31,7 +31,7 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
               .prepareStatement(
                   "INSERT INTO "
                       + foodRequestsTable
-                      + " (deliveryID, Cart, orderDate, orderTime, room, orderer, assignedTo, status, cost, notes) "
+                      + " (deliveryID, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, request.getDeliveryID());
       preparedStatement.setString(2, request.getCart());
@@ -74,7 +74,7 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
       PreparedStatement deleteFood =
           connection
               .getConnection()
-              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE deliveryId = ?");
+              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE deliveryid = ?");
 
       deleteFood.setInt(1, target);
       deleteFood.execute();
@@ -99,13 +99,13 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
           "CREATE TABLE IF NOT EXISTS "
               + foodRequestsTable
               + " "
-              + "(deliveryID int UNIQUE PRIMARY KEY,"
-              + "cartID Varchar(100),"
-              + "orderDate Date,"
-              + "orderTime time,"
+              + "(deliveryid int UNIQUE PRIMARY KEY,"
+              + "cart Varchar(100),"
+              + "orderdate Date,"
+              + "ordertime time,"
               + "location Varchar(100),"
-              + "orderedBy Varchar(100),"
-              + "assignedTo Varchar(100),"
+              + "orderer Varchar(100),"
+              + "assignedto Varchar(100),"
               + "Status Varchar(100),"
               + "cost int,"
               + "notes Varchar(255),"

@@ -35,6 +35,8 @@ public class OrderDetailsController {
   public void initialize() {
     System.out.println(ProductDetailsController.cart.toString());
 
+    FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
+
     clearFields2();
     addedOrder();
     // multSelectedFood();
@@ -43,7 +45,7 @@ public class OrderDetailsController {
 
     java.util.Date current = new java.util.Date();
 
-    Location temp = LocationDoaImpl.getInstance().getLocation("NeuroScience Waiting Room");
+    Location temp = LocationDoaImpl.getInstance().getLocation("Neuroscience Waiting Room");
 
     String whoOrdered = "George Washington";
 
@@ -66,6 +68,7 @@ public class OrderDetailsController {
 
             // Get the employee
             String Emp = empNum.getText();
+            String theNote = request1.getText();
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
@@ -77,7 +80,10 @@ public class OrderDetailsController {
                     whoOrdered,
                     Emp,
                     "In Progress",
-                    "These are not the notes you are looking for");
+                    theNote);
+
+            foodev.addRequest(currentFoodDev);
+
           } catch (Exception e) {
             e.printStackTrace();
           }

@@ -3,6 +3,8 @@ package edu.wpi.teamname.Database;
 import edu.wpi.teamname.Login.LoginDAOImpl;
 import edu.wpi.teamname.Map.*;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +22,10 @@ public class LoaderDAO implements LoaderDAOI {
   final String moveTable = schemaName + "." + "moves";
   final String roomrequestsTable = schemaName + "." + "roomReservations";
   final String loginTable = schemaName + "." + "login";
+
+  final String foodsTable = schemaName + "." + "foods";
+  final String foodRequestTable = schemaName + "." + "foodRequests";
+
   final String defaultNodePath = "src/main/java/edu/wpi/teamname/defaultCSV/Node.csv";
   final String defaultEdgePath = "src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv";
   final String defaultLocationPath = "src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv";
@@ -44,7 +50,7 @@ public class LoaderDAO implements LoaderDAOI {
     connection = dbConnection.getInstance();
   }
 
-  private void initTables() {
+  public void initTables() {
     String createSchema = "CREATE SCHEMA IF NOT EXISTS " + schemaName;
     try {
       Statement stmt = connection.getConnection().createStatement();
@@ -56,6 +62,9 @@ public class LoaderDAO implements LoaderDAOI {
       MoveDaoImpl.getInstance().initTable(moveTable);
       LoginDAOImpl.getInstance().initTables(loginTable);
       RoomRequestDAO.getInstance().initTable();
+
+      FoodDAOImpl.getInstance().initFood();
+      FoodDeliveryDAOImp.getInstance().initFoodRequests();
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
