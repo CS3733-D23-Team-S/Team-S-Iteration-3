@@ -1,37 +1,27 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.Database.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import edu.wpi.teamname.databaseredo.orms.Floor;
+import edu.wpi.teamname.databaseredo.orms.Node;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
-public class NodeDaoImpl implements NodeDOA_I {
-  private static NodeDaoImpl single_instance;
-  @Getter private String name;
-  dbConnection connection;
+public class NodeDAOImpl implements IDAO<Node> {
+
+  private static NodeDAOImpl single_instance = null;
+  @Setter @Getter private String name;
+  private dbConnection connection;
 
   @Getter private HashMap<Integer, Node> nodes = new HashMap<>();
 
-  private NodeDaoImpl() {
+  public NodeDAOImpl() {
     connection = dbConnection.getInstance();
-  }
-
-  public static NodeDaoImpl getInstance() {
-    if (single_instance == null) single_instance = new NodeDaoImpl();
-    return single_instance;
-  }
-
-  @Override
-  public List<Node> getAllNodes() {
-    return new ArrayList<>(this.nodes.values());
   }
 
   @Override
@@ -50,50 +40,16 @@ public class NodeDaoImpl implements NodeDOA_I {
       stmt.execute(nodeTable);
       System.out.println("Created the node table");
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the node table");
     }
   }
 
   @Override
-  public Node getNode(int nodeID) {
-    return nodes.get(nodeID);
-  }
+  public void dropTable() {}
 
   @Override
-  public void updateNode(Node node) {
-    nodes.put(node.getNodeID(), node);
-    try {
-      PreparedStatement stmt =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "UPDATE "
-                      + name
-                      + " SET xCoord = ?,"
-                      + "yCoord = ?,"
-                      + "floor = ?,"
-                      + "building = ? WHERE nodeID = ?");
-      stmt.setInt(1, node.getXCoord());
-      stmt.setInt(2, node.getYCoord());
-      stmt.setInt(3, node.getFloor().ordinal());
-      stmt.setString(4, node.getBuilding());
-      stmt.setInt(5, node.getNodeID());
-      stmt.executeUpdate();
-    } catch (SQLException e) {
-      e.getMessage();
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void deleteNode(Node node) {
-    nodes.remove(node.getNodeID());
-  }
-
-  @Override
-  public void loadToRemote(String pathToCSV) {
+  public void loadRemote(String pathToCSV) {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -106,13 +62,34 @@ public class NodeDaoImpl implements NodeDOA_I {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
 
   @Override
-  public void addNode(Node thisNode) {
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter;
+    fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("nodeID,xcoord,ycoord,floor,building");
+    for (Node node : nodes.values()) {
+      fileWriter.newLine();
+      fileWriter.write(node.toCSVString());
+    }
+  }
+
+  @Override
+  public List<Node> getAll() {
+    return null;
+  }
+
+  @Override
+  public void delete(Node target) {}
+
+  @Override
+  public void add(Node addition) {
     try {
       PreparedStatement stmt =
           connection
@@ -121,14 +98,13 @@ public class NodeDaoImpl implements NodeDOA_I {
                   "INSERT INTO "
                       + name
                       + " (nodeID, xCoord, yCoord, floor, building) VALUES (?,?,?,?,?)");
-      stmt.setInt(1, thisNode.getNodeID());
-      stmt.setInt(2, thisNode.getXCoord());
-      stmt.setInt(3, thisNode.getYCoord());
-      stmt.setInt(4, thisNode.getFloor().ordinal());
-      stmt.setString(5, thisNode.getBuilding());
+      stmt.setInt(1, addition.getNodeID());
+      stmt.setInt(2, addition.getXCoord());
+      stmt.setInt(3, addition.getYCoord());
+      stmt.setInt(4, addition.getFloor().ordinal());
+      stmt.setString(5, addition.getBuilding());
       stmt.executeUpdate();
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -189,7 +165,6 @@ public class NodeDaoImpl implements NodeDOA_I {
           nodes.put(Integer.parseInt(fields[0]), thisNode);
         }
       } catch (SQLException e) {
-        e.getMessage();
         e.printStackTrace();
       }
     } catch (IOException e) {
