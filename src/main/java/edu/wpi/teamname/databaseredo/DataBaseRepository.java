@@ -12,10 +12,10 @@ public class DataBaseRepository {
   private static DataBaseRepository single_instance = null;
   private dbConnection connection;
   AStar pathFinder;
-  @Getter IDAO<Node> nodeDAO;
-  @Getter IDAO<Move> moveDAO;
-  @Getter IDAO<Location> locationDAO;
-  @Getter IDAO<Edge> edgeDAO;
+  @Getter IDAO<Node, Integer> nodeDAO;
+  @Getter IDAO<Move, Move> moveDAO;
+  @Getter IDAO<Location, String> locationDAO;
+  @Getter IDAO<Edge, Edge> edgeDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();

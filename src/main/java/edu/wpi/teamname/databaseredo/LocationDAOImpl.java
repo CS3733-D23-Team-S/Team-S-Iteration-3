@@ -12,7 +12,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class LocationDAOImpl implements IDAO<Location> {
+public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Setter @Getter private String name;
   private dbConnection connection;
@@ -45,7 +45,15 @@ public class LocationDAOImpl implements IDAO<Location> {
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -67,17 +75,22 @@ public class LocationDAOImpl implements IDAO<Location> {
   }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    locations.clear();
+    loadRemote(path);
+  }
 
   @Override
   public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
+
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("longName,shortName,nodeType");
     for (Location location : locations.values()) {
       fileWriter.newLine();
       fileWriter.write(location.toCSVString());
     }
+    fileWriter.close();
   }
 
   @Override
@@ -86,7 +99,9 @@ public class LocationDAOImpl implements IDAO<Location> {
   }
 
   @Override
-  public void delete(Location target) {}
+  public void delete(String target) {
+    locations.remove(target);
+  }
 
   @Override
   public void add(Location addition) {

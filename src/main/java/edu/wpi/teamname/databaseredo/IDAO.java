@@ -3,7 +3,7 @@ package edu.wpi.teamname.databaseredo;
 import java.io.IOException;
 import java.util.List;
 
-public interface IDAO<T> {
+public interface IDAO<T, U> {
   void initTable(String name);
 
   void dropTable();
@@ -16,7 +16,7 @@ public interface IDAO<T> {
 
   List<T> getAll();
 
-  void delete(T target);
+  void delete(U target);
 
   void add(T addition);
 }

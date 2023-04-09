@@ -15,13 +15,14 @@ import java.util.Locale;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MoveDAOImpl implements IDAO<Move> {
+public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Setter @Getter private String name;
   private dbConnection connection;
 
   @Getter ArrayList<Move> listOfMoves = new ArrayList<>();
-  @Getter HashMap<Integer, ArrayList<String>> nodeToLoc = new HashMap<>();
+  @Getter HashMap<String, Integer> locToNode = new HashMap<>();
+  @Getter HashMap<Integer, String> nodeToLoc = new HashMap<>();
 
   public MoveDAOImpl() {
     connection = dbConnection.getInstance();
@@ -45,7 +46,15 @@ public class MoveDAOImpl implements IDAO<Move> {
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -68,17 +77,20 @@ public class MoveDAOImpl implements IDAO<Move> {
   @Override
   public void importCSV(String path) {
     dropTable();
+    locToNode.clear();
+    listOfMoves.clear();
+    loadRemote(path);
   }
 
   @Override
   public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("nodeID,longName,date");
     for (Move move : listOfMoves) {
       fileWriter.newLine();
       fileWriter.write(move.toCSVString());
     }
+    fileWriter.close();
   }
 
   @Override
@@ -107,7 +119,8 @@ public class MoveDAOImpl implements IDAO<Move> {
         listOfMoves.add(thisMove);
         ArrayList<String> listOfLoc = new ArrayList<>();
         listOfLoc.add(thisMove.getLocation());
-        nodeToLoc.put(thisMove.getNodeID(), listOfLoc);
+        locToNode.put(thisMove.getLocation(), thisMove.getNodeID());
+        nodeToLoc.put(thisMove.getNodeID(), thisMove.getLocation());
       }
     } catch (SQLException e) {
       e.printStackTrace();

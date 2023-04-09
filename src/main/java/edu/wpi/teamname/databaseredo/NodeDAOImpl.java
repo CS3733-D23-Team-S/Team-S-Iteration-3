@@ -12,9 +12,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-public class NodeDAOImpl implements IDAO<Node> {
+public class NodeDAOImpl implements IDAO<Node, Integer> {
 
-  private static NodeDAOImpl single_instance = null;
   @Setter @Getter private String name;
   private dbConnection connection;
 
@@ -46,7 +45,15 @@ public class NodeDAOImpl implements IDAO<Node> {
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -67,29 +74,37 @@ public class NodeDAOImpl implements IDAO<Node> {
   }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    nodes.clear();
+    loadRemote(path);
+  }
 
   @Override
   public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("nodeID,xcoord,ycoord,floor,building");
     for (Node node : nodes.values()) {
       fileWriter.newLine();
       fileWriter.write(node.toCSVString());
     }
+    fileWriter.close();
   }
 
   @Override
   public List<Node> getAll() {
-    return null;
+    return nodes.values().stream().toList();
   }
 
   @Override
-  public void delete(Node target) {}
+  public void delete(Integer target) {
+    nodes.remove(target);
+  }
 
   @Override
-  public void add(Node addition) {
+  public void add(Node addition) {}
+
+  private void addToRemote(Node addition) {
     try {
       PreparedStatement stmt =
           connection
