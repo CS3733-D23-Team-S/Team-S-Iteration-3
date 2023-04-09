@@ -1,9 +1,8 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.Database.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import edu.wpi.teamname.databaseredo.orms.Location;
+import edu.wpi.teamname.databaseredo.orms.NodeType;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,27 +10,17 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
-public class LocationDoaImpl implements LocationDOA_I {
-  private static LocationDoaImpl single_instance;
-  @Getter String name;
+public class LocationDAOImpl implements IDAO<Location> {
+
+  @Setter @Getter private String name;
+  private dbConnection connection;
+
   @Getter private HashMap<String, Location> locations = new HashMap<>();
 
-  dbConnection connection;
-
-  private LocationDoaImpl() {
+  public LocationDAOImpl() {
     connection = dbConnection.getInstance();
-  }
-
-  public static LocationDoaImpl getInstance() {
-    if (single_instance == null) single_instance = new LocationDoaImpl();
-
-    return single_instance;
-  }
-
-  @Override
-  public List<Location> getAllLocations() {
-    return this.locations.values().stream().toList();
   }
 
   @Override
@@ -56,12 +45,10 @@ public class LocationDoaImpl implements LocationDOA_I {
   }
 
   @Override
-  public Location getLocation(String longName) {
-    return this.locations.get(longName);
-  }
+  public void dropTable() {}
 
   @Override
-  public void loadToRemote(String pathToCSV) {
+  public void loadRemote(String pathToCSV) {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -80,17 +67,39 @@ public class LocationDoaImpl implements LocationDOA_I {
   }
 
   @Override
-  public void addLocation(Location thisLocation) {
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter;
+    fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("longName,shortName,nodeType");
+    for (Location location : locations.values()) {
+      fileWriter.newLine();
+      fileWriter.write(location.toCSVString());
+    }
+  }
+
+  @Override
+  public List<Location> getAll() {
+    return locations.values().stream().toList();
+  }
+
+  @Override
+  public void delete(Location target) {}
+
+  @Override
+  public void add(Location addition) {
     try {
       PreparedStatement stmt =
           connection
               .getConnection()
               .prepareStatement(
                   "INSERT INTO " + name + " (longName, shortName, nodetype) VALUES (?,?,?)");
-      stmt.setString(1, thisLocation.getLongName());
-      stmt.setString(2, thisLocation.getShortName());
-      stmt.setInt(3, thisLocation.getNodeType().ordinal());
-      locations.put(thisLocation.getLongName(), thisLocation);
+      stmt.setString(1, addition.getLongName());
+      stmt.setString(2, addition.getShortName());
+      stmt.setInt(3, addition.getNodeType().ordinal());
+      locations.put(addition.getLongName(), addition);
       stmt.execute();
     } catch (SQLException e) {
       e.getMessage();
@@ -126,7 +135,7 @@ public class LocationDoaImpl implements LocationDOA_I {
           String[] fields = line.split(",");
           NodeType value = NodeType.valueOf(fields[2]);
           Location location = new Location(fields[0], fields[1], value);
-          this.addLocation(location);
+          this.add(location);
 
           PreparedStatement stmt =
               connection
