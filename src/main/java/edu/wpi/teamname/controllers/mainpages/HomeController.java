@@ -42,6 +42,7 @@ public class HomeController {
   @FXML MFXButton homeToPathfindingButton;
 
   public static int cartID = 1;
+  public static int cart = 1;
   public static int numRequests = 0;
 
   @FXML
@@ -91,10 +92,15 @@ public class HomeController {
     //  mealdeliveryButton.setOnMouseClicked(event -> incrementCart());
 
     reserveRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    incrementCart1();
   }
 
   public void incrementCart() {
     cartID++;
+  }
+
+  public void incrementCart1() {
+    cart++;
   }
 
   public void goToRoomPage() {

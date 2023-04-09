@@ -26,6 +26,9 @@ public class OrderDetailsController {
   @FXML private MFXTextField roomNum;
   @FXML private MFXTextField empNum;
 
+  @FXML private MFXButton submitted1;
+  @FXML private MFXTextField request1;
+
   public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
 
   @FXML
@@ -36,7 +39,7 @@ public class OrderDetailsController {
     addedOrder();
     // multSelectedFood();
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
+    submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
     java.util.Date current = new java.util.Date();
 
@@ -78,7 +81,9 @@ public class OrderDetailsController {
           } catch (Exception e) {
             e.printStackTrace();
           }
+          Navigation.navigate(Screen.ORDER_CONFIRMATION);
         });
+
     clear2.setOnMouseClicked(event -> clearFields2());
 
     // foodNamer1();

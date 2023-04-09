@@ -7,7 +7,11 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class MealDeliveryController {
 
@@ -15,19 +19,93 @@ public class MealDeliveryController {
   @FXML MFXButton checkout;
   @FXML HBox wf;
   @FXML HBox qd;
+  @FXML SplitMenuButton dietaryButton;
+  @FXML SplitMenuButton cuisine;
+  @FXML SplitMenuButton price;
+  @FXML HBox filter;
+  @FXML Text wfLabel;
+  @FXML Text qdLabel;
+  @FXML Text mpLabel;
+  @FXML MFXButton apply;
+  @FXML MFXButton clearButton;
+
   // @FXML HBox fname;
 
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
+
+  @FXML private LoaderDAO theLoad = LoaderDAO.getInstance();
+
   public static int clickedFoodID;
 
   @FXML
   public void initialize() {
 
-    // Create Empty Table
+    // Dietary Restriction
+    MenuItem vegetarian = new MenuItem("Vegetarian");
+    MenuItem gf = new MenuItem("Gluten Free");
+    MenuItem h = new MenuItem("Halal");
+    MenuItem k = new MenuItem("Kosher");
+    MenuItem v = new MenuItem("Vegan");
+    System.out.println(gf.getText());
+
+    dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
+
+    // Cuisine
+    MenuItem Am = new MenuItem("American");
+    MenuItem It = new MenuItem("Italian");
+    MenuItem Mex = new MenuItem("Mexican");
+    MenuItem Ind = new MenuItem("Indian");
+
+    System.out.println(gf.getText());
+
+    cuisine.getItems().addAll(Am, It, Mex, Ind);
+
+    // add filters to filters hbox
+    vegetarian.setOnAction(
+        (e) -> {
+          addFilter(vegetarian);
+        });
+    gf.setOnAction(
+        (e) -> {
+          addFilter(gf);
+        });
+    h.setOnAction(
+        (e) -> {
+          addFilter(h);
+        });
+    k.setOnAction(
+        (e) -> {
+          addFilter(k);
+        });
+    v.setOnAction(
+        (e) -> {
+          addFilter(v);
+        });
+    Am.setOnAction(
+        (e) -> {
+          addFilter(Am);
+        });
+    It.setOnAction(
+        (e) -> {
+          addFilter(It);
+        });
+    Mex.setOnAction(
+        (e) -> {
+          addFilter(Mex);
+        });
+    Ind.setOnAction(
+        (e) -> {
+          addFilter(Ind);
+        });
+    apply.setOnMouseClicked(event -> clear1());
+
+    clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
     foodDAO.initFood();
     foodel.initFoodRequests();
+
+    // theLoad.initTables();
 
     // adding Foods
     Food Pizza =
@@ -361,6 +439,7 @@ public class MealDeliveryController {
 
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
+    // vegetarianButton.setOnAction(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
 
     walletFriendly();
     quickDelivery();
@@ -396,8 +475,39 @@ public class MealDeliveryController {
     }
   }
 
+  public void getVegetarian() {
+    for (int i = 0; i < foodDAO.getVegetarian().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getQuick().get(i).toString());
+      btn.setText(foodDAO.getQuick().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+    }
+  }
+
   public void store(int x) {
     clickedFoodID = x;
     Navigation.navigate(Screen.PRODUCT_DETAILS);
+  }
+
+  public void addFilter(MenuItem vegetarian) {
+    Label lbl = new Label();
+    lbl.setId(vegetarian.getText());
+    lbl.setText(vegetarian.getText());
+    lbl.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    lbl.setMaxWidth(103);
+    lbl.setMaxHeight(87);
+    System.out.println("works");
+    System.out.println(lbl.getText());
+
+    filter.getChildren().add(lbl);
+  }
+
+  public void clear1() {
+    wf.getChildren().clear();
+    qd.getChildren().clear();
+    qdLabel.setText("");
+    wfLabel.setText("");
+    mpLabel.setText("");
   }
 }

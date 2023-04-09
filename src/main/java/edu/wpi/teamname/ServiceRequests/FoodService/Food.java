@@ -85,6 +85,10 @@ public class Food {
     return (FoodPrepTime + 10) < 30;
   }
 
+  public boolean checkVegetarian() {
+    return isVegetarian;
+  }
+
   @Override
   public String toString() {
     String theFood;

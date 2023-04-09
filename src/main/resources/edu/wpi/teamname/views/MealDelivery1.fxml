@@ -2,7 +2,8 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,11 +18,13 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="90.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="155.39048767089844" minHeight="10.0" percentHeight="20.0" prefHeight="83.30475616455078" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="70.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="5.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
@@ -29,90 +32,80 @@
     <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MFXTextField borderGap="30.0" floatMode="ABOVE" measureUnitGap="90.0" prefColumnCount="20" prefHeight="30.0" prefWidth="961.0" promptText="Search food..." GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font name="Open Sans Regular" size="24.0" />
-         </font></MFXTextField>
 
 
 
        <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cuisine">
+            <MFXTextField prefHeight="51.0" prefWidth="340.0" promptText="Search for food...">
                <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <MFXButton text="American">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </MFXButton>
-            <MFXButton text="Italian">
-               <font>
-                  <Font size="18.0" />
-               </font></MFXButton>
-            <MFXButton text="Mexican">
+                  <Font name="Open Sans Regular" size="18.0" />
+               </font></MFXTextField>
+            <SplitMenuButton fx:id="dietaryButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="223.0" text="Dietary Restrictions">
                <font>
                   <Font size="18.0" />
                </font>
-            </MFXButton>
-            <MFXButton text="Indian">
+            </SplitMenuButton>
+            <SplitMenuButton fx:id="cuisine" mnemonicParsing="false" prefHeight="45.0" prefWidth="119.0" text="Cuisine">
                <font>
                   <Font size="18.0" />
                </font>
-            </MFXButton>
+            </SplitMenuButton>
+            <SplitMenuButton fx:id="price" mnemonicParsing="false" prefHeight="45.0" prefWidth="105.0" text="Price">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </SplitMenuButton>
+            <MFXButton fx:id="apply" prefHeight="45.0" prefWidth="100.0" text="Appy Filters" />
+            <MFXButton fx:id="clearButton" prefHeight="45.0" prefWidth="100.0" text="Clear Filters" />
          </children>
       </HBox>
-      <SplitMenuButton mnemonicParsing="false" text="Filter" GridPane.columnIndex="2" GridPane.rowIndex="1">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Vegetarian" />
-          <MenuItem mnemonicParsing="false" text="Gluten Free" />
-            <MenuItem mnemonicParsing="false" text="Halal" />
-            <MenuItem mnemonicParsing="false" text="Kosher" />
-            <MenuItem mnemonicParsing="false" text="Vegan" />
-        </items>
-         <font>
-            <Font size="24.0" />
-         </font>
-      </SplitMenuButton>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+            <HBox prefHeight="30.0" prefWidth="1384.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Delivery" textAlignment="CENTER">
+                  <Text fx:id="qdLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Delivery" textAlignment="CENTER">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
                   </Text>
                </children>
             </HBox>
             <HBox fx:id="qd" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: d9d9d9;" />
 
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+            <HBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wallet Friendly">
+                  <Text fx:id="wfLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Wallet Friendly">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
                   </Text>
                </children>
             </HBox>
             <HBox fx:id="wf" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: d9d9d9;" />
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Most Popular">
+                  <Text fx:id="mpLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Most Popular">
                      <font>
                         <Font size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="50.0" />
+                     </HBox.margin>
                   </Text>
                </children>
             </HBox>
             <HBox fx:id="mp" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
             <MFXButton fx:id="backButton1" prefHeight="73.0" prefWidth="106.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
                <font>
@@ -127,8 +120,33 @@
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="4" />
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Label text="Meal Delivery" textFill="#f8f4f4">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox fx:id="filter" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <Label alignment="CENTER" text="Filters:" textFill="#fffefe">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" />
    </children>
 </GridPane>

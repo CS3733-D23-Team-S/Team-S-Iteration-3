@@ -159,6 +159,16 @@ public class FoodDAOImpl implements FoodDAO_I {
     return wFriendlyFoods;
   }
 
+  public ArrayList<Food> getVegetarian() {
+    ArrayList<Food> vegetarianFoods = new ArrayList<>();
+    for (Food aFood : foods.values()) {
+      if (aFood.isVegetarian()) {
+        vegetarianFoods.add(aFood);
+      }
+    }
+    return vegetarianFoods;
+  }
+
   public ArrayList<Food> getQuick() {
     ArrayList<Food> quickFood = new ArrayList<>();
 
