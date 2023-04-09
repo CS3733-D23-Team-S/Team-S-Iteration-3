@@ -153,7 +153,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           NodeType value = NodeType.valueOf(fields[2]);
           Location location = new Location(fields[0], fields[1], value);
           this.add(location);
-
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -165,6 +164,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
+          this.locations.put(location.getLongName(),location);
         }
       } catch (SQLException e) {
         e.printStackTrace();
