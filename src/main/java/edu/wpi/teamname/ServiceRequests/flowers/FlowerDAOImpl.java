@@ -181,7 +181,7 @@ public class FlowerDAOImpl implements FlowerDAO_I {
     }
 
     /**
-     *
+     * Reads from csv and makes flowers
      * @param csvFilePath
      */
 

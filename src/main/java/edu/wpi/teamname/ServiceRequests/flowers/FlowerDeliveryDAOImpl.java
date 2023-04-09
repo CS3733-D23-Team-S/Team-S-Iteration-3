@@ -4,9 +4,8 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
             String flowerRequestsTableConstruct =
                 "CREATE TABLE IF NOT EXISTS "
                     + flowerRequestsTable
-                    +" "
+                    + " "
                     + "(deliveryID int UNIQUE PRIMARY KEY,"
                     + "cartID Varchar(100),"
                     + "orderDate Date,"
@@ -55,17 +54,80 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Returns list of all FlowerDeliveries within the deliveries HashMap
+     * @return List of all FlowerDeliveries on success
+     */
     @Override
     public List<FlowerDelivery> getAllRequests() {
-        return null;
+        List<FlowerDelivery> FDList = new ArrayList<>();
+
+        try {
+            String query = (
+                "SELECT * FROM "
+                    + flowerRequestsTable);
+
+            Statement stmt = connection.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+
+                FDList.add(getRequest(rs.getInt(1)));;
+            }
+
+            return FDList;
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getSQLState());
+        }
+
+
+
+
+        return FDList;
     }
 
+    /**
+     * Gets FlowerDelivery
+     * @param ID
+     * @return request (FlowerDelivery) on success, otherwise returns null or exception
+     */
     @Override
     public FlowerDelivery getRequest(int ID) {
-        if (requests.get(ID) == null) {
-            throw new NullPointerException("Request not in database");
+        FlowerDelivery request;
+        try {
+            String query = (
+                    "SELECT * FROM "
+                        + flowerRequestsTable
+                        + " WHERE deliveryID = "
+                        + ID);
+
+            Statement stmt = connection.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int flowerID = rs.getInt(1);
+                int cartID = rs.getInt(2);
+                Date date = rs.getDate(3);
+                Time time = rs.getTime(4);
+                int room = rs.getInt(5);
+                String orderedBy = rs.getString(6);
+                String assignedTo = rs.getString(7);
+                String orderStatus = rs.getString(8);
+                double cost = rs.getDouble(9);
+
+                request = new FlowerDelivery(flowerID, cartID, date, time, room, orderedBy, assignedTo, orderStatus, cost);
+                return request;
+            }
         }
-        return requests.get(ID);
+
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getSQLState());
+        }
+
+        return null;
     }
 
     @Override
