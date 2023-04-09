@@ -162,11 +162,51 @@ public class FoodDAOImpl implements FoodDAO_I {
   public ArrayList<Food> getVegetarian() {
     ArrayList<Food> vegetarianFoods = new ArrayList<>();
     for (Food aFood : foods.values()) {
-      if (aFood.isVegetarian()) {
+      if (aFood.checkVegetarian()) {
         vegetarianFoods.add(aFood);
       }
     }
     return vegetarianFoods;
+  }
+
+  public ArrayList<Food> getVegan() {
+    ArrayList<Food> veganFoods = new ArrayList<>();
+    for (Food aFood : foods.values()) {
+      if (aFood.checkVegan()) {
+        veganFoods.add(aFood);
+      }
+    }
+    return veganFoods;
+  }
+
+  public ArrayList<Food> getHalal() {
+    ArrayList<Food> halalFoods = new ArrayList<>();
+    for (Food aFood : foods.values()) {
+      if (aFood.checkHalal()) {
+        halalFoods.add(aFood);
+      }
+    }
+    return halalFoods;
+  }
+
+  public ArrayList<Food> getKosher() {
+    ArrayList<Food> kosherFoods = new ArrayList<>();
+    for (Food aFood : foods.values()) {
+      if (aFood.checkKosher()) {
+        kosherFoods.add(aFood);
+      }
+    }
+    return kosherFoods;
+  }
+
+  public ArrayList<Food> getGlutenFree() {
+    ArrayList<Food> glutenFreeFoods = new ArrayList<>();
+    for (Food aFood : foods.values()) {
+      if (aFood.checkGlutenFree()) {
+        glutenFreeFoods.add(aFood);
+      }
+    }
+    return glutenFreeFoods;
   }
 
   public ArrayList<Food> getQuick() {

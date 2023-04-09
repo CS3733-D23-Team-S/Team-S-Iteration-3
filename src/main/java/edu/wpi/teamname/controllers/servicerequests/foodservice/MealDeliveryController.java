@@ -7,6 +7,8 @@ import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -20,6 +22,7 @@ public class MealDeliveryController {
   @FXML MFXButton checkout;
   @FXML HBox wf;
   @FXML HBox qd;
+  @FXML HBox mp;
   @FXML SplitMenuButton dietaryButton;
   @FXML SplitMenuButton cuisine;
   @FXML SplitMenuButton price;
@@ -29,8 +32,6 @@ public class MealDeliveryController {
   @FXML Text mpLabel;
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
-
-  // @FXML HBox fname;
 
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
@@ -66,22 +67,27 @@ public class MealDeliveryController {
     vegetarian.setOnAction(
         (e) -> {
           addFilter(vegetarian);
+          filterList.add("vegetarian");
         });
     gf.setOnAction(
         (e) -> {
           addFilter(gf);
+          filterList.add("gf");
         });
     h.setOnAction(
         (e) -> {
           addFilter(h);
+          filterList.add("h");
         });
     k.setOnAction(
         (e) -> {
           addFilter(k);
+          filterList.add("k");
         });
     v.setOnAction(
         (e) -> {
           addFilter(v);
+          filterList.add("vg");
         });
     Am.setOnAction(
         (e) -> {
@@ -99,7 +105,11 @@ public class MealDeliveryController {
         (e) -> {
           addFilter(Ind);
         });
-    apply.setOnMouseClicked(event -> clear1());
+    apply.setOnMouseClicked(
+        event -> {
+          clear1();
+          applyFilters();
+        });
 
     clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
@@ -127,7 +137,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false,
             false,
             false,
@@ -153,7 +163,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false,
             false);
 
@@ -178,7 +188,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false);
 
     Food Chicken =
@@ -203,7 +213,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false);
+            true);
 
     Food Tacos =
         new Food(
@@ -223,8 +233,8 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
-            false,
+            true,
+            true,
             false,
             false,
             false);
@@ -247,7 +257,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false,
             false,
             false,
@@ -271,7 +281,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false,
             false,
             false,
@@ -476,14 +486,79 @@ public class MealDeliveryController {
     }
   }
 
-  public void getVegetarian() {
+  public Method chooseVegetarian() {
     for (int i = 0; i < foodDAO.getVegetarian().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(foodDAO.getQuick().get(i).toString());
-      btn.setText(foodDAO.getQuick().get(i).toString());
+      btn.setId(foodDAO.getVegetarian().get(i).toString());
+      btn.setText(foodDAO.getVegetarian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getVegetarian().get(finalI).getFoodID()));
     }
+    return null;
+  }
+
+  public Method chooseVegan() {
+    for (int i = 0; i < foodDAO.getVegan().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getVegan().get(i).toString());
+      btn.setText(foodDAO.getVegan().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getVegan().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseGlutenFree() {
+    for (int i = 0; i < foodDAO.getGlutenFree().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getGlutenFree().get(i).toString());
+      btn.setText(foodDAO.getGlutenFree().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getGlutenFree().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseHalal() {
+    for (int i = 0; i < foodDAO.getHalal().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getHalal().get(i).toString());
+      btn.setText(foodDAO.getHalal().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getHalal().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseKosher() {
+    for (int i = 0; i < foodDAO.getKosher().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getKosher().get(i).toString());
+      btn.setText(foodDAO.getKosher().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
   }
 
   public void store(int x) {
@@ -491,10 +566,12 @@ public class MealDeliveryController {
     Navigation.navigate(Screen.PRODUCT_DETAILS);
   }
 
-  public void addFilter(MenuItem vegetarian) {
+  public void addFilter(MenuItem x) {
+    System.out.println(foodDAO.getVegetarian());
+    ArrayList<MenuItem> filters = new ArrayList<>();
     Label lbl = new Label();
-    lbl.setId(vegetarian.getText());
-    lbl.setText(vegetarian.getText());
+    lbl.setId(x.getText());
+    lbl.setText(x.getText());
     lbl.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
     lbl.setMaxWidth(103);
     lbl.setMaxHeight(87);
@@ -502,6 +579,7 @@ public class MealDeliveryController {
     System.out.println(lbl.getText());
 
     filter.getChildren().add(lbl);
+    filters.add(x);
   }
 
   public void clear1() {
@@ -510,5 +588,28 @@ public class MealDeliveryController {
     qdLabel.setText("");
     wfLabel.setText("");
     mpLabel.setText("");
+  }
+
+  public ArrayList<String> filterList = new ArrayList<>();
+
+  public void applyFilters() {
+    for (int i = 0; i < filterList.size(); i++) {
+
+      if (filterList.get(i) == "vegetarian") {
+        chooseVegetarian();
+      }
+      if (filterList.get(i) == "gf") {
+        chooseGlutenFree();
+      }
+      if (filterList.get(i) == "vg") {
+        chooseVegan();
+      }
+      if (filterList.get(i) == "k") {
+        chooseKosher();
+      }
+      if (filterList.get(i) == "h") {
+        chooseHalal();
+      }
+    }
   }
 }

@@ -89,6 +89,22 @@ public class Food {
     return isVegetarian;
   }
 
+  public boolean checkVegan() {
+    return isVegan;
+  }
+
+  public boolean checkHalal() {
+    return isHalal;
+  }
+
+  public boolean checkKosher() {
+    return isKosher;
+  }
+
+  public boolean checkGlutenFree() {
+    return isGlutFree;
+  }
+
   @Override
   public String toString() {
     String theFood;
