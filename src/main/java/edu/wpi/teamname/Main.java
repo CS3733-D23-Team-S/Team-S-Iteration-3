@@ -9,10 +9,7 @@ import java.time.LocalTime;
 public class Main {
 
   public static void main(String[] args) throws Exception {
-    LoaderDAO loader = LoaderDAO.getInstance();
-    //    loader.establishConnection();
-    //    loader.resetData();
-    loader.load();
+
     RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
     LocalDate startDate = LocalDate.of(2022, 5, 13);
     LocalTime startTime = LocalTime.of(14, 50);
