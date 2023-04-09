@@ -12,8 +12,4 @@ public class FlowerDeliverySubmission {
     this.flower = flower;
     this.room = room;
   }
-
-  public String getFlower() {
-    return flower;
-  }
 }

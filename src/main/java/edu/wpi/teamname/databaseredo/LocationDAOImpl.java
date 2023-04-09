@@ -148,6 +148,7 @@ public class LocationDAOImpl implements IDAO<Location> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
+          this.locations.put(location.getLongName(), location);
         }
       } catch (SQLException e) {
         e.printStackTrace();

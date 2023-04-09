@@ -1,7 +1,6 @@
 package edu.wpi.teamname;
 
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import java.sql.SQLException;
 
 public class Main {
 

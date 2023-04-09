@@ -1,42 +1,38 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import edu.wpi.teamname.Database.dbConnection;
-import edu.wpi.teamname.Map.Location;
-import edu.wpi.teamname.Map.LocationDoaImpl;
-import edu.wpi.teamname.Map.NodeType;
+import edu.wpi.teamname.databaseredo.IDAO;
+import edu.wpi.teamname.databaseredo.LocationDAOImpl;
+import edu.wpi.teamname.databaseredo.dbConnection;
+import edu.wpi.teamname.databaseredo.orms.Location;
+import edu.wpi.teamname.databaseredo.orms.NodeType;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
+public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   protected static final String schemaName = "hospitaldb";
   protected static final String flowerRequestsTable = schemaName + "." + "flowerRequests";
   private HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
   private dbConnection connection = dbConnection.getInstance();
-  static FlowerDeliveryDAOImpl single_instance = null;
+  private String name;
 
-  private FlowerDeliveryDAOImpl() {}
+  public FlowerDeliveryDAOImpl() {}
 
-  public static synchronized FlowerDeliveryDAOImpl getInstance() {
-
-    if (single_instance == null) single_instance = new FlowerDeliveryDAOImpl();
-
-    return single_instance;
-  }
-
-  public void initFlowerRequests() {
+  public void initTable(String name) {
+    this.name = name;
     try {
       Statement st = connection.getConnection().createStatement();
       String dropFlowerRequestsTable = "DROP TABLE IF EXISTS " + flowerRequestsTable + " CASCADE";
 
       String flowerRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
-              + flowerRequestsTable
+              + name
               + " "
               + "(deliveryID int UNIQUE PRIMARY KEY,"
               + "cart Varchar(100),"
@@ -51,6 +47,8 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
       st.execute(dropFlowerRequestsTable);
       st.execute(flowerRequestsTableConstruct);
 
+      // Move to hashmap requests
+
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       System.out.println(e.getSQLState());
@@ -59,14 +57,91 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
     }
   }
 
+  @Override
+  public void dropTable() {}
+
+  private void constructFromRemote() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String listOfLocs = "SELECT * FROM " + name;
+      ResultSet data = stmt.executeQuery(listOfLocs);
+      while (data.next()) {
+        int ID = data.getInt("deliveryID");
+        String cart = data.getString("cart");
+        Date date = data.getDate("orderDate");
+        Time time = data.getTime("orderTime");
+        String room = data.getString("room");
+        String orderedBy = data.getString("orderedBy");
+        String assignedTo = data.getString("assignedTo");
+        String orderStatus = data.getString("orderStatus");
+        FlowerDelivery fd = new FlowerDelivery(ID, null, date, time, room, orderedBy, assignedTo, orderStatus);
+        requests.put(ID, fd);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Error accessing the remote and constructing the list of FlowerDeliveries");
+    }
+  }
+  @Override
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the locations from the server");
+        constructFromRemote();
+      } else {
+        System.out.println("Loading the locations to the server");
+        constructRemote(pathToCSV);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+  }
+
+  private void constructRemote(String csvFilePath) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+      reader.readLine();
+      String line;
+      try {
+        while ((line = reader.readLine()) != null) {
+          PreparedStatement stmt =
+                connection
+                  .getConnection()
+                        .prepareStatement(
+                              "INSERT INTO "
+                                + name
+                                + " "
+                                + ("deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo,orderStatus )"
+                        ));
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println(e.getSQLState());
+        System.out.println("Error accessing the remote and constructing list of requests in remote")
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {}
+
+  // TODO: change to hashmap
   /**
    * Returns list of all FlowerDeliveries within the deliveries HashMap
-   *
    * @return List of all FlowerDeliveries on success
    */
   @Override
-  public List<FlowerDelivery> getAllRequests() {
-    List<FlowerDelivery> FDList = new ArrayList<>();
+  public List<FlowerDelivery> getAll() {
+    /*List<FlowerDelivery> FDList = new ArrayList<>();
 
     try {
       String query = ("SELECT * FROM " + flowerRequestsTable);
@@ -75,7 +150,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
 
-        FDList.add(getRequest(rs.getInt(1)));
+        FDList.add(rs.getInt(1));
         ;
       }
 
@@ -85,17 +160,18 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
       System.out.println(e.getSQLState());
     }
 
-    return FDList;
+    return FDList;*/ return null;
   }
 
   /**
    * Gets FlowerDelivery
    *
-   * @param ID
+   * @param target
    * @return request (FlowerDelivery) on success, otherwise returns null or exception
    */
-  @Override
-  public FlowerDelivery getRequest(int ID) {
+  // TODO: Change to hashmap
+  public FlowerDelivery get(FlowerDelivery target) {
+    int ID = target.getID();
     FlowerDelivery request;
     try {
       String query = ("SELECT * FROM " + flowerRequestsTable + " WHERE deliveryID = " + ID);
@@ -128,7 +204,29 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
   }
 
   @Override
-  public void addRequest(FlowerDelivery request) {
+  public void delete(FlowerDelivery target) {
+    int ID = target.getID();
+    try {
+      PreparedStatement deleteFlower =
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + flowerRequestsTable + " WHERE deliveryID = ?");
+
+      deleteFlower.setInt(1, ID);
+      deleteFlower.execute();
+
+      requests.remove(ID);
+
+      System.out.println("FlowerRequest deleted");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+    }
+  }
+
+  @Override
+  public void add(FlowerDelivery request) {
     requests.put(request.getID(), request);
     try {
       PreparedStatement preparedStatement =
@@ -159,30 +257,10 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
     }
   }
 
-  @Override
-  public void deleteRequest(int ID) {
-    try {
-      PreparedStatement deleteFlower =
-          connection
-              .getConnection()
-              .prepareStatement("DELETE FROM " + flowerRequestsTable + " WHERE deliveryID = ?");
-
-      deleteFlower.setInt(1, ID);
-      deleteFlower.execute();
-
-      requests.remove(ID);
-
-      System.out.println("FlowerRequest deleted");
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.out.println(e.getSQLState());
-    }
-  }
-
-  @Override
   public List<String> getListOfEligibleRooms() {
+    LocationDAOImpl locationdao = new LocationDAOImpl();
     List<String> listOfEligibleRooms = new ArrayList<>();
+    List<Location> locationList = new ArrayList<>(locationdao.getAll());
 
     NodeType[] nodeTypes = new NodeType[6];
     nodeTypes[0] = NodeType.ELEV;
@@ -193,7 +271,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
     nodeTypes[5] = NodeType.BATH;
 
     boolean isFound;
-    for (Location loc : LocationDoaImpl.getInstance().getAllLocations()) {
+    for (Location loc : locationList) { // hashmap
       isFound = false;
       for (NodeType nt : nodeTypes) {
         if (loc.getNodeType() == nt) {

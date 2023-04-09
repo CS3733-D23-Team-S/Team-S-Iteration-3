@@ -1,6 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import edu.wpi.teamname.Database.dbConnection;
+import edu.wpi.teamname.databaseredo.dbConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class FlowerDAOImpl implements FlowerDAO_I {
               + "Quantity int,"
               + "SoldOut boolean,"
               + "Description Varchar(100),"
-              + "Image Varchar(100),";
+              + "Image Varchar(100))";
 
       st.execute(dropFlowerTable);
       st.execute(flowerTableConstruct);
