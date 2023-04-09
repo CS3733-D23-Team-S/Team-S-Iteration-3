@@ -1,23 +1,23 @@
-package edu.wpi.teamname.Login;
+package edu.wpi.teamname.User;
 
 import edu.wpi.teamname.Database.dbConnection;
 import java.sql.*;
 import java.util.HashMap;
 import lombok.Getter;
 
-public class LoginDAOImpl implements LoginDAOI {
-  private static LoginDAOImpl single_instance = null;
+public class UserDAOImpl implements UserDAOI {
+  private static UserDAOImpl single_instance = null;
   private dbConnection connection;
 
-  @Getter private HashMap<String, LoginInfo> loginInfo = new HashMap<>();
+  @Getter private HashMap<String, User> loginInfo = new HashMap<>();
   private String name;
 
-  public static LoginDAOImpl getInstance() {
-    if (single_instance == null) single_instance = new LoginDAOImpl();
+  public static UserDAOImpl getInstance() {
+    if (single_instance == null) single_instance = new UserDAOImpl();
     return single_instance;
   }
 
-  private LoginDAOImpl() {
+  private UserDAOImpl() {
     connection = dbConnection.getInstance();
   }
 
@@ -32,7 +32,7 @@ public class LoginDAOImpl implements LoginDAOI {
               + "password varchar(100) NOT NULL, "
               + "permission int)";
       stmt.execute(loginTableConstruct);
-      LoginInfo admin = new LoginInfo("admin", "admin", Permission.ADMIN);
+      User admin = new User("admin", "admin", Permission.ADMIN);
       loginInfo.put("admin", admin);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
@@ -81,8 +81,8 @@ public class LoginDAOImpl implements LoginDAOI {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, Permission.WORKER.ordinal());
-      LoginInfo user = new LoginInfo(username, password, Permission.WORKER);
+      preparedStatement.setInt(3, Permission.STAFF.ordinal());
+      User user = new User(username, password, Permission.STAFF);
       loginInfo.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);

@@ -1,8 +1,8 @@
 package edu.wpi.teamname.Database;
 
-import edu.wpi.teamname.Login.LoginDAOImpl;
 import edu.wpi.teamname.Map.*;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.User.UserDAOImpl;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class LoaderDAO implements LoaderDAOI {
       EdgeDaoImpl.getInstance().initTable(edgesTable);
       LocationDoaImpl.getInstance().initTable(locationTable);
       MoveDaoImpl.getInstance().initTable(moveTable);
-      LoginDAOImpl.getInstance().initTables(loginTable);
+      UserDAOImpl.getInstance().initTables(loginTable);
       RoomRequestDAO.getInstance().initTable();
 
     } catch (SQLException e) {

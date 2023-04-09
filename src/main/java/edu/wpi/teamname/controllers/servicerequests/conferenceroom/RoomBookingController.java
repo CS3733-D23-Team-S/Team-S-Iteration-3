@@ -1,15 +1,12 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Room;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -29,24 +26,16 @@ public class RoomBookingController {
   RoomBooking rb = new RoomBooking();
   static RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
 
-  Room r1, r2, r3, r4;
-
-  ArrayList<Room> roomList = new ArrayList<>();
-  ArrayList<ConfRoomRequest> reservationList = new ArrayList<>();
-
   @FXML
   public void initialize() throws SQLException {
 
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
-    createDummyRooms();
-
     for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
       //  public void addToUI(String roomLocation, String startTime, String endTime, String
       // eventTitle, String eventDescription, String staffMember) {
       this.addToUI(
-          i.getRoomId(),
           String.valueOf(i.getStartTime()),
           String.valueOf(i.getEndTime().getHour()),
           i.getEventName(),
@@ -79,25 +68,11 @@ public class RoomBookingController {
             LocalDate.now(),
             LocalTime.of(Integer.parseInt(startTime), 0, 0, 0),
             LocalTime.of(Integer.parseInt(endTime), 0, 0, 0),
-            new Room(Integer.parseInt(roomLocation), "Cafe", "Floor", 50, "F"),
-            "TestReserve",
+            roomLocation,
             eventTitle,
             eventDescription,
-            staffMember,
-            Status.Received,
-            "No notes");
+            staffMember);
     roomRequestDAO.addRequest(newRequest); // TODO need this?
-  }
-
-  public void createDummyRooms() {
-    Room r1 = new Room(1, "Hale Cafe", "L1", 30, "All");
-    Room r2 = new Room(2, "Teaching Room", "L2", 50, "All");
-    Room r3 = new Room(3, "Conference Room", "L1", 30, "All");
-    Room r4 = new Room(4, "Lab Room", "L2", 20, "None");
-    roomList.add(r1);
-    roomList.add(r2);
-    roomList.add(r3);
-    roomList.add(r4);
   }
 
   public void addToUI(
@@ -105,7 +80,6 @@ public class RoomBookingController {
       String startTime,
       String endTime,
       String eventTitle,
-      String eventDescription,
       String staffMember) {
     System.out.println("Adding string " + roomLocation + " to UI");
 

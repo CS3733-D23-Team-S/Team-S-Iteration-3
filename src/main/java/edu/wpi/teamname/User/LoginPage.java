@@ -1,4 +1,4 @@
-package edu.wpi.teamname.Login;
+package edu.wpi.teamname.User;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

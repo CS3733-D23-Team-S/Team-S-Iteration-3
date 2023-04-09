@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers.mainpages;
 
 import static edu.wpi.teamname.navigation.Screen.HOME;
 
-import edu.wpi.teamname.Login.LoginDAOImpl;
+import edu.wpi.teamname.User.UserDAOImpl;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-  private LoginDAOImpl loginDAO = LoginDAOImpl.getInstance();
+  private UserDAOImpl loginDAO = UserDAOImpl.getInstance();
   @FXML private MFXButton backButton;
 
   @FXML private Label errormessageLabel;

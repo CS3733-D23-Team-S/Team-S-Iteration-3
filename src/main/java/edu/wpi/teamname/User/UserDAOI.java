@@ -1,5 +1,5 @@
-package edu.wpi.teamname.Login;
+package edu.wpi.teamname.User;
 
-public interface LoginDAOI {
+public interface UserDAOI {
   boolean login(String username, String password) throws Exception;
 }

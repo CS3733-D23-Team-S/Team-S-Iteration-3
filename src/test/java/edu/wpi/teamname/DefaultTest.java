@@ -7,7 +7,7 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.Database.LoaderDAO;
-import edu.wpi.teamname.Login.LoginDAOImpl;
+import edu.wpi.teamname.User.UserDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
-    LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
+    UserDAOImpl LDaoI = UserDAOImpl.getInstance();
     Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
     assertEquals("User does not exist", exception.getMessage());
     assertTrue(LDaoI.login("admin", "admin"));
