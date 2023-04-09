@@ -103,11 +103,6 @@ public class MealDeliveryController {
 
     clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    foodDAO.initFood();
-    foodel.initFoodRequests();
-
-    // theLoad.initTables();
-
     // adding Foods
     Food Pizza =
         new Food(
@@ -434,9 +429,6 @@ public class MealDeliveryController {
     foodDAO.addFood(HotDog);
     foodDAO.addFood(RiceAndBeans);
     foodDAO.addFood(Quesadillas);
-
-    System.out.println("Start quant: " + foodDAO.retrieveFood(1).getQuantity());
-    System.out.println("Start desc: " + foodDAO.retrieveFood(1).getFoodDescription());
 
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));

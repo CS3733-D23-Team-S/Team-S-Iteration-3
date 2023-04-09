@@ -84,10 +84,11 @@ public class OrderDetailsController {
 
             foodev.addRequest(currentFoodDev);
 
+            Navigation.navigate(Screen.ORDER_CONFIRMATION);
+
           } catch (Exception e) {
             e.printStackTrace();
           }
-          Navigation.navigate(Screen.ORDER_CONFIRMATION);
         });
 
     clear2.setOnMouseClicked(event -> clearFields2());
