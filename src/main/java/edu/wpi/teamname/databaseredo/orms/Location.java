@@ -1,8 +1,7 @@
 package edu.wpi.teamname.databaseredo.orms;
 
-import java.time.LocalDate;
-
 import edu.wpi.teamname.databaseredo.IDataPack;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 

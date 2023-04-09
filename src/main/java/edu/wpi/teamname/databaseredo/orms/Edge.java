@@ -20,16 +20,11 @@ public class Edge implements IDataPack {
 
   @Override
   public String toString() {
-    return "Edge{"
-        + "startNode = "
-        + startNodeID.getNodeID()
-        + ", endNode = "
-        + endNodeID.getNodeID()
-        + '}';
+    return "Edge{" + "startNode = " + startNodeID + ", endNode = " + endNodeID + '}';
   }
 
   @Override
   public String toCSVString() {
-    return startNodeID.getNodeID() + "," + endNodeID.getNodeID();
+    return startNodeID + "," + endNodeID;
   }
 }

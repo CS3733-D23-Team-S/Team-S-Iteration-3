@@ -1,15 +1,13 @@
 package edu.wpi.teamname;
 
-import edu.wpi.teamname.Database.LoaderDAO;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import java.sql.SQLException;
 
 public class Main {
 
-  public static void main(String[] args) throws SQLException {
-    LoaderDAO loader = LoaderDAO.getInstance();
-    //    loader.establishConnection();
-    //    loader.resetData();
-    loader.load();
+  public static void main(String[] args) {
+    DataBaseRepository database = DataBaseRepository.getInstance();
+    database.load();
     App.launch(App.class, args);
     // Debugging stuff in order to check everything looks about right
     System.out.println("Loaded everything");

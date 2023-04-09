@@ -5,5 +5,5 @@ public enum Floor {
   Floor2,
   Floor3,
   FloorL1,
-  FloorL2;
+  FloorL2
 }

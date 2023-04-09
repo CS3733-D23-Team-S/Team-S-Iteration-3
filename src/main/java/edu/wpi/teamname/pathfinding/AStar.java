@@ -1,22 +1,15 @@
 package edu.wpi.teamname.pathfinding;
 
-import edu.wpi.teamname.Map.*;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.orms.Node;
-
 import java.util.*;
 
 public class AStar {
 
-  private NodeDaoImpl nodeDao;
-  private EdgeDaoImpl edgeDao;
-  private LocationDoaImpl locationDoa;
-  private MoveDaoImpl moveDao;
+  DataBaseRepository data;
 
   public AStar() {
-    nodeDao = NodeDaoImpl.getInstance();
-    edgeDao = EdgeDaoImpl.getInstance();
-    locationDoa = LocationDoaImpl.getInstance();
-    moveDao = MoveDaoImpl.getInstance();
+    data = DataBaseRepository.getInstance();
   }
 
   /**
@@ -27,40 +20,41 @@ public class AStar {
    * @return
    */
   public ArrayList<Integer> findPath(String s, String e) {
-    Node start, end;
-    if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start = nodeDao.getNode(Integer.parseInt(s));
-    else start = nodeDao.getNode(moveDao.getMoves().get(s).getNodeID());
-    if (e.replaceAll("[a-zA-Z]+/g", "").isEmpty()) end = nodeDao.getNode(Integer.parseInt(e));
-    else end = nodeDao.getNode(moveDao.getMoves().get(e).getNodeID());
-
-    final PriorityQueue<HeuristicNode> nodesYetToSearch =
-        new PriorityQueue<>(10, new HeuristicNode(null, Double.MAX_VALUE));
-    final HashSet<Node> visitedNodes = new HashSet<>();
-    final Map<Node, Node> gotHereFrom = new HashMap<>();
-
-    HeuristicNode startHNode = new HeuristicNode(start, calculateWeight(start, end));
-    //    System.out.println(startHNode.node + "\t" + startHNode.weight);
-    nodesYetToSearch.add(startHNode);
-    HeuristicNode currentNode;
-
-    while (nodesYetToSearch.size() != 0) {
-      currentNode = nodesYetToSearch.poll();
-      if (currentNode.node.getNodeID() == (end.getNodeID())) {
-        return constructShortestPath(currentNode.node, gotHereFrom);
-      }
-      //      dbManager.printLocalDatabases();
-      //      System.out.print(currentNode.node.getNodeID());
-      for (int nodeToSearchID : edgeDao.getNeighbors().get(currentNode.node.getNodeID())) {
-        //        System.out.print(nodeToSearchID + "\t");
-        Node nodeToSearch = nodeDao.getNodes().get(nodeToSearchID);
-        if (!visitedNodes.contains(nodeToSearch)) {
-          double weight = calculateWeight(nodeToSearch, end);
-          nodesYetToSearch.add(new HeuristicNode(nodeToSearch, weight));
-          gotHereFrom.put(nodeToSearch, currentNode.node);
-        }
-      }
-      visitedNodes.add(currentNode.node);
-    }
+    //    Node start, end;
+    //    if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start =
+    // nodeDao.getNode(Integer.parseInt(s));
+    //    else start = nodeDao.getNode(moveDao.getMoves().get(s).getNodeID());
+    //    if (e.replaceAll("[a-zA-Z]+/g", "").isEmpty()) end = nodeDao.getNode(Integer.parseInt(e));
+    //    else end = nodeDao.getNode(moveDao.getMoves().get(e).getNodeID());
+    //
+    //    final PriorityQueue<HeuristicNode> nodesYetToSearch =
+    //        new PriorityQueue<>(10, new HeuristicNode(null, Double.MAX_VALUE));
+    //    final HashSet<Node> visitedNodes = new HashSet<>();
+    //    final Map<Node, Node> gotHereFrom = new HashMap<>();
+    //
+    //    HeuristicNode startHNode = new HeuristicNode(start, calculateWeight(start, end));
+    //    //    System.out.println(startHNode.node + "\t" + startHNode.weight);
+    //    nodesYetToSearch.add(startHNode);
+    //    HeuristicNode currentNode;
+    //
+    //    while (nodesYetToSearch.size() != 0) {
+    //      currentNode = nodesYetToSearch.poll();
+    //      if (currentNode.node.getNodeID() == (end.getNodeID())) {
+    //        return constructShortestPath(currentNode.node, gotHereFrom);
+    //      }
+    //      //      dbManager.printLocalDatabases();
+    //      //      System.out.print(currentNode.node.getNodeID());
+    //      for (int nodeToSearchID : edgeDao.getNeighbors().get(currentNode.node.getNodeID())) {
+    //        //        System.out.print(nodeToSearchID + "\t");
+    //        Node nodeToSearch = nodeDao.getNodes().get(nodeToSearchID);
+    //        if (!visitedNodes.contains(nodeToSearch)) {
+    //          double weight = calculateWeight(nodeToSearch, end);
+    //          nodesYetToSearch.add(new HeuristicNode(nodeToSearch, weight));
+    //          gotHereFrom.put(nodeToSearch, currentNode.node);
+    //        }
+    //      }
+    //      visitedNodes.add(currentNode.node);
+    //    }
     return null;
   }
 
