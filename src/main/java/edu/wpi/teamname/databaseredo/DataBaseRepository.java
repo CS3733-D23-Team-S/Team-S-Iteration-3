@@ -7,13 +7,15 @@ import edu.wpi.teamname.databaseredo.orms.Node;
 import edu.wpi.teamname.pathfinding.AStar;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 public class DataBaseRepository {
 
   private static DataBaseRepository single_instance = null;
   private dbConnection connection;
   AStar pathFinder;
   @Getter IDAO<Node, Integer> nodeDAO;
-  @Getter IDAO<Move, Move> moveDAO;
+  @Getter MoveDAOImpl moveDAO;
   @Getter IDAO<Location, String> locationDAO;
   @Getter IDAO<Edge, Edge> edgeDAO;
 
@@ -46,15 +48,13 @@ public class DataBaseRepository {
     return true;
   }
 
-  /*
-  public boolean checkCanMove(String location, LocalDate date) {
-      return moves.get(location).getDates().contains(date);
-    }
+
+
     public String processMoveRequest(int newLocNodeID, String location, LocalDate date)
 
             throws Exception {
       if (checkCanMove(location, date)) {
-        throw new Exception("Moved Today already");
+        throw new Exception("Moved that day already");
       } else {
         String moveResult;
         if (date.isAfter(LocalDate.now())) {
@@ -63,13 +63,13 @@ public class DataBaseRepository {
           moveResult = "Moved " + location + " to its new location";
         }
         Move thisMove = new Move(newLocNodeID, location, date);
-        listOfMoves.add(thisMove);
-        Move target = moves.get(location);
-        nodeToLoc.get(target.getNodeID()).remove(location);
-        target.setNodeID(newLocNodeID);
-        nodeToLoc.get(newLocNodeID).add(location);
-        target.getDates().add(date);
+        moveDAO.add(thisMove);
         return moveResult;
       }
-    }*/
+    }
+
+
+    private boolean checkCanMove(String location, LocalDate date){
+      return moveDAO.getMoveHistory().get(location).contains(date);
+    }
 }

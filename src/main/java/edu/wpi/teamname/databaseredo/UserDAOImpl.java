@@ -8,14 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-public class LoginDAOImpl implements IDAO<User, String> {
+public class UserDAOImpl implements IDAO<User, String> {
 
   private dbConnection connection;
 
   @Getter private HashMap<String, User> listOfUsers = new HashMap<>();
-  private String name;
+  @Getter private String name;
 
-  public LoginDAOImpl() {
+  public UserDAOImpl() {
     connection = dbConnection.getInstance();
   }
 

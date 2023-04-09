@@ -15,7 +15,7 @@ import lombok.Setter;
 
 public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
-  @Setter @Getter private String name;
+  @Getter private String name;
   private dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
