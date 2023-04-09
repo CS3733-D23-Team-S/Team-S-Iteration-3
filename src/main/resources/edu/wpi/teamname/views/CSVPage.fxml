@@ -13,43 +13,57 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
    <center>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="100.33333672417535" minHeight="10.0" prefHeight="37.111111111111114" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="98.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="102.99999321831595" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="79.88889567057294" minHeight="23.888895670572936" prefHeight="64.33329264322919" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="49.11113823784723" percentHeight="5.0" prefHeight="78.44445122612848" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <MFXButton fx:id="exportButton" mnemonicParsing="false" prefWidth="190.0" style="-fx-background-color: &quot;122E59&quot;;" text="Export" textFill="#fffefe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export All Databases" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select a File to Import" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Import and Export" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </Text>
-            <MFXButton fx:id="importButton" mnemonicParsing="false" prefWidth="190.0" style="-fx-background-color: &quot;122E59&quot;;" text="Import Database" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <MFXComboBox fx:id="importOptions" minHeight="-Infinity" style="-fx-border-radius: 0; -fx-background-radius: 0; -mfx-editable: false;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-         </children>
-      </GridPane>
+       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                 prefHeight="400.0" prefWidth="600.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints maxHeight="100.33333672417535" minHeight="10.0" prefHeight="37.111111111111114"
+                               vgrow="SOMETIMES"/>
+               <RowConstraints maxHeight="98.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+               <RowConstraints prefHeight="50.0" vgrow="SOMETIMES"/>
+               <RowConstraints prefHeight="60.0" vgrow="SOMETIMES"/>
+               <RowConstraints prefHeight="50.0" vgrow="SOMETIMES"/>
+               <RowConstraints maxHeight="102.99999321831595" prefHeight="60.0" vgrow="SOMETIMES"/>
+               <RowConstraints maxHeight="79.88889567057294" minHeight="23.888895670572936"
+                               prefHeight="64.33329264322919" vgrow="SOMETIMES"/>
+               <RowConstraints maxHeight="-Infinity" minHeight="49.11113823784723" percentHeight="5.0"
+                               prefHeight="78.44445122612848" vgrow="SOMETIMES"/>
+           </rowConstraints>
+           <MFXButton fx:id="exportButton" mnemonicParsing="false" prefWidth="190.0"
+                      style="-fx-background-color: &quot;122E59&quot;;" text="Export" textFill="#fffefe"
+                      GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                      GridPane.valignment="CENTER"/>
+           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export All Databases" GridPane.columnIndex="1"
+                 GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+              <font>
+                  <Font name="System Bold" size="18.0"/>
+              </font>
+           </Text>
+           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select a File to Import" GridPane.columnIndex="1"
+                 GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+              <font>
+                  <Font name="System Bold" size="18.0"/>
+              </font>
+           </Text>
+           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Import and Export" GridPane.columnIndex="1"
+                 GridPane.halignment="CENTER">
+              <font>
+                  <Font name="System Bold" size="32.0"/>
+              </font>
+           </Text>
+           <MFXButton fx:id="importButton" mnemonicParsing="false" prefWidth="190.0"
+                      style="-fx-background-color: &quot;122E59&quot;;" text="Import Database" textFill="WHITE"
+                      GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                      GridPane.valignment="CENTER"/>
+           <MFXComboBox fx:id="importOptions" minHeight="-Infinity"
+                        style="-fx-border-radius: 0; -fx-background-radius: 0; -mfx-editable: false;"
+                        GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
+                        GridPane.valignment="CENTER"/>
+       </GridPane>
    </center>
    <top>
       <HBox prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER" />

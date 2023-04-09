@@ -1,8 +1,10 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import edu.wpi.teamname.Database.dbConnection;
-import edu.wpi.teamname.Map.Location;
-import edu.wpi.teamname.Map.LocationDoaImpl;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
+import edu.wpi.teamname.databaseredo.IDAO;
+import edu.wpi.teamname.databaseredo.dbConnection;
+import edu.wpi.teamname.databaseredo.orms.Location;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -11,24 +13,20 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RoomRequestDAO implements RoomRequest_I {
+public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   protected static final String schemaName = "hospitaldb";
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
   LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
+
   static RoomRequestDAO single_instance = null;
 
-  private RoomRequestDAO() {}
+  public RoomRequestDAO() {}
 
-  public static synchronized RoomRequestDAO getInstance() {
 
-    if (single_instance == null) single_instance = new RoomRequestDAO();
 
-    return single_instance;
-  }
+  public void initTable(String tableName) {
 
-  public void initTable() throws SQLException {
-    Statement stmt = connection.getConnection().createStatement();
     String roomReservationsTableConstruct =
         "CREATE TABLE IF NOT EXISTS "
             + roomReservationsTable
@@ -46,6 +44,7 @@ public class RoomRequestDAO implements RoomRequest_I {
             + "orderStatus Varchar(100),"
             + "notes Varchar(500))";
     try {
+      Statement stmt = connection.getConnection().createStatement();
       stmt.execute(roomReservationsTableConstruct);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -56,18 +55,27 @@ public class RoomRequestDAO implements RoomRequest_I {
   }
 
   @Override
-  public List<ConfRoomRequest> getAllRequests() {
+  public void dropTable() {}
 
+  @Override
+  public void loadRemote(String pathToCSV) {}
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {}
+
+  @Override
+  public List<ConfRoomRequest> getAll() {
     return this.requests;
   }
 
   @Override
-  public ConfRoomRequest getRequest(int requestID) {
-    return requests.get(requestID);
-  }
+  public void delete(ConfRoomRequest target) {}
 
   @Override
-  public void addRequest(ConfRoomRequest request) {
+  public void add(ConfRoomRequest request) {
 
     requests.add(request);
 
@@ -101,7 +109,7 @@ public class RoomRequestDAO implements RoomRequest_I {
 
   public LinkedList<String> getConfRoomLocationsAlphabetically() {
     LinkedList<String> locations = new LinkedList<>();
-    for (Location thisLocation : LocationDoaImpl.getInstance().getAllLocations()) {
+    for (Location thisLocation : DataBaseRepository.getInstance().getLocationDAO().getAll()) {
 
       Pattern pattern = Pattern.compile("Conf", Pattern.CASE_INSENSITIVE);
       Matcher matcher = pattern.matcher(thisLocation.getLongName());
@@ -185,10 +193,5 @@ public class RoomRequestDAO implements RoomRequest_I {
       e.printStackTrace();
     }
     return requestList;
-  }
-
-  @Override
-  public void deleteRequest(int requestID) {
-    requests.remove(requestID);
   }
 }

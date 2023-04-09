@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
 
   RoomBooking rb = new RoomBooking();
-  static RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
+  static RoomRequestDAO roomRequestDAO = (RoomRequestDAO) DataBaseRepository.getInstance().getRoomRequestDAO();
 
   @FXML
   public void initialize() throws SQLException {
@@ -32,7 +33,7 @@ public class RoomBookingController {
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
-    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
+    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       //  public void addToUI(String roomLocation, String startTime, String endTime, String
       // eventTitle, String eventDescription, String staffMember) {
       this.addToUI(
@@ -72,7 +73,7 @@ public class RoomBookingController {
             eventTitle,
             eventDescription,
             staffMember);
-    roomRequestDAO.addRequest(newRequest); // TODO need this?
+    roomRequestDAO.add(newRequest); // TODO need this?
   }
 
   public void addToUI(

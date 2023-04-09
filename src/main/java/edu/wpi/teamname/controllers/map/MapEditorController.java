@@ -1,8 +1,9 @@
 package edu.wpi.teamname.controllers.map;
 
-import edu.wpi.teamname.Map.Edge;
-import edu.wpi.teamname.Map.Node;
-import edu.wpi.teamname.Map.NodeType;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
+import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.databaseredo.orms.NodeType;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.MapEditorEntity;
@@ -20,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MapEditorController {
 
+  DataBaseRepository dataBase;
   @FXML MFXButton mapEditorToHomeButton;
   @FXML TableView<Object> nodeTable;
   @FXML TableView<Object> locationTable;
@@ -43,10 +45,11 @@ public class MapEditorController {
   public void createLists() {
     System.out.println("test");
     MapEditorEntity mee = new MapEditorEntity();
-    final ObservableList nodeList = FXCollections.observableList(mee.getNodeList());
-    final ObservableList edgeList = FXCollections.observableList(mee.getEdgeList());
-    final ObservableList locationList = FXCollections.observableList(mee.getLocationList());
-    final ObservableList moveList = FXCollections.observableList(mee.getMoveList());
+    final ObservableList nodeList = FXCollections.observableList(dataBase.getNodeDAO().getAll());
+    final ObservableList edgeList = FXCollections.observableList(dataBase.getEdgeDAO().getAll());
+    final ObservableList locationList =
+        FXCollections.observableList(dataBase.getLocationDAO().getAll());
+    final ObservableList moveList = FXCollections.observableList(dataBase.getMoveDAO().getAll());
 
     nodeTable.getItems().addAll(nodeList);
 
@@ -61,6 +64,7 @@ public class MapEditorController {
   }
 
   public void initialize() {
+    dataBase = DataBaseRepository.getInstance();
     mapEditorToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
@@ -86,7 +90,7 @@ public class MapEditorController {
     startNodeCol.setCellValueFactory(
         (edge) -> {
           System.out.println("test");
-          return new SimpleObjectProperty(edge.getValue().getStartNode());
+          return new SimpleObjectProperty(edge.getValue().getStartNodeID());
         });
     endNodeCol.setCellValueFactory(new PropertyValueFactory<>("endNode"));
 

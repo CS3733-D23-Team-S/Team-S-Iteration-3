@@ -11,50 +11,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="facilitiesStaffToAdminPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.FacilitiesStaffController">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-         <children>
-            <MFXTextField editable="false" prefHeight="270.0" prefWidth="1504.0" style="-fx-background-color: #D9D9D9;" text="Brigham &amp; Women's Hospital - Founding Member, Mass General Brigham">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </MFXTextField>
-         </children>
-      </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="5">
-         <children>
-            <TableView fx:id="facilitiesStaffTable" prefHeight="692.0" prefWidth="1504.0">
-              <columns>
-                <TableColumn id="roomNumberColumn" fx:id="roomCol" prefWidth="300.0" text="Room No." />
-                <TableColumn id="eventNameColumn" fx:id="eventNameCol" prefWidth="350.0" text="Event Name" />
-                  <TableColumn id="setupColumn" fx:id="setupCol" prefWidth="250.0" text="Setup" />
-                  <TableColumn id="reservationDateColumn" fx:id="reservationDateCol" prefWidth="225.0" text="Reservation Date" />
-                  <TableColumn id="reservationTimeColumn" fx:id="reservationTimeCol" prefWidth="200.0" text="Reservation Time" />
-                  <TableColumn id="statusColumn" fx:id="statusCol" prefWidth="179.0" text="Status" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
-      <MFXButton fx:id="facilitiesStaffToAdminButton" prefHeight="90.0" prefWidth="100.0" style="-fx-border-color: #F8BC54; -fx-border-width: 9;" text="&lt;" GridPane.columnIndex="1" GridPane.rowIndex="7">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </MFXButton>
-   </children>
+<GridPane fx:id="facilitiesStaffToAdminPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;"
+          xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="edu.wpi.teamname.controllers.FacilitiesStaffController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" percentHeight="8.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+        <MFXTextField editable="false" prefHeight="270.0" prefWidth="1504.0" style="-fx-background-color: #D9D9D9;"
+                      text="Brigham &amp; Women's Hospital - Founding Member, Mass General Brigham">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </MFXTextField>
+    </HBox>
+    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="5">
+        <TableView fx:id="facilitiesStaffTable" prefHeight="692.0" prefWidth="1504.0">
+            <columns>
+                <TableColumn id="roomNumberColumn" fx:id="roomCol" prefWidth="300.0" text="Room No."/>
+                <TableColumn id="eventNameColumn" fx:id="eventNameCol" prefWidth="350.0" text="Event Name"/>
+                <TableColumn id="setupColumn" fx:id="setupCol" prefWidth="250.0" text="Setup"/>
+                <TableColumn id="reservationDateColumn" fx:id="reservationDateCol" prefWidth="225.0"
+                             text="Reservation Date"/>
+                <TableColumn id="reservationTimeColumn" fx:id="reservationTimeCol" prefWidth="200.0"
+                             text="Reservation Time"/>
+                <TableColumn id="statusColumn" fx:id="statusCol" prefWidth="179.0" text="Status"/>
+            </columns>
+        </TableView>
+    </VBox>
+    <MFXButton fx:id="facilitiesStaffToAdminButton" prefHeight="90.0" prefWidth="100.0"
+               style="-fx-border-color: #F8BC54; -fx-border-width: 9;" text="&lt;" GridPane.columnIndex="1"
+               GridPane.rowIndex="7">
+        <font>
+          <Font size="36.0"/>
+        </font>
+    </MFXButton>
 </GridPane>

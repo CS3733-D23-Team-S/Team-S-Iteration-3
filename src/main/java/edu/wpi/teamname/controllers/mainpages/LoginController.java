@@ -2,7 +2,7 @@ package edu.wpi.teamname.controllers.mainpages;
 
 import static edu.wpi.teamname.navigation.Screen.HOME;
 
-import edu.wpi.teamname.User.UserDAOImpl;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-  private UserDAOImpl loginDAO = UserDAOImpl.getInstance();
+  DataBaseRepository loginManager;
   @FXML private MFXButton backButton;
 
   @FXML private Label errormessageLabel;
@@ -47,7 +47,7 @@ public class LoginController {
   private boolean isValid() {
     boolean isValid;
     try {
-      if (loginDAO.login(tfUsername.getText(), pfPassword.getText())) {
+      if (loginManager.login(tfUsername.getText(), pfPassword.getText())) {
         // logged in
         isValid = true;
       } else {
@@ -68,6 +68,7 @@ public class LoginController {
 
   public void initialize() {
 
+    loginManager = DataBaseRepository.getInstance();
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
 
     loginbutton.setOnMouseClicked(

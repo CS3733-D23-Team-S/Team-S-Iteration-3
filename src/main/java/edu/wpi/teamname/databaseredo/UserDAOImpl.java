@@ -1,23 +1,20 @@
-package edu.wpi.teamname.User;
+package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.Database.dbConnection;
+import edu.wpi.teamname.databaseredo.orms.User;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import lombok.Getter;
 
-public class UserDAOImpl implements UserDAOI {
-  private static UserDAOImpl single_instance = null;
+public class UserDAOImpl implements IDAO<User> {
+
   private dbConnection connection;
 
   @Getter private HashMap<String, User> loginInfo = new HashMap<>();
   private String name;
 
-  public static UserDAOImpl getInstance() {
-    if (single_instance == null) single_instance = new UserDAOImpl();
-    return single_instance;
-  }
+  public UserDAOImpl() {
 
-  private UserDAOImpl() {
     connection = dbConnection.getInstance();
   }
 
@@ -32,7 +29,7 @@ public class UserDAOImpl implements UserDAOI {
               + "password varchar(100) NOT NULL, "
               + "permission int)";
       stmt.execute(loginTableConstruct);
-      User admin = new User("admin", "admin", Permission.ADMIN);
+      User admin = new User("admin", "admin", User.Permission.ADMIN);
       loginInfo.put("admin", admin);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
@@ -43,7 +40,7 @@ public class UserDAOImpl implements UserDAOI {
               + loginTableName
               + " (username, password, permission) VALUES "
               + "('admin','admin',"
-              + Permission.ADMIN.ordinal()
+              + User.Permission.ADMIN
               + ")";
       stmt.executeUpdate(addAdmin);
     } catch (SQLException e) {
@@ -81,8 +78,9 @@ public class UserDAOImpl implements UserDAOI {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, Permission.STAFF.ordinal());
-      User user = new User(username, password, Permission.STAFF);
+      preparedStatement.setString(3, String.valueOf(User.Permission.STAFF));
+      User user = new User(username, password, User.Permission.STAFF);
+
       loginInfo.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -103,8 +101,57 @@ public class UserDAOImpl implements UserDAOI {
     }
   }
 
-  // public void setGlobalPermission(){}
+  @Override
+  public void initTable(String name) {
+    this.name = name;
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String loginTableConstruct =
+          "CREATE TABLE IF NOT EXISTS "
+              + name
+              + " (username varchar(100) UNIQUE PRIMARY KEY, "
+              + "password varchar(100) NOT NULL, "
+              + "permission int)";
+      stmt.execute(loginTableConstruct);
+      User admin = new User("admin", "admin", User.Permission.ADMIN);
+      loginInfo.put("admin", admin);
+      ResultSet checkExists =
+          connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
+      if (checkExists.next()) return;
 
-  // public boolean checkEntry(String str){}
+      String addAdmin =
+          "INSERT INTO "
+              + name
+              + " (username, password, permission) VALUES "
+              + "('admin','admin',"
+              + User.Permission.ADMIN.ordinal()
+              + ")";
+      stmt.executeUpdate(addAdmin);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
+  @Override
+  public void dropTable() {}
+
+  @Override
+  public void loadRemote(String pathToCSV) {}
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) {}
+
+  @Override
+  public List<User> getAll() {
+    return null;
+  }
+
+  @Override
+  public void delete(User target) {}
+
+  @Override
+  public void add(User addition) {}
 }

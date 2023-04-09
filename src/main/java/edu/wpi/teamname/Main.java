@@ -1,16 +1,20 @@
 package edu.wpi.teamname;
 
-import edu.wpi.teamname.Database.LoaderDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
+import edu.wpi.teamname.databaseredo.IDAO;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Main {
 
   public static void main(String[] args) throws Exception {
+    DataBaseRepository database = DataBaseRepository.getInstance();
+    database.load();
+    App.launch(App.class, args);
 
-    RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
     LocalDate startDate = LocalDate.of(2022, 5, 13);
     LocalTime startTime = LocalTime.of(14, 50);
     LocalTime endTime = LocalTime.of(15, 35);
@@ -24,7 +28,8 @@ public class Main {
             "Hello",
             "nothing",
             "staff");
-    roomRequestDAO.addRequest(confRoomRequest);
+    database.getRoomRequestDAO().add(confRoomRequest);
+    RoomRequestDAO roomRequestDAO = (RoomRequestDAO) database.getRoomRequestDAO();
     System.out.println(roomRequestDAO.hasConflicts("Unity", startDate, startTime, endTime));
     System.out.println(roomRequestDAO.getConfRoomLocationsAlphabetically().toString());
     System.out.println(roomRequestDAO.allPastRequestsbyUser("staff"));

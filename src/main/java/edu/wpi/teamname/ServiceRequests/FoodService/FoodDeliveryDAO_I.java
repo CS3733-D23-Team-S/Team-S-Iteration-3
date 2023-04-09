@@ -3,11 +3,11 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 import java.util.List;
 
 public interface FoodDeliveryDAO_I {
-  public List<FoodDelivery> getAllRequests();
+  List<FoodDelivery> getAllRequests();
 
-  public FoodDelivery getRequest(int target);
+  FoodDelivery getRequest(int target);
 
-  public void addRequest(FoodDelivery request);
+  void addRequest(FoodDelivery request);
 
-  public void deleteRequest(int target);
+  void deleteRequest(int target);
 }

@@ -1,41 +1,30 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.Database.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import edu.wpi.teamname.databaseredo.orms.Move;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import lombok.Getter;
+import lombok.Setter;
 
-public class MoveDaoImpl implements MoveDAO_I {
+public class MoveDAOImpl implements IDAO<Move> {
 
-  private static MoveDaoImpl single_instance;
-  @Getter private String name;
-  dbConnection connection;
+  @Setter @Getter private String name;
+  private dbConnection connection;
 
-  @Getter HashMap<String, Move> moves = new HashMap<>();
   @Getter ArrayList<Move> listOfMoves = new ArrayList<>();
   @Getter HashMap<Integer, ArrayList<String>> nodeToLoc = new HashMap<>();
 
-  private MoveDaoImpl() {
+  public MoveDAOImpl() {
     connection = dbConnection.getInstance();
-  }
-
-  public static MoveDaoImpl getInstance() {
-    if (single_instance == null) single_instance = new MoveDaoImpl();
-
-    return single_instance;
-  }
-
-  @Override
-  public List<Move> getAllMoves() {
-    return moves.values().stream().toList();
   }
 
   @Override
@@ -56,38 +45,10 @@ public class MoveDaoImpl implements MoveDAO_I {
   }
 
   @Override
-  public boolean checkCanMove(String location, LocalDate date) {
-    return moves.get(location).getDates().contains(date);
-  }
+  public void dropTable() {}
 
   @Override
-  public Move getMove(String location) {
-    return moves.get(location);
-  }
-
-  public String processMoveRequest(int newLocNodeID, String location, LocalDate date)
-      throws Exception {
-    if (checkCanMove(location, date)) {
-      throw new Exception("Moved Today already");
-    } else {
-      String moveResult;
-      if (date.isAfter(LocalDate.now())) {
-        moveResult = "Going to move " + location + " on " + date;
-      } else {
-        moveResult = "Moved " + location + " to its new location";
-      }
-      Move thisMove = new Move(newLocNodeID, location, date);
-      listOfMoves.add(thisMove);
-      Move target = moves.get(location);
-      nodeToLoc.get(target.getNodeID()).remove(location);
-      target.setNodeID(newLocNodeID);
-      nodeToLoc.get(newLocNodeID).add(location);
-      target.getDates().add(date);
-      return moveResult;
-    }
-  }
-
-  public void loadToRemote(String pathToCSV) {
+  public void loadRemote(String pathToCSV) {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name + " LIMIT 2";
@@ -104,8 +65,35 @@ public class MoveDaoImpl implements MoveDAO_I {
     }
   }
 
+  @Override
+  public void importCSV(String path) {
+    dropTable();
+  }
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter;
+    fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("nodeID,longName,date");
+    for (Move move : listOfMoves) {
+      fileWriter.newLine();
+      fileWriter.write(move.toCSVString());
+    }
+  }
+
+  @Override
+  public List<Move> getAll() {
+    return null;
+  }
+
+  @Override
+  public void delete(Move target) {}
+
+  @Override
+  public void add(Move addition) {}
+
   private void constructFromRemote() {
-    if (!moves.isEmpty()) {
+    if (!listOfMoves.isEmpty()) {
       System.out.println("There is already stuff in the orm database");
       return;
     }
@@ -116,7 +104,6 @@ public class MoveDaoImpl implements MoveDAO_I {
       while (data.next()) {
         LocalDate date = data.getDate("date").toLocalDate();
         Move thisMove = new Move(data.getInt("nodeID"), data.getString("location"), date);
-        moves.put(thisMove.getLocation(), thisMove);
         listOfMoves.add(thisMove);
         ArrayList<String> listOfLoc = new ArrayList<>();
         listOfLoc.add(thisMove.getLocation());
@@ -136,7 +123,7 @@ public class MoveDaoImpl implements MoveDAO_I {
         String line;
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
-          LocalDate date = DateParser.parseDate(fields[2]);
+          LocalDate date = parseDate(fields[2]);
           //          System.out.println(Arrays.toString(fields));
           Move thisMove = new Move(Integer.parseInt(fields[0]), fields[1], date);
           //          System.out.println(thisMove);
@@ -149,7 +136,7 @@ public class MoveDaoImpl implements MoveDAO_I {
           stmt.setString(2, fields[1]);
           stmt.setDate(3, java.sql.Date.valueOf(date));
           stmt.executeUpdate();
-          moves.put(thisMove.getLocation(), thisMove);
+          listOfMoves.add(thisMove);
         }
         constructFromRemote();
       } catch (SQLException e) {
@@ -162,17 +149,14 @@ public class MoveDaoImpl implements MoveDAO_I {
     }
   }
 
-  private static class DateParser {
-    public static LocalDate parseDate(String dateString) {
-      // Parse the input date string into a LocalDate object
-      LocalDate date =
-          LocalDate.parse(
-              dateString, DateTimeFormatter.ofPattern("M/d/yyyy").withLocale(Locale.US));
-      // Format the LocalDate object as a string in the desired output format
-      String outputString =
-          date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.US));
-      // Parse the output string into a LocalDate object
-      return LocalDate.parse(outputString);
-    }
+  private LocalDate parseDate(String dateString) {
+    // Parse the input date string into a LocalDate object
+    LocalDate date =
+        LocalDate.parse(dateString, DateTimeFormatter.ofPattern("M/d/yyyy").withLocale(Locale.US));
+    // Format the LocalDate object as a string in the desired output format
+    String outputString =
+        date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.US));
+    // Parse the output string into a LocalDate object
+    return LocalDate.parse(outputString);
   }
 }
