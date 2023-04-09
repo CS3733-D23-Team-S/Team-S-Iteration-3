@@ -1,4 +1,4 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo.orms;
 
 public enum Floor {
   Floor1,

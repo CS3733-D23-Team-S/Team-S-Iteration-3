@@ -1,8 +1,12 @@
 package edu.wpi.teamname.Database;
 
-import edu.wpi.teamname.Login.LoginDAOImpl;
-import edu.wpi.teamname.Map.*;
+import edu.wpi.teamname.databaseredo.LoginDAOImpl;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.databaseredo.orms.Location;
+import edu.wpi.teamname.databaseredo.orms.Move;
+import edu.wpi.teamname.databaseredo.orms.Node;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

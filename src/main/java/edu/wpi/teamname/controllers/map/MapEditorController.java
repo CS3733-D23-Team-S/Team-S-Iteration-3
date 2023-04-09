@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers.map;
 
-import edu.wpi.teamname.Map.Edge;
-import edu.wpi.teamname.Map.Node;
-import edu.wpi.teamname.Map.NodeType;
+import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.databaseredo.orms.NodeType;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.MapEditorEntity;

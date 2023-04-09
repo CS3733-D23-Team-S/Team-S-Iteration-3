@@ -1,5 +1,8 @@
 package edu.wpi.teamname.Map;
 
+import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.databaseredo.orms.Node;
+
 import java.util.List;
 
 public interface EdgeDoa_I {

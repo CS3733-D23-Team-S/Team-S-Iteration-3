@@ -1,6 +1,8 @@
 package edu.wpi.teamname.pathfinding;
 
 import edu.wpi.teamname.Map.*;
+import edu.wpi.teamname.databaseredo.orms.Node;
+
 import java.util.*;
 
 public class AStar {

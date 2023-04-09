@@ -1,10 +1,12 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo.orms;
 
 import java.time.LocalDate;
+
+import edu.wpi.teamname.databaseredo.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Location {
+public class Location implements IDataPack {
   @Getter @Setter private NodeType nodeType;
   @Getter @Setter private String longName;
   @Getter @Setter private String shortName;
@@ -37,6 +39,7 @@ public class Location {
         + "}";
   }
 
+  @Override
   public String toCSVString() {
     return longName + "," + shortName + "," + nodeType.toString();
   }

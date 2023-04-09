@@ -1,5 +1,7 @@
 package edu.wpi.teamname.Map;
 
+import edu.wpi.teamname.databaseredo.orms.Node;
+
 import java.util.List;
 
 public interface NodeDOA_I {

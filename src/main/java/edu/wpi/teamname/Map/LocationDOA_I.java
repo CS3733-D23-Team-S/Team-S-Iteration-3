@@ -1,5 +1,7 @@
 package edu.wpi.teamname.Map;
 
+import edu.wpi.teamname.databaseredo.orms.Location;
+
 import java.util.List;
 
 public interface LocationDOA_I {
