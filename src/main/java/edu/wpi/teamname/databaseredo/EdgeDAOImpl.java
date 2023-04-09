@@ -1,9 +1,7 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.Database.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import edu.wpi.teamname.databaseredo.orms.Edge;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,28 +11,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
-public class EdgeDaoImpl implements EdgeDoa_I {
-  private static EdgeDaoImpl single_instance;
+public class EdgeDAOImpl implements IDAO<Edge, Edge> {
+
   @Getter private String name;
-  dbConnection connection;
-  NodeDaoImpl nodeDao = NodeDaoImpl.getInstance();
+  private dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
 
-  private EdgeDaoImpl() {
+  public EdgeDAOImpl() {
     connection = dbConnection.getInstance();
-  }
-
-  public static synchronized EdgeDaoImpl getInstance() {
-    if (single_instance == null) single_instance = new EdgeDaoImpl();
-
-    return single_instance;
-  }
-
-  @Override
-  public List<Edge> getAllEdges() {
-    return edges;
   }
 
   @Override
@@ -53,15 +40,18 @@ public class EdgeDaoImpl implements EdgeDoa_I {
   }
 
   @Override
-  public Edge getEdge(Node startNode, Node endNode) {
-    return null;
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
-  public void deleteEdge(Node startNode, Node endNode) {}
-
-  @Override
-  public void loadToRemote(String pathToCSV) {
+  public void loadRemote(String pathToCSV) {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -74,15 +64,51 @@ public class EdgeDaoImpl implements EdgeDoa_I {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void importCSV(String path) {
+    dropTable();
+    edges.clear();
+    neighbors.clear();
+    loadRemote(path);
+  }
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter;
+    fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("startNode,endNode");
+    for (Edge edge : edges) {
+      fileWriter.newLine();
+      fileWriter.write(edge.toCSVString());
+    }
+  }
+
+  @Override
+  public List<Edge> getAll() {
+    return edges;
+  }
+
+  @Override
+  public void delete(Edge target) {}
+
+  @Override
+  public void add(Edge addition) {
+    edges.add(addition);
+  }
+
+  public void add(int stN, int enN) {
+    Edge addition = new Edge(stN, enN);
+    add(addition);
   }
 
   private void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String getNodes = "SELECT nodeID FROM " + nodeDao.getName();
+      String getNodes = "SELECT DISTINCT startNode FROM " + name;
       PreparedStatement getNeighbors =
           connection
               .getConnection()
@@ -90,7 +116,7 @@ public class EdgeDaoImpl implements EdgeDoa_I {
       try {
         ResultSet listOfNodes = stmt.executeQuery(getNodes);
         while (listOfNodes.next()) {
-          int currentNodeID = listOfNodes.getInt("nodeID");
+          int currentNodeID = listOfNodes.getInt("startNode");
           getNeighbors.setInt(1, currentNodeID);
           getNeighbors.setInt(2, currentNodeID);
           ResultSet data = getNeighbors.executeQuery();
@@ -112,10 +138,7 @@ public class EdgeDaoImpl implements EdgeDoa_I {
             connection.getConnection().prepareStatement("SELECT * FROM " + name);
         ResultSet edgeList = getEdges.executeQuery();
         while (edgeList.next()) {
-          Edge edge =
-              new Edge(
-                  nodeDao.getNode(edgeList.getInt("startNode")),
-                  nodeDao.getNode(edgeList.getInt("endNode")));
+          Edge edge = new Edge(edgeList.getInt("startNode"), edgeList.getInt("endNode"));
           edges.add(edge);
         }
       } catch (SQLException e) {
@@ -135,17 +158,14 @@ public class EdgeDaoImpl implements EdgeDoa_I {
         String line;
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
-          Edge thisEdge =
-              new Edge(
-                  nodeDao.getNodes().get(Integer.parseInt(fields[0])),
-                  nodeDao.getNodes().get(Integer.parseInt(fields[1])));
+          Edge thisEdge = new Edge(Integer.parseInt(fields[0]), Integer.parseInt(fields[1]));
           edges.add(thisEdge);
           PreparedStatement stmt =
               connection
                   .getConnection()
                   .prepareStatement("INSERT INTO " + name + " (startNode, endNode) VALUES (?,?)");
-          stmt.setInt(1, thisEdge.getStartNode().getNodeID());
-          stmt.setInt(2, thisEdge.getEndNode().getNodeID());
+          stmt.setInt(1, thisEdge.getStartNodeID());
+          stmt.setInt(2, thisEdge.getEndNodeID());
           stmt.execute();
         }
         System.out.println("Loaded to the remote");

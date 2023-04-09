@@ -1,6 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.Database.dbConnection;
+import edu.wpi.teamname.databaseredo.dbConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -228,27 +228,27 @@ public class FoodDAOImpl implements FoodDAO_I {
       ResultSet rs = st.executeQuery("SELECT * FROM " + foodsTable);
 
       while (rs.next()) {
-        Integer foodid = rs.getInt("foodid");
+        int foodid = rs.getInt("foodid");
         String foodname = rs.getString("name");
         String foodtype = rs.getString("type");
-        Integer foodpreptime = rs.getInt("preptime");
+        int foodpreptime = rs.getInt("preptime");
         String foodcuisine = rs.getString("cuisine");
-        Double foodprice = rs.getDouble("price");
+        double foodprice = rs.getDouble("price");
         String fooddesciption = rs.getString("description");
-        Integer quantity = rs.getInt("quantity");
-        Boolean issoldout = rs.getBoolean("soldout");
+        int quantity = rs.getInt("quantity");
+        boolean issoldout = rs.getBoolean("soldout");
         String image = rs.getString("image");
-        Integer cal = rs.getInt("calories");
+        int cal = rs.getInt("calories");
         String not = rs.getString("note");
-        Boolean isit = rs.getBoolean("italian");
-        Boolean isam = rs.getBoolean("american");
-        Boolean isin = rs.getBoolean("indian");
-        Boolean isme = rs.getBoolean("mexican");
-        Boolean isveg = rs.getBoolean("vegetarian");
-        Boolean isha = rs.getBoolean("halal");
-        Boolean isve = rs.getBoolean("vegan");
-        Boolean isgl = rs.getBoolean("glutenfree");
-        Boolean isko = rs.getBoolean("kosher");
+        boolean isit = rs.getBoolean("italian");
+        boolean isam = rs.getBoolean("american");
+        boolean isin = rs.getBoolean("indian");
+        boolean isme = rs.getBoolean("mexican");
+        boolean isveg = rs.getBoolean("vegetarian");
+        boolean isha = rs.getBoolean("halal");
+        boolean isve = rs.getBoolean("vegan");
+        boolean isgl = rs.getBoolean("glutenfree");
+        boolean isko = rs.getBoolean("kosher");
 
         Food f =
             new Food(
