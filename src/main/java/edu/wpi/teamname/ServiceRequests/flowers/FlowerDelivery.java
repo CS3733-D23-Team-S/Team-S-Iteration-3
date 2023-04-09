@@ -9,7 +9,7 @@ public class FlowerDelivery {
     @Getter @Setter
     private int ID;
     @Getter @Setter
-    private int cartID;
+    private String cart;
     @Getter @Setter
     private Date date;
     @Getter @Setter
@@ -25,9 +25,9 @@ public class FlowerDelivery {
     @Getter @Setter
     private double cost;
 
-    public FlowerDelivery(int ID, int cartID, Date date, Time time, int room, String orderedBy, String assignedTo, String orderStatus, double cost) {
+    public FlowerDelivery(int ID, Cart cart, Date date, Time time, int room, String orderedBy, String assignedTo, String orderStatus, double cost) {
         this.ID = ID;
-        this.cartID = cartID;
+        this.cart = cart.toString();
         this.date = date;
         this.time = time;
         this.room = room;

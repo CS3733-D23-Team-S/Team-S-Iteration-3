@@ -8,7 +8,6 @@ import java.util.HashMap;
 /**
  * Cart class
  * Cart is represented as a HashMap with Integer: id and Flower: flower
- *
  */
 public class Cart {
     @Getter @Setter

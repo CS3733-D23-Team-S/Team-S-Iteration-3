@@ -35,7 +35,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
                     + flowerRequestsTable
                     + " "
                     + "(deliveryID int UNIQUE PRIMARY KEY,"
-                    + "cartID Varchar(100),"
+                    + "cart Varchar(100),"
                     + "orderDate Date,"
                     + "orderTime time,"
                     + "room int,"
@@ -108,7 +108,8 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 int flowerID = rs.getInt(1);
-                int cartID = rs.getInt(2);
+                //int cart = rs.getString(2);
+                Cart cart = null;
                 Date date = rs.getDate(3);
                 Time time = rs.getTime(4);
                 int room = rs.getInt(5);
@@ -117,7 +118,7 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
                 String orderStatus = rs.getString(8);
                 double cost = rs.getDouble(9);
 
-                request = new FlowerDelivery(flowerID, cartID, date, time, room, orderedBy, assignedTo, orderStatus, cost);
+                request = new FlowerDelivery(flowerID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost);
                 return request;
             }
         }
@@ -139,10 +140,10 @@ public class FlowerDeliveryDAOImpl implements FlowerDeliveryDAO_I {
                 .prepareStatement(
                     "INSERT INTO "
                         + flowerRequestsTable
-                        + " (deliveryID, cartID, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) "
+                        + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) "
                         + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             preparedStatement.setInt(1, request.getID());
-            preparedStatement.setInt(1, request.getCartID());
+            preparedStatement.setString(1, request.getCart());
             preparedStatement.setDate(1, request.getDate());
             preparedStatement.setTime(1, request.getTime());
             preparedStatement.setInt(1, request.getRoom());
