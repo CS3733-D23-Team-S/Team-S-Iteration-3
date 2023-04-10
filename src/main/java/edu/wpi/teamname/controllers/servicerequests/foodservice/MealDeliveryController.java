@@ -11,9 +11,8 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -33,7 +32,7 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
-
+  @FXML TableView submittedTableView;
 
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
@@ -44,6 +43,16 @@ public class MealDeliveryController {
 
   @FXML
   public void initialize() throws SQLException {
+
+    TableColumn<Food, String> column1 = new TableColumn<>("First Name");
+
+    column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+    TableColumn<Food, String> column2 = new TableColumn<>("Last Name");
+
+    column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+    // submittedTableView.getColumns().add(column1);
+    // submittedTableView.getColumns().add(column2);
+
     theLoad.load();
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");
@@ -637,7 +646,7 @@ public class MealDeliveryController {
     Label lbl = new Label();
     lbl.setId(x.getText());
     lbl.setText(x.getText());
-    lbl.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    lbl.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
     lbl.setMaxWidth(103);
     lbl.setMaxHeight(87);
     System.out.println("works");

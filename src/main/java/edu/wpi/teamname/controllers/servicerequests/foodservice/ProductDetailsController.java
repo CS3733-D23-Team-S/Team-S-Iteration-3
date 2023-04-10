@@ -84,7 +84,7 @@ public class ProductDetailsController {
 
     fName.setText(selectedFood().getFoodName().toString());
 
-    fName.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    fName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
     foodName.getChildren().add(fName);
   }
 
@@ -93,7 +93,7 @@ public class ProductDetailsController {
     Label fDescription1 = new Label();
     fDescription1.setId(selectedFood().getFoodDescription());
     fDescription1.setText(selectedFood().getFoodDescription().toString());
-    fDescription1.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    fDescription1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
     fDescription.getChildren().add(fDescription1);
   }
@@ -103,7 +103,7 @@ public class ProductDetailsController {
     Label fPrice1 = new Label();
     fPrice1.setId(Double.toString(selectedFood().getFoodPrice()));
     fPrice1.setText(Double.toString(selectedFood().getFoodPrice()));
-    fPrice1.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    fPrice1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
     fPrice.getChildren().add(fPrice1);
   }
 }

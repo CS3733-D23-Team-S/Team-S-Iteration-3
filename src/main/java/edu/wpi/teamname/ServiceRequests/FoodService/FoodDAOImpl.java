@@ -171,7 +171,6 @@ public class FoodDAOImpl implements FoodDAO_I {
     return quickFood;
   }
 
-
   public ArrayList<Food> getAmerican() {
     ArrayList<Food> americanFood = new ArrayList<>();
 
