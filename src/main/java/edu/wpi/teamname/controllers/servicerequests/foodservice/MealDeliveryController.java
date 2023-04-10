@@ -32,8 +32,8 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
-  @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
-  @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
+  //@FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
+  //@FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
 
   public static int clickedFoodID;
 
@@ -110,7 +110,7 @@ public class MealDeliveryController {
         });
 
     clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-
+/*
     // adding Foods
     Food Pizza =
         new Food(
@@ -424,20 +424,20 @@ public class MealDeliveryController {
             false,
             false);
 
-    foodDAO.addFood(Pizza);
-    foodDAO.addFood(Burger);
-    foodDAO.addFood(StirFry);
-    foodDAO.addFood(Chicken);
-    foodDAO.addFood(Tacos);
-    foodDAO.addFood(Pasta);
-    foodDAO.addFood(Bagel);
-    foodDAO.addFood(Tea);
-    foodDAO.addFood(OrangeChicken);
-    foodDAO.addFood(FriedRice);
-    foodDAO.addFood(HotDog);
-    foodDAO.addFood(RiceAndBeans);
-    foodDAO.addFood(Quesadillas);
-
+    foodDAO.add(Pizza);
+    foodDAO.add(Burger);
+    foodDAO.add(StirFry);
+    foodDAO.add(Chicken);
+    foodDAO.add(Tacos);
+    foodDAO.add(Pasta);
+    foodDAO.add(Bagel);
+    foodDAO.add(Tea);
+    foodDAO.add(OrangeChicken);
+    foodDAO.add(FriedRice);
+    foodDAO.add(HotDog);
+    foodDAO.add(RiceAndBeans);
+    foodDAO.add(Quesadillas);
+*/
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
     // vegetarianButton.setOnAction(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));

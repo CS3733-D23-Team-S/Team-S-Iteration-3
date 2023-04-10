@@ -1,5 +1,7 @@
 package edu.wpi.teamname.databaseredo;
 
+import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.databaseredo.orms.Edge;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.Move;
@@ -17,12 +19,16 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter IDAO<Location, String> locationDAO;
   @Getter IDAO<Edge, Edge> edgeDAO;
+  @Getter IDAO<Food, Integer> foodDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+
+    //ServiceRequests
+    foodDAO = new FoodDAOImpl();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -41,6 +47,10 @@ public class DataBaseRepository {
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+
+    //ServiceRequests
+    foodDAO.initTable(connection.getFoodTable());
+    foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
   }
 
   public boolean login(String text, String text1) {

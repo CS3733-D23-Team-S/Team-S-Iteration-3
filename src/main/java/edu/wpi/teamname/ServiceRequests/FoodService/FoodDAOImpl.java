@@ -2,43 +2,93 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import edu.wpi.teamname.databaseredo.orms.Node;
 import lombok.Getter;
 
-public class FoodDAOImpl implements IDAO<Integer, Food> {
+public class FoodDAOImpl implements IDAO<Food, Integer> {
 
-  protected static final String foodsTable = "hospitaldb" + "." + "foods";
+  //protected static final String foodsTable = "hospitaldb" + "." + "foods";
 
   @Getter private String name;
   private dbConnection connection;
-
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
 
   public FoodDAOImpl() {
     connection = dbConnection.getInstance();
   }
 
+  public void initTable(String name) {
+    this.name = name;
+    String foodTable =
+            "CREATE TABLE IF NOT EXISTS "
+                    + name
+                    + " "
+                    + "(FoodID int UNIQUE PRIMARY KEY,"
+                    + "Name Varchar(100),"
+                    + "Type Varchar(100),"
+                    + "PrepTime int,"
+                    + "Cuisine Varchar(100),"
+                    + "Price double precision,"
+                    + "Description Varchar(100),"
+                    + "Quantity int,"
+                    + "SoldOut boolean,"
+                    + "Image Varchar(100),"
+                    + "Calories int,"
+                    + "Note Varchar(100),"
+                    + "Italian boolean,"
+                    + "American boolean,"
+                    + "Indian boolean,"
+                    + "Mexican boolean,"
+                    + "Vegetarian boolean,"
+                    + "Halal boolean,"
+                    + "Vegan boolean,"
+                    + "GlutenFree boolean,"
+                    + "Kosher boolean)";
+    try
+    {
+      Statement stmt = connection.getConnection().createStatement();
+      stmt.execute(foodTable);
+      System.out.println("Created the foods table");
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+      System.out.println(e.getSQLState());
+      System.out.println("Database creation error");
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public void add(Food thisFood) {
     try {
       PreparedStatement preparedStatement =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "INSERT INTO "
-                      + foodsTable
-                      + " (FoodID, Name, Type, PrepTime, Cuisine, Price, Description, Quantity, SoldOut, Image, "
-                      + "Calories, note, Italian, American, Indian, Mexican, Vegetarian, Halal, Vegan, GlutenFree, Kosher) "
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "INSERT INTO "
+                                      + name
+                                      + " (FoodID, Name, Type, PrepTime, Cuisine, Price, Description, Quantity, SoldOut, Image, "
+                                      + "Calories, note, Italian, American, Indian, Mexican, Vegetarian, Halal, Vegan, GlutenFree, Kosher) "
+                                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFood.getFoodID());
       preparedStatement.setString(2, thisFood.getFoodName());
       preparedStatement.setString(3, thisFood.getFoodType());
@@ -63,6 +113,7 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
 
       preparedStatement.executeUpdate();
 
+      //add to local Hashmap
       foods.put(thisFood.getFoodID(), thisFood);
 
       System.out.println("Food added");
@@ -73,12 +124,13 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
     }
   }
 
-  public void delete(int target) throws SQLException {
+  public void delete(Integer target){
+    try{
     PreparedStatement deleteFood =
-        connection
-            .getConnection()
-            .prepareStatement("DELETE FROM " + foodsTable + " WHERE FoodID = ?");
-    try {
+            connection
+                    .getConnection()
+                    .prepareStatement("DELETE FROM " + name + " WHERE FoodID = ?");
+
       deleteFood.setInt(1, target);
       deleteFood.execute();
 
@@ -99,16 +151,16 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
 
     try {
       PreparedStatement preparedStatement =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "Update "
-                      + foodsTable
-                      + " SET Name = ? ,Type = ?, PrepTime = ? , Cuisine = ?, Price = ?, Description = ?, Quantity = ?"
-                      + ", SoldOut = ?, "
-                      + "Image = ?, Calories = ?, Note = ?, Italian = ?, American = ?, Indian = ?, Mexican = ?, Vegetarian = ?, "
-                      + "Halal = ?, Vegan = ?, GlutenFree = ?, Kosher = ?"
-                      + " WHERE FoodID = ?");
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "Update "
+                                      + name
+                                      + " SET Name = ? ,Type = ?, PrepTime = ? , Cuisine = ?, Price = ?, Description = ?, Quantity = ?"
+                                      + ", SoldOut = ?, "
+                                      + "Image = ?, Calories = ?, Note = ?, Italian = ?, American = ?, Indian = ?, Mexican = ?, Vegetarian = ?, "
+                                      + "Halal = ?, Vegan = ?, GlutenFree = ?, Kosher = ?"
+                                      + " WHERE FoodID = ?");
 
       preparedStatement.setString(1, thisFood.getFoodName());
       preparedStatement.setString(2, thisFood.getFoodType());
@@ -143,17 +195,59 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
 
   public Food retrieveFood(int target) {
     if (foods.get(target) == null) {
-      System.out.println("This node is not in the database, so its row cannot be printed");
+      System.out.println("This food is not in the database, so its row cannot be printed");
       return null;
     }
     return foods.get(target);
   }
 
-  public void loadToRemote() {
+  @Override
+  public List<Food> getAll() {
+    return foods.values().stream().toList();
+  }
 
+  @Override
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the foods from the server");
+        constructFromRemote();
+      } else {
+        System.out.println("Loading the foods to the server");
+        constructRemote(pathToCSV);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void importCSV(String path) {
+    dropTable();
+    foods.clear();
+    loadRemote(path);
+  }
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("foodID,name,type,prepTime,cuisine,price,description,quantity,isSoldOut,image,calories," +
+            "notes,isAmerican,isItalian,isMexican,isIndian,isVegetarian,isVegan,isHalal,isGlutenFree,isKosher");
+
+    for (Food food : foods.values()) {
+      fileWriter.newLine();
+      fileWriter.write(food.toCSVString());
+    }
+    fileWriter.close();
+  }
+
+  private void constructFromRemote() {
     try {
       Statement st = connection.getConnection().createStatement();
-      ResultSet rs = st.executeQuery("SELECT * FROM " + foodsTable);
+      ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 
       while (rs.next()) {
         int foodid = rs.getInt("foodid");
@@ -205,59 +299,21 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
         foods.put(foodid, f);
       }
 
-    } catch (Exception e) {
+    } catch (SQLException e) {
       e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println("Error accessing the remote and constructing the list of foods");
     }
   }
 
-  public void initTable(String name) {
-      String foodTable =
-          "CREATE TABLE IF NOT EXISTS "
-              + name
-              + " "
-              + "(FoodID int UNIQUE PRIMARY KEY,"
-              + "Name Varchar(100),"
-              + "Type Varchar(100),"
-              + "PrepTime int,"
-              + "Cuisine Varchar(100),"
-              + "Price double precision,"
-              + "Description Varchar(100),"
-              + "Quantity int,"
-              + "SoldOut boolean,"
-              + "Image Varchar(100),"
-              + "Calories int,"
-              + "Note Varchar(100),"
-              + "Italian boolean,"
-              + "American boolean,"
-              + "Indian boolean,"
-              + "Mexican boolean,"
-              + "Vegetarian boolean,"
-              + "Halal boolean,"
-              + "Vegan boolean,"
-              + "GlutenFree boolean,"
-              + "Kosher boolean)";
-      try
-      {
-        Statement stmt = connection.getConnection().createStatement();
-        stmt.execute(foodTable);
-        System.out.println("Created the node table");
-
-      } catch (SQLException e) {
-        System.out.println(e.getMessage());
-        System.out.println(e.getSQLState());
-        System.out.println("Database creation error");
-        e.printStackTrace();
-      }
-  }
-
-  public void csvToFood(String csvFilePath) {
+  private void constructRemote(String csvFilePath) {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       String headerLine = reader.readLine();
       String line;
       while ((line = reader.readLine()) != null) {
         String[] fields = line.split(",");
-        // int fid, String fn, String ft, int fpt, String fc, double fp, String fd, int q
+
         Food thisFood =
             new Food(
                 Integer.parseInt(fields[0]),
@@ -281,12 +337,14 @@ public class FoodDAOImpl implements IDAO<Integer, Food> {
                 Boolean.parseBoolean(fields[18]),
                 Boolean.parseBoolean(fields[19]),
                 Boolean.parseBoolean(fields[20]));
-        foods.put(Integer.valueOf(fields[0]), thisFood);
+
+        add(thisFood);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
 
   public ArrayList<Food> getWalletFriendlyFood() {
     ArrayList<Food> wFriendlyFoods = new ArrayList<>();
