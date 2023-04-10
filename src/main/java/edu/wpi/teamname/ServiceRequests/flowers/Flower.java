@@ -11,7 +11,7 @@ public class Flower {
   @Getter @Setter private double price;
   @Getter @Setter private int quantity;
 
-  private boolean isSoldOut;
+  @Getter @Setter boolean isSoldOut;
   @Getter @Setter private String description;
   @Getter @Setter private String image;
 
