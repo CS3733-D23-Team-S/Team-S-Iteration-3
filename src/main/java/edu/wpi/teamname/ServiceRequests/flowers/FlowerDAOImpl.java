@@ -129,7 +129,7 @@ public class FlowerDAOImpl implements IDAO<Flower> {
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
       preparedStatement.setString(1, thisFlower.getName());
-      preparedStatement.setString(1, thisFlower.getSize());
+      preparedStatement.setString(1, thisFlower.getSize().toString());
       preparedStatement.setDouble(1, thisFlower.getPrice());
       preparedStatement.setInt(1, thisFlower.getQuantity());
       preparedStatement.setBoolean(1, thisFlower.getIsSoldOut());
