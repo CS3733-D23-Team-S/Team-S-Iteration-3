@@ -165,41 +165,12 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   /**
    * Gets FlowerDelivery
    *
-   * @param target
+   * @param ID: ID of FlowerDelivery wanted
    * @return request (FlowerDelivery) on success, otherwise returns null or exception
    */
   // TODO: Change to hashmap
-  public FlowerDelivery get(FlowerDelivery target) {
-    int ID = target.getID();
-    FlowerDelivery request;
-    try {
-      String query = ("SELECT * FROM " + flowerRequestsTable + " WHERE deliveryID = " + ID);
-
-      Statement stmt = connection.getConnection().createStatement();
-      ResultSet rs = stmt.executeQuery(query);
-      while (rs.next()) {
-        int flowerID = rs.getInt(1);
-        // int cart = rs.getString(2);
-        Cart cart = null;
-        Date date = rs.getDate(3);
-        Time time = rs.getTime(4);
-        String room = rs.getString(5);
-        String orderedBy = rs.getString(6);
-        String assignedTo = rs.getString(7);
-        String orderStatus = rs.getString(8);
-        // double cost = rs.getDouble(9);
-
-        request =
-            new FlowerDelivery(
-                flowerID, cart, date, time, room, orderedBy, assignedTo, orderStatus);
-        return request;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.out.println(e.getSQLState());
-    }
-
-    return null;
+  public FlowerDelivery get(int ID) {
+    return requests.get(ID);
   }
 
   @Override
