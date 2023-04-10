@@ -34,4 +34,24 @@ public class FlowerDelivery {
     this.orderStatus = orderStatus;
     this.cost = cart.getTotalPrice();
   }
+
+  public String toCSVString() {
+    return ID
+        + ","
+        + cart
+        + ","
+        + date
+        + ","
+        + time
+        + ","
+        + room
+        + ","
+        + orderedBy
+        + ","
+        + assignedTo
+        + ","
+        + orderStatus
+        + ","
+        + cost;
+  }
 }

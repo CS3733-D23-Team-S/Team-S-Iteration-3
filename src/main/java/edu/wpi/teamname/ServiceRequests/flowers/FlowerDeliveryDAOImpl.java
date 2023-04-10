@@ -5,10 +5,7 @@ import edu.wpi.teamname.databaseredo.LocationDAOImpl;
 import edu.wpi.teamname.databaseredo.dbConnection;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.NodeType;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,8 +60,8 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   private void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String listOfLocs = "SELECT * FROM " + name;
-      ResultSet data = stmt.executeQuery(listOfLocs);
+      String listOfFlowerDeliveries = "SELECT * FROM " + name;
+      ResultSet data = stmt.executeQuery(listOfFlowerDeliveries);
       while (data.next()) {
         int ID = data.getInt("deliveryID");
         String cart = data.getString("cart");
@@ -74,15 +71,18 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
         String orderedBy = data.getString("orderedBy");
         String assignedTo = data.getString("assignedTo");
         String orderStatus = data.getString("orderStatus");
-        FlowerDelivery fd = new FlowerDelivery(ID, null, date, time, room, orderedBy, assignedTo, orderStatus);
+        FlowerDelivery fd =
+            new FlowerDelivery(ID, null, date, time, room, orderedBy, assignedTo, orderStatus);
         requests.put(ID, fd);
       }
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
-      System.out.println("Error accessing the remote and constructing the list of FlowerDeliveries");
+      System.out.println(
+          "Error accessing the remote and constructing the list of FlowerDeliveries");
     }
   }
+
   @Override
   public void loadRemote(String pathToCSV) {
     try {
@@ -109,19 +109,19 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
       try {
         while ((line = reader.readLine()) != null) {
           PreparedStatement stmt =
-                connection
+              connection
                   .getConnection()
-                        .prepareStatement(
-                              "INSERT INTO "
-                                + name
-                                + " "
-                                + ("deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo,orderStatus )"
-                        ));
+                  .prepareStatement(
+                      "INSERT INTO "
+                          + name
+                          + " "
+                          + "(deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus)");
         }
       } catch (SQLException e) {
         e.printStackTrace();
         System.out.println(e.getSQLState());
-        System.out.println("Error accessing the remote and constructing list of requests in remote")
+        System.out.println(
+            "Error accessing the remote and constructing list of requests in remote");
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -132,35 +132,24 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   public void importCSV(String path) {}
 
   @Override
-  public void exportCSV(String path) throws IOException {}
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter;
+    fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus)");
+    for (FlowerDelivery flowerDelivery : requests.values()) {
+      fileWriter.newLine();
+      fileWriter.write(flowerDelivery.toCSVString());
+    }
+  }
 
-  // TODO: change to hashmap
   /**
    * Returns list of all FlowerDeliveries within the deliveries HashMap
+   *
    * @return List of all FlowerDeliveries on success
    */
   @Override
   public List<FlowerDelivery> getAll() {
-    /*List<FlowerDelivery> FDList = new ArrayList<>();
-
-    try {
-      String query = ("SELECT * FROM " + flowerRequestsTable);
-
-      Statement stmt = connection.getConnection().createStatement();
-      ResultSet rs = stmt.executeQuery(query);
-      while (rs.next()) {
-
-        FDList.add(rs.getInt(1));
-        ;
-      }
-
-      return FDList;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      System.out.println(e.getSQLState());
-    }
-
-    return FDList;*/ return null;
+    return requests.values().stream().toList();
   }
 
   /**

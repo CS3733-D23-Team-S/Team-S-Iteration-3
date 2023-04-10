@@ -63,4 +63,22 @@ public class Flower {
         + '\''
         + '}';
   }
+
+  public String toCSVString() {
+    return ID
+        + ","
+        + name
+        + ","
+        + size
+        + ","
+        + price
+        + ","
+        + quantity
+        + ","
+        + isSoldOut
+        + ","
+        + description
+        + ","
+        + image;
+  }
 }

@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class DefaultTest {
@@ -23,7 +22,9 @@ public class DefaultTest {
     LocationDAOImpl locationdao = new LocationDAOImpl();
     List<String> listOfEligibleRooms = new ArrayList<>();
     List<Location> locationList = new ArrayList<>(locationdao.getAll());
+    System.out.println(":\n");
     locationList.forEach(System.out::println);
+    System.out.println();
 
     NodeType[] nodeTypes = new NodeType[6];
     nodeTypes[0] = NodeType.ELEV;
@@ -49,8 +50,7 @@ public class DefaultTest {
     return listOfEligibleRooms;
   }
 
-  @BeforeAll
-  static void setup() throws SQLException {
+  public void setup() throws SQLException {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
   }
@@ -76,6 +76,7 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
+    setup();
     getListOfEligibleRooms().forEach(System.out::println);
     /*LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
     Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
