@@ -2,15 +2,12 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
-import edu.wpi.teamname.controllers.mainpages.HomeController;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.sql.Date;
-import java.sql.Time;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -28,13 +25,14 @@ public class OrderDetailsController {
   @FXML private MFXButton submitted1;
   @FXML private MFXTextField request1;
 
-  public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
+  // public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
+  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
   public void initialize() {
     System.out.println(ProductDetailsController.cart.toString());
 
-    FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
+    // FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
 
     clearFields2();
     addedOrder();
@@ -42,7 +40,7 @@ public class OrderDetailsController {
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
-    Location temp = LocationDoaImpl.getInstance().getLocation("Neuroscience Waiting Room");
+    Location temp = DBR.getLocation("Neuroscience Waiting Room");
 
     String whoOrdered = "George Washington"; // eventually linked to account ordering
 
@@ -55,14 +53,9 @@ public class OrderDetailsController {
             String theNote = request1.getText();
 
             FoodDelivery currentFoodDev =
-                new FoodDelivery(
-                    ProductDetailsController.cart,
-                    temp,
-                    whoOrdered,
-                    Emp,
-                    theNote);
+                new FoodDelivery(1, ProductDetailsController.cart, temp, whoOrdered, Emp, theNote);
 
-            foodev.addRequest(currentFoodDev);
+            DBR.addFoodRequest(currentFoodDev);
 
             Navigation.navigate(Screen.ORDER_CONFIRMATION);
 

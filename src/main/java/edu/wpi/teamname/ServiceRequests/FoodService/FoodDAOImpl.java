@@ -2,7 +2,6 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.dbConnection;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,13 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import lombok.Getter;
 
 public class FoodDAOImpl implements IDAO<Food, Integer> {
 
-  //protected static final String foodsTable = "hospitaldb" + "." + "foods";
+  // protected static final String foodsTable = "hospitaldb" + "." + "foods";
 
   @Getter private String name;
   private dbConnection connection;
@@ -29,32 +26,31 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
   public void initTable(String name) {
     this.name = name;
     String foodTable =
-            "CREATE TABLE IF NOT EXISTS "
-                    + name
-                    + " "
-                    + "(FoodID int UNIQUE PRIMARY KEY,"
-                    + "Name Varchar(100),"
-                    + "Type Varchar(100),"
-                    + "PrepTime int,"
-                    + "Cuisine Varchar(100),"
-                    + "Price double precision,"
-                    + "Description Varchar(100),"
-                    + "Quantity int,"
-                    + "SoldOut boolean,"
-                    + "Image Varchar(100),"
-                    + "Calories int,"
-                    + "Note Varchar(100),"
-                    + "Italian boolean,"
-                    + "American boolean,"
-                    + "Indian boolean,"
-                    + "Mexican boolean,"
-                    + "Vegetarian boolean,"
-                    + "Halal boolean,"
-                    + "Vegan boolean,"
-                    + "GlutenFree boolean,"
-                    + "Kosher boolean)";
-    try
-    {
+        "CREATE TABLE IF NOT EXISTS "
+            + name
+            + " "
+            + "(FoodID int UNIQUE PRIMARY KEY,"
+            + "Name Varchar(100),"
+            + "Type Varchar(100),"
+            + "PrepTime int,"
+            + "Cuisine Varchar(100),"
+            + "Price double precision,"
+            + "Description Varchar(100),"
+            + "Quantity int,"
+            + "SoldOut boolean,"
+            + "Image Varchar(100),"
+            + "Calories int,"
+            + "Note Varchar(100),"
+            + "Italian boolean,"
+            + "American boolean,"
+            + "Indian boolean,"
+            + "Mexican boolean,"
+            + "Vegetarian boolean,"
+            + "Halal boolean,"
+            + "Vegan boolean,"
+            + "GlutenFree boolean,"
+            + "Kosher boolean)";
+    try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(foodTable);
       System.out.println("Created the foods table");
@@ -81,14 +77,14 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
   public void add(Food thisFood) {
     try {
       PreparedStatement preparedStatement =
-              connection
-                      .getConnection()
-                      .prepareStatement(
-                              "INSERT INTO "
-                                      + name
-                                      + " (FoodID, Name, Type, PrepTime, Cuisine, Price, Description, Quantity, SoldOut, Image, "
-                                      + "Calories, note, Italian, American, Indian, Mexican, Vegetarian, Halal, Vegan, GlutenFree, Kosher) "
-                                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + name
+                      + " (FoodID, Name, Type, PrepTime, Cuisine, Price, Description, Quantity, SoldOut, Image, "
+                      + "Calories, note, Italian, American, Indian, Mexican, Vegetarian, Halal, Vegan, GlutenFree, Kosher) "
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFood.getFoodID());
       preparedStatement.setString(2, thisFood.getFoodName());
       preparedStatement.setString(3, thisFood.getFoodType());
@@ -113,7 +109,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
 
       preparedStatement.executeUpdate();
 
-      //add to local Hashmap
+      // add to local Hashmap
       foods.put(thisFood.getFoodID(), thisFood);
 
       System.out.println("Food added");
@@ -124,12 +120,10 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     }
   }
 
-  public void delete(Integer target){
-    try{
-    PreparedStatement deleteFood =
-            connection
-                    .getConnection()
-                    .prepareStatement("DELETE FROM " + name + " WHERE FoodID = ?");
+  public void delete(Integer target) {
+    try {
+      PreparedStatement deleteFood =
+          connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE FoodID = ?");
 
       deleteFood.setInt(1, target);
       deleteFood.execute();
@@ -151,16 +145,16 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
 
     try {
       PreparedStatement preparedStatement =
-              connection
-                      .getConnection()
-                      .prepareStatement(
-                              "Update "
-                                      + name
-                                      + " SET Name = ? ,Type = ?, PrepTime = ? , Cuisine = ?, Price = ?, Description = ?, Quantity = ?"
-                                      + ", SoldOut = ?, "
-                                      + "Image = ?, Calories = ?, Note = ?, Italian = ?, American = ?, Indian = ?, Mexican = ?, Vegetarian = ?, "
-                                      + "Halal = ?, Vegan = ?, GlutenFree = ?, Kosher = ?"
-                                      + " WHERE FoodID = ?");
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "Update "
+                      + name
+                      + " SET Name = ? ,Type = ?, PrepTime = ? , Cuisine = ?, Price = ?, Description = ?, Quantity = ?"
+                      + ", SoldOut = ?, "
+                      + "Image = ?, Calories = ?, Note = ?, Italian = ?, American = ?, Indian = ?, Mexican = ?, Vegetarian = ?, "
+                      + "Halal = ?, Vegan = ?, GlutenFree = ?, Kosher = ?"
+                      + " WHERE FoodID = ?");
 
       preparedStatement.setString(1, thisFood.getFoodName());
       preparedStatement.setString(2, thisFood.getFoodType());
@@ -193,7 +187,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     }
   }
 
-  public Food retrieveFood(int target) {
+  public Food getRow(Integer target) {
     if (foods.get(target) == null) {
       System.out.println("This food is not in the database, so its row cannot be printed");
       return null;
@@ -202,8 +196,8 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
   }
 
   @Override
-  public List<Food> getAll() {
-    return foods.values().stream().toList();
+  public ArrayList<Food> getAll() {
+    return (ArrayList<Food>) foods.values().stream().toList();
   }
 
   @Override
@@ -234,8 +228,9 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
   @Override
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write("foodID,name,type,prepTime,cuisine,price,description,quantity,isSoldOut,image,calories," +
-            "notes,isAmerican,isItalian,isMexican,isIndian,isVegetarian,isVegan,isHalal,isGlutenFree,isKosher");
+    fileWriter.write(
+        "foodID,name,type,prepTime,cuisine,price,description,quantity,isSoldOut,image,calories,"
+            + "notes,isAmerican,isItalian,isMexican,isIndian,isVegetarian,isVegan,isHalal,isGlutenFree,isKosher");
 
     for (Food food : foods.values()) {
       fileWriter.newLine();
@@ -344,134 +339,4 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
       e.printStackTrace();
     }
   }
-
-
-  public ArrayList<Food> getWalletFriendlyFood() {
-    ArrayList<Food> wFriendlyFoods = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.isWalletFriendly()) {
-        wFriendlyFoods.add(aFood);
-      }
-    }
-
-    return wFriendlyFoods;
-  }
-
-  public ArrayList<Food> getVegetarian() {
-    ArrayList<Food> vegetarianFoods = new ArrayList<>();
-    for (Food aFood : foods.values()) {
-      if (aFood.checkVegetarian()) {
-        vegetarianFoods.add(aFood);
-      }
-    }
-    return vegetarianFoods;
-  }
-
-  public ArrayList<Food> getVegan() {
-    ArrayList<Food> veganFoods = new ArrayList<>();
-    for (Food aFood : foods.values()) {
-      if (aFood.checkVegan()) {
-        veganFoods.add(aFood);
-      }
-    }
-    return veganFoods;
-  }
-
-  public ArrayList<Food> getHalal() {
-    ArrayList<Food> halalFoods = new ArrayList<>();
-    for (Food aFood : foods.values()) {
-      if (aFood.checkHalal()) {
-        halalFoods.add(aFood);
-      }
-    }
-    return halalFoods;
-  }
-
-  public ArrayList<Food> getKosher() {
-    ArrayList<Food> kosherFoods = new ArrayList<>();
-    for (Food aFood : foods.values()) {
-      if (aFood.checkKosher()) {
-        kosherFoods.add(aFood);
-      }
-    }
-    return kosherFoods;
-  }
-
-  public ArrayList<Food> getGlutenFree() {
-    ArrayList<Food> glutenFreeFoods = new ArrayList<>();
-    for (Food aFood : foods.values()) {
-      if (aFood.checkGlutenFree()) {
-        glutenFreeFoods.add(aFood);
-      }
-    }
-    return glutenFreeFoods;
-  }
-
-  public ArrayList<Food> getQuick() {
-    ArrayList<Food> quickFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.isQuickDelivery()) {
-        quickFood.add(aFood);
-      }
-    }
-
-    return quickFood;
-  }
-
-
-  public ArrayList<Food> getAmerican() {
-    ArrayList<Food> americanFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.checkAmerican()) {
-        americanFood.add(aFood);
-      }
-    }
-
-    return americanFood;
-  }
-
-
-  public ArrayList<Food> getItalian() {
-    ArrayList<Food> italianFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.checkItalian()) {
-        italianFood.add(aFood);
-      }
-    }
-
-    return italianFood;
-  }
-
-  public ArrayList<Food> getMexican() {
-    ArrayList<Food> mexicanFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.checkMexican()) {
-        mexicanFood.add(aFood);
-      }
-    }
-
-    return mexicanFood;
-  }
-
-  public ArrayList<Food> getIndian() {
-    ArrayList<Food> indianFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.checkIndian()) {
-        indianFood.add(aFood);
-      }
-    }
-
-    return indianFood;
-  }
-
-
-
-
-
 }

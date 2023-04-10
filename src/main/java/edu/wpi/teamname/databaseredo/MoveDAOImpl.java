@@ -99,6 +99,11 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   }
 
   @Override
+  public Move getRow(Move target) {
+    return null;
+  }
+
+  @Override
   public void delete(Move target) {
     listOfMoves.remove(target);
     moveHistory.get(target.getLocation()).remove(target.getDate());

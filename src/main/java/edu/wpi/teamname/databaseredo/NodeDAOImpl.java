@@ -96,6 +96,11 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   }
 
   @Override
+  public Node getRow(Integer target) {
+    return null;
+  }
+
+  @Override
   public void delete(Integer target) {
     nodes.remove(target);
   }

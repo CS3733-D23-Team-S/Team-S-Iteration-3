@@ -3,8 +3,8 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController.clickedFoodID;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
-import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -20,7 +20,7 @@ public class ProductDetailsController {
   @FXML private MFXTextField quantity;
 
   @FXML private MFXTextField request;
-  @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
+  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
   @FXML private HBox foodName;
   @FXML private HBox fDescription;
   @FXML private HBox fPrice;
@@ -34,7 +34,7 @@ public class ProductDetailsController {
 
     back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = foodDAO.retrieveFood(clickedFoodID);
+    Food currentFood = DBR.retrieveFood(clickedFoodID);
 
     addCart.setOnMouseClicked(
         event -> {
@@ -75,7 +75,7 @@ public class ProductDetailsController {
   }
 
   public Food selectedFood() {
-    return foodDAO.retrieveFood(clickedFoodID);
+    return DBR.retrieveFood(clickedFoodID);
   }
 
   public void foodNamer() {

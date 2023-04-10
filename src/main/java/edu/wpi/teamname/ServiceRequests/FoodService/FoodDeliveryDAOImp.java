@@ -2,16 +2,11 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.dbConnection;
-import lombok.Getter;
-import oracle.sql.TIMESTAMPTZ;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 
 public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
 
@@ -19,7 +14,9 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
   private dbConnection connection;
   @Getter private HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
 
-  public FoodDeliveryDAOImp() {connection = dbConnection.getInstance();}
+  public FoodDeliveryDAOImp() {
+    connection = dbConnection.getInstance();
+  }
 
   public void initTable(String name) {
     this.name = name;
@@ -28,21 +25,21 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
       String dropFoodRequestsTable = "DROP TABLE IF EXISTS " + name + " CASCADE";
 
       String foodRequestsTableConstruct =
-              "CREATE TABLE IF NOT EXISTS "
-                      + name
-                      + " "
-                      + "(deliveryid SERIAL PRIMARY KEY,"
-                      + "cart Varchar(100),"
-                      + "orderdate Date,"
-                      + "ordertime time,"
-                      + "location Varchar(100),"
-                      + "orderer Varchar(100),"
-                      + "assignedto Varchar(100),"
-                      + "Status Varchar(100),"
-                      + "cost int,"
-                      + "notes Varchar(255),"
-                      + "foreign key (location) references "
-                      + "hospitaldb.locations(longname) ON DELETE CASCADE)";
+          "CREATE TABLE IF NOT EXISTS "
+              + name
+              + " "
+              + "(deliveryid SERIAL PRIMARY KEY,"
+              + "cart Varchar(100),"
+              + "orderdate Date,"
+              + "ordertime time,"
+              + "location Varchar(100),"
+              + "orderer Varchar(100),"
+              + "assignedto Varchar(100),"
+              + "Status Varchar(100),"
+              + "cost int,"
+              + "notes Varchar(255),"
+              + "foreign key (location) references "
+              + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
       st.execute(dropFoodRequestsTable);
       st.execute(foodRequestsTableConstruct);
@@ -103,11 +100,11 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
   }
 
   public void delete(Integer target) {
-    try{
+    try {
       PreparedStatement deleteFood =
-              connection
-                      .getConnection()
-                      .prepareStatement("DELETE FROM " + name + " WHERE delivery = ?");
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE delivery = ?");
 
       deleteFood.setInt(1, target);
       deleteFood.execute();
@@ -123,33 +120,25 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
     }
   }
 
-  public FoodDelivery retrieveFoodDelivery(int target)
-  {
+  public FoodDelivery getRow(Integer target) {
     if (foodRequests.get(target) == null) {
       System.out.println("This foodRequest is not in the database, so its row cannot be printed");
       return null;
     }
     return foodRequests.get(target);
   }
+
   @Override
   public List<FoodDelivery> getAll() {
     return foodRequests.values().stream().toList();
   }
 
   @Override
-  public void loadRemote(String pathToCSV) {
-
-  }
+  public void loadRemote(String pathToCSV) {}
 
   @Override
-  public void importCSV(String path) {
-
-  }
+  public void importCSV(String path) {}
 
   @Override
-  public void exportCSV(String path) throws IOException {
-
-  }
-
-
+  public void exportCSV(String path) throws IOException {}
 }

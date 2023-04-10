@@ -1,11 +1,10 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.databaseredo.IDataPack;
+import edu.wpi.teamname.databaseredo.orms.Location;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import edu.wpi.teamname.databaseredo.IDataPack;
-import edu.wpi.teamname.databaseredo.orms.Location;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,31 +43,51 @@ public class FoodDelivery implements IDataPack {
   }
 
   @Override
-  public String toString()
-  {
-    String finale = "FoodDelivery{cart = " + cart
-            + ", date = " + date.toString()
-            + ", time = " + time.toString()
-            + ", location = " + location.toString()
-            + ", orderer = " + orderer
-            + ", assignedTo = " + assignedTo
-            + ", status = " + orderStatus
-            + ", cost = " + cost
-            + ", notes = " + notes + "}";
+  public String toString() {
+    String finale =
+        "FoodDelivery{cart = "
+            + cart
+            + ", date = "
+            + date.toString()
+            + ", time = "
+            + time.toString()
+            + ", location = "
+            + location.toString()
+            + ", orderer = "
+            + orderer
+            + ", assignedTo = "
+            + assignedTo
+            + ", status = "
+            + orderStatus
+            + ", cost = "
+            + cost
+            + ", notes = "
+            + notes
+            + "}";
 
     return finale;
   }
+
   @Override
   public String toCSVString() {
-    String finale = cart
-            + "," + date.toString()
-            + "," + time.toString()
-            + "," + location.toString()
-            + "," + orderer
-            + "," + assignedTo
-            + "," + orderStatus
-            + "," + cost
-            + "," + notes;
+    String finale =
+        cart
+            + ","
+            + date.toString()
+            + ","
+            + time.toString()
+            + ","
+            + location.toString()
+            + ","
+            + orderer
+            + ","
+            + assignedTo
+            + ","
+            + orderStatus
+            + ","
+            + cost
+            + ","
+            + notes;
 
     return finale;
   }

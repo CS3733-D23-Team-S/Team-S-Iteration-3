@@ -98,6 +98,15 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   }
 
   @Override
+  public Location getRow(String target) {
+    if (locations.get(target) == null) {
+      System.out.println("This food is not in the database, so its row cannot be printed");
+      return null;
+    }
+    return locations.get(target);
+  }
+
+  @Override
   public void delete(String target) {
     locations.remove(target);
   }

@@ -106,12 +106,21 @@ public class Food implements IDataPack {
     return isGlutFree;
   }
 
-  public boolean checkAmerican(){return isAmerican;}
+  public boolean checkAmerican() {
+    return isAmerican;
+  }
 
-  public boolean checkItalian(){return isItalian;}
+  public boolean checkItalian() {
+    return isItalian;
+  }
 
-  public boolean checkMexican(){return isMexican;}
-  public boolean checkIndian(){return isIndian;}
+  public boolean checkMexican() {
+    return isMexican;
+  }
+
+  public boolean checkIndian() {
+    return isIndian;
+  }
 
   @Override
   public String toString() {
@@ -122,31 +131,52 @@ public class Food implements IDataPack {
     return theFood;
   }
 
-  public String toCSVString()
-  {
+  public String toCSVString() {
     String finale;
 
-    finale = FoodID + ","
-    + FoodName + ","
-    + FoodType + ","
-    + FoodPrepTime + ","
-    + FoodCuisine + ","
-    + FoodPrice + ","
-    + FoodDescription + ","
-    + quantity + ","
-    + isSoldOut + ","
-    + image + ","
-    + calories + ","
-    + note + ","
-    + isAmerican + ","
-    + isItalian + ","
-    + isMexican + ","
-    + isIndian + ","
-    + isVegetarian + ","
-    + isVegan + ","
-    + isHalal + ","
-    + isGlutFree + ","
-    + isKosher + ",";
+    finale =
+        FoodID
+            + ","
+            + FoodName
+            + ","
+            + FoodType
+            + ","
+            + FoodPrepTime
+            + ","
+            + FoodCuisine
+            + ","
+            + FoodPrice
+            + ","
+            + FoodDescription
+            + ","
+            + quantity
+            + ","
+            + isSoldOut
+            + ","
+            + image
+            + ","
+            + calories
+            + ","
+            + note
+            + ","
+            + isAmerican
+            + ","
+            + isItalian
+            + ","
+            + isMexican
+            + ","
+            + isIndian
+            + ","
+            + isVegetarian
+            + ","
+            + isVegan
+            + ","
+            + isHalal
+            + ","
+            + isGlutFree
+            + ","
+            + isKosher
+            + ",";
 
     return finale;
   }
