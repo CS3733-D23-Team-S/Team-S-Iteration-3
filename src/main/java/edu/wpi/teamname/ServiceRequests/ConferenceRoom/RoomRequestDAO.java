@@ -18,14 +18,18 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
   LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
-
   static RoomRequestDAO single_instance = null;
 
   public RoomRequestDAO() {}
 
+  public static synchronized RoomRequestDAO getInstance() {
 
+    if (single_instance == null) single_instance = new RoomRequestDAO();
 
-  public void initTable(String tableName) {
+    return single_instance;
+  }
+
+  public void initTable(String name) {
 
     String roomReservationsTableConstruct =
         "CREATE TABLE IF NOT EXISTS "
@@ -55,26 +59,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   }
 
   @Override
-  public void dropTable() {}
-
-  @Override
-  public void loadRemote(String pathToCSV) {}
-
-  @Override
-  public void importCSV(String path) {}
-
-  @Override
-  public void exportCSV(String path) throws IOException {}
-
-  @Override
-  public List<ConfRoomRequest> getAll() {
-    return this.requests;
-  }
-
-  @Override
-  public void delete(ConfRoomRequest target) {}
-
-  @Override
   public void add(ConfRoomRequest request) {
 
     requests.add(request);
@@ -88,7 +72,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
                       + roomReservationsTable
                       + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setDate(1, Date.valueOf(request.orderDate));
+      preparedStatement.setDate(1, Date.valueOf(request.eventDate));
       preparedStatement.setDate(2, Date.valueOf(request.eventDate));
       preparedStatement.setTime(3, Time.valueOf(request.startTime));
       preparedStatement.setTime(4, Time.valueOf(request.endTime));
@@ -194,4 +178,80 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
     }
     return requestList;
   }
+
+  public void deleteRequest(String orderedBy, LocalDate orderDate) {
+    try {
+      PreparedStatement deleteFood =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
+
+      deleteFood.setString(1, orderedBy);
+      deleteFood.setDate(2, Date.valueOf(orderDate));
+      deleteFood.execute();
+
+      // remove from local Hashmap
+
+      System.out.println("FoodRequest deleted");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+    }
+  }
+
+  @Override
+  public void dropTable() {}
+
+  @Override
+  public void loadRemote(String pathToCSV) {}
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {}
+
+  @Override
+  public List<ConfRoomRequest> getAll() {
+
+    List<ConfRoomRequest> requestList = new ArrayList<>();
+
+    try {
+
+      String checkTable = "SELECT * FROM " + roomReservationsTable;
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+
+        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
+        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
+        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
+        String room = rs.getString("Room");
+        String eventName = rs.getString("EventName");
+        String eventDescription = rs.getString("EventDescription");
+        String assignedTo = rs.getString("AssignedTo");
+
+        ConfRoomRequest thisRequest =
+            new ConfRoomRequest(
+                thisDate,
+                thisStartTime,
+                thisEndTime,
+                room,
+                eventName,
+                eventDescription,
+                assignedTo);
+        requestList.add(thisRequest);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return requestList;
+  }
+
+  @Override
+  public void delete(ConfRoomRequest target) {}
 }

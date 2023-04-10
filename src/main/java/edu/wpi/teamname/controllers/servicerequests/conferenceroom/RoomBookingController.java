@@ -25,7 +25,8 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
 
   RoomBooking rb = new RoomBooking();
-  static RoomRequestDAO roomRequestDAO = (RoomRequestDAO) DataBaseRepository.getInstance().getRoomRequestDAO();
+  static RoomRequestDAO roomRequestDAO =
+      (RoomRequestDAO) DataBaseRepository.getInstance().getRoomRequestDAO();
 
   @FXML
   public void initialize() throws SQLException {
