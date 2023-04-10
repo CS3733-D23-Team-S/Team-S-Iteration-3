@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,22 +13,23 @@ public class AdminController {
   @FXML ImageView homeIcon;
   @FXML ImageView profileIcon;
   @FXML ImageView helpIcon;
-  @FXML Button submittedMealButton;
-  @FXML Button submittedRoomButton;
-  @FXML Button mapEditorButton;
-  @FXML Label mealIDRequestSubmission;
-  @FXML Label orderTimeRequestSubmission;
-  @FXML Label itemsOrderedRequestSubmission;
-  @FXML Label mealSpecialRequestSubmission;
-  @FXML Label orderStatusRequestSubmission;
-  @FXML Label roomsBookedRequestSubmission;
-  @FXML Label timeBookedRequestSubmission;
-  @FXML Label maxRoomSizeRequestSubmission;
-  @FXML Label roomSpecialRequestSubmission;
+  @FXML ImageView backIcon;
+  @FXML MFXButton submittedMealButton;
+  @FXML MFXButton submittedRoomButton;
+  @FXML MFXButton mapEditorButton;
+  @FXML MFXButton navigationButton;
+  @FXML MFXButton signageButton;
+  @FXML MFXButton mealButton;
+  @FXML MFXButton roomButton;
+  @FXML MFXButton flowerButton;
+
+
+  @FXML
 
   public void initialize() {
     homeIcon.setOnMouseClicked(event -> goToHomePage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
+    backIcon.setOnMouseClicked(event -> goToLoginPage());
     submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
     submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
@@ -65,5 +67,8 @@ public class AdminController {
 
   public void goToMapEditorPage() {
     Navigation.navigate(Screen.MAP_EDITOR);
+  }
+  public void goToLoginPage() {
+    Navigation.navigate(Screen.LOGIN_PAGE);
   }
 }
