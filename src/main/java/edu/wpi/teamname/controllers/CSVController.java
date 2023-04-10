@@ -8,21 +8,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import lombok.Setter;
 
-public class CSVController {
+public class CSVController extends PopUpController {
 
   DataBaseRepository repo = DataBaseRepository.getInstance();
 
   private final FileChooser fileChooser = new FileChooser();
-  @FXML @Setter Stage stage;
   DirectoryChooser directoryChooser = new DirectoryChooser();
-  @FXML Button exitButton;
 
   @FXML MFXButton chooseInput;
   @FXML MFXTextField inputField;
