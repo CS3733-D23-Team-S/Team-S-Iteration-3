@@ -27,9 +27,7 @@ public class AdminController {
   @FXML MFXButton roomButton;
   @FXML MFXButton flowerButton;
 
-
   @FXML
-
   public void initialize() {
     homeIcon.setOnMouseClicked(event -> goToHomePage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
@@ -42,11 +40,7 @@ public class AdminController {
     Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
 
-    Image HelpIcon =
-        new Image(
-            Main.class
-                .getResource("./images/helpicon.png")
-                .toString());
+    Image HelpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
     helpIcon.setImage(HelpIcon);
 
     Image ProfileIcon = new Image(Main.class.getResource("./images/ProfileIcon.png").toString());
@@ -79,9 +73,11 @@ public class AdminController {
   public void goToMapEditorPage() {
     Navigation.navigate(Screen.MAP_EDITOR);
   }
+
   public void goToLoginPage() {
     Navigation.navigate(Screen.LOGIN_PAGE);
   }
+
   public void exitApplication() {
     Platform.exit();
   }

@@ -1,0 +1,15 @@
+#roomBooked {
+    -fx-alignment: CENTER;
+}
+
+#timeBooked {
+    -fx-alignment: CENTER;
+}
+
+#maxRoomSize {
+    -fx-alignment: CENTER;
+}
+
+#specialRoomRequests {
+    -fx-alignment: CENTER;
+}
