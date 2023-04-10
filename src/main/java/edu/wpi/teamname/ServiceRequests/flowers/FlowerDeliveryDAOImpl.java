@@ -1,5 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.LocationDAOImpl;
 import edu.wpi.teamname.databaseredo.dbConnection;
@@ -104,18 +105,27 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
 
   private void constructRemote(String csvFilePath) {
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-      reader.readLine();
-      String line;
       try {
-        while ((line = reader.readLine()) != null) {
-          PreparedStatement stmt =
+        PreparedStatement stmt =
               connection
                   .getConnection()
                   .prepareStatement(
                       "INSERT INTO "
                           + name
-                          + " "
-                          + "(deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus)");
+                          + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
+        reader.readLine();
+        String line;
+        while ((line = reader.readLine()) != null) {
+          String[] fields = line.split(",");
+          stmt.setInt(1, Integer.parseInt(fields[0]));
+          stmt.setString(2, fields[1]);
+          stmt.setDate(3, Date.valueOf(fields[2]));
+          stmt.setTime(4, Time.valueOf(fields[3]));
+          stmt.setString(5, fields[4]);
+          stmt.setString(6, fields[5]);
+          stmt.setString( 7, fields[6]);
+          stmt.setString(8, fields[7]);
         }
       } catch (SQLException e) {
         e.printStackTrace();
@@ -247,9 +257,11 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   }
 
   public List<String> getListOfEligibleRooms() {
-    LocationDAOImpl locationdao = new LocationDAOImpl();
+    DataBaseRepository repo = DataBaseRepository.getInstance();
+    repo.load();
+
     List<String> listOfEligibleRooms = new ArrayList<>();
-    List<Location> locationList = new ArrayList<>(locationdao.getAll());
+    List<Location> locationList = repo.getLocationDAO().getAll();
 
     NodeType[] nodeTypes = new NodeType[6];
     nodeTypes[0] = NodeType.ELEV;
@@ -274,4 +286,5 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
 
     return listOfEligibleRooms;
   }
+
 }

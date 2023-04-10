@@ -7,7 +7,6 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.LocationDAOImpl;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.NodeType;
 import java.sql.SQLException;
@@ -17,14 +16,21 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DefaultTest {
+  DataBaseRepository repo;
 
+  /*@BeforeAll
+  public static void init() {
+    DataBaseRepository repo = DataBaseRepository.getInstance();
+    repo.load();
+  }*/
+
+  @Test
   public List<String> getListOfEligibleRooms() {
-    LocationDAOImpl locationdao = new LocationDAOImpl();
+    DataBaseRepository repo = DataBaseRepository.getInstance();
+    repo.load();
+
     List<String> listOfEligibleRooms = new ArrayList<>();
-    List<Location> locationList = new ArrayList<>(locationdao.getAll());
-    System.out.println(":\n");
-    locationList.forEach(System.out::println);
-    System.out.println();
+    List<Location> locationList = repo.getLocationDAO().getAll();
 
     NodeType[] nodeTypes = new NodeType[6];
     nodeTypes[0] = NodeType.ELEV;
@@ -35,7 +41,7 @@ public class DefaultTest {
     nodeTypes[5] = NodeType.BATH;
 
     boolean isFound;
-    for (Location loc : locationList) { // hashmap
+    for (Location loc : locationList) {
       isFound = false;
       for (NodeType nt : nodeTypes) {
         if (loc.getNodeType() == nt) {
@@ -76,8 +82,8 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
-    setup();
-    getListOfEligibleRooms().forEach(System.out::println);
+    //setup();
+    //getListOfEligibleRooms().forEach(System.out::println);
     /*LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
     Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
     assertEquals("User does not exist", exception.getMessage());
