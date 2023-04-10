@@ -102,6 +102,7 @@ public class MealDeliveryController {
         (e) -> {
           addFilter(Ind);
         });
+
     apply.setOnMouseClicked(
         event -> {
           clear1();
@@ -475,6 +476,8 @@ public class MealDeliveryController {
     }
   }
 
+
+
   public Method chooseVegetarian() {
     for (int i = 0; i < foodDAO.getVegetarian().size(); i++) {
       MFXButton btn = new MFXButton();
@@ -482,7 +485,7 @@ public class MealDeliveryController {
       btn.setText(foodDAO.getVegetarian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+     qd.getChildren().add(btn);
       btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
       int finalI = i;
       btn.setOnMouseClicked(event -> store(foodDAO.getVegetarian().get(finalI).getFoodID()));
@@ -550,6 +553,64 @@ public class MealDeliveryController {
     return null;
   }
 
+  public Method chooseAmerican() {
+    for (int i = 0; i < foodDAO.getAmerican().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getAmerican().get(i).toString());
+      btn.setText(foodDAO.getAmerican().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+  public Method chooseItalian() {
+    for (int i = 0; i < foodDAO.getItalian().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getItalian().get(i).toString());
+      btn.setText(foodDAO.getItalian().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+  public Method chooseMexican() {
+    for (int i = 0; i < foodDAO.getMexican().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getMexican().get(i).toString());
+      btn.setText(foodDAO.getMexican().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseIndian() {
+    for (int i = 0; i < foodDAO.getIndian().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getIndian().get(i).toString());
+      btn.setText(foodDAO.getIndian().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
   public void store(int x) {
     clickedFoodID = x;
     Navigation.navigate(Screen.PRODUCT_DETAILS);
@@ -581,6 +642,8 @@ public class MealDeliveryController {
 
   public ArrayList<String> filterList = new ArrayList<>();
 
+
+
   public void applyFilters() {
     for (int i = 0; i < filterList.size(); i++) {
 
@@ -599,6 +662,22 @@ public class MealDeliveryController {
       if (filterList.get(i) == "h") {
         chooseHalal();
       }
+      if(filterList.get(i)=="american"){
+        chooseAmerican();
+      }
+      if(filterList.get(i)=="italian"){
+        chooseItalian();
+      }
+
+
+      if(filterList.get(i)=="mexican"){
+        chooseMexican();
+      }
+
+      if(filterList.get(i)=="indian"){
+        chooseIndian();
+      }
+
     }
   }
 }

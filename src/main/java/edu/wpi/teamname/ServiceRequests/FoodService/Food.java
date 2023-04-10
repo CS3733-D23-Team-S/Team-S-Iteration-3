@@ -106,6 +106,13 @@ public class Food implements IDataPack {
     return isGlutFree;
   }
 
+  public boolean checkAmerican(){return isAmerican;}
+
+  public boolean checkItalian(){return isItalian;}
+
+  public boolean checkMexican(){return isMexican;}
+  public boolean checkIndian(){return isIndian;}
+
   @Override
   public String toString() {
     String theFood;
