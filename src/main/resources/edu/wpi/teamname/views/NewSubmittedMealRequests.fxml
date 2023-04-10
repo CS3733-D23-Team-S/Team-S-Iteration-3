@@ -3,6 +3,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AdminController">
+<GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.NewSubmittedMealRequestController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,10 +27,12 @@
         <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints />
     </rowConstraints>
     <children>
@@ -63,8 +67,8 @@
                 </ImageView>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
-        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="9">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+        <VBox alignment="TOP_CENTER" prefHeight="894.0" prefWidth="240.0" style="-fx-background-color: #122E59;" translateY="50.0" GridPane.rowSpan="9">
             <children>
                 <ImageView fx:id="hospitalLogo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -140,42 +144,16 @@
                 </ImageView>
             </children>
         </VBox>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="View all Submitted Requests" translateX="110.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <MFXButton fx:id="submittedMealButton" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="220.0" text="Meal Requests" translateX="100.0" translateY="-210.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <MFXButton fx:id="submittedRoomButton" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="220.0" text="Room Requests" translateX="350.0" translateY="-210.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <MFXButton fx:id="submittedFlowerButton" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="220.0" text="Flower Requests" translateX="600.0" translateY="-210.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <MFXButton fx:id="submittedOfficeButton" alignment="TOP_LEFT" prefHeight="51.0" prefWidth="300.0" text="Office Supply Requests" translateX="100.0" translateY="-110.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <MFXButton fx:id="submittedFurnitureButton" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="250.0" text="Furniture Requests" translateX="430.0" translateY="-110.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <MFXButton fx:id="mapEditorButton" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="220.0" text="Map Editor" translateX="110.0" translateY="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </MFXButton>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Edit Map" translateX="110.0" translateY="50.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <TableView prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmitMealRequestsPage.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="7">
+        <columns>
+          <TableColumn fx:id="mealID" prefWidth="300.0" text="Meal ID" />
+          <TableColumn fx:id="orderTime" prefWidth="300.0" text="Order Time" />
+            <TableColumn fx:id="itemsOrdered" prefWidth="300.0" text="Items Ordered" />
+            <TableColumn fx:id="specialRequests" prefWidth="300.0" text="Special Requests" />
+            <TableColumn fx:id="orderStatus" prefWidth="157.0" text="Order Status" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Submitted Meal Requests" translateX="470.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font size="36.0" />
          </font>
