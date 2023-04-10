@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.navigation.Navigation;
+import com.lynden.gmapsfx.GoogleMapView;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -25,7 +26,7 @@ public class PathfindingController {
   // @FXML TableView<Object> stepsTable;
 
   // @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
-  @FXML WorldMapView map;
+  @FXML GoogleMapView map;
   WorldMapView.Country usa = WorldMapView.Country.US;
   ObservableList<WorldMapView.Country> countries = FXCollections.observableArrayList(usa);
   ObservableList<WorldMapView.Location> locations = FXCollections.observableArrayList();
@@ -94,6 +95,7 @@ public class PathfindingController {
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
 
     map.setCountries(countries);
+    map.setZoomFactor(2.0);
 
     // findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
 
