@@ -29,7 +29,7 @@ public class Main {
     RoomRequestDAO roomRequestDAO = (RoomRequestDAO) database.getRoomRequestDAO();
     System.out.println(roomRequestDAO.hasConflicts("Unity", startDate, startTime, endTime));
     System.out.println(roomRequestDAO.getConfRoomLocationsAlphabetically().toString());
-    System.out.println(roomRequestDAO.allPastRequestsbyUser("staff"));
+    System.out.println(roomRequestDAO.allPastRequestsByUser("staff"));
 
     // Debugging stuff in order to check everything looks about right
     System.out.println("Loaded everything");

@@ -13,40 +13,37 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
+public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
   LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
   static RoomRequestDAO single_instance = null;
+  private Statement statement;
 
-  public RoomRequestDAO() {}
-
-  public static synchronized RoomRequestDAO getInstance() {
-
-    if (single_instance == null) single_instance = new RoomRequestDAO();
-
-    return single_instance;
+  public RoomRequestDAO() {
   }
+
+
 
   public void initTable(String name) {
 
     String roomReservationsTableConstruct =
-        "CREATE TABLE IF NOT EXISTS "
-            + roomReservationsTable
-            + " "
-            + "(reservationID SERIAL PRIMARY KEY,"
-            + "dateOrdered Date,"
-            + "eventDate Date,"
-            + "startTime Time,"
-            + "endTime Time,"
-            + "room Varchar(100),"
-            + "reservedBy Varchar(100),"
-            + "eventName Varchar(100),"
-            + "eventDescription Varchar(100),"
-            + "assignedTo Varchar(100),"
-            + "orderStatus Varchar(100),"
-            + "notes Varchar(500))";
+            "CREATE TABLE IF NOT EXISTS "
+                    + roomReservationsTable
+                    + " "
+                    + "(reservationID SERIAL PRIMARY KEY,"
+                    + "dateOrdered Date,"
+                    + "eventDate Date,"
+                    + "startTime Time,"
+                    + "endTime Time,"
+                    + "room Varchar(100),"
+                    + "reservedBy Varchar(100),"
+                    + "eventName Varchar(100),"
+                    + "eventDescription Varchar(100),"
+                    + "assignedTo Varchar(100),"
+                    + "orderStatus Varchar(100),"
+                    + "notes Varchar(500))";
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(roomReservationsTableConstruct);
@@ -65,14 +62,14 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
 
     try {
       PreparedStatement preparedStatement =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "INSERT INTO "
-                      + roomReservationsTable
-                      + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
-                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setDate(1, Date.valueOf(request.eventDate));
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "INSERT INTO "
+                                      + roomReservationsTable
+                                      + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
+                                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
       preparedStatement.setDate(2, Date.valueOf(request.eventDate));
       preparedStatement.setTime(3, Time.valueOf(request.startTime));
       preparedStatement.setTime(4, Time.valueOf(request.endTime));
@@ -108,13 +105,13 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   }
 
   public boolean hasConflicts(
-      String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
-      throws Exception {
+          String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
+          throws Exception {
 
     try {
 
       String checkTable =
-          "SELECT * FROM " + roomReservationsTable + " WHERE room = ? AND eventDate = ?";
+              "SELECT * FROM " + roomReservationsTable + " WHERE room = ? AND eventDate = ?";
       PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
       preparedStatement.setString(1, location);
       preparedStatement.setDate(2, Date.valueOf(eventDate));
@@ -134,7 +131,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
     return false;
   }
 
-  public List<ConfRoomRequest> allPastRequestsbyUser(String user) throws Exception {
+  public List<ConfRoomRequest> allPastRequestsByUser(String user) throws Exception {
 
     List<ConfRoomRequest> requestList = new ArrayList<>();
 
@@ -162,14 +159,14 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
         }
 
         ConfRoomRequest thisRequest =
-            new ConfRoomRequest(
-                thisDate,
-                thisStartTime,
-                thisEndTime,
-                room,
-                eventName,
-                eventDescription,
-                assignedTo);
+                new ConfRoomRequest(
+                        thisDate,
+                        thisStartTime,
+                        thisEndTime,
+                        room,
+                        eventName,
+                        eventDescription,
+                        assignedTo);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
@@ -182,10 +179,10 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   public void deleteRequest(String orderedBy, LocalDate orderDate) {
     try {
       PreparedStatement deleteFood =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
 
       deleteFood.setString(1, orderedBy);
       deleteFood.setDate(2, Date.valueOf(orderDate));
@@ -200,18 +197,64 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
       System.out.println(e.getSQLState());
     }
   }
+  public ResultSet query(String[] columns, String whereClause, String[] whereArgs, String orderBy) {
+
+    StringBuilder queryString = new StringBuilder();
+    queryString.append("SELECT ");
+    if(columns != null) {
+      for (int i = 0; i < columns.length; i++) {
+        queryString.append(columns[i]);
+        if (i != (columns.length - 1)) {
+          queryString.append(",");
+        }
+      }
+    } else {
+      queryString.append("*");
+    }
+
+    queryString.append(" FROM ");
+    queryString.append(roomReservationsTable);
+
+    if(whereClause != null) {
+      queryString.append(" WHERE ");
+
+      if(whereClause.contains("?") && whereArgs != null && whereArgs.length > 0){
+        for (String whereArg : whereArgs) {
+          whereClause = whereClause.replaceFirst("\\?", "'" + whereArg + "'");
+        }
+      }
+
+      queryString.append(whereClause);
+    }
+
+    if(orderBy != null){
+      queryString.append(" ORDER BY ");
+      queryString.append(orderBy);
+    }
+
+    try {
+      return statement.executeQuery(queryString.toString());
+    } catch (SQLException e){
+      e.printStackTrace();
+    }
+    return null;
+  }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+  }
 
   @Override
-  public void loadRemote(String pathToCSV) {}
+  public void loadRemote(String pathToCSV) {
+  }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+  }
 
   @Override
-  public void exportCSV(String path) throws IOException {}
+  public void exportCSV(String path) throws IOException {
+  }
 
   @Override
   public List<ConfRoomRequest> getAll() {
@@ -235,14 +278,14 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
         String assignedTo = rs.getString("AssignedTo");
 
         ConfRoomRequest thisRequest =
-            new ConfRoomRequest(
-                thisDate,
-                thisStartTime,
-                thisEndTime,
-                room,
-                eventName,
-                eventDescription,
-                assignedTo);
+                new ConfRoomRequest(
+                        thisDate,
+                        thisStartTime,
+                        thisEndTime,
+                        room,
+                        eventName,
+                        eventDescription,
+                        assignedTo);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
@@ -253,5 +296,8 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
   }
 
   @Override
-  public void delete(ConfRoomRequest target) {}
+  public void delete(String target) {
+
+  }
+
 }

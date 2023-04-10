@@ -1,9 +1,12 @@
 package edu.wpi.teamname.databaseredo;
 
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.databaseredo.orms.Move;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 import lombok.Getter;
 
 public class DataBaseRepository {
@@ -15,6 +18,7 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
+  @Getter RoomRequestDAO roomRequestDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
@@ -35,6 +39,7 @@ public class DataBaseRepository {
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
+    roomRequestDAO.initTable(connection.getRoomReservationsTable());
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
@@ -84,4 +89,13 @@ public class DataBaseRepository {
     moveDAO.exportCSV(outputPath);
     locationDAO.exportCSV(outputPath);
   }
+
+  public boolean hasRoomBookingConflicts(
+          String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime) throws Exception {
+   return roomRequestDAO.hasConflicts(location, eventDate, startTime, endTime);
+  }
+
+
+
+
 }
