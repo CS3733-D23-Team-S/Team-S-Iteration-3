@@ -2,16 +2,12 @@ package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
-import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.WorldMapView;
 
 public class PathfindingController {
   @FXML MFXButton pathfindingToHomeButton;
@@ -26,9 +22,12 @@ public class PathfindingController {
   @FXML MFXButton clearFieldsButton;
   @FXML MFXButton emailTextualDirections;
 
-  @FXML TableView<Object> stepsTable;
+  // @FXML TableView<Object> stepsTable;
 
-  @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
+  // @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
+  @FXML WorldMapView map;
+  ObservableList<WorldMapView.Country> countries =
+      FXCollections.observableArrayList(new WorldMapView.Country[163]);
 
   ObservableList<Object> list;
 
@@ -50,6 +49,7 @@ public class PathfindingController {
   // adds each element to pfe.getPathEntities() --- adds elements to pfe's list of PathfindingEntity
   // goes through loop of pfe.getPathEntities().size();
   // adds each element to olist;
+  /*
   public void makePathfindingEntity() {
 
     // if the table isn't empty, remove all items currently in the table
@@ -78,9 +78,10 @@ public class PathfindingController {
     for (int i = 0; i < pfe.getPathEntities().size(); i++) {
       olist.add(pfe.getPathEntities().get(i));
     }
-    */
+
     stepsTable.setItems(olist);
   }
+  */
 
   public void clearFields() {
     startingLocation.setText("");
@@ -92,15 +93,17 @@ public class PathfindingController {
 
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
 
-    findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
+    // map.setCountries(countries);
+
+    // findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
 
     // code below goes from pathfinding to admin screen
     // pathfindingToProfileButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN));
 
     // creates columns and populates them
 
-    nodesTraversedCol.setCellValueFactory(new PropertyValueFactory<>("nodePassed"));
-    stepsTable.getColumns().addAll(nodesTraversedCol);
+    // nodesTraversedCol.setCellValueFactory(new PropertyValueFactory<>("nodePassed"));
+    // stepsTable.getColumns().addAll(nodesTraversedCol);
     // stepsTable.setItems(olist);
   }
 }

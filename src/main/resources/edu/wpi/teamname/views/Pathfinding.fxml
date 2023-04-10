@@ -4,8 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.WorldMapView?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
   <columnConstraints>
@@ -160,11 +159,7 @@
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                </textFill>
             </MFXTextField>
-            <TableView fx:id="stepsTable" editable="true" prefHeight="744.0" prefWidth="1003.0">
-              <columns>
-                <TableColumn fx:id="nodesTraversedCol" editable="false" prefWidth="999.4664672613144" text="Nodes Traversed" />
-              </columns>
-            </TableView>
+            <WorldMapView fx:id="map" countrySelectionMode="SINGLE" locationSelectionMode="SINGLE" prefHeight="756.0" prefWidth="1003.0" />
          </children>
       </VBox>
    </children>
