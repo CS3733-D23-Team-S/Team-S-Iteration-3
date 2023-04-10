@@ -87,6 +87,10 @@ public class FlowerDAOImpl implements IDAO<Flower> {
     }
   }
 
+  public Flower get(int ID) {
+    return flowers.get(ID);
+  }
+
   @Override
   public List<Flower> getAll() {
     return flowers.values().stream().toList();
