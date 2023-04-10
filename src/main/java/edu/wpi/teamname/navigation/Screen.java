@@ -17,6 +17,7 @@ public enum Screen {
   PATHFINDING("views/Pathfinding.fxml"),
   SIGNAGE_PAGE("edu/wpi/teamname/views/SignagePage.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
+  MAP_EDITOR("views/MapEditor.fxml"),
   CSV_MANAGE("views/CSVPage.fxml");
   ;
 

@@ -1,13 +1,12 @@
 package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.Edge;
-import edu.wpi.teamname.databaseredo.orms.Node;
-import edu.wpi.teamname.databaseredo.orms.NodeType;
+import edu.wpi.teamname.databaseredo.orms.*;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.MapEditorEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,15 +40,371 @@ public class MapEditorController {
   @FXML TableColumn<Object, Integer> mtNodeIDCol; // = new TableColumn<>("Node ID");
   @FXML TableColumn<Object, String> locationCol; // = new TableColumn<>("Location");
   @FXML TableColumn<Object, ArrayList<LocalDate>> datesCol; // = new TableColumn<>("Dates");
+  @FXML MFXTextField ntNodeIDTF;
+  @FXML MFXTextField xCoordTF;
+  @FXML MFXTextField yCoordTF;
+  @FXML MFXTextField floorTF;
+  @FXML MFXTextField buildingTF;
+  @FXML MFXTextField nodeTypeTF;
+  @FXML MFXTextField longNameTF;
+  @FXML MFXTextField shortNameTF;
+  @FXML MFXTextField recentMoveTF;
+  @FXML MFXTextField nodeTF;
+  @FXML MFXTextField startNodeTF;
+  @FXML MFXTextField endNodeTF;
+  @FXML MFXTextField mtNodeIDTF;
+  @FXML MFXTextField locationTF;
+  @FXML MFXTextField datesTF;
+  @FXML MFXButton addNodeButton;
+  @FXML MFXButton removeNodeButton;
+  @FXML MFXButton editNodeButton;
+  @FXML MFXButton addLocationButton;
+  @FXML MFXButton removeLocationButton;
+  @FXML MFXButton editLocationButton;
+  @FXML MFXButton addEdgeButton;
+  @FXML MFXButton removeEdgeButton;
+  @FXML MFXButton editEdgeButton;
+  @FXML MFXButton addMoveButton;
+  @FXML MFXButton removeMoveButton;
+  @FXML MFXButton editMoveButton;
+  @FXML MFXTextField mainNodeTF;
+  @FXML MFXTextField mainLocationTF;
+  @FXML MFXTextField mainEdgeTF;
+  @FXML MFXTextField mainMoveTF;
+
+  public void addNode() {
+    Boolean nodeExists = false;
+    Boolean floorValid = true;
+    int ntNodeID;
+    int xCoord;
+    int yCoord;
+    Floor floor = null;
+    // if fields are empty don't do it
+    // if fields are inadequate (string in integer field or some shit) don't do it
+    if ((ntNodeIDTF.getText().equals(""))
+        || (xCoordTF.getText().equals(""))
+        || (yCoordTF.getText().equals(""))
+        || (floorTF.getText().equals(""))
+        || (buildingTF.getText().equals(""))) {
+      mainNodeTF.setText("Error: not all fields are filled in");
+    } else {
+      try {
+        ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
+        xCoord = Integer.parseInt(xCoordTF.getText());
+        yCoord = Integer.parseInt(yCoordTF.getText());
+        for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
+          if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+            nodeExists = true;
+          }
+        }
+        if (nodeExists) {
+          // no!!!
+          mainNodeTF.setText("Error: the entered Node ID already exists in the database");
+        } else {
+          if (floorTF.getText().equals("Floor1")) {
+            floor = Floor.Floor1;
+          } else if (floorTF.getText().equals("Floor2")) {
+            floor = Floor.Floor2;
+          } else if (floorTF.getText().equals("Floor3")) {
+            floor = Floor.Floor3;
+          } else if (floorTF.getText().equals("FloorL1")) {
+            floor = Floor.FloorL1;
+          } else if (floorTF.getText().equals("FloorL2")) {
+            floor = Floor.FloorL2;
+          } else {
+            floorValid = false;
+          }
+          if (floorValid) {
+            // good!!!
+            nodeTable
+                .getItems()
+                .removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+            Node newNode = new Node(ntNodeID, xCoord, yCoord, floor, buildingTF.getText());
+            dataBase.getNodeDAO().add(newNode);
+            nodeTable
+                .getItems()
+                .addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+            mainNodeTF.setText("Node successfully added");
+          } else {
+            // bad!!!
+            mainNodeTF.setText(
+                "Error: invalid floor - floor must be 'Floor1', 'Floor2', 'Floor3', 'FloorL1', or 'FloorL2'");
+          }
+        }
+      } catch (NumberFormatException e) {
+        mainNodeTF.setText("Error: make sure the Node ID, XCoord, and YCoord fields are integers");
+      }
+    }
+  }
+
+  public void removeNode() {
+    Boolean nodeExists = false;
+    int ntNodeID;
+    // if node id field is empty don't remove it
+    // if node id field is not an integer don't do it
+    if (ntNodeIDTF.getText().equals("")) {
+      mainNodeTF.setText("Error: Node ID field is not filled in");
+    } else {
+      try {
+        ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
+        for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
+          if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+            nodeExists = true;
+          }
+        }
+        if (nodeExists) {
+          nodeTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+          dataBase.getNodeDAO().delete(ntNodeID);
+          nodeTable.getItems().addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+          mainNodeTF.setText("Node with Node ID: " + ntNodeID + " successfully removed");
+        } else {
+          mainNodeTF.setText("Error: Node ID not found");
+        }
+      } catch (NumberFormatException e) {
+        mainNodeTF.setText("Error: make sure the Node ID is an integer");
+      }
+    }
+  }
+
+  public void editNode() {
+    Boolean nodeExists = false;
+    Boolean floorValid = true;
+    // if fields are empty don't edit it
+    // if certain fields aren't integers don't edit it
+    // if node id can't be found don't edit it
+    // if node id can be found edit it
+    int ntNodeID;
+    int xCoord;
+    int yCoord;
+    Floor floor = null;
+    if ((ntNodeIDTF.getText().equals(""))
+        || (xCoordTF.getText().equals(""))
+        || (yCoordTF.getText().equals(""))
+        || (floorTF.getText().equals(""))
+        || (buildingTF.getText().equals(""))) {
+      mainNodeTF.setText("Error: not all fields are filled in");
+    } else {
+      try {
+        ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
+        xCoord = Integer.parseInt(xCoordTF.getText());
+        yCoord = Integer.parseInt(yCoordTF.getText());
+
+        for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
+          if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+            nodeExists = true;
+          }
+        }
+        if (nodeExists) {
+          // check if floor is valid
+          if (floorTF.getText().equals("Floor1")) {
+            floor = Floor.Floor1;
+          } else if (floorTF.getText().equals("Floor2")) {
+            floor = Floor.Floor2;
+          } else if (floorTF.getText().equals("Floor3")) {
+            floor = Floor.Floor3;
+          } else if (floorTF.getText().equals("FloorL1")) {
+            floor = Floor.FloorL1;
+          } else if (floorTF.getText().equals("FloorL2")) {
+            floor = Floor.FloorL2;
+          } else {
+            floorValid = false;
+          }
+          if (floorValid) {
+            nodeTable
+                .getItems()
+                .removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+            dataBase.getNodeDAO().delete(ntNodeID);
+            Node newNode = new Node(ntNodeID, xCoord, yCoord, floor, buildingTF.getText());
+            dataBase.getNodeDAO().add(newNode);
+            nodeTable
+                .getItems()
+                .addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+            mainNodeTF.setText("Successfully edited Node");
+          } else {
+            mainNodeTF.setText(
+                "Error: invalid floor - floor must be 'Floor1', 'Floor2', 'Floor3', 'FloorL1', or 'FloorL2'");
+          }
+        }
+      } catch (NumberFormatException e) {
+        mainNodeTF.setText("Error: make sure the Node ID is an integer");
+      }
+    }
+  }
+
+  public void addLocation() {
+    NodeType nodeType = null;
+    Boolean nodeTypeValid = true;
+    Boolean locationExists = false;
+    // make sure all fields are filled in
+    if ((longNameTF.getText().equals(""))
+        || (shortNameTF.getText().equals(""))
+        || (nodeTypeTF.getText().equals(""))) {
+      mainLocationTF.setText("Error: not all fields are filled in");
+    } else {
+      for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
+        if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
+          locationExists = true;
+        }
+      }
+      if (locationExists) {
+        mainLocationTF.setText(
+            "Error: the Long Name you entered is already designated to a location");
+      } else {
+        // make sure nodeType is an enum and nodeTypeValid is true
+        if (nodeTypeTF.getText().equals("CONF")) {
+          nodeType = NodeType.CONF;
+        } else if (nodeTypeTF.getText().equals("DEPT")) {
+          nodeType = NodeType.DEPT;
+        } else if (nodeTypeTF.getText().equals("ELEV")) {
+          nodeType = NodeType.ELEV;
+        } else if (nodeTypeTF.getText().equals("EXIT")) {
+          nodeType = NodeType.EXIT;
+        } else if (nodeTypeTF.getText().equals("HALL")) {
+          nodeType = NodeType.HALL;
+        } else if (nodeTypeTF.getText().equals("LABS")) {
+          nodeType = NodeType.LABS;
+        } else if (nodeTypeTF.getText().equals("REST")) {
+          nodeType = NodeType.REST;
+        } else if (nodeTypeTF.getText().equals("RETL")) {
+          nodeType = NodeType.RETL;
+        } else if (nodeTypeTF.getText().equals("SERV")) {
+          nodeType = NodeType.SERV;
+        } else if (nodeTypeTF.getText().equals("STAI")) {
+          nodeType = NodeType.STAI;
+        } else if (nodeTypeTF.getText().equals("INFO")) {
+          nodeType = NodeType.RETL;
+        } else if (nodeTypeTF.getText().equals("BATH")) {
+          nodeType = NodeType.BATH;
+        } else {
+          nodeTypeValid = false;
+        }
+        if (nodeTypeValid) {
+          locationTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          Location newLocation =
+              new Location(longNameTF.getText(), shortNameTF.getText(), nodeType);
+          dataBase.getLocationDAO().add(newLocation);
+          locationTable
+              .getItems()
+              .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          mainLocationTF.setText("Location successfully added");
+        } else {
+          mainLocationTF.setText(
+              "Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
+                  + "                + 'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
+        }
+      }
+    }
+  }
+
+  public void removeLocation() {
+    Boolean locationExists = false;
+    if (longNameTF.getText().equals("")) {
+      mainLocationTF.setText("Error: make sure the Long Name text field is entered");
+    } else {
+      // make sure it exists
+      for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
+        if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
+          locationExists = true;
+        }
+      }
+      if (locationExists) {
+        locationTable
+            .getItems()
+            .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+        dataBase.getLocationDAO().delete(longNameTF.getText());
+        locationTable
+            .getItems()
+            .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+        mainLocationTF.setText(
+            "Location with long name: " + longNameTF.getText() + " successfully removed");
+      } else {
+        mainLocationTF.setText(
+            "Error: the Long Name of the location you're trying to remove doesn't exist");
+      }
+    }
+  }
+
+  public void editLocation() {
+    NodeType nodeType = null;
+    Boolean nodeTypeValid = true;
+    Boolean locationExists = false;
+    // make sure all fields are filled in
+    if ((longNameTF.getText().equals(""))
+        || (shortNameTF.getText().equals(""))
+        || (nodeTypeTF.getText().equals(""))) {
+      mainLocationTF.setText("Error: not all fields are filled in");
+    } else {
+      // location exists
+      for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
+        if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
+          locationExists = true;
+        }
+      }
+      if (locationExists) {
+        // make sure nodeType is an enum and nodeTypeValid is true
+        if (nodeTypeTF.getText().equals("CONF")) {
+          nodeType = NodeType.CONF;
+        } else if (nodeTypeTF.getText().equals("DEPT")) {
+          nodeType = NodeType.DEPT;
+        } else if (nodeTypeTF.getText().equals("ELEV")) {
+          nodeType = NodeType.ELEV;
+        } else if (nodeTypeTF.getText().equals("EXIT")) {
+          nodeType = NodeType.EXIT;
+        } else if (nodeTypeTF.getText().equals("HALL")) {
+          nodeType = NodeType.HALL;
+        } else if (nodeTypeTF.getText().equals("LABS")) {
+          nodeType = NodeType.LABS;
+        } else if (nodeTypeTF.getText().equals("REST")) {
+          nodeType = NodeType.REST;
+        } else if (nodeTypeTF.getText().equals("RETL")) {
+          nodeType = NodeType.RETL;
+        } else if (nodeTypeTF.getText().equals("SERV")) {
+          nodeType = NodeType.SERV;
+        } else if (nodeTypeTF.getText().equals("STAI")) {
+          nodeType = NodeType.STAI;
+        } else if (nodeTypeTF.getText().equals("INFO")) {
+          nodeType = NodeType.RETL;
+        } else if (nodeTypeTF.getText().equals("BATH")) {
+          nodeType = NodeType.BATH;
+        } else {
+          nodeTypeValid = false;
+        }
+        if (nodeTypeValid) {
+          locationTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          dataBase.getLocationDAO().delete(longNameTF.getText());
+          Location newLocation =
+              new Location(shortNameTF.getText(), shortNameTF.getText(), nodeType);
+          dataBase.getLocationDAO().add(newLocation);
+          locationTable
+              .getItems()
+              .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          mainLocationTF.setText("Successfully edited Location");
+        } else {
+          mainLocationTF.setText(
+              "Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
+                  + "                + 'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
+        }
+      } else {
+        mainLocationTF.setText(
+            "Error: the Long Name of the location you're trying to remove doesn't exist");
+      }
+    }
+  }
 
   public void createLists() {
-    System.out.println("test");
-    MapEditorEntity mee = new MapEditorEntity();
     final ObservableList nodeList = FXCollections.observableList(dataBase.getNodeDAO().getAll());
     final ObservableList edgeList = FXCollections.observableList(dataBase.getEdgeDAO().getAll());
     final ObservableList locationList =
         FXCollections.observableList(dataBase.getLocationDAO().getAll());
     final ObservableList moveList = FXCollections.observableList(dataBase.getMoveDAO().getAll());
+
+    MapEditorEntity mee = new MapEditorEntity();
 
     nodeTable.getItems().addAll(nodeList);
 
@@ -66,6 +421,12 @@ public class MapEditorController {
   public void initialize() {
     dataBase = DataBaseRepository.getInstance();
     mapEditorToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    addNodeButton.setOnMouseClicked(event -> addNode());
+    removeNodeButton.setOnMouseClicked(event -> removeNode());
+    editNodeButton.setOnMouseClicked(event -> editNode());
+    addLocationButton.setOnMouseClicked(event -> addLocation());
+    removeLocationButton.setOnMouseClicked(event -> removeLocation());
+    editLocationButton.setOnMouseClicked(event -> editLocation());
 
     ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
@@ -89,7 +450,6 @@ public class MapEditorController {
 
     startNodeCol.setCellValueFactory(
         (edge) -> {
-          System.out.println("test");
           return new SimpleObjectProperty(edge.getValue().getStartNodeID());
         });
     endNodeCol.setCellValueFactory(new PropertyValueFactory<>("endNode"));

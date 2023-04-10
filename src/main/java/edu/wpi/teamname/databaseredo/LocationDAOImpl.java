@@ -7,11 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
-
 
 public class LocationDAOImpl implements IDAO<Location, String> {
 
@@ -23,7 +21,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   public LocationDAOImpl() {
     connection = dbConnection.getInstance();
   }
-
 
   @Override
   public void initTable(String name) {
