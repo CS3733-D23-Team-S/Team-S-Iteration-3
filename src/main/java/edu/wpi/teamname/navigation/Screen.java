@@ -17,8 +17,11 @@ public enum Screen {
   PATHFINDING("views/Pathfinding.fxml"),
   SIGNAGE_PAGE("edu/wpi/teamname/views/SignagePage.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
+  ADMIN_PAGE("views/AdminPage.fxml"),
+  SUBMITTED_MEAL_REQUESTS("views/SubmittedMealRequests.fxml"),
+  SUBMITTED_ROOM_REQUESTS("views/SubmittedRoomRequests.fxml"),
+  MAP_EDITOR("views/MapEditor.fxml"),
   CSV_MANAGE("views/CSVPage.fxml");
-  ;
 
   private final String filename;
 
