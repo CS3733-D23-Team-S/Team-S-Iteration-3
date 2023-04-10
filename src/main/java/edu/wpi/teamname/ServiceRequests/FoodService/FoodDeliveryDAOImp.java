@@ -73,7 +73,7 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
                   "INSERT INTO "
                       + name
                       + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       preparedStatement.setInt(1, request.getDeliveryID());
       preparedStatement.setString(2, request.getCart());

@@ -29,9 +29,6 @@ public class MealDeliveryController {
   @FXML Text mpLabel;
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
-
-  // @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
-
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;

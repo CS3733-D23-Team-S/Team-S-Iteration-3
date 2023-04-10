@@ -42,21 +42,20 @@ public class HomeController {
 
   @FXML MFXButton homeToPathfindingButton;
 
-  public static int cartID = 1;
-  public static int numRequests = 0;
+  public static int cartID = 0;
+
+  public static int delID = 0;
 
   public static OrderItem cart;
 
   @FXML
   public void initialize() {
 
-    System.out.println("Here1");
-    cart = new OrderItem(1);
+    cart = new OrderItem(cartID++);
 
     // Adding the menu option to exit application
 
     mealDeliveryButton.setOnMouseClicked(event -> goToMealPage());
-    System.out.println("Here2");
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());

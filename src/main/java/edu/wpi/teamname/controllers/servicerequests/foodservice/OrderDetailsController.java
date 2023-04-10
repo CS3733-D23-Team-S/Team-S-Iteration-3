@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.navigation.Navigation;
@@ -30,7 +31,7 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
-    System.out.println(ProductDetailsController.cart.toString());
+    System.out.println(HomeController.cart.toString());
 
     // FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
 
@@ -47,13 +48,12 @@ public class OrderDetailsController {
     submit.setOnMouseClicked(
         event -> {
           try {
-
-            // Get the employee
             String Emp = empNum.getText();
             String theNote = request1.getText();
 
             FoodDelivery currentFoodDev =
-                new FoodDelivery(1, ProductDetailsController.cart, temp, whoOrdered, Emp, theNote);
+                new FoodDelivery(
+                    HomeController.delID++, HomeController.cart, temp, whoOrdered, Emp, theNote);
 
             DBR.addFoodRequest(currentFoodDev);
 
@@ -74,7 +74,7 @@ public class OrderDetailsController {
 
   public void addedOrder() {
 
-    for (Food aFood : ProductDetailsController.cart.getTheCart().values()) {
+    for (Food aFood : HomeController.cart.getTheCart().values()) {
       System.out.println("works");
       Label newItemName = new Label();
       Label newItemQuantity = new Label();
