@@ -50,6 +50,6 @@ public class ConfRoomRequest {
   }
 
   public String getRoomId() {
-    return Integer.toString(room.getId());
+    return room.getId();
   }
 }

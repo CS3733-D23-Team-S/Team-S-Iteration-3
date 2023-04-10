@@ -19,7 +19,7 @@ public class RoomBookingTest {
           LocalDate.now(),
           LocalTime.of(6, 0, 0, 0),
           LocalTime.of(8, 0, 0, 0),
-          new Room(Integer.parseInt("1"), "Cafe", "Floor", 50, "F"),
+          new Room("AnesthesiaConfFloorL1", "Cafe", "Floor", 50, "F"),
           "Sarah Kogan",
           "Checking for update",
           "description description description",

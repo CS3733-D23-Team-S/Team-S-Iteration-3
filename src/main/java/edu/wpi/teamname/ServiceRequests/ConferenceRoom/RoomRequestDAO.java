@@ -30,7 +30,7 @@ public class RoomRequestDAO implements RoomRequest_I {
             + roomReservationsTable
             + " "
             + "(reservationID int,"
-            + "date Date,"
+            + "dateordered Date,"
             + "startTime Time,"
             + "endTime Time,"
             + "room Varchar(100),"
@@ -72,9 +72,9 @@ public class RoomRequestDAO implements RoomRequest_I {
               .prepareStatement(
                   "INSERT INTO "
                       + roomReservationsTable
-                      + " (reservationID, date, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
+                      + " (reservationID, dateordered, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setInt(1, request.getReservationID());
+      preparedStatement.setInt(1, (int) (Math.random() * 50));
       preparedStatement.setDate(2, null);
       preparedStatement.setTime(3, null);
       preparedStatement.setTime(4, null);

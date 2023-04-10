@@ -1,6 +1,6 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
-import edu.wpi.teamname.Map.Location;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -32,7 +32,7 @@ public class RoomBookingDetailsController {
 
   RoomBookingController rbc = new RoomBookingController();
 
-  ArrayList<Location> rbcRoomList = rbc.roomList;
+  ArrayList<ConfRoomLocation> rbcRoomList = rbc.roomList;
 
   @FXML
   public void initialize() {
@@ -42,6 +42,7 @@ public class RoomBookingDetailsController {
     initializeRoomComboBox();
   }
 
+  // hard code items into room combo box (TODO read from list later)
   public void initializeRoomComboBox() {
     roomComboBox.getItems().add("BTM Conference Center");
     roomComboBox.getItems().add("Duncan Reid Conference Room");
@@ -52,9 +53,10 @@ public class RoomBookingDetailsController {
     roomComboBox.getItems().add("Shapiro Board Room MapNode 20 Floor 1");
   }
 
+  // submit details from controller
   @FXML
   public void submitDetails(ActionEvent event) throws SQLException {
-    roomLocation = roomComboBox.getValue().toString();
+    roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     startTime = startTimeText.getText();
     endTime = endTimeText.getText();
     eventTitle = eventTitleText.getText();
@@ -65,7 +67,9 @@ public class RoomBookingDetailsController {
     clearFields();
   }
 
+  // clear text fields
   public void clearFields() {
+    roomComboBox.setValue("");
     startTimeText.clear();
     endTimeText.clear();
     eventTitleText.clear();
