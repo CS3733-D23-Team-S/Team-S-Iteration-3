@@ -72,6 +72,7 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     dropTable();
     edges.clear();
     neighbors.clear();
+    initTable(name);
     loadRemote(path);
   }
 

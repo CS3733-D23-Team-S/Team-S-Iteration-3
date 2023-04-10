@@ -77,6 +77,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   public void importCSV(String path) {
     dropTable();
     nodes.clear();
+    initTable(name);
     loadRemote(path);
   }
 
