@@ -71,6 +71,8 @@ public class MapEditorController {
   @FXML MFXTextField mainLocationTF;
   @FXML MFXTextField mainEdgeTF;
   @FXML MFXTextField mainMoveTF;
+  @FXML MFXTextField newStartNodeTF;
+  @FXML MFXTextField newEndNodeTF;
 
   public void addNode() {
     Boolean nodeExists = false;
@@ -302,6 +304,7 @@ public class MapEditorController {
 
   public void removeLocation() {
     Boolean locationExists = false;
+    int indexToRemove = 0;
     if (longNameTF.getText().equals("")) {
       mainLocationTF.setText("Error: make sure the Long Name text field is entered");
     } else {
@@ -309,18 +312,27 @@ public class MapEditorController {
       for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
         if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
           locationExists = true;
+          indexToRemove = i;
+          // dataBase.getLocationDAO().delete(longNameTF.getText());
+          // line above removes it from the table visually
+
+          // dataBase.getLocationDAO().getAll().remove(i);
+          // something wrong with the line above
         }
       }
       if (locationExists) {
         locationTable
             .getItems()
             .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-        dataBase.getLocationDAO().delete(longNameTF.getText());
+        // dataBase.getLocationDAO().delete(longNameTF.getText());
+
         locationTable
             .getItems()
             .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+
         mainLocationTF.setText(
             "Location with long name: " + longNameTF.getText() + " successfully removed");
+
       } else {
         mainLocationTF.setText(
             "Error: the Long Name of the location you're trying to remove doesn't exist");
@@ -374,6 +386,33 @@ public class MapEditorController {
           nodeTypeValid = false;
         }
         if (nodeTypeValid) {
+          // maybe change the values at this node
+          // then redo the table
+          // worth a shot
+          locationTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
+            if (dataBase
+                .getLocationDAO()
+                .getAll()
+                .get(i)
+                .getLongName()
+                .equals(longNameTF.getText())) {
+
+              dataBase.getLocationDAO().getAll().get(i).setLongName(shortNameTF.getText());
+              dataBase.getLocationDAO().getAll().get(i).setShortName(shortNameTF.getText());
+              dataBase.getLocationDAO().getAll().get(i).setNodeType(nodeType);
+            }
+          }
+          //          locationTable
+          //              .getItems()
+          //
+          // .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          locationTable
+              .getItems()
+              .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+          /*
           locationTable
               .getItems()
               .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
@@ -384,17 +423,183 @@ public class MapEditorController {
           locationTable
               .getItems()
               .addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
+           */
           mainLocationTF.setText("Successfully edited Location");
         } else {
           mainLocationTF.setText(
               "Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
-                  + "                + 'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
+                  + "'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
         }
       } else {
         mainLocationTF.setText(
             "Error: the Long Name of the location you're trying to remove doesn't exist");
       }
     }
+  }
+
+  public void addEdge() {
+    int startNodeID;
+    int endNodeID;
+    Boolean edgeExists = false;
+    // make sure fields aren't empty
+    if (startNodeTF.getText().equals("") || (endNodeTF.getText().equals(""))) {
+      mainEdgeTF.setText("Error: make sure both the start node and end node fields are filled in");
+    } else {
+      // make sure IDs are valid
+      try {
+        startNodeID = Integer.parseInt(startNodeTF.getText());
+        endNodeID = Integer.parseInt(endNodeTF.getText());
+        // make sure edge doesn't already exist
+        // make sure start node id and end node id aren't the same
+        for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
+          if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
+              && (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
+            edgeExists = true;
+          }
+        }
+        if (startNodeID == endNodeID) {
+          // bad
+          mainEdgeTF.setText("Error: the start node and end node IDs cannot be the same value");
+        } else if (edgeExists) {
+          // bad
+          mainEdgeTF.setText(
+              "Error: the start node and end node IDs are both attributed to an already existing edge");
+        } else {
+          // good
+          edgeTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          dataBase.getEdgeDAO().getAll().add(new Edge(startNodeID, endNodeID));
+          edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          mainEdgeTF.setText(
+              "Edge with start node ID: "
+                  + startNodeID
+                  + " and end node ID: "
+                  + endNodeID
+                  + " successfully added");
+        }
+      } catch (NumberFormatException e) {
+        mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
+      }
+    }
+  }
+
+  public void removeEdge() {
+    int startNodeID;
+    int endNodeID;
+    Boolean edgeExists = false;
+    Edge edgeToRemove = null;
+    // make sure fields aren't empty
+    if (startNodeTF.getText().equals("") || (endNodeTF.getText().equals(""))) {
+      mainEdgeTF.setText("Error: make sure both the start node and end node fields are filled in");
+    } else {
+      try {
+        // make sure ids are integers
+        startNodeID = Integer.parseInt(startNodeTF.getText());
+        endNodeID = Integer.parseInt(endNodeTF.getText());
+        // make sure edge exists
+        for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
+          if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
+              && (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
+            edgeExists = true;
+            edgeToRemove = dataBase.getEdgeDAO().getAll().get(i);
+          }
+        }
+        if (startNodeID == endNodeID) {
+          // bad
+          mainEdgeTF.setText("Error: the start node and end node IDs cannot be the same value");
+        } else if (!edgeExists) {
+          // bad
+          mainEdgeTF.setText("Error: the edge you're trying to remove does not exist");
+        } else {
+          // good
+          edgeTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          dataBase.getEdgeDAO().getAll().remove(edgeToRemove);
+          // dataBase.getEdgeDAO().delete(edgeToRemove);
+          edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          mainEdgeTF.setText(
+              "Edge with start node ID: "
+                  + startNodeID
+                  + " and end node ID: "
+                  + endNodeID
+                  + " successfully removed");
+        }
+      } catch (NumberFormatException e) {
+        mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
+      }
+    }
+  }
+
+  public void editEdge() {
+    int startNodeID;
+    int endNodeID;
+    int newStartNodeID;
+    int newEndNodeID;
+    Boolean edgeExists = false;
+    Boolean newEdgeExists = false;
+    Edge edgeToEdit = null;
+    // might not be necessary
+    // make sure all fields aren't blank
+    if (startNodeTF.getText().equals("")
+        || (endNodeTF.getText().equals(""))
+        || (newStartNodeTF.getText().equals(""))
+        || (newEndNodeTF.getText().equals(""))) {
+      mainEdgeTF.setText("Error: make sure all text fields are filled in");
+    } else {
+      // make sure all fields are valid
+      try {
+        startNodeID = Integer.parseInt(startNodeTF.getText());
+        endNodeID = Integer.parseInt(endNodeTF.getText());
+        newStartNodeID = Integer.parseInt(newStartNodeTF.getText());
+        newEndNodeID = Integer.parseInt(newEndNodeTF.getText());
+        // make sure start and end node already exist
+        // make sure new start and end node don't already exist
+        for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
+          if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
+              && (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
+            edgeExists = true;
+            edgeToEdit = dataBase.getEdgeDAO().getAll().get(i);
+          }
+          if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == newStartNodeID)
+              && (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == newEndNodeID)) {
+            newEdgeExists = true;
+          }
+        }
+        if (newStartNodeID == newEndNodeID) {
+          // bad
+          mainEdgeTF.setText(
+              "Error: the new start node and new end node IDs cannot be the same value");
+        } else if (!edgeExists) {
+          // bad
+          mainEdgeTF.setText("Error: the edge you're trying to edit does not exist");
+        } else if (newEdgeExists) {
+          // bad
+          mainEdgeTF.setText(
+              "Error: the new start node and end node ID values are attributed to an already existing edge");
+        } else {
+          edgeTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          edgeToEdit.updateEdge(newStartNodeID, newEndNodeID);
+          edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
+          mainEdgeTF.setText(
+              "Edge with previous start node ID: "
+                  + startNodeID
+                  + " and previous end node ID: "
+                  + endNodeID
+                  + " successfully edited");
+        }
+      } catch (NumberFormatException e) {
+        mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
+      }
+    }
+  }
+
+  public void addMove() {
+    // make sure move doesn't already exist
+    // make sure fields aren't empty
   }
 
   public void createLists() {
@@ -427,6 +632,9 @@ public class MapEditorController {
     addLocationButton.setOnMouseClicked(event -> addLocation());
     removeLocationButton.setOnMouseClicked(event -> removeLocation());
     editLocationButton.setOnMouseClicked(event -> editLocation());
+    addEdgeButton.setOnMouseClicked(event -> addEdge());
+    removeEdgeButton.setOnMouseClicked(event -> removeEdge());
+    editEdgeButton.setOnMouseClicked(event -> editEdge());
 
     ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
@@ -452,7 +660,10 @@ public class MapEditorController {
         (edge) -> {
           return new SimpleObjectProperty(edge.getValue().getStartNodeID());
         });
-    endNodeCol.setCellValueFactory(new PropertyValueFactory<>("endNode"));
+    endNodeCol.setCellValueFactory(
+        (edge) -> {
+          return new SimpleObjectProperty(edge.getValue().getEndNodeID());
+        });
 
     mtNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));

@@ -147,17 +147,19 @@
          <children>
             <MFXTextField fx:id="startNodeTF" prefHeight="63.0" prefWidth="85.0" promptText="Start Node" />
             <MFXTextField fx:id="endNodeTF" prefHeight="63.0" prefWidth="85.0" promptText="End Node" />
-            <MFXButton fx:id="addEdgeButton" prefHeight="63.0" style="-fx-background-color: #00ff00;" text="Add">
+            <MFXTextField fx:id="newStartNodeTF" prefWidth="146.0" promptText="New Start Node (Edit)" />
+            <MFXTextField fx:id="newEndNodeTF" prefWidth="146.0" promptText="New End Node (Edit)" />
+            <MFXButton fx:id="addEdgeButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #00ff00;" text="Add">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="removeEdgeButton" prefHeight="63.0" style="-fx-background-color: #d11a2a;" text="Remove">
+            <MFXButton fx:id="removeEdgeButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #d11a2a;" text="Remove">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="editEdgeButton" prefHeight="63.0" style="-fx-background-color: #ffff00;" text="Edit">
+            <MFXButton fx:id="editEdgeButton" prefHeight="63.0" prefWidth="96.0" style="-fx-background-color: #ffff00;" text="Edit">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -167,19 +169,19 @@
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
             <MFXTextField fx:id="mtNodeIDTF" prefHeight="63.0" prefWidth="85.0" promptText="Node ID" />
-            <MFXTextField fx:id="locationTF" prefHeight="63.0" prefWidth="85.0" promptText="Location" />
-            <MFXTextField fx:id="datesTF" prefHeight="63.0" prefWidth="85.0" promptText="Dates" />
-            <MFXButton fx:id="addMoveButton" prefHeight="63.0" style="-fx-background-color: #00ff00;" text="Add">
+            <MFXTextField fx:id="locationTF" prefHeight="63.0" prefWidth="175.0" promptText="Location" />
+            <MFXTextField fx:id="datesTF" prefHeight="63.0" prefWidth="202.0" promptText="Dates" />
+            <MFXButton fx:id="addMoveButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #00ff00;" text="Add">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="removeMoveButton" prefHeight="63.0" style="-fx-background-color: #d11a2a;" text="Remove">
+            <MFXButton fx:id="removeMoveButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #d11a2a;" text="Remove">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="editMoveButton" prefHeight="63.0" style="-fx-background-color: #ffff00;" text="Edit">
+            <MFXButton fx:id="editMoveButton" prefHeight="63.0" prefWidth="96.0" style="-fx-background-color: #ffff00;" text="Edit">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
