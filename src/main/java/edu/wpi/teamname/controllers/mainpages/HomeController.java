@@ -53,7 +53,7 @@ public class HomeController {
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
     homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
-    exportButton.setOnMouseClicked(event -> Navigation.navigate(CSV_MANAGE));
+    exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
 
     // Menu bar button handlers
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));

@@ -1,52 +1,22 @@
 package edu.wpi.teamname.databaseredo;
 
+import edu.wpi.teamname.databaseredo.orms.Floor;
 import edu.wpi.teamname.databaseredo.orms.User;
+import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-public class UserDAOImpl implements IDAO<User> {
+public class UserDAOImpl implements IDAO<User, String> {
 
   private dbConnection connection;
 
-  @Getter private HashMap<String, User> loginInfo = new HashMap<>();
-  private String name;
+  @Getter private HashMap<String, User> listOfUsers = new HashMap<>();
+  @Getter private String name;
 
   public UserDAOImpl() {
-
     connection = dbConnection.getInstance();
-  }
-
-  public void initTables(String loginTableName) throws SQLException {
-    this.name = loginTableName;
-    try {
-      Statement stmt = connection.getConnection().createStatement();
-      String loginTableConstruct =
-          "CREATE TABLE IF NOT EXISTS "
-              + loginTableName
-              + " (username varchar(100) UNIQUE PRIMARY KEY, "
-              + "password varchar(100) NOT NULL, "
-              + "permission int)";
-      stmt.execute(loginTableConstruct);
-      User admin = new User("admin", "admin", User.Permission.ADMIN);
-      loginInfo.put("admin", admin);
-      ResultSet checkExists =
-          connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
-      if (checkExists.next()) return;
-
-      String addAdmin =
-          "INSERT INTO "
-              + loginTableName
-              + " (username, password, permission) VALUES "
-              + "('admin','admin',"
-              + User.Permission.ADMIN
-              + ")";
-      stmt.executeUpdate(addAdmin);
-    } catch (SQLException e) {
-      e.getMessage();
-      e.printStackTrace();
-    }
   }
 
   /**
@@ -54,7 +24,7 @@ public class UserDAOImpl implements IDAO<User> {
    * @return true if user exists, false if otherwise
    */
   private boolean checkIfUserExists(String username) {
-    return loginInfo.get(username) != null;
+    return listOfUsers.get(username) != null;
   }
 
   /**
@@ -78,10 +48,9 @@ public class UserDAOImpl implements IDAO<User> {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setString(3, String.valueOf(User.Permission.STAFF));
-      User user = new User(username, password, User.Permission.STAFF);
-
-      loginInfo.put(username, user);
+      preparedStatement.setInt(3, User.Permission.WORKER.ordinal());
+      User user = new User(username, password, User.Permission.WORKER);
+      listOfUsers.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -97,7 +66,7 @@ public class UserDAOImpl implements IDAO<User> {
     if (!checkIfUserExists(username)) {
       throw new Exception("User does not exist");
     } else {
-      return password.equals(loginInfo.get(username).getPassword());
+      return password.equals(listOfUsers.get(username).getPassword());
     }
   }
 
@@ -107,14 +76,15 @@ public class UserDAOImpl implements IDAO<User> {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String loginTableConstruct =
-          "CREATE TABLE IF NOT EXISTS "
+          "CREATE TYPE permissionLevel AS ENUM"
+              + " ('admin','general','guest') AND CREATE TABLE IF NOT EXISTS "
               + name
               + " (username varchar(100) UNIQUE PRIMARY KEY, "
               + "password varchar(100) NOT NULL, "
-              + "permission int)";
+              + "permission permissionLevel)";
       stmt.execute(loginTableConstruct);
       User admin = new User("admin", "admin", User.Permission.ADMIN);
-      loginInfo.put("admin", admin);
+      listOfUsers.put("admin", admin);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
       if (checkExists.next()) return;
@@ -133,25 +103,124 @@ public class UserDAOImpl implements IDAO<User> {
   }
 
   @Override
-  public void dropTable() {}
-
-  @Override
-  public void loadRemote(String pathToCSV) {}
-
-  @Override
-  public void importCSV(String path) {}
-
-  @Override
-  public void exportCSV(String path) {}
-
-  @Override
-  public List<User> getAll() {
-    return null;
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
-  public void delete(User target) {}
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name + " LIMIT 2";
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the users from the server");
+        constructFromRemote();
+      } else {
+        System.out.println("Loading the users to the server");
+        constructRemote(pathToCSV);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Override
-  public void add(User addition) {}
+  public void importCSV(String path) {
+    dropTable();
+    listOfUsers.clear();
+    loadRemote(path);
+  }
+
+  @Override
+  public void exportCSV(String path) {
+    try {
+      BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+      fileWriter.write("username,password,permission");
+      for (User user : listOfUsers.values()) {
+        fileWriter.newLine();
+        fileWriter.write(user.toCSVString());
+      }
+      fileWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public List<User> getAll() {
+    return listOfUsers.values().stream().toList();
+  }
+
+  @Override
+  public void delete(String target) {
+    listOfUsers.remove(target);
+  }
+
+  @Override
+  public void add(User addition) {
+    listOfUsers.put(addition.getUserName(), addition);
+  }
+
+  private void constructFromRemote() {
+    if (!listOfUsers.isEmpty()) {
+      System.out.println("There is already stuff in the user orm database");
+      return;
+    }
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String listOfNodes = "SELECT * FROM " + name;
+      ResultSet data = stmt.executeQuery(listOfNodes);
+      while (data.next()) {
+        String username = data.getString("username");
+        String password = data.getString("password");
+        User.Permission permission = User.Permission.values()[data.getInt("permission")];
+        Floor floor = Floor.values()[data.getInt("Floor")];
+        String building = data.getString("Building");
+        User newUser = new User(username, password, permission);
+        listOfUsers.put(username, newUser);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Error accessing the remote and constructing user database");
+    }
+  }
+
+  private void constructRemote(String csvFilePath) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+      try {
+        PreparedStatement stmt =
+            connection
+                .getConnection()
+                .prepareStatement(
+                    "INSERT INTO "
+                        + name
+                        + " (username, password, permission) VALUES (? , ? , ? )");
+        reader.readLine();
+        String line;
+        while ((line = reader.readLine()) != null) {
+          String[] fields = line.split(",");
+          //          System.out.println(Arrays.toString(fields));
+          stmt.setString(1, fields[0]);
+          stmt.setString(2, fields[1]);
+          stmt.setInt(3, Integer.parseInt(fields[2]));
+          stmt.executeUpdate();
+          User newUser =
+              new User(fields[0], fields[1], User.Permission.values()[Integer.parseInt(fields[2])]);
+          listOfUsers.put(fields[0], newUser);
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

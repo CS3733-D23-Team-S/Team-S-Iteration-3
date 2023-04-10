@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 
-public class EdgeDAOImpl implements IDAO<Edge> {
+public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
-  @Setter @Getter private String name;
+  @Getter private String name;
+  @Getter private final String CSVheader = "startNode,endNode";
   private dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
@@ -33,14 +33,21 @@ public class EdgeDAOImpl implements IDAO<Edge> {
       stmt.execute(edgeTable);
       System.out.println("Created the edge table");
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the edge table");
     }
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -56,16 +63,21 @@ public class EdgeDAOImpl implements IDAO<Edge> {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    edges.clear();
+    neighbors.clear();
+    loadRemote(path);
+  }
 
   @Override
   public void exportCSV(String path) throws IOException {
+    path += "Edge.csv";
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("startNode,endNode");
@@ -77,14 +89,21 @@ public class EdgeDAOImpl implements IDAO<Edge> {
 
   @Override
   public List<Edge> getAll() {
-    return null;
+    return edges;
   }
 
   @Override
   public void delete(Edge target) {}
 
   @Override
-  public void add(Edge addition) {}
+  public void add(Edge addition) {
+    edges.add(addition);
+  }
+
+  public void add(int stN, int enN) {
+    Edge addition = new Edge(stN, enN);
+    add(addition);
+  }
 
   private void constructFromRemote() {
     try {
