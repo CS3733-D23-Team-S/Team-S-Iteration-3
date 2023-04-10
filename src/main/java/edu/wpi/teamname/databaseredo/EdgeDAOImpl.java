@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 
 public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Getter private String name;
+  @Getter private final String CSVheader = "startNode,endNode";
   private dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
@@ -33,7 +33,6 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
       stmt.execute(edgeTable);
       System.out.println("Created the edge table");
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the edge table");
     }
@@ -78,6 +77,7 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Override
   public void exportCSV(String path) throws IOException {
+    path += "Edge.csv";
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("startNode,endNode");
