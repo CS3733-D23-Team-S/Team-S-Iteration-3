@@ -4,6 +4,7 @@ import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,6 +15,7 @@ public class AdminController {
   @FXML ImageView profileIcon;
   @FXML ImageView helpIcon;
   @FXML ImageView backIcon;
+  @FXML ImageView exitIcon;
   @FXML ImageView topbarlogo;
   @FXML ImageView hospitalLogo;
   @FXML MFXButton submittedMealButton;
@@ -32,6 +34,7 @@ public class AdminController {
     homeIcon.setOnMouseClicked(event -> goToHomePage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
     backIcon.setOnMouseClicked(event -> goToLoginPage());
+    exitIcon.setOnMouseClicked(event -> exitApplication());
     submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
     submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
@@ -78,5 +81,8 @@ public class AdminController {
   }
   public void goToLoginPage() {
     Navigation.navigate(Screen.LOGIN_PAGE);
+  }
+  public void exitApplication() {
+    Platform.exit();
   }
 }
