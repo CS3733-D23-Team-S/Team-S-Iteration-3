@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.SearchableComboBox;
 
 public class OrderDetailsController {
 
@@ -23,7 +24,7 @@ public class OrderDetailsController {
   @FXML private MFXButton submit;
   @FXML private MFXButton clear2;
   @FXML private VBox orderVBox;
-  @FXML private MFXTextField roomNum;
+  @FXML private SearchableComboBox location1;
   @FXML private MFXTextField empNum;
 
   @FXML private MFXButton submitted1;
@@ -39,7 +40,7 @@ public class OrderDetailsController {
 
     clearFields2();
     addedOrder();
-    // multSelectedFood();
+
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
@@ -92,12 +93,10 @@ public class OrderDetailsController {
         });
 
     clear2.setOnMouseClicked(event -> clearFields2());
-
-    // foodNamer1();
   }
 
   public void clearFields2() {
-    roomNum.clear();
+    location1.valueProperty().set(null);
     empNum.clear();
   }
 
@@ -116,16 +115,16 @@ public class OrderDetailsController {
       // newRow.setStyle("-fx-background-color : red");
 
       newItemName.setText(aFood.getFoodName());
-      newItemName.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemQuantity.setText(String.valueOf(aFood.getQuantity()));
-      newItemQuantity.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemQuantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemPrice.setText(String.valueOf(aFood.getFoodPrice()));
-      newItemPrice.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemRequest.setText(String.valueOf(aFood.getNote()));
-      newItemRequest.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemRequest.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       orderVBox.getChildren().add(newRow);
       newRow.getChildren().add(newItemName);

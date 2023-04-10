@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -32,8 +31,6 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
-  @FXML TableView submittedTableView;
-
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
 
@@ -43,15 +40,6 @@ public class MealDeliveryController {
 
   @FXML
   public void initialize() throws SQLException {
-
-    TableColumn<Food, String> column1 = new TableColumn<>("First Name");
-
-    column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-    TableColumn<Food, String> column2 = new TableColumn<>("Last Name");
-
-    column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-    // submittedTableView.getColumns().add(column1);
-    // submittedTableView.getColumns().add(column2);
 
     theLoad.load();
     // Dietary Restriction
@@ -461,7 +449,11 @@ public class MealDeliveryController {
     foodDAO.addFood(Quesadillas);
 
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
+    checkout.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.ORDER_DETAILS);
+          System.out.println("clicked");
+        });
 
     walletFriendly();
     quickDelivery();
