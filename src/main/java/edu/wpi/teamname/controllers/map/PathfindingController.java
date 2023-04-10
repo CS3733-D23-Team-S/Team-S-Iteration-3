@@ -26,11 +26,7 @@ public class PathfindingController {
   // @FXML TableView<Object> stepsTable;
 
   // @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
-  @FXML GoogleMapView map;
-  WorldMapView.Country usa = WorldMapView.Country.US;
-  ObservableList<WorldMapView.Country> countries = FXCollections.observableArrayList(usa);
-  ObservableList<WorldMapView.Location> locations = FXCollections.observableArrayList();
-  ObservableList<Object> list;
+
 
   final ObservableList olist = FXCollections.observableArrayList();
 
