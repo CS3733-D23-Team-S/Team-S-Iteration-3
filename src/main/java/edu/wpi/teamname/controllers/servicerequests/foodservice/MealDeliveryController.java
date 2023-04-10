@@ -1,6 +1,5 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
-import edu.wpi.teamname.Database.LoaderDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
@@ -35,8 +34,6 @@ public class MealDeliveryController {
 
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
-
-  @FXML private LoaderDAO theLoad = LoaderDAO.getInstance();
 
   public static int clickedFoodID;
 

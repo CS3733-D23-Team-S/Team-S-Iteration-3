@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 
 public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
