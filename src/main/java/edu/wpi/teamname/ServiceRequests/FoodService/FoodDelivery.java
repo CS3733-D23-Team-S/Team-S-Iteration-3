@@ -1,14 +1,17 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.Map.Location;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import edu.wpi.teamname.databaseredo.orms.Location;
 import lombok.Getter;
 import lombok.Setter;
 
 @SuppressWarnings("ALL")
 public class FoodDelivery {
 
-  @Getter private int deliveryID;
+
   @Getter private String cart;
   @Getter @Setter private Date date;
   @Getter @Setter private Time time;
@@ -20,23 +23,20 @@ public class FoodDelivery {
   @Getter @Setter private String notes = "";
 
   public FoodDelivery(
-      int deliveryID,
+
       OrderItem cart,
-      Date date,
-      Time time,
       Location location,
       String orderedBy,
       String assignedTo,
-      String orderStatus,
       String notes) {
-    this.deliveryID = deliveryID;
+
     this.cart = cart.toString();
-    this.date = date;
-    this.time = time;
+    this.date = Date.valueOf(LocalDate.now());
+    this.time = Time.valueOf(LocalTime.now());
     this.location = location;
     this.orderer = orderedBy;
     this.assignedTo = assignedTo;
-    this.orderStatus = orderStatus;
+    this.orderStatus = "Received";
     this.cost = cart.getTotalPrice();
     this.notes = notes;
   }

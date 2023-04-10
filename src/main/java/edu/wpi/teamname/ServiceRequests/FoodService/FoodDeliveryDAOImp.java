@@ -1,26 +1,26 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.dbConnection;
+
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
+public class FoodDeliveryDAOImp implements IDAO<FoodDelivery,FoodDelivery> {
   protected static final String schemaName = "hospitaldb";
   protected static final String foodRequestsTable = schemaName + "." + "foodRequests";
-  private HashMap<Integer, FoodDelivery> requests = new HashMap<>();
+  private List<FoodDelivery> requests = new LinkedList<>();
   private dbConnection connection = dbConnection.getInstance();
-  static FoodDeliveryDAOImp single_instance = null;
+
 
   private FoodDeliveryDAOImp() {}
 
-  public static synchronized FoodDeliveryDAOImp getInstance() {
-
-    if (single_instance == null) single_instance = new FoodDeliveryDAOImp();
-
-    return single_instance;
-  }
 
   public void addRequest(FoodDelivery request) {
     requests.put(request.getDeliveryID(), request);
@@ -31,22 +31,22 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
               .prepareStatement(
                   "INSERT INTO "
                       + foodRequestsTable
-                      + " (deliveryID, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
+                      + " (Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setInt(1, request.getDeliveryID());
-      preparedStatement.setString(2, request.getCart());
-      preparedStatement.setDate(3, request.getDate());
-      preparedStatement.setTime(4, request.getTime());
-      preparedStatement.setString(5, request.getLocation().getLongName());
-      preparedStatement.setString(6, request.getOrderer());
-      preparedStatement.setString(7, request.getAssignedTo());
-      preparedStatement.setString(8, request.getOrderStatus());
-      preparedStatement.setDouble(9, request.getCost());
-      preparedStatement.setString(10, request.getNotes());
+
+      preparedStatement.setString(1, request.getCart());
+      preparedStatement.setDate(2, request.getDate());
+      preparedStatement.setTime(3, request.getTime());
+      preparedStatement.setString(4, request.getLocation().getLongName());
+      preparedStatement.setString(5, request.getOrderer());
+      preparedStatement.setString(6, request.getAssignedTo());
+      preparedStatement.setString(7, request.getOrderStatus());
+      preparedStatement.setDouble(8, request.getCost());
+      preparedStatement.setString(9, request.getNotes());
 
       preparedStatement.executeUpdate();
 
-      requests.put(request.getDeliveryID(), request);
+      requests.add(request);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -55,32 +55,29 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
   }
 
   @Override
-  public HashMap<Integer, FoodDelivery> getAllRequests() {
+  public List<FoodDelivery> getAll() {
     return requests;
   }
 
-  @Override
-  public FoodDelivery getRequest(int target) {
-    if (requests.get(target) == null) {
-      System.out.println("This node is not in the database, so its row cannot be printed");
-      return null;
-    }
-    return requests.get(target);
+
+  public FoodDelivery getRequest(String orderedBy, Date orderDate) {
+    return null;
   }
 
-  @Override
-  public void deleteRequest(int target) {
+
+  public void deleteRequest(String orderedBy, Date orderDate) {
     try {
       PreparedStatement deleteFood =
           connection
               .getConnection()
-              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE deliveryid = ?");
+              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE orderer = ? AND  orderDate = ?");
 
-      deleteFood.setInt(1, target);
+      deleteFood.setString(1, orderedBy);
+      deleteFood.setDate(2, (java.sql.Date) orderDate);
       deleteFood.execute();
 
       // remove from local Hashmap
-      requests.remove(target);
+
 
       System.out.println("FoodRequest deleted");
 
@@ -90,7 +87,8 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
     }
   }
 
-  public void initFoodRequests() {
+  @Override
+  public void initTable(String tableName) {
     try {
       Statement st = connection.getConnection().createStatement();
       String dropFoodRequestsTable = "DROP TABLE IF EXISTS " + foodRequestsTable + " CASCADE";
@@ -99,7 +97,7 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
           "CREATE TABLE IF NOT EXISTS "
               + foodRequestsTable
               + " "
-              + "(deliveryid int UNIQUE PRIMARY KEY,"
+              + "(deliveryid SERIAL PRIMARY KEY,"
               + "cart Varchar(100),"
               + "orderdate Date,"
               + "ordertime time,"
@@ -122,4 +120,35 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
       e.printStackTrace();
     }
   }
+
+
+
+  @Override
+  public void dropTable() {
+
+  }
+
+  @Override
+  public void loadRemote(String pathToCSV) {
+
+  }
+
+  @Override
+  public void importCSV(String path) {
+
+  }
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+
+  }
+
+
+
+  @Override
+  public void delete(FoodDelivery target) {
+
+  }
+
+
 }
