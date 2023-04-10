@@ -88,7 +88,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest> {
                       + roomReservationsTable
                       + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setDate(1, Date.valueOf(request.eventDate));
+      preparedStatement.setDate(1, Date.valueOf(request.orderDate));
       preparedStatement.setDate(2, Date.valueOf(request.eventDate));
       preparedStatement.setTime(3, Time.valueOf(request.startTime));
       preparedStatement.setTime(4, Time.valueOf(request.endTime));
