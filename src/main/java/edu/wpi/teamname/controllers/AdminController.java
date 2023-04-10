@@ -14,6 +14,8 @@ public class AdminController {
   @FXML ImageView profileIcon;
   @FXML ImageView helpIcon;
   @FXML ImageView backIcon;
+  @FXML ImageView topbarlogo;
+  @FXML ImageView hospitalLogo;
   @FXML MFXButton submittedMealButton;
   @FXML MFXButton submittedRoomButton;
   @FXML MFXButton mapEditorButton;
@@ -34,18 +36,24 @@ public class AdminController {
     submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
 
-    Image HomeIcon = new Image(Main.class.getResource("./images/Home-icon.svg.png").toString());
+    Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
 
     Image HelpIcon =
         new Image(
             Main.class
-                .getResource("./HomepageImages/1200px-Icon-round-Question_mark.svg.png")
+                .getResource("./images/helpicon.png")
                 .toString());
     helpIcon.setImage(HelpIcon);
 
     Image ProfileIcon = new Image(Main.class.getResource("./images/ProfileIcon.png").toString());
     profileIcon.setImage(ProfileIcon);
+
+    Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
+    backIcon.setImage(BackIcon);
+
+    Image TopBarIcon = new Image(Main.class.getResource("./images/topbarlogo.png").toString());
+    topbarlogo.setImage(TopBarIcon);
   }
 
   public void goToHomePage() {
