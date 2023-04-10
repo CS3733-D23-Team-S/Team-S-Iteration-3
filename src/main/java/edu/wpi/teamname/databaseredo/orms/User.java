@@ -8,7 +8,7 @@ public class User implements IDataPack {
 
   @Getter private String userName;
   @Getter private String password;
-  @Getter @Setter Permission permission;
+  @Getter @Setter private Permission permission;
 
   public User(String name, String pass, Permission perm) {
     this.userName = name;
@@ -27,7 +27,8 @@ public class User implements IDataPack {
 
   @Override
   public String toCSVString() {
-    return null;
+
+    return userName + "," + password + "," + permission.ordinal();
   }
 
   public enum Permission {
