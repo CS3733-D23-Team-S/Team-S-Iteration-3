@@ -12,9 +12,6 @@ import java.util.HashMap;
 import lombok.Getter;
 
 public class FoodDAOImpl implements IDAO<Food, Integer> {
-
-  // protected static final String foodsTable = "hospitaldb" + "." + "foods";
-
   @Getter private String name;
   private dbConnection connection;
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
@@ -197,7 +194,14 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
 
   @Override
   public ArrayList<Food> getAll() {
-    return (ArrayList<Food>) foods.values().stream().toList();
+    ArrayList<Food> list = new ArrayList<Food>();
+
+    for (Food aFood : foods.values()) {
+      if (aFood.isWalletFriendly()) {
+        list.add(aFood);
+      }
+    }
+    return list;
   }
 
   @Override

@@ -22,7 +22,6 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
     this.name = name;
     try {
       Statement st = connection.getConnection().createStatement();
-      String dropFoodRequestsTable = "DROP TABLE IF EXISTS " + name + " CASCADE";
 
       String foodRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
@@ -41,8 +40,8 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
               + "foreign key (location) references "
               + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
-      st.execute(dropFoodRequestsTable);
       st.execute(foodRequestsTableConstruct);
+      System.out.println("Created the foodRequest table");
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());

@@ -50,11 +50,13 @@ public class HomeController {
   @FXML
   public void initialize() {
 
+    System.out.println("Here1");
     cart = new OrderItem(1);
 
     // Adding the menu option to exit application
 
     mealDeliveryButton.setOnMouseClicked(event -> goToMealPage());
+    System.out.println("Here2");
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());

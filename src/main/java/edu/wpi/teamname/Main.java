@@ -9,7 +9,9 @@ public class Main {
   public static void main(String[] args) throws SQLException {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
+    System.out.println("a");
     App.launch(App.class, args);
+    System.out.println("b");
     dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     //    for (int key : NodeDaoImpl.getInstance().getNodes().keySet())
