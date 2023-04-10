@@ -33,7 +33,7 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
-  // @FXML HBox fname;
+
 
   @FXML private FoodDAOImpl foodDAO = FoodDAOImpl.getInstance();
   @FXML private FoodDeliveryDAOImp foodel = FoodDeliveryDAOImp.getInstance();
@@ -43,27 +43,27 @@ public class MealDeliveryController {
   public static int clickedFoodID;
 
   @FXML
-  public void initialize() {
-    /*
-       // Dietary Restriction
-       MenuItem vegetarian = new MenuItem("Vegetarian");
-       MenuItem gf = new MenuItem("Gluten Free");
-       MenuItem h = new MenuItem("Halal");
-       MenuItem k = new MenuItem("Kosher");
-       MenuItem v = new MenuItem("Vegan");
-       System.out.println(gf.getText());
+  public void initialize() throws SQLException {
+    theLoad.load();
+    // Dietary Restriction
+    MenuItem vegetarian = new MenuItem("Vegetarian");
+    MenuItem gf = new MenuItem("Gluten Free");
+    MenuItem h = new MenuItem("Halal");
+    MenuItem k = new MenuItem("Kosher");
+    MenuItem v = new MenuItem("Vegan");
+    System.out.println(gf.getText());
 
-       dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
+    dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
 
-       // Cuisine
-       MenuItem Am = new MenuItem("American");
-       MenuItem It = new MenuItem("Italian");
-       MenuItem Mex = new MenuItem("Mexican");
-       MenuItem Ind = new MenuItem("Indian");
+    // Cuisine
+    MenuItem Am = new MenuItem("American");
+    MenuItem It = new MenuItem("Italian");
+    MenuItem Mex = new MenuItem("Mexican");
+    MenuItem Ind = new MenuItem("Indian");
 
-       System.out.println(gf.getText());
+    System.out.println(gf.getText());
 
-       cuisine.getItems().addAll(Am, It, Mex, Ind);
+    cuisine.getItems().addAll(Am, It, Mex, Ind);
 
     // add filters to filters hbox
     vegetarian.setOnAction(
@@ -118,7 +118,11 @@ public class MealDeliveryController {
           applyFilters();
         });
 
-    clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    clearButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.MEAL_DELIVERY1);
+          filters.clear();
+        });
 
     // adding Foods
     Food Pizza =
