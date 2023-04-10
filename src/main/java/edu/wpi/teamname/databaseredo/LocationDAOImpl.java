@@ -99,7 +99,8 @@ public class LocationDAOImpl implements IDAO<Location> {
       stmt.setString(1, addition.getLongName());
       stmt.setString(2, addition.getShortName());
       stmt.setInt(3, addition.getNodeType().ordinal());
-      locations.put(addition.getLongName(), addition);
+
+      this.locations.put(addition.getLongName(), addition);
       stmt.execute();
     } catch (SQLException e) {
       e.getMessage();
@@ -107,6 +108,7 @@ public class LocationDAOImpl implements IDAO<Location> {
     }
   }
 
+  /** Constructs from the remote */
   private void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
@@ -117,7 +119,7 @@ public class LocationDAOImpl implements IDAO<Location> {
         String shortName = data.getString("shortname");
         NodeType type = NodeType.values()[data.getInt("nodetype")];
         Location location = new Location(longName, shortName, type);
-        locations.put(longName, location);
+        this.locations.put(longName, location);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -126,6 +128,11 @@ public class LocationDAOImpl implements IDAO<Location> {
     }
   }
 
+  /**
+   * Constructs remote and database
+   *
+   * @param csvFilePath
+   */
   private void constructRemote(String csvFilePath) {
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       reader.readLine();
@@ -148,6 +155,8 @@ public class LocationDAOImpl implements IDAO<Location> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
+          System.out.println(location.toCSVString());
+          this.locations.put(location.getLongName(), location);
         }
       } catch (SQLException e) {
         e.printStackTrace();
