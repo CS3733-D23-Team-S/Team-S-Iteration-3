@@ -82,6 +82,7 @@ public class LocationDAOImpl implements IDAO<Location> {
 
   @Override
   public List<Location> getAll() {
+    System.out.println("Locations: ")
     return locations.values().stream().toList();
   }
 
