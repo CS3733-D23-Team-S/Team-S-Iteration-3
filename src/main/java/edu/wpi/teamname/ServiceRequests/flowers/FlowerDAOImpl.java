@@ -157,7 +157,7 @@ public class FlowerDAOImpl implements IDAO<Flower> {
       while (rs.next()) {
         Integer ID = rs.getInt("ID");
         String name = rs.getString("flowerName");
-        String size = rs.getString("size");
+        Size size = Size.valueOf(rs.getString("size"));
         Double price = rs.getDouble("price");
         Integer quantity = rs.getInt("quantity");
         Boolean isSoldOut = rs.getBoolean("isSoldOut");
@@ -186,7 +186,7 @@ public class FlowerDAOImpl implements IDAO<Flower> {
               new Flower(
                   Integer.parseInt(fields[0]),
                   fields[1],
-                  fields[2],
+                  Size.valueOf(fields[2]),
                   Double.parseDouble(fields[3]),
                   Integer.parseInt(fields[4]),
                   Boolean.parseBoolean(fields[5]),

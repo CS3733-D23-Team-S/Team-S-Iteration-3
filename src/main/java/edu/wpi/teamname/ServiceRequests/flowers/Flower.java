@@ -7,7 +7,7 @@ import lombok.Setter;
 public class Flower {
   @Getter @Setter private int ID;
   @Getter @Setter private String name;
-  @Getter @Setter private String size;
+  @Getter @Setter private Size size;
   @Getter @Setter private double price;
   @Getter @Setter private int quantity;
 
@@ -18,7 +18,7 @@ public class Flower {
   public Flower(
       int ID,
       String name,
-      String size,
+      Size size,
       double price,
       int quantity,
       boolean isSoldOut,
