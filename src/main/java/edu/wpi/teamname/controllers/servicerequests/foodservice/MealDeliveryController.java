@@ -7,6 +7,9 @@ import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.lang.reflect.Method;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -62,46 +65,58 @@ public class MealDeliveryController {
 
        cuisine.getItems().addAll(Am, It, Mex, Ind);
 
-       // add filters to filters hbox
-       vegetarian.setOnAction(
-           (e) -> {
-             addFilter(vegetarian);
-           });
-       gf.setOnAction(
-           (e) -> {
-             addFilter(gf);
-           });
-       h.setOnAction(
-           (e) -> {
-             addFilter(h);
-           });
-       k.setOnAction(
-           (e) -> {
-             addFilter(k);
-           });
-       v.setOnAction(
-           (e) -> {
-             addFilter(v);
-           });
-       Am.setOnAction(
-           (e) -> {
-             addFilter(Am);
-           });
-       It.setOnAction(
-           (e) -> {
-             addFilter(It);
-           });
-       Mex.setOnAction(
-           (e) -> {
-             addFilter(Mex);
-           });
-       Ind.setOnAction(
-           (e) -> {
-             addFilter(Ind);
-           });
-
-    */
-    apply.setOnMouseClicked(event -> clear1());
+    // add filters to filters hbox
+    vegetarian.setOnAction(
+        (e) -> {;
+          addFilter(vegetarian);
+          System.out.println("vegetarian clicked");
+          if (!filterList.contains("vegetarian")) filterList.add("vegetarian");
+        });
+    gf.setOnAction(
+        (e) -> {
+          addFilter(gf);
+          if (!filterList.contains("gf")) filterList.add("gf");
+        });
+    h.setOnAction(
+        (e) -> {
+          addFilter(h);
+          if (!filterList.contains("halal")) filterList.add("halal");
+        });
+    k.setOnAction(
+        (e) -> {
+          addFilter(k);
+          if (!filterList.contains("kosher")) filterList.add("k");
+        });
+    v.setOnAction(
+        (e) -> {
+          addFilter(v);
+          if (!filterList.contains("vegan")) filterList.add("vg");
+        });
+    Am.setOnAction(
+        (e) -> {
+          addFilter(Am);
+          if (!filterList.contains("American")) filterList.add("American");
+        });
+    It.setOnAction(
+        (e) -> {
+          addFilter(It);
+          if (!filterList.contains("Italian")) filterList.add("Italian");
+        });
+    Mex.setOnAction(
+        (e) -> {
+          addFilter(Mex);
+          if (!filterList.contains("Mexican")) filterList.add("Mexican");
+        });
+    Ind.setOnAction(
+        (e) -> {
+          addFilter(Ind);
+          if (!filterList.contains("Indian")) filterList.add("Indian");
+        });
+    apply.setOnMouseClicked(
+        event -> {
+          clear1();
+          applyFilters();
+        });
 
     clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
@@ -175,7 +190,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false);
 
     Food Chicken =
@@ -198,7 +213,7 @@ public class MealDeliveryController {
             false,
             false,
             false,
-            false,
+            true,
             false,
             false);
 
@@ -220,11 +235,11 @@ public class MealDeliveryController {
             false,
             false,
             false,
+            true,
+            true,
             false,
-            false,
-            false,
-            false,
-            false);
+            true,
+            true);
 
     Food Pasta =
         new Food(
@@ -241,7 +256,7 @@ public class MealDeliveryController {
             15,
             " ",
             false,
-            false,
+            true,
             false,
             false,
             false,
@@ -434,7 +449,6 @@ public class MealDeliveryController {
 
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
-    // vegetarianButton.setOnAction(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
 
     walletFriendly();
     quickDelivery();
@@ -470,14 +484,141 @@ public class MealDeliveryController {
     }
   }
 
-  public void getVegetarian() {
+  public Method chooseVegetarian() {
     for (int i = 0; i < foodDAO.getVegetarian().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(foodDAO.getQuick().get(i).toString());
-      btn.setText(foodDAO.getQuick().get(i).toString());
+      btn.setId(foodDAO.getVegetarian().get(i).toString());
+      btn.setText(foodDAO.getVegetarian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getVegetarian().get(finalI).getFoodID()));
+      System.out.println("vegetarian works");
     }
+    return null;
+  }
+
+  public Method chooseVegan() {
+    for (int i = 0; i < foodDAO.getVegan().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getVegan().get(i).toString());
+      btn.setText(foodDAO.getVegan().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getVegan().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseGlutenFree() {
+    for (int i = 0; i < foodDAO.getGlutenFree().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getGlutenFree().get(i).toString());
+      btn.setText(foodDAO.getGlutenFree().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getGlutenFree().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseHalal() {
+    for (int i = 0; i < foodDAO.getHalal().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getHalal().get(i).toString());
+      btn.setText(foodDAO.getHalal().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getHalal().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseKosher() {
+    for (int i = 0; i < foodDAO.getKosher().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getKosher().get(i).toString());
+      btn.setText(foodDAO.getKosher().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseAmerican() {
+    for (int i = 0; i < foodDAO.getAmerican().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getAmerican().get(i).toString());
+      btn.setText(foodDAO.getAmerican().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseItalian() {
+    for (int i = 0; i < foodDAO.getItalian().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getItalian().get(i).toString());
+      btn.setText(foodDAO.getItalian().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseMexican() {
+    for (int i = 0; i < foodDAO.getMexican().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getMexican().get(i).toString());
+      btn.setText(foodDAO.getMexican().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
+  }
+
+  public Method chooseIndian() {
+    for (int i = 0; i < foodDAO.getIndian().size(); i++) {
+      MFXButton btn = new MFXButton();
+      btn.setId(foodDAO.getIndian().get(i).toString());
+      btn.setText(foodDAO.getIndian().get(i).toString());
+      btn.setMaxWidth(103);
+      btn.setMaxHeight(87);
+      qd.getChildren().add(btn);
+      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      int finalI = i;
+      btn.setOnMouseClicked(event -> store(foodDAO.getKosher().get(finalI).getFoodID()));
+    }
+    return null;
   }
 
   public void store(int x) {
@@ -485,17 +626,22 @@ public class MealDeliveryController {
     Navigation.navigate(Screen.PRODUCT_DETAILS);
   }
 
-  public void addFilter(MenuItem vegetarian) {
+  ArrayList<MenuItem> filters = new ArrayList<>();
+
+  public void addFilter(MenuItem x) {
+    System.out.println(foodDAO.getVegetarian());
     Label lbl = new Label();
-    lbl.setId(vegetarian.getText());
-    lbl.setText(vegetarian.getText());
+    lbl.setId(x.getText());
+    lbl.setText(x.getText());
     lbl.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
     lbl.setMaxWidth(103);
     lbl.setMaxHeight(87);
     System.out.println("works");
     System.out.println(lbl.getText());
-
-    filter.getChildren().add(lbl);
+    if (!filters.contains(x)) {
+      filters.add(x);
+      filter.getChildren().add(lbl);
+    }
   }
 
   public void clear1() {
@@ -504,5 +650,43 @@ public class MealDeliveryController {
     qdLabel.setText("");
     wfLabel.setText("");
     mpLabel.setText("");
+  }
+
+  public ArrayList<String> filterList = new ArrayList<>();
+
+  public void applyFilters() {
+    for (int i = 0; i < filterList.size(); i++) {
+
+      if (filterList.get(i) == "vegetarian") {
+        chooseVegetarian();
+      }
+      if (filterList.get(i) == "gf") {
+        chooseGlutenFree();
+      }
+      if (filterList.get(i) == "vg") {
+        chooseVegan();
+      }
+      if (filterList.get(i) == "k") {
+        chooseKosher();
+      }
+      if (filterList.get(i) == "h") {
+        chooseHalal();
+      }
+
+      if (filterList.get(i) == "american") {
+        chooseAmerican();
+      }
+      if (filterList.get(i) == "italian") {
+        chooseItalian();
+      }
+
+      if (filterList.get(i) == "mexican") {
+        chooseMexican();
+      }
+
+      if (filterList.get(i) == "indian") {
+        chooseIndian();
+      }
+    }
   }
 }
