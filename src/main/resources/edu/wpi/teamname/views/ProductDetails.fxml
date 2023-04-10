@@ -2,17 +2,20 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.ProductDetailsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.ProductDetailsController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
@@ -31,15 +34,14 @@
       <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" />
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="4" />
-      <VBox spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="5" />
+      <VBox spacing="20.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#f2f2f2" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Name:">
+                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Name:">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
@@ -49,7 +51,7 @@
             <HBox fx:id="foodName" prefHeight="100.0" prefWidth="200.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#f2f2f2" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Description:">
+                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Description:">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
@@ -59,7 +61,7 @@
             <HBox fx:id="fDescription" prefHeight="100.0" prefWidth="200.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#f2f2f2" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Price:">
+                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Price:">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
@@ -67,32 +69,60 @@
                </children>
             </HBox>
             <HBox fx:id="fPrice" prefHeight="100.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="800.0">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#fcfcfc" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:">
+                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="200.0" top="10.0" />
+                     </HBox.margin>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Request">
+                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Request">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
                   </Text>
                </children>
             </HBox>
          </children>
       </VBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="530.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
          <children>
-            <MFXTextField fx:id="quantity" prefHeight="60.0" prefWidth="368.0" promptText="Enter Quantity" />
-            <MFXTextField fx:id="request" prefHeight="51.0" prefWidth="368.0" promptText="Enter Special Request" />
+            <MFXTextField fx:id="quantity" prefHeight="60.0" prefWidth="153.0" promptText="Enter Quantity">
+               <HBox.margin>
+                  <Insets right="145.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <textFill>
+                  <Color red="0.07058823853731155" green="0.18039216101169586" blue="0.3490196168422699" opacity="0.8700000047683716" />
+               </textFill></MFXTextField>
+            <MFXTextField fx:id="request" prefHeight="60.0" prefWidth="368.0" promptText="Enter Special Request">
+               <HBox.margin>
+                  <Insets right="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <textFill>
+                  <Color red="0.07058823853731155" green="0.18039216101169586" blue="0.3490196168422699" opacity="0.8700000047683716" />
+               </textFill></MFXTextField>
+            <MFXButton fx:id="clear" prefHeight="60.0" style="-fx-background-color: d9d9d9;" text="Clear " textFill="#122e59">
+               <font>
+                  <Font name="Open Sans Regular" size="18.0" />
+               </font>
+            </MFXButton>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="800.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="2" GridPane.rowIndex="8">
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="800.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="3" GridPane.rowIndex="8">
          <children>
             <MFXButton fx:id="back3" prefHeight="141.0" prefWidth="139.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
                <font>
@@ -106,10 +136,12 @@
             </MFXButton>
          </children>
       </HBox>
-      <MFXButton fx:id="clear" text="Clear " GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="10" />
+      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Details" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <font>
-            <Font name="Open Sans Regular" size="24.0" />
+            <Font name="Open Sans Regular" size="36.0" />
          </font>
-      </MFXButton>
+      </Text>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
    </children>
 </GridPane>

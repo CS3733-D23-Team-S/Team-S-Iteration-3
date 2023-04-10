@@ -4,6 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.CSV_MANAGE;
 import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
 
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -42,11 +43,15 @@ public class HomeController {
   @FXML MFXButton homeToPathfindingButton;
 
   public static int cartID = 1;
-  public static int cart = 1;
   public static int numRequests = 0;
+
+  public static OrderItem cart;
 
   @FXML
   public void initialize() {
+
+    cart = new OrderItem(1);
+
     // Adding the menu option to exit application
 
     mealDeliveryButton.setOnMouseClicked(event -> goToMealPage());
@@ -92,15 +97,11 @@ public class HomeController {
     //  mealdeliveryButton.setOnMouseClicked(event -> incrementCart());
 
     reserveRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    incrementCart1();
+    incrementCart();
   }
 
   public void incrementCart() {
     cartID++;
-  }
-
-  public void incrementCart1() {
-    cart++;
   }
 
   public void goToRoomPage() {
