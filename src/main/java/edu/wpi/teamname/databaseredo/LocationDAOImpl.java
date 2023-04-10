@@ -7,15 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-
 public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Getter private String name;
+  @Getter private final String CSVheader = "longName,shortName,nodeType";
   private dbConnection connection;
 
   @Getter private HashMap<String, Location> locations = new HashMap<>();
@@ -23,7 +22,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   public LocationDAOImpl() {
     connection = dbConnection.getInstance();
   }
-
 
   @Override
   public void initTable(String name) {
@@ -40,7 +38,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(locationTable);
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the location table");
     }
@@ -71,7 +68,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -80,12 +76,13 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   public void importCSV(String path) {
     dropTable();
     locations.clear();
+    initTable(name);
     loadRemote(path);
   }
 
   @Override
   public void exportCSV(String path) throws IOException {
-
+    path += "LocationName.csv";
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("longName,shortName,nodeType");
     for (Location location : locations.values()) {
@@ -119,7 +116,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
       locations.put(addition.getLongName(), addition);
       stmt.execute();
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
