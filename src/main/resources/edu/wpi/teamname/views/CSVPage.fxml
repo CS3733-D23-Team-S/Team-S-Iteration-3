@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,8 +19,23 @@
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
    <root>
       <BorderPane fx:id="boarderPane">
-          <center>
-              <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+          <top>
+              <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER_RIGHT">
+                  <children>
+                      <Button fx:id="exitButton" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: &quot;122E59&quot;;">
+                          <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../images/exitSymbolWhite.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                      </Button>
+                  </children>
+              </HBox>
+          </top>
+         <right>
+              <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                   <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,20 +84,20 @@
                      <Insets bottom="10.0" />
                   </GridPane.margin>
                   </Label>
-               <AnchorPane prefWidth="364.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+               <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                   <children>
-                        <MFXTextField fx:id="outputField" layoutY="13.0" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="351.0" promptText="Directory..." AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="11.0" />
-                        <MFXButton fx:id="chooseDirectory" layoutX="327.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="16.0">
+                        <MFXTextField fx:id="outputField" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="351.0" promptText="Directory..." />
+                        <MFXButton fx:id="chooseDirectory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="9.0" />
                             </font>
                         </MFXButton>
                   </children>
-               </AnchorPane>
-               <AnchorPane prefHeight="52.0" prefWidth="364.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               </HBox>
+               <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                   <children>
-                        <MFXTextField fx:id="inputField" layoutY="10.0" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="200.0" promptText="File..." AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="11.0" />
-                        <MFXButton fx:id="chooseInput" alignment="CENTER" layoutX="327.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="16.0">
+                        <MFXTextField fx:id="inputField" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="200.0" promptText="File..." />
+                        <MFXButton fx:id="chooseInput" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="9.0" />
                             </font>
@@ -92,24 +106,9 @@
                         </opaqueInsets>
                         </MFXButton>
                   </children>
-               </AnchorPane>
+               </HBox>
               </GridPane>
-          </center>
-          <top>
-              <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER_RIGHT">
-                  <children>
-                      <Button fx:id="exitButton" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: &quot;122E59&quot;;">
-                          <graphic>
-                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../images/exitSymbolWhite.png" />
-                                  </image>
-                              </ImageView>
-                          </graphic>
-                      </Button>
-                  </children>
-              </HBox>
-          </top>
+         </right>
       </BorderPane>
    </root>
 </Scene>

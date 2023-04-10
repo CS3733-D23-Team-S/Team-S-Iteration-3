@@ -53,6 +53,12 @@ public class CSVController {
   private void getPath() {
     File selectedFile = fileChooser.showOpenDialog(App.getPrimaryStage());
     inputPath = selectedFile.toString();
+    try {
+      if (!inputPath.endsWith(".csv")) throw new Exception();
+    } catch (Exception e) {
+      inputError.setText("Not a valid file to import");
+      return;
+    }
     System.out.println(inputPath);
     inputField.setText(inputPath);
   }
@@ -69,15 +75,14 @@ public class CSVController {
       if (inputPath.isEmpty()) {
         inputError.setText("Please select an input file");
         return;
-      } else {
-        inputError.setText("");
       }
       repo.importCSV(inputPath);
-    } catch (FileNotFoundException e) {
-      inputError.setText("Error importing the file");
-      e.printStackTrace();
+      inputError.setText("");
+      inputField.clear();
+    } catch (RuntimeException e) {
+      inputError.setText("This file does not contain valid data");
     } catch (IOException e) {
-      outputError.setText("Error importing the CSVs");
+      outputError.setText("Error importing the CSV");
       throw new RuntimeException(e);
     }
   }
@@ -87,10 +92,10 @@ public class CSVController {
       if (outputPath.isEmpty()) {
         outputError.setText("Please select an export directory");
         return;
-      } else {
-        outputError.setText("");
       }
       repo.exportCSV(outputPath);
+      outputError.setText("");
+      outputField.clear();
     } catch (FileNotFoundException e) {
       outputError.setText("Error finding the directory");
       e.printStackTrace();

@@ -74,13 +74,14 @@ public class DataBaseRepository {
   public void importCSV(String inputPath) throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(inputPath));
     String check = reader.readLine();
+
     if (check.equals(nodeDAO.getCSVheader())) nodeDAO.importCSV(inputPath);
     else if (check.equals(edgeDAO.getCSVheader())) edgeDAO.importCSV(inputPath);
     else if (check.equals(moveDAO.getCSVheader())) {
       moveDAO.importCSV(inputPath);
     } else if (check.equals(locationDAO.getCSVheader())) {
       locationDAO.importCSV(inputPath);
-    }
+    } else throw new RuntimeException();
   }
 
   public void exportCSV(String outputPath) throws IOException {

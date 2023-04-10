@@ -76,6 +76,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   public void importCSV(String path) {
     dropTable();
     locations.clear();
+    initTable(name);
     loadRemote(path);
   }
 

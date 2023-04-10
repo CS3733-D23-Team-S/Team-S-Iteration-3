@@ -80,6 +80,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     dropTable();
     locToNode.clear();
     listOfMoves.clear();
+    initTable(name);
     loadRemote(path);
   }
 
