@@ -1,9 +1,10 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.databaseredo.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Food {
+public class Food implements IDataPack {
   @Getter private int FoodID;
   @Getter @Setter private String FoodName;
   @Getter private String FoodType;
@@ -112,5 +113,34 @@ public class Food {
     theFood = FoodName;
 
     return theFood;
+  }
+
+  public String toCSVString()
+  {
+    String finale;
+
+    finale = FoodID + ","
+    + FoodName + ","
+    + FoodType + ","
+    + FoodPrepTime + ","
+    + FoodCuisine + ","
+    + FoodPrice + ","
+    + FoodDescription + ","
+    + quantity + ","
+    + isSoldOut + ","
+    + image + ","
+    + calories + ","
+    + note + ","
+    + isAmerican + ","
+    + isItalian + ","
+    + isMexican + ","
+    + isIndian + ","
+    + isVegetarian + ","
+    + isVegan + ","
+    + isHalal + ","
+    + isGlutFree + ","
+    + isKosher + ",";
+
+    return finale;
   }
 }

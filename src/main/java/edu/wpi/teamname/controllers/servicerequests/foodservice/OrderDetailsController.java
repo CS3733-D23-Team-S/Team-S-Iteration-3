@@ -42,28 +42,13 @@ public class OrderDetailsController {
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
-    java.util.Date current = new java.util.Date();
-
     Location temp = LocationDoaImpl.getInstance().getLocation("Neuroscience Waiting Room");
 
-    String whoOrdered = "George Washington";
+    String whoOrdered = "George Washington"; // eventually linked to account ordering
 
     submit.setOnMouseClicked(
         event -> {
           try {
-
-            // Get the time when button is clicked
-            int year = current.getYear();
-            int month = current.getMonth();
-            int day = current.getDay();
-
-            java.sql.Date theDate = new Date(year, month, day);
-
-            int hour = current.getHours();
-            int minute = current.getMinutes();
-            int second = current.getSeconds();
-
-            java.sql.Time theTime = new Time(hour, minute, second);
 
             // Get the employee
             String Emp = empNum.getText();
@@ -71,14 +56,10 @@ public class OrderDetailsController {
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    (HomeController.numRequests++),
                     ProductDetailsController.cart,
-                    theDate,
-                    theTime,
                     temp,
                     whoOrdered,
                     Emp,
-                    "In Progress",
                     theNote);
 
             foodev.addRequest(currentFoodDev);
@@ -91,8 +72,6 @@ public class OrderDetailsController {
         });
 
     clear2.setOnMouseClicked(event -> clearFields2());
-
-    // foodNamer1();
   }
 
   public void clearFields2() {

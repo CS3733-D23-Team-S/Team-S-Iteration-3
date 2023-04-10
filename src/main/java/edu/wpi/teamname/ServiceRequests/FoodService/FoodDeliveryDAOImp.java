@@ -22,8 +22,9 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery,FoodDelivery> {
   private FoodDeliveryDAOImp() {}
 
 
-  public void addRequest(FoodDelivery request) {
-    requests.put(request.getDeliveryID(), request);
+  @Override
+  public void add(FoodDelivery request) {
+
     try {
       PreparedStatement preparedStatement =
           connection
