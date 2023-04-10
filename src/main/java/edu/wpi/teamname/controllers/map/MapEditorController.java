@@ -304,7 +304,7 @@ public class MapEditorController {
 
   public void removeLocation() {
     Boolean locationExists = false;
-    int indexToRemove = 0;
+    Location locationToRemove = null;
     if (longNameTF.getText().equals("")) {
       mainLocationTF.setText("Error: make sure the Long Name text field is entered");
     } else {
@@ -312,7 +312,7 @@ public class MapEditorController {
       for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
         if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
           locationExists = true;
-          indexToRemove = i;
+          locationToRemove = dataBase.getLocationDAO().getAll().get(i);
           // dataBase.getLocationDAO().delete(longNameTF.getText());
           // line above removes it from the table visually
 
@@ -324,7 +324,8 @@ public class MapEditorController {
         locationTable
             .getItems()
             .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-        // dataBase.getLocationDAO().delete(longNameTF.getText());
+        dataBase.getLocationDAO().delete(longNameTF.getText());
+        // dataBase.getLocationDAO().getAll().remove(locationToRemove);
 
         locationTable
             .getItems()
@@ -698,8 +699,9 @@ public class MapEditorController {
       }
     }
   }
-  public void editMove() {
 
+  public void editMove() {
+    // not sure how this works
   }
 
   public void createLists() {
