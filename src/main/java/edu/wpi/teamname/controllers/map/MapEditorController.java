@@ -598,8 +598,108 @@ public class MapEditorController {
   }
 
   public void addMove() {
-    // make sure move doesn't already exist
+    int nodeID;
+    Boolean nodeIDExists = false;
+    Boolean locationExists = false;
     // make sure fields aren't empty
+    if (mtNodeIDTF.getText().equals("") || locationTF.getText().equals("")) {
+      mainMoveTF.setText("Error: make sure all fields are filled in");
+    } else {
+      // make sure node ID is valid
+      try {
+        nodeID = Integer.parseInt(mtNodeIDTF.getText());
+        // make sure node ID and location don't already exist
+        for (int i = 0; i < dataBase.getMoveDAO().getAll().size(); i++) {
+          if (dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID) {
+            nodeIDExists = true;
+          }
+          if (dataBase.getMoveDAO().getAll().get(i).getLocation().equals(locationTF.getText())) {
+            locationExists = true;
+          }
+        }
+        if (nodeIDExists) {
+          mainMoveTF.setText("Error: the node ID you entered cannot be found");
+        } else if (locationExists) {
+          mainMoveTF.setText("Error: the location name you entered cannot be found");
+        } else {
+          moveTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
+          LocalDate today = LocalDate.now();
+          dataBase.getMoveDAO().getAll().add(new Move(nodeID, locationTF.getText(), today));
+          moveTable.getItems().addAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
+          mainMoveTF.setText(
+              "Move with node ID: "
+                  + nodeID
+                  + " and location: "
+                  + locationTF.getText()
+                  + " successfully added");
+        }
+      } catch (NumberFormatException e) {
+        mainMoveTF.setText("Error: make sure node ID is entered as an integer");
+      }
+    }
+  }
+
+  public void removeMove() {
+    int nodeID;
+    Boolean nodeIDExists = false;
+    Boolean locationExists = false;
+    Boolean moveExists = false;
+    Move moveToRemove = null;
+    // make sure fields aren't empty
+    if (mtNodeIDTF.getText().equals("") || locationTF.getText().equals("")) {
+      mainMoveTF.setText("Error: make sure all fields are filled in");
+    } else {
+      // make sure node ID is valid
+      try {
+        nodeID = Integer.parseInt(mtNodeIDTF.getText());
+        // make sure node ID and location don't already exist
+        for (int i = 0; i < dataBase.getMoveDAO().getAll().size(); i++) {
+          if (dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID) {
+            nodeIDExists = true;
+          }
+          if (dataBase.getMoveDAO().getAll().get(i).getLocation().equals(locationTF.getText())) {
+            locationExists = true;
+          }
+          if ((dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID)
+              && (dataBase
+                  .getMoveDAO()
+                  .getAll()
+                  .get(i)
+                  .getLocation()
+                  .equals(locationTF.getText()))) {
+            moveExists = true;
+            moveToRemove = dataBase.getMoveDAO().getAll().get(i);
+          }
+        }
+        if (!nodeIDExists) {
+          mainMoveTF.setText("Error: the node ID you entered doesn't exist");
+        } else if (!locationExists) {
+          mainMoveTF.setText("Error: the location name you entered already exists");
+        } else if (!moveExists) {
+          mainMoveTF.setText(
+              "Error: a move with the node ID and location you entered could not be found");
+        } else {
+          moveTable
+              .getItems()
+              .removeAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
+          dataBase.getMoveDAO().getAll().remove(moveToRemove);
+          moveTable.getItems().addAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
+          mainMoveTF.setText(
+              "Move with node ID: "
+                  + nodeID
+                  + " and location: "
+                  + locationTF.getText()
+                  + " successfully removed");
+        }
+      } catch (NumberFormatException e) {
+        mainMoveTF.setText("Error: make sure node ID is entered as an integer");
+      }
+    }
+  }
+  public void editMove() {
+
   }
 
   public void createLists() {
@@ -635,6 +735,8 @@ public class MapEditorController {
     addEdgeButton.setOnMouseClicked(event -> addEdge());
     removeEdgeButton.setOnMouseClicked(event -> removeEdge());
     editEdgeButton.setOnMouseClicked(event -> editEdge());
+    addMoveButton.setOnMouseClicked(event -> addMove());
+    removeMoveButton.setOnMouseClicked(event -> removeMove());
 
     ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
