@@ -26,9 +26,9 @@ public class PathfindingController {
 
   // @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
   @FXML WorldMapView map;
-  ObservableList<WorldMapView.Country> countries =
-      FXCollections.observableArrayList(new WorldMapView.Country[163]);
-
+  WorldMapView.Country usa = WorldMapView.Country.US;
+  ObservableList<WorldMapView.Country> countries = FXCollections.observableArrayList(usa);
+  ObservableList<WorldMapView.Location> locations = FXCollections.observableArrayList();
   ObservableList<Object> list;
 
   final ObservableList olist = FXCollections.observableArrayList();
@@ -93,7 +93,7 @@ public class PathfindingController {
 
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
 
-    // map.setCountries(countries);
+    map.setCountries(countries);
 
     // findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
 
