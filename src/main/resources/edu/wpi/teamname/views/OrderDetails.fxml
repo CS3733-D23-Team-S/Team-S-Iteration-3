@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.OrderDetailsController">
   <columnConstraints>
@@ -78,7 +79,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <MFXTextField fx:id="roomNum" prefHeight="51.0" prefWidth="240.0" promptText="Enter Room Number" />
+            <SearchableComboBox fx:id="location1" />
             <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
                <font>
                   <Font size="24.0" />

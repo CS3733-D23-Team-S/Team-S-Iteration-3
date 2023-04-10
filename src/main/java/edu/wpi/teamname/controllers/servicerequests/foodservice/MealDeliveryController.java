@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -32,6 +33,9 @@ public class MealDeliveryController {
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;
+
+  public ArrayList<MenuItem> filters = new ArrayList<>();
+  public ArrayList<String> filterList = new ArrayList<>();
 
   @FXML
   public void initialize() {
@@ -60,43 +64,48 @@ public class MealDeliveryController {
     vegetarian.setOnAction(
         (e) -> {
           addFilter(vegetarian);
-          filterList.add("vegetarian");
+          System.out.println("vegetarian clicked");
+          if (!filterList.contains("vegetarian")) filterList.add("vegetarian");
         });
     gf.setOnAction(
         (e) -> {
           addFilter(gf);
-          filterList.add("gf");
+          if (!filterList.contains("gf")) filterList.add("gf");
         });
     h.setOnAction(
         (e) -> {
           addFilter(h);
-          filterList.add("h");
+          if (!filterList.contains("halal")) filterList.add("halal");
         });
     k.setOnAction(
         (e) -> {
           addFilter(k);
-          filterList.add("k");
+          if (!filterList.contains("kosher")) filterList.add("k");
         });
     v.setOnAction(
         (e) -> {
           addFilter(v);
-          filterList.add("vg");
+          if (!filterList.contains("vegan")) filterList.add("vg");
         });
     Am.setOnAction(
         (e) -> {
           addFilter(Am);
+          if (!filterList.contains("American")) filterList.add("American");
         });
     It.setOnAction(
         (e) -> {
           addFilter(It);
+          if (!filterList.contains("Italian")) filterList.add("Italian");
         });
     Mex.setOnAction(
         (e) -> {
           addFilter(Mex);
+          if (!filterList.contains("Mexican")) filterList.add("Mexican");
         });
     Ind.setOnAction(
         (e) -> {
           addFilter(Ind);
+          if (!filterList.contains("Indian")) filterList.add("Indian");
         });
 
     apply.setOnMouseClicked(
@@ -105,338 +114,16 @@ public class MealDeliveryController {
           applyFilters();
         });
 
-    clearButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    /*
-        // adding Foods
-        Food Pizza =
-            new Food(
-                1,
-                "Pizza",
-                "Entree",
-                10,
-                "American",
-                10,
-                "Bread with sauce and cheese on it",
-                1,
-                false,
-                "image",
-                20,
-                " ",
-                true,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false,
-                false,
-                false);
+    clearButton.setOnMouseClicked(
+        event -> {
+          Navigation.navigate(Screen.MEAL_DELIVERY1);
+          filters.clear();
+        });
 
-        Food Burger =
-            new Food(
-                2,
-                "Burger",
-                "Entree",
-                10,
-                "American",
-                12,
-                "Unhealthy",
-                1,
-                false,
-                "image",
-                14,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false);
 
-        Food StirFry =
-            new Food(
-                3,
-                "StirFry",
-                "Entree",
-                10,
-                "Other",
-                10,
-                "Noodles and veggies",
-                1,
-                false,
-                "image",
-                5,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true,
-                false);
 
-        Food Chicken =
-            new Food(
-                4,
-                "Chicken",
-                "Entree",
-                10,
-                "Other",
-                21,
-                "its chicken",
-                1,
-                false,
-                "image",
-                12,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true);
-
-        Food Tacos =
-            new Food(
-                5,
-                "Tacos",
-                "Entree",
-                10,
-                "Mexican",
-                11,
-                "Delicious",
-                1,
-                false,
-                "image",
-                20,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                true,
-                true,
-                false,
-                false,
-                false);
-
-        Food Pasta =
-            new Food(
-                6,
-                "Pasta",
-                "Entree",
-                10,
-                "Italian",
-                14,
-                "bowties and sauce",
-                1,
-                false,
-                "image",
-                15,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false,
-                false,
-                false);
-
-        Food Bagel =
-            new Food(
-                7,
-                "Bagel",
-                "Breakfast",
-                10,
-                "American?",
-                13,
-                "Boiled Bread",
-                1,
-                false,
-                "image",
-                10,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false,
-                false,
-                false);
-
-        Food Tea =
-            new Food(
-                8,
-                "Tea",
-                "Drink",
-                10,
-                "Other",
-                65,
-                "From England",
-                1,
-                false,
-                "image",
-                11,
-                " ",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        Food OrangeChicken =
-            new Food(
-                9,
-                "OrangeChicken",
-                "Entree",
-                10,
-                "String fc",
-                15,
-                "String fd",
-                1,
-                false,
-                "image",
-                10,
-                "Here is a note",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        Food FriedRice =
-            new Food(
-                10,
-                "FriedRice",
-                "Hello",
-                10,
-                "String fc",
-                10,
-                "String fd",
-                1,
-                false,
-                "image",
-                1,
-                "Here is a note",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        Food HotDog =
-            new Food(
-                11,
-                "HotDog",
-                "Hello",
-                10,
-                "String fc",
-                12,
-                "String fd",
-                1,
-                false,
-                "image",
-                10,
-                "Here is a note",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        Food RiceAndBeans =
-            new Food(
-                12,
-                "RiceAndBeans",
-                "Hello",
-                10,
-                "String fc",
-                2,
-                "String fd",
-                1,
-                false,
-                "image",
-                69,
-                "Here is a note",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        Food Quesadillas =
-            new Food(
-                13,
-                "Quesadillas",
-                "Hello",
-                10,
-                "String fc",
-                2,
-                "String fd",
-                1,
-                false,
-                "image",
-                69,
-                "Here is a note",
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false);
-
-        foodDAO.add(Pizza);
-        foodDAO.add(Burger);
-        foodDAO.add(StirFry);
-        foodDAO.add(Chicken);
-        foodDAO.add(Tacos);
-        foodDAO.add(Pasta);
-        foodDAO.add(Bagel);
-        foodDAO.add(Tea);
-        foodDAO.add(OrangeChicken);
-        foodDAO.add(FriedRice);
-        foodDAO.add(HotDog);
-        foodDAO.add(RiceAndBeans);
-        foodDAO.add(Quesadillas);
-    */
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
-    // vegetarianButton.setOnAction(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
 
     walletFriendly();
     quickDelivery();
@@ -617,14 +304,15 @@ public class MealDeliveryController {
     Label lbl = new Label();
     lbl.setId(x.getText());
     lbl.setText(x.getText());
-    lbl.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+    lbl.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
     lbl.setMaxWidth(103);
     lbl.setMaxHeight(87);
     System.out.println("works");
     System.out.println(lbl.getText());
-
-    filter.getChildren().add(lbl);
-    filters.add(x);
+    if (!filters.contains(x)) {
+      filters.add(x);
+      filter.getChildren().add(lbl);
+    }
   }
 
   public void clear1() {
@@ -634,8 +322,6 @@ public class MealDeliveryController {
     wfLabel.setText("");
     mpLabel.setText("");
   }
-
-  public ArrayList<String> filterList = new ArrayList<>();
 
   public void applyFilters() {
     for (int i = 0; i < filterList.size(); i++) {
