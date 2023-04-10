@@ -1,67 +1,109 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
+import static edu.wpi.teamname.Map.NodeType.CONF;
+
+import edu.wpi.teamname.Map.*;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import lombok.Getter;
+import lombok.Setter;
+import org.controlsfx.control.CheckComboBox;
+
+// TODO take out filter by location
+// TODO add in 15% vbox
 
 public class RoomBookingController {
 
+  // FXML
   @FXML MFXButton addMeetingButton;
   @FXML MFXButton backButton;
+  @FXML TextFieldTableCell currentDateText;
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
+  @FXML CheckComboBox featureFilterComboBox;
+  @FXML MFXDatePicker DateFilterPicker;
 
+  // arraylists
+  @Getter @Setter ArrayList<ConfRoomLocation> roomList = new ArrayList<>();
+  ArrayList<VBox> roomListVBoxes = new ArrayList<>();
+  ArrayList<ConfRoomRequest> reservationList = new ArrayList<>();
+
+  static RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
   RoomBooking rb = new RoomBooking();
-  static RoomRequestDAO roomRequestDAO =
-      (RoomRequestDAO) DataBaseRepository.getInstance().getRoomRequestDAO();
 
   @FXML
   public void initialize() throws SQLException {
 
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getCurrentDate()));
 
-    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
-      //  public void addToUI(String roomLocation, String startTime, String endTime, String
-      // eventTitle, String eventDescription, String staffMember) {
-      this.addToUI(
-          String.valueOf(i.getStartTime()),
-          String.valueOf(i.getEndTime().getHour()),
-          i.getEventName(),
-          i.getEventDescription(),
-          i.getAssignedTo());
+    initializeRooms();
+    initializeFeatureFilter();
+
+    // add current requests to UI
+    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
+      this.addToUI(i);
     }
-    // create dummy rooms
-    // create dummy reservations
-    //    rb.setRoomList(roomList); // later -- read from DB
-    //    rb.setRoomRequestList(reservationList)
 
-    // read room requests from DB
+    featureFilterComboBox
+        .getCheckModel()
+        .getCheckedItems()
+        .addListener(
+            new ListChangeListener<String>() {
+              public void onChanged(ListChangeListener.Change<? extends String> c) {
+                while (c.next()) {
+                  System.out.println(c);
+                  // filterFeatures((ArrayList<String>) c.getAddedSubList());
 
-    //    rb.createRoomsUI(conferenceRoomsHBox);
+                  // for (int j=0; j<roomListVBoxes.size(); j++) {
+                  //  if (roomList.get(j).getFeatures().contains(i)) {
 
+                  //   }
+                }
+              }
+            });
+    // iterate through visible rooms and hide or show depending on feature list
+    // for (int i=0; i<roomListVBoxes.size(); i++) {
+    //  if (roomList.get(i).getFeatures().contains(c))
+    // }
   }
 
+  /**
+   * add a new request
+   *
+   * @param roomLocation longName for room location
+   * @param startTime
+   * @param endTime
+   * @param eventTitle
+   * @param eventDescription
+   * @throws SQLException
+   */
   public static void addNewRequest(
       String roomLocation,
       String startTime,
       String endTime,
       String eventTitle,
-      String eventDescription,
-      String staffMember)
+      String eventDescription)
       throws SQLException {
 
     System.out.println("Adding new request");
@@ -70,24 +112,112 @@ public class RoomBookingController {
             LocalDate.now(),
             LocalTime.of(Integer.parseInt(startTime), 0, 0, 0),
             LocalTime.of(Integer.parseInt(endTime), 0, 0, 0),
-            roomLocation,
+            new Room(roomLocation, "", "", 50, ""),
+            "TestReserve",
             eventTitle,
             eventDescription,
-            staffMember);
-    roomRequestDAO.add(newRequest); // TODO need this?
+            "staff member",
+            Status.Received,
+            "No notes");
+    roomRequestDAO.addRequest(newRequest); // TODO need this?
   }
 
-  public void addToUI(
-      String roomLocation,
-      String startTime,
-      String endTime,
-      String eventTitle,
-      String staffMember) {
-    System.out.println("Adding string " + roomLocation + " to UI");
+  // hard code ConfRoomLocation objects
+  public void initializeRooms() {
+    // hard coded in rooms
+    // TODO am i doing this right / where can i get a list for this so i can do it with a loop
+    Location l1 = new Location("BTM Conference Center", "BTM Conference", CONF);
+    Location l2 = new Location("Duncan Reid Conference Room", "Conf B0102", CONF);
+    Location l3 = new Location("Anesthesia Conf Floor L1", "Conf C001L1", CONF);
+    Location l4 = new Location("Medical Records Conference Room Floor L1", "Conf C002L1", CONF);
+    Location l5 = new Location("Abrams Conference Room", "Conf C003L1", CONF);
+    Location l6 =
+        new Location("Carrie M. Hall Conference Center Floor 2", "Conference Center", CONF);
+    Location l7 = new Location("Shapiro Board Room MapNode 20 Floor 1", "Shapiro Board Room", CONF);
 
+    roomList.add(new ConfRoomLocation(l1, 50, ""));
+    roomList.add(new ConfRoomLocation(l2, 30, "Projector,Whiteboard"));
+    roomList.add(new ConfRoomLocation(l3, 10, "Projector,DocCamera,Whiteboard"));
+    roomList.add(new ConfRoomLocation(l4, 30, "Projector"));
+    roomList.add(new ConfRoomLocation(l5, 70, "DocCamera,Whiteboard"));
+    roomList.add(new ConfRoomLocation(l6, 100, "Projector,DocCamera,Blackboard"));
+    roomList.add(new ConfRoomLocation(l7, 60, "DocCamera,Whiteboard"));
+
+    for (int i = 0; i < roomList.size(); i++) {
+
+      // vbox
+      VBox roomVBox = new VBox();
+      roomVBox.setAlignment(Pos.valueOf("TOP_CENTER"));
+      roomVBox.setPrefHeight(612.0);
+      roomVBox.setPrefWidth(229.0);
+      roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
+      roomListVBoxes.add(roomVBox);
+
+      // text cell
+      TextFieldTableCell textField = new TextFieldTableCell();
+      textField.setAlignment(Pos.valueOf("CENTER"));
+      textField.setTextAlignment(TextAlignment.valueOf("CENTER"));
+      textField.setPrefSize(250.0, 80.0);
+      textField.setMinWidth(200);
+      textField.setMinHeight(80);
+      textField.setWrapText(true);
+      textField.setStyle("-fx-border-style: hidden solid hidden hidden;");
+      textField.setText(roomList.get(i).getLocation().getLongName());
+      textField.setTextFill(Paint.valueOf("#1d3d94"));
+
+      // add pieces
+      roomVBox.getChildren().add(textField);
+      conferenceRoomsHBox.getChildren().add(roomVBox);
+    }
+  }
+
+  // add items to feature filter
+  public void initializeFeatureFilter() {
+    featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
+  }
+
+  // get vbox in conferenceRoomHBox by ID
+  public VBox getVBoxById(String id) {
+    for (int i = 0; i < roomListVBoxes.size(); i++) {
+      if (roomListVBoxes.get(i).getId().equals(id)) {
+        return roomListVBoxes.get(i);
+      }
+    }
+    return null;
+  }
+
+  public void filterDate(LocalDate date) {
+    clearUI();
+
+    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
+      if (i.getDate() == date) {
+        this.addToUI(i);
+        System.out.println("Added request " + i.getEventName());
+      }
+    }
+  }
+
+  // clear vboxes
+  public void clearUI() {
+    for (int i = 0; i < roomListVBoxes.size(); i++) {
+      roomListVBoxes.get(i).getChildren().clear();
+    }
+  }
+
+  public void filterByFeature(String feature) {
+    for (int i = 0; i < roomListVBoxes.size(); i++) {
+      if (roomList.get(i).getFeatures().contains(feature)) {
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+  }
+
+  public void addToUI(ConfRoomRequest roomRequest) {
     Group resGroup = new Group(); // create group
 
     Rectangle rect = new Rectangle(); // create rectangle
+    rect.getStyleClass().add("room-request-rect");
+
     rect.setWidth(170);
     rect.setHeight(110);
     rect.setArcHeight(5);
@@ -96,18 +226,18 @@ public class RoomBookingController {
     VBox eventVBox = new VBox();
 
     Text title = new Text(); // create text
-    title.setText(eventTitle);
+    title.setText(roomRequest.getEventName());
     title.setFont(Font.font("Open Sans", 15));
     // title.setStyle("Bold");
     title.setFill(Color.BLACK);
 
     Text creator = new Text(); // create creator line
-    creator.setText(staffMember);
+    creator.setText(roomRequest.getReservedBy());
     creator.setFont(Font.font("Open Sans", 12));
     creator.setFill(Color.BLACK);
 
     Text time = new Text();
-    time.setText(startTime + " - " + endTime);
+    time.setText(roomRequest.getStartTime() + " - " + roomRequest.getEndTime());
     time.setFont(Font.font("Open Sans", 12));
     time.setFill(Color.BLACK);
 
@@ -120,55 +250,25 @@ public class RoomBookingController {
 
     resGroup.getChildren().add(eventVBox);
 
-    conferenceRoomsHBox.getChildren().add(resGroup);
+    VBox currVBox = getVBoxById(roomRequest.getRoomId());
+
+    currVBox.getChildren().add(resGroup);
   }
 
   /*
-  public void createDummyRoomRequests() {
-    ConfRoomRequest res1 =
-        new ConfRoomRequest(
-            LocalDate.now(),
-            LocalTime.of(6, 0, 0, 0),
-            LocalTime.of(8, 0, 0, 0),
-            r1,
-            "Sarah Kogan",
-            "Checking for update",
-            "description description description",
-            null,
-            Status.Received,
-            "");
-    ConfRoomRequest res2 =
-        new ConfRoomRequest(
-            LocalDate.now(),
-            LocalTime.of(8, 0, 0, 0),
-            LocalTime.of(10, 0, 0, 0),
-            r1,
-            "Jimmy Buffett",
-            "Meeting Test 2",
-            "description 2",
-            null,
-            Status.Received,
-            "");
-    ConfRoomRequest res3 =
-        new ConfRoomRequest(
-            LocalDate.now(),
-            LocalTime.of(12, 0, 0, 0),
-            LocalTime.of(4, 0, 0, 0),
-            r2,
-            "Christine Dion",
-            "Conference Rooooooom",
-            "description description description",
-            null,
-            Status.InProgress,
-            "");
-    roomRequestDAO.addRequest(res1);
-    //        roomRequestDAO.addRequest(res2);
-    //        roomRequestDAO.addRequest(res3);
-
-    reservationList.add(res1);
-    reservationList.add(res2);
-    reservationList.add(res3);
+  public void filterFeatures(ArrayList<String> featureList) {
+    for (int i = 0; i < roomList.size(); i++) {
+      for (int j = 0; j < featureList.size(); j++) {
+        System.out.println("Added feature " + featureList.get(j));
+        if (roomList.get(i).getFeatures().containsAll(featureList)) {
+          System.out.println("Room set to visible: " + roomList.get(i).getLocation().getLongName());
+          roomListVBoxes.get(i).setVisible(true);
+        } else {
+          System.out.println("Room set to invisible: " + roomList.get(i).getLocation().getLongName());
+          roomListVBoxes.get(i).setVisible(false);
+        }
+      }
+    }
   }
-
-     */
+  */
 }

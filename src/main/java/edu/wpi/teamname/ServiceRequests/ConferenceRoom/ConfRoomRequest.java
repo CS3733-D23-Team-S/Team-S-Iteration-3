@@ -11,7 +11,7 @@ public class ConfRoomRequest {
   @Getter @Setter LocalDate eventDate;
   @Getter @Setter LocalTime startTime;
   @Getter @Setter LocalTime endTime;
-  @Getter @Setter String room;
+  @Getter @Setter Room room;
   @Getter @Setter String reservedBy;
   @Getter @Setter String eventName;
   @Getter @Setter String eventDescription;
@@ -23,7 +23,8 @@ public class ConfRoomRequest {
       LocalDate eventDate,
       LocalTime startTime,
       LocalTime endTime,
-      String room,
+      Room room,
+      String reservedBy,
       String eventName,
       String eventDescription,
       String assignedTo) {
@@ -32,7 +33,7 @@ public class ConfRoomRequest {
     this.startTime = startTime;
     this.endTime = endTime;
     this.room = room;
-    this.reservedBy = "staff";
+    this.reservedBy = reservedBy;
     this.eventName = eventName;
     this.eventDescription = eventDescription;
     this.assignedTo = assignedTo;

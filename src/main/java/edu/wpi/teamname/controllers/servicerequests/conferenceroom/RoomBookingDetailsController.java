@@ -1,10 +1,13 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import lombok.Getter;
@@ -13,12 +16,11 @@ import lombok.Setter;
 public class RoomBookingDetailsController {
 
   @FXML MFXButton submitDetailsButton;
-  @FXML MFXTextField roomLocationText;
   @FXML MFXTextField startTimeText;
   @FXML MFXTextField endTimeText;
   @FXML MFXTextField eventTitleText;
   @FXML MFXTextField eventDescriptionText;
-  @FXML MFXTextField staffMemberText;
+  @FXML MFXComboBox roomComboBox;
   @FXML MFXButton backButton;
   @FXML MFXButton clearButton;
 
@@ -27,32 +29,47 @@ public class RoomBookingDetailsController {
   @Setter @Getter String endTime;
   @Setter @Getter String eventTitle;
   @Setter @Getter String eventDescription;
-  @Setter @Getter String staffMember;
 
   RoomBookingController rbc = new RoomBookingController();
+
+  ArrayList<ConfRoomLocation> rbcRoomList = rbc.roomList;
 
   @FXML
   public void initialize() {
     submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     clearButton.setOnMouseClicked(event -> clearFields());
+
+    initializeRoomComboBox();
   }
 
+  // hard code items into room combo box (TODO read from list later)
+  public void initializeRoomComboBox() {
+    roomComboBox.getItems().add("BTM Conference Center");
+    roomComboBox.getItems().add("Duncan Reid Conference Room");
+    roomComboBox.getItems().add("Anesthesia Conf Floor L1");
+    roomComboBox.getItems().add("Medical Records Conference Room Floor L1");
+    roomComboBox.getItems().add("Abrams Conference Room");
+    roomComboBox.getItems().add("Carrie M. Hall Conference Center Floor 2");
+    roomComboBox.getItems().add("Shapiro Board Room MapNode 20 Floor 1");
+  }
+
+  // submit details from controller
   @FXML
   public void submitDetails(ActionEvent event) throws SQLException {
-    roomLocation = roomLocationText.getText();
+    roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     startTime = startTimeText.getText();
     endTime = endTimeText.getText();
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
-    staffMember = staffMemberText.getText();
     System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(roomLocation, startTime, endTime, eventTitle, eventDescription, staffMember);
+    rbc.addNewRequest(roomLocation, startTime, endTime, eventTitle, eventDescription);
     // rbc.addToUI(roomLocation, startTime, endTime, eventTitle, eventDescription, staffMember);
     clearFields();
   }
 
+  // clear text fields
   public void clearFields() {
-    roomLocationText.clear();
+    roomComboBox.setValue("");
     startTimeText.clear();
     endTimeText.clear();
     eventTitleText.clear();
