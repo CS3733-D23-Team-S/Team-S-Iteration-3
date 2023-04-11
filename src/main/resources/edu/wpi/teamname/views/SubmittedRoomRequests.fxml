@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.SubmittedRoomRequestsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.SubmittedRoomRequestsControlleredu.wpi.teamname.controllers.servicerequests.conferenceroom.SubmittedRoomRequestsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,19 +18,12 @@
       <RowConstraints minHeight="10.0" percentHeight="90.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="750.0" prefWidth="240.0" style="-fx-background-color: #122e59;" GridPane.rowSpan="3">
-         <children>
-            <MFXButton fx:id="backButton" alignment="BOTTOM_RIGHT" prefHeight="117.0" prefWidth="123.0" text="&lt;">
-               <font>
-                  <Font size="64.0" />
-               </font>
-            </MFXButton>
-         </children></VBox>
-      <TableView fx:id="submittedRoomRequestsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField2TableCell prefHeight="76.0" prefWidth="661.0" text="Conference Room Bookings" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </TextField2TableCell>
+      <VBox prefHeight="750.0" prefWidth="240.0" style="-fx-background-color: #122e59;" GridPane.rowSpan="3" />
+      <TableView fx:id="submittedRoomRequestsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </GridPane>

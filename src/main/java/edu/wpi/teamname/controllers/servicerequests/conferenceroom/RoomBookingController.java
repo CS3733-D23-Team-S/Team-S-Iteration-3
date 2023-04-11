@@ -31,6 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.CheckComboBox;
 
+// TODO take out filter by location
 // TODO add in 15% vbox
 
 public class RoomBookingController {
@@ -43,17 +44,16 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
   @FXML MFXDatePicker DateFilterPicker;
-  @FXML MFXButton submittedRequestsButton;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
   public ConfRoomDAO confRoomDAO = DataBaseRepository.getInstance().getConfRoomDAO();
   // arraylists
   @Getter @Setter ArrayList<ConfRoomLocation> roomList = new ArrayList<>();
-
   ArrayList<VBox> roomListVBoxes = new ArrayList<>();
   ArrayList<ConfRoomRequest> reservationList = new ArrayList<>();
 
+  static RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
   RoomBooking rb = new RoomBooking();
 
   @FXML
@@ -61,10 +61,7 @@ public class RoomBookingController {
 
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    DateFilterPicker.setOnMouseClicked(
-        event -> filterDate(Date.valueOf(DateFilterPicker.getValue()).toLocalDate()));
-    submittedRequestsButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS));
+    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getCurrentDate()));
 
     initializeRooms();
     initializeFeatureFilter();
@@ -74,8 +71,7 @@ public class RoomBookingController {
     filterDate(LocalDate.now());
 
     // add current requests to UI
-    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
-      System.out.println("i has a value" + i);
+    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
       this.addToUI(i);
     }
 
@@ -98,7 +94,6 @@ public class RoomBookingController {
    * add a new request
    *
    * @param roomLocation longName for room location
-   * @param eventDate
    * @param startTime
    * @param endTime
    * @param eventTitle
@@ -107,17 +102,17 @@ public class RoomBookingController {
    */
   public static void addNewRequest(
       String roomLocation,
-      LocalDate eventDate,
+      LocalDate date,
       String startTime,
       String endTime,
       String eventTitle,
       String eventDescription)
-      throws Exception {
+      throws SQLException {
 
     System.out.println("Adding new request");
     ConfRoomRequest newRequest =
         new ConfRoomRequest(
-            eventDate,
+            date,
             LocalTime.of(Integer.parseInt(startTime), 0, 0, 0),
             LocalTime.of(Integer.parseInt(endTime), 0, 0, 0),
             roomLocation,
@@ -221,15 +216,11 @@ public class RoomBookingController {
    */
   public void filterDate(LocalDate date) {
     clearUI();
-    roomList.clear();
-    roomListVBoxes.clear();
 
-    initializeRooms();
-
-    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
-      System.out.println("ROOM BOOKING DATE: " + i.getEventDate() + "     FILTER DATE: " + date);
-      if (i.getEventDate().equals(date)) {
+    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
+      if (i.getDate() == date) {
         this.addToUI(i);
+        System.out.println("Added request " + i.getEventName());
       }
     }
   }
@@ -267,7 +258,7 @@ public class RoomBookingController {
     title.setFill(Color.BLACK);
 
     Text creator = new Text(); // create creator line
-    creator.setText(String.valueOf(Date.valueOf(roomRequest.getEventDate())));
+    creator.setText(roomRequest.getReservedBy());
     creator.setFont(Font.font("Open Sans", 12));
     creator.setFill(Color.BLACK);
 
@@ -285,7 +276,7 @@ public class RoomBookingController {
 
     resGroup.getChildren().add(eventVBox);
 
-    VBox currVBox = getVBoxById(roomRequest.getRoom().replaceAll(" ", ""));
+    VBox currVBox = getVBoxById(roomRequest.getRoomId());
 
     currVBox.getChildren().add(resGroup);
   }

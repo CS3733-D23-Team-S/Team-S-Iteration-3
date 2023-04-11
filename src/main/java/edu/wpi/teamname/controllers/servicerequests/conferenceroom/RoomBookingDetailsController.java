@@ -8,6 +8,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,8 +44,7 @@ public class RoomBookingDetailsController {
 
   @FXML
   public void initialize() throws ParseException {
-    submitDetailsButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.ROOM_BOOKING_CONFIRMATION));
+    submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     clearButton.setOnMouseClicked(event -> clearFields());
 
     initializeRoomComboBox();
@@ -59,21 +59,16 @@ public class RoomBookingDetailsController {
 
   // submit details from controller
   @FXML
-  public void submitDetails(ActionEvent event) throws Exception {
+  public void submitDetails(ActionEvent event) throws SQLException {
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = startTimeField.getText();
     endTime = endTimeField.getText();
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
-    if (roomComboBox.getValue().toString() == null
-        || eventDate == null
-        || startTime == null
-        || endTime == null
-        || eventTitle == null
-        || eventDescription == null) {
-      rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
-    }
+    System.out.println("Took in inputs from RBD Controller");
+    rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
+
     // clearFields();
   }
 
