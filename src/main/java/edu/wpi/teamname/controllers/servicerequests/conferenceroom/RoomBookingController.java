@@ -8,6 +8,7 @@ import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -29,7 +30,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.CheckComboBox;
 
-// TODO take out filter by location
 // TODO add in 15% vbox
 
 public class RoomBookingController {
@@ -37,6 +37,7 @@ public class RoomBookingController {
   // FXML
   @FXML MFXButton addMeetingButton;
   @FXML MFXButton backButton;
+  @FXML TextFieldTableCell dateHeaderTextField;
   @FXML TextFieldTableCell currentDateText;
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
@@ -62,6 +63,10 @@ public class RoomBookingController {
     initializeRooms();
     initializeFeatureFilter();
 
+    dateHeaderTextField.setText(
+        LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
+    // filterDate(LocalDate.now());
+
     // add current requests to UI
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       System.out.println("i has a value" + i);
@@ -81,34 +86,13 @@ public class RoomBookingController {
                         + featureFilterComboBox.getCheckModel().getCheckedItems());
               }
             });
-
-    // filterByFeature((ArrayList<String>) c.getAddedSubList());
-
-    // list of added items, list of items in each thing
-    // create featureFilterString
-
-    // for each item in roomList
-    // if featureList.contains(a) && featureList.contains(b) && ...
-    // show feature
-    // else
-    // hide feature
-
-    // filterFeatures((ArrayList<String>) c.getAddedSubList());
-
-    // for (int j=0; j<roomListVBoxes.size(); j++) {
-    //  if (roomList.get(j).getFeatures().contains(i)) {
-
-    //   }
   }
-  // iterate through visible rooms and hide or show depending on feature list
-  // for (int i=0; i<roomListVBoxes.size(); i++) {
-  //  if (roomList.get(i).getFeatures().contains(c))
-  // }
 
   /**
    * add a new request
    *
    * @param roomLocation longName for room location
+   * @param eventDate
    * @param startTime
    * @param endTime
    * @param eventTitle
@@ -117,6 +101,7 @@ public class RoomBookingController {
    */
   public static void addNewRequest(
       String roomLocation,
+      LocalDate eventDate,
       String startTime,
       String endTime,
       String eventTitle,
@@ -126,7 +111,7 @@ public class RoomBookingController {
     System.out.println("Adding new request");
     ConfRoomRequest newRequest =
         new ConfRoomRequest(
-            LocalDate.now(),
+            eventDate,
             LocalTime.of(Integer.parseInt(startTime), 0, 0, 0),
             LocalTime.of(Integer.parseInt(endTime), 0, 0, 0),
             roomLocation,
@@ -137,6 +122,11 @@ public class RoomBookingController {
     roomRequestDAO.add(newRequest); // TODO need this?
   }
 
+  /**
+   * filter existing list by features; show only room vboxes with the required features
+   *
+   * @param features ObservableList<String> of features
+   */
   public void filterByFeature(ObservableList<String> features) {
     for (int i = 0; i < roomList.size(); i++) {
       roomListVBoxes.get(i).setVisible(false);
@@ -165,39 +155,9 @@ public class RoomBookingController {
     System.out.println("Set things to visible");
   }
 
-  //  public void filterByFeature(ObservableList<String> features) {
-  //    for (int i = 0; i < roomList.size(); i++) {
-  //      roomListVBoxes.get(i).setVisible(false);
-  //      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
-  //    }
-  //    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
-  //    System.out.println(features);
-  //
-  //    if (features.isEmpty()) {
-  //      System.out.println("Features empty!!!");
-  //      for (int i = 0; i < roomList.size(); i++) {
-  //        roomListVBoxes.get(i).setVisible(true);
-  //      }
-  //    }
-  //
-  //    for (int i = 0; i < roomList.size(); i++) {
-  //      for (int f = 0; f < features.size(); f++) {
-  //        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
-  //          System.out.println(
-  //              roomList.get(i).getLocation().getLongName() + " does not contain " +
-  // features.get(f));
-  //          break;
-  //        }
-  //        roomListVBoxes.get(i).setVisible(true);
-  //      }
-  //    }
-  //    System.out.println("Set things to visible");
-  //  }
-
   // hard code ConfRoomLocation objects
   public void initializeRooms() {
     // hard coded in rooms
-    // TODO am i doing this right / where can i get a list for this so i can do it with a loop
     roomList.addAll(confRoomDAO.getAll());
 
     for (int i = 0; i < roomList.size(); i++) {
@@ -208,6 +168,8 @@ public class RoomBookingController {
       roomVBox.setPrefHeight(612.0);
       roomVBox.setPrefWidth(229.0);
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
+      System.out.println(
+          "ADDING ROOMVBOX TO CONFROOMHBOX" + roomList.get(i).getLocation().getLongName());
       roomListVBoxes.add(roomVBox);
 
       // text cell
@@ -233,7 +195,12 @@ public class RoomBookingController {
     featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
   }
 
-  // get vbox in conferenceRoomHBox by ID
+  /**
+   * get vbox in conferenceRoomsHBox by its ID
+   *
+   * @param id longname of the room's location with spaces replaced
+   * @return VBox in ConferenceRoomsHBox with the correct ID
+   */
   public VBox getVBoxById(String id) {
     for (int i = 0; i < roomListVBoxes.size(); i++) {
       if (roomListVBoxes.get(i).getId().equals(id)) {
@@ -243,34 +210,37 @@ public class RoomBookingController {
     return null;
   }
 
+  /**
+   * filter existing list by date; show room bookings for a certain day
+   *
+   * @param date
+   */
   public void filterDate(LocalDate date) {
     clearUI();
+    roomList.clear();
+    roomListVBoxes.clear();
+
+    initializeRooms();
 
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
-      if (i.getOrderDate() == date) {
-        this.addToUI(i);
-        System.out.println("Added request " + i.getEventName());
-      }
+      if (i.getEventDate().equals(date)) {this.addToUI(i);}
     }
   }
 
-  // clear vboxes
+  /** clear VBoxes in the UI */
   public void clearUI() {
     for (int i = 0; i < roomListVBoxes.size(); i++) {
       roomListVBoxes.get(i).getChildren().clear();
     }
   }
 
-  /*
-    public void filterByFeature(String feature) {
-      for (int i = 0; i < roomListVBoxes.size(); i++) {
-        if (roomList.get(i).getFeatures().contains(feature)) {
-          roomListVBoxes.get(i).setVisible(true);
-        }
-      }
-    }
-  */
+  /**
+   * Place each RoomRequest into a rectangle and add it to the proper HBox
+   *
+   * @param roomRequest
+   */
   public void addToUI(ConfRoomRequest roomRequest) {
+
     Group resGroup = new Group(); // create group
 
     Rectangle rect = new Rectangle(); // create rectangle
@@ -307,28 +277,9 @@ public class RoomBookingController {
     eventVBox.getChildren().add(time);
 
     resGroup.getChildren().add(eventVBox);
-    System.out.println(
-        "The room request is " + roomRequest + " The room name is " + roomRequest.getRoom());
 
     VBox currVBox = getVBoxById(roomRequest.getRoom().replaceAll(" ", ""));
 
     currVBox.getChildren().add(resGroup);
   }
-
-  /*
-  public void filterFeatures(ArrayList<String> featureList) {
-    for (int i = 0; i < roomList.size(); i++) {
-      for (int j = 0; j < featureList.size(); j++) {
-        System.out.println("Added feature " + featureList.get.(j));
-        if (roomList.get(i).getFeatures().containsAll(featureList)) {
-          System.out.println("Room set to visible: " + roomList.get(i).getLocation().getLongName());
-          roomListVBoxes.get(i).setVisible(true);
-        } else {
-          System.out.println("Room set to invisible: " + roomList.get(i).getLocation().getLongName());
-          roomListVBoxes.get(i).setVisible(false);
-        }
-      }
-    }
-  }
-  */
 }

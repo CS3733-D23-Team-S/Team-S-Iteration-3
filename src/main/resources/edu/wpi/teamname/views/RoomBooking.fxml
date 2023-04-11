@@ -33,14 +33,14 @@
                 <Font name="Arial Bold" size="40.0" />
             </font>
         </TextField2TableCell>
-        <TextFieldTableCell fx:id="currentDateText" editable="false" prefHeight="21.0" prefWidth="535.0" textFill="#1d3d94" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <TextFieldTableCell fx:id="dateHeaderTextField" editable="false" prefHeight="21.0" prefWidth="535.0" text="Monday, March 1" textFill="#1d3d94" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
             <font>
                 <Font name="Arial" size="40.0" />
             </font>
         </TextFieldTableCell>
         <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-            <MFXDatePicker fx:id="DateFilterPicker" />
+            <MFXDatePicker fx:id="DateFilterPicker"/>
             <CheckComboBox fx:id="featureFilterComboBox" prefHeight="26.0" prefWidth="162.0" title="Filter by Features" />
             </children>
         </HBox>
