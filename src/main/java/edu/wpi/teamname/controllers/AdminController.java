@@ -56,7 +56,7 @@ public class AdminController {
     Image TopBarIcon = new Image(Main.class.getResource("./images/topbarlogo.png").toString());
     topbarlogo.setImage(TopBarIcon);
   }
-
+// functions to go to pages
   public void goToHomePage() {
     Navigation.navigate(Screen.HOME);
   }
