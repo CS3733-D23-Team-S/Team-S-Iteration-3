@@ -4,7 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -151,9 +150,14 @@
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <VBox prefHeight="806.0" prefWidth="1072.0" style="-fx-border-color: #D9D9D9; -fx-border-width: 10;" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <children>
-            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="52.0" prefWidth="1003.0" style="-fx-background-color: #122E59;" text="Visual Directions">
+            <GesturePane fx:id="mapPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="742.0" prefWidth="1024.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="65.0" prefWidth="514.0" style="-fx-background-color: #122E59;" text="Visual Directions">
                <font>
                   <Font size="30.0" />
                </font>
@@ -161,9 +165,32 @@
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                </textFill>
             </MFXTextField>
-            <GesturePane fx:id="mapPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="742.0" prefWidth="1024.0" />
+            <MFXButton fx:id="floor1Button" prefHeight="65.0" prefWidth="102.0" text="Floor 1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="floor2Button" prefHeight="65.0" prefWidth="102.0" text="Floor 2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="floor3Button" prefHeight="65.0" prefWidth="102.0" text="Floor 3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="floorL1Button" prefHeight="65.0" prefWidth="102.0" text="Floor L1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="floorL2Button" prefHeight="65.0" prefWidth="102.0" text="Floor L2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
          </children>
-      </VBox>
-      <ImageView fx:id="groundFloor" fitHeight="747.0" fitWidth="1010.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="4" />
+      </HBox>
    </children>
 </GridPane>

@@ -8,7 +8,9 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import net.kurobako.gesturefx.GesturePane;
+import DatabaseRepository;
 
 public class PathfindingController {
   @FXML MFXButton pathfindingToHomeButton;
@@ -24,10 +26,56 @@ public class PathfindingController {
   @FXML MFXButton emailTextualDirections;
 
   @FXML GesturePane mapPane;
+  ImageView floor;
+  Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
+  Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
+  Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
+  Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
+  Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
+  @FXML MFXButton floor1Button;
 
-  @FXML ImageView groundFloor;
+  @FXML MFXButton floor2Button;
+  @FXML MFXButton floor3Button;
+  @FXML MFXButton floorL1Button;
+  @FXML MFXButton floorL2Button;
 
   // GesturePane mapPane = new GesturePane(groundFloor);
+  StackPane stackPane = new StackPane();
+
+  public void toFloor1() {
+    floor.setImage(floor1);
+    stackPane.getChildren().removeAll();
+    stackPane.getChildren().add(floor);
+    mapPane.setContent(stackPane);
+  }
+
+  public void toFloor2() {
+    floor.setImage(floor2);
+    stackPane.getChildren().removeAll();
+    stackPane.getChildren().add(floor);
+    mapPane.setContent(stackPane);
+  }
+
+  public void toFloor3() {
+    floor.setImage(floor3);
+    stackPane.getChildren().removeAll();
+    stackPane.getChildren().add(floor);
+    mapPane.setContent(stackPane);
+  }
+
+  public void toFloorL1() {
+    floor.setImage(floorL1);
+    stackPane.getChildren().removeAll();
+    stackPane.getChildren().add(floor);
+    mapPane.setContent(stackPane);
+  }
+
+  public void toFloorL2() {
+    floor.setImage(floorL2);
+    stackPane.getChildren().removeAll();
+    stackPane.getChildren().add(floor);
+    mapPane.setContent(stackPane);
+  }
 
   // building olist through pfentity pathEntities
   // creates new PathfindingEntity
@@ -36,7 +84,11 @@ public class PathfindingController {
   // adds each element to pfe.getPathEntities() --- adds elements to pfe's list of PathfindingEntity
   // goes through loop of pfe.getPathEntities().size();
   // adds each element to olist;
-  /*
+
+  public void generateFloor1Nodes() {
+    for (int i = 0; i < dataBase)
+  }
+
   public void makePathfindingEntity() {
 
     // if the table isn't empty, remove all items currently in the table
@@ -56,7 +108,7 @@ public class PathfindingController {
 
     // dummy code below
     // displays 0-9 in table
-    /*
+
     PathfindingEntity pfe = new PathfindingEntity("s", "e");
     pfe.setPathEntities(new ArrayList<>());
     for (int i = 0; i < 10; i++) {
@@ -68,7 +120,7 @@ public class PathfindingController {
 
     stepsTable.setItems(olist);
   }
-  */
+
 
   public void clearFields() {
     startingLocation.setText("");
@@ -78,10 +130,23 @@ public class PathfindingController {
   public void initialize() {
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
-    groundFloor =
+
+    stackPane.setPrefSize(1024.0, 742.0);
+
+    floor =
         new ImageView(
-            new Image(Main.class.getResource("./images/00_thegroundfloor.png").toString()));
-    mapPane = new GesturePane(groundFloor);
+            new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
+    stackPane.getChildren().add(floor);
+
+    // mapPane.setContent(floor);
+    mapPane.setContent(stackPane);
+    mapPane.setMinScale(.0001);
+    floor1Button.setOnMouseClicked(event -> toFloor1());
+    floor2Button.setOnMouseClicked(event -> toFloor2());
+    floor3Button.setOnMouseClicked(event -> toFloor3());
+    floorL1Button.setOnMouseClicked(event -> toFloorL1());
+    floorL2Button.setOnMouseClicked(event -> toFloorL2());
+    //stackPane.getChildren().add()
 
     // findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
 
