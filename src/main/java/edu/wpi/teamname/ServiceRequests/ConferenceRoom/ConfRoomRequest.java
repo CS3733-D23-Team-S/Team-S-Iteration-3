@@ -11,7 +11,7 @@ public class ConfRoomRequest {
   @Getter @Setter LocalDate eventDate;
   @Getter @Setter LocalTime startTime;
   @Getter @Setter LocalTime endTime;
-  @Getter @Setter Room room;
+  @Getter @Setter String room;
   @Getter @Setter String reservedBy;
   @Getter @Setter String eventName;
   @Getter @Setter String eventDescription;
@@ -23,7 +23,7 @@ public class ConfRoomRequest {
       LocalDate eventDate,
       LocalTime startTime,
       LocalTime endTime,
-      Room room,
+      String room,
       String reservedBy,
       String eventName,
       String eventDescription,
@@ -38,5 +38,39 @@ public class ConfRoomRequest {
     this.eventDescription = eventDescription;
     this.assignedTo = assignedTo;
     this.orderStatus = Status.Received;
+  }
+
+  @Override
+  public String toString() {
+    return "ConfRoomRequest{"
+        + "orderDate="
+        + orderDate
+        + ", eventDate="
+        + eventDate
+        + ", startTime="
+        + startTime
+        + ", endTime="
+        + endTime
+        + ", room='"
+        + room
+        + '\''
+        + ", reservedBy='"
+        + reservedBy
+        + '\''
+        + ", eventName='"
+        + eventName
+        + '\''
+        + ", eventDescription='"
+        + eventDescription
+        + '\''
+        + ", assignedTo='"
+        + assignedTo
+        + '\''
+        + ", orderStatus="
+        + orderStatus
+        + ", notes='"
+        + notes
+        + '\''
+        + '}';
   }
 }

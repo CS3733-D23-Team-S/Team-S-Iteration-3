@@ -1,6 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import edu.wpi.teamname.Map.Location;
+import edu.wpi.teamname.databaseredo.orms.Location;
 import lombok.Getter;
 import lombok.Setter;
 

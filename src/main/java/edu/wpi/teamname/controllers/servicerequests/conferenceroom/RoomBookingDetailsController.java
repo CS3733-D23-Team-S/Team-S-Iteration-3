@@ -62,7 +62,8 @@ public class RoomBookingDetailsController {
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
     System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(roomLocation, startTime, endTime, eventTitle, eventDescription);
+    RoomBookingController.addNewRequest(
+        roomLocation, startTime, endTime, eventTitle, eventDescription);
     // rbc.addToUI(roomLocation, startTime, endTime, eventTitle, eventDescription, staffMember);
     clearFields();
   }

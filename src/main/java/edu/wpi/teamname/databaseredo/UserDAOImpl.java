@@ -48,8 +48,8 @@ public class UserDAOImpl implements IDAO<User, String> {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, User.Permission.WORKER.ordinal());
-      User user = new User(username, password, User.Permission.WORKER);
+      preparedStatement.setInt(3, User.Permission.STAFF.ordinal());
+      User user = new User(username, password, User.Permission.STAFF);
       listOfUsers.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);
