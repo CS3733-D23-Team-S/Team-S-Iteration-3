@@ -165,6 +165,34 @@ public class RoomBookingController {
     System.out.println("Set things to visible");
   }
 
+  public void filterByFeature(ObservableList<String> features) {
+    for (int i = 0; i < roomList.size(); i++) {
+      roomListVBoxes.get(i).setVisible(false);
+      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
+    }
+    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
+    System.out.println(features);
+
+    if (features.isEmpty()) {
+      System.out.println("Features empty!!!");
+      for (int i = 0; i < roomList.size(); i++) {
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+
+    for (int i = 0; i < roomList.size(); i++) {
+      for (int f = 0; f < features.size(); f++) {
+        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
+          System.out.println(
+              roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
+          break;
+        }
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+    System.out.println("Set things to visible");
+  }
+
   // hard code ConfRoomLocation objects
   public void initializeRooms() {
     // hard coded in rooms

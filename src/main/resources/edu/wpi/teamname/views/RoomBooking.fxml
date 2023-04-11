@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,7 +13,6 @@
 <?import org.controlsfx.control.CheckComboBox?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<?import javafx.scene.control.cell.TextFieldTableCell?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
@@ -41,7 +40,6 @@
         </TextFieldTableCell>
         <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-            <MFXComboBox fx:id="LocationFilterComboBox" allowEdit="true" prefHeight="42.0" prefWidth="172.0" promptText="Filter By Location" />
             <MFXDatePicker fx:id="DateFilterPicker" />
             <CheckComboBox fx:id="featureFilterComboBox" prefHeight="26.0" prefWidth="162.0" title="Filter by Features" />
             </children>
