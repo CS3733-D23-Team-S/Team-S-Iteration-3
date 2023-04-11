@@ -12,71 +12,71 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-  DataBaseRepository loginManager;
-  @FXML private MFXButton backButton;
+	DataBaseRepository loginManager;
+	@FXML
+	private MFXButton backButton;
 
-  @FXML private Label errormessageLabel;
+	@FXML
+	private Label errormessageLabel;
 
-  @FXML private MFXButton loginbutton;
+	@FXML
+	private MFXButton loginbutton;
 
-  @FXML private PasswordField pfPassword;
+	@FXML
+	private PasswordField pfPassword;
 
-  @FXML private TextField tfUsername;
+	@FXML
+	private TextField tfUsername;
 
-  private String errorMessage = "";
+	private String errorMessage = "";
 
-  private boolean isfieldFilled() {
-    boolean isFilled = true;
-    if (tfUsername.getText().isEmpty()) {
-      isFilled = false;
-      errorMessage = "Username is empty!";
-    }
+	private boolean isfieldFilled() {
+		boolean isFilled = true;
+		if (tfUsername.getText().isEmpty()) {
+			isFilled = false;
+			errorMessage = "Username is empty!";
+		}
+		if (pfPassword.getText().isEmpty()) {
+			isFilled = false;
+			if (errorMessage.isEmpty()) {
+				errorMessage = "Password is empty!";
+			} else {
+				errorMessage += "\nPassword is empty!";
+			}
+		}
+		errormessageLabel.setText(errorMessage);
+		return isFilled;
+	}
 
-    if (pfPassword.getText().isEmpty()) {
-      isFilled = false;
-      if (errorMessage.isEmpty()) {
-        errorMessage = "Password is empty!";
-      } else {
-        errorMessage += "\nPassword is empty!";
-      }
-    }
-    errormessageLabel.setText(errorMessage);
-    return isFilled;
-  }
+	private boolean isValid() {
+		boolean isValid;
+		try {
+			isValid = loginManager.login(tfUsername.getText(), pfPassword.getText());
+			if (errorMessage.isEmpty() && !isValid) {
+				errorMessage = "Invalid Password!";
+			} else {
+				errorMessage += "\nInvalid Password!";
+			}
+		} catch (Exception e) {
+			errorMessage = "Invalid Username or Password!";
+			isValid = false;
+		}
+		errormessageLabel.setText(errorMessage);
+		return isValid;
+	}
 
-  private boolean isValid() {
-    boolean isValid;
-    try {
-      if (loginManager.login(tfUsername.getText(), pfPassword.getText())) {
-        // logged in
-        isValid = true;
-      } else {
-        isValid = false;
-        if (errorMessage.isEmpty()) {
-          errorMessage = "Invalid Password!";
-        } else {
-          errorMessage += "\nInvalid Password!";
-        }
-      }
-    } catch (Exception e) {
-      errorMessage = "Invalid Username or Password!";
-      isValid = false;
-    }
-    errormessageLabel.setText(errorMessage);
-    return isValid;
-  }
+	public void initialize() {
 
-  public void initialize() {
+		loginManager = DataBaseRepository.getInstance();
+		backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
 
-    loginManager = DataBaseRepository.getInstance();
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
+		loginbutton.setOnMouseClicked(
+				event -> {
+					errorMessage = "";
+					if (isfieldFilled() && isValid()) {
 
-    loginbutton.setOnMouseClicked(
-        event -> {
-          errorMessage = "";
-          if (isfieldFilled() && isValid()) {
-            Navigation.navigate(HOME);
-          }
-        });
-  }
+						Navigation.navigate(HOME);
+					}
+				});
+	}
 }

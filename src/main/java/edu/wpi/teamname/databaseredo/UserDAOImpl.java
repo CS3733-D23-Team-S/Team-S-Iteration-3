@@ -35,13 +35,12 @@ public class UserDAOImpl implements IDAO<User, String> {
 	/**
 	 * @param username
 	 * @param password
-	 * @return false if user already exists, true if user is made successfully
 	 */
-	void createLoginInfo(String username, String password, User.Permission permission) {
+	void createLoginInfo(String username, String password, User.Permission permission) throws Exception {
 		// Check if username already exists
-		checkIfUserExists(username);
-
-		try {
+		if(!checkIfUserExists(username)){
+			throw new Exception();
+		}
 			PreparedStatement preparedStatement =
 					connection
 							.getConnection()
@@ -55,9 +54,6 @@ public class UserDAOImpl implements IDAO<User, String> {
 			preparedStatement.setInt(3, User.Permission.WORKER.ordinal());
 			User user = new User(username, password, User.Permission.WORKER);
 			listOfUsers.put(username, user);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	/**

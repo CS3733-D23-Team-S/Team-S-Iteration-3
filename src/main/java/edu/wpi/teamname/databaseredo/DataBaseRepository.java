@@ -6,12 +6,16 @@ import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
 import lombok.Getter;
+import lombok.Setter;
 
 public class DataBaseRepository {
 
   private static DataBaseRepository single_instance = null;
   private dbConnection connection;
-  AStar pathFinder;
+  private AStar pathFinder;
+  @Getter
+  @Setter
+  private ActiveUser currentUser = ActiveUser.getInstance();
   @Getter NodeDAOImpl nodeDAO;
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
@@ -46,11 +50,16 @@ public class DataBaseRepository {
   }
 
   public boolean login(String username, String password) throws Exception {
-    return userDAO.login(username,password);
+     boolean loggedInSuccessful = userDAO.login(username,password);
+     if(loggedInSuccessful){
+       currentUser.setCurrentUser(userDAO.getListOfUsers().get(username));
+     }
+     return loggedInSuccessful;
   }
 
-  public void addUser(String username, String password, User.Permission permission){
+  public void addUser(String username, String password, User.Permission permission) throws Exception {
     userDAO.createLoginInfo(username, password, permission);
+    currentUser.setCurrentUser(new User(username,password,permission));
   }
 
 
