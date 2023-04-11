@@ -1,16 +1,16 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
+import edu.wpi.teamname.databaseredo.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
 /** Flower: really a bouquet in practice but just called flower for simplicity */
-public class Flower {
+public class Flower implements IDataPack {
   @Getter @Setter private int ID;
   @Getter @Setter private String name;
   @Getter @Setter private String size;
   @Getter @Setter private double price;
   @Getter @Setter private int quantity;
-
   @Getter @Setter boolean isSoldOut;
   @Getter @Setter private String description;
   @Getter @Setter private String image;
