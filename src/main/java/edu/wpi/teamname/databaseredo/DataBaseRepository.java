@@ -1,12 +1,12 @@
 package edu.wpi.teamname.databaseredo;
 
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.databaseredo.orms.Move;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.Getter;
 
 public class DataBaseRepository {
@@ -96,9 +96,17 @@ public class DataBaseRepository {
     locationDAO.exportCSV(outputPath);
   }
 
-  public boolean hasRoomBookingConflicts(
-      String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
-      throws Exception {
-    return roomRequestDAO.hasConflicts(location, eventDate, startTime, endTime);
+  public void addRoomRequest(ConfRoomRequest confRoomRequest) throws Exception {
+
+    if (!roomRequestDAO.hasConflicts(
+        confRoomRequest.getRoom(),
+        confRoomRequest.getEventDate(),
+        confRoomRequest.getStartTime(),
+        confRoomRequest.getEndTime())) {
+      roomRequestDAO.add(confRoomRequest);
+
+    } else {
+      throw new Exception();
+    }
   }
 }

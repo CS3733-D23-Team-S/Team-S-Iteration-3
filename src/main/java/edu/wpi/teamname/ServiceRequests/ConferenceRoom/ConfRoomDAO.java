@@ -8,7 +8,9 @@ import edu.wpi.teamname.databaseredo.dbConnection;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
@@ -44,6 +46,12 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
   @Override
   public List<ConfRoomLocation> getAll() {
     return conferenceRooms.values().stream().toList();
+  }
+
+  public LinkedList<String> getLocationsAlphabetically() {
+    LinkedList<String> locations = new LinkedList<>(conferenceRooms.keySet().stream().toList());
+    Collections.sort(locations);
+    return locations;
   }
 
   @Override

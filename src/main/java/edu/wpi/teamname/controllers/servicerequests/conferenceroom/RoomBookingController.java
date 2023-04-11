@@ -112,7 +112,7 @@ public class RoomBookingController {
       String endTime,
       String eventTitle,
       String eventDescription)
-      throws SQLException {
+      throws Exception {
 
     System.out.println("Adding new request");
     ConfRoomRequest newRequest =
@@ -125,7 +125,7 @@ public class RoomBookingController {
             eventTitle,
             eventDescription,
             "staff member");
-    roomRequestDAO.add(newRequest); // TODO need this?
+    DataBaseRepository.getInstance().addRoomRequest(newRequest); // TODO need this?
   }
 
   /**

@@ -1,13 +1,13 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,18 +52,14 @@ public class RoomBookingDetailsController {
 
   // hard code items into room combo box (TODO read from list later)
   public void initializeRoomComboBox() {
-    roomComboBox.getItems().add("BTM Conference Center");
-    roomComboBox.getItems().add("Duncan Reid Conference Room");
-    roomComboBox.getItems().add("Anesthesia Conf Floor L1");
-    roomComboBox.getItems().add("Medical Records Conference Room Floor L1");
-    roomComboBox.getItems().add("Abrams Conference Room");
-    roomComboBox.getItems().add("Carrie M. Hall Conference Center Floor 2");
-    roomComboBox.getItems().add("Shapiro Board Room MapNode 20 Floor 1");
+    for (String location :
+        DataBaseRepository.getInstance().getConfRoomDAO().getLocationsAlphabetically())
+      roomComboBox.getItems().add(location);
   }
 
   // submit details from controller
   @FXML
-  public void submitDetails(ActionEvent event) throws SQLException {
+  public void submitDetails(ActionEvent event) throws Exception {
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = startTimeField.getText();
