@@ -30,6 +30,7 @@ public class MealDeliveryController {
   @FXML Text mpLabel;
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
+
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;
@@ -145,6 +146,7 @@ public class MealDeliveryController {
   }
 
   public void quickDelivery() {
+
     for (int i = 0; i < DBR.getQuick().size(); i++) {
       MFXButton btn = new MFXButton();
       btn.setId(DBR.getQuick().get(i).toString());

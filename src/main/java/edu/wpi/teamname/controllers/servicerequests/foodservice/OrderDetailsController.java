@@ -32,6 +32,7 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
+
     System.out.println(HomeController.cart.toString());
 
     // FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
