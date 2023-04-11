@@ -2,10 +2,7 @@ package edu.wpi.teamname.databaseredo;
 
 import edu.wpi.teamname.databaseredo.orms.Move;
 import java.io.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -105,6 +102,19 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   public void delete(Move target) {
     listOfMoves.remove(target);
     moveHistory.get(target.getLocation()).remove(target.getDate());
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "DELETE FROM " + name + " WHERE nodeID=? AND location=?" + "AND date=?");
+      stmt.setInt(1, target.getNodeID());
+      stmt.setString(2, target.getLocation());
+      stmt.setDate(3, Date.valueOf(target.getDate()));
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   //    public void delete(String location, LocalDate date){
@@ -121,17 +131,23 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       temp.add(addition.getDate());
       moveHistory.put(addition.getLocation(), temp);
     }
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement("INSERT INTO " + name + " (nodeID, location, date) VALUES (?,?,?)");
+      stmt.setInt(1, addition.getNodeID());
+      stmt.setString(2, addition.getLocation());
+      stmt.setDate(3, Date.valueOf(addition.getDate()));
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void add(int nodeID, String location, LocalDate date) {
     Move newMove = new Move(nodeID, location, date);
-    listOfMoves.add(newMove);
-    if (!moveHistory.containsKey(location)) moveHistory.get(location).add(date);
-    else {
-      List<LocalDate> temp = new ArrayList<>();
-      temp.add(date);
-      moveHistory.put(location, temp);
-    }
+    this.add(newMove);
   }
 
   private void constructFromRemote() {

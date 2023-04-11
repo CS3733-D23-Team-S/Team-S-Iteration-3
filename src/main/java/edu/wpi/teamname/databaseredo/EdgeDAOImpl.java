@@ -93,9 +93,21 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     return edges;
   }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation
+   *
+   * @param target the edge to delete
+   */
   @Override
-  public void delete(Edge target) {}
+  public void delete(Edge target) {
+    edges.remove(target);
+  }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation of edges
+   *
+   * @param addition the edge to add
+   */
   @Override
   public void add(Edge addition) {
     edges.add(addition);
