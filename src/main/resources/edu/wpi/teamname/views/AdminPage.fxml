@@ -66,7 +66,7 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="9">
             <children>
-                <ImageView fx:id="hospitalLogo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="hospitalLogo" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" translateY="20.0">
                     <image>
                         <Image url="@../images/bwlogo.png" />
                     </image>
@@ -114,7 +114,7 @@
                         <Insets bottom="30.0" right="30.0" />
                     </VBox.margin>
                 </MFXButton>
-                <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
+                <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
                         <Image url="@../images/backicon.png" />
                     </image>
@@ -122,7 +122,7 @@
                         <Insets right="150.0" top="250.0" />
                     </VBox.margin>
                 </ImageView>
-                <ImageView fx:id="exitIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
+                <ImageView fx:id="exitIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
                         <Image url="@../images/exiticon.png" />
                     </image>
@@ -130,7 +130,7 @@
                         <Insets right="150.0" />
                     </VBox.margin>
                 </ImageView>
-                <ImageView fx:id="helpIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
+                <ImageView fx:id="helpIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
                         <Image url="@../images/helpicon.png" />
                     </image>

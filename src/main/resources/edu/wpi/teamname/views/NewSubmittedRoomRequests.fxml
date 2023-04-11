@@ -149,7 +149,7 @@
                 </ImageView>
             </children>
         </VBox>
-        <TableView prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmittedRoomRequestsPage.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="7">
+        <TableView fx:id="roomRequestsTable" prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmittedRoomRequestsPage.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="7">
             <columns>
                 <TableColumn fx:id="roomBooked" prefWidth="340.0" text="Room Booked" />
                 <TableColumn fx:id="timeBooked" prefWidth="340.0" text="Time Booked" />
