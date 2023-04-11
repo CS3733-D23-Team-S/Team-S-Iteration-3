@@ -53,12 +53,17 @@
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                </textFill>
             </MFXTextField>
-            <MFXTextField fx:id="startingLocation" minHeight="-Infinity" prefHeight="60.0" prefWidth="528.0" style="-fx-background-color: #D9D9D9;">
+            <MFXTextField fx:id="startingLocation" minHeight="-Infinity" prefHeight="40.0" prefWidth="480.0" style="-fx-background-color: #D9D9D9;">
                <font>
                   <Font size="20.0" />
                </font>
             </MFXTextField>
-            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="90.0" prefWidth="480.0" style="-fx-background-color: #122E59; -fx-border-color: #122E59;" text="Enter Destination">
+            <MFXButton minHeight="-Infinity" prefHeight="40.0" prefWidth="480.0" text="Set Starting Location From Map">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </MFXButton>
+            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="70.0" prefWidth="480.0" style="-fx-background-color: #122E59; -fx-border-color: #122E59;" text="Enter Destination">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -66,11 +71,16 @@
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                </textFill>
             </MFXTextField>
-            <MFXTextField fx:id="destination" minHeight="-Infinity" prefHeight="60.0" prefWidth="528.0" style="-fx-background-color: #D9D9D9;">
+            <MFXTextField fx:id="destination" minHeight="-Infinity" prefHeight="40.0" prefWidth="480.0" style="-fx-background-color: #D9D9D9;">
                <font>
                   <Font size="20.0" />
                </font>
             </MFXTextField>
+            <MFXButton prefHeight="40.0" prefWidth="480.0" text="Set Destination From Map">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </MFXButton>
          </children></VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>

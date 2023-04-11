@@ -24,9 +24,19 @@ public class PathfindingEntity {
   // for each index, this.pathEntities adds a PathEntity with a value of 'astarlist.get(i)'
   // thus adds node IDs to this.pathEntities
   public void generatePath() {
-    for (int i = 0; i < this.aStar.findPath(this.startingLocation, this.destination).size(); i++) {
+    for (int i = 0;
+        i
+            < this.aStar
+                .findPath(
+                    Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination))
+                .size();
+        i++) {
       this.pathEntities.add(
-          new PathEntity(this.aStar.findPath(this.startingLocation, this.destination).get(i)));
+          new PathEntity(
+              this.aStar
+                  .findPath(
+                      Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination))
+                  .get(i)));
       // this.pathEntities.add(new PathEntity(i));
     }
   }

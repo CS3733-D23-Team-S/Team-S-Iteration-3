@@ -47,6 +47,8 @@ public class PathfindingController {
   @FXML MFXButton floor3Button;
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
+  @FXML MFXButton setStartingLocation;
+  @FXML MFXButton setDestination;
 
   StackPane stackPane = new StackPane();
 
@@ -140,6 +142,7 @@ public class PathfindingController {
   PathfindingEntity pfe;
 
   public void getLocationFromNodeID() {
+
     // one wack way to get the location from the node ID
     // we need to get the node ID from the circle
     // set the circle's xcenter value to (double) i
@@ -148,12 +151,36 @@ public class PathfindingController {
     // get the node
     // set the starting location to the location at the node ID
     // if that's even possible
+    //
+    // just do node IDs it's faster
   }
 
   public void showPath() {
+    int startingID;
+    int endID;
     // gets list of integers that are node IDs
     // for loop
     // creates line going from nodeID(i) to nodeID(i+1)
+    if (startingLocation.getText().equals("")) {
+      startingLocation.setText("Error: make sure this field is filled in");
+    }
+    if (destination.getText().equals("")) {
+      destination.setText("Error: make sure this field is filled in");
+    }
+    if (!startingLocation.getText().equals("") && !destination.getText().equals("")) {
+      // check that they're valid node IDs
+      try {
+        startingID = Integer.parseInt(startingLocation.getText());
+        endID = Integer.parseInt(destination.getText());
+        for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
+          // draw line from node ID to another
+
+        }
+      } catch (NumberFormatException e) {
+        startingLocation.setText("Error: make sure this field is a valid node ID");
+        destination.setText("Error: make sure this field is a valid node ID");
+      }
+    }
   }
 
   public void generateFloor1Nodes() {
@@ -164,7 +191,11 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
-      final Circle newCircle = new Circle((double) i, 0.0, 10.0, Color.RED);
+      // for the purpose of this task
+      // centerX is going to be the number at which the node is at in the list of nodes
+      // centerY is going to be the node ID of the circle
+      final Circle newCircle =
+          new Circle((double) i, (double) floor1Nodes.get(i).getNodeID(), 10.0, Color.RED);
 
       // circles need to be reflected across the Y axis
       //      newCircle.setTranslateX(((-1.0) * floor1Nodes.get(i).getXCoord()) + 2500.0);
@@ -185,6 +216,7 @@ public class PathfindingController {
                 floor1Circles.get(i).setFill(Color.RED);
               }
               newCircle.setFill(Color.AQUA);
+              startingLocation.setText(Integer.toString((int) newCircle.getCenterY()));
             }
           });
     }
