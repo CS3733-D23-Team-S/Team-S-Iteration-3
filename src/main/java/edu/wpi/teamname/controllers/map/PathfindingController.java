@@ -1,14 +1,14 @@
 package edu.wpi.teamname.controllers.map;
 
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
-import com.lynden.gmapsfx.GoogleMapView;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import org.controlsfx.control.WorldMapView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import net.kurobako.gesturefx.GesturePane;
 
 public class PathfindingController {
   @FXML MFXButton pathfindingToHomeButton;
@@ -23,21 +23,11 @@ public class PathfindingController {
   @FXML MFXButton clearFieldsButton;
   @FXML MFXButton emailTextualDirections;
 
-  // @FXML TableView<Object> stepsTable;
+  @FXML GesturePane mapPane;
 
-  // @FXML TableColumn<Object, Integer> nodesTraversedCol = new TableColumn<>("nodes passed");
+  @FXML ImageView groundFloor;
 
-
-  final ObservableList olist = FXCollections.observableArrayList();
-
-  // basic building observable list code
-  /*
-  public void buildOList() {
-    for (int i = 0; i < 10; i++) {
-      olist.add(new PathEntity(i));
-    }
-  }
-   */
+  // GesturePane mapPane = new GesturePane(groundFloor);
 
   // building olist through pfentity pathEntities
   // creates new PathfindingEntity
@@ -87,11 +77,11 @@ public class PathfindingController {
 
   public void initialize() {
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
-
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
-
-    map.setCountries(countries);
-    map.setZoomFactor(2.0);
+    groundFloor =
+        new ImageView(
+            new Image(Main.class.getResource("./images/00_thegroundfloor.png").toString()));
+    mapPane = new GesturePane(groundFloor);
 
     // findPathButton.setOnMouseClicked(event -> makePathfindingEntity());
 
