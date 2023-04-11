@@ -45,6 +45,7 @@ public class FlowerOrderDetailsController {
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
 
     addtocartbutton.setOnMouseClicked(event -> createDelivery());
+    clearbutton.setOnMouseClicked(event -> clearFields());
   }
 
   private void createDelivery() {

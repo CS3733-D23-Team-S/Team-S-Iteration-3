@@ -13,6 +13,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class FlowerSubmissionController {
   @FXML ImageView backicon;
@@ -31,6 +32,14 @@ public class FlowerSubmissionController {
   @FXML MFXButton submitbutton;
   @FXML MFXButton submitreqbutton;
   @FXML ImageView topbarlogo;
+  @FXML Text itemnametext;
+  @FXML Text quantitytext;
+  @FXML Text pricetext;
+  @FXML Text requesttext;
+  @FXML VBox itemvbox;
+  @FXML VBox quantityvbox;
+  @FXML VBox pricevbox;
+  @FXML VBox requestvbox;
 
   public void initialize() {
     submitbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_CONFIRMATION));
@@ -66,10 +75,10 @@ public class FlowerSubmissionController {
       message.setText("String.valueOf(flower.getMessage())");
       message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      itName.getChildren().add(newItemName);
-      itQuant1.getChildren().add(newItemQuantity);
-      itPrice.getChildren().add(newItemPrice);
-      itRequest.getChildren().add(newItemRequest);
+      /*itemvbox.getChildren().add(newItemName);
+      quantityvbox.getChildren().add(newItemQuantity);
+      pricevbox.getChildren().add(newItemPrice);
+      requestvbox.getChildren().add(newItemRequest);*/
     }
   }
 }

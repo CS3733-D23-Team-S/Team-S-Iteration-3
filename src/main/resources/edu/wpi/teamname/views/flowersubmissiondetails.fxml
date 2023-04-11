@@ -161,47 +161,58 @@
             <Font name="Open Sans Regular" size="36.0" />
          </font>
       </Text>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="5">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name">
-               <font>
-                  <Font name="Open Sans Regular" size="24.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
-               <font>
-                  <Font name="Open Sans Regular" size="24.0" />
-               </font>
+            <VBox fx:id="itemvbox" prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Text fx:id="itemnametext" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox fx:id="quantityvbox" prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Text fx:id="quantitytext" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
                <HBox.margin>
-                  <Insets left="150.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
-               <font>
-                  <Font name="Open Sans Regular" size="24.0" />
-               </font>
+            </VBox>
+            <VBox fx:id="pricevbox" prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Text fx:id="pricetext" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
                <HBox.margin>
-                  <Insets left="150.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
-               <font>
-                  <Font name="Open Sans Regular" size="24.0" />
-               </font>
+            </VBox>
+            <VBox fx:id="requestvbox" prefHeight="200.0" prefWidth="260.0">
+               <children>
+                  <Text fx:id="requesttext" strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
                <HBox.margin>
-                  <Insets left="150.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
-            </Text>
+            </VBox>
          </children>
          <GridPane.margin>
             <Insets right="100.0" />
          </GridPane.margin>
       </HBox>
-      <VBox fx:id="cartvbox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.rowSpan="4">
-         <GridPane.margin>
-            <Insets right="100.0" />
-         </GridPane.margin>
-      </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
          <children>
             <MFXButton fx:id="submitreqbutton" alignment="CENTER" prefWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Submit Requests" textAlignment="CENTER">
