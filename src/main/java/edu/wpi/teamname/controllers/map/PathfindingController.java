@@ -79,7 +79,7 @@ public class PathfindingController {
   }
 
   DataBaseRepository dataBase;
-  dataBase.load();
+
   // building olist through pfentity pathEntities
   // creates new PathfindingEntity
   // later iterations will have an actual starting and ending location
@@ -131,6 +131,7 @@ public class PathfindingController {
   }
 
   public void initialize() {
+    dataBase = DataBaseRepository.getInstance();
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
 
