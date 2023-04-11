@@ -72,6 +72,60 @@ public class MapEditorController {
   @FXML MFXTextField newStartNodeTF;
   @FXML MFXTextField newEndNodeTF;
 
+  public void initialize() {
+    dataBase = DataBaseRepository.getInstance();
+
+    mapEditorToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    addNodeButton.setOnMouseClicked(event -> addNode());
+    removeNodeButton.setOnMouseClicked(event -> removeNode());
+    editNodeButton.setOnMouseClicked(event -> editNode());
+    addLocationButton.setOnMouseClicked(event -> addLocation());
+    removeLocationButton.setOnMouseClicked(event -> removeLocation());
+    editLocationButton.setOnMouseClicked(event -> editLocation());
+    addEdgeButton.setOnMouseClicked(event -> addEdge());
+    removeEdgeButton.setOnMouseClicked(event -> removeEdge());
+    editEdgeButton.setOnMouseClicked(event -> editEdge());
+    addMoveButton.setOnMouseClicked(event -> addMove());
+    removeMoveButton.setOnMouseClicked(event -> removeMove());
+
+    ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
+    xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
+    yCoordCol.setCellValueFactory(new PropertyValueFactory<>("yCoord"));
+    floorCol.setCellValueFactory(new PropertyValueFactory<>("floor"));
+    buildingCol.setCellValueFactory(new PropertyValueFactory<>("building"));
+
+    //    nodeTable.getColumns().add(0, ntNodeIDCol);
+    //    nodeTable.getColumns().add(1, xCoordCol);
+    //    nodeTable.getColumns().add(2, yCoordCol);
+    //    nodeTable.getColumns().add(3, floorCol);
+    //    nodeTable.getColumns().add(4, buildingCol);
+
+    nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
+    shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
+    longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
+    // recentMoveCol.setCellValueFactory(new PropertyValueFactory<>("mostRecentMove"));
+
+    //    locationTable.getColumns().add(0, nodeTypeCol);
+    //    locationTable.getColumns().add(1, shortNameCol);
+    //    locationTable.getColumns().add(2, longNameCol);
+    //    locationTable.getColumns().add(3, recentMoveCol);
+
+    startNodeCol.setCellValueFactory(
+        (edge) -> {
+          return new SimpleObjectProperty(edge.getValue().getStartNodeID());
+        });
+    endNodeCol.setCellValueFactory(
+        (edge) -> {
+          return new SimpleObjectProperty(edge.getValue().getEndNodeID());
+        });
+
+    mtNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
+    locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+    datesCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+    createLists();
+  }
+
   public void addNode() {
     Boolean nodeExists = false;
     Boolean floorValid = true;
@@ -286,6 +340,7 @@ public class MapEditorController {
               .removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
           Location newLocation =
               new Location(longNameTF.getText(), shortNameTF.getText(), nodeType);
+          System.out.println(newLocation.toString());
           dataBase.getLocationDAO().add(newLocation);
           locationTable
               .getItems()
@@ -712,62 +767,16 @@ public class MapEditorController {
 
     edgeTable.getItems().addAll(edgeList);
 
+    locationTable.getItems().addAll(locationList);
+
+    /*
     for (int i = 0; i < locationList.size(); i++) {
       locationTable.getItems().add(locationList.get(i));
     }
+
+     */
     for (int i = 0; i < moveList.size(); i++) {
       moveTable.getItems().add(moveList.get(i));
     }
-  }
-
-  public void initialize() {
-    dataBase = DataBaseRepository.getInstance();
-    mapEditorToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    addNodeButton.setOnMouseClicked(event -> addNode());
-    removeNodeButton.setOnMouseClicked(event -> removeNode());
-    editNodeButton.setOnMouseClicked(event -> editNode());
-    addLocationButton.setOnMouseClicked(event -> addLocation());
-    removeLocationButton.setOnMouseClicked(event -> removeLocation());
-    editLocationButton.setOnMouseClicked(event -> editLocation());
-    addEdgeButton.setOnMouseClicked(event -> addEdge());
-    removeEdgeButton.setOnMouseClicked(event -> removeEdge());
-    editEdgeButton.setOnMouseClicked(event -> editEdge());
-    addMoveButton.setOnMouseClicked(event -> addMove());
-    removeMoveButton.setOnMouseClicked(event -> removeMove());
-
-    ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
-    xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
-    yCoordCol.setCellValueFactory(new PropertyValueFactory<>("yCoord"));
-    floorCol.setCellValueFactory(new PropertyValueFactory<>("floor"));
-    buildingCol.setCellValueFactory(new PropertyValueFactory<>("building"));
-    //    nodeTable.getColumns().add(0, ntNodeIDCol);
-    //    nodeTable.getColumns().add(1, xCoordCol);
-    //    nodeTable.getColumns().add(2, yCoordCol);
-    //    nodeTable.getColumns().add(3, floorCol);
-    //    nodeTable.getColumns().add(4, buildingCol);
-
-    nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
-    shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
-    longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
-    recentMoveCol.setCellValueFactory(new PropertyValueFactory<>("mostRecentMove"));
-    //    locationTable.getColumns().add(0, nodeTypeCol);
-    //    locationTable.getColumns().add(1, shortNameCol);
-    //    locationTable.getColumns().add(2, longNameCol);
-    //    locationTable.getColumns().add(3, recentMoveCol);
-
-    startNodeCol.setCellValueFactory(
-        (edge) -> {
-          return new SimpleObjectProperty(edge.getValue().getStartNodeID());
-        });
-    endNodeCol.setCellValueFactory(
-        (edge) -> {
-          return new SimpleObjectProperty(edge.getValue().getEndNodeID());
-        });
-
-    mtNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
-    locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-    datesCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-    createLists();
   }
 }

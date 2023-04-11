@@ -113,8 +113,10 @@ public class LocationDAOImpl implements IDAO<Location, String> {
       stmt.setString(1, addition.getLongName());
       stmt.setString(2, addition.getShortName());
       stmt.setInt(3, addition.getNodeType().ordinal());
+
       locations.put(addition.getLongName(), addition);
       stmt.execute();
+      System.out.println("Location added successfully");
     } catch (SQLException e) {
       e.getMessage();
       e.printStackTrace();
