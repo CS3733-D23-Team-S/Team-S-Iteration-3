@@ -51,7 +51,6 @@ public class RoomBookingDetailsController {
     roomComboBox.getItems().add("Abrams Conference Room");
     roomComboBox.getItems().add("Carrie M. Hall Conference Center Floor 2");
     roomComboBox.getItems().add("Shapiro Board Room MapNode 20 Floor 1");
-
   }
 
   // submit details from controller
