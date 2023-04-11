@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +10,11 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 
-public class LocationDAOImpl implements IDAO<Location> {
+public class LocationDAOImpl implements IDAO<Location, String> {
 
-  @Setter @Getter private String name;
+  @Getter private String name;
+  @Getter private final String CSVheader = "longName,shortName,nodeType";
   private dbConnection connection;
 
   @Getter private HashMap<String, Location> locations = new HashMap<>();
@@ -38,14 +38,21 @@ public class LocationDAOImpl implements IDAO<Location> {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(locationTable);
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the location table");
     }
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -61,23 +68,28 @@ public class LocationDAOImpl implements IDAO<Location> {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    locations.clear();
+    initTable(name);
+    loadRemote(path);
+  }
 
   @Override
   public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
+    path += "LocationName.csv";
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("longName,shortName,nodeType");
     for (Location location : locations.values()) {
       fileWriter.newLine();
       fileWriter.write(location.toCSVString());
     }
+    fileWriter.close();
   }
 
   @Override
@@ -86,7 +98,19 @@ public class LocationDAOImpl implements IDAO<Location> {
   }
 
   @Override
-  public void delete(Location target) {}
+  public void delete(String target) {
+    locations.remove(target);
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE longName = ?");
+      stmt.setString(1, target);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Override
   public void add(Location addition) {
@@ -102,9 +126,13 @@ public class LocationDAOImpl implements IDAO<Location> {
       locations.put(addition.getLongName(), addition);
       stmt.execute();
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
+  }
+
+  public void add(String longName, String shortName, NodeType type) {
+    Location addition = new Location(longName, shortName, type);
+    this.add(addition);
   }
 
   private void constructFromRemote() {
@@ -136,7 +164,6 @@ public class LocationDAOImpl implements IDAO<Location> {
           NodeType value = NodeType.valueOf(fields[2]);
           Location location = new Location(fields[0], fields[1], value);
           this.add(location);
-
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -148,6 +175,7 @@ public class LocationDAOImpl implements IDAO<Location> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
+          this.locations.put(location.getLongName(), location);
         }
       } catch (SQLException e) {
         e.printStackTrace();

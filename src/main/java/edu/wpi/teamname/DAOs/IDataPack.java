@@ -1,4 +1,4 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
 public interface IDataPack {
   String toString();

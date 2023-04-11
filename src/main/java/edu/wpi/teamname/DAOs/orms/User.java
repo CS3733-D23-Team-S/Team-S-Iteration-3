@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo.orms;
+package edu.wpi.teamname.DAOs.orms;
 
-import edu.wpi.teamname.databaseredo.IDataPack;
+import edu.wpi.teamname.DAOs.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +8,7 @@ public class User implements IDataPack {
 
   @Getter private String userName;
   @Getter private String password;
-  @Getter @Setter Permission permission;
+  @Getter @Setter private Permission permission;
 
   public User(String name, String pass, Permission perm) {
     this.userName = name;
@@ -27,7 +27,8 @@ public class User implements IDataPack {
 
   @Override
   public String toCSVString() {
-    return null;
+
+    return userName + "," + password + "," + permission.ordinal();
   }
 
   public enum Permission {
