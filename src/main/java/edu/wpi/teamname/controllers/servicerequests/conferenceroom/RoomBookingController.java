@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javafx.collections.ListChangeListener;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -69,24 +71,38 @@ public class RoomBookingController {
         .getCheckModel()
         .getCheckedItems()
         .addListener(
-            new ListChangeListener<String>() {
-              public void onChanged(ListChangeListener.Change<? extends String> c) {
-                while (c.next()) {
-                  System.out.println(c);
-                  // filterFeatures((ArrayList<String>) c.getAddedSubList());
-
-                  // for (int j=0; j<roomListVBoxes.size(); j++) {
-                  //  if (roomList.get(j).getFeatures().contains(i)) {
-
-                  //   }
-                }
+            new InvalidationListener() {
+              @Override
+              public void invalidated(Observable observable) {
+                filterByFeature(featureFilterComboBox.getCheckModel().getCheckedItems());
+                System.out.println(
+                    "\n SELECTED ITEMS: "
+                        + featureFilterComboBox.getCheckModel().getCheckedItems());
               }
             });
-    // iterate through visible rooms and hide or show depending on feature list
-    // for (int i=0; i<roomListVBoxes.size(); i++) {
-    //  if (roomList.get(i).getFeatures().contains(c))
-    // }
+
+    // filterByFeature((ArrayList<String>) c.getAddedSubList());
+
+    // list of added items, list of items in each thing
+    // create featureFilterString
+
+    // for each item in roomList
+    // if featureList.contains(a) && featureList.contains(b) && ...
+    // show feature
+    // else
+    // hide feature
+
+    // filterFeatures((ArrayList<String>) c.getAddedSubList());
+
+    // for (int j=0; j<roomListVBoxes.size(); j++) {
+    //  if (roomList.get(j).getFeatures().contains(i)) {
+
+    //   }
   }
+  // iterate through visible rooms and hide or show depending on feature list
+  // for (int i=0; i<roomListVBoxes.size(); i++) {
+  //  if (roomList.get(i).getFeatures().contains(c))
+  // }
 
   /**
    * add a new request
@@ -120,6 +136,34 @@ public class RoomBookingController {
             Status.Received,
             "No notes");
     roomRequestDAO.addRequest(newRequest); // TODO need this?
+  }
+
+  public void filterByFeature(ObservableList<String> features) {
+    for (int i = 0; i < roomList.size(); i++) {
+      roomListVBoxes.get(i).setVisible(false);
+      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
+    }
+    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
+    System.out.println(features);
+
+    if (features.isEmpty()) {
+      System.out.println("Features empty!!!");
+      for (int i = 0; i < roomList.size(); i++) {
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+
+    for (int i = 0; i < roomList.size(); i++) {
+      for (int f = 0; f < features.size(); f++) {
+        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
+          System.out.println(
+              roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
+          break;
+        }
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+    System.out.println("Set things to visible");
   }
 
   // hard code ConfRoomLocation objects
@@ -204,14 +248,15 @@ public class RoomBookingController {
     }
   }
 
-  public void filterByFeature(String feature) {
-    for (int i = 0; i < roomListVBoxes.size(); i++) {
-      if (roomList.get(i).getFeatures().contains(feature)) {
-        roomListVBoxes.get(i).setVisible(true);
+  /*
+    public void filterByFeature(String feature) {
+      for (int i = 0; i < roomListVBoxes.size(); i++) {
+        if (roomList.get(i).getFeatures().contains(feature)) {
+          roomListVBoxes.get(i).setVisible(true);
+        }
       }
     }
-  }
-
+  */
   public void addToUI(ConfRoomRequest roomRequest) {
     Group resGroup = new Group(); // create group
 
