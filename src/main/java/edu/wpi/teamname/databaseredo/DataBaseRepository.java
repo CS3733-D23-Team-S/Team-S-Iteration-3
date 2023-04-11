@@ -1,6 +1,7 @@
 package edu.wpi.teamname.databaseredo;
 
 import edu.wpi.teamname.databaseredo.orms.Move;
+import edu.wpi.teamname.databaseredo.orms.User;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
@@ -15,12 +16,14 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
+  @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+    userDAO = new UserDAOImpl();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -35,15 +38,21 @@ public class DataBaseRepository {
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
+    userDAO.initTable(connection.getLoginTable());
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
   }
 
-  public boolean login(String text, String text1) {
-    return true;
+  public boolean login(String username, String password) throws Exception {
+    return userDAO.login(username,password);
   }
+
+  public void addUser(String username, String password, User.Permission permission){
+    userDAO.createLoginInfo(username, password, permission);
+  }
+
 
   public String processMoveRequest(int newLocNodeID, String location, LocalDate date)
       throws Exception {
