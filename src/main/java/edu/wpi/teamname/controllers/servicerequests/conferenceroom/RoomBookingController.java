@@ -57,8 +57,6 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
-    filterDate(LocalDate.now());
-
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getValue()));
@@ -68,12 +66,17 @@ public class RoomBookingController {
 
     dateHeaderTextField.setText(
         LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
+    // filterDate(LocalDate.now());
+
     filterDate(LocalDate.now());
+    System.out.println("LocalDate Now:" + LocalDate.now());
 
     // add current requests to UI
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       this.addToUI(i);
     }
+
+    filterDate(LocalDate.now());
 
     featureFilterComboBox
         .getCheckModel()
@@ -168,6 +171,7 @@ public class RoomBookingController {
       roomVBox.setAlignment(Pos.valueOf("TOP_CENTER"));
       roomVBox.setPrefHeight(612.0);
       roomVBox.setPrefWidth(229.0);
+      roomVBox.setSpacing(5);
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
       roomListVBoxes.add(roomVBox);
 

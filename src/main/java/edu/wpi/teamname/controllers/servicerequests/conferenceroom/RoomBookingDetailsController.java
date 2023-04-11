@@ -6,13 +6,13 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class RoomBookingDetailsController {
   @FXML MFXComboBox roomComboBox;
   @FXML MFXButton backButton;
   @FXML MFXButton clearButton;
-  @FXML MFXDatePicker roomBookingDate;
+  @FXML DatePicker roomBookingDate;
   @FXML MFXTextField startTimeField;
   @FXML MFXTextField endTimeField;
   @FXML Pane startTimePane;
@@ -45,6 +45,7 @@ public class RoomBookingDetailsController {
   public void initialize() throws ParseException {
     submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     clearButton.setOnMouseClicked(event -> clearFields());
+    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     initializeRoomComboBox();
   }
@@ -74,8 +75,8 @@ public class RoomBookingDetailsController {
   // clear text fields
   public void clearFields() {
     roomComboBox.setValue("");
-    // startTimeText.clear();
-    // endTimeText.clear();
+    startTimeField.clear();
+    endTimeField.clear();
     eventTitleText.clear();
     eventDescriptionText.clear();
   }
