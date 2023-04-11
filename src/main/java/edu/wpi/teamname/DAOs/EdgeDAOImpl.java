@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.DAOs.orms.Edge;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

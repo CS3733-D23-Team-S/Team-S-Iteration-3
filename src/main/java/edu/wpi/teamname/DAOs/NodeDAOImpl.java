@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

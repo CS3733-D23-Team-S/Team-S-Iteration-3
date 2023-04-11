@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Move;
+import edu.wpi.teamname.DAOs.orms.Move;
 import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;

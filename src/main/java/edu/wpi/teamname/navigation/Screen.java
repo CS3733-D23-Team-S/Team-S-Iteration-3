@@ -18,7 +18,7 @@ public enum Screen {
   SIGNAGE_PAGE("edu/wpi/teamname/views/SignagePage.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   CSV_MANAGE("views/CSVPage.fxml");
-  ;
+
 
   private final String filename;
 
