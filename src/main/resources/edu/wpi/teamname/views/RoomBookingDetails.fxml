@@ -2,11 +2,13 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -32,7 +34,7 @@
         </TextField2TableCell>
         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Room Location (ID)" textFill="#1d3d94">
+                <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Room Location" textFill="#1d3d94">
                     <font>
                         <Font size="30.0" />
                     </font>
@@ -48,21 +50,11 @@
                 </TextField2TableCell>
             <HBox prefHeight="55.0" prefWidth="1392.0">
                <children>
-                  <MFXTextField fx:id="startTimeText" prefHeight="51.0" prefWidth="270.0">
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                  </MFXTextField>
-                      <MFXTextField fx:id="endTimeText" prefHeight="51.0" prefWidth="270.0">
-                     <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets left="90.0" />
-                     </HBox.margin>
-                  </MFXTextField>
-               </children>
-            </HBox>
+                  <MFXDatePicker fx:id="roomBookingDate" text="Insert Booking Date" />
+                  <MFXTextField fx:id="startTimeField" text="Start time" />
+                  <MFXTextField fx:id="endTimeField" text="End Time" />
+                  <Pane fx:id="startTimePane" prefHeight="55.0" prefWidth="108.0" />
+               </children></HBox>
                 <TextField2TableCell prefHeight="63.0" prefWidth="771.0" text="Event Title" textFill="#1d3d94">
                     <font>
                         <Font size="30.0" />

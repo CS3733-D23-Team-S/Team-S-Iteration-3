@@ -63,6 +63,8 @@ public class RoomRequestDAO implements RoomRequest_I {
   @Override
   public void addRequest(ConfRoomRequest request) {
 
+    int resID = 0;
+
     requests.put(request.getReservationID(), request);
 
     try {
@@ -74,7 +76,7 @@ public class RoomRequestDAO implements RoomRequest_I {
                       + roomReservationsTable
                       + " (reservationID, dateordered, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setInt(1, (int) (Math.random() * 50));
+      preparedStatement.setInt(1, resID);
       preparedStatement.setDate(2, null);
       preparedStatement.setTime(3, null);
       preparedStatement.setTime(4, null);
@@ -86,6 +88,9 @@ public class RoomRequestDAO implements RoomRequest_I {
       preparedStatement.setString(10, request.getOrderStatus().name()); // TODO fix
       preparedStatement.setString(11, request.getNotes());
       preparedStatement.executeUpdate();
+
+      resID++;
+      System.out.println("New Reservation ID: " + resID);
 
       //      preparedStatement.executeUpdate();
     } catch (SQLException ex) {
