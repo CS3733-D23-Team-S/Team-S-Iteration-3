@@ -150,11 +150,6 @@
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="4">
-         <children>
-            <GesturePane fx:id="mapPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="742.0" prefWidth="1024.0" />
-         </children>
-      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="65.0" prefWidth="514.0" style="-fx-background-color: #122E59;" text="Visual Directions">
@@ -192,5 +187,6 @@
             </MFXButton>
          </children>
       </HBox>
+      <GesturePane fx:id="mapPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="742.0" prefWidth="1024.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="4" />
    </children>
 </GridPane>

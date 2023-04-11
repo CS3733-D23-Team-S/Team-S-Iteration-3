@@ -13,9 +13,7 @@ public class DataBaseRepository {
   private static DataBaseRepository single_instance = null;
   private dbConnection connection;
   private AStar pathFinder;
-  @Getter
-  @Setter
-  private ActiveUser currentUser = ActiveUser.getInstance();
+  @Getter @Setter private ActiveUser currentUser = ActiveUser.getInstance();
   @Getter NodeDAOImpl nodeDAO;
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
@@ -50,18 +48,18 @@ public class DataBaseRepository {
   }
 
   public boolean login(String username, String password) throws Exception {
-     boolean loggedInSuccessful = userDAO.login(username,password);
-     if(loggedInSuccessful){
-       currentUser.setCurrentUser(userDAO.getListOfUsers().get(username));
-     }
-     return loggedInSuccessful;
+    boolean loggedInSuccessful = userDAO.login(username, password);
+    if (loggedInSuccessful) {
+      currentUser.setCurrentUser(userDAO.getListOfUsers().get(username));
+    }
+    return loggedInSuccessful;
   }
 
-  public void addUser(String username, String password, User.Permission permission) throws Exception {
+  public void addUser(String username, String password, User.Permission permission)
+      throws Exception {
     userDAO.createLoginInfo(username, password, permission);
-    currentUser.setCurrentUser(new User(username,password,permission));
+    currentUser.setCurrentUser(new User(username, password, permission));
   }
-
 
   public String processMoveRequest(int newLocNodeID, String location, LocalDate date)
       throws Exception {

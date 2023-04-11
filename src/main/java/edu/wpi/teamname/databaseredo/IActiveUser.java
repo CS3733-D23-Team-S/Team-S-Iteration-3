@@ -1,5 +1,3 @@
 package edu.wpi.teamname.databaseredo;
 
-public interface IActiveUser {
-
-}
+public interface IActiveUser {}
