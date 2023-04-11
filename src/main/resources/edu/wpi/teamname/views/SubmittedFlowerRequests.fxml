@@ -40,7 +40,7 @@
             <children>
                 <ImageView fx:id="homeIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/homeicon.png" />
+                        <Image url="@../images/homeicon.png" />
                     </image>
                 </ImageView>
             </children>
@@ -49,7 +49,7 @@
             <children>
                 <ImageView fx:id="userIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/usericon.png" />
+                        <Image url="@../images/usericon.png" />
                     </image>
                 </ImageView>
             </children>
@@ -59,7 +59,7 @@
             <children>
                 <ImageView fx:id="topbarlogo" fitHeight="70.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/topbarLogo.png" />
+                        <Image url="@../images/topbarLogo.png" />
                     </image>
                     <HBox.margin>
                         <Insets left="10.0" />
@@ -120,7 +120,7 @@
                 </MFXButton>
                 <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/backicon.png" />
+                        <Image url="@../images/backicon.png" />
                     </image>
                     <VBox.margin>
                         <Insets right="150.0" top="250.0" />
@@ -128,7 +128,7 @@
                 </ImageView>
                 <ImageView fx:id="exitIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/exiticon.png" />
+                        <Image url="@../images/exiticon.png" />
                     </image>
                     <VBox.margin>
                         <Insets right="150.0" />
@@ -136,7 +136,7 @@
                 </ImageView>
                 <ImageView fx:id="helpIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-40.0">
                     <image>
-                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/helpicon.png" />
+                        <Image url="@../images/helpicon.png" />
                     </image>
                     <VBox.margin>
                         <Insets right="150.0" />

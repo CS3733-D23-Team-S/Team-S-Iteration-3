@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
+<BorderPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageController">
    <center>
       <AnchorPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #012D5A;" BorderPane.alignment="CENTER">
          <children>

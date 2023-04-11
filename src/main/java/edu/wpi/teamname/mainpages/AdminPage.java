@@ -1,5 +1,6 @@
-package edu.wpi.teamname;
+package edu.wpi.teamname.mainpages;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.controllers.AdminController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
