@@ -1,7 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.App;
-import edu.wpi.teamname.controllers.CSVController;
+import edu.wpi.teamname.controllers.PopUpController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -30,7 +30,7 @@ public class Navigation {
 
       stage.initOwner(App.getPrimaryStage());
       stage.setScene(loader.load());
-      CSVController controller = loader.getController();
+      PopUpController controller = loader.getController();
       controller.setStage(stage);
       stage.show();
     } catch (IOException e) {

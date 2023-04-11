@@ -1,4 +1,4 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

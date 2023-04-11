@@ -1,7 +1,7 @@
 package edu.wpi.teamname.pathfinding;
 
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.util.*;
 
 public class AStar {

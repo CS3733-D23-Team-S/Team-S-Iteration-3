@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,6 +100,16 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   @Override
   public void delete(String target) {
     locations.remove(target);
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE longName = ?");
+      stmt.setString(1, target);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -118,6 +128,11 @@ public class LocationDAOImpl implements IDAO<Location, String> {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public void add(String longName, String shortName, NodeType type) {
+    Location addition = new Location(longName, shortName, type);
+    this.add(addition);
   }
 
   private void constructFromRemote() {
@@ -149,7 +164,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           NodeType value = NodeType.valueOf(fields[2]);
           Location location = new Location(fields[0], fields[1], value);
           this.add(location);
-
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -161,6 +175,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
+          this.locations.put(location.getLongName(), location);
         }
       } catch (SQLException e) {
         e.printStackTrace();
