@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 
@@ -106,23 +104,26 @@ public class NewSubmittedMealRequestController implements Initializable {
   }
 
   public void goToSignagePage() {
-      Navigation.navigate(Screen.SIGNAGE_PAGE);
+    Navigation.navigate(Screen.SIGNAGE_PAGE);
   }
+
   public void goToPathfindingPage() {
-      Navigation.navigate(Screen.PATHFINDING);
+    Navigation.navigate(Screen.PATHFINDING);
   }
+
   public void goToMealDeliveryPage() {
-      Navigation.navigate(Screen.MEAL_DELIVERY1);
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
+
   public void goToRoomReservationPage() {
-      Navigation.navigate(Screen.ROOM_BOOKING);
-    }
+    Navigation.navigate(Screen.ROOM_BOOKING);
+  }
+
   public void exitApplication() {
     Platform.exit();
   }
+
   public void goToHelpPage() {
     Navigation.navigate(Screen.HELP_PAGE);
   }
-
-
 }

@@ -41,14 +41,13 @@ public class AdminController {
     mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
     roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
 
-
     Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
 
     Image HelpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
     helpIcon.setImage(HelpIcon);
 
-    Image ProfileIcon = new Image(Main.class.getResource("./images/ProfileIcon.png").toString());
+    Image ProfileIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
     profileIcon.setImage(ProfileIcon);
 
     Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
@@ -90,14 +89,16 @@ public class AdminController {
   public void goToSignagePage() {
     Navigation.navigate(Screen.SIGNAGE_PAGE);
   }
+
   public void goToPathfindingPage() {
     Navigation.navigate(Screen.PATHFINDING);
   }
+
   public void goToMealDeliveryPage() {
     Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
+
   public void goToRoomReservationPage() {
     Navigation.navigate(Screen.ROOM_BOOKING);
   }
-
 }

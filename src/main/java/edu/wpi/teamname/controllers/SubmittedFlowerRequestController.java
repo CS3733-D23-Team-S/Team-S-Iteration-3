@@ -1,6 +1,3 @@
 package edu.wpi.teamname.controllers;
 
-public class SubmittedFlowerRequestController {
-
-
-}
+public class SubmittedFlowerRequestController {}
