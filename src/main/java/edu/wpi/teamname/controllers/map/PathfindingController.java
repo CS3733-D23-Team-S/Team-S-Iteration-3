@@ -10,7 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import net.kurobako.gesturefx.GesturePane;
-import DatabaseRepository;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
+
+import java.util.zip.DataFormatException;
 
 public class PathfindingController {
   @FXML MFXButton pathfindingToHomeButton;
@@ -39,7 +41,6 @@ public class PathfindingController {
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
 
-  // GesturePane mapPane = new GesturePane(groundFloor);
   StackPane stackPane = new StackPane();
 
   public void toFloor1() {
@@ -77,6 +78,8 @@ public class PathfindingController {
     mapPane.setContent(stackPane);
   }
 
+  DataBaseRepository dataBase;
+  dataBase.load();
   // building olist through pfentity pathEntities
   // creates new PathfindingEntity
   // later iterations will have an actual starting and ending location
@@ -86,7 +89,7 @@ public class PathfindingController {
   // adds each element to olist;
 
   public void generateFloor1Nodes() {
-    for (int i = 0; i < dataBase)
+    for (int i = 0; i < DataBaseRepository)
   }
 
   public void makePathfindingEntity() {
