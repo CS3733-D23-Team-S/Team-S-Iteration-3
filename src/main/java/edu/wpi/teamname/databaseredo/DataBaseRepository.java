@@ -40,7 +40,7 @@ public class DataBaseRepository {
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
-    userDAO.initTable(connection.getLoginTable());
+    // userDAO.initTable(connection.getLoginTable());
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");

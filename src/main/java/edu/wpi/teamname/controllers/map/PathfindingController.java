@@ -145,7 +145,7 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
 
       // circles need to be reflected across the Y axis
       //      newCircle.setTranslateX(((-1.0) * floor1Nodes.get(i).getXCoord()) + 2500.0);
@@ -165,12 +165,12 @@ public class PathfindingController {
   public void generateFloor2Nodes() {
     floor2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
+      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
         floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
       }
     }
     for (int i = 0; i < floor2Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
       newCircle.setTranslateX(((1.0) * floor2Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floor2Nodes.get(i).getYCoord()) - 1700.0);
       floor2Circles.add(newCircle);
@@ -186,7 +186,7 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor3Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
       newCircle.setTranslateX(((1.0) * floor3Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floor3Nodes.get(i).getYCoord()) - 1700.0);
       floor3Circles.add(newCircle);
@@ -202,7 +202,7 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floorL1Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
       newCircle.setTranslateX(((1.0) * floorL1Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floorL1Nodes.get(i).getYCoord()) - 1700.0);
       floorL1Circles.add(newCircle);
@@ -218,7 +218,7 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floorL2Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
       newCircle.setTranslateX(((1.0) * floorL2Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floorL2Nodes.get(i).getYCoord()) - 1700.0);
       floorL2Circles.add(newCircle);
@@ -242,6 +242,12 @@ public class PathfindingController {
   // create an aqua circle at each node
   // create lines going from each circle to the next
 
+  // other things to add
+  // click on circles and it pulls up the location name
+    // needs to be able to connect to back end - get location name from a node and i don't know if that's possible
+  // clear fields removes the colors of the start and end nodes
+    // nice to have
+
   public void makePathfindingEntity(List<Integer> nodeIDsList) {
     pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
     pfe.setPathEntities(new ArrayList<>());
@@ -256,7 +262,7 @@ public class PathfindingController {
     for (int i = 0; i < floorNodes.size(); i++) {
       if (nodeIDsList.contains(floorNodes.get(i).getNodeID())) {
         int index = floorNodes.indexOf(floorNodes.get(i));
-        circles.set(index, new Circle(0.0, 0.0, 20.0, Color.AQUA));
+        circles.set(index, new Circle(0.0, 0.0, 10.0, Color.AQUA));
       }
     }
   }
@@ -277,6 +283,7 @@ public class PathfindingController {
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
     stackPane.getChildren().add(floor);
+    generateFloor1Nodes();
 
     // mapPane.setContent(floor);
     mapPane.setContent(stackPane);
