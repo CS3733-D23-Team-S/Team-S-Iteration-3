@@ -256,4 +256,18 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       return flowers.get(ID);
     }
   }
+
+  public List<Flower> getListOfSize(String size) {
+    List<Flower> flowers = getAll();
+    List<Flower> sizedFlowers = new ArrayList<>();
+
+    for (Flower flower: flowers) {
+      if (flower.getSize().equals(size)) {
+        sizedFlowers.add(flower);
+      }
+    }
+
+    return sizedFlowers;
+
+  }
 }
