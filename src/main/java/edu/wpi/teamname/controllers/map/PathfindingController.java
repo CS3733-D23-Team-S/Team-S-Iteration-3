@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -58,6 +59,7 @@ public class PathfindingController {
     floor.setImage(floor2);
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().add(floor);
+    generateFloor2Nodes();
     mapPane.setContent(stackPane);
   }
 
@@ -65,6 +67,7 @@ public class PathfindingController {
     floor.setImage(floor3);
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().add(floor);
+    generateFloor3Nodes();
     mapPane.setContent(stackPane);
   }
 
@@ -72,6 +75,7 @@ public class PathfindingController {
     floor.setImage(floorL1);
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().add(floor);
+    generateFloorL1Nodes();
     mapPane.setContent(stackPane);
   }
 
@@ -79,6 +83,7 @@ public class PathfindingController {
     floor.setImage(floorL2);
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().add(floor);
+    generateFloorL2Nodes();
     mapPane.setContent(stackPane);
   }
 
@@ -109,37 +114,26 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
-      // add a circle or some icon at each node
+      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      newCircle.setTranslateX((1.0) * floor1Nodes.get(i).getXCoord());
+      newCircle.setTranslateY((-1.0) * floor1Nodes.get(i).getYCoord());
 
-      // test
-      Circle a = new Circle(0.0, 0.0, 50.0);
-      // Circle b = new Circle(250.0, 250.0, 50.0);
-      Circle b = new Circle();
-      b.setCenterX(250.0f);
-      b.setCenterY(150.0f);
-      b.setRadius(25.0f);
-
-      //      Circle b = new Circle(400.0, 400.0, 20.0, Color.RED);
-      //      stackPane.getChildren().addAll(a, b);
-      stackPane.getChildren().addAll(a, b);
-      // stackPane.setAlignment(Pos.TOP_LEFT);
-      //      b.setCenterX(400.0);
-      a.setVisible(true);
-
-      //      stackPane.setAlignment(a, Pos.TOP_CENTER);
-      //      stackPane.setAlignment(b, Pos.TOP_RIGHT);
-
+      stackPane.getChildren().add(newCircle);
     }
   }
 
   public void generateFloor2Nodes() {
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
+      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
         floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
       }
     }
     for (int i = 0; i < floor2Nodes.size(); i++) {
-      // add to stack pane at the right places
+      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      newCircle.setTranslateX((1.0) * floor2Nodes.get(i).getXCoord());
+      newCircle.setTranslateY((-1.0) * floor2Nodes.get(i).getYCoord());
+
+      stackPane.getChildren().add(newCircle);
     }
   }
 
@@ -150,7 +144,11 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor3Nodes.size(); i++) {
-      // add to stack pane at the right places
+      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      newCircle.setTranslateX((1.0) * floor2Nodes.get(i).getXCoord());
+      newCircle.setTranslateY((-1.0) * floor2Nodes.get(i).getYCoord());
+
+      stackPane.getChildren().add(newCircle);
     }
   }
 
@@ -161,7 +159,11 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floorL1Nodes.size(); i++) {
-      // add to stack pane at the right places
+      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      newCircle.setTranslateX((1.0) * floor2Nodes.get(i).getXCoord());
+      newCircle.setTranslateY((-1.0) * floor2Nodes.get(i).getYCoord());
+
+      stackPane.getChildren().add(newCircle);
     }
   }
 
@@ -172,7 +174,11 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floorL2Nodes.size(); i++) {
-      // add to stack pane at the right places
+      Circle newCircle = new Circle(0.0, 0.0, 20.0, Color.RED);
+      newCircle.setTranslateX((1.0) * floor2Nodes.get(i).getXCoord());
+      newCircle.setTranslateY((-1.0) * floor2Nodes.get(i).getYCoord());
+
+      stackPane.getChildren().add(newCircle);
     }
   }
   /*
