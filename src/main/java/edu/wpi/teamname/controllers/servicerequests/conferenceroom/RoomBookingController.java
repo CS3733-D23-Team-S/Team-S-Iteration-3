@@ -4,7 +4,6 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -42,7 +42,7 @@ public class RoomBookingController {
   @FXML TextFieldTableCell currentDateText;
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
-  @FXML MFXDatePicker DateFilterPicker;
+  @FXML DatePicker DateFilterPicker;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -57,9 +57,11 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
+    filterDate(LocalDate.now());
+
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getCurrentDate()));
+    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getValue()));
 
     initializeRooms();
     initializeFeatureFilter();
@@ -221,6 +223,7 @@ public class RoomBookingController {
 
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       if (i.getEventDate().equals(date)) {
+        System.out.println("Event date: " + i.getEventDate() + "     filterDate: " + date);
         this.addToUI(i);
         System.out.println("Added request " + i.getEventName());
       }
