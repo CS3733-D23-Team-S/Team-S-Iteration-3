@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 
 public class AdminController {
   @FXML ImageView homeIcon;
-  @FXML ImageView profileIcon;
+  @FXML ImageView userIcon;
   @FXML ImageView helpIcon;
   @FXML ImageView backIcon;
   @FXML ImageView exitIcon;
@@ -48,7 +48,7 @@ public class AdminController {
     helpIcon.setImage(HelpIcon);
 
     Image ProfileIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
-    profileIcon.setImage(ProfileIcon);
+    userIcon.setImage(ProfileIcon);
 
     Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
     backIcon.setImage(BackIcon);
