@@ -128,16 +128,13 @@ public class OrderDetailsController {
       newRow.getChildren().add(newItemRequest);
     }
   }
-/*
-  public void addEligibleRooms() {
-    for (int i = 0; i < DataBaseRepository.getListOfEligibleRooms.size(); i++) {
-        location1.getItems().add(i.getText());
-    }
-  }
+  /*
+   public void addEligibleRooms() {
+     for (int i = 0; i < DataBaseRepository.getListOfEligibleRooms.size(); i++) {
+         location1.getItems().add(i.getText());
+     }
+   }
 
- */
-
-
-
+  */
 
 }
