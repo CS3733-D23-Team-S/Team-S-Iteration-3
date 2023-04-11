@@ -267,7 +267,7 @@ public class RoomBookingController {
     title.setFill(Color.BLACK);
 
     Text creator = new Text(); // create creator line
-    creator.setText(roomRequest.getReservedBy());
+    creator.setText(String.valueOf(Date.valueOf(roomRequest.getEventDate())));
     creator.setFont(Font.font("Open Sans", 12));
     creator.setFill(Color.BLACK);
 

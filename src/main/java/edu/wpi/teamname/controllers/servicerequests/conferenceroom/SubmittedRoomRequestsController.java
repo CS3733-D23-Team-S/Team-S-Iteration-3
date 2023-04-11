@@ -3,6 +3,9 @@ package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.IDAO;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,10 +14,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class SubmittedRoomRequestsController {
 
   @FXML TableView submittedRoomRequestsTable;
+  @FXML MFXButton backButton;
 
   IDAO<ConfRoomRequest, String> repo = DataBaseRepository.getInstance().getRoomRequestDAO();
 
   public void initialize() {
+
+    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     TableColumn<ConfRoomRequest, String> column1 = new TableColumn("Order Date");
     column1.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
