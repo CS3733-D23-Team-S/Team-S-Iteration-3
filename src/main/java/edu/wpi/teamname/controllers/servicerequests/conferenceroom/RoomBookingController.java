@@ -5,6 +5,7 @@ import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -42,6 +43,8 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
   @FXML MFXDatePicker DateFilterPicker;
+  @FXML MFXButton submittedRequestsButton;
+
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
   public ConfRoomDAO confRoomDAO = DataBaseRepository.getInstance().getConfRoomDAO();
@@ -58,14 +61,17 @@ public class RoomBookingController {
 
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getCurrentDate()));
+    DateFilterPicker.setOnMouseClicked(
+        event -> filterDate(Date.valueOf(DateFilterPicker.getValue()).toLocalDate()));
+    submittedRequestsButton.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS));
 
     initializeRooms();
     initializeFeatureFilter();
 
     dateHeaderTextField.setText(
         LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
-    // filterDate(LocalDate.now());
+    filterDate(LocalDate.now());
 
     // add current requests to UI
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
@@ -168,8 +174,6 @@ public class RoomBookingController {
       roomVBox.setPrefHeight(612.0);
       roomVBox.setPrefWidth(229.0);
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
-      System.out.println(
-          "ADDING ROOMVBOX TO CONFROOMHBOX" + roomList.get(i).getLocation().getLongName());
       roomListVBoxes.add(roomVBox);
 
       // text cell
@@ -223,7 +227,10 @@ public class RoomBookingController {
     initializeRooms();
 
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
-      if (i.getEventDate().equals(date)) {this.addToUI(i);}
+      System.out.println("ROOM BOOKING DATE: " + i.getEventDate() + "     FILTER DATE: " + date);
+      if (i.getEventDate().equals(date)) {
+        this.addToUI(i);
+      }
     }
   }
 

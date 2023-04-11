@@ -43,7 +43,8 @@ public class RoomBookingDetailsController {
 
   @FXML
   public void initialize() throws ParseException {
-    submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    submitDetailsButton.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.ROOM_BOOKING_CONFIRMATION));
     clearButton.setOnMouseClicked(event -> clearFields());
 
     initializeRoomComboBox();
@@ -69,9 +70,14 @@ public class RoomBookingDetailsController {
     endTime = endTimeField.getText();
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
-    System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
-
+    if (roomComboBox.getValue().toString() == null
+        || eventDate == null
+        || startTime == null
+        || endTime == null
+        || eventTitle == null
+        || eventDescription == null) {
+      rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
+    }
     // clearFields();
   }
 

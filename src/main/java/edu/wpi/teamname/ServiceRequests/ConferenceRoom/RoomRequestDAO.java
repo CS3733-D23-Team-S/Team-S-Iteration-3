@@ -194,18 +194,16 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         String eventDescription = rs.getString("EventDescription");
         String assignedTo = rs.getString("AssignedTo");
 
-
-
         ConfRoomRequest thisRequest =
-                new ConfRoomRequest(
-                        thisDate,
-                        thisStartTime,
-                        thisEndTime,
-                        room,
-                        user,
-                        eventName,
-                        eventDescription,
-                        assignedTo);
+            new ConfRoomRequest(
+                thisDate,
+                thisStartTime,
+                thisEndTime,
+                room,
+                user,
+                eventName,
+                eventDescription,
+                assignedTo);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
