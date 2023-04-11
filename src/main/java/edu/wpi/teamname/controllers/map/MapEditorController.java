@@ -54,7 +54,6 @@ public class MapEditorController {
   @FXML MFXTextField endNodeTF;
   @FXML MFXTextField mtNodeIDTF;
   @FXML MFXTextField locationTF;
-  @FXML MFXTextField datesTF;
   @FXML MFXButton addNodeButton;
   @FXML MFXButton removeNodeButton;
   @FXML MFXButton editNodeButton;
@@ -66,7 +65,6 @@ public class MapEditorController {
   @FXML MFXButton editEdgeButton;
   @FXML MFXButton addMoveButton;
   @FXML MFXButton removeMoveButton;
-  @FXML MFXButton editMoveButton;
   @FXML MFXTextField mainNodeTF;
   @FXML MFXTextField mainLocationTF;
   @FXML MFXTextField mainEdgeTF;
@@ -603,7 +601,7 @@ public class MapEditorController {
     Boolean nodeIDExists = false;
     Boolean locationExists = false;
     // make sure fields aren't empty
-    if (mtNodeIDTF.getText().equals("") || locationTF.getText().equals("")) {
+    if ((mtNodeIDTF.getText().equals("")) || (locationTF.getText().equals(""))) {
       mainMoveTF.setText("Error: make sure all fields are filled in");
     } else {
       // make sure node ID is valid
@@ -619,9 +617,9 @@ public class MapEditorController {
           }
         }
         if (nodeIDExists) {
-          mainMoveTF.setText("Error: the node ID you entered cannot be found");
+          mainMoveTF.setText("Error: the node ID you entered already exists");
         } else if (locationExists) {
-          mainMoveTF.setText("Error: the location name you entered cannot be found");
+          mainMoveTF.setText("Error: the location name you entered already exists");
         } else {
           moveTable
               .getItems()
@@ -637,7 +635,8 @@ public class MapEditorController {
                   + " successfully added");
         }
       } catch (NumberFormatException e) {
-        mainMoveTF.setText("Error: make sure node ID is entered as an integer");
+        mainMoveTF.setText(
+            "Error: make sure node ID, month, day, and year fields are entered as integers");
       }
     }
   }
@@ -698,10 +697,6 @@ public class MapEditorController {
         mainMoveTF.setText("Error: make sure node ID is entered as an integer");
       }
     }
-  }
-
-  public void editMove() {
-    // not sure how this works
   }
 
   public void createLists() {
@@ -771,11 +766,7 @@ public class MapEditorController {
 
     mtNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
     locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-    datesCol.setCellValueFactory(new PropertyValueFactory<>("dates"));
-
-    //    moveTable.getColumns().add(0, mtNodeIDCol);
-    //    moveTable.getColumns().add(1, locationCol);
-    //    moveTable.getColumns().add(2, datesCol);
+    datesCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
     createLists();
   }

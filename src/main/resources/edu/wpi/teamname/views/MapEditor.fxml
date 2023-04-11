@@ -168,20 +168,14 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
-            <MFXTextField fx:id="mtNodeIDTF" prefHeight="63.0" prefWidth="85.0" promptText="Node ID" />
-            <MFXTextField fx:id="locationTF" prefHeight="63.0" prefWidth="175.0" promptText="Location" />
-            <MFXTextField fx:id="datesTF" prefHeight="63.0" prefWidth="202.0" promptText="Dates" />
+            <MFXTextField fx:id="mtNodeIDTF" prefHeight="63.0" prefWidth="279.0" promptText="Node ID" />
+            <MFXTextField fx:id="locationTF" prefHeight="63.0" prefWidth="279.0" promptText="Location" />
             <MFXButton fx:id="addMoveButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #00ff00;" text="Add">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="removeMoveButton" prefHeight="63.0" prefWidth="97.0" style="-fx-background-color: #d11a2a;" text="Remove">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="editMoveButton" prefHeight="63.0" prefWidth="96.0" style="-fx-background-color: #ffff00;" text="Edit">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -205,7 +199,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <MFXTextField fx:id="mainMoveTF" editable="false" prefHeight="50.0" prefWidth="811.0" text="Add, remove, or edit moves by entering values into the fields below" />
+            <MFXTextField fx:id="mainMoveTF" editable="false" prefHeight="50.0" prefWidth="811.0" text="Add or remove moves by entering values into the fields below" />
          </children>
       </HBox>
    </children>
