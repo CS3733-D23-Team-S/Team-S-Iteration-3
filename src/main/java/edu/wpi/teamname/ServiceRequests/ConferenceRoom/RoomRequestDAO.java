@@ -172,6 +172,49 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     return requestList;
   }
 
+  public List<ConfRoomRequest> filterRequestsByDate(LocalDate date) throws Exception {
+
+    List<ConfRoomRequest> requestList = new ArrayList<>();
+
+    try {
+
+      String checkTable = "SELECT * FROM " + roomReservationsTable + " WHERE dateOrdered = ?";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+      preparedStatement.setDate(1, Date.valueOf(date));
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+
+        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
+        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
+        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
+        String room = rs.getString("Room");
+        String user = rs.getString("reservedBy");
+        String eventName = rs.getString("EventName");
+        String eventDescription = rs.getString("EventDescription");
+        String assignedTo = rs.getString("AssignedTo");
+
+
+
+        ConfRoomRequest thisRequest =
+                new ConfRoomRequest(
+                        thisDate,
+                        thisStartTime,
+                        thisEndTime,
+                        room,
+                        user,
+                        eventName,
+                        eventDescription,
+                        assignedTo);
+        requestList.add(thisRequest);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return requestList;
+  }
+
   public void deleteRequest(String orderedBy, LocalDate orderDate) {
     try {
       PreparedStatement deleteFood =
