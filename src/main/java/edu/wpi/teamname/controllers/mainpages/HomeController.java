@@ -5,6 +5,7 @@ import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
 
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -42,14 +43,18 @@ public class HomeController {
 
   @FXML MFXButton homeToPathfindingButton;
 
+  @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
+
   public static int cartID = 0;
 
-  public static int delID = 0;
+  public static int delID;
 
   public static OrderItem cart;
 
   @FXML
   public void initialize() {
+
+    delID = DBR.getLastFoodDevID();
 
     cart = new OrderItem(cartID++);
 

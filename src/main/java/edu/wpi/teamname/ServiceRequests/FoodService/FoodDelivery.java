@@ -1,10 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.databaseredo.IDataPack;
-import edu.wpi.teamname.databaseredo.orms.Location;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +12,7 @@ public class FoodDelivery implements IDataPack {
   @Getter private String cart;
   @Getter @Setter private Date date;
   @Getter @Setter private Time time;
-  @Getter private Location location;
+  @Getter private String location;
   @Getter @Setter private String orderer;
   @Getter @Setter private String assignedTo;
   @Getter @Setter private String orderStatus;
@@ -24,21 +21,25 @@ public class FoodDelivery implements IDataPack {
 
   public FoodDelivery(
       int id,
-      OrderItem cart,
-      Location location,
+      String cart,
+      Date d,
+      Time t,
+      String location,
       String orderedBy,
       String assignedTo,
+      String s,
+      double c,
       String notes) {
 
     this.deliveryID = id;
-    this.cart = cart.toString();
-    this.date = Date.valueOf(LocalDate.now());
-    this.time = Time.valueOf(LocalTime.now());
+    this.cart = cart;
+    this.date = d;
+    this.time = t;
     this.location = location;
     this.orderer = orderedBy;
     this.assignedTo = assignedTo;
-    this.orderStatus = "Received";
-    this.cost = cart.getTotalPrice();
+    this.orderStatus = s;
+    this.cost = c;
     this.notes = notes;
   }
 
@@ -52,7 +53,7 @@ public class FoodDelivery implements IDataPack {
             + ", time = "
             + time.toString()
             + ", location = "
-            + location.toString()
+            + location
             + ", orderer = "
             + orderer
             + ", assignedTo = "
@@ -77,7 +78,7 @@ public class FoodDelivery implements IDataPack {
             + ","
             + time.toString()
             + ","
-            + location.toString()
+            + location
             + ","
             + orderer
             + ","

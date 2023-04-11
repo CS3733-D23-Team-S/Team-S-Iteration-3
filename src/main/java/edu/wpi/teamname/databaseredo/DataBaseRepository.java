@@ -4,16 +4,12 @@ import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
-import edu.wpi.teamname.databaseredo.orms.Edge;
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.Move;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.databaseredo.orms.*;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import lombok.Getter;
 
 public class DataBaseRepository {
@@ -26,7 +22,6 @@ public class DataBaseRepository {
   @Getter IDAO<Location, String> locationDAO;
   @Getter IDAO<Edge, Edge> edgeDAO;
   @Getter IDAO<Food, Integer> foodDAO;
-
   @Getter IDAO<FoodDelivery, Integer> foodDeliveryDAO;
 
   private DataBaseRepository() {
@@ -61,6 +56,7 @@ public class DataBaseRepository {
     foodDAO.initTable(connection.getFoodTable());
     foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
+    foodDeliveryDAO.loadRemote("This means nothing");
   }
 
   public boolean login(String text, String text1) {
@@ -119,7 +115,7 @@ public class DataBaseRepository {
   public ArrayList<Food> getVegetarian() {
     ArrayList<Food> vegetarianFoods = new ArrayList<>();
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkVegetarian()) {
+      if (aFood.isVegetarian()) {
         vegetarianFoods.add(aFood);
       }
     }
@@ -129,7 +125,7 @@ public class DataBaseRepository {
   public ArrayList<Food> getVegan() {
     ArrayList<Food> veganFoods = new ArrayList<>();
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkVegan()) {
+      if (aFood.isVegan()) {
         veganFoods.add(aFood);
       }
     }
@@ -139,7 +135,7 @@ public class DataBaseRepository {
   public ArrayList<Food> getHalal() {
     ArrayList<Food> halalFoods = new ArrayList<>();
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkHalal()) {
+      if (aFood.isHalal()) {
         halalFoods.add(aFood);
       }
     }
@@ -149,7 +145,7 @@ public class DataBaseRepository {
   public ArrayList<Food> getKosher() {
     ArrayList<Food> kosherFoods = new ArrayList<>();
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkKosher()) {
+      if (aFood.isKosher()) {
         kosherFoods.add(aFood);
       }
     }
@@ -159,7 +155,7 @@ public class DataBaseRepository {
   public ArrayList<Food> getGlutenFree() {
     ArrayList<Food> glutenFreeFoods = new ArrayList<>();
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkGlutenFree()) {
+      if (aFood.isGlutFree()) {
         glutenFreeFoods.add(aFood);
       }
     }
@@ -170,7 +166,7 @@ public class DataBaseRepository {
     ArrayList<Food> americanFood = new ArrayList<>();
 
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkAmerican()) {
+      if (aFood.isAmerican()) {
         americanFood.add(aFood);
       }
     }
@@ -182,7 +178,7 @@ public class DataBaseRepository {
     ArrayList<Food> italianFood = new ArrayList<>();
 
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkItalian()) {
+      if (aFood.isItalian()) {
         italianFood.add(aFood);
       }
     }
@@ -194,7 +190,7 @@ public class DataBaseRepository {
     ArrayList<Food> mexicanFood = new ArrayList<>();
 
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkMexican()) {
+      if (aFood.isMexican()) {
         mexicanFood.add(aFood);
       }
     }
@@ -206,7 +202,7 @@ public class DataBaseRepository {
     ArrayList<Food> indianFood = new ArrayList<>();
 
     for (Food aFood : foodDAO.getAll()) {
-      if (aFood.checkIndian()) {
+      if (aFood.isIndian()) {
         indianFood.add(aFood);
       }
     }
@@ -220,5 +216,41 @@ public class DataBaseRepository {
 
   public void addFoodRequest(FoodDelivery foodev) {
     foodDeliveryDAO.add(foodev);
+  }
+
+  public int getLastFoodDevID() {
+    int lastIndex = foodDeliveryDAO.getAll().size() - 1;
+
+    if (lastIndex == -1) return 0;
+    else return foodDeliveryDAO.getAll().get(lastIndex).getDeliveryID() + 1;
+  }
+
+  public List<String> getListOfEligibleRooms() {
+
+    List<String> listOfEligibleRooms = new ArrayList<>();
+    List<Location> locationList = locationDAO.getAll();
+
+    NodeType[] nodeTypes = new NodeType[6];
+    nodeTypes[0] = NodeType.ELEV;
+    nodeTypes[1] = NodeType.EXIT;
+    nodeTypes[2] = NodeType.HALL;
+    nodeTypes[3] = NodeType.REST;
+    nodeTypes[4] = NodeType.STAI;
+    nodeTypes[5] = NodeType.BATH;
+
+    boolean isFound;
+    for (Location loc : locationList) { // hashmap
+      isFound = false;
+      for (NodeType nt : nodeTypes) {
+        if (loc.getNodeType() == nt) {
+          isFound = true;
+          break;
+        }
+      }
+      if (!isFound) listOfEligibleRooms.add(loc.getLongName());
+    }
+    Collections.sort(listOfEligibleRooms);
+
+    return listOfEligibleRooms;
   }
 }

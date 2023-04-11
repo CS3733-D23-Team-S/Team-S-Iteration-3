@@ -1,5 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.databaseredo.dbConnection;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
           "CREATE TABLE IF NOT EXISTS "
               + name
               + " "
-              + "(deliveryid SERIAL PRIMARY KEY,"
+              + "(deliveryid int UNIQUE PRIMARY KEY,"
               + "cart Varchar(100),"
               + "orderdate Date,"
               + "ordertime time,"
@@ -35,7 +36,7 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
               + "orderer Varchar(100),"
               + "assignedto Varchar(100),"
               + "Status Varchar(100),"
-              + "cost int,"
+              + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
               + "foreign key (location) references "
               + "hospitaldb.locations(longname) ON DELETE CASCADE)";
@@ -79,7 +80,7 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
       preparedStatement.setTime(4, request.getTime());
-      preparedStatement.setString(5, request.getLocation().getLongName());
+      preparedStatement.setString(5, request.getLocation());
       preparedStatement.setString(6, request.getOrderer());
       preparedStatement.setString(7, request.getAssignedTo());
       preparedStatement.setString(8, request.getOrderStatus());
@@ -133,11 +134,65 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
   }
 
   @Override
-  public void loadRemote(String pathToCSV) {}
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the foods from the server");
+        constructFromRemote();
+      } else {
+        HomeController.delID = 0;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Override
   public void importCSV(String path) {}
 
   @Override
   public void exportCSV(String path) throws IOException {}
+
+  private void constructFromRemote() {
+    try {
+      Statement st = connection.getConnection().createStatement();
+      ResultSet rs = st.executeQuery("SELECT * FROM " + name);
+
+      while (rs.next()) {
+        int deliveryid = rs.getInt("deliveryid");
+        String cart = rs.getString("cart");
+        Date orderdate = rs.getDate("orderdate");
+        Time ordertime = rs.getTime("ordertime");
+        String location = rs.getString("location");
+        String orderer = rs.getString("orderer");
+        String assignedto = rs.getString("assignedTo");
+        String status = rs.getString("status");
+        Double cost = rs.getDouble("cost");
+        String notes = rs.getString("notes");
+
+        FoodDelivery fd =
+            new FoodDelivery(
+                deliveryid,
+                cart,
+                orderdate,
+                ordertime,
+                location,
+                orderer,
+                assignedto,
+                status,
+                cost,
+                notes);
+
+        foodRequests.put(deliveryid, fd);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println("Error accessing the remote and constructing the list of foods");
+    }
+  }
 }

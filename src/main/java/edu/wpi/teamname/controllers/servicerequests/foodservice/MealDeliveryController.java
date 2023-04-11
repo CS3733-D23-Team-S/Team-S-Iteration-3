@@ -7,10 +7,10 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -120,8 +120,6 @@ public class MealDeliveryController {
           Navigation.navigate(Screen.MEAL_DELIVERY1);
           filters.clear();
         });
-
-
 
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));

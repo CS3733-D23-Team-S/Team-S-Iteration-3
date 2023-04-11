@@ -86,42 +86,6 @@ public class Food implements IDataPack {
     return (FoodPrepTime + 10) < 30;
   }
 
-  public boolean checkVegetarian() {
-    return isVegetarian;
-  }
-
-  public boolean checkVegan() {
-    return isVegan;
-  }
-
-  public boolean checkHalal() {
-    return isHalal;
-  }
-
-  public boolean checkKosher() {
-    return isKosher;
-  }
-
-  public boolean checkGlutenFree() {
-    return isGlutFree;
-  }
-
-  public boolean checkAmerican() {
-    return isAmerican;
-  }
-
-  public boolean checkItalian() {
-    return isItalian;
-  }
-
-  public boolean checkMexican() {
-    return isMexican;
-  }
-
-  public boolean checkIndian() {
-    return isIndian;
-  }
-
   @Override
   public String toString() {
     String theFood;

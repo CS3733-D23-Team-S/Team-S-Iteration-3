@@ -9,6 +9,10 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -27,7 +31,6 @@ public class OrderDetailsController {
   @FXML private MFXButton submitted1;
   @FXML private MFXTextField request1;
 
-  // public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
@@ -35,17 +38,18 @@ public class OrderDetailsController {
 
     System.out.println(HomeController.cart.toString());
 
-    // FoodDeliveryDAOImp foodev = FoodDeliveryDAOImp.getInstance();
-
     clearFields2();
     addedOrder();
 
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
     Location temp = DBR.getLocation("Neuroscience Waiting Room");
 
     String whoOrdered = "George Washington"; // eventually linked to account ordering
+
+    String stat = "Received";
+
+    location1.getItems().addAll(DBR.getListOfEligibleRooms());
 
     submit.setOnMouseClicked(
         event -> {
@@ -53,9 +57,23 @@ public class OrderDetailsController {
             String Emp = empNum.getText();
             String theNote = request1.getText();
 
+            String loc = location1.getValue().toString();
+
+            Date currentd = Date.valueOf(LocalDate.now());
+            Time currentt = Time.valueOf(LocalTime.now());
+
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    HomeController.delID++, HomeController.cart, temp, whoOrdered, Emp, theNote);
+                    HomeController.delID++,
+                    HomeController.cart.toString(),
+                    currentd,
+                    currentt,
+                    loc,
+                    whoOrdered,
+                    Emp,
+                    stat,
+                    HomeController.cart.getTotalPrice(),
+                    theNote);
 
             DBR.addFoodRequest(currentFoodDev);
 
@@ -65,6 +83,8 @@ public class OrderDetailsController {
             e.printStackTrace();
           }
         });
+
+    submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
     clear2.setOnMouseClicked(event -> clearFields2());
   }
@@ -108,16 +128,4 @@ public class OrderDetailsController {
       newRow.getChildren().add(newItemRequest);
     }
   }
-/*
-  public void addEligibleRooms() {
-    for (int i = 0; i < DataBaseRepository.getListOfEligibleRooms.size(); i++) {
-        location1.getItems().add(i.getText());
-    }
-  }
-
- */
-
-
-
-
 }
