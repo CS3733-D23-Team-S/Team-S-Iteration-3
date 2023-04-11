@@ -10,10 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Flow;
-
 import lombok.Getter;
-import lombok.Setter;
 
 /* TODO:
        make sure updateQuantity() works
@@ -140,16 +137,16 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (FlowerID, flowerName, size, price, quantity, isSoldOut, description, image) "
+                      + " (ID, flowerName, size, price, quantity, SoldOut, description, image) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
-      preparedStatement.setString(1, thisFlower.getName());
-      preparedStatement.setString(1, thisFlower.getSize().toString());
-      preparedStatement.setDouble(1, thisFlower.getPrice());
-      preparedStatement.setInt(1, thisFlower.getQuantity());
-      preparedStatement.setBoolean(1, thisFlower.getIsSoldOut());
-      preparedStatement.setString(1, thisFlower.getDescription());
-      preparedStatement.setString(1, thisFlower.getImage());
+      preparedStatement.setString(2, thisFlower.getName());
+      preparedStatement.setString(3, thisFlower.getSize().toString());
+      preparedStatement.setDouble(4, thisFlower.getPrice());
+      preparedStatement.setInt(5, thisFlower.getQuantity());
+      preparedStatement.setBoolean(6, thisFlower.getIsSoldOut());
+      preparedStatement.setString(7, thisFlower.getDescription());
+      preparedStatement.setString(8, thisFlower.getImage());
 
       preparedStatement.execute();
 
@@ -175,11 +172,11 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
         Size size = Size.valueOf(rs.getString("size"));
         Double price = rs.getDouble("price");
         Integer quantity = rs.getInt("quantity");
-        Boolean isSoldOut = rs.getBoolean("isSoldOut");
+        Boolean SoldOut = rs.getBoolean("SoldOut");
         String description = rs.getString("description");
         String image = rs.getString("image");
 
-        Flower flower = new Flower(ID, name, size, price, quantity, isSoldOut, description, image);
+        Flower flower = new Flower(ID, name, size, price, quantity, SoldOut, description, image);
 
         flowers.put(ID, flower);
       }
@@ -215,7 +212,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
                   .prepareStatement(
                       "INSERT INTO "
                           + name
-                          + " (FlowerID, flowerName, size, price, quantity, isSoldOut, description, image) "
+                          + " (ID, flowerName, size, price, quantity, SoldOut, description, image) "
                           + "VALUES (?,?,?,?,?,?,?,?)");
 
           stmt.setInt(1, Integer.valueOf(fields[0]));
@@ -266,12 +263,10 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
-    for (Flower flower: flowers) {
-      if (flower.getSize().toString().equals(size))
-        sizedFlowers.add(flower);
+    for (Flower flower : flowers) {
+      if (flower.getSize().toString().equals(size)) sizedFlowers.add(flower);
     }
 
     return sizedFlowers;
   }
-
 }

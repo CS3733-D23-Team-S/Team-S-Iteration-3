@@ -1,21 +1,19 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
 /** Cart class Cart is represented as a HashMap with Integer: id and Flower: flower */
 public class Cart {
   @Getter @Setter private int cartID;
-  //@Getter @Setter private HashMap<Integer, Flower> cartItems;
+  // @Getter @Setter private HashMap<Integer, Flower> cartItems;
   @Getter @Setter private List<Flower> cartItems;
 
   public Cart(int cartID) {
     this.cartID = cartID;
-    //cartItems = new HashMap<Integer, Flower>();
+    // cartItems = new HashMap<Integer, Flower>();
     cartItems = new ArrayList<Flower>();
   }
 

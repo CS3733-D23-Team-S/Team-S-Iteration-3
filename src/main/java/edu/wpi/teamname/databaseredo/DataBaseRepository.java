@@ -10,7 +10,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 
 public class DataBaseRepository {
@@ -34,7 +33,6 @@ public class DataBaseRepository {
 
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
-
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -55,10 +53,9 @@ public class DataBaseRepository {
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
 
     flowerDAO.initTable(connection.getFlowerTable());
-    flowerDAO.loadRemote("src/main/java/wpi/edu/teamname/defaultCSV/Flower.csv");
+    flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
     flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
     flowerDeliveryDAO.loadRemote("flowersssssss!?");
-
   }
 
   public boolean login(String text, String text1) {
@@ -114,13 +111,12 @@ public class DataBaseRepository {
     List<Flower> flowers = flowerDAO.getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
-    for (Flower flower: flowers) {
-      if (flower.getSize().equals(size)) {
+    for (Flower flower : flowers) {
+      if (flower.getSize().toString().equalsIgnoreCase(size)) {
         sizedFlowers.add(flower);
       }
     }
 
     return sizedFlowers;
-
   }
 }

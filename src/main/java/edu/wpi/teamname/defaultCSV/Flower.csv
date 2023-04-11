@@ -1,2 +1,11 @@
 ﻿ID,flowerName,Size,Price,Quantity,SoldOut,Description,Image
-1,red forest,small,$100 ,1,FALSE,bouquet with roses,image
+1,bouquet1,SMALL,50,1,FALSE,description1,image
+2,bouquet2,MEDIUM,100,1,FALSE,description2,image
+3,bouquet3,LARGE,200,1,FALSE,description3,image
+4,bouquet4,SMALL,50,1,FALSE,description4,image
+5,bouquet5,SMALL,50,1,FALSE,description5,image
+6,bouquet6,MEDIUM,100,1,FALSE,description6,image
+7,bouquet7,LARGE,200,1,FALSE,description7,image
+8,bouquet8,LARGE,200,1,FALSE,description8,image
+9,bouquet9,SMALL,50,1,FALSE,description9,image
+10,bouquet10,MEDIUM,100,1,FALSE,description10,image

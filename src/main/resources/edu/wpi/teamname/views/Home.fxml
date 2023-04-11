@@ -39,6 +39,7 @@
             </font>
          </Label>
          <VBox alignment="CENTER" layoutX="104.0" layoutY="268.0" prefHeight="531.0" prefWidth="458.0" spacing="50.0" translateX="45.0">
+            <MFXButton fx:id="goflower" text="Flower" />
             <MFXButton fx:id="homeToPathfindingButton" prefHeight="75.0" prefWidth="431.0" style="-fx-background-color: D9D9D9;" text="Pathfinding">
                <font>
                   <Font name="Open Sans Regular" size="36.0" />

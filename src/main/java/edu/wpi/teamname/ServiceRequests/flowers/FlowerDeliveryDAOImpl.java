@@ -2,18 +2,16 @@ package edu.wpi.teamname.ServiceRequests.flowers;
 
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.IDAO;
-import edu.wpi.teamname.databaseredo.LocationDAOImpl;
 import edu.wpi.teamname.databaseredo.dbConnection;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.NodeType;
-import lombok.Getter;
-
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import lombok.Getter;
 
 public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
 
@@ -41,8 +39,8 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
               + "room Varchar(100),"
               + "orderedBy Varchar(100),"
               + "assignedTo Varchar(100),"
-              + "orderStatus Varchar(100))"
-              + "cost double";
+              + "orderStatus Varchar(100),"
+              + "cost DOUBLE PRECISION)";
 
       st.execute(flowerRequestsTableConstruct);
 
@@ -84,7 +82,8 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         double cost = data.getDouble("cost");
 
         FlowerDelivery fd =
-            new FlowerDelivery(ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost);
+            new FlowerDelivery(
+                ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost);
         requests.put(ID, fd);
       }
     } catch (SQLException e) {
@@ -106,7 +105,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         constructFromRemote();
       } else {
         System.out.println("Loading the flowerDeliveries to the server");
-        //constructRemote(pathToCSV);
+        // constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
       e.getMessage();
@@ -118,12 +117,12 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       try {
         PreparedStatement stmt =
-              connection
-                  .getConnection()
-                  .prepareStatement(
-                      "INSERT INTO "
-                          + name
-                          + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            connection
+                .getConnection()
+                .prepareStatement(
+                    "INSERT INTO "
+                        + name
+                        + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         reader.readLine();
         String line;
@@ -135,7 +134,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
           stmt.setTime(4, Time.valueOf(fields[3]));
           stmt.setString(5, fields[4]);
           stmt.setString(6, fields[5]);
-          stmt.setString( 7, fields[6]);
+          stmt.setString(7, fields[6]);
           stmt.setString(8, fields[7]);
           stmt.setDouble(9, Double.parseDouble(fields[8]));
         }
@@ -157,7 +156,8 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write("deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus,cost)");
+    fileWriter.write(
+        "deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus,cost)");
     for (FlowerDelivery flowerDelivery : requests.values()) {
       fileWriter.newLine();
       fileWriter.write(flowerDelivery.toCSVString());
@@ -267,5 +267,4 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
 
     return listOfEligibleRooms;
   }
-
 }

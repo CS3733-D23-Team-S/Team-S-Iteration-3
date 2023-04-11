@@ -82,8 +82,8 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
-    //setup();
-    //getListOfEligibleRooms().forEach(System.out::println);
+    // setup();
+    // getListOfEligibleRooms().forEach(System.out::println);
     /*LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
     Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
     assertEquals("User does not exist", exception.getMessage());

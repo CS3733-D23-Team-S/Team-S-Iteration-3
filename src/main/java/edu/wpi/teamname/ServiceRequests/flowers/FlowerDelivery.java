@@ -1,9 +1,9 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
+import edu.wpi.teamname.databaseredo.IDataPack;
 import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
-import edu.wpi.teamname.databaseredo.IDataPack;
 
 public class FlowerDelivery implements IDataPack {
   @Getter @Setter private int ID;
@@ -39,7 +39,23 @@ public class FlowerDelivery implements IDataPack {
 
   @Override
   public String toString() {
-    return ID + " " + cart +" " + date +" " + time + " " +room + " " +orderedBy + " " +assignedTo + " " +orderStatus + " " +cost;
+    return ID
+        + " "
+        + cart
+        + " "
+        + date
+        + " "
+        + time
+        + " "
+        + room
+        + " "
+        + orderedBy
+        + " "
+        + assignedTo
+        + " "
+        + orderStatus
+        + " "
+        + cost;
   }
 
   public String toCSVString() {
