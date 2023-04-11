@@ -6,8 +6,7 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teamname.Database.LoaderDAO;
-import edu.wpi.teamname.Login.LoginDAOImpl;
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,10 +16,12 @@ import org.junit.jupiter.api.Test;
 
 public class DefaultTest {
 
+  static DataBaseRepository database = null;
+
   @BeforeAll
   static void setup() throws SQLException {
-    LoaderDAO loaderDAO = LoaderDAO.getInstance();
-    loaderDAO.load();
+    database = DataBaseRepository.getInstance();
+    database.load();
   }
 
   @Test
@@ -44,9 +45,8 @@ public class DefaultTest {
 
   @Test
   public void testLogin() throws Exception {
-    LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
-    Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
+    Exception exception = assertThrows(Exception.class, () -> database.login("aaaa", "bbbb"));
     assertEquals("User does not exist", exception.getMessage());
-    assertTrue(LDaoI.login("admin", "admin"));
+    assertTrue(database.login("admin", "admin"));
   }
 }

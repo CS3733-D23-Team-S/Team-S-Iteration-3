@@ -1,7 +1,7 @@
 package edu.wpi.teamname.mainpages;
 
 import edu.wpi.teamname.App;
-import edu.wpi.teamname.controllers.HomeController;
+import edu.wpi.teamname.controllers.mainpages.HomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

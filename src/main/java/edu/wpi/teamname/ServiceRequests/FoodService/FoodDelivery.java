@@ -4,6 +4,7 @@ import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("ALL")
 public class FoodDelivery {
 
   @Getter private int deliveryID;

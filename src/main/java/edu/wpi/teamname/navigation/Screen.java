@@ -23,6 +23,7 @@ public enum Screen {
   MAP_EDITOR("views/MapEditor.fxml"),
   CSV_MANAGE("views/CSVPage.fxml");
 
+
   private final String filename;
 
   Screen(String filename) {

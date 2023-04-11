@@ -1,6 +1,6 @@
 package edu.wpi.teamname;
 
-import edu.wpi.teamname.Database.dbConnection;
+import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import java.io.IOException;
