@@ -9,10 +9,10 @@ public class dbConnection {
 
   Connection c;
   final String schemaName = "hospitaldb";
-  @Getter final String nodeTable = schemaName + "." + "nodes";
+  @Getter final String nodeTable = schemaName + "." + "nodess";
   @Getter final String edgesTable = schemaName + "." + "edges";
   @Getter final String moveTable = schemaName + "." + "moves";
-  @Getter final String locationTable = schemaName + "." + "locations";
+  @Getter final String locationTable = schemaName + "." + "locationss";
   @Getter final String foodTable = schemaName + "." + "foods";
 
   private dbConnection() {

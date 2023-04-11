@@ -102,7 +102,29 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Override
   public void add(Node addition) {
-    nodes.put(addition.getNodeID(), addition);
+
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + name
+                      + " (nodeID, xCoord, yCoord, floor, building) VALUES (?,?,?,?,?)");
+      stmt.setInt(1, addition.getNodeID());
+      stmt.setInt(2, addition.getXCoord());
+      stmt.setInt(3, addition.getYCoord());
+      stmt.setInt(4, addition.getFloor().ordinal());
+      stmt.setString(5, addition.getBuilding());
+
+      stmt.executeUpdate();
+
+      nodes.put(addition.getNodeID(), addition);
+      System.out.println("Node added succefully");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void add(int nodeID, int xCoord, int yCoord, Floor floor, String building) {

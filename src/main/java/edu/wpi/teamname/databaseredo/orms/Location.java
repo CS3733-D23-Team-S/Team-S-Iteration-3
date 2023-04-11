@@ -20,7 +20,7 @@ public class Location implements IDataPack {
   @Override
   public String toString() {
     return "Location{notetype = "
-        + this.nodeType.toString()
+        + this.nodeType.name()
         + ", longname =  "
         + this.longName
         + ", shortname = "
