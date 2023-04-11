@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 
 public class FlowerDeliveryController {
 
+  public static int flowerID;
   @FXML ImageView backicon;
   @FXML ImageView exiticon;
   @FXML MFXButton flower1;
@@ -45,8 +46,6 @@ public class FlowerDeliveryController {
   @FXML MenuItem sizenormal;
   @FXML MenuItem sizelarge;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
-
-
 
   public void initialize() {
 
@@ -113,6 +112,7 @@ public class FlowerDeliveryController {
   }
 
   public void store(int x) {
+    flowerID = x;
     Navigation.navigate(Screen.FLOWER_ORDER);
   }
 }

@@ -110,8 +110,8 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   }
 
   @Override
-  public Flower getRow(Integer target) {
-    return null;
+  public Flower getRow(Integer ID) {
+    return flowers.get(ID);
   }
 
   public void delete(Integer ID) {

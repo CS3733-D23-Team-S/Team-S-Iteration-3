@@ -1,8 +1,11 @@
 package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
+import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController.flowerID;
 import static edu.wpi.teamname.navigation.Screen.*;
 import static edu.wpi.teamname.navigation.Screen.HELP_PAGE;
 
+import edu.wpi.teamname.ServiceRequests.flowers.Cart;
+import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class FlowerOrderDetailsController {
+  public static Cart flowerCart = new Cart(1);
   @FXML MFXButton addtocartbutton;
   @FXML ImageView backicon;
   @FXML MFXButton clearbutton;
@@ -40,6 +44,13 @@ public class FlowerOrderDetailsController {
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
 
+    addtocartbutton.setOnMouseClicked(event -> createDelivery());
+  }
+
+  private void createDelivery() {
+    Flower flower = dbr.retrieveFlower(flowerID);
+    flower.setQuantity(Integer.parseInt(quantityfield.getText()));
+    flowerCart.addFlowerItem(flower);
   }
 
   public void clearFields() {
@@ -47,6 +58,4 @@ public class FlowerOrderDetailsController {
     sizefield.clear();
     custommessagefield.clear();
   }
-
-
 }
