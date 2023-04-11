@@ -36,6 +36,10 @@ public class AdminController {
     submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
     submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
+    navigationButton.setOnMouseClicked(event -> goToPathfindingPage());
+    signageButton.setOnMouseClicked(event -> goToSignagePage());
+    mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
+    roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
 
     Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
@@ -43,7 +47,7 @@ public class AdminController {
     Image HelpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
     helpIcon.setImage(HelpIcon);
 
-    Image ProfileIcon = new Image(Main.class.getResource("./images/ProfileIcon.png").toString());
+    Image ProfileIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
     profileIcon.setImage(ProfileIcon);
 
     Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
@@ -80,5 +84,21 @@ public class AdminController {
 
   public void exitApplication() {
     Platform.exit();
+  }
+
+  public void goToSignagePage() {
+    Navigation.navigate(Screen.SIGNAGE_PAGE);
+  }
+
+  public void goToPathfindingPage() {
+    Navigation.navigate(Screen.PATHFINDING);
+  }
+
+  public void goToMealDeliveryPage() {
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
+  }
+
+  public void goToRoomReservationPage() {
+    Navigation.navigate(Screen.ROOM_BOOKING);
   }
 }
