@@ -1,6 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import edu.wpi.teamname.Database.dbConnection;
+import edu.wpi.teamname.databaseredo.dbConnection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;

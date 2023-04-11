@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,57 +16,99 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
-   <center>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="100.33333672417535" minHeight="10.0" prefHeight="37.111111111111114" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="98.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="102.99999321831595" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="79.88889567057294" minHeight="23.888895670572936" prefHeight="64.33329264322919" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="49.11113823784723" percentHeight="5.0" prefHeight="78.44445122612848" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <MFXButton fx:id="exportButton" mnemonicParsing="false" prefWidth="190.0" style="-fx-background-color: &quot;122E59&quot;;" text="Export" textFill="#fffefe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export All Databases" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select a File to Import" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Import and Export" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </Text>
-            <MFXButton fx:id="importButton" mnemonicParsing="false" prefWidth="190.0" style="-fx-background-color: &quot;122E59&quot;;" text="Import Database" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <MFXComboBox fx:id="importOptions" minHeight="-Infinity" style="-fx-border-radius: 0; -fx-background-radius: 0; -mfx-editable: false;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-         </children>
-      </GridPane>
-   </center>
-   <top>
-      <HBox prefHeight="42.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER" />
-   </top>
-   <bottom>
-      <MFXButton fx:id="backButton" blendMode="SRC_ATOP" cacheShape="false" prefHeight="60.0" prefWidth="60.0" style="-fx-border-color: #F8BC54; -fx-background-color: transparent; -fx-border-width: 4;" text="&lt;" BorderPane.alignment="BOTTOM_LEFT">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" />
-         </BorderPane.margin>
-      </MFXButton>
-   </bottom>
-</BorderPane>
+<Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
+   <root>
+      <BorderPane fx:id="boarderPane">
+          <top>
+              <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER_RIGHT">
+                  <children>
+                      <Button fx:id="exitButton" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: &quot;122E59&quot;;">
+                          <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../images/exitSymbolWhite.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                      </Button>
+                  </children>
+              </HBox>
+          </top>
+         <right>
+              <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints maxHeight="100.33333672417535" minHeight="10.0" prefHeight="37.111111111111114" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="98.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                      <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints prefHeight="60.0" vgrow="SOMETIMES" />
+                      <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints prefHeight="60.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="49.11113823784723" percentHeight="5.0" prefHeight="78.44445122612848" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <MFXButton fx:id="exportButton" buttonType="RAISED" mnemonicParsing="false" prefWidth="190.0" rippleAnimateShadow="true" style="-fx-background-color: &quot;122E59&quot;;" text="Export" textFill="#fffefe" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export Databases" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                      <font>
+                          <Font name="System Bold" size="18.0" />
+                      </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Import Database" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                      <font>
+                          <Font name="System Bold" size="18.0" />
+                      </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Database Import and Export" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                      <font>
+                          <Font name="System Bold" size="32.0" />
+                      </font>
+                  </Text>
+                  <MFXButton fx:id="importButton" buttonType="RAISED" mnemonicParsing="false" prefWidth="190.0" rippleAnimateBackground="false" rippleAnimateShadow="true" rippleColor="#bdbdbd" style="-fx-background-color: &quot;122E59&quot;;" text="Import Database" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                  <Label fx:id="inputError" minWidth="-Infinity" prefWidth="200.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                      <font>
+                          <Font name="System Bold" size="12.0" />
+                      </font>
+                  <GridPane.margin>
+                     <Insets bottom="10.0" />
+                  </GridPane.margin>
+                  </Label>
+                  <Label fx:id="outputError" alignment="BOTTOM_CENTER" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+                      <font>
+                          <Font name="System Bold" size="12.0" />
+                      </font>
+                  <GridPane.margin>
+                     <Insets bottom="10.0" />
+                  </GridPane.margin>
+                  </Label>
+               <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                  <children>
+                        <MFXTextField fx:id="outputField" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="351.0" promptText="Directory..." />
+                        <MFXButton fx:id="chooseDirectory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="9.0" />
+                            </font>
+                        </MFXButton>
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <children>
+                        <MFXTextField fx:id="inputField" maxHeight="-Infinity" minHeight="22.0" prefColumnCount="30" prefHeight="30.0" prefWidth="200.0" promptText="File..." />
+                        <MFXButton fx:id="chooseInput" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" snapToPixel="false" style="-fx-background-color: &quot;122E59&quot;;" text="V" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="9.0" />
+                            </font>
+                        <opaqueInsets>
+                           <Insets />
+                        </opaqueInsets>
+                        </MFXButton>
+                  </children>
+               </HBox>
+              </GridPane>
+         </right>
+      </BorderPane>
+   </root>
+</Scene>

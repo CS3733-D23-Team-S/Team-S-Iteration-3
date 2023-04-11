@@ -1,9 +1,10 @@
-package edu.wpi.teamname.Map;
+package edu.wpi.teamname.databaseredo.orms;
 
+import edu.wpi.teamname.databaseredo.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Node {
+public class Node implements IDataPack {
   @Getter @Setter private int nodeID;
   @Getter @Setter private int xCoord;
   @Getter @Setter private int yCoord;
@@ -39,6 +40,7 @@ public class Node {
         + "}";
   }
 
+  @Override
   public String toCSVString() {
     return nodeID
         + ","
