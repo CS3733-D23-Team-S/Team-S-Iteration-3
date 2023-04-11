@@ -156,30 +156,6 @@ public class PathfindingController {
     // creates line going from nodeID(i) to nodeID(i+1)
   }
 
-  public void clearSelectedNodes() {
-    if (floor.getImage().equals(floor1)) {
-      for (int i = 0; i < floor1Circles.size(); i++) {
-        floor1Circles.get(i).setFill(Color.RED);
-      }
-    } else if (floor.getImage().equals(floor2)) {
-      for (int i = 0; i < floor2Circles.size(); i++) {
-        floor2Circles.get(i).setFill(Color.RED);
-      }
-    } else if (floor.getImage().equals(floor3)) {
-      for (int i = 0; i < floor3Circles.size(); i++) {
-        floor3Circles.get(i).setFill(Color.RED);
-      }
-    } else if (floor.getImage().equals(floorL1)) {
-      for (int i = 0; i < floorL1Circles.size(); i++) {
-        floorL1Circles.get(i).setFill(Color.RED);
-      }
-    } else if (floor.getImage().equals(floorL2)) {
-      for (int i = 0; i < floorL2Circles.size(); i++) {
-        floorL2Circles.get(i).setFill(Color.RED);
-      }
-    }
-  }
-
   public void generateFloor1Nodes() {
     floor1Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
@@ -364,19 +340,41 @@ public class PathfindingController {
   public void clearFields() {
     startingLocation.setText("");
     destination.setText("");
+    if (floor.getImage().equals(floor1)) {
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        floor1Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floor2)) {
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        floor2Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floor3)) {
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        floor3Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floorL1)) {
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        floorL1Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floorL2)) {
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        floorL2Circles.get(i).setFill(Color.RED);
+      }
+    }
   }
 
   public void initialize() {
     dataBase = DataBaseRepository.getInstance();
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
-    clearFieldsButton.setOnMouseClicked(event -> clearSelectedNodes());
 
     stackPane.setPrefSize(1024.0, 742.0);
 
     floor =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
+
+    floor.setImage(floor1);
     stackPane.getChildren().add(floor);
     generateFloor1Nodes();
 
