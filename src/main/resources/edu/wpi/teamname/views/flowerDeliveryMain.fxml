@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.Blend?>
@@ -31,9 +30,11 @@
         <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="25.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="15.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="25.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints />
     </rowConstraints>
@@ -51,7 +52,7 @@
             <children>
                 <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../../Downloads/icons8-user-96.png" />
+                        <Image url="@../images/usericon.png" />
                     </image>
                 </ImageView>
             </children>
@@ -64,21 +65,21 @@
                         <Image url="@../images/topbarLogo.png" />
                     </image>
                     <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets />
                     </HBox.margin>
                 </ImageView>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9">
             <children>
-                <MFXButton fx:id="submitbutton" alignment="CENTER" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Submit    ➜" textAlignment="CENTER">
+                <MFXButton fx:id="viewcartbutton" alignment="CENTER" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="View Cart" textAlignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </MFXButton>
             </children>
         </HBox>
-        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="9">
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="10">
             <children>
                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -96,7 +97,7 @@
                         <Insets bottom="30.0" right="30.0" />
                     </VBox.margin>
                 </MFXButton>
-                <MFXButton fx:id="navigationbutton1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
+                <MFXButton fx:id="signagebutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
                     <font>
                         <Font name="Open Sans Bold" size="18.0" />
                     </font>
@@ -133,15 +134,15 @@
                         <Image url="@../images/backicon.png" />
                     </image>
                     <VBox.margin>
-                        <Insets right="150.0" top="120.0" />
+                        <Insets bottom="10.0" right="150.0" top="140.0" />
                     </VBox.margin>
                 </ImageView>
-                <ImageView fx:id="backicon1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="exiticon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/exiticon.png" />
                     </image>
                     <VBox.margin>
-                        <Insets right="150.0" />
+                        <Insets bottom="10.0" right="150.0" top="10.0" />
                     </VBox.margin>
                 </ImageView>
                 <ImageView fx:id="helpicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
@@ -149,7 +150,7 @@
                         <Image url="@../images/helpicon.png" />
                     </image>
                     <VBox.margin>
-                        <Insets right="150.0" />
+                        <Insets right="150.0" top="10.0" />
                     </VBox.margin>
                 </ImageView>
             </children>
@@ -158,33 +159,194 @@
          <font>
             <Font size="36.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
       </Text>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
-            <MFXTextField prefHeight="51.0" prefWidth="297.0" promptText="Search flowers..." />
-            <MenuButton mnemonicParsing="false" prefHeight="51.0" prefWidth="92.0" text="Size" textFill="#122e59">
+            <MFXTextField fx:id="flowersearch" prefHeight="51.0" prefWidth="297.0" promptText="Search flowers...">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></MFXTextField>
+            <MenuButton fx:id="sizedrop" mnemonicParsing="false" prefHeight="51.0" prefWidth="92.0" text="Size" textFill="#122e59">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
+                <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
+                  <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
               </items>
                <font>
                   <Font size="18.0" />
                </font>
             </MenuButton>
-            <MenuButton mnemonicParsing="false" prefHeight="62.0" prefWidth="114.0" text="Price" textFill="#122e59">
+            <MenuButton fx:id="pricedrop" mnemonicParsing="false" prefHeight="62.0" prefWidth="114.0" text="Price" textFill="#122e59">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="\$50" />
+                <MenuItem mnemonicParsing="false" text="\$100" />
+                  <MenuItem mnemonicParsing="false" text="\$200" />
               </items>
                <font>
                   <Font size="18.0" />
                </font>
             </MenuButton>
-            <CheckBox mnemonicParsing="false" prefHeight="51.0" prefWidth="181.0" style="-fx-background-color: d9d9d9;" text="Same Day Delivery">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </CheckBox>
+         </children>
+      </HBox>
+      <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower1" text="Flower 1">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower2" text="Flower 2">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower3" text="Flower 3">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower4" text="Flower 4">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower5" text="Flower 5">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox fx:id="hbox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower6" text="Flower 6">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower7" text="Flower 7">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower8" text="Flower 8">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower9" text="Flower 9">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
+               <children>
+                  <MFXButton fx:id="flower10" text="Flower 10">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+            </VBox>
          </children>
       </HBox>
     </children>

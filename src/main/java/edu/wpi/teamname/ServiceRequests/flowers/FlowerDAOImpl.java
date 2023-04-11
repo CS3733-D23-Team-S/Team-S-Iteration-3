@@ -7,22 +7,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Flow;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /* TODO:
        make sure updateQuantity() works
 */
-public class FlowerDAOImpl implements IDAO<Flower> {
-  @Getter @Setter private String name;
-  private dbConnection connection = dbConnection.getInstance();
+public class FlowerDAOImpl implements IDAO<Flower, Integer> {
+  @Getter private String name;
+  private dbConnection connection;
   @Getter private HashMap<Integer, Flower> flowers = new HashMap<>();
 
-  // protected static final String flowersTable = "hospitaldb" + "." + "flowers";
-
-  public FlowerDAOImpl() {}
+  public FlowerDAOImpl() {
+    connection = dbConnection.getInstance();
+  }
 
   public void initTable(String name) {
     this.name = name;
@@ -38,10 +41,11 @@ public class FlowerDAOImpl implements IDAO<Flower> {
             + "SoldOut boolean,"
             + "Description Varchar(100),"
             + "Image Varchar(100))";
-    System.out.println("Created the location table");
+
     try {
       Statement st = connection.getConnection().createStatement();
       st.execute(flowerTableConstruct);
+      System.out.println("Created the flowers table");
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -52,7 +56,15 @@ public class FlowerDAOImpl implements IDAO<Flower> {
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   public void loadRemote(String pathToCSV) {
@@ -61,10 +73,10 @@ public class FlowerDAOImpl implements IDAO<Flower> {
       String checkTable = "SELECT * FROM " + name;
       ResultSet check = stmt.executeQuery(checkTable);
       if (check.next()) {
-        System.out.println("Loading the location from the server");
+        System.out.println("Loading the flowers from the server");
         constructFromRemote();
       } else {
-        System.out.println("Loading the location to the server");
+        System.out.println("Loading the flowers to the server");
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
@@ -74,7 +86,11 @@ public class FlowerDAOImpl implements IDAO<Flower> {
   }
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    flowers.clear();
+    loadRemote(path);
+  }
 
   @Override
   public void exportCSV(String path) throws IOException {
@@ -96,8 +112,7 @@ public class FlowerDAOImpl implements IDAO<Flower> {
     return flowers.values().stream().toList();
   }
 
-  public void delete(Flower target) {
-    int ID = target.getID();
+  public void delete(Integer ID) {
     try {
       PreparedStatement deleteFlower =
           connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE ID = ?");
@@ -136,9 +151,9 @@ public class FlowerDAOImpl implements IDAO<Flower> {
       preparedStatement.setString(1, thisFlower.getDescription());
       preparedStatement.setString(1, thisFlower.getImage());
 
-      flowers.put(thisFlower.getID(), thisFlower);
-
       preparedStatement.execute();
+
+      flowers.put(thisFlower.getID(), thisFlower);
 
       System.out.println("Flower added");
 
@@ -200,8 +215,8 @@ public class FlowerDAOImpl implements IDAO<Flower> {
                   .prepareStatement(
                       "INSERT INTO "
                           + name
-                          + " "
-                          + "(FlowerID, flowerName, size, price, quantity, isSoldOut, description, image) VALUES (?,?,?,?,?,?,?,?)");
+                          + " (FlowerID, flowerName, size, price, quantity, isSoldOut, description, image) "
+                          + "VALUES (?,?,?,?,?,?,?,?)");
 
           stmt.setInt(1, Integer.valueOf(fields[0]));
           stmt.setString(2, fields[1]);
@@ -239,11 +254,24 @@ public class FlowerDAOImpl implements IDAO<Flower> {
     }
   }
 
-  public Flower retrieveFlower(int ID) {
+  public Flower retrieveFlower(Integer ID) {
     if (flowers.get(ID) == null) {
       throw new NullPointerException("Flower not in database\n");
     } else {
       return flowers.get(ID);
     }
   }
+
+  public List<Flower> getListSize(String size) {
+    List<Flower> flowers = getAll();
+    List<Flower> sizedFlowers = new ArrayList<>();
+
+    for (Flower flower: flowers) {
+      if (flower.getSize().equals(size))
+        sizedFlowers.add(flower);
+    }
+
+    return sizedFlowers;
+  }
+
 }

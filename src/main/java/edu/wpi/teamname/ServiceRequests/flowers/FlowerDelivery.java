@@ -3,8 +3,9 @@ package edu.wpi.teamname.ServiceRequests.flowers;
 import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
+import edu.wpi.teamname.databaseredo.IDataPack;
 
-public class FlowerDelivery {
+public class FlowerDelivery implements IDataPack {
   @Getter @Setter private int ID;
   @Getter @Setter private String cart;
   @Getter @Setter private Date date;
@@ -17,13 +18,14 @@ public class FlowerDelivery {
 
   public FlowerDelivery(
       int ID,
-      Cart cart,
+      String cart,
       Date date,
       Time time,
       String room,
       String orderedBy,
       String assignedTo,
-      String orderStatus) {
+      String orderStatus,
+      double cost) {
     this.ID = ID;
     this.cart = cart.toString();
     this.date = date;
@@ -32,7 +34,12 @@ public class FlowerDelivery {
     this.orderedBy = orderedBy;
     this.assignedTo = assignedTo;
     this.orderStatus = orderStatus;
-    this.cost = cart.getTotalPrice();
+    this.cost = cost;
+  }
+
+  @Override
+  public String toString() {
+    return ID + " " + cart +" " + date +" " + time + " " +room + " " +orderedBy + " " +assignedTo + " " +orderStatus + " " +cost;
   }
 
   public String toCSVString() {
