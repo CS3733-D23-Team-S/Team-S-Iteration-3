@@ -51,7 +51,6 @@ public class ProductDetailsController {
           }
         });
 
-    // addCart.setOnMouseClicked(event -> addToOrder());
     clearFields();
     clear.setOnMouseClicked(event -> clearFields());
     clearFields();
