@@ -6,6 +6,8 @@ import edu.wpi.teamname.databaseredo.LocationDAOImpl;
 import edu.wpi.teamname.databaseredo.dbConnection;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.NodeType;
+import lombok.Getter;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,20 +15,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
-  protected static final String schemaName = "hospitaldb";
-  protected static final String flowerRequestsTable = schemaName + "." + "flowerRequests";
-  private HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
-  private String name;
+public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
 
-  public FlowerDeliveryDAOImpl() {}
+  @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
+  private dbConnection connection = dbConnection.getInstance();
+  @Getter String name;
+
+  public FlowerDeliveryDAOImpl() {
+    connection = dbConnection.getInstance();
+  }
 
   public void initTable(String name) {
     this.name = name;
     try {
       Statement st = connection.getConnection().createStatement();
-      String dropFlowerRequestsTable = "DROP TABLE IF EXISTS " + flowerRequestsTable + " CASCADE";
 
       String flowerRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
@@ -39,10 +41,9 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
               + "room Varchar(100),"
               + "orderedBy Varchar(100),"
               + "assignedTo Varchar(100),"
-              + "orderStatus Varchar(100))";
-      // + "cost int,";
+              + "orderStatus Varchar(100))"
+              + "cost double";
 
-      st.execute(dropFlowerRequestsTable);
       st.execute(flowerRequestsTableConstruct);
 
       // Move to hashmap requests
@@ -56,7 +57,15 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   }
 
   @Override
-  public void dropTable() {}
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   private void constructFromRemote() {
     try {
@@ -72,8 +81,10 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
         String orderedBy = data.getString("orderedBy");
         String assignedTo = data.getString("assignedTo");
         String orderStatus = data.getString("orderStatus");
+        double cost = data.getDouble("cost");
+
         FlowerDelivery fd =
-            new FlowerDelivery(ID, null, date, time, room, orderedBy, assignedTo, orderStatus);
+            new FlowerDelivery(ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost);
         requests.put(ID, fd);
       }
     } catch (SQLException e) {
@@ -91,11 +102,11 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
       String checkTable = "SELECT * FROM " + name;
       ResultSet check = stmt.executeQuery(checkTable);
       if (check.next()) {
-        System.out.println("Loading the locations from the server");
+        System.out.println("Loading the flowerDeliveries from the server");
         constructFromRemote();
       } else {
-        System.out.println("Loading the locations to the server");
-        constructRemote(pathToCSV);
+        System.out.println("Loading the flowerDeliveries to the server");
+        //constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
       e.getMessage();
@@ -112,7 +123,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
                   .prepareStatement(
                       "INSERT INTO "
                           + name
-                          + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                          + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         reader.readLine();
         String line;
@@ -126,6 +137,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
           stmt.setString(6, fields[5]);
           stmt.setString( 7, fields[6]);
           stmt.setString(8, fields[7]);
+          stmt.setDouble(9, Double.parseDouble(fields[8]));
         }
       } catch (SQLException e) {
         e.printStackTrace();
@@ -145,7 +157,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write("deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus)");
+    fileWriter.write("deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus,cost)");
     for (FlowerDelivery flowerDelivery : requests.values()) {
       fileWriter.newLine();
       fileWriter.write(flowerDelivery.toCSVString());
@@ -174,13 +186,12 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
   }
 
   @Override
-  public void delete(FlowerDelivery target) {
-    int ID = target.getID();
+  public void delete(Integer ID) {
     try {
       PreparedStatement deleteFlower =
           connection
               .getConnection()
-              .prepareStatement("DELETE FROM " + flowerRequestsTable + " WHERE deliveryID = ?");
+              .prepareStatement("DELETE FROM " + name + " WHERE deliveryID = ?");
 
       deleteFlower.setInt(1, ID);
       deleteFlower.execute();
@@ -204,7 +215,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
               .getConnection()
               .prepareStatement(
                   "INSERT INTO "
-                      + flowerRequestsTable
+                      + name
                       + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, request.getID());
@@ -229,7 +240,6 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery> {
 
   public List<String> getListOfEligibleRooms() {
     DataBaseRepository repo = DataBaseRepository.getInstance();
-    repo.load();
 
     List<String> listOfEligibleRooms = new ArrayList<>();
     List<Location> locationList = repo.getLocationDAO().getAll();

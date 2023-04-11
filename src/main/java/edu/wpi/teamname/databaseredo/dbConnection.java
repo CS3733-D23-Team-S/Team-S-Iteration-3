@@ -13,8 +13,9 @@ public class dbConnection {
   @Getter final String edgesTable = schemaName + "." + "edges";
   @Getter final String moveTable = schemaName + "." + "moves";
   @Getter final String locationTable = schemaName + "." + "locations";
-  @Getter final String flowerTable = schemaName + "." + "flowerRequests";
-  @Getter final String flower = schemaName + "." + "flowers";
+
+  @Getter final String flowerDeliveryTable = schemaName + "." + "flowerRequests";
+  @Getter final String flowerTable = schemaName + "." + "flowers";
 
   @Getter final String foodTable = schemaName + "." + "foods";
 
