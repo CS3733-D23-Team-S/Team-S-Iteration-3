@@ -2,6 +2,8 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +18,7 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="90.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
@@ -33,59 +35,69 @@
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="3" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2" />
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="4" />
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <VBox fx:id="orderVBox" prefHeight="200.0" prefWidth="100.0" spacing="100.0" />
-         </children>
-      </VBox>
-      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name           Quantity             Price                        Request" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <font>
-            <Font name="Open Sans Regular" size="24.0" />
-         </font>
-      </Text>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <children>
-            <MFXButton fx:id="back2" prefHeight="139.0" prefWidth="137.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
+            <MFXButton fx:id="submitted1" prefHeight="57.0" prefWidth="250.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submitted Requests" textFill="#122e59">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Open Sans Regular" size="18.0" />
                </font>
-            </MFXButton>
-            <MFXButton fx:id="submitted1" prefHeight="135.0" prefWidth="449.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submitted Requests">
-               <font>
-                  <Font size="36.0" />
-               </font>
+               <HBox.margin>
+                  <Insets top="50.0" />
+               </HBox.margin>
             </MFXButton>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffff;" GridPane.columnIndex="3" GridPane.rowIndex="5">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <MFXButton fx:id="submit" prefHeight="135.0" prefWidth="448.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submit Order &gt;">
+            <MFXButton fx:id="submit" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submit Order &gt;">
                <font>
-                  <Font size="40.0" />
+                  <Font size="18.0" />
                </font>
+               <HBox.margin>
+                  <Insets top="50.0" />
+               </HBox.margin>
             </MFXButton>
          </children></HBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+      <VBox GridPane.columnIndex="3" GridPane.rowIndex="3">
          <children>
             <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee">
                <font>
                   <Font name="Open Sans Regular" size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </Text>
-            <MFXTextField fx:id="empNum" prefHeight="51.0" prefWidth="277.0" promptText="Enter Employee Name " />
+            <MFXTextField fx:id="empNum" prefHeight="51.0" prefWidth="277.0" promptText="Enter Employee Name ">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin></MFXTextField>
             <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                <font>
                   <Font size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </Text>
-            <SearchableComboBox fx:id="location1" />
+            <SearchableComboBox fx:id="location1">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin></SearchableComboBox>
             <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Request">
                <font>
                   <Font size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </Text>
-            <MFXTextField fx:id="request1" prefHeight="51.0" prefWidth="240.0" promptText="Enter Request" />
+            <MFXTextField fx:id="request1" prefHeight="51.0" prefWidth="240.0" promptText="Enter Request">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin></MFXTextField>
             <MFXButton fx:id="clear2" text="Clear " />
          </children>
       </VBox>
@@ -94,7 +106,69 @@
             <Font name="Open Sans Regular" size="36.0" />
          </font>
       </Text>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="7" />
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="7">
+         <children>
+            <MFXButton fx:id="back2" prefHeight="139.0" prefWidth="137.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="800.0" />
+               </VBox.margin>
+            </MFXButton>
+         </children></VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <VBox fx:id="itName" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="352.0" text="Item Name" textFill="#122e59">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets right="-200.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="200.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="itQuant1" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Quantity" textFill="#122e59">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="itRequest" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Request" textFill="#122e59">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="200.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="itPrice" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Price" textFill="#122e59">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </GridPane>

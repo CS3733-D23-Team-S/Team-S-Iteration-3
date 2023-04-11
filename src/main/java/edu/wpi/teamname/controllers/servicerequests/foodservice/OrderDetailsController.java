@@ -9,6 +9,7 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.awt.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javax.swing.*;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OrderDetailsController {
@@ -24,7 +26,10 @@ public class OrderDetailsController {
   @FXML private MFXButton back2;
   @FXML private MFXButton submit;
   @FXML private MFXButton clear2;
-  @FXML private VBox orderVBox;
+  @FXML private VBox itName;
+  @FXML private VBox itQuant1;
+  @FXML private VBox itRequest;
+  @FXML private VBox itPrice;
   @FXML private SearchableComboBox location1;
   @FXML private MFXTextField empNum;
 
@@ -120,21 +125,12 @@ public class OrderDetailsController {
       newItemRequest.setText(String.valueOf(aFood.getNote()));
       newItemRequest.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      orderVBox.getChildren().add(newRow);
-      newRow.getChildren().add(newItemName);
+      // orderVBox.getChildren().add(newRow);
 
-      newRow.getChildren().add(newItemQuantity);
-      newRow.getChildren().add(newItemPrice);
-      newRow.getChildren().add(newItemRequest);
+      itName.getChildren().add(newItemName);
+      itQuant1.getChildren().add(newItemQuantity);
+      itPrice.getChildren().add(newItemPrice);
+      itRequest.getChildren().add(newItemRequest);
     }
   }
-  /*
-   public void addEligibleRooms() {
-     for (int i = 0; i < DataBaseRepository.getListOfEligibleRooms.size(); i++) {
-         location1.getItems().add(i.getText());
-     }
-   }
-
-  */
-
 }

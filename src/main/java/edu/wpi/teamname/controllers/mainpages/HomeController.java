@@ -63,7 +63,7 @@ public class HomeController {
     mealDeliveryButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
-    helpIcon.setOnMouseClicked(event -> goToHelpPage());
+    // **helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
     homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
     exportButton.setOnMouseClicked(event -> Navigation.navigate(CSV_MANAGE));

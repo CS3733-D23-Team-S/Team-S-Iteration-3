@@ -5,12 +5,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryOrderConfirmationController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryOrderConfirmationController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
   </columnConstraints>
@@ -22,29 +24,14 @@
       <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Submitted!" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" GridPane.columnSpan="2" />
+      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Submitted!" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="Open Sans Regular" size="24.0" />
          </font>
       </Text>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" style="-fx-background-color: #ffffff;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your order will be ready in ">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="minutes">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-         </children>
-      </HBox>
-      <MFXButton fx:id="home1" prefHeight="45.0" prefWidth="105.0" text="Home" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <MFXButton fx:id="home1" prefHeight="45.0" prefWidth="105.0" text="Home" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <VBox prefHeight="200.0" prefWidth="240.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="5" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
    </children>
 </GridPane>

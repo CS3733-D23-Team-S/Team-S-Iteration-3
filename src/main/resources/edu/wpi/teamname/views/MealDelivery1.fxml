@@ -67,7 +67,7 @@
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <children>
-            <HBox prefHeight="30.0" prefWidth="1384.0" style="-fx-background-color: #ffffff;">
+            <HBox prefHeight="30.0" prefWidth="1384.0">
                <children>
                   <Text fx:id="qdLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Delivery" textAlignment="CENTER">
                      <font>
@@ -79,9 +79,9 @@
                   </Text>
                </children>
             </HBox>
-            <HBox fx:id="qd" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: d9d9d9;" />
+            <HBox fx:id="qd" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
 
-            <HBox prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+            <HBox prefHeight="30.0" prefWidth="200.0">
                <children>
                   <Text fx:id="wfLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Wallet Friendly">
                      <font>
@@ -93,33 +93,18 @@
                   </Text>
                </children>
             </HBox>
-            <HBox fx:id="wf" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: d9d9d9;" />
-            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Text fx:id="mpLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Most Popular">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="50.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-            <HBox fx:id="mp" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" />
+            <HBox fx:id="wf" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
-            <MFXButton fx:id="backButton1" prefHeight="104.0" prefWidth="104.0" text="Back">
+            <MFXButton fx:id="checkout" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="View Cart&gt;" textFill="#122e59">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Open Sans Regular" size="18.0" />
                </font>
-            </MFXButton>
-            <MFXButton fx:id="checkout" prefHeight="28.0" prefWidth="322.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="View Cart&gt;">
-               <font>
-                  <Font size="40.0" />
-               </font>
+               <HBox.margin>
+                  <Insets right="7.0" />
+               </HBox.margin>
             </MFXButton>
          </children>
       </HBox>
@@ -152,8 +137,15 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="8">
-
-
-      </VBox>
+         <children>
+            <MFXButton fx:id="backButton1" prefHeight="104.0" prefWidth="104.0" text="Back" textFill="#122e59">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="50.0" top="700.0" />
+               </VBox.margin>
+            </MFXButton>
+         </children></VBox>
    </children>
 </GridPane>

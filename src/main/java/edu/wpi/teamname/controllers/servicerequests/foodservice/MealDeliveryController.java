@@ -20,14 +20,12 @@ public class MealDeliveryController {
   @FXML MFXButton checkout;
   @FXML HBox wf;
   @FXML HBox qd;
-  @FXML HBox mp;
   @FXML SplitMenuButton dietaryButton;
   @FXML SplitMenuButton cuisine;
   @FXML SplitMenuButton price;
   @FXML HBox filter;
   @FXML Text wfLabel;
   @FXML Text qdLabel;
-  @FXML Text mpLabel;
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
@@ -140,6 +138,8 @@ public class MealDeliveryController {
       btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(DBR.getWalletFriendlyFood().get(finalII).getFoodID()));
+
+      System.out.println(DBR);
     }
   }
 
@@ -320,7 +320,6 @@ public class MealDeliveryController {
     qd.getChildren().clear();
     qdLabel.setText("");
     wfLabel.setText("");
-    mpLabel.setText("");
   }
 
   public void applyFilters() {

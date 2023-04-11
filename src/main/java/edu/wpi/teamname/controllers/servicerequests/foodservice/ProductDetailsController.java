@@ -24,6 +24,7 @@ public class ProductDetailsController {
   @FXML private HBox foodName;
   @FXML private HBox fDescription;
   @FXML private HBox fPrice;
+  @FXML private HBox prepTime;
 
   public static int orderID;
   public static int itemCount;
@@ -58,6 +59,7 @@ public class ProductDetailsController {
     foodNamer();
     foodDescription();
     foodPrice();
+    foodPrep();
   }
 
   public void count(String x) {
@@ -101,8 +103,16 @@ public class ProductDetailsController {
 
     Label fPrice1 = new Label();
     fPrice1.setId(Double.toString(selectedFood().getFoodPrice()));
-    fPrice1.setText(Double.toString(selectedFood().getFoodPrice()));
+    fPrice1.setText("$ " + (selectedFood().getFoodPrice()));
     fPrice1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
     fPrice.getChildren().add(fPrice1);
+  }
+
+  public void foodPrep() {
+    Label fPrep1 = new Label();
+    fPrep1.setId(Double.toString(selectedFood().getFoodPrepTime()));
+    fPrep1.setText(Double.toString(selectedFood().getFoodPrepTime()) + " minutes");
+    fPrep1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+    prepTime.getChildren().add(fPrep1);
   }
 }
