@@ -1,5 +1,9 @@
 package edu.wpi.teamname.databaseredo;
 
+import edu.wpi.teamname.ServiceRequests.flowers.Flower;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.databaseredo.orms.Move;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
@@ -16,11 +20,18 @@ public class DataBaseRepository {
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
 
+  @Getter IDAO<Flower, Integer> flowerDAO;
+  @Getter IDAO<FlowerDelivery, Integer> flowerDeliveryDAO;
+
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+
+    flowerDAO = new FlowerDAOImpl();
+    flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
+
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -39,6 +50,12 @@ public class DataBaseRepository {
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+
+    flowerDAO.initTable(connection.getFlowerTable());
+    flowerDAO.loadRemote("src/main/java/wpi/edu/teamname/defaultCSV/Flower.csv");
+    flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
+    flowerDeliveryDAO.loadRemote("flowersssssss!?");
+
   }
 
   public boolean login(String text, String text1) {
@@ -84,5 +101,9 @@ public class DataBaseRepository {
     edgeDAO.exportCSV(outputPath);
     moveDAO.exportCSV(outputPath);
     locationDAO.exportCSV(outputPath);
+  }
+
+  public void addFlower(Flower flower) {
+    flowerDAO.add(flower);
   }
 }
