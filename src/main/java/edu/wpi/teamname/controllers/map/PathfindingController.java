@@ -12,9 +12,11 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -137,6 +139,47 @@ public class PathfindingController {
   List<Location> floorL2Locations;
   PathfindingEntity pfe;
 
+  public void getLocationFromNodeID() {
+    // one wack way to get the location from the node ID
+    // we need to get the node ID from the circle
+    // set the circle's xcenter value to (double) i
+    // go through list of circles
+    // if circle's (Integer) xcenter value == nodeID
+    // get the node
+    // set the starting location to the location at the node ID
+    // if that's even possible
+  }
+
+  public void showPath() {
+    // gets list of integers that are node IDs
+    // for loop
+    // creates line going from nodeID(i) to nodeID(i+1)
+  }
+
+  public void clearSelectedNodes() {
+    if (floor.getImage().equals(floor1)) {
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        floor1Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floor2)) {
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        floor2Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floor3)) {
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        floor3Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floorL1)) {
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        floorL1Circles.get(i).setFill(Color.RED);
+      }
+    } else if (floor.getImage().equals(floorL2)) {
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        floorL2Circles.get(i).setFill(Color.RED);
+      }
+    }
+  }
+
   public void generateFloor1Nodes() {
     floor1Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
@@ -145,7 +188,7 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
+      final Circle newCircle = new Circle((double) i, 0.0, 10.0, Color.RED);
 
       // circles need to be reflected across the Y axis
       //      newCircle.setTranslateX(((-1.0) * floor1Nodes.get(i).getXCoord()) + 2500.0);
@@ -158,6 +201,16 @@ public class PathfindingController {
       newCircle.setTranslateX(((1.0) * floor1Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floor1Nodes.get(i).getYCoord()) - 1700.0);
       floor1Circles.add(newCircle);
+      newCircle.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              for (int i = 0; i < floor1Circles.size(); i++) {
+                floor1Circles.get(i).setFill(Color.RED);
+              }
+              newCircle.setFill(Color.AQUA);
+            }
+          });
     }
     stackPane.getChildren().addAll(floor1Circles);
   }
@@ -174,6 +227,16 @@ public class PathfindingController {
       newCircle.setTranslateX(((1.0) * floor2Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floor2Nodes.get(i).getYCoord()) - 1700.0);
       floor2Circles.add(newCircle);
+      newCircle.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              for (int i = 0; i < floor2Circles.size(); i++) {
+                floor2Circles.get(i).setFill(Color.RED);
+              }
+              newCircle.setFill(Color.AQUA);
+            }
+          });
     }
     stackPane.getChildren().addAll(floor2Circles);
   }
@@ -190,6 +253,16 @@ public class PathfindingController {
       newCircle.setTranslateX(((1.0) * floor3Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floor3Nodes.get(i).getYCoord()) - 1700.0);
       floor3Circles.add(newCircle);
+      newCircle.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              for (int i = 0; i < floor3Circles.size(); i++) {
+                floor3Circles.get(i).setFill(Color.RED);
+              }
+              newCircle.setFill(Color.AQUA);
+            }
+          });
     }
     stackPane.getChildren().addAll(floor3Circles);
   }
@@ -206,6 +279,16 @@ public class PathfindingController {
       newCircle.setTranslateX(((1.0) * floorL1Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floorL1Nodes.get(i).getYCoord()) - 1700.0);
       floorL1Circles.add(newCircle);
+      newCircle.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              for (int i = 0; i < floorL1Circles.size(); i++) {
+                floorL1Circles.get(i).setFill(Color.RED);
+              }
+              newCircle.setFill(Color.AQUA);
+            }
+          });
     }
     stackPane.getChildren().addAll(floorL1Circles);
   }
@@ -222,6 +305,16 @@ public class PathfindingController {
       newCircle.setTranslateX(((1.0) * floorL2Nodes.get(i).getXCoord()) - 2500.0);
       newCircle.setTranslateY(((1.0) * floorL2Nodes.get(i).getYCoord()) - 1700.0);
       floorL2Circles.add(newCircle);
+      newCircle.setOnMouseClicked(
+          new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+              for (int i = 0; i < floorL2Circles.size(); i++) {
+                floorL2Circles.get(i).setFill(Color.RED);
+              }
+              newCircle.setFill(Color.AQUA);
+            }
+          });
     }
     stackPane.getChildren().addAll(floorL2Circles);
   }
@@ -244,9 +337,10 @@ public class PathfindingController {
 
   // other things to add
   // click on circles and it pulls up the location name
-    // needs to be able to connect to back end - get location name from a node and i don't know if that's possible
+  // needs to be able to connect to back end - get location name from a node and i don't know if
+  // that's possible
   // clear fields removes the colors of the start and end nodes
-    // nice to have
+  // nice to have
 
   public void makePathfindingEntity(List<Integer> nodeIDsList) {
     pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
@@ -276,6 +370,7 @@ public class PathfindingController {
     dataBase = DataBaseRepository.getInstance();
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
+    clearFieldsButton.setOnMouseClicked(event -> clearSelectedNodes());
 
     stackPane.setPrefSize(1024.0, 742.0);
 
