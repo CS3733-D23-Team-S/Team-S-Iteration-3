@@ -1,12 +1,12 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -28,9 +28,10 @@ public class AdminController {
   @FXML MFXButton flowerButton;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws FileNotFoundException {
     homeIcon.setOnMouseClicked(event -> goToHomePage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
+    //    profileIcon.setOnMouseClicked(event -> goToHomePage());
     backIcon.setOnMouseClicked(event -> goToLoginPage());
     exitIcon.setOnMouseClicked(event -> exitApplication());
     submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
@@ -41,19 +42,24 @@ public class AdminController {
     mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
     roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
 
-    Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
+    Image HomeIcon =
+        new Image(new FileInputStream("src/main/resources/edu/wpi/teamname/images/homeicon.png"));
     homeIcon.setImage(HomeIcon);
 
-    Image HelpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
+    Image HelpIcon =
+        new Image(new FileInputStream("src/main/resources/edu/wpi/teamname/images/helpicon.png"));
     helpIcon.setImage(HelpIcon);
 
-    Image ProfileIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
-    profileIcon.setImage(ProfileIcon);
+    Image ProfileIcon =
+        new Image(new FileInputStream("src/main/resources/edu/wpi/teamname/images/usericon.png"));
+    //    profileIcon.setImage(ProfileIcon);
 
-    Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
+    Image BackIcon =
+        new Image(new FileInputStream("src/main/resources/edu/wpi/teamname/images/backicon.png"));
     backIcon.setImage(BackIcon);
 
-    Image TopBarIcon = new Image(Main.class.getResource("./images/topbarlogo.png").toString());
+    Image TopBarIcon =
+        new Image(new FileInputStream("src/main/resources/edu/wpi/teamname/images/topbarlogo.png"));
     topbarlogo.setImage(TopBarIcon);
   }
 

@@ -89,7 +89,7 @@ public class ProductDetailsController {
 
     fName.setId(selectedFood().getFoodDescription());
 
-    fName.setText(selectedFood().getFoodName().toString());
+    fName.setText(selectedFood().getFoodName());
 
     fName.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
     foodName.getChildren().add(fName);
@@ -99,7 +99,7 @@ public class ProductDetailsController {
 
     Label fDescription1 = new Label();
     fDescription1.setId(selectedFood().getFoodDescription());
-    fDescription1.setText(selectedFood().getFoodDescription().toString());
+    fDescription1.setText(selectedFood().getFoodDescription());
     fDescription1.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
 
     fDescription.getChildren().add(fDescription1);
