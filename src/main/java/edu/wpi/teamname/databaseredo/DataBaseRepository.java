@@ -8,6 +8,9 @@ import edu.wpi.teamname.databaseredo.orms.Move;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 
 public class DataBaseRepository {
@@ -105,5 +108,19 @@ public class DataBaseRepository {
 
   public void addFlower(Flower flower) {
     flowerDAO.add(flower);
+  }
+
+  public List<Flower> getListOfSize(String size) {
+    List<Flower> flowers = flowerDAO.getAll();
+    List<Flower> sizedFlowers = new ArrayList<>();
+
+    for (Flower flower: flowers) {
+      if (flower.getSize().equals(size)) {
+        sizedFlowers.add(flower);
+      }
+    }
+
+    return sizedFlowers;
+
   }
 }

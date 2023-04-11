@@ -7,8 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Flow;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +23,9 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   private dbConnection connection;
   @Getter private HashMap<Integer, Flower> flowers = new HashMap<>();
 
-  public FlowerDAOImpl() {}
+  public FlowerDAOImpl() {
+    connection = dbConnection.getInstance();
+  }
 
   public void initTable(String name) {
     this.name = name;
@@ -257,17 +262,16 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
-  public List<Flower> getListOfSize(String size) {
+  public List<Flower> getListSize(String size) {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
     for (Flower flower: flowers) {
-      if (flower.getSize().equals(size)) {
+      if (flower.getSize().equals(size))
         sizedFlowers.add(flower);
-      }
     }
 
     return sizedFlowers;
-
   }
+
 }
