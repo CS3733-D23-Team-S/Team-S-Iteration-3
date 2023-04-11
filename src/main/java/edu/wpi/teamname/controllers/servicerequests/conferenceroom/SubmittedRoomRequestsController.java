@@ -1,15 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import javafx.fxml.FXML;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
-
 public class SubmittedRoomRequestsController {
 
-    /*
+  /*
     @FXML TableView submittedRoomRequestsTable;
 
     // IDAO<ConfRoomRequest, Integer> repo = DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -43,4 +36,3 @@ public class SubmittedRoomRequestsController {
 
      */
 }
-

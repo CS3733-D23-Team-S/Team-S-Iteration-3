@@ -5,7 +5,6 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -53,7 +52,6 @@ public class RoomBookingController {
   ArrayList<VBox> roomListVBoxes = new ArrayList<>();
   ArrayList<ConfRoomRequest> reservationList = new ArrayList<>();
 
-  static RoomRequestDAO roomRequestDAO = RoomRequestDAO.getInstance();
   RoomBooking rb = new RoomBooking();
 
   @FXML
@@ -71,7 +69,7 @@ public class RoomBookingController {
     filterDate(LocalDate.now());
 
     // add current requests to UI
-    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
+    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       this.addToUI(i);
     }
 
@@ -107,7 +105,7 @@ public class RoomBookingController {
       String endTime,
       String eventTitle,
       String eventDescription)
-      throws SQLException {
+      throws Exception {
 
     System.out.println("Adding new request");
     ConfRoomRequest newRequest =
@@ -216,9 +214,13 @@ public class RoomBookingController {
    */
   public void filterDate(LocalDate date) {
     clearUI();
+    roomList.clear();
+    roomListVBoxes.clear();
 
-    for (ConfRoomRequest i : RoomRequestDAO.getInstance().getAllRequests()) {
-      if (i.getDate() == date) {
+    initializeRooms();
+
+    for (ConfRoomRequest i : roomRequestDAO.getAll()) {
+      if (i.getEventDate().equals(date)) {
         this.addToUI(i);
         System.out.println("Added request " + i.getEventName());
       }
@@ -276,7 +278,7 @@ public class RoomBookingController {
 
     resGroup.getChildren().add(eventVBox);
 
-    VBox currVBox = getVBoxById(roomRequest.getRoomId());
+    VBox currVBox = getVBoxById(roomRequest.getRoom().replaceAll(" ", ""));
 
     currVBox.getChildren().add(resGroup);
   }

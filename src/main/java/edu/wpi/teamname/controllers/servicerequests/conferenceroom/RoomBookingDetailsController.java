@@ -8,7 +8,6 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class RoomBookingDetailsController {
 
   // submit details from controller
   @FXML
-  public void submitDetails(ActionEvent event) throws SQLException {
+  public void submitDetails(ActionEvent event) throws Exception {
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = startTimeField.getText();
