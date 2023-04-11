@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 
@@ -39,14 +42,16 @@ class NewMealRequest {
 }
 
 public class NewSubmittedMealRequestController implements Initializable {
-  @FXML TableView<MealRequest> mealRequestsTable;
-  @FXML TableColumn<MealRequest, String> mealID = new TableColumn<>("Meal ID");
-  @FXML TableColumn<MealRequest, String> orderTime = new TableColumn<>("Order Time");
-  @FXML TableColumn<MealRequest, String> itemsOrdered = new TableColumn<>("Items Ordered");
-  @FXML TableColumn<MealRequest, String> specialRequests = new TableColumn<>("Special Requests");
-  @FXML TableColumn<MealRequest, String> orderStatus = new TableColumn<>("Order Status");
+  @FXML TableView<NewMealRequest> mealRequestsTable;
+  @FXML TableColumn<NewMealRequest, String> mealID = new TableColumn<>("Meal ID");
+  @FXML TableColumn<NewMealRequest, String> orderTime = new TableColumn<>("Order Time");
+  @FXML TableColumn<NewMealRequest, String> itemsOrdered = new TableColumn<>("Items Ordered");
+  @FXML TableColumn<NewMealRequest, String> specialRequests = new TableColumn<>("Special Requests");
+  @FXML TableColumn<NewMealRequest, String> orderStatus = new TableColumn<>("Order Status");
 
-  @FXML MFXButton backButton;
+  @FXML ImageView backIcon;
+  @FXML ImageView exitIcon;
+  @FXML ImageView helpIcon;
   @FXML MFXButton navigationButton;
   @FXML MFXButton signageButton;
   @FXML MFXButton mealButton;
@@ -57,21 +62,23 @@ public class NewSubmittedMealRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    backButton.setOnMouseClicked(event -> goToAdminPage());
+    backIcon.setOnMouseClicked(event -> goToAdminPage());
     signageButton.setOnMouseClicked(event -> goToSignagePage());
     navigationButton.setOnMouseClicked(event -> goToPathfindingPage());
     mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
     roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
     homeIcon.setOnMouseClicked(event -> goToHomePage());
+    exitIcon.setOnMouseClicked(event -> exitApplication());
+    helpIcon.setOnMouseClicked(event -> goToHelpPage());
 
     //    mealID.setPrefWidth(320.0);
-    List<MealRequest> mealRequests = new LinkedList<>();
-    mealRequests.add(new MealRequest("1", "morning", "Coffee", "none", "Done"));
-    mealRequests.add(new MealRequest("2", "morning", "Rice", "none", "Done"));
-    mealRequests.add(new MealRequest("3", "noon", "Octopus", "none", "Done"));
-    mealRequests.add(new MealRequest("4", "noon", "Chocolate", "none", "Done"));
-    mealRequests.add(new MealRequest("5", "evening", "Cake", "none", "Done"));
-    mealRequests.add(new MealRequest("6", "evening", "Coffee", "none", "Done"));
+    List<NewMealRequest> mealRequests = new LinkedList<>();
+    mealRequests.add(new NewMealRequest("1", "morning", "Coffee", "none", "Done"));
+    mealRequests.add(new NewMealRequest("2", "morning", "Rice", "none", "Done"));
+    mealRequests.add(new NewMealRequest("3", "noon", "Octopus", "none", "Done"));
+    mealRequests.add(new NewMealRequest("4", "noon", "Chocolate", "none", "Done"));
+    mealRequests.add(new NewMealRequest("5", "evening", "Cake", "none", "Done"));
+    mealRequests.add(new NewMealRequest("6", "evening", "Coffee", "none", "Done"));
 
     mealID.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getMealId()));
     orderTime.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderTime()));
@@ -82,7 +89,7 @@ public class NewSubmittedMealRequestController implements Initializable {
     orderStatus.setCellValueFactory(
         (row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
 
-    final ObservableList<MealRequest> observableMealList =
+    final ObservableList<NewMealRequest> observableMealList =
         FXCollections.observableList(mealRequests);
     // mealRequestsTable.setItems(observableMealList);
     mealRequestsTable.getItems().addAll(observableMealList);
@@ -110,6 +117,12 @@ public class NewSubmittedMealRequestController implements Initializable {
   public void goToRoomReservationPage() {
       Navigation.navigate(Screen.ROOM_BOOKING);
     }
+  public void exitApplication() {
+    Platform.exit();
+  }
+  public void goToHelpPage() {
+    Navigation.navigate(Screen.HELP_PAGE);
+  }
 
 
 }

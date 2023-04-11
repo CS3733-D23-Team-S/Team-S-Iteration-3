@@ -43,9 +43,9 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
             <children>
-                <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="userIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../../Downloads/icons8-user-96.png" />
+                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/usericon.png" />
                     </image>
                 </ImageView>
             </children>
@@ -114,7 +114,7 @@
                         <Insets bottom="30.0" right="30.0" />
                     </VBox.margin>
                 </MFXButton>
-                <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
                     <image>
                         <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/backicon.png" />
                     </image>
@@ -122,7 +122,7 @@
                         <Insets right="150.0" top="250.0" />
                     </VBox.margin>
                 </ImageView>
-                <ImageView fx:id="exitIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="exitIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
                     <image>
                         <Image url="@../images/exiticon.png" />
                     </image>
@@ -130,7 +130,7 @@
                         <Insets right="150.0" />
                     </VBox.margin>
                 </ImageView>
-                <ImageView fx:id="helpIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="helpIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0">
                     <image>
                         <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/helpicon.png" />
                     </image>

@@ -1,11 +1,14 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import lombok.Getter;
 
 class NewRoomRequest {
@@ -32,18 +36,37 @@ class NewRoomRequest {
 }
 
 public class NewSubmittedRoomRequestController implements Initializable {
-    @FXML TableView roomRequestsTable;
-    @FXML TableColumn<MealRequest, String> roomBooked = new TableColumn<>("Room Booked");
-    @FXML TableColumn<MealRequest, String> timeBooked = new TableColumn<>("Time Booked");
-    @FXML TableColumn<MealRequest, String> maxRoomSize = new TableColumn<>("Max Room Size");
+    @FXML TableView<NewRoomRequest> roomRequestsTable;
+    @FXML TableColumn<NewRoomRequest, String> roomBooked = new TableColumn<>("Room Booked");
+    @FXML TableColumn<NewRoomRequest, String> timeBooked = new TableColumn<>("Time Booked");
+    @FXML TableColumn<NewRoomRequest, String> maxRoomSize = new TableColumn<>("Max Room Size");
 
     @FXML
-    TableColumn<MealRequest, String> specialRoomRequests = new TableColumn<>("Special Requests");
+    TableColumn<NewRoomRequest, String> specialRoomRequests = new TableColumn<>("Special Requests");
 
-    @FXML MFXButton backButton;
+    @FXML ImageView backIcon;
+    @FXML ImageView exitIcon;
+    @FXML ImageView helpIcon;
+    @FXML ImageView homeIcon;
+    @FXML MFXButton navigationButton;
+    @FXML MFXButton signageButton;
+    @FXML MFXButton mealButton;
+    @FXML MFXButton roomButton;
+    @FXML MFXButton flowerButton;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        backIcon.setOnMouseClicked(event -> goToAdminPage());
+        exitIcon.setOnMouseClicked(event -> exitApplication());
+        helpIcon.setOnMouseClicked(event -> goToHelpPage());
+        homeIcon.setOnMouseClicked(event -> goToHomePage());
+        navigationButton.setOnMouseClicked(event -> goToPathfindingPage());
+        signageButton.setOnMouseClicked(event -> goToSignagePage());
+        mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
+        roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
+
 
         List<NewRoomRequest> roomRequests = new LinkedList<>();
         roomRequests.add(new NewRoomRequest("1", "noon", "5", "None"));
@@ -52,19 +75,15 @@ public class NewSubmittedRoomRequestController implements Initializable {
         roomRequests.add(new NewRoomRequest("4", "noon", "5", "None"));
         roomRequests.add(new NewRoomRequest("5", "noon", "5", "None"));
 
-        roomBooked.setCellValueFactory(new PropertyValueFactory<>("mealID"));
-        timeBooked.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
-        maxRoomSize.setCellValueFactory(new PropertyValueFactory<>("maxRoomSize"));
-        specialRoomRequests.setCellValueFactory(new PropertyValueFactory<>("specialRoomRequests"));
 
-//        roomBooked.setCellValueFactory((row) -> new
-//                SimpleStringProperty(row.getValue().getRoomBooked()));
-//        timeBooked.setCellValueFactory((row) -> new
-//     SimpleStringProperty(row.getValue().getTimeBooked()));
-//        maxRoomSize.setCellValueFactory(
-//                (row) -> new SimpleStringProperty(row.getValue().getMaxRoomSize()));
-//        specialRoomRequests.setCellValueFactory(
-//                (row) -> new SimpleStringProperty(row.getValue().getSpecialRoomRequests()));
+        roomBooked.setCellValueFactory((row) -> new
+                SimpleStringProperty(row.getValue().getRoomBooked()));
+        timeBooked.setCellValueFactory((row) -> new
+     SimpleStringProperty(row.getValue().getTimeBooked()));
+        maxRoomSize.setCellValueFactory(
+                (row) -> new SimpleStringProperty(row.getValue().getMaxRoomSize()));
+        specialRoomRequests.setCellValueFactory(
+                (row) -> new SimpleStringProperty(row.getValue().getSpecialRoomRequests()));
 
         final ObservableList<NewRoomRequest> observableRoomList =
                 FXCollections.observableList(roomRequests);
@@ -74,5 +93,31 @@ public class NewSubmittedRoomRequestController implements Initializable {
         //    for (RoomRequest Rr : roomRequests) {
         //      roomRequestsTable.getItems().add(Rr);
         //    }
+    }
+    public void goToAdminPage() {
+        Navigation.navigate(Screen.ADMIN_PAGE);
+    }
+
+    public void goToHomePage() {
+        Navigation.navigate(Screen.HOME);
+    }
+
+    public void goToSignagePage() {
+        Navigation.navigate(Screen.SIGNAGE_PAGE);
+    }
+    public void goToPathfindingPage() {
+        Navigation.navigate(Screen.PATHFINDING);
+    }
+    public void goToMealDeliveryPage() {
+        Navigation.navigate(Screen.MEAL_DELIVERY1);
+    }
+    public void goToRoomReservationPage() {
+        Navigation.navigate(Screen.ROOM_BOOKING);
+    }
+    public void exitApplication() {
+        Platform.exit();
+    }
+    public void goToHelpPage() {
+        Navigation.navigate(Screen.HELP_PAGE);
     }
 }

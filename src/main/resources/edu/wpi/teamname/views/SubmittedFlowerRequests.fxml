@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.NewSubmittedRoomRequestController">
+<GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SubmittedFlowerRequestController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -47,16 +47,11 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
             <children>
-                <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="userIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../../../../Downloads/icons8-user-96.png" />
+                        <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/usericon.png" />
                     </image>
                 </ImageView>
-            <ImageView fx:id="userIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateX="-50.0">
-               <image>
-                  <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/usericon.png" />
-               </image>
-            </ImageView>
             </children>
         </HBox>
         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
@@ -149,15 +144,16 @@
                 </ImageView>
             </children>
         </VBox>
-        <TableView prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmittedRoomRequestsPage.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="7">
+        <TableView prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmitMealRequestsPage.css" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3" GridPane.rowSpan="7">
             <columns>
-                <TableColumn fx:id="roomBooked" prefWidth="340.0" text="Room Booked" />
-                <TableColumn fx:id="timeBooked" prefWidth="340.0" text="Time Booked" />
-                <TableColumn fx:id="maxRoomSize" prefWidth="340.0" text="Max Room Size" />
-                <TableColumn fx:id="specialRoomRequests" prefWidth="340.0" text="Special Requests" />
+                <TableColumn fx:id="flowerID" prefWidth="280.0" text="Flower ID" />
+                <TableColumn fx:id="orderTime" prefWidth="300.0" text="Order Time" />
+                <TableColumn fx:id="flowersOrdered" prefWidth="300.0" text="Flowers ordered" />
+                <TableColumn fx:id="specialRequests" prefWidth="300.0" text="Special Requests" />
+                <TableColumn fx:id="orderStatus" prefWidth="177.0" text="Order Status" />
             </columns>
         </TableView>
-        <Label alignment="CENTER" contentDisplay="CENTER" text="Submitted Room Requests" translateX="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Submitted Flower Requests" translateX="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
                 <Font size="36.0" />
             </font>
