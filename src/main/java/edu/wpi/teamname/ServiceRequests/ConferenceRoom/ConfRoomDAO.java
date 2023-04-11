@@ -1,11 +1,11 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
+import static edu.wpi.teamname.DAOs.orms.NodeType.CONF;
 import static edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO.schemaName;
-import static edu.wpi.teamname.databaseredo.orms.NodeType.CONF;
 
-import edu.wpi.teamname.databaseredo.IDAO;
-import edu.wpi.teamname.databaseredo.dbConnection;
-import edu.wpi.teamname.databaseredo.orms.Location;
+import edu.wpi.teamname.DAOs.IDAO;
+import edu.wpi.teamname.DAOs.dbConnection;
+import edu.wpi.teamname.DAOs.orms.Location;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Collections;

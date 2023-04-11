@@ -1,9 +1,9 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.IDAO;
-import edu.wpi.teamname.databaseredo.dbConnection;
-import edu.wpi.teamname.databaseredo.orms.Location;
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.IDAO;
+import edu.wpi.teamname.DAOs.dbConnection;
+import edu.wpi.teamname.DAOs.orms.Location;
 import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;

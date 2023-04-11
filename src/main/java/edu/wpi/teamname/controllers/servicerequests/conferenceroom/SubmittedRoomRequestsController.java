@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.IDAO;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
