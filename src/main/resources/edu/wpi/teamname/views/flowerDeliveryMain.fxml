@@ -179,16 +179,6 @@
                   <Font size="18.0" />
                </font>
             </MenuButton>
-            <MenuButton fx:id="pricedrop" mnemonicParsing="false" prefHeight="62.0" prefWidth="114.0" text="Price" textFill="#122e59">
-              <items>
-                <MenuItem mnemonicParsing="false" text="\$50" />
-                <MenuItem mnemonicParsing="false" text="\$100" />
-                  <MenuItem mnemonicParsing="false" text="\$200" />
-              </items>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </MenuButton>
          </children>
       </HBox>
       <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">

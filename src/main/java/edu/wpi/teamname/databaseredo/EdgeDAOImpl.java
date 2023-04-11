@@ -94,6 +94,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   }
 
   @Override
+  public Edge getRow(Edge target) {
+    return null;
+  }
+
+  @Override
   public void delete(Edge target) {}
 
   @Override

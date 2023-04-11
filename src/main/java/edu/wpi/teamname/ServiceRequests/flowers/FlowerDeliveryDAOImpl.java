@@ -174,6 +174,11 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
     return requests.values().stream().toList();
   }
 
+  @Override
+  public FlowerDelivery getRow(Integer target) {
+    return null;
+  }
+
   /**
    * Gets FlowerDelivery
    *

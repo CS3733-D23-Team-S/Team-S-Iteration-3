@@ -109,6 +109,11 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     return flowers.values().stream().toList();
   }
 
+  @Override
+  public Flower getRow(Integer target) {
+    return null;
+  }
+
   public void delete(Integer ID) {
     try {
       PreparedStatement deleteFlower =

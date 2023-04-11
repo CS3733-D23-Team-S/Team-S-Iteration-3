@@ -19,7 +19,7 @@ public enum Screen {
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
   FLOWER_DELIVERY("views/flowerDeliveryMain.fxml"),
-  FLOWER_ORDER("views/flowerorderdetails"),
+  FLOWER_ORDER("views/flowerorderdetails.fxml"),
   FLOWER_CART("views/flowersubmissiondetails.fxml"),
   FLOWER_CONFIRMATION("views/flowerconfirmationpage.fxml");
   ;

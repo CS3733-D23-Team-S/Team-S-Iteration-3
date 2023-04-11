@@ -98,6 +98,11 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   }
 
   @Override
+  public Location getRow(String target) {
+    return null;
+  }
+
+  @Override
   public void delete(String target) {
     locations.remove(target);
   }

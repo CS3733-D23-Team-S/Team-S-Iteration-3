@@ -159,6 +159,11 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   @Override
+  public User getRow(String target) {
+    return null;
+  }
+
+  @Override
   public void delete(String target) {
     listOfUsers.remove(target);
   }

@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 import static edu.wpi.teamname.navigation.Screen.*;
 import static edu.wpi.teamname.navigation.Screen.HELP_PAGE;
 
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -30,11 +31,22 @@ public class FlowerOrderDetailsController {
   @FXML MFXTextField sizefield;
   @FXML ImageView topbarlogo;
 
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+
   public void initialize() {
     addtocartbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
     backicon.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
     exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
+
   }
+
+  public void clearFields() {
+    quantityfield.clear();
+    sizefield.clear();
+    custommessagefield.clear();
+  }
+
+
 }

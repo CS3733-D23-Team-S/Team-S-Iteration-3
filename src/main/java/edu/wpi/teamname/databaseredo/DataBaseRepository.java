@@ -119,4 +119,8 @@ public class DataBaseRepository {
 
     return sizedFlowers;
   }
+
+  public Flower retrieveFlower(int target) {
+    return flowerDAO.getRow(target);
+  }
 }
