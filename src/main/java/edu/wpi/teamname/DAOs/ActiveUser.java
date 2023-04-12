@@ -1,6 +1,6 @@
 package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.User;
+import edu.wpi.teamname.DAOs.orms.User;
 import lombok.Getter;
 import lombok.Setter;
 

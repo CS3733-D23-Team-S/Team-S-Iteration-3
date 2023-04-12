@@ -1,10 +1,10 @@
 package edu.wpi.teamname.pathfinding;
 
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.EdgeDAOImpl;
-import edu.wpi.teamname.databaseredo.MoveDAOImpl;
-import edu.wpi.teamname.databaseredo.NodeDAOImpl;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.EdgeDAOImpl;
+import edu.wpi.teamname.DAOs.MoveDAOImpl;
+import edu.wpi.teamname.DAOs.NodeDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,6 @@ public class AStar {
    */
   public ArrayList<Integer> findPath(int s, int e) {
     Node start, end;
-    List<Integer> nodeIDs = new ArrayList<>();
     // try and catch shit
     //        if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start =
     //     nodeDAO.getNodes().get(Integer.parseInt(s));

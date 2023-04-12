@@ -1,10 +1,10 @@
 package edu.wpi.teamname.controllers.map;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.Node;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.AStar;
@@ -57,13 +57,6 @@ public class PathfindingController {
 
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
-
-  // other shit to do
-  // requirements
-  // show start and end of path
-  // blue = start, green = end or some shit
-  // nice to have
-  // floor button is shaded when you're on that floor
 
   public void colorEvent(Circle aCircle, Node node) {
     if (startingLocation.getText().equals("")) {
@@ -158,7 +151,7 @@ public class PathfindingController {
     stackPane.getChildren().add(anchorPane);
   }
 
-  DataBaseRepository dataBase;
+  DataBaseRepository dataBase = DataBaseRepository.getInstance();
 
   List<Node> nodeList = new ArrayList<>();
   List<Node> floor1Nodes = new ArrayList<>();
