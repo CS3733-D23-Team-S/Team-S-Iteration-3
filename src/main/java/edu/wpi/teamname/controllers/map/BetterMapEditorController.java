@@ -497,7 +497,8 @@ public class BetterMapEditorController {
   }
 
   public void initialize() {
-    pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
+
+    pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
 
     stackPane.setPrefSize(1200.0, 742.0);

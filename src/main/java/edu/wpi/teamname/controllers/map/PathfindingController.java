@@ -613,7 +613,12 @@ public class PathfindingController {
   }
 
   public void initialize() {
+
     dataBase = DataBaseRepository.getInstance();
+
+    //    pathfindingToHomeButton.setOnMouseClicked(event ->
+    // Navigation.navigate(Screen.LOGIN_PAGE));
+
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
     removeStartingLocation.setOnMouseClicked(event -> clearStartingLocation());
     removeDestination.setOnMouseClicked(event -> clearDestination());

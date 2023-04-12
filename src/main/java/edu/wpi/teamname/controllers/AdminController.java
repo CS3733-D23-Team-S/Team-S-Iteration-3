@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 
 public class AdminController {
   @FXML ImageView homeIcon;
+
+  @FXML MFXButton flowerButton;
   @FXML ImageView userIcon;
   @FXML ImageView helpIcon;
   @FXML ImageView backIcon;
@@ -24,13 +26,14 @@ public class AdminController {
   @FXML MFXButton signageButton;
   @FXML MFXButton mealButton;
   @FXML MFXButton roomButton;
-  @FXML MFXButton flowerButton;
+
   @FXML MFXButton exportButton;
 
   @FXML MFXButton submittedFlowerButton;
 
   @FXML
   public void initialize() {
+    flowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
     homeIcon.setOnMouseClicked(event -> goToHomePage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
     backIcon.setOnMouseClicked(event -> goToLoginPage());

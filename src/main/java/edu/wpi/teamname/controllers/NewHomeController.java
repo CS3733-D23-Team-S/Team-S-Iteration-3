@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
@@ -7,6 +8,7 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -33,8 +35,9 @@ public class NewHomeController {
   @FXML MFXButton roombutton;
   @FXML MFXButton flowerbutton;
   @FXML ImageView homeicon1;
+  @FXML ImageView back5;
   @FXML ImageView homeicon;
-  @FXML ImageView backicon;
+  // @FXML ImageView backicon;
   @FXML ImageView backicon1;
   @FXML ImageView helpicon;
 
@@ -52,7 +55,7 @@ public class NewHomeController {
     delID = DBR.getLastFoodDevID();
 
     cart = new OrderItem(cartID++);
-
+    // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     flowerRequestsButton.setOnMouseClicked(event -> goToFlowerPage());
@@ -93,13 +96,25 @@ public class NewHomeController {
           Navigation.navigate(Screen.HOME);
           event.consume();
         });
-    backicon.addEventHandler(
+
+
+    backicon1.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          App.getPrimaryStage().close();
           event.consume();
         });
-    backicon1.addEventHandler(
+
+
+    /*backicon1.addEventHandler(
+       javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+       event -> {
+         Navigation.navigate(Screen.SIGNAGE_PAGE);
+         event.consume();
+       });
+
+    */
+    back5.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.SIGNAGE_PAGE);
