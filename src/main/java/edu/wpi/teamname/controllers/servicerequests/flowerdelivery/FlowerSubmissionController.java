@@ -69,6 +69,8 @@ public class FlowerSubmissionController {
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
     displayCart();
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
+
+    submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
