@@ -206,7 +206,15 @@
                         <Font name="Open Sans Regular" size="36.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="300.0" />
+                        <Insets left="200.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient:">
+                     <font>
+                        <Font name="Open Sans Regular" size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="200.0" />
                      </HBox.margin>
                   </Text>
                </children>
@@ -221,7 +229,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <MFXTextField fx:id="quantityfield" prefHeight="50.0" prefWidth="300.0" promptText="Enter Quantity">
+                  <MFXTextField fx:id="quantityfield" prefHeight="50.0" prefWidth="200.0" promptText="Enter Quantity">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
@@ -229,7 +237,18 @@
                         <Insets bottom="5.0" top="-10.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets left="335.0" />
+                        <Insets left="235.0" />
+                     </HBox.margin>
+                  </MFXTextField>
+                  <MFXTextField fx:id="recipientfield" prefHeight="50.0" prefWidth="200.0" promptText="Enter Recipient">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="-10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="155.0" />
                      </HBox.margin>
                   </MFXTextField>
                </children>

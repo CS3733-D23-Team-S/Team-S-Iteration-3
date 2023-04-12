@@ -12,6 +12,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class FlowerOrderDetailsController {
@@ -38,6 +39,8 @@ public class FlowerOrderDetailsController {
   @FXML MFXTextField sizefield;
   @FXML ImageView topbarlogo;
   @FXML Label sizelabel;
+
+  @FXML TextField recipientfield;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
@@ -66,6 +69,7 @@ public class FlowerOrderDetailsController {
     flower.setQuantity(Integer.parseInt(quantityfield.getText()));
     flower.setMessage(custommessagefield.getText());
     flowerCart.addFlowerItem(flower);
+    Navigation.navigate(FLOWER_DELIVERY);
 
     // room = .getText get room from drop down box in the thingy
     // recipient = .getText get recipient

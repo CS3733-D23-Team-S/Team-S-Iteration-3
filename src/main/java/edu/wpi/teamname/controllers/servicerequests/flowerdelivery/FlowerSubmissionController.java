@@ -4,12 +4,13 @@ import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.Flower
 import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
+import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,18 +38,34 @@ public class FlowerSubmissionController {
   @FXML Text quantitytext;
   @FXML Text pricetext;
   @FXML Text requesttext;
+  @FXML Text recipienttext;
   @FXML VBox itemvbox;
   @FXML VBox quantityvbox;
   @FXML VBox pricevbox;
   @FXML VBox requestvbox;
+  @FXML VBox recipientvbox;
+  @FXML TextField employeefield;
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
-    submitbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_CONFIRMATION));
+    submitbutton.setOnMouseClicked(
+        event -> {
+          try {
+            String Emp = employeefield.getText();
+            deliveryRoom = locationdrop.getValue().toString();
+
+            Navigation.navigate(FLOWER_CONFIRMATION);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        });
+
     backicon.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
     exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
     displayCart();
+    locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
   }
 
   public void displayCart() {
@@ -58,6 +75,7 @@ public class FlowerSubmissionController {
       Label quantity = new Label();
       Label price = new Label();
       Label message = new Label();
+      Label recipientLabel = new Label();
 
       HBox newRow = new HBox();
       newRow.setSpacing(200);
@@ -76,11 +94,14 @@ public class FlowerSubmissionController {
       message.setText(String.valueOf(flower.getMessage()));
       message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
+      recipientLabel.setText(String.valueOf(recipient));
+      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+
       itemvbox.getChildren().add(name);
       quantityvbox.getChildren().add(quantity);
       pricevbox.getChildren().add(price);
       requestvbox.getChildren().add(message);
+      recipientvbox.getChildren().add(recipientLabel);
     }
   }
-
 }

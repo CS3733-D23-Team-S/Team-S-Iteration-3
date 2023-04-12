@@ -26,6 +26,7 @@ public class FlowerConfirmationController {
   @FXML MFXButton roombutton;
   @FXML MFXButton signagebutton;
   @FXML ImageView topbarlogo;
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
     backicon.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));

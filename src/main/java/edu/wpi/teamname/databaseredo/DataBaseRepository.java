@@ -1,11 +1,14 @@
 package edu.wpi.teamname.databaseredo;
 
 import edu.wpi.teamname.ServiceRequests.flowers.*;
+import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.Move;
+import edu.wpi.teamname.databaseredo.orms.NodeType;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 
@@ -149,5 +152,43 @@ public class DataBaseRepository {
 
   public List<FlowerDelivery> flowerDeliveryGetAll() {
     return flowerDeliveryDAO.getAll();
+  }
+
+  public List<String> getListOfEligibleRooms() {
+    DataBaseRepository repo = DataBaseRepository.getInstance();
+
+    List<String> listOfEligibleRooms = new ArrayList<>();
+    List<Location> locationList = repo.getLocationDAO().getAll();
+
+    NodeType[] nodeTypes = new NodeType[6];
+    nodeTypes[0] = NodeType.ELEV;
+    nodeTypes[1] = NodeType.EXIT;
+    nodeTypes[2] = NodeType.HALL;
+    nodeTypes[3] = NodeType.REST;
+    nodeTypes[4] = NodeType.STAI;
+    nodeTypes[5] = NodeType.BATH;
+
+    boolean isFound;
+    for (Location loc : locationList) { // hashmap
+      isFound = false;
+      for (NodeType nt : nodeTypes) {
+        if (loc.getNodeType() == nt) {
+          isFound = true;
+          break;
+        }
+      }
+      if (!isFound) listOfEligibleRooms.add(loc.getLongName());
+    }
+    Collections.sort(listOfEligibleRooms);
+
+    return listOfEligibleRooms;
+  }
+
+  public int flowerGetNewID() {
+    return flowerDAO.getAll().size();
+  }
+
+  public int flowerGetNewDeliveryID() {
+    return flowerDeliveryDAO.getAll().size();
   }
 }

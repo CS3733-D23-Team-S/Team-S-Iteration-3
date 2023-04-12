@@ -63,8 +63,6 @@ public class FlowerDeliveryController {
     sizelarge.setOnAction(event -> filterLarge());
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
-
-
     System.out.println(dbr.getListOfSize("medium"));
     noFilter();
   }
@@ -132,7 +130,6 @@ public class FlowerDeliveryController {
       btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("medium").get(finalII).getID()));
     }
   }
-
 
   public void store(int x) {
     flowerID = x;
