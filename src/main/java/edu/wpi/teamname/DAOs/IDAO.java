@@ -55,8 +55,6 @@ public interface IDAO<T, U> {
    *
    * @param target the target orm to be deleted
    */
-  T getRow(U target);
-
   void delete(U target);
 
   /**

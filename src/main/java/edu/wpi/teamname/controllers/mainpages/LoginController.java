@@ -18,7 +18,7 @@ public class LoginController {
   DataBaseRepository loginManager;
   @FXML ImageView backIcon;
   @FXML MFXButton navigationbutton;
-  @FXML MFXButton signagebutton;
+  @FXML MFXButton signageButton1;
   @FXML Label errormessageLabel;
 
   @FXML MFXButton loginbutton;
@@ -72,6 +72,7 @@ public class LoginController {
   }
 
   public void initialize() {
+    signageButton1.setOnMouseClicked(event -> Navigation.launchPopUp(SIGNAGE_PAGE));
 
     loginManager = DataBaseRepository.getInstance();
     newUser.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.NEW_USER));

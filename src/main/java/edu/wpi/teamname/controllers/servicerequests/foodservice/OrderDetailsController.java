@@ -3,7 +3,7 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.controllers.mainpages.HomeController;
+import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -77,15 +77,15 @@ public class OrderDetailsController {
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    HomeController.delID++,
-                    HomeController.cart.toString(),
+                    NewHomeController.delID++,
+                    NewHomeController.cart.toString(),
                     currentd,
                     currentt,
                     loc,
                     whoOrdered,
                     Emp,
                     stat,
-                    HomeController.cart.getTotalPrice(),
+                    NewHomeController.cart.getTotalPrice(),
                     theNote);
 
             DBR.addFoodRequest(currentFoodDev);
@@ -109,7 +109,7 @@ public class OrderDetailsController {
 
   public void addedOrder() {
 
-    for (Food aFood : HomeController.cart.getTheCart().values()) {
+    for (Food aFood : NewHomeController.cart.getTheCart().values()) {
       System.out.println("works");
       Label newItemName = new Label();
       Label newItemQuantity = new Label();

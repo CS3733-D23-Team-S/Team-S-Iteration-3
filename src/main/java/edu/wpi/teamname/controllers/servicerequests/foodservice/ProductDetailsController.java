@@ -4,7 +4,8 @@ import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliv
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
-import edu.wpi.teamname.controllers.mainpages.HomeController;
+import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -58,7 +59,8 @@ public class ProductDetailsController {
 
             currentFood.setNote(specialRequest.getText()); // bounds for if non string entered
 
-            HomeController.cart.addFoodItem(currentFood);
+            OrderItem check = NewHomeController.cart;
+            NewHomeController.cart.addFoodItem(currentFood);
 
             Navigation.navigate(Screen.MEAL_DELIVERY1);
 

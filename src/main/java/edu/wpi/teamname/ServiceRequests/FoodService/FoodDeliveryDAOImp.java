@@ -2,7 +2,7 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import edu.wpi.teamname.controllers.mainpages.HomeController;
+import edu.wpi.teamname.controllers.NewHomeController;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
@@ -143,7 +143,7 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
         System.out.println("Loading the foods from the server");
         constructFromRemote();
       } else {
-        HomeController.delID = 0;
+        NewHomeController.delID = 0;
       }
     } catch (SQLException e) {
       e.printStackTrace();

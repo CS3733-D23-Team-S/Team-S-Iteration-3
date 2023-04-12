@@ -62,7 +62,7 @@
                               <Insets left="50.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #122E59; -fx-background-radius: 100;" text="Signage" textFill="WHITE">
+                        <MFXButton fx:id="signageButton1" alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #122E59; -fx-background-radius: 100;" text="Signage" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>

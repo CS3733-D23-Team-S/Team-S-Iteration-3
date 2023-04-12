@@ -4,7 +4,6 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -45,18 +44,18 @@ public class HomeController {
 
   @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
 
-  public static int cartID = 0;
+  // public static int cartID = 0;
 
-  public static int delID;
+  // public static int delID;
 
-  public static OrderItem cart;
+  // public static OrderItem cart;
 
   @FXML
   public void initialize() {
 
-    delID = DBR.getLastFoodDevID();
+    // delID = DBR.getLastFoodDevID();
 
-    cart = new OrderItem(cartID++);
+    //  cart = new OrderItem(cartID++);
 
     // Adding the menu option to exit application
 
@@ -103,11 +102,6 @@ public class HomeController {
     mealDeliveryButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
     reserveRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    incrementCart();
-  }
-
-  public void incrementCart() {
-    cartID++;
   }
 
   public void goToRoomPage() {
