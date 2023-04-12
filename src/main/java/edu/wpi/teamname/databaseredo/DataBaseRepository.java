@@ -119,13 +119,16 @@ public class DataBaseRepository {
 
   public List getListOfFlowers() {
     List<Flower> flowers = new ArrayList<>();
-    Flower flowerf1 = new Flower(1, "bouquet1", Size.SMALL, 50, 1, "message",false, "description1", "image1");
+    Flower flowerf1 =
+        new Flower(1, "bouquet1", Size.SMALL, 50, 1, "message", false, "description1", "image1");
     Flower flowerf2 =
-        new Flower(2, "bouquet2", Size.MEDIUM, 100, 1, "message",false, "description2", "image2");
-    Flower flowerf3 = new Flower(3, "bouquet3", Size.SMALL, 50, 1, "message",false, "description3", "image3");
+        new Flower(2, "bouquet2", Size.MEDIUM, 100, 1, "message", false, "description2", "image2");
+    Flower flowerf3 =
+        new Flower(3, "bouquet3", Size.SMALL, 50, 1, "message", false, "description3", "image3");
     Flower flowerf4 =
-        new Flower(4, "bouquet4", Size.LARGE, 200, 1, "message",false, "description4", "image4");
-    Flower flowerf5 = new Flower(5, "bouquet5", Size.SMALL, 50, 1, "message",false, "description5", "image5");
+        new Flower(4, "bouquet4", Size.LARGE, 200, 1, "message", false, "description4", "image4");
+    Flower flowerf5 =
+        new Flower(5, "bouquet5", Size.SMALL, 50, 1, "message", false, "description5", "image5");
 
     flowers.add(flowerf1);
     flowers.add(flowerf2);

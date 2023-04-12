@@ -72,7 +72,7 @@ public class FlowerSubmissionController {
       price.setText(String.valueOf(flower.getPrice()));
       price.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      message.setText("String.valueOf(flower.getMessage())");
+      message.setText(String.valueOf(flower.getMessage()));
       message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       itemvbox.getChildren().add(name);

@@ -61,6 +61,7 @@ public class FlowerOrderDetailsController {
   private void createDelivery() {
     Flower flower = dbr.retrieveFlower(flowerID);
     flower.setQuantity(Integer.parseInt(quantityfield.getText()));
+    flower.setMessage(custommessagefield.getText());
     flowerCart.addFlowerItem(flower);
   }
 

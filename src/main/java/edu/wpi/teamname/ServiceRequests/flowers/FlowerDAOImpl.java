@@ -184,7 +184,8 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
         String description = rs.getString("description");
         String image = rs.getString("image");
 
-        Flower flower = new Flower(ID, name, size, price, quantity, message, SoldOut, description, image);
+        Flower flower =
+            new Flower(ID, name, size, price, quantity, message, SoldOut, description, image);
 
         flowers.put(ID, flower);
       }
@@ -245,6 +246,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
 
   /**
    * Updates quantity of flower in database, probably not needed
+   *
    * @param target
    */
   public void updateQuantity(Flower target) {
