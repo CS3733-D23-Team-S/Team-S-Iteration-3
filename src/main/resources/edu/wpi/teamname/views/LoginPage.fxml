@@ -178,9 +178,9 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: rgba(1,45,90,255);" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+            <ImageView fitHeight="926.0" fitWidth="961.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
-                  <Image url="@../images/bwlogo.png" />
+                  <Image url="@../images/bwh-homepage-pic.png" />
                </image>
             </ImageView>
          </children>

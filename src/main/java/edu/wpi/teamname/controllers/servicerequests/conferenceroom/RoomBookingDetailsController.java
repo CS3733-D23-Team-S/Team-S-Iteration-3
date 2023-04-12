@@ -26,6 +26,7 @@ public class RoomBookingDetailsController {
   @FXML MFXComboBox roomComboBox;
   @FXML MFXButton backButton;
   @FXML MFXButton clearButton;
+  @FXML MFXTextField staffMemberText;
   @FXML DatePicker roomBookingDate;
   @FXML MFXTextField startTimeField;
   @FXML MFXTextField endTimeField;
@@ -113,6 +114,7 @@ public class RoomBookingDetailsController {
     startTimeField.clear();
     endTimeField.clear();
     eventTitleText.clear();
+    staffMemberText.clear();
     eventDescriptionText.clear();
   }
 }

@@ -170,6 +170,19 @@
                <font>
                   <Font name="Open Sans Regular" size="15.0" />
                </font></MFXTextField>
+            <TextField2TableCell alignment="BOTTOM_LEFT" prefHeight="63.0" prefWidth="771.0" text="Assign Staff Member" textFill="#1d3d94">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField2TableCell>
+            <MFXTextField fx:id="staffMemberText" prefHeight="0.0" prefWidth="631.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+            </MFXTextField>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                       <MFXButton fx:id="submitDetailsButton" onAction="#submitDetails" style="-fx-background-color: #1D3D94;" text="Submit" textFill="WHITE">

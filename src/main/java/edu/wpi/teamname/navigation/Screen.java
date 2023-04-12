@@ -22,7 +22,7 @@ public enum Screen {
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ADMIN_PAGE("views/AdminPage.fxml"),
-  SUBMITTED_MEAL_REQUESTS("views/NewSubmittedMealRequests.fxml"),
+  SUBMITTED_MEAL_REQUESTS("views/NewSubmitstedMealRequests.fxml"),
   MAP_EDITOR("views/MapEditor.fxml"),
   // CSV_MANAGE("views/CSVPage.fxml"),
 
