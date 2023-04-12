@@ -70,6 +70,7 @@ public class FlowerOrderDetailsController {
     flowerCart.addFlowerItem(flower);
     Navigation.navigate(FLOWER_DELIVERY);
 
+    // room = .getText get room from drop down box in the thingy
     recipient = recipientfield.getText();
   }
 
