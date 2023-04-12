@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.mainpages;
 
-import static edu.wpi.teamname.navigation.Screen.*;
+import static edu.wpi.teamname.navigation.Screen.CSV_MANAGE;
+import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
 
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
@@ -51,8 +52,8 @@ public class HomeController {
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
-    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(MAP_EDITOR));
-    exportButton.setOnMouseClicked(event -> Navigation.navigate(CSV_MANAGE));
+    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
+    exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
 
     // Menu bar button handlers
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));

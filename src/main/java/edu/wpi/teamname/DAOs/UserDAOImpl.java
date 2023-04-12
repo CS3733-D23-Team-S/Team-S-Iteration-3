@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.User;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.User;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;

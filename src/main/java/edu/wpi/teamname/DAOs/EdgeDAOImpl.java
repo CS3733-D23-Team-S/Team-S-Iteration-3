@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.DAOs.orms.Edge;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +15,7 @@ import lombok.Getter;
 public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Getter private String name;
+  @Getter private final String CSVheader = "startNode,endNode";
   private dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
@@ -32,7 +33,6 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
       stmt.execute(edgeTable);
       System.out.println("Created the edge table");
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the edge table");
     }
@@ -72,11 +72,13 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     dropTable();
     edges.clear();
     neighbors.clear();
+    initTable(name);
     loadRemote(path);
   }
 
   @Override
   public void exportCSV(String path) throws IOException {
+    path += "Edge.csv";
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("startNode,endNode");
@@ -91,9 +93,21 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     return edges;
   }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation
+   *
+   * @param target the edge to delete
+   */
   @Override
-  public void delete(Edge target) {}
+  public void delete(Edge target) {
+    edges.remove(target);
+  }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation of edges
+   *
+   * @param addition the edge to add
+   */
   @Override
   public void add(Edge addition) {
     edges.add(addition);

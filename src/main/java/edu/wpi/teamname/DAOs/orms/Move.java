@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo.orms;
+package edu.wpi.teamname.DAOs.orms;
 
-import edu.wpi.teamname.databaseredo.IDataPack;
+import edu.wpi.teamname.DAOs.IDataPack;
 import java.time.LocalDate;
 import lombok.Getter;
 

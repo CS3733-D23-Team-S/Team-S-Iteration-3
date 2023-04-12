@@ -1,7 +1,9 @@
 package edu.wpi.teamname.controllers.map;
 
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.*;
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Edge;
+import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.MapEditorEntity;

@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +14,7 @@ import lombok.Getter;
 public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Getter private String name;
+  @Getter private final String CSVheader = "nodeID,xcoord,ycoord,floor,building";
   private dbConnection connection;
 
   @Getter private HashMap<Integer, Node> nodes = new HashMap<>();
@@ -76,11 +77,13 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   public void importCSV(String path) {
     dropTable();
     nodes.clear();
+    initTable(name);
     loadRemote(path);
   }
 
   @Override
   public void exportCSV(String path) throws IOException {
+    path += "Node.csv";
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("nodeID,xcoord,ycoord,floor,building");
     for (Node node : nodes.values()) {
@@ -98,38 +101,25 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   @Override
   public void delete(Integer target) {
     nodes.remove(target);
-  }
-
-  @Override
-  public void add(Node addition) {
-
     try {
       PreparedStatement stmt =
-          connection
-              .getConnection()
-              .prepareStatement(
-                  "INSERT INTO "
-                      + name
-                      + " (nodeID, xCoord, yCoord, floor, building) VALUES (?,?,?,?,?)");
-      stmt.setInt(1, addition.getNodeID());
-      stmt.setInt(2, addition.getXCoord());
-      stmt.setInt(3, addition.getYCoord());
-      stmt.setInt(4, addition.getFloor().ordinal());
-      stmt.setString(5, addition.getBuilding());
-
-      stmt.executeUpdate();
-
-      nodes.put(addition.getNodeID(), addition);
-      System.out.println("Node added succefully");
-
+          connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE nodeID=?");
+      stmt.setInt(1, target);
+      stmt.execute();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
+  @Override
+  public void add(Node addition) {
+    nodes.put(addition.getNodeID(), addition);
+    this.addToRemote(addition);
+  }
+
   public void add(int nodeID, int xCoord, int yCoord, Floor floor, String building) {
     Node newNode = new Node(nodeID, xCoord, yCoord, floor, building);
-    nodes.put(nodeID, newNode);
+    this.add(newNode);
   }
 
   private void addToRemote(Node addition) {

@@ -1,9 +1,12 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import java.io.*;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
@@ -11,6 +14,7 @@ import lombok.Getter;
 public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Getter private String name;
+  @Getter private final String CSVheader = "longName,shortName,nodeType";
   private dbConnection connection;
 
   @Getter private HashMap<String, Location> locations = new HashMap<>();
@@ -28,13 +32,12 @@ public class LocationDAOImpl implements IDAO<Location, String> {
             + " "
             + "(longname varchar(100),"
             + "shortname varchar(100),"
-            + "nodetype varchar(100))";
+            + "nodetype int)";
     System.out.println("Created the location table");
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(locationTable);
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
       System.out.println("Error with creating the location table");
     }
@@ -65,7 +68,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -74,12 +76,13 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   public void importCSV(String path) {
     dropTable();
     locations.clear();
+    initTable(name);
     loadRemote(path);
   }
 
   @Override
   public void exportCSV(String path) throws IOException {
-
+    path += "LocationName.csv";
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("longName,shortName,nodeType");
     for (Location location : locations.values()) {
@@ -97,6 +100,16 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   @Override
   public void delete(String target) {
     locations.remove(target);
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE longName = ?");
+      stmt.setString(1, target);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -109,15 +122,17 @@ public class LocationDAOImpl implements IDAO<Location, String> {
                   "INSERT INTO " + name + " (longName, shortName, nodetype) VALUES (?,?,?)");
       stmt.setString(1, addition.getLongName());
       stmt.setString(2, addition.getShortName());
-      stmt.setString(3, addition.getNodeType().name());
-
+      stmt.setInt(3, addition.getNodeType().ordinal());
       locations.put(addition.getLongName(), addition);
-
-      stmt.executeUpdate();
+      stmt.execute();
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
+  }
+
+  public void add(String longName, String shortName, NodeType type) {
+    Location addition = new Location(longName, shortName, type);
+    this.add(addition);
   }
 
   private void constructFromRemote() {
@@ -128,8 +143,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
       while (data.next()) {
         String longName = data.getString("longname");
         String shortName = data.getString("shortname");
-        NodeType type = NodeType.valueOf(data.getString("nodetype"));
-
+        NodeType type = NodeType.values()[data.getInt("nodetype")];
         Location location = new Location(longName, shortName, type);
         locations.put(longName, location);
       }
@@ -144,11 +158,30 @@ public class LocationDAOImpl implements IDAO<Location, String> {
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       reader.readLine();
       String line;
-      while ((line = reader.readLine()) != null) {
-        String[] fields = line.split(",");
-        NodeType value = NodeType.valueOf(fields[2]);
-        Location location = new Location(fields[0], fields[1], value);
-        this.add(location);
+      try {
+        while ((line = reader.readLine()) != null) {
+          String[] fields = line.split(",");
+          NodeType value = NodeType.valueOf(fields[2]);
+          Location location = new Location(fields[0], fields[1], value);
+          this.add(location);
+          PreparedStatement stmt =
+              connection
+                  .getConnection()
+                  .prepareStatement(
+                      "INSERT INTO "
+                          + name
+                          + " "
+                          + "(longName, shortName, nodetype) VALUES (?,?,?)");
+          stmt.setString(1, fields[0]);
+          stmt.setString(2, fields[1]);
+          stmt.setInt(3, value.ordinal());
+          this.locations.put(location.getLongName(), location);
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println(e.getSQLState());
+        System.out.println(
+            "Error accessing the remote and constructing the list of locations in the remote");
       }
     } catch (IOException e) {
       e.printStackTrace();
