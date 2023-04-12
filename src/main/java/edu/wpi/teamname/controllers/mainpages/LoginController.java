@@ -37,7 +37,6 @@ public class LoginController {
       isFilled = false;
       errorMessage = "Username is empty!";
     }
-
     if (pfPassword.getText().isEmpty()) {
       isFilled = false;
       if (errorMessage.isEmpty()) {
@@ -53,16 +52,11 @@ public class LoginController {
   private boolean isValid() {
     boolean isValid;
     try {
-      if (loginManager.login(tfUsername.getText(), pfPassword.getText())) {
-        // logged in
-        isValid = true;
+      isValid = loginManager.login(tfUsername.getText(), pfPassword.getText());
+      if (errorMessage.isEmpty() && !isValid) {
+        errorMessage = "Invalid Password!";
       } else {
-        isValid = false;
-        if (errorMessage.isEmpty()) {
-          errorMessage = "Invalid Password!";
-        } else {
-          errorMessage += "\nInvalid Password!";
-        }
+        errorMessage += "\nInvalid Password!";
       }
     } catch (Exception e) {
       errorMessage = "Invalid Username or Password!";
@@ -85,6 +79,7 @@ public class LoginController {
         event -> {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
+
             Navigation.navigate(HOME);
           }
         });

@@ -81,7 +81,7 @@ public class AdminController {
   }
 
   public void goToMapEditorPage() {
-    Navigation.navigate(Screen.MAP_EDITOR);
+    Navigation.navigate(Screen.BETTER_MAP_EDITOR);
   }
 
   public void goToLoginPage() {

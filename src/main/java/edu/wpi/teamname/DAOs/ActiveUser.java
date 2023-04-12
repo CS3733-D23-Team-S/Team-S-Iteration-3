@@ -1,25 +1,20 @@
 package edu.wpi.teamname.DAOs;
 
-import java.util.HashSet;
+import edu.wpi.teamname.DAOs.orms.User;
 import lombok.Getter;
+import lombok.Setter;
 
 public class ActiveUser {
 
-  @Getter private HashSet<String> activeUsers;
+  @Getter @Setter User currentUser;
   private dbConnection connection;
 
   private static ActiveUser single_instance = null;
 
-  private ActiveUser() {
-    this.activeUsers = new HashSet<>();
-  }
+  private ActiveUser() {}
 
   public static synchronized ActiveUser getInstance() {
     if (single_instance == null) single_instance = new ActiveUser();
     return single_instance;
-  }
-
-  public boolean checkUserActive(String username) {
-    return activeUsers.contains(username);
   }
 }
