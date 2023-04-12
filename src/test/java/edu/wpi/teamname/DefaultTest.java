@@ -7,7 +7,6 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.pathfinding.AStar;
 import edu.wpi.teamname.databaseredo.DataBaseRepository;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.NodeType;

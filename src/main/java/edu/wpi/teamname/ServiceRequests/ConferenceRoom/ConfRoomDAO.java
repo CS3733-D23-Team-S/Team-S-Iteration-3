@@ -48,6 +48,11 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
     return conferenceRooms.values().stream().toList();
   }
 
+  @Override
+  public ConfRoomLocation getRow(String target) {
+    return null;
+  }
+
   public LinkedList<String> getLocationsAlphabetically() {
     LinkedList<String> locations = new LinkedList<>(conferenceRooms.keySet().stream().toList());
     Collections.sort(locations);
