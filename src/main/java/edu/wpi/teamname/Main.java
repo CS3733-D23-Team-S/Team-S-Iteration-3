@@ -9,6 +9,11 @@ public class Main {
   public static void main(String[] args) throws SQLException {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
+    //    EdgeDAOImpl edgeDAO = database.getEdgeDAO();
+    //    System.out.println(edgeDAO.getNeighbors());
+    //    AStar astar = new AStar();
+    //    astar.findPath(870, 850);
+
     App.launch(App.class, args);
     // Debugging stuff in order to check everything looks about right
 

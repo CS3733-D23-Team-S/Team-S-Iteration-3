@@ -1,6 +1,7 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Edge;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,15 +127,16 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   private void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String getNodes = "SELECT DISTINCT startNode FROM " + name;
+      // String getNodes = "SELECT DISTINCT startNode FROM " + name;
+      List<Node> listOfNodes = DataBaseRepository.getInstance().getNodeDAO().getAll();
       PreparedStatement getNeighbors =
           connection
               .getConnection()
               .prepareStatement("SELECT * FROM " + name + " WHERE startNode=? OR endNode=?");
       try {
-        ResultSet listOfNodes = stmt.executeQuery(getNodes);
-        while (listOfNodes.next()) {
-          int currentNodeID = listOfNodes.getInt("startNode");
+        //        ResultSet listOfNodes = stmt.executeQuery(getNodes);
+        for (Node currentNode : listOfNodes) {
+          int currentNodeID = currentNode.getNodeID();
           getNeighbors.setInt(1, currentNodeID);
           getNeighbors.setInt(2, currentNodeID);
           ResultSet data = getNeighbors.executeQuery();
