@@ -1,10 +1,9 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.controllers.mainpages.HomeController;
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -43,8 +42,6 @@ public class OrderDetailsController {
     addedOrder();
 
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-
-    Location temp = DBR.getLocation("Neuroscience Waiting Room");
 
     String whoOrdered = "George Washington"; // eventually linked to account ordering
 

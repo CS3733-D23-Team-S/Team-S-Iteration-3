@@ -1,9 +1,8 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.DAOs.IDAO;
+import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.controllers.mainpages.HomeController;
-import edu.wpi.teamname.databaseredo.IDAO;//***
-import edu.wpi.teamname.DAOs.dbConnection;//***
-import edu.wpi.teamname.databaseredo.dbConnection;//***
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;

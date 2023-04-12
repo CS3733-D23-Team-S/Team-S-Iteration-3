@@ -1,6 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.databaseredo.IDataPack;
+import edu.wpi.teamname.DAOs.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
