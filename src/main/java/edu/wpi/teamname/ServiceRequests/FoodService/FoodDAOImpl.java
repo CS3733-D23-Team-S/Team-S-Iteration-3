@@ -1,9 +1,8 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,28 +11,74 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import lombok.Getter;
 
-public class FoodDAOImpl implements FoodDAO_I {
-  private static FoodDAOImpl single_instance;
+public class FoodDAOImpl implements IDAO<Food, Integer> {
+  @Getter private String name;
+  private dbConnection connection;
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
-  protected static final String foodsTable = "hospitaldb" + "." + "foods";
 
-  private FoodDAOImpl() {}
-
-  public static synchronized FoodDAOImpl getInstance() {
-    if (single_instance == null) single_instance = new FoodDAOImpl();
-
-    return single_instance;
+  public FoodDAOImpl() {
+    connection = dbConnection.getInstance();
   }
 
-  public void addFood(Food thisFood) {
+  public void initTable(String name) {
+    this.name = name;
+    String foodTable =
+        "CREATE TABLE IF NOT EXISTS "
+            + name
+            + " "
+            + "(FoodID int UNIQUE PRIMARY KEY,"
+            + "Name Varchar(100),"
+            + "Type Varchar(100),"
+            + "PrepTime int,"
+            + "Cuisine Varchar(100),"
+            + "Price double precision,"
+            + "Description Varchar(100),"
+            + "Quantity int,"
+            + "SoldOut boolean,"
+            + "Image Varchar(100),"
+            + "Calories int,"
+            + "Note Varchar(100),"
+            + "Italian boolean,"
+            + "American boolean,"
+            + "Indian boolean,"
+            + "Mexican boolean,"
+            + "Vegetarian boolean,"
+            + "Halal boolean,"
+            + "Vegan boolean,"
+            + "GlutenFree boolean,"
+            + "Kosher boolean)";
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      stmt.execute(foodTable);
+      System.out.println("Created the foods table");
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+      System.out.println(e.getSQLState());
+      System.out.println("Database creation error");
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void add(Food thisFood) {
     try {
       PreparedStatement preparedStatement =
           connection
               .getConnection()
               .prepareStatement(
                   "INSERT INTO "
-                      + foodsTable
+                      + name
                       + " (FoodID, Name, Type, PrepTime, Cuisine, Price, Description, Quantity, SoldOut, Image, "
                       + "Calories, note, Italian, American, Indian, Mexican, Vegetarian, Halal, Vegan, GlutenFree, Kosher) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -61,6 +106,7 @@ public class FoodDAOImpl implements FoodDAO_I {
 
       preparedStatement.executeUpdate();
 
+      // add to local Hashmap
       foods.put(thisFood.getFoodID(), thisFood);
 
       System.out.println("Food added");
@@ -71,12 +117,11 @@ public class FoodDAOImpl implements FoodDAO_I {
     }
   }
 
-  public void deleteFood(int target) throws SQLException {
-    PreparedStatement deleteFood =
-        connection
-            .getConnection()
-            .prepareStatement("DELETE FROM " + foodsTable + " WHERE FoodID = ?");
+  public void delete(Integer target) {
     try {
+      PreparedStatement deleteFood =
+          connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE FoodID = ?");
+
       deleteFood.setInt(1, target);
       deleteFood.execute();
 
@@ -101,7 +146,7 @@ public class FoodDAOImpl implements FoodDAO_I {
               .getConnection()
               .prepareStatement(
                   "Update "
-                      + foodsTable
+                      + name
                       + " SET Name = ? ,Type = ?, PrepTime = ? , Cuisine = ?, Price = ?, Description = ?, Quantity = ?"
                       + ", SoldOut = ?, "
                       + "Image = ?, Calories = ?, Note = ?, Italian = ?, American = ?, Indian = ?, Mexican = ?, Vegetarian = ?, "
@@ -139,43 +184,69 @@ public class FoodDAOImpl implements FoodDAO_I {
     }
   }
 
-  public Food retrieveFood(int target) {
+  public Food getRow(Integer target) {
     if (foods.get(target) == null) {
-      System.out.println("This node is not in the database, so its row cannot be printed");
+      System.out.println("This food is not in the database, so its row cannot be printed");
       return null;
     }
     return foods.get(target);
   }
 
-  public ArrayList<Food> getWalletFriendlyFood() {
-    ArrayList<Food> wFriendlyFoods = new ArrayList<>();
+  @Override
+  public ArrayList<Food> getAll() {
+    ArrayList<Food> list = new ArrayList<Food>();
 
     for (Food aFood : foods.values()) {
       if (aFood.isWalletFriendly()) {
-        wFriendlyFoods.add(aFood);
+        list.add(aFood);
       }
     }
-
-    return wFriendlyFoods;
+    return list;
   }
 
-  public ArrayList<Food> getQuick() {
-    ArrayList<Food> quickFood = new ArrayList<>();
-
-    for (Food aFood : foods.values()) {
-      if (aFood.isQuickDelivery()) {
-        quickFood.add(aFood);
+  @Override
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the foods from the server");
+        constructFromRemote();
+      } else {
+        System.out.println("Loading the foods to the server");
+        constructRemote(pathToCSV);
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-
-    return quickFood;
   }
 
-  public void loadToRemote() {
+  @Override
+  public void importCSV(String path) {
+    dropTable();
+    foods.clear();
+    loadRemote(path);
+  }
 
+  @Override
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write(
+        "foodID,name,type,prepTime,cuisine,price,description,quantity,isSoldOut,image,calories,"
+            + "notes,isAmerican,isItalian,isMexican,isIndian,isVegetarian,isVegan,isHalal,isGlutenFree,isKosher");
+
+    for (Food food : foods.values()) {
+      fileWriter.newLine();
+      fileWriter.write(food.toCSVString());
+    }
+    fileWriter.close();
+  }
+
+  private void constructFromRemote() {
     try {
       Statement st = connection.getConnection().createStatement();
-      ResultSet rs = st.executeQuery("SELECT * FROM " + foodsTable);
+      ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 
       while (rs.next()) {
         int foodid = rs.getInt("foodid");
@@ -227,61 +298,21 @@ public class FoodDAOImpl implements FoodDAO_I {
         foods.put(foodid, f);
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void initFood() {
-    try {
-      Statement st = connection.getConnection().createStatement();
-      String dropFoodTable = "DROP TABLE IF EXISTS " + foodsTable + " CASCADE";
-
-      String foodTableConstruct =
-          "CREATE TABLE IF NOT EXISTS "
-              + foodsTable
-              + " "
-              + "(FoodID int UNIQUE PRIMARY KEY,"
-              + "Name Varchar(100),"
-              + "Type Varchar(100),"
-              + "PrepTime int,"
-              + "Cuisine Varchar(100),"
-              + "Price double precision,"
-              + "Description Varchar(100),"
-              + "Quantity int,"
-              + "SoldOut boolean,"
-              + "Image Varchar(100),"
-              + "Calories int,"
-              + "Note Varchar(100),"
-              + "Italian boolean,"
-              + "American boolean,"
-              + "Indian boolean,"
-              + "Mexican boolean,"
-              + "Vegetarian boolean,"
-              + "Halal boolean,"
-              + "Vegan boolean,"
-              + "GlutenFree boolean,"
-              + "Kosher boolean)";
-
-      st.execute(dropFoodTable);
-      st.execute(foodTableConstruct);
-
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
-      System.out.println(e.getSQLState());
-      System.out.println("Database creation error");
       e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println("Error accessing the remote and constructing the list of foods");
     }
   }
 
-  public void csvToFood(String csvFilePath) {
+  private void constructRemote(String csvFilePath) {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       String headerLine = reader.readLine();
       String line;
       while ((line = reader.readLine()) != null) {
         String[] fields = line.split(",");
-        // int fid, String fn, String ft, int fpt, String fc, double fp, String fd, int q
+
         Food thisFood =
             new Food(
                 Integer.parseInt(fields[0]),
@@ -305,7 +336,8 @@ public class FoodDAOImpl implements FoodDAO_I {
                 Boolean.parseBoolean(fields[18]),
                 Boolean.parseBoolean(fields[19]),
                 Boolean.parseBoolean(fields[20]));
-        foods.put(Integer.valueOf(fields[0]), thisFood);
+
+        add(thisFood);
       }
     } catch (IOException e) {
       e.printStackTrace();

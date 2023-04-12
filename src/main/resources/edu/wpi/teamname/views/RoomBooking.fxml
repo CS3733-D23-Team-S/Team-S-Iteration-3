@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.cell.TextFieldTableCell?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +13,6 @@
 <?import org.controlsfx.control.CheckComboBox?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<?import javafx.scene.control.DatePicker?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
@@ -41,7 +40,7 @@
         </TextFieldTableCell>
         <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-            <DatePicker fx:id="DateFilterPicker"/>
+            <DatePicker fx:id="DateFilterPicker" />
             <CheckComboBox fx:id="featureFilterComboBox" prefHeight="26.0" prefWidth="162.0" title="Filter by Features" />
             </children>
         </HBox>
@@ -64,5 +63,13 @@
             </font>
         </MFXButton>
       <TextField2TableCell fx:id="currentDateText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <MFXButton fx:id="submittedRequestsButton" onMouseClicked="#initialize" prefHeight="46.0" prefWidth="235.0" style="-fx-background-color: #1d3d94;" text="See Submitted Requests" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="200.0" />
+         </GridPane.margin>
+      </MFXButton>
     </children>
 </GridPane>

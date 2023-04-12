@@ -18,6 +18,7 @@ public class dbConnection {
   @Getter final String flowerTable = schemaName + "." + "flowers";
 
   @Getter final String foodTable = schemaName + "." + "foods";
+  @Getter final String foodRequestsTable = schemaName + "." + "foodRequests";
   @Getter final String roomReservationsTable = schemaName + "." + "roomReservations";
   @Getter final String conferenceRoomTables = schemaName + "." + "confRooms";
 

@@ -30,7 +30,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
         "CREATE TABLE IF NOT EXISTS "
             + name
             + " "
-            + "(longname varchar(100),"
+            + "(longname varchar(100) UNIQUE PRIMARY KEY,"
             + "shortname varchar(100),"
             + "nodetype int)";
     System.out.println("Created the location table");
@@ -99,7 +99,11 @@ public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Override
   public Location getRow(String target) {
-    return null;
+    if (locations.get(target) == null) {
+      System.out.println("This food is not in the database, so its row cannot be printed");
+      return null;
+    }
+    return locations.get(target);
   }
 
   @Override
@@ -187,8 +191,6 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
-          System.out.println(location.toCSVString());
-          this.locations.put(location.getLongName(), location);
           this.locations.put(location.getLongName(), location);
         }
       } catch (SQLException e) {

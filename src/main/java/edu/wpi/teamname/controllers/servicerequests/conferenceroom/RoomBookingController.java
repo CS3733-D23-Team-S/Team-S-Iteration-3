@@ -43,6 +43,7 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
   @FXML DatePicker DateFilterPicker;
+  @FXML MFXButton submittedRequestsButton;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -59,6 +60,9 @@ public class RoomBookingController {
 
     addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    submittedRequestsButton.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS));
+
     DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getValue()));
 
     initializeRooms();

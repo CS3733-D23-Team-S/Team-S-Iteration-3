@@ -1,76 +1,115 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.SearchableComboBox;
 
 public class OrderDetailsController {
 
   @FXML private MFXButton back2;
   @FXML private MFXButton submit;
   @FXML private MFXButton clear2;
-  @FXML private VBox orderVBox;
-  @FXML private MFXTextField roomNum;
+  @FXML private VBox itName;
+  @FXML private VBox itQuant1;
+  @FXML private VBox itRequest;
+  @FXML private VBox itPrice;
+  @FXML private SearchableComboBox location1;
   @FXML private MFXTextField empNum;
 
-  public static FoodDeliveryDAOImp foodreq = FoodDeliveryDAOImp.getInstance();
+  @FXML private MFXButton submitted1;
+  @FXML private MFXTextField request1;
+
+  @FXML private MFXButton flowerButton1;
+  @FXML private MFXButton roomButton1;
+  @FXML private MFXButton mealButton2;
+  @FXML private MFXButton signagePage1;
+  @FXML private MFXButton navigation1;
+  @FXML private MFXButton cancel;
+  @FXML private MFXButton homeButton;
+
+  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
   public void initialize() {
-    System.out.println(ProductDetailsController.cart.toString());
+    // flowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.))
+    roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // navigation1.setOnMouseClicked(event-> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     clearFields2();
     addedOrder();
-    // multSelectedFood();
+
     back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_CONFIRMATION));
 
-    java.sql.Date d = new java.sql.Date(2023, 4, 6);
-    java.sql.Time t = new java.sql.Time(11, 35, 45);
+    String whoOrdered = "George Washington"; // eventually linked to account ordering
 
-    // FoodDelivery currentFoodDev;
+    String stat = "Received";
+
+    location1.getItems().addAll(DBR.getListOfEligibleRooms());
 
     submit.setOnMouseClicked(
         event -> {
           try {
             String Emp = empNum.getText();
+            String theNote = request1.getText();
+
+            String loc = location1.getValue().toString();
+
+            Date currentd = Date.valueOf(LocalDate.now());
+            Time currentt = Time.valueOf(LocalTime.now());
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    1,
-                    ProductDetailsController.cart,
-                    d,
-                    t,
-                    5,
-                    "John Doe",
+                    NewHomeController.delID++,
+                    NewHomeController.cart.toString(),
+                    currentd,
+                    currentt,
+                    loc,
+                    whoOrdered,
                     Emp,
-                    "In Progress",
-                    "These are not the notes you are looking for");
+                    stat,
+                    NewHomeController.cart.getTotalPrice(),
+                    theNote);
+
+            DBR.addFoodRequest(currentFoodDev);
+
+            Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
+
           } catch (Exception e) {
             e.printStackTrace();
           }
         });
-    clear2.setOnMouseClicked(event -> clearFields2());
 
-    // foodNamer1();
+    submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
+
+    clear2.setOnMouseClicked(event -> clearFields2());
   }
 
   public void clearFields2() {
-    roomNum.clear();
+    location1.valueProperty().set(null);
     empNum.clear();
   }
 
   public void addedOrder() {
 
-    for (Food aFood : ProductDetailsController.cart.getTheCart().values()) {
+    for (Food aFood : NewHomeController.cart.getTheCart().values()) {
       System.out.println("works");
       Label newItemName = new Label();
       Label newItemQuantity = new Label();
@@ -83,23 +122,23 @@ public class OrderDetailsController {
       // newRow.setStyle("-fx-background-color : red");
 
       newItemName.setText(aFood.getFoodName());
-      newItemName.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemQuantity.setText(String.valueOf(aFood.getQuantity()));
-      newItemQuantity.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemQuantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemPrice.setText(String.valueOf(aFood.getFoodPrice()));
-      newItemPrice.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       newItemRequest.setText(String.valueOf(aFood.getNote()));
-      newItemRequest.setStyle("-fx-text-fill: white; -fx-font-size: 18px;");
+      newItemRequest.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      orderVBox.getChildren().add(newRow);
-      newRow.getChildren().add(newItemName);
+      // orderVBox.getChildren().add(newRow);
 
-      newRow.getChildren().add(newItemQuantity);
-      newRow.getChildren().add(newItemPrice);
-      newRow.getChildren().add(newItemRequest);
+      itName.getChildren().add(newItemName);
+      itQuant1.getChildren().add(newItemQuantity);
+      itPrice.getChildren().add(newItemPrice);
+      itRequest.getChildren().add(newItemRequest);
     }
   }
 }
