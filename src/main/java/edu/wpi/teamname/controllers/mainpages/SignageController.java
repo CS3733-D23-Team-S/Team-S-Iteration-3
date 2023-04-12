@@ -14,6 +14,7 @@ public class SignageController {
   //  }
 
   public void initialize() {
+      //label button
     tapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
   }
 }
