@@ -63,9 +63,10 @@ public class FlowerDeliveryController {
     sizelarge.setOnAction(event -> filterLarge());
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
-    // nofilterFlowers();
+
 
     System.out.println(dbr.getListOfSize("medium"));
+    noFilter();
   }
 
   public void filterSmall() {
@@ -116,17 +117,22 @@ public class FlowerDeliveryController {
     }
   }
 
-  /*public void nofilterFlowers() {
-  for (int i = 0; i < dbr.getListOfFlowers().size(); i++) {
-    MFXButton btn2 = new MFXButton();
-    btn2.setId(dbr.getListOfFlowers().get(i).toString());
-    btn2.setText(dbr.getListOfFlowers().get(i).toString());
-    btn2.setMaxWidth(200);
-    btn2.setMaxHeight(200);
-    hbox1.getChildren().add(btn2);
-    btn2.setOnMouseClicked(event -> Navigation.navigate(FLOWER_ORDER));
-    int finalII = i;
-    btn2.setOnMouseClicked(event -> store(dbr.getListOfFlowers().get(finalII).get()));*/
+  public void noFilter() {
+    hbox1.getChildren().clear();
+    hbox2.getChildren().clear();
+    for (int i = 0; i < dbr.getListOfSize("large").size(); i++) {
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(dbr.getListOfSize("large").get(i).toString());
+      btn1.setText(dbr.getListOfSize("large").get(i).getName());
+      btn1.setMaxWidth(200);
+      btn1.setMaxHeight(200);
+      hbox1.getChildren().add(btn1);
+      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
+      int finalII = i;
+      btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("medium").get(finalII).getID()));
+    }
+  }
+
 
   public void store(int x) {
     flowerID = x;
