@@ -84,6 +84,7 @@ public class AStar {
     }
     pathTaken.add(currentNode.getNodeID());
     Collections.reverse(pathTaken);
+    // for (int curr : pathTaken) System.out.println(curr);
     return pathTaken;
   }
 
