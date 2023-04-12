@@ -29,6 +29,13 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
+  @FXML MFXButton signagePage1;
+
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton roomButton;
+  @FXML MFXButton flowerbutton; // //ADdd path to flowerbutton
+  @FXML MFXButton homeButton;
+  @FXML MFXButton exit;
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;
@@ -38,6 +45,14 @@ public class MealDeliveryController {
 
   @FXML
   public void initialize() {
+
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    // signagePage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    // mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // roomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");
@@ -116,8 +131,12 @@ public class MealDeliveryController {
           filters.clear();
         });
 
-    backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
+
+    // navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
+    // ///ADD NAVIGATION
+
+    //  homeicon1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     walletFriendly();
     quickDelivery();
