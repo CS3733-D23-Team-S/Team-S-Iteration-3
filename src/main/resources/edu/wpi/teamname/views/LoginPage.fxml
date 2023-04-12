@@ -9,28 +9,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.LoginController">
    <left>
-      <GridPane BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <VBox alignment="CENTER_LEFT" prefHeight="900.0" prefWidth="750.0" style="-fx-background-color: rgba(0,0,0,0);" BorderPane.alignment="CENTER">
          <children>
             <HBox prefWidth="850.0">
                <children>
-                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/backiconblack.png" />
                      </image>
@@ -182,27 +173,17 @@
                </font>
             </Label>
          </children>
-      </GridPane>
+      </VBox>
    </left>
    <right>
-      <GridPane BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: rgba(1,45,90,255);" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: rgba(1,45,90,255);">
-               <children>
-                  <ImageView fitHeight="800.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                     <image>
-                        <Image url="@../images/bwlogo.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
+            <ImageView fitHeight="800.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+               <image>
+                  <Image url="@../images/bwlogo.png" />
+               </image>
+            </ImageView>
          </children>
-      </GridPane>
+      </VBox>
    </right>
 </BorderPane>

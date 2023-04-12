@@ -5,6 +5,7 @@ import static edu.wpi.teamname.navigation.Screen.WELCOME_PAGE;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import javafx.fxml.FXML;
@@ -25,11 +26,8 @@ public class LoginController {
 
   @FXML PasswordField pfPassword;
 
-  @FXML private PasswordField pfPassword;
-
   @FXML private TextField tfUsername;
   @FXML private Hyperlink newUser;
-  @FXML TextField tfUsername;
 
   private String errorMessage = "";
 
