@@ -68,35 +68,35 @@ public class PathfindingController {
   // changing floor button colors depending on which is selected
   public void changeFloorButtonColors() {
     if (floor.getImage().equals(floor1)) {
-      floor1Button.setBackground(Background.fill(Color.GRAY));
+      floor1Button.setBackground(Background.fill(Color.LIGHTGRAY));
       floor2Button.setBackground(Background.fill(Color.WHITE));
       floor3Button.setBackground(Background.fill(Color.WHITE));
       floorL1Button.setBackground(Background.fill(Color.WHITE));
       floorL2Button.setBackground(Background.fill(Color.WHITE));
     } else if (floor.getImage().equals(floor2)) {
       floor1Button.setBackground(Background.fill(Color.WHITE));
-      floor2Button.setBackground(Background.fill(Color.GRAY));
+      floor2Button.setBackground(Background.fill(Color.LIGHTGRAY));
       floor3Button.setBackground(Background.fill(Color.WHITE));
       floorL1Button.setBackground(Background.fill(Color.WHITE));
       floorL2Button.setBackground(Background.fill(Color.WHITE));
     } else if (floor.getImage().equals(floor3)) {
       floor1Button.setBackground(Background.fill(Color.WHITE));
       floor2Button.setBackground(Background.fill(Color.WHITE));
-      floor3Button.setBackground(Background.fill(Color.GRAY));
+      floor3Button.setBackground(Background.fill(Color.LIGHTGRAY));
       floorL1Button.setBackground(Background.fill(Color.WHITE));
       floorL2Button.setBackground(Background.fill(Color.WHITE));
     } else if (floor.getImage().equals(floorL1)) {
       floor1Button.setBackground(Background.fill(Color.WHITE));
       floor2Button.setBackground(Background.fill(Color.WHITE));
       floor3Button.setBackground(Background.fill(Color.WHITE));
-      floorL1Button.setBackground(Background.fill(Color.GRAY));
+      floorL1Button.setBackground(Background.fill(Color.LIGHTGRAY));
       floorL2Button.setBackground(Background.fill(Color.WHITE));
     } else if (floor.getImage().equals(floorL2)) {
       floor1Button.setBackground(Background.fill(Color.WHITE));
       floor2Button.setBackground(Background.fill(Color.WHITE));
       floor3Button.setBackground(Background.fill(Color.WHITE));
       floorL1Button.setBackground(Background.fill(Color.WHITE));
-      floorL2Button.setBackground(Background.fill(Color.GRAY));
+      floorL2Button.setBackground(Background.fill(Color.LIGHTGRAY));
     }
   }
 

@@ -17,8 +17,8 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="23.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="64.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
   </columnConstraints>
@@ -45,7 +45,7 @@
             </MFXButton>
             <MFXButton fx:id="pathfindingToProfileButton" prefHeight="90.0" prefWidth="260.0" style="-fx-border-color: #000000;" text="View Profile">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </MFXButton>
          </children>
@@ -142,12 +142,12 @@
          <children>
             <MFXButton fx:id="findPathButton" prefHeight="262.0" prefWidth="240.0" style="-fx-background-color: #00ff00;" text="Find Path">
                <font>
-                  <Font size="30.0" />
+                  <Font size="28.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="clearFieldsButton" prefHeight="90.0" prefWidth="264.0" style="-fx-background-color: #d11a2a;" text="Clear Fields">
                <font>
-                  <Font size="30.0" />
+                  <Font size="28.0" />
                </font>
             </MFXButton>
          </children>
@@ -172,27 +172,27 @@
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                </textFill>
             </MFXTextField>
-            <MFXButton fx:id="floor1Button" prefHeight="65.0" prefWidth="102.0" text="Floor 1">
+            <MFXButton fx:id="floor1Button" prefHeight="65.0" prefWidth="102.0" style="-fx-border-color: #000000;" text="Floor 1">
                <font>
                   <Font size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floor2Button" prefHeight="65.0" prefWidth="102.0" text="Floor 2">
+            <MFXButton fx:id="floor2Button" prefHeight="65.0" prefWidth="102.0" style="-fx-border-color: #000000;" text="Floor 2">
                <font>
                   <Font size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floor3Button" prefHeight="65.0" prefWidth="102.0" text="Floor 3">
+            <MFXButton fx:id="floor3Button" prefHeight="65.0" prefWidth="102.0" style="-fx-border-color: #000000;" text="Floor 3">
                <font>
                   <Font size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floorL1Button" prefHeight="65.0" prefWidth="102.0" text="Floor L1">
+            <MFXButton fx:id="floorL1Button" prefHeight="65.0" prefWidth="102.0" style="-fx-border-color: #000000;" text="Floor L1">
                <font>
                   <Font size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floorL2Button" prefHeight="65.0" prefWidth="102.0" text="Floor L2">
+            <MFXButton fx:id="floorL2Button" prefHeight="65.0" prefWidth="102.0" style="-fx-border-color: #000000;" text="Floor L2">
                <font>
                   <Font size="16.0" />
                </font>
@@ -209,27 +209,27 @@
             </ImageView>
             <MFXButton fx:id="pathfindingToPathfinding" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="18.0" />
+                  <Font name="Open Sans Bold" size="14.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="pathfindingToSignage" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="18.0" />
+                  <Font name="Open Sans Bold" size="14.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="pathfindingToMealDelivery" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="18.0" />
+                  <Font name="Open Sans Bold" size="14.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="pathfindingToRoomRes" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="18.0" />
+                  <Font name="Open Sans Bold" size="14.0" />
                </font>
             </MFXButton>
             <MFXButton fx:id="pathfindingToFlowerDelivery" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="18.0" />
+                  <Font name="Open Sans Bold" size="14.0" />
                </font>
             </MFXButton>
          </children>
