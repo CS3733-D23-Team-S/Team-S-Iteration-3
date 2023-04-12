@@ -75,7 +75,7 @@
                   <Insets bottom="30.0" right="30.0" />
                </VBox.margin>
             </MFXButton>
-            <MFXButton fx:id="navigation1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
+            <MFXButton fx:id="navigation2" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>

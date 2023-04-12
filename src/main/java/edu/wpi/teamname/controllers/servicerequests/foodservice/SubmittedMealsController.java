@@ -18,7 +18,7 @@ public class SubmittedMealsController {
 
   @FXML private MFXButton roomButton2;
   @FXML private MFXButton signagePage1;
-  // @FXML private MFXButton navigation1;
+  @FXML private MFXButton navigation1;
   @FXML private MFXButton cancel;
   @FXML private MFXButton mealButton;
   // @FXML private MFXButton help;
@@ -37,6 +37,7 @@ public class SubmittedMealsController {
     subBack.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
 
     TableColumn<Food, String> column1 = new TableColumn<>("RequestID");
     column1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));

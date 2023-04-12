@@ -17,8 +17,9 @@ import javafx.scene.image.ImageView;
 public class LoginController {
   DataBaseRepository loginManager;
   @FXML ImageView backIcon;
-  @FXML MFXButton navigationbutton;
-  @FXML MFXButton signageButton1;
+  @FXML MFXButton navigation;
+  // @FXML MFXButton navigationbutton;
+  @FXML MFXButton toSignage;
   @FXML Label errormessageLabel;
 
   @FXML MFXButton loginbutton;
@@ -72,7 +73,8 @@ public class LoginController {
   }
 
   public void initialize() {
-    signageButton1.setOnMouseClicked(event -> Navigation.launchPopUp(SIGNAGE_PAGE));
+    navigation.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
+    toSignage.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
 
     loginManager = DataBaseRepository.getInstance();
     newUser.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.NEW_USER));

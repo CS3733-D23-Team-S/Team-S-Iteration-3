@@ -10,7 +10,7 @@ public class Main {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
     App.launch(App.class, args);
-    dbConnection.getInstance().getConnection().close();
+    // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     dbConnection.getInstance().getConnection().close();
     //    for (int key : NodeDaoImpl.getInstance().getNodes().keySet())

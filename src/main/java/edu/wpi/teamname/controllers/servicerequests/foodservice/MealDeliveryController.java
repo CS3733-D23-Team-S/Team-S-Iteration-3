@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 public class MealDeliveryController {
 
   @FXML MFXButton backButton1;
+  @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
   @FXML HBox wf;
   @FXML HBox qd;
@@ -50,6 +51,8 @@ public class MealDeliveryController {
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 
     mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));

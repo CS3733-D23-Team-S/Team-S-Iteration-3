@@ -21,6 +21,7 @@ import org.controlsfx.control.SearchableComboBox;
 public class OrderDetailsController {
 
   @FXML private MFXButton back2;
+  @FXML private MFXButton flowerbutton1;
   @FXML private MFXButton submit;
   @FXML private MFXButton clear2;
   @FXML private VBox itName;
@@ -33,7 +34,6 @@ public class OrderDetailsController {
   @FXML private MFXButton submitted1;
   @FXML private MFXTextField request1;
 
-  @FXML private MFXButton flowerButton1;
   @FXML private MFXButton roomButton1;
   @FXML private MFXButton mealButton2;
   @FXML private MFXButton signagePage1;
@@ -45,11 +45,11 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
-    // flowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.))
+    flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    // navigation1.setOnMouseClicked(event-> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 

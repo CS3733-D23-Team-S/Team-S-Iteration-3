@@ -15,11 +15,13 @@ public class MealDeliveryOrderConfirmationController {
   // @FXML private MFXButton navigation1;
   @FXML private MFXButton backButton4;
   @FXML private MFXButton cancel;
+  @FXML private MFXButton navigation2;
 
   @FXML
   public void initialize() {
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    navigation2.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
