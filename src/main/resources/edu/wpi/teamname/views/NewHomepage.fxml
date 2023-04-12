@@ -62,7 +62,7 @@
          <graphic>
             <ImageView fx:id="mealIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                <image>
-                  <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/MealIcon.png" />
+                   <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/MealIcon.png" />
                </image>
             </ImageView>
          </graphic>
