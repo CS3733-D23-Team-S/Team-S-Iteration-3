@@ -117,10 +117,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  //    public void delete(String location, LocalDate date){
-  //
-  //    }
-
   @Override
   public void add(Move addition) {
     listOfMoves.add(addition);

@@ -1,9 +1,7 @@
 package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.orms.Edge;
-import edu.wpi.teamname.DAOs.orms.Node;
-import edu.wpi.teamname.DAOs.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.MapEditorEntity;
@@ -175,11 +173,15 @@ public class MapEditorController {
             nodeTable
                 .getItems()
                 .removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+
             Node newNode = new Node(ntNodeID, xCoord, yCoord, floor, buildingTF.getText());
+
             dataBase.getNodeDAO().add(newNode);
+
             nodeTable
                 .getItems()
                 .addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
+
             mainNodeTF.setText("Node successfully added");
           } else {
             // bad!!!
