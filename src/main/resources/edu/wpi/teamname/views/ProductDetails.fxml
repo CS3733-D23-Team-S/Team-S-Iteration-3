@@ -235,15 +235,23 @@
       </ImageView>
       <MFXButton fx:id="homeButton" prefHeight="62.0" prefWidth="95.0" style="-fx-background-color: d9d9d9;" text=".">
          <graphic>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/homeicon.png" />
                </image>
             </ImageView>
          </graphic>
          <GridPane.margin>
-            <Insets left="1200.0" />
+            <Insets bottom="10.0" left="1200.0" />
          </GridPane.margin>
       </MFXButton>
+      <ImageView fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="700.0" />
+         </GridPane.margin>
+         <image>
+            <Image url="@../FoodImages/GarlicBread.png" />
+         </image>
+      </ImageView>
    </children>
 </GridPane>
