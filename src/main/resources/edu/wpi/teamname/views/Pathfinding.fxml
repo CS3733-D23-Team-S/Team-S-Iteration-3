@@ -4,6 +4,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,8 +17,8 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #122E59;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="64.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
   </columnConstraints>
@@ -31,12 +33,17 @@
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #122E59;" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <children>
-            <MFXTextField editable="false" prefHeight="90.0" prefWidth="1450.0" style="-fx-background-color: #D9D9D9;" text="Brigham &amp; Women's Hospital - Founding Member, Mass General Brigham">
+            <MFXTextField editable="false" prefHeight="90.0" prefWidth="1151.0" style="-fx-background-color: #D9D9D9;" text="Brigham &amp; Women's Hospital - Founding Member, Mass General Brigham">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </MFXTextField>
-            <MFXButton fx:id="pathfindingToProfileButton" prefHeight="90.0" prefWidth="298.0" text="View Profile">
+            <MFXButton fx:id="pathfindingExit" prefHeight="90.0" prefWidth="260.0" style="-fx-border-color: #000000;" text="Exit Application">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="pathfindingToProfileButton" prefHeight="90.0" prefWidth="260.0" style="-fx-border-color: #000000;" text="View Profile">
                <font>
                   <Font size="16.0" />
                </font>
@@ -147,12 +154,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
-            <MFXButton fx:id="pathfindingToHomeButton" minHeight="-Infinity" prefHeight="90.0" prefWidth="120.0" style="-fx-border-color: #F8BC54; -fx-border-width: 9;" text="&lt;">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="emailTextualDirections" prefHeight="92.0" prefWidth="384.0" text="Email Textual Directions">
+            <MFXButton fx:id="emailTextualDirections" prefHeight="90.0" prefWidth="400.0" text="Email Textual Directions">
                <font>
                   <Font size="24.0" />
                </font>
@@ -198,5 +200,39 @@
          </children>
       </HBox>
       <GesturePane fx:id="mapPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="742.0" prefWidth="1024.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="4" />
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowSpan="6">
+         <children>
+            <ImageView fx:id="homeIcon" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bwlogo.png" />
+               </image>
+            </ImageView>
+            <MFXButton fx:id="pathfindingToPathfinding" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="pathfindingToSignage" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="pathfindingToMealDelivery" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="pathfindingToRoomRes" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="pathfindingToFlowerDelivery" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="128.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </VBox>
    </children>
 </GridPane>

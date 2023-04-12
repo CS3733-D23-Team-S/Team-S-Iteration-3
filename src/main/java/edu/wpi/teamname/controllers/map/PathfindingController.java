@@ -14,6 +14,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,6 @@ import javafx.scene.shape.Line;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathfindingController {
-  @FXML MFXButton pathfindingToHomeButton;
 
   @FXML MFXButton findPathButton;
 
@@ -57,6 +57,48 @@ public class PathfindingController {
 
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
+  @FXML MFXButton pathfindingToPathfinding;
+  @FXML MFXButton pathfindingToSignage;
+  @FXML MFXButton pathfindingToMealDelivery;
+  @FXML MFXButton pathfindingToRoomRes;
+  @FXML MFXButton pathfindingToFlowerDelivery;
+  @FXML MFXButton pathfindingExit;
+  @FXML ImageView homeIcon;
+
+  // changing floor button colors depending on which is selected
+  public void changeFloorButtonColors() {
+    if (floor.getImage().equals(floor1)) {
+      floor1Button.setBackground(Background.fill(Color.GRAY));
+      floor2Button.setBackground(Background.fill(Color.WHITE));
+      floor3Button.setBackground(Background.fill(Color.WHITE));
+      floorL1Button.setBackground(Background.fill(Color.WHITE));
+      floorL2Button.setBackground(Background.fill(Color.WHITE));
+    } else if (floor.getImage().equals(floor2)) {
+      floor1Button.setBackground(Background.fill(Color.WHITE));
+      floor2Button.setBackground(Background.fill(Color.GRAY));
+      floor3Button.setBackground(Background.fill(Color.WHITE));
+      floorL1Button.setBackground(Background.fill(Color.WHITE));
+      floorL2Button.setBackground(Background.fill(Color.WHITE));
+    } else if (floor.getImage().equals(floor3)) {
+      floor1Button.setBackground(Background.fill(Color.WHITE));
+      floor2Button.setBackground(Background.fill(Color.WHITE));
+      floor3Button.setBackground(Background.fill(Color.GRAY));
+      floorL1Button.setBackground(Background.fill(Color.WHITE));
+      floorL2Button.setBackground(Background.fill(Color.WHITE));
+    } else if (floor.getImage().equals(floorL1)) {
+      floor1Button.setBackground(Background.fill(Color.WHITE));
+      floor2Button.setBackground(Background.fill(Color.WHITE));
+      floor3Button.setBackground(Background.fill(Color.WHITE));
+      floorL1Button.setBackground(Background.fill(Color.GRAY));
+      floorL2Button.setBackground(Background.fill(Color.WHITE));
+    } else if (floor.getImage().equals(floorL2)) {
+      floor1Button.setBackground(Background.fill(Color.WHITE));
+      floor2Button.setBackground(Background.fill(Color.WHITE));
+      floor3Button.setBackground(Background.fill(Color.WHITE));
+      floorL1Button.setBackground(Background.fill(Color.WHITE));
+      floorL2Button.setBackground(Background.fill(Color.GRAY));
+    }
+  }
 
   public void colorEvent(Circle aCircle, Node node) {
     if (startingLocation.getText().equals("")) {
@@ -73,6 +115,10 @@ public class PathfindingController {
   public void toFloor1() {
     floor.setImage(floor1);
     // sets image
+
+    // clear fields
+    clearFields();
+    changeFloorButtonColors();
 
     // circlesOnFloor = floor1Circles;
     nodeList = floor1Nodes;
@@ -94,6 +140,9 @@ public class PathfindingController {
   public void toFloor2() {
     floor.setImage(floor2);
 
+    clearFields();
+    changeFloorButtonColors();
+
     // circlesOnFloor = floor2Circles;
     nodeList = floor2Nodes;
 
@@ -108,6 +157,9 @@ public class PathfindingController {
 
   public void toFloor3() {
     floor.setImage(floor3);
+
+    clearFields();
+    changeFloorButtonColors();
 
     // circlesOnFloor = floor3Circles;
     nodeList = floor3Nodes;
@@ -124,6 +176,9 @@ public class PathfindingController {
   public void toFloorL1() {
     floor.setImage(floorL1);
 
+    clearFields();
+    changeFloorButtonColors();
+
     // circlesOnFloor = floorL1Circles;
     nodeList = floorL1Nodes;
 
@@ -138,6 +193,9 @@ public class PathfindingController {
 
   public void toFloorL2() {
     floor.setImage(floorL2);
+
+    clearFields();
+    changeFloorButtonColors();
 
     // circlesOnFloor = floorL2Circles;
     nodeList = floorL2Nodes;
@@ -556,7 +614,6 @@ public class PathfindingController {
 
   public void initialize() {
     dataBase = DataBaseRepository.getInstance();
-    pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
     removeStartingLocation.setOnMouseClicked(event -> clearStartingLocation());
     removeDestination.setOnMouseClicked(event -> clearDestination());
@@ -583,6 +640,15 @@ public class PathfindingController {
 
     circlesOnFloor = floor1Circles;
     nodeList = floor1Nodes;
+    changeFloorButtonColors();
     findPathButton.setOnMouseClicked(event -> showPath(nodeList));
+
+    pathfindingExit.setOnMouseClicked(event -> Platform.exit());
+    pathfindingToPathfinding.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    pathfindingToSignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    pathfindingToFlowerDelivery.setOnMouseClicked(
+        event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    pathfindingToRoomRes.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    homeIcon.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 }
