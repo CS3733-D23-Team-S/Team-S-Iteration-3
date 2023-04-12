@@ -18,7 +18,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
    <root>
-      <BorderPane fx:id="boarderPane">
+      <BorderPane fx:id="boarderPane" style="-fx-background-color: &quot;FFFFFF&quot;;">
           <top>
               <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER_RIGHT">
                   <children>

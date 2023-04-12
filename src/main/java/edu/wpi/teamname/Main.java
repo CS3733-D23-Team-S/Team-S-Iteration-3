@@ -10,6 +10,7 @@ public class Main {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
     App.launch(App.class, args);
+    // Debugging stuff in order to check everything looks about right
 
     //    LocalDate startDate = LocalDate.of(2022, 5, 13);
     //    LocalTime startTime = LocalTime.of(14, 50);
