@@ -35,6 +35,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
             + "Size Varchar(100),"
             + "Price double precision,"
             + "Quantity int,"
+            + "Message Varchar(100),"
             + "SoldOut boolean,"
             + "Description Varchar(100),"
             + "Image Varchar(100))";
@@ -93,7 +94,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter;
     fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write("ID,name,size,price,quantity,isSoldOut,description,image");
+    fileWriter.write("ID,name,size,price,quantity,message,isSoldOut,description,image");
     for (Flower flower : flowers.values()) {
       fileWriter.newLine();
       fileWriter.write(flower.toCSVString());
@@ -142,16 +143,17 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (ID, flowerName, size, price, quantity, SoldOut, description, image) "
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
       preparedStatement.setString(2, thisFlower.getName());
       preparedStatement.setString(3, thisFlower.getSize().toString());
       preparedStatement.setDouble(4, thisFlower.getPrice());
       preparedStatement.setInt(5, thisFlower.getQuantity());
-      preparedStatement.setBoolean(6, thisFlower.getIsSoldOut());
-      preparedStatement.setString(7, thisFlower.getDescription());
-      preparedStatement.setString(8, thisFlower.getImage());
+      preparedStatement.setString(6, thisFlower.getMessage());
+      preparedStatement.setBoolean(7, thisFlower.getIsSoldOut());
+      preparedStatement.setString(8, thisFlower.getDescription());
+      preparedStatement.setString(9, thisFlower.getImage());
 
       preparedStatement.execute();
 
@@ -177,11 +179,12 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
         Size size = Size.valueOf(rs.getString("size"));
         Double price = rs.getDouble("price");
         Integer quantity = rs.getInt("quantity");
+        String message = rs.getString("message");
         Boolean SoldOut = rs.getBoolean("SoldOut");
         String description = rs.getString("description");
         String image = rs.getString("image");
 
-        Flower flower = new Flower(ID, name, size, price, quantity, SoldOut, description, image);
+        Flower flower = new Flower(ID, name, size, price, quantity, message, SoldOut, description, image);
 
         flowers.put(ID, flower);
       }
@@ -206,9 +209,10 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
                   Size.valueOf(fields[2]),
                   Double.parseDouble(fields[3]),
                   Integer.parseInt(fields[4]),
-                  Boolean.parseBoolean(fields[5]),
-                  fields[6],
-                  fields[7]);
+                  fields[5],
+                  Boolean.parseBoolean(fields[6]),
+                  fields[7],
+                  fields[8]);
           this.add(flower);
 
           PreparedStatement stmt =
@@ -217,17 +221,18 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
                   .prepareStatement(
                       "INSERT INTO "
                           + name
-                          + " (ID, flowerName, size, price, quantity, SoldOut, description, image) "
-                          + "VALUES (?,?,?,?,?,?,?,?)");
+                          + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
+                          + "VALUES (?,?,?,?,?,?,?,?,?)");
 
           stmt.setInt(1, Integer.valueOf(fields[0]));
           stmt.setString(2, fields[1]);
           stmt.setString(3, fields[2]);
           stmt.setDouble(4, Double.valueOf(fields[3]));
           stmt.setInt(5, Integer.valueOf(fields[4]));
-          stmt.setBoolean(6, Boolean.valueOf(fields[5]));
-          stmt.setString(7, fields[6]);
+          stmt.setString(6, fields[5]);
+          stmt.setBoolean(7, Boolean.valueOf(fields[6]));
           stmt.setString(8, fields[7]);
+          stmt.setString(9, fields[8]);
           this.flowers.put(flower.getID(), flower);
         }
       } catch (SQLException e) {
@@ -238,6 +243,10 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
+  /**
+   * Updates quantity of flower in database, probably not needed
+   * @param target
+   */
   public void updateQuantity(Flower target) {
     try {
       PreparedStatement preparedStatement =
