@@ -11,6 +11,7 @@ public class Flower implements IDataPack {
   @Getter @Setter private Size size;
   @Getter @Setter private double price;
   @Getter @Setter private int quantity;
+  @Getter @Setter private String message;
   @Getter @Setter boolean isSoldOut;
   @Getter @Setter private String description;
   @Getter @Setter private String image;
@@ -21,6 +22,7 @@ public class Flower implements IDataPack {
       Size size,
       double price,
       int quantity,
+      String message,
       boolean isSoldOut,
       String description,
       String image) {
@@ -29,6 +31,7 @@ public class Flower implements IDataPack {
     this.size = size;
     this.price = price;
     this.quantity = quantity;
+    this.message = message;
     this.isSoldOut = isSoldOut;
     this.description = description;
     this.image = image;
