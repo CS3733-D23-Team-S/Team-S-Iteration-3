@@ -17,7 +17,7 @@ public class ConfRoomRequest {
   @Getter @Setter String eventDescription;
   @Getter @Setter String assignedTo = "NA";
   @Getter @Setter Status orderStatus;
-  @Getter @Setter String notes = "";
+  @Getter @Setter String notes;
 
   public ConfRoomRequest(
       LocalDate eventDate,

@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers.mainpages;
 
-import static edu.wpi.teamname.navigation.Screen.HOME;
-import static edu.wpi.teamname.navigation.Screen.WELCOME_PAGE;
+import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
@@ -78,7 +77,7 @@ public class LoginController {
     newUser.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.NEW_USER));
     //    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
 
-    backIcon.setOnMouseClicked(event -> Navigation.navigate(WELCOME_PAGE));
+    backIcon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
     loginbutton.setOnMouseClicked(
         event -> {
           errorMessage = "";

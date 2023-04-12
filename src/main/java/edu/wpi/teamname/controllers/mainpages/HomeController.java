@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers.mainpages;
 
-import static edu.wpi.teamname.navigation.Screen.CSV_MANAGE;
-import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
+import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
@@ -42,6 +41,7 @@ public class HomeController {
   @FXML ImageView mealdeliveryIcon;
 
   @FXML MFXButton homeToPathfindingButton;
+  @FXML MFXButton goflower;
 
   @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
 
@@ -67,6 +67,7 @@ public class HomeController {
     exitOption.setOnAction(event -> exitApplication());
     homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
     exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
+    goflower.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
     // Menu bar button handlers
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));

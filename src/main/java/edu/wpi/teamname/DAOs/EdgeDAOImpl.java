@@ -104,6 +104,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
    * @param target the edge to delete
    */
   @Override
+  public Edge getRow(Edge target) {
+    return null;
+  }
+
+  @Override
   public void delete(Edge target) {
     edges.remove(target);
   }
