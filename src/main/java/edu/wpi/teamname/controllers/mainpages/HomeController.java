@@ -64,7 +64,7 @@ public class HomeController {
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
     // **helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
-    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(BETTER_MAP_EDITOR));
+    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
     exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
     goflower.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
