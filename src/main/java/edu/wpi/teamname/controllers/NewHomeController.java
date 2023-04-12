@@ -8,7 +8,6 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -97,14 +96,12 @@ public class NewHomeController {
           event.consume();
         });
 
-
     backicon1.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
           App.getPrimaryStage().close();
           event.consume();
         });
-
 
     /*backicon1.addEventHandler(
        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
