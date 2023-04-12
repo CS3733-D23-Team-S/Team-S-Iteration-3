@@ -171,9 +171,6 @@ public class PathfindingController {
     double startY = 0.0;
     double endX = 0.0;
     double endY = 0.0;
-    // gets list of integers that are node IDs
-    // for loop
-    // creates line going from nodeID(i) to nodeID(i+1)
     if (startingLocation.getText().equals("")) {
       startingLocation.setText("Error: make sure this field is filled in");
     } else if (destination.getText().equals("")) {
@@ -187,22 +184,29 @@ public class PathfindingController {
         AStar aStar = new AStar();
         ArrayList<PathEntity> pathEntities = new ArrayList<>();
         pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
+
         pfe.generatePath();
+        /*
+        for (int i = 0; i < pfe.getPathEntities().size(); i++) {
+          System.out.println(pfe.getPathEntities().get(i).getNodePassed());
+        }
+        */
+
         for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
           // draw line from node ID to another
           for (int j = 0; j < floorCircles.size(); j++) {
             if ((int) floorCircles.get(j).getCenterY()
                 == pfe.getPathEntities().get(j).getNodePassed()) {
               // node IDs match - set start points for line
-              startX = floorCircles.get(j).getLayoutX();
-              startY = floorCircles.get(j).getLayoutY();
+              startX = floorCircles.get(j).getTranslateX();
+              startY = floorCircles.get(j).getTranslateY();
               System.out.println("start");
             }
             if ((int) floorCircles.get(j).getCenterY()
                 == pfe.getPathEntities().get(j + 1).getNodePassed()) {
               // next Node ID matches - set end points for line
-              endX = floorCircles.get(j).getLayoutX();
-              endY = floorCircles.get(j).getLayoutY();
+              endX = floorCircles.get(j).getTranslateX();
+              endY = floorCircles.get(j).getTranslateY();
               System.out.println("end");
             }
           }
