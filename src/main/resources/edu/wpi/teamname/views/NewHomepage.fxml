@@ -72,7 +72,7 @@
             <Font size="36.0" />
          </font>
          <graphic>
-            <ImageView fx:id="conferenceIcon" fitHeight="76.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+            <ImageView fx:id="conferenceIcon" fitHeight="80.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/ConferenceRoom.png" />
                </image>
@@ -84,7 +84,7 @@
             <Font size="36.0" />
          </font>
          <graphic>
-            <ImageView fx:id="flowerIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+            <ImageView fx:id="flowerIcon" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
                   <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/FlowerIcon.png" />
                </image>
@@ -96,7 +96,7 @@
             <Font size="36.0" />
          </font>
          <graphic>
-            <ImageView fx:id="officeIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="officeIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                <image>
                   <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/OfficeSupplyIcon.png" />
                </image>
