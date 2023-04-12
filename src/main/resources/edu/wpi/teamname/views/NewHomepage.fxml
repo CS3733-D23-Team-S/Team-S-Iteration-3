@@ -108,9 +108,9 @@
             <Font size="36.0" />
          </font>
          <graphic>
-            <ImageView fx:id="furnitureIcon" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="furnitureIcon" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                <image>
-                  <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/FurnitureIcon.jpg" />
+                  <Image url="@../../../../../../../../../../Desktop/SoftwareEngineeringCS3733/FurnitureIcon2.png" />
                </image>
             </ImageView>
          </graphic>

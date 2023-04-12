@@ -52,7 +52,7 @@ public class NewHomeController {
         officeIcon.setImage(OfficeIcon);
 
         Image FurnitureIcon =
-                new Image(Main.class.getResource("./HomepageImages/FurnitureIcon.png").toString());
+                new Image(Main.class.getResource("./HomepageImages/FurnitureIcon2.png").toString());
         furnitureIcon.setImage(FurnitureIcon);
 
         Image UserIcon =
