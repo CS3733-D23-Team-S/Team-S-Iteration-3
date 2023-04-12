@@ -4,7 +4,7 @@ public enum Screen {
   ROOT("views/Root.fxml"),
   WELCOME_PAGE("views/WelcomePage.fxml"),
   LOGIN_PAGE("views/LoginPage.fxml"),
-  HOME("views/Home.fxml"),
+  HOME("views/NewHomepage.fxml"),
   MEAL_DELIVERY("edu/wpi/teamname/views/MealDelivery.fxml"),
   MEAL_DELIVERY1("views/MealDelivery1.fxml"),
   SERVICE_REQUEST("views/ServiceRequestPages/ServiceRequest.fxml"),
@@ -21,7 +21,7 @@ public enum Screen {
   SUBMITTED_MEAL_REQUESTS("views/NewSubmittedMealRequests.fxml"),
   SUBMITTED_ROOM_REQUESTS("views/NewSubmittedRoomRequests.fxml"),
   MAP_EDITOR("views/MapEditor.fxml"),
-  //CSV_MANAGE("views/CSVPage.fxml"),
+  // CSV_MANAGE("views/CSVPage.fxml"),
 
   CSV_MANAGE("views/CSVPage.fxml"),
   NEW_USER("views/newUserPopUp.fxml");
