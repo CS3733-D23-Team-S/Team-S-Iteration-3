@@ -102,6 +102,11 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   }
 
   @Override
+  public Move getRow(Move target) {
+    return null;
+  }
+
+  @Override
   public void delete(Move target) {
     listOfMoves.remove(target);
     HashmapOfMoves.remove(target.getNodeID());

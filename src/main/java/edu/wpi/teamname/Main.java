@@ -13,6 +13,7 @@ public class Main {
     App.launch(App.class, args);
     dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
+    dbConnection.getInstance().getConnection().close();
     //    for (int key : NodeDaoImpl.getInstance().getNodes().keySet())
     //      System.out.println(NodeDaoImpl.getInstance().getNodes().get(key).toString());
     //    for (String key : MoveDaoImpl.getInstance().getMoves().keySet())

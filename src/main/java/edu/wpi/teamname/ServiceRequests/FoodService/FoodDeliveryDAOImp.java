@@ -1,44 +1,86 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import edu.wpi.teamname.controllers.NewHomeController;
+import java.io.IOException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
+import lombok.Getter;
 
-public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
-  protected static final String schemaName = "hospitaldb";
-  protected static final String foodRequestsTable = schemaName + "." + "foodRequests";
-  private HashMap<Integer, FoodDelivery> requests = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
-  static FoodDeliveryDAOImp single_instance = null;
+public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
 
-  private FoodDeliveryDAOImp() {}
+  @Getter private String name;
+  private dbConnection connection;
+  @Getter private HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
 
-  public static synchronized FoodDeliveryDAOImp getInstance() {
-
-    if (single_instance == null) single_instance = new FoodDeliveryDAOImp();
-
-    return single_instance;
+  public FoodDeliveryDAOImp() {
+    connection = dbConnection.getInstance();
   }
 
-  public void addRequest(FoodDelivery request) {
-    requests.put(request.getDeliveryID(), request);
+  public void initTable(String name) {
+    this.name = name;
+    try {
+      Statement st = connection.getConnection().createStatement();
+
+      String foodRequestsTableConstruct =
+          "CREATE TABLE IF NOT EXISTS "
+              + name
+              + " "
+              + "(deliveryid int UNIQUE PRIMARY KEY,"
+              + "cart Varchar(100),"
+              + "orderdate Date,"
+              + "ordertime time,"
+              + "location Varchar(100),"
+              + "orderer Varchar(100),"
+              + "assignedto Varchar(100),"
+              + "Status Varchar(100),"
+              + "cost DOUBLE PRECISION,"
+              + "notes Varchar(255),"
+              + "foreign key (location) references "
+              + "hospitaldb.locations(longname) ON DELETE CASCADE)";
+
+      st.execute(foodRequestsTableConstruct);
+      System.out.println("Created the foodRequest table");
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+      System.out.println(e.getSQLState());
+      System.out.println("Database creation error");
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + name + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void add(FoodDelivery request) {
+
     try {
       PreparedStatement preparedStatement =
           connection
               .getConnection()
               .prepareStatement(
                   "INSERT INTO "
-                      + foodRequestsTable
-                      + " (deliveryID, Cart, orderDate, orderTime, room, orderer, assignedTo, status, cost, notes) "
+                      + name
+                      + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
       preparedStatement.setInt(1, request.getDeliveryID());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
       preparedStatement.setTime(4, request.getTime());
-      preparedStatement.setInt(5, request.getRoom());
+      preparedStatement.setString(5, request.getLocation());
       preparedStatement.setString(6, request.getOrderer());
       preparedStatement.setString(7, request.getAssignedTo());
       preparedStatement.setString(8, request.getOrderStatus());
@@ -47,7 +89,9 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
 
       preparedStatement.executeUpdate();
 
-      requests.put(request.getDeliveryID(), request);
+      foodRequests.put(request.getDeliveryID(), request);
+
+      System.out.println("FoodDeliveryAdded");
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -55,33 +99,18 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
     }
   }
 
-  @Override
-  public List<FoodDelivery> getAllRequests() {
-    return null;
-  }
-
-  @Override
-  public FoodDelivery getRequest(int target) {
-    if (requests.get(target) == null) {
-      System.out.println("This node is not in the database, so its row cannot be printed");
-      return null;
-    }
-    return requests.get(target);
-  }
-
-  @Override
-  public void deleteRequest(int target) {
+  public void delete(Integer target) {
     try {
       PreparedStatement deleteFood =
           connection
               .getConnection()
-              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE deliveryId = ?");
+              .prepareStatement("DELETE FROM " + name + " WHERE delivery = ?");
 
       deleteFood.setInt(1, target);
       deleteFood.execute();
 
       // remove from local Hashmap
-      requests.remove(target);
+      foodRequests.remove(target);
 
       System.out.println("FoodRequest deleted");
 
@@ -91,34 +120,79 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
     }
   }
 
-  public void initFoodRequests() {
+  public FoodDelivery getRow(Integer target) {
+    if (foodRequests.get(target) == null) {
+      System.out.println("This foodRequest is not in the database, so its row cannot be printed");
+      return null;
+    }
+    return foodRequests.get(target);
+  }
+
+  @Override
+  public List<FoodDelivery> getAll() {
+    return foodRequests.values().stream().toList();
+  }
+
+  @Override
+  public void loadRemote(String pathToCSV) {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + name;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the foods from the server");
+        constructFromRemote();
+      } else {
+        NewHomeController.delID = 0;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {}
+
+  private void constructFromRemote() {
     try {
       Statement st = connection.getConnection().createStatement();
-      String dropFoodRequestsTable = "DROP TABLE IF EXISTS " + foodRequestsTable + " CASCADE";
+      ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 
-      String foodRequestsTableConstruct =
-          "CREATE TABLE IF NOT EXISTS "
-              + foodRequestsTable
-              + " "
-              + "(deliveryID int UNIQUE PRIMARY KEY,"
-              + "cartID Varchar(100),"
-              + "orderDate Date,"
-              + "orderTime time,"
-              + "room int,"
-              + "orderedBy Varchar(100),"
-              + "assignedTo Varchar(100),"
-              + "Status Varchar(100),"
-              + "cost int,"
-              + "notes Varchar(255))";
+      while (rs.next()) {
+        int deliveryid = rs.getInt("deliveryid");
+        String cart = rs.getString("cart");
+        Date orderdate = rs.getDate("orderdate");
+        Time ordertime = rs.getTime("ordertime");
+        String location = rs.getString("location");
+        String orderer = rs.getString("orderer");
+        String assignedto = rs.getString("assignedTo");
+        String status = rs.getString("status");
+        Double cost = rs.getDouble("cost");
+        String notes = rs.getString("notes");
 
-      st.execute(dropFoodRequestsTable);
-      st.execute(foodRequestsTableConstruct);
+        FoodDelivery fd =
+            new FoodDelivery(
+                deliveryid,
+                cart,
+                orderdate,
+                ordertime,
+                location,
+                orderer,
+                assignedto,
+                status,
+                cost,
+                notes);
+
+        foodRequests.put(deliveryid, fd);
+      }
 
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
-      System.out.println(e.getSQLState());
-      System.out.println("Database creation error");
       e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println("Error accessing the remote and constructing the list of foods");
     }
   }
 }

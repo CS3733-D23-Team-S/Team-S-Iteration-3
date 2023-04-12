@@ -93,6 +93,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     return edges;
   }
 
+  @Override
+  public Edge getRow(Edge target) {
+    return null;
+  }
+
   /**
    * This is not finished since this is going to take a lot of manipulation
    *
