@@ -7,6 +7,8 @@ import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.Node;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.pathfinding.AStar;
+import edu.wpi.teamname.pathfinding.PathEntity;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -20,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathfindingController {
@@ -54,7 +57,7 @@ public class PathfindingController {
 
   public void toFloor1() {
     floor.setImage(floor1);
-
+    floorCircles = floor1Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor2Circles);
     stackPane.getChildren().remove(floor3Circles);
@@ -68,6 +71,7 @@ public class PathfindingController {
 
   public void toFloor2() {
     floor.setImage(floor2);
+    floorCircles = floor2Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor3Circles);
@@ -80,6 +84,7 @@ public class PathfindingController {
 
   public void toFloor3() {
     floor.setImage(floor3);
+    floorCircles = floor3Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -92,6 +97,7 @@ public class PathfindingController {
 
   public void toFloorL1() {
     floor.setImage(floorL1);
+    floorCircles = floorL1Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -104,6 +110,7 @@ public class PathfindingController {
 
   public void toFloorL2() {
     floor.setImage(floorL2);
+    floorCircles = floorL2Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -140,6 +147,8 @@ public class PathfindingController {
   List<Location> floorL1Locations;
   List<Location> floorL2Locations;
   PathfindingEntity pfe;
+  List<Line> pathLines = new ArrayList<>();
+  List<Circle> floorCircles = new ArrayList<>();
 
   public void getLocationFromNodeID() {
 
@@ -155,16 +164,19 @@ public class PathfindingController {
     // just do node IDs it's faster
   }
 
-  public void showPath() {
-    int startingID;
-    int endID;
+  public void showPath(List<Circle> floorCircles) {
+    int startingID = 0;
+    int endID = 0;
+    double startX = 0.0;
+    double startY = 0.0;
+    double endX = 0.0;
+    double endY = 0.0;
     // gets list of integers that are node IDs
     // for loop
     // creates line going from nodeID(i) to nodeID(i+1)
     if (startingLocation.getText().equals("")) {
       startingLocation.setText("Error: make sure this field is filled in");
-    }
-    if (destination.getText().equals("")) {
+    } else if (destination.getText().equals("")) {
       destination.setText("Error: make sure this field is filled in");
     }
     if (!startingLocation.getText().equals("") && !destination.getText().equals("")) {
@@ -172,15 +184,40 @@ public class PathfindingController {
       try {
         startingID = Integer.parseInt(startingLocation.getText());
         endID = Integer.parseInt(destination.getText());
+        AStar aStar = new AStar();
+        ArrayList<PathEntity> pathEntities = new ArrayList<>();
+        pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
+        pfe.generatePath();
         for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
           // draw line from node ID to another
-
+          for (int j = 0; j < floorCircles.size(); j++) {
+            if ((int) floorCircles.get(j).getCenterY()
+                == pfe.getPathEntities().get(j).getNodePassed()) {
+              // node IDs match - set start points for line
+              startX = floorCircles.get(j).getLayoutX();
+              startY = floorCircles.get(j).getLayoutY();
+              System.out.println("start");
+            }
+            if ((int) floorCircles.get(j).getCenterY()
+                == pfe.getPathEntities().get(j + 1).getNodePassed()) {
+              // next Node ID matches - set end points for line
+              endX = floorCircles.get(j).getLayoutX();
+              endY = floorCircles.get(j).getLayoutY();
+              System.out.println("end");
+            }
+          }
+          // draw line
+          Line line = new Line(startX, startY, endX, endY);
+          line.setFill(Color.BLACK);
+          pathLines.add(line);
+          System.out.println("draw");
         }
       } catch (NumberFormatException e) {
         startingLocation.setText("Error: make sure this field is a valid node ID");
         destination.setText("Error: make sure this field is a valid node ID");
       }
     }
+    stackPane.getChildren().addAll(pathLines);
   }
 
   public void generateFloor1Nodes() {
@@ -407,6 +444,7 @@ public class PathfindingController {
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
 
     floor.setImage(floor1);
+    floorCircles = floor1Circles;
     stackPane.getChildren().add(floor);
     generateFloor1Nodes();
 
@@ -419,6 +457,6 @@ public class PathfindingController {
     floorL1Button.setOnMouseClicked(event -> toFloorL1());
     floorL2Button.setOnMouseClicked(event -> toFloorL2());
 
-    // findPathButton.setOnMouseClicked(event -> showF1Path());
+    findPathButton.setOnMouseClicked(event -> showPath(floorCircles));
   }
 }
