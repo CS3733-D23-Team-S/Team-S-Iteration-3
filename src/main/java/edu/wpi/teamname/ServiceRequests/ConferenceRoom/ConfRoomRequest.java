@@ -39,38 +39,4 @@ public class ConfRoomRequest {
     this.assignedTo = assignedTo;
     this.orderStatus = Status.Received;
   }
-
-  @Override
-  public String toString() {
-    return "ConfRoomRequest{"
-        + "orderDate="
-        + orderDate
-        + ", eventDate="
-        + eventDate
-        + ", startTime="
-        + startTime
-        + ", endTime="
-        + endTime
-        + ", room='"
-        + room
-        + '\''
-        + ", reservedBy='"
-        + reservedBy
-        + '\''
-        + ", eventName='"
-        + eventName
-        + '\''
-        + ", eventDescription='"
-        + eventDescription
-        + '\''
-        + ", assignedTo='"
-        + assignedTo
-        + '\''
-        + ", orderStatus="
-        + orderStatus
-        + ", notes='"
-        + notes
-        + '\''
-        + '}';
-  }
 }
