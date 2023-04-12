@@ -27,6 +27,17 @@ public class NewHomeController {
   @FXML ImageView officeIcon;
   @FXML ImageView furnitureIcon;
 
+  @FXML MFXButton navbutton;
+  @FXML MFXButton navigationbutton1;
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton roombutton;
+  @FXML MFXButton flowerbutton;
+  @FXML ImageView homeicon1;
+  @FXML ImageView homeicon;
+  @FXML ImageView backicon;
+  @FXML ImageView backicon1;
+  @FXML ImageView helpicon;
+
   @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int cartID = 0;
@@ -70,12 +81,37 @@ public class NewHomeController {
         new Image(Main.class.getResource("./HomepageImages/FurnitureIcon2.png").toString());
     furnitureIcon.setImage(FurnitureIcon);
 
-    Image UserIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
-    userIcon.setImage(UserIcon);
+    navbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 
-    Image HelpIcon =
-        new Image(Main.class.getResource("./HomepageImages/NewHelpIcon.png").toString());
-    helpIcon.setImage(HelpIcon);
+    homeicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon1.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          event.consume();
+        });
+
+    // Image UserIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
+    // userIcon.setImage(UserIcon);
+
+    // Image HelpIcon =
+    //   new Image(Main.class.getResource("./HomepageImages/NewHelpIcon.png").toString());
+    // helpIcon.setImage(HelpIcon);
   }
 
   public void goToRoomPage() {
