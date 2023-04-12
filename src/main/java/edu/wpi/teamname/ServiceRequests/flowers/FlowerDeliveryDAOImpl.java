@@ -1,7 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import edu.wpi.teamname.databaseredo.IDAO;
-import edu.wpi.teamname.databaseredo.dbConnection;
+import edu.wpi.teamname.DAOs.IDAO;
+import edu.wpi.teamname.DAOs.dbConnection;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
