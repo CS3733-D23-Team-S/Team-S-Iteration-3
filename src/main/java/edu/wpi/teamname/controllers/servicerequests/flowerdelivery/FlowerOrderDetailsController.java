@@ -46,6 +46,14 @@ public class FlowerOrderDetailsController {
 
     addtocartbutton.setOnMouseClicked(event -> createDelivery());
     clearbutton.setOnMouseClicked(event -> clearFields());
+
+    showInfo();
+  }
+
+  private void showInfo() {
+    namelabel.setText(dbr.retrieveFlower(flowerID).getName().toString());
+    descriptionlabel.setText(dbr.retrieveFlower(flowerID).getDescription().toString());
+    pricelabel.setText("$" + Double.toString(dbr.retrieveFlower(flowerID).getPrice()));
   }
 
   private void createDelivery() {

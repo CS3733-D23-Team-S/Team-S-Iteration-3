@@ -169,7 +169,7 @@
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin></MFXTextField>
-            <MenuButton fx:id="sizedrop" mnemonicParsing="false" prefHeight="51.0" prefWidth="92.0" text="Size" textFill="#122e59">
+            <MenuButton fx:id="sizedrop" mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="Size" textFill="#122e59">
               <items>
                 <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
                 <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
@@ -179,9 +179,14 @@
                   <Font size="18.0" />
                </font>
             </MenuButton>
+            <MFXButton fx:id="clearfilter" prefHeight="51.0" prefWidth="150.0" text="Clear FIlters">
+               <font>
+                  <Font name="Open Sans Regular" size="18.0" />
+               </font>
+            </MFXButton>
          </children>
       </HBox>
-      <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
                <children>
@@ -260,7 +265,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox fx:id="hbox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <HBox fx:id="hbox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #012D5A;">
                <children>
