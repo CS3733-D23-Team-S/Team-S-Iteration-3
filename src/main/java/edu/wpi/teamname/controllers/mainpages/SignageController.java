@@ -2,15 +2,19 @@ package edu.wpi.teamname.controllers.mainpages;
 
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class SignageController {
-  @FXML MFXButton signageButton;
-  @FXML MFXButton signageBack;
+  @FXML Label tapButton;
 
-  @FXML
+  //  @FXML
+  //  public void initialize() {
+  //    signageBack.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
+  //  }
+
   public void initialize() {
-    signageBack.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
+    // label button
+    tapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
   }
 }
