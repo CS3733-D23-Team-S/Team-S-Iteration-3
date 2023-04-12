@@ -117,13 +117,15 @@ public class DataBaseRepository {
     return sizedFlowers;
   }
 
-  public ArrayList getListOfFlowers(){
-    ArrayList<Flower> flowers = new ArrayList<>();
-    Flower flowerf1 = new Flower(1, "bouquet1", Size.SMALL, 50, 1, false,"description1", "image1");
-    Flower flowerf2 = new Flower(2, "bouquet2", Size.MEDIUM, 100, 1, false,"description2", "image2");
-    Flower flowerf3 = new Flower(3, "bouquet3", Size.SMALL, 50, 1, false,"description3", "image3");
-    Flower flowerf4 = new Flower(4, "bouquet4", Size.LARGE, 200, 1, false,"description4", "image4");
-    Flower flowerf5 = new Flower(5, "bouquet5", Size.SMALL, 50, 1, false,"description5", "image5");
+  public List getListOfFlowers() {
+    List<Flower> flowers = new ArrayList<>();
+    Flower flowerf1 = new Flower(1, "bouquet1", Size.SMALL, 50, 1, false, "description1", "image1");
+    Flower flowerf2 =
+        new Flower(2, "bouquet2", Size.MEDIUM, 100, 1, false, "description2", "image2");
+    Flower flowerf3 = new Flower(3, "bouquet3", Size.SMALL, 50, 1, false, "description3", "image3");
+    Flower flowerf4 =
+        new Flower(4, "bouquet4", Size.LARGE, 200, 1, false, "description4", "image4");
+    Flower flowerf5 = new Flower(5, "bouquet5", Size.SMALL, 50, 1, false, "description5", "image5");
 
     flowers.add(flowerf1);
     flowers.add(flowerf2);
@@ -133,8 +135,6 @@ public class DataBaseRepository {
 
     return flowers;
   }
-
-
 
   public Flower retrieveFlower(int target) {
     return flowerDAO.getRow(target);

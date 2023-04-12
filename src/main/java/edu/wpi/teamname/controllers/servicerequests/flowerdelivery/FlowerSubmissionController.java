@@ -75,10 +75,10 @@ public class FlowerSubmissionController {
       message.setText("String.valueOf(flower.getMessage())");
       message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      /*itemvbox.getChildren().add(newItemName);
-      quantityvbox.getChildren().add(newItemQuantity);
-      pricevbox.getChildren().add(newItemPrice);
-      requestvbox.getChildren().add(newItemRequest);*/
+      itemvbox.getChildren().add(name);
+      quantityvbox.getChildren().add(quantity);
+      pricevbox.getChildren().add(price);
+      requestvbox.getChildren().add(message);
     }
   }
 }
