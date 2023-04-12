@@ -64,6 +64,8 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac-aarch64'
+// https://mvnrepository.com/artifact/org.jfxtras/jfxtras-controls
+    implementation group: 'org.jfxtras', name: 'jfxtras-controls', version: '17-r1'
 
 
     testImplementation(

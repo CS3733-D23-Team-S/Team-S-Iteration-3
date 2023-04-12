@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -16,78 +17,66 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.HomeController">
    <center>
-      <AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0"
-                  BorderPane.alignment="CENTER">
-         <ImageView fx:id="hospitalBg" fitHeight="900.0" fitWidth="1600.0" pickOnBounds="true"></ImageView>
+      <AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+         <ImageView fx:id="hospitalBg" fitHeight="900.0" fitWidth="1600.0" pickOnBounds="true" />
          <Pane prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.6;">
-            <ImageView fx:id="helpIcon" fitHeight="47.0" fitWidth="47.0" layoutX="33.0" layoutY="838.0"
-                       onMouseClicked="#goToHelpPage" pickOnBounds="true" preserveRatio="true"
-                       style="-fx-image: 10;">
-
-            </ImageView>
-            <ImageView fx:id="pathfindingIcon" fitHeight="73.0" fitWidth="76.0" layoutX="612.0" layoutY="313.0"
-                       pickOnBounds="true" preserveRatio="true" translateY="5.0">
+            <ImageView fx:id="helpIcon" fitHeight="47.0" fitWidth="47.0" layoutX="33.0" layoutY="838.0" onMouseClicked="#goToHelpPage" pickOnBounds="true" preserveRatio="true" style="-fx-image: &quot;10&quot;;">
+               <image>
+                  <Image url="@../HomepageImages/1200px-Icon-round-Question_mark.svg.png" />
+               </image></ImageView>
+            <ImageView fx:id="pathfindingIcon" fitHeight="73.0" fitWidth="76.0" layoutX="612.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true" translateY="5.0">
 
             </ImageView>
             <MFXButton fx:id="exportButton" layoutX="672.0" layoutY="838.0" text="Export">
                <font>
-                  <Font size="20.0"/>
+                  <Font size="20.0" />
                </font>
             </MFXButton>
          </Pane>
-         <Label fx:id="welcomeLabel" layoutX="51.0" layoutY="96.0" prefHeight="109.0" prefWidth="676.0"
-                text="Welcome to Brigham and Women's Hospital!" textAlignment="CENTER" textFill="#1f1f1f">
+         <Label fx:id="welcomeLabel" layoutX="51.0" layoutY="96.0" prefHeight="109.0" prefWidth="676.0" text="Welcome to Brigham and Women's Hospital!" textAlignment="CENTER" textFill="#1f1f1f">
             <font>
-               <Font name="Open Sans Regular" size="32.0"/>
+               <Font name="Open Sans Regular" size="32.0" />
             </font>
          </Label>
-         <VBox alignment="CENTER" layoutX="104.0" layoutY="268.0" prefHeight="531.0" prefWidth="458.0" spacing="50.0"
-               translateX="45.0">
-            <MFXButton fx:id="homeToPathfindingButton" prefHeight="75.0" prefWidth="431.0"
-                       style="-fx-background-color: D9D9D9;" text="Pathfinding">
+         <VBox alignment="CENTER" layoutX="104.0" layoutY="268.0" prefHeight="531.0" prefWidth="458.0" spacing="50.0" translateX="45.0">
+            <MFXButton fx:id="homeToPathfindingButton" prefHeight="75.0" prefWidth="431.0" style="-fx-background-color: D9D9D9;" text="Pathfinding">
                <font>
-                  <Font name="Open Sans Regular" size="36.0"/>
+                  <Font name="Open Sans Regular" size="36.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="reserveRoomButton" prefHeight="75.0" prefWidth="431.0"
-                       style="-fx-background-color: D9D9D9;" text="Reserve a Room">
+            <MFXButton fx:id="reserveRoomButton" prefHeight="75.0" prefWidth="431.0" style="-fx-background-color: D9D9D9;" text="Reserve a Room">
                <font>
-                  <Font name="Open Sans Regular" size="36.0"/>
+                  <Font name="Open Sans Regular" size="36.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="mealDeliveryButton" prefHeight="75.0" prefWidth="433.0"
-                       style="-fx-background-color: D9D9D9;" text="Meal Delivery">
+            <MFXButton fx:id="mealDeliveryButton" prefHeight="75.0" prefWidth="433.0" style="-fx-background-color: D9D9D9;" text="Meal Delivery">
                <font>
-                  <Font size="36.0"/>
+                  <Font size="36.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="logoutButton" onAction="#goToLoginPage" style="-fx-background-color: #122E59;"
-                       text="Logout" textFill="WHITE">
+            <MFXButton fx:id="logoutButton" onAction="#goToLoginPage" style="-fx-background-color: #122E59;" text="Logout" textFill="WHITE">
                <font>
-                  <Font size="24.0"/>
+                  <Font size="24.0" />
                </font>
             </MFXButton>
          </VBox>
-         <ImageView fx:id="mealdeliveryIcon" fitHeight="72.0" fitWidth="78.0" layoutX="562.0" layoutY="578.0"
-                    pickOnBounds="true" preserveRatio="true" translateX="45.0">
+         <ImageView fx:id="mealdeliveryIcon" fitHeight="72.0" fitWidth="78.0" layoutX="562.0" layoutY="578.0" pickOnBounds="true" preserveRatio="true" translateX="45.0">
 
          </ImageView>
-         <ImageView fx:id="roomreserveIcon" fitHeight="73.0" fitWidth="76.0" layoutX="565.0" layoutY="572.0"
-                    pickOnBounds="true" preserveRatio="true" translateX="45.0" translateY="-125.0">
+         <ImageView fx:id="roomreserveIcon" fitHeight="73.0" fitWidth="76.0" layoutX="565.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true" translateX="45.0" translateY="-125.0">
 
          </ImageView>
-         <MenuBar prefHeight="44.0" prefWidth="800.0"/>
+         <MenuBar prefHeight="44.0" prefWidth="800.0" />
          <ButtonBar prefHeight="40.0" prefWidth="782.0">
             <buttons>
                <MenuButton fx:id="appButton" mnemonicParsing="false" prefHeight="25.0" text="App">
                   <items>
-                     <MenuItem fx:id="exitOption" mnemonicParsing="false" text="Exit"/>
+                     <MenuItem fx:id="exitOption" mnemonicParsing="false" text="Exit" />
                   </items>
                </MenuButton>
-               <Button fx:id="buttonBarPathfinding" mnemonicParsing="false" text="Pathfinding"/>
-               <Button fx:id="buttonBarReserveRoom" mnemonicParsing="false" text="Reserve a Room"/>
-               <Button fx:id="buttonBarMealDelivery" mnemonicParsing="false" prefHeight="25.0" prefWidth="195.0"
-                       text="Meal Delivery"/>
+               <Button fx:id="buttonBarPathfinding" mnemonicParsing="false" text="Pathfinding" />
+               <Button fx:id="buttonBarReserveRoom" mnemonicParsing="false" text="Reserve a Room" />
+               <Button fx:id="buttonBarMealDelivery" mnemonicParsing="false" prefHeight="25.0" prefWidth="195.0" text="Meal Delivery" />
             </buttons>
          </ButtonBar>
       </AnchorPane>
