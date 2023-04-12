@@ -14,11 +14,9 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
@@ -60,10 +58,24 @@ public class PathfindingController {
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
 
-  // something to do
-  // make sure when you click on a floor button multiple times it doesnt keep adding the floor
-  // circles cause
-  // that messes up path generation
+  // other shit to do
+  // requirements
+  // show start and end of path
+  // blue = start, green = end or some shit
+  // nice to have
+  // floor button is shaded when you're on that floor
+
+  public void colorEvent(Circle aCircle, Node node) {
+    if (startingLocation.getText().equals("")) {
+      aCircle.setFill(Color.BLUE);
+      startingLocation.setText(Integer.toString(node.getNodeID()));
+    } else {
+      if (destination.getText().equals("")) {
+        aCircle.setFill(Color.GREEN);
+        destination.setText(Integer.toString(node.getNodeID()));
+      }
+    }
+  }
 
   public void toFloor1() {
     floor.setImage(floor1);
@@ -168,6 +180,8 @@ public class PathfindingController {
   PathfindingEntity pfe;
   List<Line> pathLines = new ArrayList<>();
   List<Circle> circlesOnFloor = new ArrayList<>();
+  @FXML MFXButton removeStartingLocation;
+  @FXML MFXButton removeDestination;
 
   public void showPath(List<Node> floorNodes) {
     anchorPane.getChildren().removeAll(pathLines);
@@ -272,13 +286,13 @@ public class PathfindingController {
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
-      // for the purpose of this task
-      // centerX is going to be the number at which the node is at in the list of nodes
-      // centerY is going to be the node ID of the circle
       Circle newCircle =
           new Circle(
               floor1Nodes.get(i).getXCoord(), floor1Nodes.get(i).getYCoord(), 10.0, Color.RED);
       floor1Circles.add(newCircle);
+      Node aNode = floor1Nodes.get(i);
+      newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
+      /*
       newCircle.setOnMouseClicked(
           new EventHandler<MouseEvent>() {
             @Override
@@ -287,11 +301,9 @@ public class PathfindingController {
                 floor1Circles.get(i).setFill(Color.RED);
               }
               newCircle.setFill(Color.AQUA);
-              // do starting location and destination boolean stuff here
-              // go through list similar to findpath list to get the right node ID and add it to the
-              // fields
             }
           });
+      */
     }
     anchorPane.getChildren().addAll(floor1Circles);
   }
@@ -318,18 +330,8 @@ public class PathfindingController {
           new Circle(
               floor2Nodes.get(i).getXCoord(), floor2Nodes.get(i).getYCoord(), 10.0, Color.RED);
       floor2Circles.add(newCircle);
-      //      newCircle.setTranslateX(floor2Nodes.get(i).getXCoord());
-      //      newCircle.setTranslateY(floor2Nodes.get(i).getYCoord());
-      newCircle.setOnMouseClicked(
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              for (int i = 0; i < floor2Circles.size(); i++) {
-                floor2Circles.get(i).setFill(Color.RED);
-              }
-              newCircle.setFill(Color.AQUA);
-            }
-          });
+      Node aNode = floor2Nodes.get(i);
+      newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
     anchorPane.getChildren().addAll(floor2Circles);
   }
@@ -356,16 +358,8 @@ public class PathfindingController {
       newCircle.setTranslateX(floor3Nodes.get(i).getXCoord());
       newCircle.setTranslateY(floor3Nodes.get(i).getYCoord());
       floor3Circles.add(newCircle);
-      newCircle.setOnMouseClicked(
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              for (int i = 0; i < floor3Circles.size(); i++) {
-                floor3Circles.get(i).setFill(Color.RED);
-              }
-              newCircle.setFill(Color.AQUA);
-            }
-          });
+      Node aNode = floor3Nodes.get(i);
+      newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
     anchorPane.getChildren().addAll(floor3Circles);
   }
@@ -392,16 +386,8 @@ public class PathfindingController {
       newCircle.setTranslateX(floorL1Nodes.get(i).getXCoord());
       newCircle.setTranslateY(floorL1Nodes.get(i).getYCoord());
       floorL1Circles.add(newCircle);
-      newCircle.setOnMouseClicked(
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              for (int i = 0; i < floorL1Circles.size(); i++) {
-                floorL1Circles.get(i).setFill(Color.RED);
-              }
-              newCircle.setFill(Color.AQUA);
-            }
-          });
+      Node aNode = floorL1Nodes.get(i);
+      newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
     anchorPane.getChildren().addAll(floorL1Circles);
   }
@@ -428,16 +414,8 @@ public class PathfindingController {
       newCircle.setTranslateX(floorL2Nodes.get(i).getXCoord());
       newCircle.setTranslateY(floorL2Nodes.get(i).getYCoord());
       floorL2Circles.add(newCircle);
-      newCircle.setOnMouseClicked(
-          new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-              for (int i = 0; i < floorL2Circles.size(); i++) {
-                floorL2Circles.get(i).setFill(Color.RED);
-              }
-              newCircle.setFill(Color.AQUA);
-            }
-          });
+      Node aNode = floorL2Nodes.get(i);
+      newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
     anchorPane.getChildren().addAll(floorL2Circles);
   }
@@ -484,6 +462,78 @@ public class PathfindingController {
     }
   }
 
+  public void clearStartingLocation() {
+    startingLocation.setText("");
+    if (floor.getImage().equals(floor1)) {
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        if (floor1Circles.get(i).getFill().equals(Color.BLUE)) {
+          floor1Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floor2)) {
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        if (floor2Circles.get(i).getFill().equals(Color.BLUE)) {
+          floor2Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floor3)) {
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        if (floor3Circles.get(i).getFill().equals(Color.BLUE)) {
+          floor3Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floorL1)) {
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        if (floorL1Circles.get(i).getFill().equals(Color.BLUE)) {
+          floorL1Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floorL2)) {
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        if (floorL2Circles.get(i).getFill().equals(Color.BLUE)) {
+          floorL2Circles.get(i).setFill(Color.RED);
+        }
+      }
+    }
+    anchorPane.getChildren().removeAll(pathLines);
+  }
+
+  public void clearDestination() {
+    destination.setText("");
+    if (floor.getImage().equals(floor1)) {
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        if (floor1Circles.get(i).getFill().equals(Color.GREEN)) {
+          floor1Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floor2)) {
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        if (floor2Circles.get(i).getFill().equals(Color.GREEN)) {
+          floor2Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floor3)) {
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        if (floor3Circles.get(i).getFill().equals(Color.GREEN)) {
+          floor3Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floorL1)) {
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        if (floorL1Circles.get(i).getFill().equals(Color.GREEN)) {
+          floorL1Circles.get(i).setFill(Color.RED);
+        }
+      }
+    } else if (floor.getImage().equals(floorL2)) {
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        if (floorL2Circles.get(i).getFill().equals(Color.GREEN)) {
+          floorL2Circles.get(i).setFill(Color.RED);
+        }
+      }
+    }
+    anchorPane.getChildren().removeAll(pathLines);
+  }
+
   public void clearFields() {
     startingLocation.setText("");
     destination.setText("");
@@ -515,6 +565,8 @@ public class PathfindingController {
     dataBase = DataBaseRepository.getInstance();
     pathfindingToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
+    removeStartingLocation.setOnMouseClicked(event -> clearStartingLocation());
+    removeDestination.setOnMouseClicked(event -> clearDestination());
 
     stackPane.setPrefSize(1024.0, 742.0);
 

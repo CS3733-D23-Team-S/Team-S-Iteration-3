@@ -58,7 +58,7 @@
                   <Font size="20.0" />
                </font>
             </MFXTextField>
-            <MFXButton minHeight="-Infinity" prefHeight="40.0" prefWidth="480.0" text="Set Starting Location From Map">
+            <MFXButton fx:id="removeStartingLocation" minHeight="-Infinity" prefHeight="40.0" prefWidth="480.0" text="Remove Starting Location">
                <font>
                   <Font size="18.0" />
                </font>
@@ -76,7 +76,7 @@
                   <Font size="20.0" />
                </font>
             </MFXTextField>
-            <MFXButton prefHeight="40.0" prefWidth="480.0" text="Set Destination From Map">
+            <MFXButton fx:id="removeDestination" prefHeight="40.0" prefWidth="480.0" text="Remove Destination">
                <font>
                   <Font size="18.0" />
                </font>
