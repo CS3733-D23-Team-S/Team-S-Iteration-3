@@ -138,8 +138,6 @@ public class MealDeliveryController {
       btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(DBR.getWalletFriendlyFood().get(finalII).getFoodID()));
-
-      System.out.println(DBR);
     }
   }
 

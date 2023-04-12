@@ -11,7 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import org.controlsfx.control.tableview2.cell.TextField2TableCell;
 
 public class ProductDetailsController {
   @FXML private MFXButton back3;
@@ -19,12 +19,12 @@ public class ProductDetailsController {
   @FXML private MFXButton clear;
   @FXML private MFXTextField quantity;
 
-  @FXML private MFXTextField request;
+  @FXML private MFXTextField specialRequest;
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
-  @FXML private HBox foodName;
-  @FXML private HBox fDescription;
-  @FXML private HBox fPrice;
-  @FXML private HBox prepTime;
+  @FXML public TextField2TableCell fName;
+  @FXML public Label desc1;
+  @FXML public Label fPrice;
+  @FXML public Label prepTime;
 
   public static int orderID;
   public static int itemCount;
@@ -41,7 +41,7 @@ public class ProductDetailsController {
             currentFood.setQuantity(
                 Integer.parseInt(quantity.getText())); // needs bounds if non int entered
 
-            currentFood.setNote(request.getText()); // bounds for if non string entered
+            currentFood.setNote(specialRequest.getText()); // bounds for if non string entered
 
             HomeController.cart.addFoodItem(currentFood);
 
@@ -70,49 +70,38 @@ public class ProductDetailsController {
 
   public void clearFields() {
     quantity.clear();
-    request.clear();
+    specialRequest.clear();
   }
 
   public Food selectedFood() {
+    System.out.println("working selected");
     return DBR.retrieveFood(clickedFoodID);
   }
 
   public void foodNamer() {
 
-    Label fName = new Label();
-
     fName.setId(selectedFood().getFoodDescription());
-
     fName.setText(selectedFood().getFoodName().toString());
-
     fName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
-    foodName.getChildren().add(fName);
   }
 
   public void foodDescription() {
 
-    Label fDescription1 = new Label();
-    fDescription1.setId(selectedFood().getFoodDescription());
-    fDescription1.setText(selectedFood().getFoodDescription().toString());
-    fDescription1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
-
-    fDescription.getChildren().add(fDescription1);
+    desc1.setId(selectedFood().getFoodDescription());
+    desc1.setText(selectedFood().getFoodDescription().toString());
+    desc1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
   public void foodPrice() {
-
-    Label fPrice1 = new Label();
-    fPrice1.setId(Double.toString(selectedFood().getFoodPrice()));
-    fPrice1.setText("$ " + (selectedFood().getFoodPrice()));
-    fPrice1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
-    fPrice.getChildren().add(fPrice1);
+    fPrice.setId(Double.toString(selectedFood().getFoodPrice()));
+    fPrice.setText("$ " + (selectedFood().getFoodPrice()));
+    fPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
   public void foodPrep() {
-    Label fPrep1 = new Label();
-    fPrep1.setId(Double.toString(selectedFood().getFoodPrepTime()));
-    fPrep1.setText(Double.toString(selectedFood().getFoodPrepTime()) + " minutes");
-    fPrep1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
-    prepTime.getChildren().add(fPrep1);
+
+    prepTime.setId(Double.toString(selectedFood().getFoodPrepTime()));
+    prepTime.setText(Double.toString(selectedFood().getFoodPrepTime()) + " minutes");
+    prepTime.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 }

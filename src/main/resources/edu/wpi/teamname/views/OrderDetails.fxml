@@ -38,7 +38,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <MFXButton fx:id="submitted1" prefHeight="57.0" prefWidth="250.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submitted Requests" textFill="#122e59">
+            <MFXButton fx:id="submitted1" prefHeight="57.0" prefWidth="250.0" style="-fx-border-width: 9; -fx-border-color: #122E59; -fx-border-radius: 5;" text="Submitted Requests" textFill="#122e59">
                <font>
                   <Font name="Open Sans Regular" size="18.0" />
                </font>
@@ -50,7 +50,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <MFXButton fx:id="submit" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="Submit Order &gt;">
+            <MFXButton fx:id="submit" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: #122E59; -fx-border-radius: 5;" text="Submit Order &gt;" textFill="#122e59">
                <font>
                   <Font size="18.0" />
                </font>

@@ -9,7 +9,6 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.awt.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javax.swing.*;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OrderDetailsController {

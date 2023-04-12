@@ -98,7 +98,7 @@
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
-            <MFXButton fx:id="checkout" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="View Cart&gt;" textFill="#122e59">
+            <MFXButton fx:id="checkout" prefHeight="57.0" prefWidth="187.0" style="-fx-border-width: 9; -fx-border-color: #122E59; -fx-border-radius: 5;" text="View Cart&gt;" textFill="#122e59">
                <font>
                   <Font name="Open Sans Regular" size="18.0" />
                </font>
