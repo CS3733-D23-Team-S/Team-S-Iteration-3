@@ -2,6 +2,8 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.flowerCart;
+import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.deliveryRoom;
+import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.recipient;
 
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
 import edu.wpi.teamname.navigation.Navigation;
@@ -34,7 +36,7 @@ public class FlowerConfirmationController {
   }
 
   void addFlowerDelivery() {
-    FlowerDelivery fd = new FlowerDelivery(flowerCart, LocalDate.now(), LocalTime.now(), )
+    FlowerDelivery fd = new FlowerDelivery(flowerCart, LocalDate.now(), LocalTime.now(), deliveryRoom, "user", "name", recipient, )
   }
 
 }

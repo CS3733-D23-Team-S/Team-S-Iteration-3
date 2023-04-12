@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class FlowerDeliveryController {
+  public static int flowerID;
 
   @FXML ImageView backicon;
   @FXML ImageView exiticon;
@@ -73,7 +74,7 @@ public class FlowerDeliveryController {
     for (int i = 0; i < dbr.getListOfSize("small").size(); i++) {
       MFXButton btn1 = new MFXButton();
       btn1.setId(dbr.getListOfSize("small").get(i).toString());
-      btn1.setText(dbr.getListOfSize("small").get(i).getName().toString());
+      btn1.setText(dbr.getListOfSize("small").get(i).getName());
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);
@@ -89,7 +90,7 @@ public class FlowerDeliveryController {
     for (int i = 0; i < dbr.getListOfSize("medium").size(); i++) {
       MFXButton btn1 = new MFXButton();
       btn1.setId(dbr.getListOfSize("medium").get(i).toString());
-      btn1.setText(dbr.getListOfSize("medium").get(i).getName().toString());
+      btn1.setText(dbr.getListOfSize("medium").get(i).getName());
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);
@@ -105,7 +106,7 @@ public class FlowerDeliveryController {
     for (int i = 0; i < dbr.getListOfSize("large").size(); i++) {
       MFXButton btn1 = new MFXButton();
       btn1.setId(dbr.getListOfSize("large").get(i).toString());
-      btn1.setText(dbr.getListOfSize("large").get(i).getName().toString());
+      btn1.setText(dbr.getListOfSize("large").get(i).getName());
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);

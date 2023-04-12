@@ -17,7 +17,6 @@ import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
-  public static String room;
   @FXML ImageView backicon;
   @FXML VBox cartvbox;
   @FXML MFXButton clearbutton;

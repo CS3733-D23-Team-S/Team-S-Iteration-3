@@ -16,7 +16,8 @@ import javafx.scene.image.ImageView;
 
 public class FlowerOrderDetailsController {
   public static Cart flowerCart = new Cart(1);
-  public static int flowerID;
+  public static String deliveryRoom;
+  public static String recipient;
 
   @FXML MFXButton addtocartbutton;
   @FXML ImageView backicon;
@@ -65,6 +66,9 @@ public class FlowerOrderDetailsController {
     flower.setQuantity(Integer.parseInt(quantityfield.getText()));
     flower.setMessage(custommessagefield.getText());
     flowerCart.addFlowerItem(flower);
+
+    // room = .getText get room from drop down box in the thingy
+    // recipient = .getText get recipient
   }
 
   public void clearFields() {
