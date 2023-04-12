@@ -34,6 +34,7 @@ public class FlowerOrderDetailsController {
   @FXML MFXButton signagebutton;
   @FXML MFXTextField sizefield;
   @FXML ImageView topbarlogo;
+  @FXML Label sizelabel;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
@@ -54,6 +55,7 @@ public class FlowerOrderDetailsController {
     namelabel.setText(dbr.retrieveFlower(flowerID).getName().toString());
     descriptionlabel.setText(dbr.retrieveFlower(flowerID).getDescription().toString());
     pricelabel.setText("$" + Double.toString(dbr.retrieveFlower(flowerID).getPrice()));
+    sizelabel.setText(dbr.retrieveFlower(flowerID).getSize().toString());
   }
 
   private void createDelivery() {

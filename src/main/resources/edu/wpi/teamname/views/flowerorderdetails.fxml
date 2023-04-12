@@ -37,6 +37,7 @@
       <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="10.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
       <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
@@ -192,12 +193,15 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
                      <font>
                         <Font name="Open Sans Regular" size="36.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:">
                      <font>
                         <Font name="Open Sans Regular" size="36.0" />
                      </font>
@@ -212,6 +216,11 @@
             </HBox>
             <HBox prefHeight="50.0" prefWidth="200.0">
                <children>
+                  <Label fx:id="sizelabel" text="Size">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                   <MFXTextField fx:id="quantityfield" prefHeight="50.0" prefWidth="300.0" promptText="Enter Quantity">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
@@ -219,17 +228,9 @@
                      <padding>
                         <Insets bottom="5.0" top="-10.0" />
                      </padding>
-                  </MFXTextField>
-                  <MFXTextField fx:id="sizefield" prefHeight="50.0" prefWidth="300.0" promptText="Enter Size">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
                      <HBox.margin>
-                        <Insets left="150.0" />
+                        <Insets left="335.0" />
                      </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" top="-10.0" />
-                     </padding>
                   </MFXTextField>
                </children>
                <VBox.margin>
