@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers.mainpages;
 
-import static edu.wpi.teamname.navigation.Screen.CSV_MANAGE;
-import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
+import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
@@ -40,6 +39,7 @@ public class HomeController {
   @FXML ImageView mealdeliveryIcon;
 
   @FXML MFXButton homeToPathfindingButton;
+  @FXML MFXButton goflower;
 
   public static int cartID = 1;
 
@@ -54,6 +54,7 @@ public class HomeController {
     exitOption.setOnAction(event -> exitApplication());
     homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
     exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
+    goflower.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
     // Menu bar button handlers
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));

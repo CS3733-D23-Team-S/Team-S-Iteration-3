@@ -6,6 +6,6 @@ import javafx.stage.Stage;
 import lombok.Setter;
 
 public abstract class PopUpController {
-  @FXML @Setter Stage stage;
-  @FXML Button exitButton;
+  public @FXML @Setter Stage stage;
+  public @FXML Button exitButton;
 }

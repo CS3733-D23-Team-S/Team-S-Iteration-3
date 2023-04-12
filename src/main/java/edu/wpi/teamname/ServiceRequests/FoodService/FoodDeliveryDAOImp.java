@@ -1,12 +1,15 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.databaseredo.dbConnection;
+import edu.wpi.teamname.DAOs.dbConnection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 
+/* TODO:
+       change Id to ID in deleteRequest
+*/
 public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
   protected static final String schemaName = "hospitaldb";
   protected static final String foodRequestsTable = schemaName + "." + "foodRequests";
@@ -75,7 +78,8 @@ public class FoodDeliveryDAOImp implements FoodDeliveryDAO_I {
       PreparedStatement deleteFood =
           connection
               .getConnection()
-              .prepareStatement("DELETE FROM " + foodRequestsTable + " WHERE deliveryId = ?");
+              .prepareStatement(
+                  "DELETE FROM " + foodRequestsTable + " WHERE deliveryId = ?"); // HERE Id
 
       deleteFood.setInt(1, target);
       deleteFood.execute();

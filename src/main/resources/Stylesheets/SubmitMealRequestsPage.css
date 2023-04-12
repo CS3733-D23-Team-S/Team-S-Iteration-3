@@ -1,0 +1,19 @@
+#mealID {
+    -fx-alignment: CENTER;
+}
+
+#orderTime {
+    -fx-alignment: CENTER;
+}
+
+#itemsOrdered {
+    -fx-alignment: CENTER;
+}
+
+#specialRequests {
+    -fx-alignment: CENTER;
+}
+
+#orderStatus {
+    -fx-alignment: CENTER;
+}

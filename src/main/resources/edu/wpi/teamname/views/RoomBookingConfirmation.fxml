@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingConfirmationController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingConfirmationController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,7 +28,7 @@
    <children>
       <VBox GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <children>
-            <TextField2TableCell contentDisplay="CENTER" prefHeight="488.0" prefWidth="1280.0" text="Booked Hale Cafe Auditorium for Policy Change Meeting!&#10;&#10;Date: Monday 4-01-2023&#10;Time: 6:00pm - 8:00pm&#10;&#10;Thank you for your booking!&#10;">
+            <TextField2TableCell fx:id="confirmationTextBox" contentDisplay="CENTER" prefHeight="488.0" prefWidth="1280.0" text="Booked Hale Cafe Auditorium for Policy Change Meeting!&#10;&#10;Date: Monday 4-01-2023&#10;Time: 6:00pm - 8:00pm&#10;&#10;Thank you for your booking!&#10;">
                <font>
                   <Font size="36.0" />
                </font>

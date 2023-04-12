@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-
 
 <GridPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageController">
     <columnConstraints>
@@ -30,38 +28,33 @@
     <children>
         <Label alignment="CENTER" text="← Information" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <font>
-                <Font size="80.0" />
+                <Font size="72.0" />
             </font>
         </Label>
         <Label alignment="CENTER" text="← Emergency Room" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <font>
-                <Font size="80.0" />
+                <Font size="72.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" text="Ultrasound Labs →" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+        <Label alignment="CENTER" text="Ultrasound Labs →" textAlignment="CENTER" textFill="WHITE" translateY="-20.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <font>
-                <Font size="80.0" />
+                <Font size="72.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" text="Restrooms →" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+        <Label alignment="CENTER" text="Restrooms →" textAlignment="CENTER" textFill="WHITE" translateY="-45.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
             <font>
-                <Font size="80.0" />
+                <Font size="72.0" />
             </font>
         </Label>
-        <Label alignment="CENTER" text="Ears, Nose and Throat →" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+        <Label alignment="CENTER" text="Ears, Nose and Throat →" textAlignment="CENTER" textFill="WHITE" translateY="-70.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <font>
-                <Font size="80.0" />
+                <Font size="72.0" />
             </font>
         </Label>
-        <MFXButton fx:id="helpButton" style="-fx-border-color: #F8BC54; -fx-background-color: #012D5A; -fx-border-width: 6;" text="?" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-            <font>
-                <Font size="40.0" />
-            </font>
-        </MFXButton>
-        <MFXButton fx:id="signageBack" alignment="CENTER" style="-fx-border-color: #F8BC54; -fx-background-color: #012D5A; -fx-border-width: 6;" text="&lt;" textFill="WHITE" textOverrun="CLIP" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-            <font>
-                <Font size="40.0" />
-            </font>
-        </MFXButton>
+      <Label fx:id="tapButton" alignment="CENTER" text="Tap to begin!" textAlignment="CENTER" textFill="WHITE" translateX="320.0" translateY="50.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
     </children>
 </GridPane>
