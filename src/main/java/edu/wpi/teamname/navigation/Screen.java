@@ -11,6 +11,7 @@ public enum Screen {
   ROOM_BOOKING("views/RoomBooking.fxml"),
   ROOM_BOOKING_DETAILS("views/RoomBookingDetails.fxml"),
   ROOM_BOOKING_CONFIRMATION("views/RoomBookingConfirmation.fxml"),
+  SUBMITTED_ROOM_REQUESTS("views/SubmittedRoomRequests.fxml"),
   ORDER_DETAILS("views/OrderDetails.fxml"),
   HELP_PAGE("views/HelpPage.fxml"),
   PRODUCT_DETAILS("views/ProductDetails.fxml"),
