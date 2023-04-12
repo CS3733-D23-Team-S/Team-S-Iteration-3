@@ -1,5 +1,9 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
+import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.flowers.*;
 import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.Move;
@@ -21,6 +25,8 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
+  @Getter RoomRequestDAO roomRequestDAO;
+  @Getter ConfRoomDAO confRoomDAO;
 
   @Getter IDAO<Flower, Integer> flowerDAO;
   @Getter IDAO<FlowerDelivery, Integer> flowerDeliveryDAO;
@@ -30,6 +36,8 @@ public class DataBaseRepository {
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+    roomRequestDAO = new RoomRequestDAO();
+    confRoomDAO = new ConfRoomDAO();
 
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
@@ -47,6 +55,9 @@ public class DataBaseRepository {
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
+    roomRequestDAO.initTable(connection.getRoomReservationsTable());
+    confRoomDAO.initTable(connection.getConferenceRoomTables());
+
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
@@ -101,6 +112,20 @@ public class DataBaseRepository {
     edgeDAO.exportCSV(outputPath);
     moveDAO.exportCSV(outputPath);
     locationDAO.exportCSV(outputPath);
+  }
+
+  public void addRoomRequest(ConfRoomRequest confRoomRequest) throws Exception {
+
+    if (!roomRequestDAO.hasConflicts(
+        confRoomRequest.getRoom(),
+        confRoomRequest.getEventDate(),
+        confRoomRequest.getStartTime(),
+        confRoomRequest.getEndTime())) {
+      roomRequestDAO.add(confRoomRequest);
+
+    } else {
+      throw new Exception();
+    }
   }
 
   public void flowerAdd(Flower flower) {

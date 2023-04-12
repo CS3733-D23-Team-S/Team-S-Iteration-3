@@ -1,4 +1,4 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +18,8 @@ public class dbConnection {
   @Getter final String flowerTable = schemaName + "." + "flowers";
 
   @Getter final String foodTable = schemaName + "." + "foods";
+  @Getter final String roomReservationsTable = schemaName + "." + "roomReservations";
+  @Getter final String conferenceRoomTables = schemaName + "." + "confRooms";
 
   private dbConnection() {
     try {

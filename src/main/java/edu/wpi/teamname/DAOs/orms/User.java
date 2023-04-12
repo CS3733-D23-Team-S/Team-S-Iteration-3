@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo.orms;
+package edu.wpi.teamname.DAOs.orms;
 
-import edu.wpi.teamname.databaseredo.IDataPack;
+import edu.wpi.teamname.DAOs.IDataPack;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +33,7 @@ public class User implements IDataPack {
 
   public enum Permission {
     ADMIN,
-    WORKER,
+    STAFF,
     GUEST,
   }
 }

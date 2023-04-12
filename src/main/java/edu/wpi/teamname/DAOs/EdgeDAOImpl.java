@@ -1,6 +1,6 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Edge;
+import edu.wpi.teamname.DAOs.orms.Edge;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,14 +93,26 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     return edges;
   }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation
+   *
+   * @param target the edge to delete
+   */
   @Override
   public Edge getRow(Edge target) {
     return null;
   }
 
   @Override
-  public void delete(Edge target) {}
+  public void delete(Edge target) {
+    edges.remove(target);
+  }
 
+  /**
+   * This is not finished since this is going to take a lot of manipulation of edges
+   *
+   * @param addition the edge to add
+   */
   @Override
   public void add(Edge addition) {
     edges.add(addition);

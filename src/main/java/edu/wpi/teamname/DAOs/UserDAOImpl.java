@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.User;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.User;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
@@ -48,8 +48,8 @@ public class UserDAOImpl implements IDAO<User, String> {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, User.Permission.WORKER.ordinal());
-      User user = new User(username, password, User.Permission.WORKER);
+      preparedStatement.setInt(3, User.Permission.STAFF.ordinal());
+      User user = new User(username, password, User.Permission.STAFF);
       listOfUsers.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);

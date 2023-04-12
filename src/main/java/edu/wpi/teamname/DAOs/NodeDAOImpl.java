@@ -1,7 +1,7 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.databaseredo.orms.Floor;
-import edu.wpi.teamname.databaseredo.orms.Node;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -106,16 +106,25 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   @Override
   public void delete(Integer target) {
     nodes.remove(target);
+    try {
+      PreparedStatement stmt =
+          connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE nodeID=?");
+      stmt.setInt(1, target);
+      stmt.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void add(Node addition) {
     nodes.put(addition.getNodeID(), addition);
+    this.addToRemote(addition);
   }
 
   public void add(int nodeID, int xCoord, int yCoord, Floor floor, String building) {
     Node newNode = new Node(nodeID, xCoord, yCoord, floor, building);
-    nodes.put(nodeID, newNode);
+    this.add(newNode);
   }
 
   private void addToRemote(Node addition) {

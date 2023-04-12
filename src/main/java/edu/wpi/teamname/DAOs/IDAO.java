@@ -1,4 +1,4 @@
-package edu.wpi.teamname.databaseredo;
+package edu.wpi.teamname.DAOs;
 
 import java.io.IOException;
 import java.util.List;

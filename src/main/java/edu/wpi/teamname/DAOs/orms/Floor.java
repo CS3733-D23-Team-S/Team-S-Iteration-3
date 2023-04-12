@@ -1,4 +1,4 @@
-package edu.wpi.teamname.databaseredo.orms;
+package edu.wpi.teamname.DAOs.orms;
 
 public enum Floor {
   Floor1,

@@ -18,7 +18,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CSVController">
    <root>
-      <BorderPane fx:id="boarderPane">
+      <BorderPane fx:id="boarderPane" style="-fx-background-color: &quot;FFFFFF&quot;;">
           <top>
               <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: &quot;122E59&quot;;" BorderPane.alignment="CENTER_RIGHT">
                   <children>
@@ -34,7 +34,7 @@
                   </children>
               </HBox>
           </top>
-         <right>
+         <center>
               <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                   <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -108,7 +108,7 @@
                   </children>
                </HBox>
               </GridPane>
-         </right>
+         </center>
       </BorderPane>
    </root>
 </Scene>
