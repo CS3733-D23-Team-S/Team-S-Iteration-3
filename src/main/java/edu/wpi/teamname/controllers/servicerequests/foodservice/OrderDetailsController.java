@@ -39,8 +39,6 @@ public class OrderDetailsController {
   @FXML
   public void initialize() {
 
-    System.out.println(HomeController.cart.toString());
-
     clearFields2();
     addedOrder();
 

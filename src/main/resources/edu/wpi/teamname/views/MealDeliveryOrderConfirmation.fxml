@@ -27,7 +27,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="2" GridPane.columnSpan="2" />
       <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Submitted!" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
-            <Font name="Open Sans Regular" size="24.0" />
+            <Font size="48.0" />
          </font>
       </Text>
       <MFXButton fx:id="home1" prefHeight="45.0" prefWidth="105.0" text="Home" GridPane.columnIndex="2" GridPane.rowIndex="3" />

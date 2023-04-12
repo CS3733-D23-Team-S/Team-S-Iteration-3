@@ -45,7 +45,6 @@ public class MealDeliveryController {
     MenuItem h = new MenuItem("Halal");
     MenuItem k = new MenuItem("Kosher");
     MenuItem v = new MenuItem("Vegan");
-    System.out.println(gf.getText());
 
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
 
@@ -54,8 +53,6 @@ public class MealDeliveryController {
     MenuItem It = new MenuItem("Italian");
     MenuItem Mex = new MenuItem("Mexican");
     MenuItem Ind = new MenuItem("Indian");
-
-    System.out.println(gf.getText());
 
     cuisine.getItems().addAll(Am, It, Mex, Ind);
 
@@ -127,6 +124,7 @@ public class MealDeliveryController {
   }
 
   public void walletFriendly() {
+
     for (int i = 0; i < DBR.getWalletFriendlyFood().size(); i++) {
 
       MFXButton btn1 = new MFXButton();
@@ -297,7 +295,6 @@ public class MealDeliveryController {
   }
 
   public void addFilter(MenuItem x) {
-    System.out.println(DBR.getVegetarian());
     ArrayList<MenuItem> filters = new ArrayList<>();
     Label lbl = new Label();
     lbl.setId(x.getText());
