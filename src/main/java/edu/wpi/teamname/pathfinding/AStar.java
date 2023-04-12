@@ -6,17 +6,19 @@ import edu.wpi.teamname.databaseredo.MoveDAOImpl;
 import edu.wpi.teamname.databaseredo.NodeDAOImpl;
 import edu.wpi.teamname.databaseredo.orms.Node;
 import java.util.*;
+import lombok.Getter;
+import lombok.Setter;
 
 public class AStar {
 
-  NodeDAOImpl nodeDAO;
-  EdgeDAOImpl edgeDAO;
-  MoveDAOImpl moveDAO;
+  @Getter @Setter NodeDAOImpl nodeDAO;
+  @Getter @Setter EdgeDAOImpl edgeDAO;
+  @Getter @Setter MoveDAOImpl moveDAO;
 
   public AStar() {
-    nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
-    edgeDAO = DataBaseRepository.getInstance().getEdgeDAO();
-    moveDAO = DataBaseRepository.getInstance().getMoveDAO();
+    this.nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
+    this.edgeDAO = DataBaseRepository.getInstance().getEdgeDAO();
+    this.moveDAO = DataBaseRepository.getInstance().getMoveDAO();
   }
 
   /**
@@ -28,6 +30,7 @@ public class AStar {
    */
   public ArrayList<Integer> findPath(int s, int e) {
     Node start, end;
+    List<Integer> nodeIDs = new ArrayList<>();
     // try and catch shit
     //        if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start =
     //     nodeDAO.getNodes().get(Integer.parseInt(s));
@@ -35,8 +38,8 @@ public class AStar {
     //        if (e.replaceAll("[a-zA-Z]+/g", "").isEmpty()) end =
     // nodeDAO.getNodes().get(Integer.parseInt(e));
     //        else end = nodeDAO.getNodes().get(moveDao.getMoves().get(e).getNodeID());
-    start = nodeDAO.getNodes().get(s);
-    end = nodeDAO.getNodes().get(e);
+    start = this.nodeDAO.getNodes().get(s);
+    end = this.nodeDAO.getNodes().get(e);
     final PriorityQueue<HeuristicNode> nodesYetToSearch =
         new PriorityQueue<>(10, new HeuristicNode(null, Double.MAX_VALUE));
     final HashSet<Node> visitedNodes = new HashSet<>();
@@ -54,9 +57,9 @@ public class AStar {
       }
       //      dbManager.printLocalDatabases();
       //      System.out.print(currentNode.node.getNodeID());
-      for (int nodeToSearchID : edgeDAO.getNeighbors().get(currentNode.node.getNodeID())) {
+      for (int nodeToSearchID : this.edgeDAO.getNeighbors().get(currentNode.node.getNodeID())) {
         //        System.out.print(nodeToSearchID + "\t");
-        Node nodeToSearch = nodeDAO.getNodes().get(nodeToSearchID);
+        Node nodeToSearch = this.nodeDAO.getNodes().get(nodeToSearchID);
         if (!visitedNodes.contains(nodeToSearch)) {
           double weight = calculateWeight(nodeToSearch, end);
           nodesYetToSearch.add(new HeuristicNode(nodeToSearch, weight));
@@ -65,7 +68,7 @@ public class AStar {
       }
       visitedNodes.add(currentNode.node);
     }
-    return null;
+    return new ArrayList<>();
   }
 
   private double calculateWeight(Node start, Node target) {

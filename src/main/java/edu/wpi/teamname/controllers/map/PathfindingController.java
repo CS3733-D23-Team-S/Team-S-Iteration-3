@@ -57,7 +57,7 @@ public class PathfindingController {
 
   public void toFloor1() {
     floor.setImage(floor1);
-    floorCircles = floor1Circles;
+    circlesOnFloor = floor1Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor2Circles);
     stackPane.getChildren().remove(floor3Circles);
@@ -71,7 +71,7 @@ public class PathfindingController {
 
   public void toFloor2() {
     floor.setImage(floor2);
-    floorCircles = floor2Circles;
+    circlesOnFloor = floor2Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor3Circles);
@@ -84,7 +84,7 @@ public class PathfindingController {
 
   public void toFloor3() {
     floor.setImage(floor3);
-    floorCircles = floor3Circles;
+    circlesOnFloor = floor3Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -97,7 +97,7 @@ public class PathfindingController {
 
   public void toFloorL1() {
     floor.setImage(floorL1);
-    floorCircles = floorL1Circles;
+    circlesOnFloor = floorL1Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -110,7 +110,7 @@ public class PathfindingController {
 
   public void toFloorL2() {
     floor.setImage(floorL2);
-    floorCircles = floorL2Circles;
+    circlesOnFloor = floorL2Circles;
     stackPane.getChildren().remove(floor);
     stackPane.getChildren().remove(floor1Circles);
     stackPane.getChildren().remove(floor2Circles);
@@ -148,7 +148,7 @@ public class PathfindingController {
   List<Location> floorL2Locations;
   PathfindingEntity pfe;
   List<Line> pathLines = new ArrayList<>();
-  List<Circle> floorCircles = new ArrayList<>();
+  List<Circle> circlesOnFloor = new ArrayList<>();
 
   public void getLocationFromNodeID() {
 
@@ -184,29 +184,30 @@ public class PathfindingController {
         AStar aStar = new AStar();
         ArrayList<PathEntity> pathEntities = new ArrayList<>();
         pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
-
         pfe.generatePath();
-        /*
-        for (int i = 0; i < pfe.getPathEntities().size(); i++) {
-          System.out.println(pfe.getPathEntities().get(i).getNodePassed());
-        }
-        */
 
         for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
           // draw line from node ID to another
           for (int j = 0; j < floorCircles.size(); j++) {
-            if ((int) floorCircles.get(j).getCenterY()
-                == pfe.getPathEntities().get(j).getNodePassed()) {
+            int startLineNodeID = (int) floorCircles.get(j).getCenterY();
+            if (startLineNodeID == pfe.getPathEntities().get(i).getNodePassed()) {
               // node IDs match - set start points for line
-              startX = floorCircles.get(j).getTranslateX();
-              startY = floorCircles.get(j).getTranslateY();
+              //              startX = floorCircles.get(j).getTranslateX();
+              //              startY = floorCircles.get(j).getTranslateY();
+              startX = floorCircles.get(j).getLayoutX();
+              startY = floorCircles.get(j).getLayoutY();
               System.out.println("start");
             }
-            if ((int) floorCircles.get(j).getCenterY()
-                == pfe.getPathEntities().get(j + 1).getNodePassed()) {
+            int endLineNodeID = (int) floorCircles.get(j).getCenterY();
+          }
+          for (int j = 0; j < floorCircles.size(); j++) {
+            int endLineNodeID = (int) floorCircles.get(j).getCenterY();
+            if (endLineNodeID == pfe.getPathEntities().get(i + 1).getNodePassed()) {
               // next Node ID matches - set end points for line
-              endX = floorCircles.get(j).getTranslateX();
-              endY = floorCircles.get(j).getTranslateY();
+              //              endX = floorCircles.get(j).getTranslateX();
+              //              endY = floorCircles.get(j).getTranslateY();
+              endX = floorCircles.get(j).getLayoutX();
+              endY = floorCircles.get(j).getLayoutY();
               System.out.println("end");
             }
           }
@@ -448,7 +449,6 @@ public class PathfindingController {
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
 
     floor.setImage(floor1);
-    floorCircles = floor1Circles;
     stackPane.getChildren().add(floor);
     generateFloor1Nodes();
 
@@ -461,6 +461,7 @@ public class PathfindingController {
     floorL1Button.setOnMouseClicked(event -> toFloorL1());
     floorL2Button.setOnMouseClicked(event -> toFloorL2());
 
-    findPathButton.setOnMouseClicked(event -> showPath(floorCircles));
+    circlesOnFloor = floor1Circles;
+    findPathButton.setOnMouseClicked(event -> showPath(circlesOnFloor));
   }
 }
