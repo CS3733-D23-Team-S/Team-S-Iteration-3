@@ -27,6 +27,8 @@ public class AdminController {
   @FXML MFXButton roomButton;
   @FXML MFXButton flowerButton;
 
+  @FXML MFXButton submittedFlowerButton;
+
   @FXML
   public void initialize() {
     homeIcon.setOnMouseClicked(event -> goToHomePage());
@@ -35,6 +37,7 @@ public class AdminController {
     exitIcon.setOnMouseClicked(event -> exitApplication());
     submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
     submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
+    submittedFlowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_REQTABLE));
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
     navigationButton.setOnMouseClicked(event -> goToPathfindingPage());
     signageButton.setOnMouseClicked(event -> goToSignagePage());
