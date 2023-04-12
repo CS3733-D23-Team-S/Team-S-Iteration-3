@@ -54,6 +54,8 @@ public class PathfindingController {
   @FXML MFXButton floorL2Button;
   @FXML MFXButton setStartingLocation;
   @FXML MFXButton setDestination;
+  @FXML MFXTextField enterStartingLocation;
+  @FXML MFXTextField enterDestination;
 
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
@@ -168,7 +170,10 @@ public class PathfindingController {
   List<Circle> circlesOnFloor = new ArrayList<>();
 
   public void showPath(List<Node> floorNodes) {
+    anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
+    Boolean startNodeInFloor = false;
+    Boolean endNodeInFloor = false;
     int startingID = 0;
     int endID = 0;
     double startX = 0.0;
@@ -185,31 +190,61 @@ public class PathfindingController {
       try {
         startingID = Integer.parseInt(startingLocation.getText());
         endID = Integer.parseInt(destination.getText());
-        AStar aStar = new AStar();
-        ArrayList<PathEntity> pathEntities = new ArrayList<>();
-        pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
-        pfe.generatePath();
-
-        for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
-          for (int j = 0; j < floorNodes.size(); j++) {
-
-            // check if first node is same or whatever
-            if (pfe.getPathEntities().get(i).getNodePassed() == floorNodes.get(j).getNodeID()) {
-              startX = floorNodes.get(j).getXCoord();
-              startY = floorNodes.get(j).getYCoord();
-            }
+        // find their nodes and make sure they're on the same floor
+        // go through floorNodes
+        // make sure both IDs are seen in floorNodes
+        for (int i = 0; i < floorNodes.size(); i++) {
+          if (floorNodes.get(i).getNodeID() == startingID) {
+            startNodeInFloor = true;
           }
-          for (int j = 0; j < floorNodes.size(); j++) {
-            if (pfe.getPathEntities().get(i + 1).getNodePassed() == floorNodes.get(j).getNodeID()) {
-              endX = floorNodes.get(j).getXCoord();
-              endY = floorNodes.get(j).getYCoord();
-            }
+          if (floorNodes.get(i).getNodeID() == endID) {
+            endNodeInFloor = true;
           }
-          // draw line
-          Line line = new Line(startX, startY, endX, endY);
-          line.setFill(Color.BLACK);
-          line.setStrokeWidth(5.0);
-          pathLines.add(line);
+        }
+        if (startNodeInFloor && endNodeInFloor) {
+          enterStartingLocation.setText("Enter Starting Location");
+          enterDestination.setText("Enter Destination");
+          AStar aStar = new AStar();
+          ArrayList<PathEntity> pathEntities = new ArrayList<>();
+          pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
+          pfe.generatePath();
+
+          for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
+            for (int j = 0; j < floorNodes.size(); j++) {
+
+              // check if first node is same or whatever
+              if (pfe.getPathEntities().get(i).getNodePassed() == floorNodes.get(j).getNodeID()) {
+                startX = floorNodes.get(j).getXCoord();
+                startY = floorNodes.get(j).getYCoord();
+              }
+            }
+            for (int j = 0; j < floorNodes.size(); j++) {
+              if (pfe.getPathEntities().get(i + 1).getNodePassed()
+                  == floorNodes.get(j).getNodeID()) {
+                endX = floorNodes.get(j).getXCoord();
+                endY = floorNodes.get(j).getYCoord();
+              }
+            }
+            // draw line
+            Line line = new Line(startX, startY, endX, endY);
+            line.setFill(Color.BLACK);
+            line.setStrokeWidth(5.0);
+            pathLines.add(line);
+          }
+        } else {
+          // bad!!
+          if (!startNodeInFloor) {
+            enterStartingLocation.setText(
+                "Error: the starting location you entered isn't on the floor currently being displayed");
+          } else {
+            enterStartingLocation.setText("Enter Starting Location");
+          }
+          if (!endNodeInFloor) {
+            enterDestination.setText(
+                "Error: the destination you entered isn't on the floor currently being displayed");
+          } else {
+            enterDestination.setText("Enter Destination");
+          }
         }
       } catch (NumberFormatException e) {
         startingLocation.setText("Error: make sure this field is a valid node ID");
@@ -473,6 +508,7 @@ public class PathfindingController {
         floorL2Circles.get(i).setFill(Color.RED);
       }
     }
+    anchorPane.getChildren().removeAll(pathLines);
   }
 
   public void initialize() {
@@ -501,6 +537,7 @@ public class PathfindingController {
     floorL2Button.setOnMouseClicked(event -> toFloorL2());
 
     circlesOnFloor = floor1Circles;
+    nodeList = floor1Nodes;
     findPathButton.setOnMouseClicked(event -> showPath(nodeList));
   }
 }

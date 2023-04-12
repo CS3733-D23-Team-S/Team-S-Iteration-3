@@ -45,9 +45,9 @@
       </HBox>
       <VBox prefHeight="284.0" prefWidth="480.0" style="-fx-background-color: #122E59;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
-            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="90.0" prefWidth="528.0" style="-fx-border-color: #122E59; -fx-background-color: #122E59;" text="Enter Starting Location">
+            <MFXTextField fx:id="enterStartingLocation" editable="false" minHeight="-Infinity" prefHeight="70.0" prefWidth="480.0" style="-fx-border-color: #122E59; -fx-background-color: #122E59;" text="Enter Starting Location">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
                <textFill>
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
@@ -63,9 +63,9 @@
                   <Font size="18.0" />
                </font>
             </MFXButton>
-            <MFXTextField alignment="CENTER" editable="false" minHeight="-Infinity" prefHeight="70.0" prefWidth="480.0" style="-fx-background-color: #122E59; -fx-border-color: #122E59;" text="Enter Destination">
+            <MFXTextField fx:id="enterDestination" editable="false" minHeight="-Infinity" prefHeight="70.0" prefWidth="480.0" style="-fx-background-color: #122E59; -fx-border-color: #122E59;" text="Enter Destination">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
                <textFill>
                   <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
