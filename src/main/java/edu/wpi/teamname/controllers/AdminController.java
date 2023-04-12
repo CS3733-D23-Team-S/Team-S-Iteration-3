@@ -75,7 +75,7 @@ public class AdminController {
 
   public void goToSubmittedMealRequestsPage() {
     System.out.println("i am running");
-    Navigation.navigate(Screen.SUBMITTED_MEAL_REQUESTS);
+    Navigation.navigate(Screen.SUBMITTED_MEALS);
   }
 
   public void goToSubmittedRoomRequestsPage() {
