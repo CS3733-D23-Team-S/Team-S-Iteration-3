@@ -6,7 +6,6 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -26,6 +25,7 @@ public class AdminController {
   @FXML MFXButton mealButton;
   @FXML MFXButton roomButton;
   @FXML MFXButton flowerButton;
+  @FXML MFXButton exportButton;
 
   @FXML MFXButton submittedFlowerButton;
 
@@ -43,6 +43,7 @@ public class AdminController {
     signageButton.setOnMouseClicked(event -> goToSignagePage());
     mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
     roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
+    exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
     Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
