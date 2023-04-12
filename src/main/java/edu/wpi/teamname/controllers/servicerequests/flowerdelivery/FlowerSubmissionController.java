@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.flowerCart;
+import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.recipient;
 import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
@@ -18,6 +19,8 @@ import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
+  public static String deliveryRoom;
+
   @FXML ImageView backicon;
   @FXML VBox cartvbox;
   @FXML MFXButton clearbutton;

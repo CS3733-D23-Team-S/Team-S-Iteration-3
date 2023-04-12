@@ -120,27 +120,68 @@ public class DataBaseRepository {
     return sizedFlowers;
   }
 
-  public List getListOfFlowers() {
-    List<Flower> flowers = new ArrayList<>();
+  /*public void addFlowers() {
     Flower flowerf1 =
-        new Flower(1, "bouquet1", Size.SMALL, 50, 1, "message", false, "description1", "image1");
+        new Flower(
+            flowerGetNewID(),
+            "flower1",
+            Size.SMALL,
+            50,
+            1,
+            "message",
+            false,
+            "description1",
+            "image1");
+    flowerDAO.add(flowerf1);
     Flower flowerf2 =
-        new Flower(2, "bouquet2", Size.MEDIUM, 100, 1, "message", false, "description2", "image2");
+        new Flower(
+            flowerGetNewID(),
+            "flower2",
+            Size.MEDIUM,
+            100,
+            1,
+            "message",
+            false,
+            "description2",
+            "image2");
+    flowerDAO.add(flowerf2);
     Flower flowerf3 =
-        new Flower(3, "bouquet3", Size.SMALL, 50, 1, "message", false, "description3", "image3");
+        new Flower(
+            flowerGetNewID(),
+            "flower3",
+            Size.SMALL,
+            50,
+            1,
+            "message",
+            false,
+            "description3",
+            "image3");
+    flowerDAO.add(flowerf3);
     Flower flowerf4 =
-        new Flower(4, "bouquet4", Size.LARGE, 200, 1, "message", false, "description4", "image4");
+        new Flower(
+            flowerGetNewID(),
+            "flower4",
+            Size.LARGE,
+            200,
+            1,
+            "message",
+            false,
+            "description4",
+            "image4");
+    flowerDAO.add(flowerf4);
     Flower flowerf5 =
-        new Flower(5, "bouquet5", Size.SMALL, 50, 1, "message", false, "description5", "image5");
-
-    flowers.add(flowerf1);
-    flowers.add(flowerf2);
-    flowers.add(flowerf3);
-    flowers.add(flowerf4);
-    flowers.add(flowerf5);
-
-    return flowers;
-  }
+        new Flower(
+            flowerGetNewID(),
+            "flower5",
+            Size.SMALL,
+            50,
+            1,
+            "message",
+            false,
+            "description5",
+            "image5");
+    flowerDAO.add(flowerf5);
+  }*/
 
   public Flower flowerRetrieve(int target) {
     return flowerDAO.getRow(target);

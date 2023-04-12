@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 
 public class FlowerOrderDetailsController {
   public static Cart flowerCart = new Cart(1);
-  public static String deliveryRoom;
   public static String recipient;
 
   @FXML MFXButton addtocartbutton;
@@ -71,8 +70,7 @@ public class FlowerOrderDetailsController {
     flowerCart.addFlowerItem(flower);
     Navigation.navigate(FLOWER_DELIVERY);
 
-    // room = .getText get room from drop down box in the thingy
-    // recipient = .getText get recipient
+    recipient = recipientfield.getText();
   }
 
   public void clearFields() {

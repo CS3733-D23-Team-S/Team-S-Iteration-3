@@ -28,13 +28,13 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
               + name
               + " "
               + "(deliveryID int UNIQUE PRIMARY KEY,"
-              + "cart Varchar(100),"
+              + "cart Varchar(60000),"
               + "orderDate Date,"
-              + "orderTime time,"
-              + "room Varchar(100),"
-              + "orderedBy Varchar(100),"
-              + "assignedTo Varchar(100),"
-              + "orderStatus Varchar(100),"
+              + "orderTime Time,"
+              + "room Varchar(60000),"
+              + "orderedBy Varchar(60000),"
+              + "assignedTo Varchar(60000),"
+              + "orderStatus Varchar(60000),"
               + "cost DOUBLE PRECISION)";
 
       st.execute(flowerRequestsTableConstruct);
@@ -117,7 +117,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
                 .prepareStatement(
                     "INSERT INTO "
                         + name
-                        + " (deliveryID, cart, orderDate, orderTime, room, orderedBye, assignedTo, orderStatus, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         reader.readLine();
         String line;
@@ -208,6 +208,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
 
   @Override
   public void add(FlowerDelivery request) {
+    System.out.println("Here in add");
     requests.put(request.getID(), request);
     try {
       PreparedStatement preparedStatement =
@@ -216,23 +217,24 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost) "
+                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost)"
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, request.getID());
-      preparedStatement.setString(1, request.getCart());
-      preparedStatement.setDate(1, request.getDate());
-      preparedStatement.setTime(1, request.getTime());
-      preparedStatement.setString(1, request.getRoom());
-      preparedStatement.setString(1, request.getOrderedBy());
-      preparedStatement.setString(1, request.getAssignedTo());
-      preparedStatement.setString(1, request.getOrderStatus());
-      preparedStatement.setDouble(1, request.getCost());
+      preparedStatement.setString(2, request.getCart());
+      preparedStatement.setDate(3, request.getDate());
+      preparedStatement.setTime(4, request.getTime());
+      preparedStatement.setString(5, request.getRoom());
+      preparedStatement.setString(6, request.getOrderedBy());
+      preparedStatement.setString(7, request.getAssignedTo());
+      preparedStatement.setString(8, request.getOrderStatus());
+      preparedStatement.setDouble(9, request.getCost());
 
       preparedStatement.executeUpdate();
 
       requests.put(request.getID(), request);
 
     } catch (SQLException e) {
+      System.out.println("Excepetion:");
       e.printStackTrace();
       System.out.println(e.getSQLState());
     }

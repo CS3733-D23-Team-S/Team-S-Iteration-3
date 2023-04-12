@@ -39,8 +39,9 @@ public class Cart {
       if (!comma) {
         finale.append(flower.toString());
         comma = true;
+      } else {
+        finale.append(", ").append(flower.toString());
       }
-      finale.append(", ").append(flower.toString());
     }
 
     return finale.toString();
