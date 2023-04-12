@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 
 public class FlowerOrderDetailsController {
   public static Cart flowerCart = new Cart(1);
+  public static int flowerID;
+
   @FXML MFXButton addtocartbutton;
   @FXML ImageView backicon;
   @FXML MFXButton clearbutton;
@@ -52,14 +54,14 @@ public class FlowerOrderDetailsController {
   }
 
   private void showInfo() {
-    namelabel.setText(dbr.retrieveFlower(flowerID).getName());
-    descriptionlabel.setText(dbr.retrieveFlower(flowerID).getDescription());
-    pricelabel.setText("$" + dbr.retrieveFlower(flowerID).getPrice());
-    sizelabel.setText(dbr.retrieveFlower(flowerID).getSize().toString());
+    namelabel.setText(dbr.flowerRetrieve(flowerID).getName());
+    descriptionlabel.setText(dbr.flowerRetrieve(flowerID).getDescription());
+    pricelabel.setText("$" + dbr.flowerRetrieve(flowerID).getPrice());
+    sizelabel.setText(dbr.flowerRetrieve(flowerID).getSize().toString());
   }
 
   private void createDelivery() {
-    Flower flower = dbr.retrieveFlower(flowerID);
+    Flower flower = dbr.flowerRetrieve(flowerID);
     flower.setQuantity(Integer.parseInt(quantityfield.getText()));
     flower.setMessage(custommessagefield.getText());
     flowerCart.addFlowerItem(flower);

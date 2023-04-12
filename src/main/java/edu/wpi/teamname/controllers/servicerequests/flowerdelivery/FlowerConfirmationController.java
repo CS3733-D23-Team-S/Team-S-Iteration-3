@@ -9,6 +9,9 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class FlowerConfirmationController {
   @FXML ImageView backicon;
   @FXML ImageView exiticon;
@@ -31,7 +34,7 @@ public class FlowerConfirmationController {
   }
 
   void addFlowerDelivery() {
-    FlowerDelivery fd = new FlowerDelivery(flowerCart, )
+    FlowerDelivery fd = new FlowerDelivery(flowerCart, LocalDate.now(), LocalTime.now(), )
   }
 
 }

@@ -15,7 +15,6 @@ import javafx.scene.layout.HBox;
 
 public class FlowerDeliveryController {
 
-  public static int flowerID;
   @FXML ImageView backicon;
   @FXML ImageView exiticon;
   @FXML MFXButton flower1;

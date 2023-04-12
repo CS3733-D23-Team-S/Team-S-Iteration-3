@@ -100,7 +100,7 @@ public class DataBaseRepository {
     locationDAO.exportCSV(outputPath);
   }
 
-  public void addFlower(Flower flower) {
+  public void flowerAdd(Flower flower) {
     flowerDAO.add(flower);
   }
 
@@ -139,7 +139,15 @@ public class DataBaseRepository {
     return flowers;
   }
 
-  public Flower retrieveFlower(int target) {
+  public Flower flowerRetrieve(int target) {
     return flowerDAO.getRow(target);
+  }
+
+  public void flowerDeliveryAdd(FlowerDelivery fd) {
+    flowerDeliveryDAO.add(fd);
+  }
+
+  public List<FlowerDelivery> flowerDeliveryGetAll() {
+    return flowerDeliveryDAO.getAll();
   }
 }
