@@ -1,7 +1,9 @@
 package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.navigation.Screen.*;
+import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.flowerCart;
 
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
@@ -24,5 +26,12 @@ public class FlowerConfirmationController {
     exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
+
+    addFlowerDelivery();
   }
+
+  void addFlowerDelivery() {
+    FlowerDelivery fd = new FlowerDelivery(flowerCart, )
+  }
+
 }

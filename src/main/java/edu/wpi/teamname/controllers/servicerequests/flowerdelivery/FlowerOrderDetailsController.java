@@ -52,9 +52,9 @@ public class FlowerOrderDetailsController {
   }
 
   private void showInfo() {
-    namelabel.setText(dbr.retrieveFlower(flowerID).getName().toString());
-    descriptionlabel.setText(dbr.retrieveFlower(flowerID).getDescription().toString());
-    pricelabel.setText("$" + Double.toString(dbr.retrieveFlower(flowerID).getPrice()));
+    namelabel.setText(dbr.retrieveFlower(flowerID).getName());
+    descriptionlabel.setText(dbr.retrieveFlower(flowerID).getDescription());
+    pricelabel.setText("$" + dbr.retrieveFlower(flowerID).getPrice());
     sizelabel.setText(dbr.retrieveFlower(flowerID).getSize().toString());
   }
 
