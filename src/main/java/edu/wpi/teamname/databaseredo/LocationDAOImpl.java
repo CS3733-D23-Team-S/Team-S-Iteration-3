@@ -113,9 +113,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
 
       locations.put(addition.getLongName(), addition);
 
-      int rs = stmt.executeUpdate();
-
-      System.out.println("Location added successfully" + locations.get("HELLOWORLD").toString());
+      stmt.executeUpdate();
     } catch (SQLException e) {
       e.getMessage();
       e.printStackTrace();
@@ -146,13 +144,10 @@ public class LocationDAOImpl implements IDAO<Location, String> {
     try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
       reader.readLine();
       String line;
-
       while ((line = reader.readLine()) != null) {
-
         String[] fields = line.split(",");
         NodeType value = NodeType.valueOf(fields[2]);
         Location location = new Location(fields[0], fields[1], value);
-
         this.add(location);
       }
     } catch (IOException e) {

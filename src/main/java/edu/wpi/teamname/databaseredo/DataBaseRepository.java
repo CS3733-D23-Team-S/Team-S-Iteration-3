@@ -1,7 +1,6 @@
 package edu.wpi.teamname.databaseredo;
 
 import edu.wpi.teamname.databaseredo.orms.Edge;
-import edu.wpi.teamname.databaseredo.orms.Location;
 import edu.wpi.teamname.databaseredo.orms.Move;
 import edu.wpi.teamname.databaseredo.orms.Node;
 import edu.wpi.teamname.pathfinding.AStar;
@@ -15,7 +14,7 @@ public class DataBaseRepository {
   AStar pathFinder;
   @Getter IDAO<Node, Integer> nodeDAO;
   @Getter MoveDAOImpl moveDAO;
-  @Getter IDAO<Location, String> locationDAO;
+  @Getter LocationDAOImpl locationDAO;
   @Getter IDAO<Edge, Edge> edgeDAO;
 
   private DataBaseRepository() {
