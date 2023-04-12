@@ -1,7 +1,8 @@
 package edu.wpi.teamname.databaseredo;
 
-import edu.wpi.teamname.databaseredo.orms.Move;
-import edu.wpi.teamname.databaseredo.orms.User;
+import edu.wpi.teamname.DAOs.*;
+import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
@@ -57,7 +58,7 @@ public class DataBaseRepository {
 
   public void addUser(String username, String password, User.Permission permission)
       throws Exception {
-    userDAO.createLoginInfo(username, password, permission);
+    // userDAO.createLoginInfo(username, password, permission);
     currentUser.setCurrentUser(new User(username, password, permission));
   }
 
