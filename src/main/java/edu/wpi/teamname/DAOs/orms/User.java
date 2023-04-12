@@ -33,7 +33,7 @@ public class User implements IDataPack {
 
   public enum Permission {
     ADMIN,
-    WORKER,
+    STAFF,
     GUEST,
   }
 }

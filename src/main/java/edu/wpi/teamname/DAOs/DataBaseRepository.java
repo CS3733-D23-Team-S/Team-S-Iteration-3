@@ -1,6 +1,9 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
@@ -15,12 +18,16 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
+  @Getter RoomRequestDAO roomRequestDAO;
+  @Getter ConfRoomDAO confRoomDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+    roomRequestDAO = new RoomRequestDAO();
+    confRoomDAO = new ConfRoomDAO();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -35,6 +42,9 @@ public class DataBaseRepository {
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
+    roomRequestDAO.initTable(connection.getRoomReservationsTable());
+    confRoomDAO.initTable(connection.getConferenceRoomTables());
+
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
@@ -84,5 +94,19 @@ public class DataBaseRepository {
     edgeDAO.exportCSV(outputPath);
     moveDAO.exportCSV(outputPath);
     locationDAO.exportCSV(outputPath);
+  }
+
+  public void addRoomRequest(ConfRoomRequest confRoomRequest) throws Exception {
+
+    if (!roomRequestDAO.hasConflicts(
+        confRoomRequest.getRoom(),
+        confRoomRequest.getEventDate(),
+        confRoomRequest.getStartTime(),
+        confRoomRequest.getEndTime())) {
+      roomRequestDAO.add(confRoomRequest);
+
+    } else {
+      throw new Exception();
+    }
   }
 }

@@ -1,36 +1,37 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.List;
+import edu.wpi.teamname.DAOs.orms.Location;
+import java.io.IOException;
+import java.sql.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class RoomRequestDAO implements RoomRequest_I {
+public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
-  HashMap<Integer, ConfRoomRequest> requests = new HashMap<Integer, ConfRoomRequest>();
+  LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
   static RoomRequestDAO single_instance = null;
+  private Statement statement;
 
-  private RoomRequestDAO() {}
+  public RoomRequestDAO() {}
 
-  public static synchronized RoomRequestDAO getInstance() {
+  public void initTable(String name) {
 
-    if (single_instance == null) single_instance = new RoomRequestDAO();
-
-    return single_instance;
-  }
-
-  public void initTable() throws SQLException {
-    Statement stmt = connection.getConnection().createStatement();
     String roomReservationsTableConstruct =
         "CREATE TABLE IF NOT EXISTS "
             + roomReservationsTable
             + " "
-            + "(reservationID int,"
-            + "date Date,"
+            + "(reservationID SERIAL PRIMARY KEY,"
+            + "dateOrdered Date,"
+            + "eventDate Date,"
             + "startTime Time,"
             + "endTime Time,"
             + "room Varchar(100),"
@@ -41,6 +42,7 @@ public class RoomRequestDAO implements RoomRequest_I {
             + "orderStatus Varchar(100),"
             + "notes Varchar(500))";
     try {
+      Statement stmt = connection.getConnection().createStatement();
       stmt.execute(roomReservationsTableConstruct);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -51,20 +53,7 @@ public class RoomRequestDAO implements RoomRequest_I {
   }
 
   @Override
-  public List<ConfRoomRequest> getAllRequests() {
-    return this.requests.values().stream().toList();
-  }
-
-  @Override
-  public ConfRoomRequest getRequest(int requestID) {
-    return requests.get(requestID);
-  }
-
-  @Override
-  public void addRequest(ConfRoomRequest request) {
-
-    requests.put(request.getReservationID(), request);
-
+  public void add(ConfRoomRequest request) {
     try {
       PreparedStatement preparedStatement =
           connection
@@ -72,13 +61,13 @@ public class RoomRequestDAO implements RoomRequest_I {
               .prepareStatement(
                   "INSERT INTO "
                       + roomReservationsTable
-                      + " (reservationID, date, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
+                      + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      preparedStatement.setInt(1, request.getReservationID());
-      preparedStatement.setDate(2, null);
-      preparedStatement.setTime(3, null);
-      preparedStatement.setTime(4, null);
-      preparedStatement.setString(5, "ROOM"); // TODO add room id
+      preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
+      preparedStatement.setDate(2, Date.valueOf(request.eventDate));
+      preparedStatement.setTime(3, Time.valueOf(request.startTime));
+      preparedStatement.setTime(4, Time.valueOf(request.endTime));
+      preparedStatement.setString(5, request.getRoom()); // TODO add room id
       preparedStatement.setString(6, request.getReservedBy());
       preparedStatement.setString(7, request.getEventName());
       preparedStatement.setString(8, request.getEventDescription());
@@ -87,14 +76,261 @@ public class RoomRequestDAO implements RoomRequest_I {
       preparedStatement.setString(11, request.getNotes());
       preparedStatement.executeUpdate();
 
+      requests.add(request);
       //      preparedStatement.executeUpdate();
     } catch (SQLException ex) {
       throw new RuntimeException(ex);
     }
   }
 
-  @Override
-  public void deleteRequest(int requestID) {
-    requests.remove(requestID);
+  public LinkedList<String> getConfRoomLocationsAlphabetically() {
+    LinkedList<String> locations = new LinkedList<>();
+    for (Location thisLocation : DataBaseRepository.getInstance().getLocationDAO().getAll()) {
+
+      Pattern pattern = Pattern.compile("Conf", Pattern.CASE_INSENSITIVE);
+      Matcher matcher = pattern.matcher(thisLocation.getLongName());
+      boolean matchFound = matcher.find();
+      if (matchFound) {
+        locations.add(thisLocation.getLongName());
+      }
+    }
+    ;
+    Collections.sort(locations);
+    return locations;
   }
+
+  public boolean hasConflicts(
+      String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
+      throws Exception {
+
+    try {
+
+      String checkTable =
+          "SELECT * FROM " + roomReservationsTable + " WHERE room = ? AND eventDate = ?";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+      preparedStatement.setString(1, location);
+      preparedStatement.setDate(2, Date.valueOf(eventDate));
+
+      ResultSet times = preparedStatement.executeQuery();
+      while (times.next()) {
+
+        LocalTime registeredStart = LocalTime.parse(times.getString("startTime"));
+        LocalTime registeredEnd = LocalTime.parse(times.getString("endTime"));
+        if ((endTime.isAfter(registeredStart) && endTime.isBefore(registeredEnd))) return true;
+        if ((startTime.isAfter(registeredStart)) && startTime.isBefore(registeredEnd)) return true;
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  public List<ConfRoomRequest> allPastRequestsByUser(String user) throws Exception {
+
+    List<ConfRoomRequest> requestList = new ArrayList<>();
+
+    try {
+
+      String checkTable = "SELECT * FROM " + roomReservationsTable + " WHERE reservedBy = ?";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+      preparedStatement.setString(1, user);
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+
+        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
+        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
+        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
+        String room = rs.getString("Room");
+        String eventName = rs.getString("EventName");
+        String eventDescription = rs.getString("EventDescription");
+        String assignedTo = rs.getString("AssignedTo");
+
+        if (thisDate.isAfter(LocalDate.now())) continue;
+
+        if (thisDate.isEqual(LocalDate.now())) {
+          if (thisEndTime.isAfter(LocalTime.now())) continue;
+        }
+
+        ConfRoomRequest thisRequest =
+            new ConfRoomRequest(
+                thisDate,
+                thisStartTime,
+                thisEndTime,
+                room,
+                user,
+                eventName,
+                eventDescription,
+                assignedTo);
+        requestList.add(thisRequest);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return requestList;
+  }
+
+  public List<ConfRoomRequest> filterRequestsByDate(LocalDate date) throws Exception {
+
+    List<ConfRoomRequest> requestList = new ArrayList<>();
+
+    try {
+
+      String checkTable = "SELECT * FROM " + roomReservationsTable + " WHERE dateOrdered = ?";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+      preparedStatement.setDate(1, Date.valueOf(date));
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+
+        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
+        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
+        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
+        String room = rs.getString("Room");
+        String user = rs.getString("reservedBy");
+        String eventName = rs.getString("EventName");
+        String eventDescription = rs.getString("EventDescription");
+        String assignedTo = rs.getString("AssignedTo");
+
+        ConfRoomRequest thisRequest =
+            new ConfRoomRequest(
+                thisDate,
+                thisStartTime,
+                thisEndTime,
+                room,
+                user,
+                eventName,
+                eventDescription,
+                assignedTo);
+        requestList.add(thisRequest);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return requestList;
+  }
+
+  public void deleteRequest(String orderedBy, LocalDate orderDate) {
+    try {
+      PreparedStatement deleteFood =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
+
+      deleteFood.setString(1, orderedBy);
+      deleteFood.setDate(2, Date.valueOf(orderDate));
+      deleteFood.execute();
+
+      // remove from local Hashmap
+
+      System.out.println("FoodRequest deleted");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+    }
+  }
+
+  @Override
+  public List<ConfRoomRequest> getAll() {
+
+    List<ConfRoomRequest> requestList = new ArrayList<>();
+
+    try {
+
+      String checkTable = "SELECT * FROM " + roomReservationsTable;
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(checkTable);
+
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+
+        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
+        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
+        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
+        String room = rs.getString("Room");
+        String reservedBy = rs.getString("reservedBy");
+        String eventName = rs.getString("EventName");
+        String eventDescription = rs.getString("EventDescription");
+        String assignedTo = rs.getString("AssignedTo");
+
+        ConfRoomRequest thisRequest =
+            new ConfRoomRequest(
+                thisDate,
+                thisStartTime,
+                thisEndTime,
+                room,
+                reservedBy,
+                eventName,
+                eventDescription,
+                assignedTo);
+        requestList.add(thisRequest);
+      }
+    } catch (SQLException e) {
+      e.getMessage();
+      e.printStackTrace();
+    }
+    return requestList;
+  }
+
+  public ResultSet query(String[] columns, String whereClause, String[] whereArgs, String orderBy) {
+
+    StringBuilder queryString = new StringBuilder();
+    queryString.append("SELECT ");
+    if (columns != null) {
+      for (int i = 0; i < columns.length; i++) {
+        queryString.append(columns[i]);
+        if (i != (columns.length - 1)) {
+          queryString.append(",");
+        }
+      }
+    } else {
+      queryString.append("*");
+    }
+
+    queryString.append(" FROM ");
+    queryString.append(roomReservationsTable);
+
+    if (whereClause != null) {
+      queryString.append(" WHERE ");
+
+      if (whereClause.contains("?") && whereArgs != null && whereArgs.length > 0) {
+        for (String whereArg : whereArgs) {
+          whereClause = whereClause.replaceFirst("\\?", "'" + whereArg + "'");
+        }
+      }
+
+      queryString.append(whereClause);
+    }
+
+    if (orderBy != null) {
+      queryString.append(" ORDER BY ");
+      queryString.append(orderBy);
+    }
+
+    try {
+      return statement.executeQuery(queryString.toString());
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
+  public void delete(String target) {}
+
+  @Override
+  public void dropTable() {}
+
+  @Override
+  public void loadRemote(String pathToCSV) {}
+
+  @Override
+  public void importCSV(String path) {}
+
+  @Override
+  public void exportCSV(String path) throws IOException {}
 }

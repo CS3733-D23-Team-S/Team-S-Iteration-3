@@ -21,7 +21,10 @@ public enum Screen {
   SUBMITTED_MEAL_REQUESTS("views/NewSubmittedMealRequests.fxml"),
   SUBMITTED_ROOM_REQUESTS("views/NewSubmittedRoomRequests.fxml"),
   MAP_EDITOR("views/MapEditor.fxml"),
-  CSV_MANAGE("views/CSVPage.fxml");
+  //CSV_MANAGE("views/CSVPage.fxml"),
+
+  CSV_MANAGE("views/CSVPage.fxml"),
+  NEW_USER("views/newUserPopUp.fxml");
 
   private final String filename;
 
