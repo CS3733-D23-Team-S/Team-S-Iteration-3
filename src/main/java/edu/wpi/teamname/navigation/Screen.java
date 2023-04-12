@@ -35,7 +35,7 @@ public enum Screen {
   FLOWER_CART("views/flowersubmissiondetails.fxml"),
   FLOWER_REQTABLE("views/flowerrequesttable.fxml"),
   FLOWER_CONFIRMATION("views/flowerconfirmationpage.fxml"),
-  // CSV_MANAGE("views/CSVPage.fxml"),
+
   NEW_USER("views/newUserPopUp.fxml");
 
   private final String filename;

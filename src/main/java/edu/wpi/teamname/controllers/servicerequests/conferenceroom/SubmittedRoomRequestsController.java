@@ -10,15 +10,51 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 public class SubmittedRoomRequestsController {
 
   @FXML TableView submittedRoomRequestsTable;
   @FXML MFXButton backButton;
 
+  @FXML MFXButton navigationbutton;
+  @FXML MFXButton navigationbutton1;
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton roombutton;
+  @FXML MFXButton flowerbutton;
+  @FXML ImageView homeicon1;
+  @FXML ImageView homeicon;
+  @FXML ImageView backicon;
+  @FXML ImageView backicon1;
+  @FXML ImageView helpicon;
+
   IDAO<ConfRoomRequest, String> repo = DataBaseRepository.getInstance().getRoomRequestDAO();
 
   public void initialize() {
+    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+
+    homeicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon1.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          event.consume();
+        });
 
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 

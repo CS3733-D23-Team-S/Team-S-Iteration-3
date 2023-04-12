@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -45,6 +46,17 @@ public class RoomBookingController {
   @FXML DatePicker DateFilterPicker;
   @FXML MFXButton submittedRequestsButton;
 
+  @FXML MFXButton navigationbutton;
+  @FXML MFXButton navigationbutton1;
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton roombutton;
+  @FXML MFXButton flowerbutton;
+  @FXML ImageView homeicon1;
+  @FXML ImageView homeicon;
+  @FXML ImageView backicon;
+  @FXML ImageView backicon1;
+  @FXML ImageView helpicon;
+
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
   public ConfRoomDAO confRoomDAO = DataBaseRepository.getInstance().getConfRoomDAO();
@@ -62,8 +74,32 @@ public class RoomBookingController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     submittedRequestsButton.setOnMouseClicked(
         event -> Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS));
-
     DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getValue()));
+
+    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+
+    homeicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon1.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          event.consume();
+        });
 
     initializeRooms();
     initializeFeatureFilter();
@@ -71,9 +107,6 @@ public class RoomBookingController {
     dateHeaderTextField.setText(
         LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
     // filterDate(LocalDate.now());
-
-    filterDate(LocalDate.now());
-    System.out.println("LocalDate Now:" + LocalDate.now());
 
     // add current requests to UI
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {

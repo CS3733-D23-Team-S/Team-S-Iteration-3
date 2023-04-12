@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class RoomBookingDetailsController {
   @FXML MFXComboBox roomComboBox;
   @FXML MFXButton backButton;
   @FXML MFXButton clearButton;
+  @FXML MFXTextField staffMemberText;
   @FXML DatePicker roomBookingDate;
   @FXML MFXTextField startTimeField;
   @FXML MFXTextField endTimeField;
@@ -36,6 +38,16 @@ public class RoomBookingDetailsController {
   @Setter @Getter String endTime;
   @Setter @Getter String eventTitle;
   @Setter @Getter String eventDescription;
+  @FXML MFXButton navigationbutton;
+  @FXML MFXButton navigationbutton1;
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton roombutton;
+  @FXML MFXButton flowerbutton;
+  @FXML ImageView homeicon1;
+  @FXML ImageView homeicon;
+  @FXML ImageView backicon;
+  @FXML ImageView backicon1;
+  @FXML ImageView helpicon;
 
   RoomBookingController rbc = new RoomBookingController();
 
@@ -47,6 +59,30 @@ public class RoomBookingDetailsController {
     clearButton.setOnMouseClicked(event -> clearFields());
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
+    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+
+    homeicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    backicon1.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          event.consume();
+        });
     initializeRoomComboBox();
   }
 
@@ -78,6 +114,7 @@ public class RoomBookingDetailsController {
     startTimeField.clear();
     endTimeField.clear();
     eventTitleText.clear();
+    staffMemberText.clear();
     eventDescriptionText.clear();
   }
 }
