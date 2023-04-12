@@ -34,6 +34,12 @@ public class FlowerConfirmationController {
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
 
+    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
+    signagebutton.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
+
     addFlowerDelivery();
     clearCart();
   }

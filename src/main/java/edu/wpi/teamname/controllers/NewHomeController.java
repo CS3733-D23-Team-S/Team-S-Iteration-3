@@ -29,7 +29,7 @@ public class NewHomeController {
   public void initialize() {
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
-    // flowerRequestsButton.setOnMouseClicked(event -> goToFlowerPage());
+    flowerRequestsButton.setOnMouseClicked(event -> goToFlowerPage());
     // officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
     // furnitureRequestsButton.setOnMouseClicked(event -> goToFurniturePage());
     signageButton.setOnMouseClicked(event -> goToSignagePage());
@@ -83,9 +83,9 @@ public class NewHomeController {
     Navigation.navigate(Screen.ADMIN_PAGE);
   }
 
-  //    public void goToFlowerPage() {
-  //        Navigation.navigate(Screen.);
-  //    }
+  public void goToFlowerPage() {
+    Navigation.navigate(Screen.FLOWER_DELIVERY);
+  }
 
   //    public void goToOfficePage() {
   //        Navigation.navigate(Screen.MEAL_DELIVERY);

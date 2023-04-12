@@ -56,6 +56,12 @@ public class FlowerDeliveryController {
     helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
     homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
 
+    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
+    signagebutton.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(MEAL_DELIVERY1));
+    roombutton.setOnMouseClicked(event -> Navigation.navigate(ROOM_BOOKING));
+    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
+
     dbr.getListOfSize("small").forEach(System.out::println);
     dbr.getListOfSize("medium").forEach(System.out::println);
     sizesmall.setOnAction(event -> filterSmall());
