@@ -7,6 +7,7 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,6 +23,7 @@ public class LoginController {
   @FXML private PasswordField pfPassword;
 
   @FXML private TextField tfUsername;
+  @FXML private Hyperlink newUser;
 
   private String errorMessage = "";
 
@@ -69,7 +71,8 @@ public class LoginController {
   public void initialize() {
 
     loginManager = DataBaseRepository.getInstance();
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
+    newUser.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.NEW_USER));
+    //    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
 
     loginbutton.setOnMouseClicked(
         event -> {
