@@ -13,14 +13,30 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SubmittedMealsController {
-  @FXML private MFXButton submittedBack1;
+
   @FXML TableView submittedTableView;
+
+  @FXML private MFXButton roomButton2;
+  @FXML private MFXButton signagePage1;
+  // @FXML private MFXButton navigation1;
+  @FXML private MFXButton cancel;
+  @FXML private MFXButton mealButton;
+  // @FXML private MFXButton help;
+
+  @FXML private MFXButton subBack;
+  @FXML private MFXButton homeButton;
 
   IDAO<FoodDelivery, Integer> repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
 
   @FXML
   public void initialize() {
-    submittedBack1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    roomButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    mealButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    subBack.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     TableColumn<Food, String> column1 = new TableColumn<>("RequestID");
     column1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));

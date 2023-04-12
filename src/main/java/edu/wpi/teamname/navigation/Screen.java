@@ -16,10 +16,9 @@ public enum Screen {
   HELP_PAGE("views/HelpPage.fxml"),
   PRODUCT_DETAILS("views/ProductDetails.fxml"),
   PATHFINDING("views/Pathfinding.fxml"),
-  SIGNAGE_PAGE("edu/wpi/teamname/views/SignagePage.fxml"),
-  ORDER_CONFIRMATION("views/MealDeliveryOrderConfirmation.fxml"),
+  SIGNAGE_PAGE("views/SignagePage.fxml"),
   SUBMITTED_MEALS("views/ServiceRequestPages/SubmittedMeals.fxml"),
-  MEAL_DELIVERY_ORDER_CONFIRMATION("views/ServiceRequestPages.MealDeliveryOrderConfirmation.fxml"),
+  MEAL_DELIVERY_ORDER_CONFIRMATION("views/MealDeliveryOrderConfirmation.fxml"),
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
   NEW_USER("views/newUserPopUp.fxml");

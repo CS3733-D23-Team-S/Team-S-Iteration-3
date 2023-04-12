@@ -15,6 +15,8 @@ import org.controlsfx.control.tableview2.cell.TextField2TableCell;
 
 public class ProductDetailsController {
   @FXML private MFXButton back3;
+  @FXML private MFXButton homeButton;
+
   @FXML private MFXButton addCart;
   @FXML private MFXButton clear;
   @FXML private MFXTextField quantity;
@@ -26,10 +28,23 @@ public class ProductDetailsController {
   @FXML public Label fPrice;
   @FXML public Label prepTime;
 
+  @FXML MFXButton cancel;
+
+  @FXML MFXButton roomButton5;
+  @FXML MFXButton mealbutton;
+  @FXML MFXButton signagePage1;
+  @FXML MFXButton navigation1;
+
   public static int orderID;
   public static int itemCount;
 
   public void initialize() {
+
+    roomButton5.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+
+    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
     back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 

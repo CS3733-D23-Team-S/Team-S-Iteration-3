@@ -4,6 +4,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -108,13 +110,83 @@
       </Text>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="7">
          <children>
-            <MFXButton fx:id="back2" prefHeight="139.0" prefWidth="137.0" style="-fx-border-width: 9; -fx-border-color: F8BC54;" text="&lt;">
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/bwlogo.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="30.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <MFXButton fx:id="flowerbutton1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets top="800.0" />
+                  <Insets bottom="30.0" right="30.0" />
                </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="roomButton1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="mealButton2" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="signagePage1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="navigation1" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="back2" style="-fx-background-color: #122E59;" text=".">
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/backicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="200.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="cancel" style="-fx-background-color: #122E59;" text=".">
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/exiticon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MFXButton>
+            <MFXButton fx:id="help" style="-fx-background-color: #122E59;" text=".">
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/helpicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </MFXButton>
          </children></VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: d9d9d9;" GridPane.columnIndex="1" />
@@ -170,5 +242,25 @@
             </VBox>
          </children>
       </HBox>
+      <ImageView fx:id="topbarlogo" fitHeight="70.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/topbarLogo.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="220.0" />
+         </GridPane.margin>
+      </ImageView>
+      <MFXButton fx:id="homeButton" prefHeight="62.0" prefWidth="95.0" style="-fx-background-color: d9d9d9;" text=".">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/homeicon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <GridPane.margin>
+            <Insets left="1100.0" />
+         </GridPane.margin>
+      </MFXButton>
    </children>
 </GridPane>

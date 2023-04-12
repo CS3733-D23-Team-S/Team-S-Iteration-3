@@ -32,7 +32,7 @@ public class MealDeliveryController {
   @FXML MFXButton signagePage1;
 
   @FXML MFXButton mealbutton;
-  @FXML MFXButton roomButton;
+  @FXML MFXButton roomButton1;
   @FXML MFXButton flowerbutton; // //ADdd path to flowerbutton
   @FXML MFXButton homeButton;
   @FXML MFXButton exit;
@@ -50,9 +50,9 @@ public class MealDeliveryController {
     backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    // signagePage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    // mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    // roomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");

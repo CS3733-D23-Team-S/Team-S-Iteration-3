@@ -33,10 +33,25 @@ public class OrderDetailsController {
   @FXML private MFXButton submitted1;
   @FXML private MFXTextField request1;
 
+  @FXML private MFXButton flowerButton1;
+  @FXML private MFXButton roomButton1;
+  @FXML private MFXButton mealButton2;
+  @FXML private MFXButton signagePage1;
+  @FXML private MFXButton navigation1;
+  @FXML private MFXButton cancel;
+  @FXML private MFXButton homeButton;
+
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
   public void initialize() {
+    // flowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.))
+    roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // navigation1.setOnMouseClicked(event-> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     clearFields2();
     addedOrder();
@@ -75,7 +90,7 @@ public class OrderDetailsController {
 
             DBR.addFoodRequest(currentFoodDev);
 
-            Navigation.navigate(Screen.ORDER_CONFIRMATION);
+            Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
 
           } catch (Exception e) {
             e.printStackTrace();
