@@ -27,13 +27,13 @@
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
             <MFXTextField text="NodeID:" />
-            <Label fx:id="nodeID" prefHeight="44.0" prefWidth="80.0" text="Label" />
+            <Label fx:id="nodeIDLBL" prefHeight="44.0" prefWidth="80.0" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <MFXTextField text="X-coord:" />
-            <Label prefHeight="62.0" prefWidth="125.0" fx:id="xcoord">
+            <Label prefHeight="62.0" prefWidth="125.0" fx:id="xcoordLBL">
                <font>
                   <Font size="17.0" />
                </font>
@@ -43,19 +43,19 @@
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <MFXTextField text="Y-coord:" />
-            <Label fx:id="ycoord" prefHeight="52.0" prefWidth="81.0" text="Label" />
+            <Label fx:id="ycoordLBL" prefHeight="52.0" prefWidth="81.0" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <MFXTextField text="Floor:" />
-            <Label fx:id="floor" prefHeight="49.0" prefWidth="86.0" text="Label" />
+            <Label fx:id="floorLBL" prefHeight="49.0" prefWidth="86.0" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <MFXTextField text="Building" />
-            <Label fx:id="building" prefHeight="44.0" prefWidth="88.0" text="Label" />
+            <Label fx:id="buildingLBL" prefHeight="44.0" prefWidth="88.0" />
          </children>
       </HBox>
    </children>

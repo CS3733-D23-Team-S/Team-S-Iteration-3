@@ -51,7 +51,7 @@ public class HomeController {
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
     helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
-    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(MAP_EDITOR));
+    homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(BETTER_MAP_EDITOR));
     exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
 
     // Menu bar button handlers

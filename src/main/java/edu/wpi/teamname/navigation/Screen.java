@@ -18,6 +18,8 @@ public enum Screen {
   SIGNAGE_PAGE("edu/wpi/teamname/views/SignagePage.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   MAP_EDITOR("views/MapEditor.fxml"),
+  BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
+  NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml");
 
   private final String filename;

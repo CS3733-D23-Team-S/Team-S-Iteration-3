@@ -25,6 +25,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
@@ -49,12 +50,12 @@
                   <Font name="System Bold" size="29.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floorFourBTN" buttonType="RAISED" prefHeight="90.0" prefWidth="200.0" text="Floor 4">
+            <MFXButton fx:id="floorLowerOneBTN" buttonType="RAISED" prefHeight="90.0" prefWidth="200.0" text="Floor 4">
                <font>
                   <Font name="Open Sans Regular" size="29.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="floorFiveBTN" buttonType="RAISED" prefHeight="105.0" prefWidth="200.0" text="Floor 5">
+            <MFXButton fx:id="floorLowerTwoBTN" buttonType="RAISED" prefHeight="105.0" prefWidth="200.0" text="Floor 5">
                <font>
                   <Font name="Open Sans Regular" size="29.0" />
                </font>
@@ -91,9 +92,9 @@
                   <Font size="39.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="addLocationBTN" alignment="CENTER" buttonType="RAISED" depthLevel="LEVEL3" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="200.0" rippleColor="WHITE" text="Add" textAlignment="CENTER" wrapText="true">
+            <MFXButton fx:id="addLocationBTN" buttonType="RAISED" prefHeight="87.0" prefWidth="193.0" text="Add">
                <font>
-                  <Font name="Open Sans Regular" size="39.0" />
+                  <Font size="40.0" />
                </font>
             </MFXButton>
          </children>
@@ -175,6 +176,11 @@
                   <Font size="36.0" />
                </font>
             </MFXTextField>
+            <MFXTextField fx:id="locNodeIDTXT" alignment="CENTER" prefHeight="71.0" prefWidth="181.0" promptText="Nodeid">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </MFXTextField>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="9">
@@ -184,8 +190,23 @@
                   <Font size="32.0" />
                </font>
             </MFXTextField>
+            <MFXButton fx:id="clearFieldsButton" text="Clear">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </MFXButton>
          </children>
       </HBox>
-      <GesturePane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="9" />
+      <GesturePane fx:id="mapPane" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="8" />
+      <MFXTextField fx:id="mainTF" editable="false" prefHeight="77.0" prefWidth="1027.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </MFXTextField>
+      <MFXButton fx:id="pathfindingToHomeButton" alignment="BOTTOM_RIGHT" text="Home" GridPane.columnIndex="1" GridPane.rowIndex="9">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </MFXButton>
    </children>
 </GridPane>

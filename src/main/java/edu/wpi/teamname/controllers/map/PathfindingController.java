@@ -100,7 +100,7 @@ public class PathfindingController {
     // creates columns and populates them
 
     nodesTraversedCol.setCellValueFactory(new PropertyValueFactory<>("nodePassed"));
-    stepsTable.getColumns().addAll(nodesTraversedCol);
+    // stepsTable.getColumns().addAll(nodesTraversedCol);
     // stepsTable.setItems(olist);
   }
 }

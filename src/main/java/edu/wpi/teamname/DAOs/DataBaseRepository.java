@@ -1,6 +1,7 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.time.LocalDate;
@@ -84,5 +85,15 @@ public class DataBaseRepository {
     edgeDAO.exportCSV(outputPath);
     moveDAO.exportCSV(outputPath);
     locationDAO.exportCSV(outputPath);
+  }
+
+  public Node getNodebyXY(int x, int y) {
+    for (Node aNode : nodeDAO.getAll()) {
+      if (aNode.getXCoord() == x && aNode.getYCoord() == y) {
+        return aNode;
+      }
+    }
+
+    return null;
   }
 }
