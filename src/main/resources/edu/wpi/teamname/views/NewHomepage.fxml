@@ -50,7 +50,7 @@
                     </image>
                 </ImageView>
          </children></HBox>
-        <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Welcome!" textFill="#012d5a" translateX="600.0" GridPane.rowIndex="1">
+        <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Welcome!" textFill="#012d5a" translateX="650.0" GridPane.rowIndex="1">
             <font>
                 <Font size="96.0" />
             </font>
@@ -91,7 +91,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <MFXButton fx:id="officeRequestsButton" alignment="TOP_LEFT" prefHeight="115.0" prefWidth="527.0" style="-fx-background-radius: 20; -fx-background-color: FFFFFF; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Office Supply Requests" translateX="220.0" translateY="-50.0" GridPane.rowIndex="6">
+      <MFXButton fx:id="officeRequestsButton" alignment="TOP_LEFT" prefHeight="115.0" prefWidth="527.0" style="-fx-background-radius: 20; -fx-background-color: FFFFFF; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Office Supply Requests" translateX="270.0" translateY="-50.0" GridPane.rowIndex="6">
          <font>
             <Font size="36.0" />
          </font>
@@ -103,7 +103,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <MFXButton fx:id="furnitureRequestsButton" alignment="TOP_LEFT" prefHeight="115.0" prefWidth="476.0" style="-fx-background-radius: 20; -fx-background-color: FFFFFF; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Furniture Requests" translateX="850.0" translateY="-50.0" GridPane.rowIndex="6">
+      <MFXButton fx:id="furnitureRequestsButton" alignment="TOP_LEFT" prefHeight="115.0" prefWidth="476.0" style="-fx-background-radius: 20; -fx-background-color: FFFFFF; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Furniture Requests" translateX="900.0" translateY="-50.0" GridPane.rowIndex="6">
          <font>
             <Font size="36.0" />
          </font>
@@ -115,7 +115,12 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <MFXButton fx:id="signageButton" alignment="TOP_LEFT" prefHeight="72.0" prefWidth="392.0" style="-fx-background-radius: 20; -fx-background-color: D9D9D9; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Signage" translateX="600.0" translateY="250.0" GridPane.rowIndex="6">
+      <MFXButton fx:id="signageButton" alignment="TOP_LEFT" prefHeight="72.0" prefWidth="392.0" style="-fx-background-radius: 20; -fx-background-color: D9D9D9; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Signage" translateX="850.0" translateY="250.0" GridPane.rowIndex="6">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </MFXButton>
+      <MFXButton fx:id="navigationButton" alignment="TOP_LEFT" prefHeight="72.0" prefWidth="392.0" style="-fx-background-radius: 20; -fx-background-color: D9D9D9; -fx-border-color: #012D5A; -fx-border-radius: 20; -fx-border-width: 5;" text="Navigation" translateX="400.0" translateY="250.0" GridPane.rowIndex="6">
          <font>
             <Font size="36.0" />
          </font>

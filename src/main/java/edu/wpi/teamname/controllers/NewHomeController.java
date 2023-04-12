@@ -15,6 +15,7 @@ public class NewHomeController {
     @FXML MFXButton officeRequestsButton;
     @FXML MFXButton furnitureRequestsButton;
     @FXML MFXButton signageButton;
+    @FXML MFXButton navigationButton;
     @FXML ImageView userIcon;
     @FXML ImageView helpIcon;
     @FXML ImageView mealIcon;
@@ -32,6 +33,7 @@ public class NewHomeController {
        // officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
        // furnitureRequestsButton.setOnMouseClicked(event -> goToFurniturePage());
         signageButton.setOnMouseClicked(event -> goToSignagePage());
+        navigationButton.setOnMouseClicked(event -> goToNavigationPage());
 
         Image MealIcon =
                 new Image(Main.class.getResource("./HomepageImages/MealIcon.png").toString());
@@ -75,6 +77,10 @@ public class NewHomeController {
     public void goToSignagePage() {
         Navigation.navigate(Screen.SIGNAGE_PAGE);
     }
+    public void goToNavigationPage() {
+        Navigation.navigate(Screen.PATHFINDING);
+    }
+
 //    public void goToFlowerPage() {
 //        Navigation.navigate(Screen.);
 //    }
