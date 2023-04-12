@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
   public static String room;
@@ -24,7 +25,7 @@ public class FlowerSubmissionController {
   @FXML MFXButton flowerbutton;
   @FXML ImageView helpicon;
   @FXML ImageView homeicon;
-  @FXML MenuButton locationdrop;
+  @FXML SearchableComboBox locationdrop;
   @FXML MFXButton mealbutton;
   @FXML MFXButton navigationbutton;
   @FXML MFXTextField requestfield;
