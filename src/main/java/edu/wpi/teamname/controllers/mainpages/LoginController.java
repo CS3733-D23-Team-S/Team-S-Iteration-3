@@ -1,29 +1,35 @@
 package edu.wpi.teamname.controllers.mainpages;
 
 import static edu.wpi.teamname.navigation.Screen.HOME;
+import static edu.wpi.teamname.navigation.Screen.WELCOME_PAGE;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class LoginController {
   DataBaseRepository loginManager;
-  @FXML private MFXButton backButton;
+  @FXML ImageView backIcon;
+  @FXML MFXButton navigationbutton;
+  @FXML MFXButton signagebutton;
+  @FXML Label errormessageLabel;
 
-  @FXML private Label errormessageLabel;
+  @FXML MFXButton loginbutton;
 
-  @FXML private MFXButton loginbutton;
+  @FXML PasswordField pfPassword;
 
   @FXML private PasswordField pfPassword;
 
   @FXML private TextField tfUsername;
   @FXML private Hyperlink newUser;
+  @FXML TextField tfUsername;
 
   private String errorMessage = "";
 
@@ -74,6 +80,7 @@ public class LoginController {
     newUser.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.NEW_USER));
     //    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.WELCOME_PAGE));
 
+    backIcon.setOnMouseClicked(event -> Navigation.navigate(WELCOME_PAGE));
     loginbutton.setOnMouseClicked(
         event -> {
           errorMessage = "";
