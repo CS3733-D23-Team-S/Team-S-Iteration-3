@@ -219,7 +219,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
           connection
               .getConnection()
               .prepareStatement(
-                  "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
+                  "DELETE FROM " + roomReservationsTable + " WHERE reservedby = ? AND dateordered = ?");
 
       deleteFood.setString(1, orderedBy);
       deleteFood.setDate(2, Date.valueOf(orderDate));
