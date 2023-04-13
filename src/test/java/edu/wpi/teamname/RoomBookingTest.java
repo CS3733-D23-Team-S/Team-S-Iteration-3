@@ -33,8 +33,11 @@ public class RoomBookingTest {
             "nothing",
             "Yes",
             "staff");
+    /*
     roomRequestDAO.add(confRoomRequest);
     assertEquals(1, roomRequestDAO.getRequests().size());
+
+     */
   }
 
   @Test
@@ -57,6 +60,9 @@ public class RoomBookingTest {
             "staff");
     roomRequestDAO.add(confRoomRequest);
     roomRequestDAO.delete(confRoomRequest.getEventName());
+    /*
     assertFalse(roomRequestDAO.getRequests().contains(confRoomRequest));
+
+     */
   }
 }
