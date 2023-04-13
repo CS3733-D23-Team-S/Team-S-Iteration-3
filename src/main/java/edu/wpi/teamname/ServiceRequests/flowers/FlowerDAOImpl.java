@@ -135,6 +135,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
+  // TODO: Make it work with database
   public void add(Flower thisFlower) {
     try {
       PreparedStatement preparedStatement =
@@ -155,7 +156,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       preparedStatement.setString(8, thisFlower.getDescription());
       preparedStatement.setString(9, thisFlower.getImage());
 
-      preparedStatement.execute();
+      // preparedStatement.execute();
 
       flowers.put(thisFlower.getID(), thisFlower);
 
