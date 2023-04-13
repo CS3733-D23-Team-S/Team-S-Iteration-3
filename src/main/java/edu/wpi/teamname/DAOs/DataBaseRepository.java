@@ -38,17 +38,18 @@ public class DataBaseRepository {
 
   @Getter IDAO<Flower, Integer> flowerDAO;
   @Getter IDAO<FlowerDelivery, Integer> flowerDeliveryDAO;
+  @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
     locationDAO = new LocationDAOImpl();
     edgeDAO = new EdgeDAOImpl();
+    userDAO = new UserDAOImpl();
     roomRequestDAO = new RoomRequestDAO();
     confRoomDAO = new ConfRoomDAO();
     foodDAO = new FoodDAOImpl();
     foodDeliveryDAO = new FoodDeliveryDAOImp();
-
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
   }
@@ -69,12 +70,11 @@ public class DataBaseRepository {
     confRoomDAO.initTable(connection.getConferenceRoomTables());
     foodDAO.initTable(connection.getFoodTable());
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
-
+    userDAO.initTable(connection.getLoginTable());
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
-
     flowerDAO.initTable(connection.getFlowerTable());
     flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
     flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
@@ -83,8 +83,8 @@ public class DataBaseRepository {
     foodDeliveryDAO.loadRemote("This means nothing");
   }
 
-  public boolean login(String text, String text1) {
-    return true;
+  public boolean login(String text, String text1) throws Exception {
+    return userDAO.login(text, text1);
   }
 
   public String processMoveRequest(int newLocNodeID, String location, LocalDate date)

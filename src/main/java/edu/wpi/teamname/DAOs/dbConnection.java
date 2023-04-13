@@ -13,6 +13,7 @@ public class dbConnection {
   @Getter final String edgesTable = schemaName + "." + "edges";
   @Getter final String moveTable = schemaName + "." + "moves";
   @Getter final String locationTable = schemaName + "." + "locations";
+  @Getter final String loginTable = schemaName + "." + "login";
 
   @Getter final String flowerDeliveryTable = schemaName + "." + "flowerRequests";
   @Getter final String flowerTable = schemaName + "." + "flowers";

@@ -12,11 +12,12 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.Getter;
 
-public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
+public class RoomRequestDAO implements IDAO<ConfRoomRequest, ConfRoomRequest> {
   protected static final String schemaName = "hospitaldb";
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
-  LinkedList<ConfRoomRequest> requests = new LinkedList<>();
+  @Getter LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
   static RoomRequestDAO single_instance = null;
   private Statement statement;
@@ -100,8 +101,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   }
 
   public boolean hasConflicts(
-      String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
-      throws Exception {
+      String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime) {
 
     try {
 
@@ -277,6 +277,10 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   }
 
   @Override
+  public ConfRoomRequest getRow(ConfRoomRequest target) {
+    return null;
+  }
+
   public ConfRoomRequest getRow(String target) {
     return null;
   }
@@ -325,7 +329,9 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   }
 
   @Override
-  public void delete(String target) {}
+  public void delete(ConfRoomRequest target) {
+    requests.remove(target);
+  }
 
   @Override
   public void dropTable() {}

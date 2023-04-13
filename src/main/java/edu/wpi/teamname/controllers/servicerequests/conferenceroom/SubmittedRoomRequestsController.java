@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,7 +28,7 @@ public class SubmittedRoomRequestsController {
   @FXML ImageView backicon1;
   @FXML ImageView helpicon;
 
-  IDAO<ConfRoomRequest, String> repo = DataBaseRepository.getInstance().getRoomRequestDAO();
+  RoomRequestDAO repo = DataBaseRepository.getInstance().getRoomRequestDAO();
 
   public void initialize() {
     navigationbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));

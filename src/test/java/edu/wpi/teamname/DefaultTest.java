@@ -7,9 +7,9 @@ package edu.wpi.teamname;
 import static org.junit.jupiter.api.Assertions.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.DataBaseRepository;
-import edu.wpi.teamname.databaseredo.orms.Location;
-import edu.wpi.teamname.databaseredo.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.DAOs.orms.NodeType;
+import edu.wpi.teamname.pathfinding.AStar;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,14 +62,14 @@ public class DefaultTest {
     database.load();
   }
 
-  /*@Test
+  @Test
   public void testAlgorithm() {
     AStar a = new AStar();
     List<Integer> res = new ArrayList<>();
     res.add(1805);
     res.add(1810);
 
-    assertEquals(a.findPath("75 Lobby", "75 Lobby Information Desk"), res);
+    assertEquals(a.findPath(1805, 1810), res);
 
     List<Integer> res2 = new ArrayList<>();
     res2.add(640);
@@ -78,16 +78,17 @@ public class DefaultTest {
     res2.add(655);
     res2.add(660);
 
-    assertEquals(a.findPath("Staircase K1 Floor 1", "Ambulance Parking Exit Floor 1"), res2);
-  }*/
+    assertEquals(a.findPath(640, 660), res2);
+  }
 
   @Test
   public void testLogin() throws Exception {
-    // setup();
-    // getListOfEligibleRooms().forEach(System.out::println);
-    /*LoginDAOImpl LDaoI = LoginDAOImpl.getInstance();
-    Exception exception = assertThrows(Exception.class, () -> LDaoI.login("aaaa", "bbbb"));
-    assertEquals("User does not exist", exception.getMessage());
-    assertTrue(LDaoI.login("admin", "admin"));*/
+    setup();
+    //    getListOfEligibleRooms().forEach(System.out::println);
+    DataBaseRepository LDaoI = DataBaseRepository.getInstance();
+
+    assertThrows(Exception.class, () -> LDaoI.login("aaaaaa", "bbbbb"));
+    assertFalse(LDaoI.login("admin", "bbbb"));
+    assertTrue(LDaoI.login("admin", "admin"));
   }
 }
