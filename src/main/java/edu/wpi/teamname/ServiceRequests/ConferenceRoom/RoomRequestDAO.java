@@ -279,8 +279,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     return requestList;
   }
 
-
-
   public ConfRoomRequest getRow(String target) {
     return null;
   }
