@@ -12,11 +12,12 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.Getter;
 
 public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
-  LinkedList<ConfRoomRequest> requests = new LinkedList<>();
+  @Getter LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
   static RoomRequestDAO single_instance = null;
   private Statement statement;
@@ -219,7 +220,9 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
           connection
               .getConnection()
               .prepareStatement(
-                  "DELETE FROM " + roomReservationsTable + " WHERE orderer = ? AND  orderDate = ?");
+                  "DELETE FROM "
+                      + roomReservationsTable
+                      + " WHERE reservedby = ? AND dateordered = ?");
 
       deleteFood.setString(1, orderedBy);
       deleteFood.setDate(2, Date.valueOf(orderDate));
@@ -276,7 +279,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     return requestList;
   }
 
-  @Override
   public ConfRoomRequest getRow(String target) {
     return null;
   }
@@ -325,7 +327,11 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   }
 
   @Override
-  public void delete(String target) {}
+  public void delete(String target) {
+    for (ConfRoomRequest roomRequest : getRequests()) {
+      if (roomRequest.eventName.equals(target)) requests.remove(roomRequest);
+    }
+  }
 
   @Override
   public void dropTable() {}

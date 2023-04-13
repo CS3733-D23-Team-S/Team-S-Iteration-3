@@ -100,7 +100,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Override
   public Node getRow(Integer target) {
-    return null;
+    return nodes.get(target);
   }
 
   @Override

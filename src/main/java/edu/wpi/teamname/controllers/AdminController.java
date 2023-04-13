@@ -103,7 +103,7 @@ public class AdminController {
   }
 
   public void goToMealDeliveryPage() {
-    Navigation.navigate(Screen.MEAL_DELIVERY1);
+    Navigation.navigate(Screen.SUBMITTED_MEALS);
   }
 
   public void goToRoomReservationPage() {

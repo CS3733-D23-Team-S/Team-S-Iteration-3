@@ -135,6 +135,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
+  // TODO: Make it work with database
   public void add(Flower thisFlower) {
     try {
       PreparedStatement preparedStatement =
@@ -143,7 +144,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
+                      + " (ID, flowerName, size, price, quantity, Message, SoldOut, description, image) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
       preparedStatement.setString(2, thisFlower.getName());
@@ -155,7 +156,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       preparedStatement.setString(8, thisFlower.getDescription());
       preparedStatement.setString(9, thisFlower.getImage());
 
-      preparedStatement.execute();
+      // preparedStatement.execute();
 
       flowers.put(thisFlower.getID(), thisFlower);
 
@@ -264,14 +265,6 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
-    }
-  }
-
-  public Flower retrieveFlower(Integer ID) {
-    if (flowers.get(ID) == null) {
-      throw new NullPointerException("Flower not in database\n");
-    } else {
-      return flowers.get(ID);
     }
   }
 
