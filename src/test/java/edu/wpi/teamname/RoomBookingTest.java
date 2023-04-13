@@ -56,7 +56,7 @@ public class RoomBookingTest {
             "Yes",
             "staff");
     roomRequestDAO.add(confRoomRequest);
-    roomRequestDAO.delete(confRoomRequest.getEventName());
+    roomRequestDAO.delete(confRoomRequest);
     assertFalse(roomRequestDAO.getRequests().contains(confRoomRequest));
   }
 }
