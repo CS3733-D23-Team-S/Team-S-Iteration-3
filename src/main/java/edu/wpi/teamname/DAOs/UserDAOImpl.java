@@ -76,12 +76,13 @@ public class UserDAOImpl implements IDAO<User, String> {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String loginTableConstruct =
-          "CREATE TYPE permissionLevel AS ENUM"
-              + " ('admin','general','guest') AND CREATE TABLE IF NOT EXISTS "
+          //          "CREATE TYPE permissionLevel AS ENUM"
+          //              + " ('admin','general','guest') AND
+          "CREATE TABLE IF NOT EXISTS "
               + name
               + " (username varchar(100) UNIQUE PRIMARY KEY, "
               + "password varchar(100) NOT NULL, "
-              + "permission permissionLevel)";
+              + "permission int)";
       stmt.execute(loginTableConstruct);
       User admin = new User("admin", "admin", User.Permission.ADMIN);
       listOfUsers.put("admin", admin);
