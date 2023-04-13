@@ -1,8 +1,8 @@
 package edu.wpi.teamname.controllers.mainpages;
 
-import static edu.wpi.teamname.navigation.Screen.CSV_MANAGE;
-import static edu.wpi.teamname.navigation.Screen.PATHFINDING;
+import static edu.wpi.teamname.navigation.Screen.*;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -40,20 +40,33 @@ public class HomeController {
   @FXML ImageView mealdeliveryIcon;
 
   @FXML MFXButton homeToPathfindingButton;
+  @FXML MFXButton goflower;
 
-  public static int cartID = 1;
+  @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
+
+  // public static int cartID = 0;
+
+  // public static int delID;
+
+  // public static OrderItem cart;
 
   @FXML
   public void initialize() {
+
+    // delID = DBR.getLastFoodDevID();
+
+    //  cart = new OrderItem(cartID++);
+
     // Adding the menu option to exit application
 
     mealDeliveryButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     logoutButton.setOnMouseClicked(event -> goToLoginPage());
-    helpIcon.setOnMouseClicked(event -> goToHelpPage());
+    // **helpIcon.setOnMouseClicked(event -> goToHelpPage());
     exitOption.setOnAction(event -> exitApplication());
     homeToPathfindingButton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
-    exportButton.setOnMouseClicked(event -> Navigation.navigate(CSV_MANAGE));
+    exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(CSV_MANAGE));
+    goflower.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
     // Menu bar button handlers
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
@@ -87,13 +100,8 @@ public class HomeController {
 
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     mealDeliveryButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    //  mealdeliveryButton.setOnMouseClicked(event -> incrementCart());
 
     reserveRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-  }
-
-  public void incrementCart() {
-    cartID++;
   }
 
   public void goToRoomPage() {

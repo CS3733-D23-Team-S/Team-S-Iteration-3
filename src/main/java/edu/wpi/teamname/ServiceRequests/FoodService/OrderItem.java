@@ -3,14 +3,22 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 import java.util.HashMap;
 import lombok.Getter;
 
+/* TODO:
+       add Java Docs
+       StringBuilder for finale in toString()?
+*/
 public class OrderItem {
   // This is the cart class
   @Getter private int cartID;
-  @Getter private HashMap<Integer, Food> theCart;
+  private HashMap<Integer, Food> theCart;
 
   public OrderItem(int cartID) {
     this.cartID = cartID;
     theCart = new HashMap<Integer, Food>();
+  }
+
+  public HashMap<Integer, Food> getTheCart() {
+    return theCart;
   }
 
   public double getTotalPrice() {

@@ -1,17 +1,18 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.DAOs.IDataPack;
 import java.sql.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @SuppressWarnings("ALL")
-public class FoodDelivery {
+public class FoodDelivery implements IDataPack {
 
   @Getter private int deliveryID;
   @Getter private String cart;
   @Getter @Setter private Date date;
   @Getter @Setter private Time time;
-  @Getter private int room;
+  @Getter private String location;
   @Getter @Setter private String orderer;
   @Getter @Setter private String assignedTo;
   @Getter @Setter private String orderStatus;
@@ -19,24 +20,76 @@ public class FoodDelivery {
   @Getter @Setter private String notes = "";
 
   public FoodDelivery(
-      int deliveryID,
-      OrderItem cart,
-      Date date,
-      Time time,
-      int room,
+      int id,
+      String cart,
+      Date d,
+      Time t,
+      String location,
       String orderedBy,
       String assignedTo,
-      String orderStatus,
+      String s,
+      double c,
       String notes) {
-    this.deliveryID = deliveryID;
-    this.cart = cart.toString();
-    this.date = date;
-    this.time = time;
-    this.room = room;
+
+    this.deliveryID = id;
+    this.cart = cart;
+    this.date = d;
+    this.time = t;
+    this.location = location;
     this.orderer = orderedBy;
     this.assignedTo = assignedTo;
-    this.orderStatus = orderStatus;
-    this.cost = cart.getTotalPrice();
+    this.orderStatus = s;
+    this.cost = c;
     this.notes = notes;
+  }
+
+  @Override
+  public String toString() {
+    String finale =
+        "FoodDelivery{cart = "
+            + cart
+            + ", date = "
+            + date.toString()
+            + ", time = "
+            + time.toString()
+            + ", location = "
+            + location
+            + ", orderer = "
+            + orderer
+            + ", assignedTo = "
+            + assignedTo
+            + ", status = "
+            + orderStatus
+            + ", cost = "
+            + cost
+            + ", notes = "
+            + notes
+            + "}";
+
+    return finale;
+  }
+
+  @Override
+  public String toCSVString() {
+    String finale =
+        cart
+            + ","
+            + date.toString()
+            + ","
+            + time.toString()
+            + ","
+            + location
+            + ","
+            + orderer
+            + ","
+            + assignedTo
+            + ","
+            + orderStatus
+            + ","
+            + cost
+            + ","
+            + notes;
+
+    return finale;
   }
 }

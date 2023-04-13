@@ -6,32 +6,30 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ConfRoomRequest {
-  static int reservationIDUpdater;
-  @Getter @Setter int reservationID;
-  @Getter @Setter LocalDate date;
+
+  @Getter @Setter LocalDate orderDate;
+  @Getter @Setter LocalDate eventDate;
   @Getter @Setter LocalTime startTime;
   @Getter @Setter LocalTime endTime;
-  @Getter @Setter Room room;
+  @Getter @Setter String room;
   @Getter @Setter String reservedBy;
   @Getter @Setter String eventName;
   @Getter @Setter String eventDescription;
-  @Getter @Setter String assignedTo;
+  @Getter @Setter String assignedTo = "NA";
   @Getter @Setter Status orderStatus;
-  @Getter @Setter String notes = "";
+  @Getter @Setter String notes;
 
   public ConfRoomRequest(
-      LocalDate date,
+      LocalDate eventDate,
       LocalTime startTime,
       LocalTime endTime,
-      Room room,
+      String room,
       String reservedBy,
       String eventName,
       String eventDescription,
-      String assignedTo,
-      Status orderStatus,
-      String notes) {
-    reservationID = createReservationID();
-    this.date = date;
+      String assignedTo) {
+    this.orderDate = LocalDate.now();
+    this.eventDate = eventDate;
     this.startTime = startTime;
     this.endTime = endTime;
     this.room = room;
@@ -39,17 +37,6 @@ public class ConfRoomRequest {
     this.eventName = eventName;
     this.eventDescription = eventDescription;
     this.assignedTo = assignedTo;
-    this.orderStatus = orderStatus;
-    this.notes = notes;
-  }
-
-  public int createReservationID() {
-    ++reservationIDUpdater;
-    this.reservationID = reservationIDUpdater;
-    return reservationID;
-  }
-
-  public String getRoomId() {
-    return Integer.toString(room.getId());
+    this.orderStatus = Status.Received;
   }
 }

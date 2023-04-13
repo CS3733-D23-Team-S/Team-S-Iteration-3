@@ -1,6 +1,6 @@
 package edu.wpi.teamname;
 
-import edu.wpi.teamname.databaseredo.dbConnection;
+import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class App extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    Navigation.navigate(Screen.LOGIN_PAGE);
+    Navigation.navigate(Screen.SIGNAGE_PAGE);
   }
 
   @Override

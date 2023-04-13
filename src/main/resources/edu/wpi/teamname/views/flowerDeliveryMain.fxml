@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="25.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="25.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints />
+    </rowConstraints>
+    <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+            <children>
+                <ImageView fx:id="homeicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/homeicon.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
+            <children>
+                <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/usericon.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" />
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+            <children>
+                <ImageView fx:id="topbarlogo" fitHeight="45.0" fitWidth="625.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/topbarLogo.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9">
+            <children>
+                <MFXButton fx:id="viewcartbutton" alignment="CENTER" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="View Cart" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </MFXButton>
+            </children>
+        </HBox>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="10">
+            <children>
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/bwlogo.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="50.0" />
+                    </VBox.margin>
+                </ImageView>
+                <MFXButton fx:id="navigationbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                    </VBox.margin>
+                </MFXButton>
+                <MFXButton fx:id="signagebutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                    </VBox.margin>
+                </MFXButton>
+                <MFXButton fx:id="mealbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                    </VBox.margin>
+                </MFXButton>
+                <MFXButton fx:id="roombutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                    </VBox.margin>
+                </MFXButton>
+                <MFXButton fx:id="flowerbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="Open Sans Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="30.0" right="30.0" />
+                    </VBox.margin>
+                </MFXButton>
+                <ImageView fx:id="backicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/backicon.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" right="150.0" top="140.0" />
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="exiticon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/exiticon.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" right="150.0" top="10.0" />
+                    </VBox.margin>
+                </ImageView>
+                <ImageView fx:id="helpicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/helpicon.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets right="150.0" top="10.0" />
+                    </VBox.margin>
+                </ImageView>
+            </children>
+        </VBox>
+      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Text>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <MFXTextField fx:id="flowersearch" prefHeight="51.0" prefWidth="297.0" promptText="Search flowers...">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></MFXTextField>
+            <MenuButton fx:id="sizedrop" mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="Size" textFill="#122e59">
+              <items>
+                <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
+                <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
+                  <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
+              </items>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </MenuButton>
+            <MFXButton fx:id="clearfilter" prefHeight="51.0" prefWidth="150.0" text="Clear FIlters">
+               <font>
+                  <Font name="Open Sans Regular" size="18.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </HBox>
+      <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <HBox fx:id="hbox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+    </children>
+   <effect>
+      <Blend />
+   </effect>
+</GridPane>
