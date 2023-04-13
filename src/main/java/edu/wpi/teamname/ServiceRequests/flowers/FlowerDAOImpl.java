@@ -267,14 +267,6 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
-  public Flower retrieveFlower(Integer ID) {
-    if (flowers.get(ID) == null) {
-      throw new NullPointerException("Flower not in database\n");
-    } else {
-      return flowers.get(ID);
-    }
-  }
-
   public List<Flower> getListSize(String size) {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();

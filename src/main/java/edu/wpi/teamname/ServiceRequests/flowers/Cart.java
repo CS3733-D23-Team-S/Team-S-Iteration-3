@@ -20,7 +20,7 @@ public class Cart {
   public double getTotalPrice() {
     double totalPrice = 0;
     for (Flower flower : cartItems) {
-      totalPrice += flower.getPrice();
+      totalPrice += flower.getPrice() * flower.getQuantity();
     }
 
     return totalPrice;
