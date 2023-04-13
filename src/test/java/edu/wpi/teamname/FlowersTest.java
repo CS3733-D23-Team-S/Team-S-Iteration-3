@@ -45,7 +45,8 @@ public class FlowersTest {
     Cart cart = new Cart(1000);
     Flower flower2 =
         new Flower(1001, "flower2", Size.SMALL, 20.0, 3, "waaaaaa", false, "Flower2", "image");
-
+    flower1 =
+        new Flower(1000, "test flower", Size.LARGE, 10.0, 1, "Hello", false, "Flower", "image");
     cart.addFlowerItem(flower1);
     cart.addFlowerItem(flower2);
 

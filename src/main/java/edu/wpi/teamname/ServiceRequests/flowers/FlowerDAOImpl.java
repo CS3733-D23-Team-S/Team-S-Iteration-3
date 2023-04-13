@@ -143,7 +143,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
+                      + " (ID, flowerName, size, price, quantity, Message, SoldOut, description, image) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
       preparedStatement.setString(2, thisFlower.getName());
