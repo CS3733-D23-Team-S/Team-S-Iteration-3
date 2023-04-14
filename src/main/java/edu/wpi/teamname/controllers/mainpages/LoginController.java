@@ -55,7 +55,8 @@ public class LoginController {
       isValid = loginManager.login(tfUsername.getText(), pfPassword.getText());
       if (errorMessage.isEmpty() && !isValid) {
         errorMessage = "Invalid Password!";
-      } else {
+      }
+      if (!isValid) {
         errorMessage += "\nInvalid Password!";
       }
     } catch (Exception e) {
@@ -79,7 +80,6 @@ public class LoginController {
         event -> {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
-
             Navigation.navigate(HOME);
           }
         });

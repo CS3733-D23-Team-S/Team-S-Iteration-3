@@ -43,7 +43,7 @@ public class RoomBookingTest {
     assertEquals(7, confRoomDAO.conferenceRooms.size());
   }
 
-  @Test
+  @org.junit.Test
   public void deleteRequestTest() {
     confRoomRequest =
         new ConfRoomRequest(
@@ -56,7 +56,7 @@ public class RoomBookingTest {
             "Yes",
             "staff");
     roomRequestDAO.add(confRoomRequest);
-    roomRequestDAO.delete(confRoomRequest);
+    roomRequestDAO.delete(confRoomRequest.getRoom());
     assertFalse(roomRequestDAO.getRequests().contains(confRoomRequest));
   }
 }

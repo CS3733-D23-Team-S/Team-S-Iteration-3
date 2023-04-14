@@ -64,23 +64,23 @@ public class NewHomeController {
     navigationButton.setOnMouseClicked(event -> goToNavigationPage());
     adminButton.setOnMouseClicked(event -> goToAdminPage());
 
-    Image MealIcon = new Image(Main.class.getResource("./HomepageImages/MealIcon.png").toString());
+    Image MealIcon = new Image(Main.class.getResource("HomepageImages/MealIcon.png").toString());
     mealIcon.setImage(MealIcon);
 
     Image ConferenceIcon =
-        new Image(Main.class.getResource("./HomepageImages/ConferenceRoom.png").toString());
+        new Image(Main.class.getResource("HomepageImages/ConferenceRoom.png").toString());
     conferenceIcon.setImage(ConferenceIcon);
 
     Image FlowerIcon =
-        new Image(Main.class.getResource("./HomepageImages/FlowerIcon.png").toString());
+        new Image(Main.class.getResource("HomepageImages/FlowerIcon.png").toString());
     flowerIcon.setImage(FlowerIcon);
 
     Image OfficeIcon =
-        new Image(Main.class.getResource("./HomepageImages/OfficeSupplyIcon.png").toString());
+        new Image(Main.class.getResource("HomepageImages/OfficeSupplyIcon.png").toString());
     officeIcon.setImage(OfficeIcon);
 
     Image FurnitureIcon =
-        new Image(Main.class.getResource("./HomepageImages/FurnitureIcon2.png").toString());
+        new Image(Main.class.getResource("HomepageImages/FurnitureIcon2.png").toString());
     furnitureIcon.setImage(FurnitureIcon);
 
     navbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));

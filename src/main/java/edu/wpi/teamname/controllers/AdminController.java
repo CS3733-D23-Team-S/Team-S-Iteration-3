@@ -48,19 +48,19 @@ public class AdminController {
     roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
     exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
-    Image HomeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
+    Image HomeIcon = new Image(Main.class.getResource("images/homeicon.png").toString());
     homeIcon.setImage(HomeIcon);
 
-    Image HelpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
+    Image HelpIcon = new Image(Main.class.getResource("images/helpicon.png").toString());
     helpIcon.setImage(HelpIcon);
 
-    Image ProfileIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
+    Image ProfileIcon = new Image(Main.class.getResource("images/usericon.png").toString());
     userIcon.setImage(ProfileIcon);
 
-    Image BackIcon = new Image(Main.class.getResource("./images/backicon.png").toString());
+    Image BackIcon = new Image(Main.class.getResource("images/backicon.png").toString());
     backIcon.setImage(BackIcon);
 
-    Image TopBarIcon = new Image(Main.class.getResource("./images/topbarlogo.png").toString());
+    Image TopBarIcon = new Image(Main.class.getResource("images/topbarLogo.png").toString());
     topbarlogo.setImage(TopBarIcon);
   }
   // Functions to merge
