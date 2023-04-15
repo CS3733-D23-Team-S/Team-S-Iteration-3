@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.NewUITemplateController">
    <left>
-      <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../../java/edu/wpi/teamname/controllers/stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
+      <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../Stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints fx:id="menucol1" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
           <ColumnConstraints fx:id="menucol2" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -92,7 +92,7 @@
       </GridPane>
    </left>
    <top>
-      <GridPane prefHeight="90.0" prefWidth="1600.0" styleClass="topbar" stylesheets="@../../../../../java/edu/wpi/teamname/controllers/stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="90.0" prefWidth="1600.0" styleClass="topbar" stylesheets="@../../../../Stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" prefWidth="240.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
@@ -110,7 +110,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="top" stylesheets="@../../../../../java/edu/wpi/teamname/controllers/stylesheets/UITemplateCSS.css" GridPane.rowSpan="2">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="top" stylesheets="@../../../../Stylesheets/UITemplateCSS.css" GridPane.rowSpan="2">
                <children>
                   <ImageView fx:id="backIcon" fitHeight="30.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>

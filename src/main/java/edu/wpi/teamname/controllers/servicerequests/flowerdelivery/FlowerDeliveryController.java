@@ -32,15 +32,7 @@ public class FlowerDeliveryController {
   @FXML MFXTextField flowersearch;
   @FXML HBox hbox1;
   @FXML HBox hbox2;
-  @FXML ImageView helpicon;
-  @FXML ImageView homeicon;
-  @FXML MFXButton mealbutton;
-  @FXML MFXButton navigationbutton;
-  @FXML MenuButton pricedrop;
-  @FXML MFXButton roombutton;
-  @FXML MFXButton signagebutton;
   @FXML MenuButton sizedrop;
-  @FXML ImageView topbarlogo;
   @FXML MFXButton viewcartbutton;
   @FXML MenuItem sizesmall;
   @FXML MenuItem sizenormal;
@@ -51,16 +43,6 @@ public class FlowerDeliveryController {
   public void initialize() {
 
     viewcartbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_CART));
-    backicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
-    exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
-    helpicon.setOnMouseClicked(event -> Navigation.navigate(HELP_PAGE));
-    homeicon.setOnMouseClicked(event -> Navigation.navigate(HOME));
-
-    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(PATHFINDING));
-    signagebutton.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(MEAL_DELIVERY1));
-    roombutton.setOnMouseClicked(event -> Navigation.navigate(ROOM_BOOKING));
-    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
     dbr.getListOfSize("small").forEach(System.out::println);
     dbr.getListOfSize("medium").forEach(System.out::println);
