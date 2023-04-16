@@ -1,6 +1,8 @@
 package edu.wpi.teamname.DAOs;
 
+import edu.wpi.teamname.DAOs.orms.Location;
 import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,14 +17,15 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Getter private String name;
   @Getter private final String CSVheader = "nodeID,longName,date";
-  private dbConnection connection;
+  private final dbConnection connection;
 
+  // List of all moves that have ever occurred
   @Getter ArrayList<Move> listOfMoves = new ArrayList<>();
 
-  @Getter HashMap<Integer, Move> HashmapOfMoves = new HashMap<>();
-  @Getter HashMap<String, List<LocalDate>> moveHistory = new HashMap<>();
-  @Getter HashMap<String, Integer> locToNode = new HashMap<>();
-  @Getter HashMap<Integer, String> nodeToLoc = new HashMap<>();
+  // List of moves for a location
+  @Getter HashMap<String, List<Move>> locationMoveHistory = new HashMap<>();
+  // Get the moves associated with the nodeID
+  @Getter HashMap<Integer, List<Move>> locationsAtNodeID = new HashMap<>();
 
   public MoveDAOImpl() {
     connection = dbConnection.getInstance();
@@ -77,9 +80,9 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void importCSV(String path) {
     dropTable();
-    locToNode.clear();
+    locationsAtNodeID.clear();
     listOfMoves.clear();
-    HashmapOfMoves.clear();
+    locationMoveHistory.clear();
     initTable(name);
     loadRemote(path);
   }
@@ -102,15 +105,14 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   }
 
   @Override
-  public Move getRow(Move target) {
+  public Move get(Move target) {
     return null;
   }
 
   @Override
   public void delete(Move target) {
     listOfMoves.remove(target);
-    HashmapOfMoves.remove(target.getNodeID());
-    // moveHistory.get(target.getLocation()).remove(target.getDate());
+
     try {
       PreparedStatement stmt =
           connection
@@ -118,7 +120,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
               .prepareStatement(
                   "DELETE FROM " + name + " WHERE nodeID=? AND location=? " + "AND date=?");
       stmt.setInt(1, target.getNodeID());
-      stmt.setString(2, target.getLocation());
+      stmt.setString(2, target.getLocationName());
       stmt.setDate(3, Date.valueOf(target.getDate()));
       stmt.execute();
     } catch (SQLException e) {
@@ -129,22 +131,23 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void add(Move addition) {
     listOfMoves.add(addition);
-    HashmapOfMoves.put(addition.getNodeID(), addition);
-
-    if (!moveHistory.containsKey(addition.getLocation()))
-      moveHistory.get(addition.getLocation()).add(addition.getDate());
-    else {
-      List<LocalDate> temp = new ArrayList<>();
-      temp.add(addition.getDate());
-      moveHistory.put(addition.getLocation(), temp);
-    }
+    locationsAtNodeID.get(addition.getNodeID()).add(addition);
+    locationMoveHistory.get(addition.getLocationName()).add(addition);
+    //
+    //		if (!locationMoveHistory.containsKey(addition.getLocation()))
+    //			locationMoveHistory.get(addition.getLocation()).add(addition.getDate());
+    //		else {
+    //			List<LocalDate> temp = new ArrayList<>();
+    //			temp.add(addition.getDate());
+    //			locationMoveHistory.put(addition.getLocation(), temp);
+    //		}
     try {
       PreparedStatement stmt =
           connection
               .getConnection()
               .prepareStatement("INSERT INTO " + name + " (nodeID, location, date) VALUES (?,?,?)");
       stmt.setInt(1, addition.getNodeID());
-      stmt.setString(2, addition.getLocation());
+      stmt.setString(2, addition.getLocationName());
       stmt.setDate(3, Date.valueOf(addition.getDate()));
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -152,22 +155,20 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  public void add(int nodeID, String location, LocalDate date) {
-    Move newMove = new Move(nodeID, location, date);
+  public void add(Node node, Location location, LocalDate date) {
+    Move newMove = new Move(node, location, date);
     this.add(newMove);
   }
 
   public void addToJustDBandLoc(Move addition) {
     // listOfMoves.add(addition);
-    HashmapOfMoves.put(addition.getNodeID(), addition);
-
     try {
       PreparedStatement stmt =
           connection
               .getConnection()
               .prepareStatement("INSERT INTO " + name + " (nodeID, location, date) VALUES (?,?,?)");
-      stmt.setInt(1, addition.getNodeID());
-      stmt.setString(2, addition.getLocation());
+      stmt.setInt(1, addition.getNode().getNodeID());
+      stmt.setString(2, addition.getLocation().getLongName());
       stmt.setDate(3, Date.valueOf(addition.getDate()));
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -180,17 +181,32 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       System.out.println("There is already stuff in the orm database");
       return;
     }
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String getData = "SELECT * FROM " + name;
-      ResultSet data = stmt.executeQuery(getData);
+      ResultSet data = stmt.executeQuery("SELECT * FROM " + name);
       while (data.next()) {
         LocalDate date = data.getDate("date").toLocalDate();
-        Move thisMove = new Move(data.getInt("nodeID"), data.getString("location"), date);
+        Node node = nodeDAO.get(data.getInt("nodeID"));
+        Location loc = locationDAO.get(data.getString("location"));
+        Move thisMove = new Move(node, loc, date);
+
+        if (!locationMoveHistory.containsKey(loc.getLongName())) {
+          ArrayList<Move> moveArrayList = new ArrayList<>();
+          moveArrayList.add(thisMove);
+          locationMoveHistory.put(loc.getLongName(), moveArrayList);
+        } else {
+          locationMoveHistory.get(loc.getLongName()).add(thisMove);
+        }
+        if (!locationsAtNodeID.containsKey(node.getNodeID())) {
+          ArrayList<Move> moveArrayList = new ArrayList<>();
+          moveArrayList.add(thisMove);
+          locationsAtNodeID.put(node.getNodeID(), moveArrayList);
+        } else {
+          locationsAtNodeID.get(node.getNodeID()).add(thisMove);
+        }
         listOfMoves.add(thisMove);
-        HashmapOfMoves.put(thisMove.getNodeID(), thisMove);
-        locToNode.put(thisMove.getLocation(), thisMove.getNodeID());
-        nodeToLoc.put(thisMove.getNodeID(), thisMove.getLocation());
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -207,9 +223,8 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
           LocalDate date = parseDate(fields[2]);
-          //          System.out.println(Arrays.toString(fields));
-          Move thisMove = new Move(Integer.parseInt(fields[0]), fields[1], date);
-          //          System.out.println(thisMove);
+
+          //          Move thisMove = new Move(Integer.parseInt(fields[0]), fields[1], date);
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -219,8 +234,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
           stmt.setString(2, fields[1]);
           stmt.setDate(3, java.sql.Date.valueOf(date));
           stmt.executeUpdate();
-          listOfMoves.add(thisMove);
-          HashmapOfMoves.put(thisMove.getNodeID(), thisMove);
         }
         constructFromRemote();
       } catch (SQLException e) {

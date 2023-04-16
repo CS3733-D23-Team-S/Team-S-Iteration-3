@@ -15,9 +15,9 @@ public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Getter private String name;
   @Getter private final String CSVheader = "longName,shortName,nodeType";
-  private dbConnection connection;
+  private final dbConnection connection;
 
-  @Getter private HashMap<String, Location> locations = new HashMap<>();
+  @Getter private HashMap<String, Location> locationMap = new HashMap<>();
 
   public LocationDAOImpl() {
     connection = dbConnection.getInstance();
@@ -75,7 +75,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   @Override
   public void importCSV(String path) {
     dropTable();
-    locations.clear();
+    locationMap.clear();
     initTable(name);
     loadRemote(path);
   }
@@ -85,7 +85,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
     path += "LocationName.csv";
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("longName,shortName,nodeType");
-    for (Location location : locations.values()) {
+    for (Location location : locationMap.values()) {
       fileWriter.newLine();
       fileWriter.write(location.toCSVString());
     }
@@ -94,21 +94,21 @@ public class LocationDAOImpl implements IDAO<Location, String> {
 
   @Override
   public List<Location> getAll() {
-    return locations.values().stream().toList();
+    return locationMap.values().stream().toList();
   }
 
   @Override
-  public Location getRow(String target) {
-    if (locations.get(target) == null) {
-      System.out.println("This food is not in the database, so its row cannot be printed");
+  public Location get(String target) {
+    if (locationMap.get(target) == null) {
+      System.out.println("This location is not in the database, so its contents cannot be printed");
       return null;
     }
-    return locations.get(target);
+    return locationMap.get(target);
   }
 
   @Override
   public void delete(String target) {
-    locations.remove(target);
+    locationMap.remove(target);
     try {
       PreparedStatement stmt =
           connection
@@ -133,7 +133,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
       stmt.setString(2, addition.getShortName());
       stmt.setInt(3, addition.getNodeType().ordinal());
 
-      this.locations.put(addition.getLongName(), addition);
+      this.locationMap.put(addition.getLongName(), addition);
       stmt.execute();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -156,7 +156,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
         String shortName = data.getString("shortname");
         NodeType type = NodeType.values()[data.getInt("nodetype")];
         Location location = new Location(longName, shortName, type);
-        this.locations.put(longName, location);
+        locationMap.put(longName, location);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -191,7 +191,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
           stmt.setString(1, fields[0]);
           stmt.setString(2, fields[1]);
           stmt.setInt(3, value.ordinal());
-          this.locations.put(location.getLongName(), location);
+          locationMap.put(location.getLongName(), location);
         }
       } catch (SQLException e) {
         e.printStackTrace();

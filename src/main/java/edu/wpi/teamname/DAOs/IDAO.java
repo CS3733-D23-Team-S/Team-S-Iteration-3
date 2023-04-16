@@ -48,7 +48,7 @@ public interface IDAO<T, U> {
    *
    * @param target
    */
-  T getRow(U target);
+  T get(U target);
 
   /**
    * Deletes a datapack from the DAO

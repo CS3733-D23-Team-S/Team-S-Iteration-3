@@ -1,13 +1,12 @@
 package edu.wpi.teamname;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import edu.wpi.teamname.DAOs.*;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DAOFacadeTest {
   static DataBaseRepository DBR = DataBaseRepository.getInstance();
@@ -20,7 +19,7 @@ public class DAOFacadeTest {
 
   @Test
   public void getNodeRowTest() {
-    Node test = DBR.getNodeDAO().getRow(100);
+    Node test = DBR.getNodeDAO().get(100);
 
     assertEquals(test.getNodeID(), n.getNodeID());
   }
@@ -39,7 +38,10 @@ public class DAOFacadeTest {
 
     boolean found = false;
     for (Node aNode : DBR.getNodeDAO().getNodes().values()) {
-      if (aNode.getNodeID() == test.getNodeID()) found = true;
+      if (aNode.getNodeID() == test.getNodeID()) {
+        found = true;
+        break;
+      }
     }
     assertTrue(found);
     DBR.getNodeDAO().delete(55555);
@@ -54,9 +56,12 @@ public class DAOFacadeTest {
 
     boolean found = false;
     for (Node aNode : DBR.getNodeDAO().getNodes().values()) {
-      if (aNode.getNodeID() == test.getNodeID()) found = true;
+      if (aNode.getNodeID() == test.getNodeID()) {
+        found = true;
+        break;
+      }
     }
-    assertTrue(!found);
+    assertFalse(found);
   }
 
   @Test
@@ -65,7 +70,10 @@ public class DAOFacadeTest {
 
     boolean found = false;
     for (Node aNode : DBR.getNodeDAO().getNodes().values()) {
-      if (aNode.getNodeID() == 55555) found = true;
+      if (aNode.getNodeID() == 55555) {
+        found = true;
+        break;
+      }
     }
     assertTrue(found);
     DBR.getNodeDAO().delete(55555);

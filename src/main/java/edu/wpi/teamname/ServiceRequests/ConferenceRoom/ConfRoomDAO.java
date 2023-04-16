@@ -49,7 +49,7 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
   }
 
   @Override
-  public ConfRoomLocation getRow(String target) {
+  public ConfRoomLocation get(String target) {
     return null;
   }
 

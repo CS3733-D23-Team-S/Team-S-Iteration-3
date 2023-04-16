@@ -13,7 +13,7 @@ import lombok.Getter;
 
 public class FoodDAOImpl implements IDAO<Food, Integer> {
   @Getter private String name;
-  private dbConnection connection;
+  private final dbConnection connection;
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
 
   public FoodDAOImpl() {
@@ -184,7 +184,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     }
   }
 
-  public Food getRow(Integer target) {
+  public Food get(Integer target) {
     if (foods.get(target) == null) {
       System.out.println("This food is not in the database, so its row cannot be printed");
       return null;

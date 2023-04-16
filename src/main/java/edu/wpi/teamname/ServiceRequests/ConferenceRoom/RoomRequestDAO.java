@@ -19,8 +19,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected final String roomReservationsTable = schemaName + "." + "roomReservations";
   @Getter LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
-  static RoomRequestDAO single_instance = null;
-  private Statement statement;
 
   public RoomRequestDAO() {}
 
@@ -95,7 +93,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         locations.add(thisLocation.getLongName());
       }
     }
-    ;
     Collections.sort(locations);
     return locations;
   }
@@ -121,7 +118,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         if ((startTime.isAfter(registeredStart)) && startTime.isBefore(registeredEnd)) return true;
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
     return false;
@@ -167,7 +163,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
@@ -208,7 +203,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
@@ -273,13 +267,12 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
   }
 
-  public ConfRoomRequest getRow(String target) {
+  public ConfRoomRequest get(String target) {
     return null;
   }
 
@@ -319,6 +312,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     }
 
     try {
+      Statement statement = connection.getConnection().createStatement();
       return statement.executeQuery(queryString.toString());
     } catch (SQLException e) {
       e.printStackTrace();

@@ -23,7 +23,6 @@ import lombok.Getter;
 public class DataBaseRepository {
 
   private static DataBaseRepository single_instance = null;
-  private dbConnection connection;
   AStar pathFinder;
   @Getter NodeDAOImpl nodeDAO;
   @Getter MoveDAOImpl moveDAO;
@@ -60,8 +59,10 @@ public class DataBaseRepository {
   }
 
   public void load() {
-    connection = dbConnection.getInstance();
+    dbConnection connection = dbConnection.getInstance();
     pathFinder = new AStar();
+    // Has to be in the order of Node, Edge, Location, Move so that loading the local databases
+    // works correctly
     nodeDAO.initTable(connection.getNodeTable());
     edgeDAO.initTable(connection.getEdgesTable());
     locationDAO.initTable(connection.getLocationTable());
@@ -71,10 +72,12 @@ public class DataBaseRepository {
     foodDAO.initTable(connection.getFoodTable());
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
+
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+
     flowerDAO.initTable(connection.getFlowerTable());
     flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
     flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
@@ -98,14 +101,16 @@ public class DataBaseRepository {
       } else {
         moveResult = "Moved " + location + " to its new location";
       }
-      Move thisMove = new Move(newLocNodeID, location, date);
+      Location loc = locationDAO.getLocationMap().get(location);
+      Node node = nodeDAO.get(newLocNodeID);
+      Move thisMove = new Move(node, loc, date);
       moveDAO.add(thisMove);
       return moveResult;
     }
   }
 
   private boolean checkCanMove(String location, LocalDate date) {
-    return moveDAO.getMoveHistory().get(location).contains(date);
+    return moveDAO.getLocationMoveHistory().get(location).contains(date);
   }
 
   public void importCSV(String inputPath) throws IOException {
@@ -153,7 +158,7 @@ public class DataBaseRepository {
   }
 
   public Location getLocation(String longname) {
-    return locationDAO.getRow(longname);
+    return locationDAO.get(longname);
   }
 
   // Service Request stuff
@@ -279,7 +284,7 @@ public class DataBaseRepository {
   }
 
   public Food retrieveFood(int target) {
-    return foodDAO.getRow(target);
+    return foodDAO.get(target);
   }
 
   public void addFoodRequest(FoodDelivery foodev) {
@@ -403,7 +408,7 @@ public class DataBaseRepository {
   }*/
 
   public Flower flowerRetrieve(int target) {
-    return flowerDAO.getRow(target);
+    return flowerDAO.get(target);
   }
 
   public void flowerDeliveryAdd(FlowerDelivery fd) {

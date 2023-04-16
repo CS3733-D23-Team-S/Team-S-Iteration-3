@@ -11,7 +11,7 @@ import lombok.Getter;
 public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
 
   @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
+  private final dbConnection connection;
   @Getter String name;
 
   public FlowerDeliveryDAOImpl() {
@@ -103,7 +103,6 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         // constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -170,7 +169,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
   }
 
   @Override
-  public FlowerDelivery getRow(Integer target) {
+  public FlowerDelivery get(Integer target) {
     return null;
   }
 
