@@ -31,12 +31,12 @@ public class DataBaseRepository {
   @Getter RoomRequestDAO roomRequestDAO;
   @Getter ConfRoomDAO confRoomDAO;
 
-  @Getter IDAO<Food, Integer> foodDAO;
+  @Getter FoodDAOImpl foodDAO;
 
-  @Getter IDAO<FoodDelivery, Integer> foodDeliveryDAO;
+  @Getter FoodDeliveryDAOImp foodDeliveryDAO;
 
-  @Getter IDAO<Flower, Integer> flowerDAO;
-  @Getter IDAO<FlowerDelivery, Integer> flowerDeliveryDAO;
+  @Getter FlowerDAOImpl flowerDAO;
+  @Getter FlowerDeliveryDAOImpl flowerDeliveryDAO;
   @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
