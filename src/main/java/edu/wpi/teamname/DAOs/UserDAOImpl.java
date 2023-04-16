@@ -1,15 +1,13 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
-import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 
 public class UserDAOImpl implements IDAO<User, String> {
 
@@ -23,7 +21,7 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username
+   * @param username the username entered by the user
    * @return true if user exists, false if otherwise
    */
   private boolean checkIfUserExists(String username) {
@@ -31,8 +29,8 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username
-   * @param password
+   * @param username the username of the new account
+   * @param password the password of the new account
    * @return false if user already exists, true if user is made successfully
    */
   public boolean createLoginInfo(String username, String password) {
@@ -51,8 +49,8 @@ public class UserDAOImpl implements IDAO<User, String> {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, User.Permission.STAFF.ordinal());
-      User user = new User(username, password, User.Permission.STAFF);
+      preparedStatement.setInt(3, Permission.STAFF.ordinal());
+      User user = new User(username, password, Permission.STAFF);
       listOfUsers.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -61,15 +59,17 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username
-   * @param password
+   * @param username the username of the person trying to log in
+   * @param password the password the user has entered in order to try to log in
    * @return false if username/password does not exist, true if login is successful
    */
   public boolean login(String username, String password) throws Exception {
-    if (!checkIfUserExists(username)) {
-      throw new Exception("User does not exist");
-    } else {
-      return password.equals(listOfUsers.get(username).getPassword());
+    if (!checkIfUserExists(username)) throw new Exception("User does not exist");
+    else {
+      boolean loggedIn = password.equals(listOfUsers.get(username).getPassword());
+      if (loggedIn) {ActiveUser.getInstance().setCurrentUser(listOfUsers.get(username));
+      ActiveUser.getInstance().setLoggedIn(true);}
+      return loggedIn;
     }
   }
 
@@ -87,7 +87,7 @@ public class UserDAOImpl implements IDAO<User, String> {
               + "password varchar(100) NOT NULL, "
               + "permission int)";
       stmt.execute(loginTableConstruct);
-      User admin = new User("admin", "admin", User.Permission.ADMIN);
+      User admin = new User("admin", "admin", Permission.ADMIN);
       listOfUsers.put("admin", admin);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
@@ -98,7 +98,7 @@ public class UserDAOImpl implements IDAO<User, String> {
               + name
               + " (username, password, permission) VALUES "
               + "('admin','admin',"
-              + User.Permission.ADMIN.ordinal()
+              + Permission.ADMIN.ordinal()
               + ")";
       stmt.executeUpdate(addAdmin);
     } catch (SQLException e) {
@@ -189,7 +189,7 @@ public class UserDAOImpl implements IDAO<User, String> {
       while (data.next()) {
         String username = data.getString("username");
         String password = data.getString("password");
-        User.Permission permission = User.Permission.values()[data.getInt("permission")];
+        Permission permission = Permission.values()[data.getInt("permission")];
         Floor floor = Floor.values()[data.getInt("Floor")];
         String building = data.getString("Building");
         User newUser = new User(username, password, permission);
@@ -222,7 +222,7 @@ public class UserDAOImpl implements IDAO<User, String> {
           stmt.setInt(3, Integer.parseInt(fields[2]));
           stmt.executeUpdate();
           User newUser =
-              new User(fields[0], fields[1], User.Permission.values()[Integer.parseInt(fields[2])]);
+              new User(fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
           listOfUsers.put(fields[0], newUser);
         }
       } catch (SQLException e) {
@@ -230,102 +230,6 @@ public class UserDAOImpl implements IDAO<User, String> {
       }
     } catch (IOException e) {
       e.printStackTrace();
-    }
-  }
-
-  public static class DataBaseRepository {
-
-    private static DataBaseRepository single_instance = null;
-    private dbConnection connection;
-    private AStar pathFinder;
-    @Getter @Setter private ActiveUser currentUser = ActiveUser.getInstance();
-    @Getter NodeDAOImpl nodeDAO;
-    @Getter MoveDAOImpl moveDAO;
-    @Getter LocationDAOImpl locationDAO;
-    @Getter EdgeDAOImpl edgeDAO;
-    @Getter UserDAOImpl userDAO;
-
-    private DataBaseRepository() {
-      nodeDAO = new NodeDAOImpl();
-      moveDAO = new MoveDAOImpl();
-      locationDAO = new LocationDAOImpl();
-      edgeDAO = new EdgeDAOImpl();
-      userDAO = new UserDAOImpl();
-    }
-
-    public static synchronized DataBaseRepository getInstance() {
-      if (single_instance == null) single_instance = new DataBaseRepository();
-      return single_instance;
-    }
-
-    public void load() {
-      connection = dbConnection.getInstance();
-      pathFinder = new AStar();
-      nodeDAO.initTable(connection.getNodeTable());
-      edgeDAO.initTable(connection.getEdgesTable());
-      locationDAO.initTable(connection.getLocationTable());
-      moveDAO.initTable(connection.getMoveTable());
-      // userDAO.initTable(connection.getLoginTable());
-      nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
-      edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
-      locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
-      moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
-    }
-
-    public boolean login(String username, String password) throws Exception {
-      boolean loggedInSuccessful = userDAO.login(username, password);
-      if (loggedInSuccessful) {
-        currentUser.setCurrentUser(userDAO.getListOfUsers().get(username));
-      }
-      return loggedInSuccessful;
-    }
-
-    public void addUser(String username, String password, User.Permission permission)
-        throws Exception {
-      // userDAO.createLoginInfo(username, password, permission);
-      currentUser.setCurrentUser(new User(username, password, permission));
-    }
-
-    //		public String processMoveRequest(int newLocNodeID, String location, LocalDate date)
-    //				throws Exception {
-    //			if (checkCanMove(location, date)) {
-    //				throw new Exception("Moved that day already");
-    //			} else {
-    //				String moveResult;
-    //				if (date.isAfter(LocalDate.now())) {
-    //					moveResult = "Going to move " + location + " on " + date;
-    //				} else {
-    //					moveResult = "Moved " + location + " to its new location";
-    //				}
-    //
-    //				Move thisMove = new Move(newLocNodeID, loc, date);
-    //				moveDAO.add(thisMove);
-    //				return moveResult;
-    //			}
-    //		}
-
-    private boolean checkCanMove(String location, LocalDate date) {
-      return moveDAO.getLocationMoveHistory().get(location).contains(date);
-    }
-
-    public void importCSV(String inputPath) throws IOException {
-      BufferedReader reader = new BufferedReader(new FileReader(inputPath));
-      String check = reader.readLine();
-
-      if (check.equals(nodeDAO.getCSVheader())) nodeDAO.importCSV(inputPath);
-      else if (check.equals(edgeDAO.getCSVheader())) edgeDAO.importCSV(inputPath);
-      else if (check.equals(moveDAO.getCSVheader())) {
-        moveDAO.importCSV(inputPath);
-      } else if (check.equals(locationDAO.getCSVheader())) {
-        locationDAO.importCSV(inputPath);
-      } else throw new RuntimeException();
-    }
-
-    public void exportCSV(String outputPath) throws IOException {
-      nodeDAO.exportCSV(outputPath);
-      edgeDAO.exportCSV(outputPath);
-      moveDAO.exportCSV(outputPath);
-      locationDAO.exportCSV(outputPath);
     }
   }
 }

@@ -27,8 +27,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     String roomReservationsTableConstruct =
         "CREATE TABLE IF NOT EXISTS "
             + roomReservationsTable
-            + " "
-            + "(reservationID SERIAL PRIMARY KEY,"
+            + " (reservationID SERIAL PRIMARY KEY,"
             + "dateOrdered Date,"
             + "eventDate Date,"
             + "startTime Time,"
@@ -297,7 +296,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     if (whereClause != null) {
       queryString.append(" WHERE ");
 
-      if (whereClause.contains("?") && whereArgs != null && whereArgs.length > 0) {
+      if (whereClause.contains("?") && whereArgs != null) {
         for (String whereArg : whereArgs) {
           whereClause = whereClause.replaceFirst("\\?", "'" + whereArg + "'");
         }

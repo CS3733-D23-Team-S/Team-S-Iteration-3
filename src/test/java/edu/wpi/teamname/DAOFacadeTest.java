@@ -1,12 +1,12 @@
 package edu.wpi.teamname;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import edu.wpi.teamname.DAOs.*;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DAOFacadeTest {
   static DataBaseRepository DBR = DataBaseRepository.getInstance();
