@@ -156,7 +156,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       preparedStatement.setString(8, thisFlower.getDescription());
       preparedStatement.setString(9, thisFlower.getImage());
 
-      // preparedStatement.execute();
+      preparedStatement.executeUpdate();
 
       flowers.put(thisFlower.getID(), thisFlower);
 

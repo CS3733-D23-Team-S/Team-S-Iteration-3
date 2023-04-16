@@ -153,7 +153,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
   }
 
   @Override
-  public FlowerDelivery get(Integer target) {
+  public FlowerDelivery getRow(Integer target) {
     return null;
   }
 

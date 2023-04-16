@@ -52,6 +52,7 @@ public class UserDAOImpl implements IDAO<User, String> {
       preparedStatement.setInt(3, Permission.STAFF.ordinal());
       User user = new User(username, password, Permission.STAFF);
       listOfUsers.put(username, user);
+
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -59,17 +60,15 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username the username of the person trying to log in
-   * @param password the password the user has entered in order to try to log in
+   * @param username
+   * @param password
    * @return false if username/password does not exist, true if login is successful
    */
   public boolean login(String username, String password) throws Exception {
-    if (!checkIfUserExists(username)) throw new Exception("User does not exist");
-    else {
-      boolean loggedIn = password.equals(listOfUsers.get(username).getPassword());
-      if (loggedIn) {ActiveUser.getInstance().setCurrentUser(listOfUsers.get(username));
-      ActiveUser.getInstance().setLoggedIn(true);}
-      return loggedIn;
+    if (!checkIfUserExists(username)) {
+      throw new Exception("User does not exist");
+    } else {
+      return password.equals(listOfUsers.get(username).getPassword());
     }
   }
 
