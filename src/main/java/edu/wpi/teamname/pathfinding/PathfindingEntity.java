@@ -10,13 +10,13 @@ public class PathfindingEntity {
   @Getter @Setter String startingLocation;
   @Getter @Setter String destination;
 
-  @Getter @Setter AStar aStar;
+  @Setter IPathFinder pathFinder;
   @Getter @Setter ArrayList<PathEntity> pathEntities;
 
-  public PathfindingEntity(String startingLocation, String destination) {
+  public PathfindingEntity(String startingLocation, String destination, IPathFinder pathFinder) {
     this.startingLocation = startingLocation;
     this.destination = destination;
-    this.aStar = new AStar();
+    this.pathFinder = pathFinder;
     this.pathEntities = new ArrayList<>();
   }
 
@@ -25,9 +25,7 @@ public class PathfindingEntity {
   // for each index, this.pathEntities adds a PathEntity with a value of 'astarlist.get(i)'
   // thus adds node IDs to this.pathEntities
   public void generatePath() {
-    List<Integer> passedNodeIDs = new ArrayList<>();
-    passedNodeIDs.addAll(
-        this.aStar.findPath(
+    List<Integer> passedNodeIDs = new ArrayList<>(this.pathFinder.findPath(
             Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination)));
     /*
     for (int i = 0;
@@ -45,8 +43,8 @@ public class PathfindingEntity {
                   .get(i)));
       // this.pathEntities.add(new PathEntity(i));
       */
-    for (int i = 0; i < passedNodeIDs.size(); i++) {
-      this.pathEntities.add(new PathEntity(passedNodeIDs.get(i)));
+    for (Integer passedNodeID : passedNodeIDs) {
+      this.pathEntities.add(new PathEntity(passedNodeID));
     }
   }
 }

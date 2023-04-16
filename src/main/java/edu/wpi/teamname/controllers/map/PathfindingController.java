@@ -237,8 +237,8 @@ public class PathfindingController {
   public void showPath(List<Node> floorNodes) {
     anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
-    Boolean startNodeInFloor = false;
-    Boolean endNodeInFloor = false;
+    boolean startNodeInFloor = false;
+    boolean endNodeInFloor = false;
     int startingID = 0;
     int endID = 0;
     double startX = 0.0;
@@ -271,7 +271,7 @@ public class PathfindingController {
           enterDestination.setText("Enter Destination");
           AStar aStar = new AStar();
           ArrayList<PathEntity> pathEntities = new ArrayList<>();
-          pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
+          pfe = new PathfindingEntity(startingLocation.getText(), destination.getText(),new AStar());
           pfe.generatePath();
 
           for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
@@ -495,7 +495,7 @@ public class PathfindingController {
   // nice to have
 
   public void makePathfindingEntity(List<Integer> nodeIDsList) {
-    pfe = new PathfindingEntity(startingLocation.getText(), destination.getText());
+    pfe = new PathfindingEntity(startingLocation.getText(), destination.getText(), new AStar());
     pfe.setPathEntities(new ArrayList<>());
     pfe.generatePath();
     for (int i = 0; i < pfe.getPathEntities().size(); i++) {

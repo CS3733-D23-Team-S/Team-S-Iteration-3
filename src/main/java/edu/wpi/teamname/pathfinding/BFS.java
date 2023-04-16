@@ -5,46 +5,51 @@ import edu.wpi.teamname.DAOs.EdgeDAOImpl;
 import edu.wpi.teamname.DAOs.MoveDAOImpl;
 import edu.wpi.teamname.DAOs.NodeDAOImpl;
 import edu.wpi.teamname.DAOs.orms.Node;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 
-public class DFS implements IPathFinder {
+public class BFS implements IPathFinder{
 
 	NodeDAOImpl nodeDAO;
-	EdgeDAOImpl edgeDAO;
-	MoveDAOImpl moveDAO;
 
-	public DFS() {
+	EdgeDAOImpl edgeDAO;
+
+	MoveDAOImpl moveDAO;
+	public BFS() {
 		this.nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
 		this.edgeDAO = DataBaseRepository.getInstance().getEdgeDAO();
 		this.moveDAO = DataBaseRepository.getInstance().getMoveDAO();
 	}
-
 	@Override
 	public ArrayList<Integer> findPath(int s, int e) {
 		Node start, end;
-		start = this.nodeDAO.get(s);
-		end = this.nodeDAO.get(s);
+		start = this.nodeDAO.getNodes().get(s);
+		end = this.nodeDAO.getNodes().get(s);
 
-		Queue<Node> queue = new LinkedList<Node>();
-
+		Stack<Node> stack = new Stack<>();
 		HashSet<Node> visitedNodes = new HashSet<>();
 		Map<Node, Node> path = new HashMap<>();
 		Node currentNeighbor;
-		queue.add(start);
+		path.put(start, null);
 
 		Node currentNode = null;
-		do {
-			currentNode = queue.poll();
+
+		stack.push(start);
+
+		while (!stack.isEmpty()) {
+			currentNode = stack.pop();
 			visitedNodes.add(currentNode);
 			for (int nodeID : this.edgeDAO.getNeighbors().get(currentNode.getNodeID())) {
 				currentNeighbor = this.nodeDAO.getNodes().get(nodeID);
 				if (!visitedNodes.contains(currentNeighbor)) {
-					queue.add(currentNeighbor);
+					stack.push(currentNeighbor);
 					path.put(currentNeighbor, currentNode);
+
 				}
 			}
-		} while (!queue.isEmpty());
+		}
 		return constructShortestPath(currentNode, path);
 	}
 
@@ -57,8 +62,10 @@ public class DFS implements IPathFinder {
 		}
 		pathTaken.add(currentNode.getNodeID());
 		Collections.reverse(pathTaken);
+		// for (int curr : pathTaken) System.out.println(curr);
 		return pathTaken;
 	}
 
 
 }
+
