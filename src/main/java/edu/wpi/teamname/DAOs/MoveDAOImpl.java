@@ -5,12 +5,10 @@ import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.DAOs.orms.Node;
 import java.io.*;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import lombok.Getter;
 
 public class MoveDAOImpl implements IDAO<Move, Move> {
@@ -112,7 +110,8 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void delete(Move target) {
     listOfMoves.remove(target);
-
+    locationMoveHistory.get(target.getLocationName()).remove(target);
+    locationsAtNodeID.get(target.getNodeID()).remove(target);
     try {
       PreparedStatement stmt =
           connection
@@ -131,16 +130,20 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void add(Move addition) {
     listOfMoves.add(addition);
-    locationsAtNodeID.get(addition.getNodeID()).add(addition);
-    locationMoveHistory.get(addition.getLocationName()).add(addition);
-    //
-    //		if (!locationMoveHistory.containsKey(addition.getLocation()))
-    //			locationMoveHistory.get(addition.getLocation()).add(addition.getDate());
-    //		else {
-    //			List<LocalDate> temp = new ArrayList<>();
-    //			temp.add(addition.getDate());
-    //			locationMoveHistory.put(addition.getLocation(), temp);
-    //		}
+    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
+      ArrayList<Move> moveArrayList = new ArrayList<>();
+      moveArrayList.add(addition);
+      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
+    } else {
+      locationMoveHistory.get(addition.getLocationName()).add(addition);
+    }
+    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
+      ArrayList<Move> moveArrayList = new ArrayList<>();
+      moveArrayList.add(addition);
+      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
+    } else {
+      locationsAtNodeID.get(addition.getNodeID()).add(addition);
+    }
     try {
       PreparedStatement stmt =
           connection

@@ -1,20 +1,45 @@
 package edu.wpi.teamname.DAOs;
 
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
+
+import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
 
 public class ActiveUser {
 
-  @Getter @Setter User currentUser;
-  private dbConnection connection;
+	@Getter
+	@Setter
+	User currentUser;
 
-  private static ActiveUser single_instance = null;
+	@Getter
+	Permission permission;
 
-  private ActiveUser() {}
+	@Getter
+	@Setter
+	private boolean loggedIn = false;
 
-  public static synchronized ActiveUser getInstance() {
-    if (single_instance == null) single_instance = new ActiveUser();
-    return single_instance;
-  }
+
+	private ArrayList<IDataPack> cart;
+
+	private static ActiveUser single_instance = null;
+
+	private ActiveUser() {
+		cart = new ArrayList<>();
+	}
+
+	public static synchronized ActiveUser getInstance() {
+		if (single_instance == null) single_instance = new ActiveUser();
+		return single_instance;
+	}
+
+	public void addToCart(IDataPack item) {
+		cart.add(item);
+	}
+
+	public void removeFromCart(IDataPack item) {
+		cart.remove(item);
+	}
 }

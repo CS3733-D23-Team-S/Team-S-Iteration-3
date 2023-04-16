@@ -110,7 +110,9 @@ public class DataBaseRepository {
   }
 
   private boolean checkCanMove(String location, LocalDate date) {
-    return moveDAO.getLocationMoveHistory().get(location).contains(date);
+    for (Move move : moveDAO.locationMoveHistory.get(location))
+      if (move.getDate().equals(date)) return true;
+    return false;
   }
 
   public void importCSV(String inputPath) throws IOException {
@@ -323,7 +325,6 @@ public class DataBaseRepository {
       if (!isFound) listOfEligibleRooms.add(loc.getLongName());
     }
     Collections.sort(listOfEligibleRooms);
-
     return listOfEligibleRooms;
   }
 
