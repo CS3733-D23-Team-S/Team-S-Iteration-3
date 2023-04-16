@@ -6,9 +6,11 @@ import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
+
+import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import lombok.Getter;
 
-public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
+public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
   private dbConnection connection = dbConnection.getInstance();
@@ -60,7 +62,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
     }
   }
 
-  private void constructFromRemote() {
+  public void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
@@ -99,8 +101,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         System.out.println("Loading the flowerDeliveries from the server");
         constructFromRemote();
       } else {
-        System.out.println("Loading the flowerDeliveries to the server");
-        // constructRemote(pathToCSV);
+        System.out.println("flowerDelivery table is empty");
       }
     } catch (SQLException e) {
       e.getMessage();
@@ -141,21 +142,6 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
       }
     } catch (IOException e) {
       e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void importCSV(String path) {}
-
-  @Override
-  public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write(
-        "deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus,cost)");
-    for (FlowerDelivery flowerDelivery : requests.values()) {
-      fileWriter.newLine();
-      fileWriter.write(flowerDelivery.toCSVString());
     }
   }
 
