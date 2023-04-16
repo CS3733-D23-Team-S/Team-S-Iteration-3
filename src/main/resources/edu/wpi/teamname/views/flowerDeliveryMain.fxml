@@ -6,80 +6,136 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="25.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="25.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="90.0" minHeight="10.0" percentHeight="20.0" prefHeight="90.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-    </rowConstraints>
-    <children>
-        <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
-            <children>
-                <MFXButton fx:id="viewcartbutton" alignment="CENTER" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="View Cart" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-               <HBox.margin>
-                  <Insets bottom="20.0" />
-               </HBox.margin>
-                </MFXButton>
-            </children>
-        </HBox>
-      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery">
-         <font>
-            <Font size="36.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Text>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="2">
-         <children>
-            <MFXTextField fx:id="flowersearch" prefHeight="51.0" prefWidth="297.0" promptText="Search flowers...">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></MFXTextField>
-            <MenuButton fx:id="sizedrop" mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" text="Size" textFill="#122e59">
-              <items>
-                <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
-                <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
-                  <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
-              </items>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </MenuButton>
-            <MFXButton fx:id="clearfilter" prefHeight="51.0" prefWidth="150.0" text="Clear FIlters">
-               <font>
-                  <Font name="Open Sans Regular" size="18.0" />
-               </font>
-            </MFXButton>
-         </children>
-      </HBox>
-      <HBox fx:id="hbox1" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="4" />
-      <HBox fx:id="hbox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="6" />
-    </children>
-   <effect>
-      <Blend />
-   </effect>
-</GridPane>
+<BorderPane minHeight="900.0" minWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+   <center>
+      <GridPane minHeight="900.0" minWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints percentWidth="5.0" />
+          </columnConstraints>
+          <rowConstraints>
+              <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+              <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+              <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+          </rowConstraints>
+          <children>
+            <VBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets left="30.0" right="30.0" top="30.0" />
+               </GridPane.margin>
+               <children>
+                  <HBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery">
+                           <font>
+                              <Font name="Open Sans Regular" size="48.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="880.0" />
+                           </HBox.margin>
+                        </Text>
+                            <MFXButton fx:id="viewcartbutton" alignment="CENTER" minWidth="150.0" prefWidth="150.0" styleClass="viewcartbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER" textFill="WHITE">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                            </MFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Open Sans Regular" size="12.0" />
+                           </font>
+                        </MFXTextField>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="Filter by">
+                           <font>
+                              <Font name="Open Sans Regular" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="500.0" />
+                           </HBox.margin>
+                        </Text>
+                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Size">
+                          <items>
+                            <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
+                            <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
+                              <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
+                          </items>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MenuButton>
+                        <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Price">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MenuButton>
+                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Clear FIlters">
+                           <font>
+                              <Font name="Open Sans Regular" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox fx:id="hbox1" alignment="CENTER_LEFT" minHeight="100.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets left="30.0" right="30.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox fx:id="hbox2" alignment="CENTER_LEFT" minHeight="100.0" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets left="30.0" right="30.0" />
+               </GridPane.margin>
+            </HBox>
+          </children>
+         <effect>
+            <Blend />
+         </effect>
+      </GridPane>
+   </center>
+</BorderPane>

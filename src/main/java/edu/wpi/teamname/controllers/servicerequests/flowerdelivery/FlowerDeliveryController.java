@@ -62,8 +62,8 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(dbr.getListOfSize("small").get(i).toString());
       btn1.setText(dbr.getListOfSize("small").get(i).getName());
-      btn1.setMaxWidth(200);
-      btn1.setMaxHeight(200);
+      btn1.setMaxWidth(300);
+      btn1.setMaxHeight(300);
       hbox1.getChildren().add(btn1);
       btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
       int finalII = i;
