@@ -14,3 +14,10 @@
     -fx-background-radius: 10;
     -fx-border-radius: 2;
 }
+
+.MapEditorButton {
+    -fx-alignment: LEFT;
+    -fx-border-radius: 2;
+    -fx-background-color: #CAD6F8;
+
+}
