@@ -1,9 +1,11 @@
 package edu.wpi.teamname.DAOs.orms;
 
 import edu.wpi.teamname.DAOs.IDataPack;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class User implements IDataPack {
 
@@ -11,6 +13,8 @@ public class User implements IDataPack {
   @Getter @Setter private String password;
   @Getter @Setter private String sessionID;
   @Getter @Setter private Permission permission;
+  @Getter @Setter private LocalDate DOB;
+  @Getter @Setter private String title;
   @Getter @Setter private List<SRItem> cart;
 
   public User(String name, String pass, Permission perm) {
