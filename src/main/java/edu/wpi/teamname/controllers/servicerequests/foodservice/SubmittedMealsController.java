@@ -1,9 +1,9 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -26,7 +26,7 @@ public class SubmittedMealsController {
   @FXML private MFXButton subBack;
   @FXML private MFXButton homeButton;
 
-  IDAO<FoodDelivery, Integer> repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
+  FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
 
   @FXML
   public void initialize() {

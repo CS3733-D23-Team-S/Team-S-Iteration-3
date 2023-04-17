@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import lombok.Getter;
 
 public class Move implements IDataPack {
-  @Getter private int nodeID;
-  @Getter private String location;
+  @Getter private Node node;
+  @Getter private Location location;
   @Getter private LocalDate date;
 
-  public Move(int nodeID, String location, LocalDate date) {
-    this.nodeID = nodeID;
+  public Move(Node node, Location location, LocalDate date) {
+    this.node = node;
     this.date = date;
     this.location = location;
   }
@@ -19,9 +19,9 @@ public class Move implements IDataPack {
   public String toString() {
     return "Move{"
         + "nodeID = "
-        + nodeID
+        + node.getNodeID()
         + ", location = '"
-        + location
+        + location.getLongName()
         + ", date = "
         + date.toString()
         + '}';
@@ -29,6 +29,14 @@ public class Move implements IDataPack {
 
   @Override
   public String toCSVString() {
-    return nodeID + "," + location + "," + date;
+    return node.getNodeID() + "," + location.getLongName() + "," + date;
+  }
+
+  public int getNodeID() {
+    return node.getNodeID();
+  }
+
+  public String getLocationName() {
+    return location.getLongName();
   }
 }

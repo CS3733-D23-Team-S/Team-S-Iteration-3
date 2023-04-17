@@ -49,7 +49,7 @@ public class ProductDetailsController {
 
     back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = DBR.retrieveFood(clickedFoodID);
+    Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
 
     addCart.setOnMouseClicked(
         event -> {
@@ -92,7 +92,7 @@ public class ProductDetailsController {
 
   public Food selectedFood() {
     System.out.println("working selected");
-    return DBR.retrieveFood(clickedFoodID);
+    return DBR.getFoodDAO().get(clickedFoodID);
   }
 
   public void foodNamer() {

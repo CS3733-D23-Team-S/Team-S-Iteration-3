@@ -23,11 +23,12 @@ public class FlowersTest {
     assertEquals(fDAOI.get(1000), flower1);
 
     List<Flower> sizes = new ArrayList<>();
+
     for (Flower flower : fDAOI.getAll()) {
       if (flower.getSize().toString().equals("small")) sizes.add(flower);
     }
 
-    assertEquals(sizes, fDAOI.getListSize("small"));
+    assertEquals(sizes, fDAOI.getListOfSize("small"));
   }
 
   @Test
