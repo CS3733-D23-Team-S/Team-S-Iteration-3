@@ -37,7 +37,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
             + "Quantity int,"
             + "Message Varchar(100),"
             + "SoldOut boolean,"
-            + "Description Varchar(100),"
+            + "Description Varchar(1000),"
             + "Image Varchar(100))";
 
     try {
