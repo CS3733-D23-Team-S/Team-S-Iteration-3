@@ -79,20 +79,8 @@
             </HBox>
             <HBox fx:id="qd" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
 
-            <HBox prefHeight="30.0" prefWidth="200.0">
-               <children>
-                  <Text fx:id="wfLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Wallet Friendly">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="50.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-            <HBox fx:id="wf" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
-            <HBox fx:id="picBox" prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="30.0" prefWidth="200.0" />
+            <HBox fx:id="picBox" prefHeight="451.0" prefWidth="1440.0" />
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="1" GridPane.rowIndex="5">

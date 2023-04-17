@@ -150,8 +150,10 @@ public class ProductDetailsController extends PopUpController {
   }
 
   public void subtractQuantity() {
-    itemCount--;
-    quantityLabel.setText(Integer.toString(itemCount));
+    if (itemCount > 1) {
+      itemCount--;
+      quantityLabel.setText(Integer.toString(itemCount));
+    }
   }
 
   public void showImage() {

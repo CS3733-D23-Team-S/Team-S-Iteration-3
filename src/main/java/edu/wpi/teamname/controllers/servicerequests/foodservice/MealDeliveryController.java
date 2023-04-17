@@ -25,7 +25,7 @@ public class MealDeliveryController {
   // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
   @FXML HBox picBox;
-  @FXML HBox wf;
+  // @FXML HBox wf;
   @FXML HBox qd;
   @FXML SplitMenuButton dietaryButton;
   @FXML SplitMenuButton cuisine;
@@ -164,7 +164,7 @@ public class MealDeliveryController {
       btn1.setMaxWidth(103);
       btn1.setMaxHeight(87);
 
-      wf.getChildren().add(btn1);
+      // wf.getChildren().add(btn1);
 
       int finalII = i;
       btn1.setOnMouseClicked(
@@ -192,22 +192,26 @@ public class MealDeliveryController {
     for (Food f : DBR.getFoodDAO().getFoods().values()) {
 
       VBox food = new VBox();
+      food.setMaxWidth(100);
+      food.setMaxHeight(200);
+
+      picBox.setSpacing(10);
 
       Image pic = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView foodPic = new ImageView(pic);
       foodPic.setPreserveRatio(true);
       foodPic.setFitHeight(80);
-      foodPic.setFitWidth(60);
+      foodPic.setFitWidth(80);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.toString());
 
-      btn1.setMaxWidth(103);
-      btn1.setMaxHeight(87);
+      //  btn1.setMaxWidth(103);
+      // btn1.setMaxHeight(87);
 
-      btn1.setWrapText(true);
-      btn1.setGraphic(foodPic);
+      //  btn1.setWrapText(true);
+      //  btn1.setGraphic(foodPic);
 
       food.getChildren().add(foodPic);
       food.getChildren().add(btn1);
@@ -215,9 +219,10 @@ public class MealDeliveryController {
       picBox.getChildren().add(food);
       btn1.setOnMouseClicked(event -> store(f.getFoodID()));
 
-      // int finalIII = i;
-      // btn1.setOnMouseClicked(
-      // event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalIII).getFoodID()));
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
   }
 
@@ -380,7 +385,7 @@ public class MealDeliveryController {
   }
 
   public void clear1() {
-    wf.getChildren().clear();
+    // wf.getChildren().clear();
     qd.getChildren().clear();
     qdLabel.setText("");
     wfLabel.setText("");
