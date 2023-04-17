@@ -4,9 +4,11 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.controllers.PopUpController;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Navigation {
+  private BorderPane originalRootPane = App.getRootPane();
 
   public static void navigate(final Screen screen) {
     final String filename = screen.getFilename();
@@ -16,6 +18,13 @@ public class Navigation {
       final FXMLLoader loader = new FXMLLoader(resource);
 
       App.getRootPane().setCenter(loader.load());
+      if (filename.equals("views/SignagePage.fxml") || filename.equals("views/LoginPage.fxml")) {
+        App.getRootPane().setTop(null);
+        App.getRootPane().setLeft(null);
+      } else {
+        App.getRootPane().setTop(App.getTop());
+        App.getRootPane().setLeft(App.getLeft());
+      }
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }
