@@ -20,6 +20,8 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   @Getter LinkedList<ConfRoomRequest> requests = new LinkedList<>();
   dbConnection connection = dbConnection.getInstance();
 
+  private Statement statement;
+
   public RoomRequestDAO() {}
 
   public void initTable(String name) {
@@ -27,7 +29,8 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     String roomReservationsTableConstruct =
         "CREATE TABLE IF NOT EXISTS "
             + roomReservationsTable
-            + " (reservationID SERIAL PRIMARY KEY,"
+            + " "
+            + "(reservationID SERIAL PRIMARY KEY,"
             + "dateOrdered Date,"
             + "eventDate Date,"
             + "startTime Time,"
@@ -38,7 +41,8 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
             + "eventDescription Varchar(100),"
             + "assignedTo Varchar(100),"
             + "orderStatus Varchar(100),"
-            + "notes Varchar(500))";
+            + "notes Varchar(500),"
+            + "isPrivate bool)";
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(roomReservationsTableConstruct);
@@ -59,8 +63,8 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
               .prepareStatement(
                   "INSERT INTO "
                       + roomReservationsTable
-                      + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes) "
-                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (dateOrdered, eventDate, startTime, endTime, room, reservedBy, eventName, eventDescription, assignedTo, orderStatus, notes, isPrivate) "
+                      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
       preparedStatement.setDate(2, Date.valueOf(request.eventDate));
       preparedStatement.setTime(3, Time.valueOf(request.startTime));
@@ -72,6 +76,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
       preparedStatement.setString(9, request.getAssignedTo());
       preparedStatement.setString(10, request.getOrderStatus().name()); // TODO fix
       preparedStatement.setString(11, request.getNotes());
+      preparedStatement.setBoolean(12, request.isPrivate());
       preparedStatement.executeUpdate();
 
       requests.add(request);
@@ -92,6 +97,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         locations.add(thisLocation.getLongName());
       }
     }
+    ;
     Collections.sort(locations);
     return locations;
   }
@@ -113,10 +119,13 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
 
         LocalTime registeredStart = LocalTime.parse(times.getString("startTime"));
         LocalTime registeredEnd = LocalTime.parse(times.getString("endTime"));
+        if (endTime.isBefore(startTime)) return true;
+        if (startTime.equals(registeredStart) || endTime.equals(registeredEnd)) return true;
         if ((endTime.isAfter(registeredStart) && endTime.isBefore(registeredEnd))) return true;
         if ((startTime.isAfter(registeredStart)) && startTime.isBefore(registeredEnd)) return true;
       }
     } catch (SQLException e) {
+      e.getMessage();
       e.printStackTrace();
     }
     return false;
@@ -142,6 +151,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         String eventName = rs.getString("EventName");
         String eventDescription = rs.getString("EventDescription");
         String assignedTo = rs.getString("AssignedTo");
+        Boolean isPrivate = rs.getBoolean("isPrivate");
 
         if (thisDate.isAfter(LocalDate.now())) continue;
 
@@ -158,10 +168,12 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
                 user,
                 eventName,
                 eventDescription,
-                assignedTo);
+                assignedTo,
+                isPrivate);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
+      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
@@ -188,6 +200,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         String eventName = rs.getString("EventName");
         String eventDescription = rs.getString("EventDescription");
         String assignedTo = rs.getString("AssignedTo");
+        Boolean isPrivate = rs.getBoolean("isPrivate");
 
         ConfRoomRequest thisRequest =
             new ConfRoomRequest(
@@ -198,10 +211,12 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
                 user,
                 eventName,
                 eventDescription,
-                assignedTo);
+                assignedTo,
+                isPrivate);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
+      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
@@ -252,6 +267,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
         String eventName = rs.getString("EventName");
         String eventDescription = rs.getString("EventDescription");
         String assignedTo = rs.getString("AssignedTo");
+        Boolean isPrivate = rs.getBoolean("isPrivate");
 
         ConfRoomRequest thisRequest =
             new ConfRoomRequest(
@@ -262,60 +278,23 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
                 reservedBy,
                 eventName,
                 eventDescription,
-                assignedTo);
+                assignedTo,
+                isPrivate);
         requestList.add(thisRequest);
       }
     } catch (SQLException e) {
+      e.getMessage();
       e.printStackTrace();
     }
     return requestList;
   }
 
+  @Override
   public ConfRoomRequest get(String target) {
     return null;
   }
 
-  public ResultSet query(String[] columns, String whereClause, String[] whereArgs, String orderBy) {
-
-    StringBuilder queryString = new StringBuilder();
-    queryString.append("SELECT ");
-    if (columns != null) {
-      for (int i = 0; i < columns.length; i++) {
-        queryString.append(columns[i]);
-        if (i != (columns.length - 1)) {
-          queryString.append(",");
-        }
-      }
-    } else {
-      queryString.append("*");
-    }
-
-    queryString.append(" FROM ");
-    queryString.append(roomReservationsTable);
-
-    if (whereClause != null) {
-      queryString.append(" WHERE ");
-
-      if (whereClause.contains("?") && whereArgs != null) {
-        for (String whereArg : whereArgs) {
-          whereClause = whereClause.replaceFirst("\\?", "'" + whereArg + "'");
-        }
-      }
-
-      queryString.append(whereClause);
-    }
-
-    if (orderBy != null) {
-      queryString.append(" ORDER BY ");
-      queryString.append(orderBy);
-    }
-
-    try {
-      Statement statement = connection.getConnection().createStatement();
-      return statement.executeQuery(queryString.toString());
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+  public ConfRoomRequest getRow(String target) {
     return null;
   }
 

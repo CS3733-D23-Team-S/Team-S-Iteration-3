@@ -18,6 +18,7 @@ public class ConfRoomRequest {
   @Getter @Setter String assignedTo = "NA";
   @Getter @Setter Status orderStatus;
   @Getter @Setter String notes;
+  @Getter @Setter boolean isPrivate = false;
 
   public ConfRoomRequest(
       LocalDate eventDate,
@@ -27,7 +28,8 @@ public class ConfRoomRequest {
       String reservedBy,
       String eventName,
       String eventDescription,
-      String assignedTo) {
+      String assignedTo,
+      Boolean isPrivate) {
     this.orderDate = LocalDate.now();
     this.eventDate = eventDate;
     this.startTime = startTime;

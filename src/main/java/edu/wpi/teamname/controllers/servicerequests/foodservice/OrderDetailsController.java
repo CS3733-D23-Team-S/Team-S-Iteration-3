@@ -20,43 +20,40 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class OrderDetailsController {
 
-  @FXML private MFXButton back2;
-  @FXML private MFXButton flowerbutton1;
+  // @FXML private MFXButton back2;
+  // @FXML private MFXButton flowerbutton1;
   @FXML private MFXButton submit;
   @FXML private MFXButton clear2;
-  @FXML private VBox itName;
-  @FXML private VBox itQuant1;
-  @FXML private VBox itRequest;
-  @FXML private VBox itPrice;
+
   @FXML private SearchableComboBox location1;
   @FXML private MFXTextField empNum;
+  @FXML private VBox items;
 
-  @FXML private MFXButton submitted1;
   @FXML private MFXTextField request1;
 
-  @FXML private MFXButton roomButton1;
-  @FXML private MFXButton mealButton2;
-  @FXML private MFXButton signagePage1;
-  @FXML private MFXButton navigation1;
-  @FXML private MFXButton cancel;
-  @FXML private MFXButton homeButton;
+  // @FXML private MFXButton roomButton1;
+  // @FXML private MFXButton mealButton2;
+  // @FXML private MFXButton signagePage1;
+  // @FXML private MFXButton navigation1;
+  // @FXML private MFXButton cancel;
+  // @FXML private MFXButton homeButton;
 
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
   public void initialize() {
-    flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-    roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    // roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    // signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    // mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    // cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     clearFields2();
     addedOrder();
 
-    back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
     String whoOrdered = "George Washington"; // eventually linked to account ordering
 
@@ -88,7 +85,7 @@ public class OrderDetailsController {
                     NewHomeController.cart.getTotalPrice(),
                     theNote);
 
-            DBR.addFoodRequest(currentFoodDev);
+            DBR.getFoodDeliveryDAO().add(currentFoodDev);
 
             Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
 
@@ -96,8 +93,6 @@ public class OrderDetailsController {
             e.printStackTrace();
           }
         });
-
-    submitted1.setOnMouseClicked(event -> Navigation.navigate(Screen.SUBMITTED_MEALS));
 
     clear2.setOnMouseClicked(event -> clearFields2());
   }
@@ -114,31 +109,49 @@ public class OrderDetailsController {
       Label newItemName = new Label();
       Label newItemQuantity = new Label();
       Label newItemPrice = new Label();
-      Label newItemRequest = new Label();
+      Label newItemPrepTime = new Label();
+      Label newItemDescription = new Label();
 
       HBox newRow = new HBox();
       newRow.setSpacing(200);
       newRow.setMaxWidth(1000);
+
+      VBox itemInfo = new VBox();
+      itemInfo.setSpacing(10);
+      itemInfo.setMaxWidth(1000);
+
+      HBox pricePrep = new HBox();
+      pricePrep.setSpacing(80);
+      pricePrep.setMaxWidth(1000);
+
       // newRow.setStyle("-fx-background-color : red");
 
       newItemName.setText(aFood.getFoodName());
-      newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px; -fx-font-weight: bold");
 
       newItemQuantity.setText(String.valueOf(aFood.getQuantity()));
       newItemQuantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      newItemPrice.setText(String.valueOf(aFood.getFoodPrice()));
+      newItemPrice.setText(String.valueOf("$ " + aFood.getFoodPrice()));
       newItemPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
-      newItemRequest.setText(String.valueOf(aFood.getNote()));
-      newItemRequest.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemPrepTime.setText(String.valueOf(aFood.getFoodPrepTime() + " minutes"));
+      newItemPrepTime.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+
+      newItemDescription.setText(String.valueOf(aFood.getFoodDescription()));
+      newItemDescription.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
 
       // orderVBox.getChildren().add(newRow);
 
-      itName.getChildren().add(newItemName);
-      itQuant1.getChildren().add(newItemQuantity);
-      itPrice.getChildren().add(newItemPrice);
-      itRequest.getChildren().add(newItemRequest);
+      items.getChildren().add(newRow);
+      newRow.getChildren().add(itemInfo);
+      itemInfo.getChildren().add(newItemName);
+      itemInfo.getChildren().add(newItemDescription);
+      itemInfo.getChildren().add(pricePrep);
+
+      pricePrep.getChildren().add(newItemPrice);
+      pricePrep.getChildren().add(newItemPrepTime);
+      pricePrep.getChildren().add(newItemQuantity);
     }
   }
 }

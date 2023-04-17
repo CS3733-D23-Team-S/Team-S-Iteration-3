@@ -4,6 +4,7 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,20 +12,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import lombok.Getter;
@@ -38,24 +39,11 @@ public class RoomBookingController {
 
   // FXML
   @FXML MFXButton addMeetingButton;
-  @FXML MFXButton backButton;
   @FXML TextFieldTableCell dateHeaderTextField;
   @FXML TextFieldTableCell currentDateText;
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
-  @FXML DatePicker DateFilterPicker;
-  @FXML MFXButton submittedRequestsButton;
-
-  @FXML MFXButton navigationbutton;
-  @FXML MFXButton navigationbutton1;
-  @FXML MFXButton mealbutton;
-  @FXML MFXButton roombutton;
-  @FXML MFXButton flowerbutton;
-  @FXML ImageView homeicon1;
-  @FXML ImageView homeicon;
-  @FXML ImageView backicon;
-  @FXML ImageView backicon1;
-  @FXML ImageView helpicon;
+  @FXML MFXDatePicker DateFilterPicker;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -70,36 +58,8 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
-    addMeetingButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING_DETAILS));
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    submittedRequestsButton.setOnMouseClicked(
-        event -> Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS));
-    DateFilterPicker.setOnMouseClicked(event -> filterDate(DateFilterPicker.getValue()));
-
-    navigationbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-
-    homeicon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.HOME);
-          event.consume();
-        });
-    backicon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.HOME);
-          event.consume();
-        });
-    backicon1.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.SIGNAGE_PAGE);
-          event.consume();
-        });
+    addMeetingButton.setOnMouseClicked(
+        event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
 
     initializeRooms();
     initializeFeatureFilter();
@@ -128,6 +88,19 @@ public class RoomBookingController {
                         + featureFilterComboBox.getCheckModel().getCheckedItems());
               }
             });
+
+    DateFilterPicker.valueProperty()
+        .addListener(
+            new ChangeListener<LocalDate>() {
+              @Override
+              public void changed(
+                  ObservableValue<? extends LocalDate> observable,
+                  LocalDate oldValue,
+                  LocalDate newValue) {
+                filterDate(newValue);
+                System.out.println("Filtering by new date: " + newValue);
+              }
+            });
   }
 
   /**
@@ -143,23 +116,25 @@ public class RoomBookingController {
   public static void addNewRequest(
       String roomLocation,
       LocalDate date,
-      String startTime,
-      String endTime,
+      LocalTime startTime,
+      LocalTime endTime,
       String eventTitle,
-      String eventDescription)
+      String eventDescription,
+      boolean isPrivate)
       throws Exception {
 
     System.out.println("Adding new request");
     ConfRoomRequest newRequest =
         new ConfRoomRequest(
             date,
-            LocalTime.of(Integer.parseInt(startTime), 0, 0, 0),
-            LocalTime.of(Integer.parseInt(endTime), 0, 0, 0),
+            startTime,
+            endTime,
             roomLocation,
             "TestReserve",
             eventTitle,
             eventDescription,
-            "staff member");
+            "staff member",
+            isPrivate);
     DataBaseRepository.getInstance().addRoomRequest(newRequest); // TODO need this?
   }
 
@@ -199,16 +174,19 @@ public class RoomBookingController {
   // hard code ConfRoomLocation objects
   public void initializeRooms() {
     // hard coded in rooms
-    roomList.addAll(confRoomDAO.getAll());
+    roomList.addAll(confRoomDAO.getAll()); // TODO alphabetize
 
     for (int i = 0; i < roomList.size(); i++) {
 
       // vbox
       VBox roomVBox = new VBox();
       roomVBox.setAlignment(Pos.valueOf("TOP_CENTER"));
-      roomVBox.setPrefHeight(612.0);
-      roomVBox.setPrefWidth(229.0);
+      // roomVBox.setPrefHeight(612.0);
+      roomVBox.setPrefWidth(200);
       roomVBox.setSpacing(5);
+      // roomVBox.setStyle("-fx-border-style: solid dashed double dotted");
+      roomVBox.setStyle("-fx-border-color: #00000000 #D8D8D8 #FFFFFF00 #D8D8D8");
+      // #D8D8D8
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
       roomListVBoxes.add(roomVBox);
 
@@ -216,11 +194,16 @@ public class RoomBookingController {
       TextFieldTableCell textField = new TextFieldTableCell();
       textField.setAlignment(Pos.valueOf("CENTER"));
       textField.setTextAlignment(TextAlignment.valueOf("CENTER"));
-      textField.setPrefSize(250.0, 80.0);
-      textField.setMinWidth(200);
-      textField.setMinHeight(80);
+      textField.setPrefSize(175, 75);
+      textField.setMinWidth(175);
+      textField.setMinHeight(75);
+      textField.setMaxHeight(75);
       textField.setWrapText(true);
-      textField.setStyle("-fx-border-style: hidden solid hidden hidden;");
+      // textField.setStyle("-fx-border-style: solid dashed double dotted;");
+      textField.setStyle("-fx-border-color: #FFFFFF00 #FFFFFF00 #D8D8D8 #FFFFFF00");
+      textField.setFont(Font.font("Open Sans"));
+      textField.setFont(Font.font(16));
+      textField.setPadding(new Insets(0, 5, 0, 5));
       textField.setText(roomList.get(i).getLocation().getLongName());
       textField.setTextFill(Paint.valueOf("#1d3d94"));
 
@@ -276,6 +259,7 @@ public class RoomBookingController {
     for (int i = 0; i < roomListVBoxes.size(); i++) {
       roomListVBoxes.get(i).getChildren().clear();
     }
+    conferenceRoomsHBox.getChildren().clear();
   }
 
   /**
@@ -291,27 +275,30 @@ public class RoomBookingController {
     rect.getStyleClass().add("room-request-rect");
 
     rect.setWidth(170);
-    rect.setHeight(110);
-    rect.setArcHeight(5);
-    rect.setFill(Color.LIGHTBLUE);
+    rect.setHeight(85);
+    rect.setArcHeight(15);
+    rect.setArcWidth(15);
+    // rect.setStyle("-fx-background-radius: 15;");
+    rect.setFill(Paint.valueOf("#B5C5EE"));
 
     VBox eventVBox = new VBox();
+    eventVBox.setSpacing(2);
 
     Text title = new Text(); // create text
     title.setText(roomRequest.getEventName());
-    title.setFont(Font.font("Open Sans", 15));
-    // title.setStyle("Bold");
-    title.setFill(Color.BLACK);
+    title.setFont(Font.font("Open Sans", FontWeight.BOLD, 15));
+    title.setStyle("Bold");
+    title.setFill(Paint.valueOf("#1D3D94"));
 
     Text creator = new Text(); // create creator line
     creator.setText(roomRequest.getReservedBy());
-    creator.setFont(Font.font("Open Sans", 12));
-    creator.setFill(Color.BLACK);
+    creator.setFont(Font.font("Open Sans", 15));
+    creator.setFill(Paint.valueOf("#1D3D94"));
 
     Text time = new Text();
     time.setText(roomRequest.getStartTime() + " - " + roomRequest.getEndTime());
-    time.setFont(Font.font("Open Sans", 12));
-    time.setFill(Color.BLACK);
+    time.setFont(Font.font("Open Sans", 15));
+    time.setFill(Paint.valueOf("#1D3D9450"));
 
     resGroup.getChildren().add(rect);
 

@@ -63,14 +63,14 @@ public class FlowerOrderDetailsController {
   }
 
   private void showInfo() {
-    namelabel.setText(dbr.flowerRetrieve(flowerID).getName());
-    descriptionlabel.setText(dbr.flowerRetrieve(flowerID).getDescription());
-    pricelabel.setText("$" + dbr.flowerRetrieve(flowerID).getPrice());
-    sizelabel.setText(dbr.flowerRetrieve(flowerID).getSize().toString());
+    namelabel.setText(dbr.getFlowerDAO().get(flowerID).getName());
+    descriptionlabel.setText(dbr.getFlowerDAO().get(flowerID).getDescription());
+    pricelabel.setText("$" + dbr.getFlowerDAO().get(flowerID).getPrice());
+    sizelabel.setText(dbr.getFlowerDAO().get(flowerID).getSize().toString());
   }
 
   private void createDelivery() {
-    Flower flower = dbr.flowerRetrieve(flowerID);
+    Flower flower = dbr.getFlowerDAO().get(flowerID);
     flower.setQuantity(Integer.parseInt(quantityfield.getText()));
     flower.setMessage(custommessagefield.getText());
     flowerCart.addFlowerItem(flower);

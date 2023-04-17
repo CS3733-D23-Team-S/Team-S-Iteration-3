@@ -3,9 +3,10 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,289 +16,139 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerSubmissionController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="25.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="25.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerSubmissionController">
+   <center>
+      <GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="25.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="25.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+         </rowConstraints>
          <children>
-            <ImageView fx:id="homeicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/homeicon.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5">
-         <children>
-            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/usericon.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="6" />
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
-         <children>
-            <ImageView fx:id="topbarlogo" fitHeight="45.0" fitWidth="625.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/topbarLogo.png" />
-               </image>
-               <HBox.margin>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cart" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+               <font>
+                  <Font name="Open Sans Regular" size="48.0" />
+               </font>
+               <GridPane.margin>
                   <Insets />
-               </HBox.margin>
-            </ImageView>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="9">
-         <children>
-            <MFXButton fx:id="submitbutton" alignment="CENTER" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Submit Order" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </MFXButton>
-         </children>
-      </HBox>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="10">
-         <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/bwlogo.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="50.0" />
-               </VBox.margin>
-            </ImageView>
-            <MFXButton fx:id="navigationbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="signagebutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="mealbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="roombutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="flowerbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="30.0" right="30.0" />
-               </VBox.margin>
-            </MFXButton>
-            <ImageView fx:id="backicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/backicon.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="10.0" right="150.0" top="140.0" />
-               </VBox.margin>
-            </ImageView>
-            <ImageView fx:id="exiticon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/exiticon.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="10.0" right="150.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <ImageView fx:id="helpicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/helpicon.png" />
-               </image>
-               <VBox.margin>
-                  <Insets right="150.0" top="10.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
-      </VBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cart" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <font>
-            <Font name="Open Sans Regular" size="36.0" />
-         </font>
-      </Text>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="5">
-         <children>
-            <VBox fx:id="itemvbox" prefHeight="200.0" prefWidth="150.0">
-               <children>
-                  <Text fx:id="itemnametext" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Name">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-            <VBox fx:id="quantityvbox" prefHeight="200.0" prefWidth="150.0">
-               <children>
-                  <Text fx:id="quantitytext" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox fx:id="pricevbox" prefHeight="200.0" prefWidth="150.0">
-               <children>
-                  <Text fx:id="pricetext" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox fx:id="requestvbox" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Text fx:id="requesttext" strokeType="OUTSIDE" strokeWidth="0.0" text="Message">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox fx:id="recipientvbox" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Text fx:id="recipienttext" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient">
-                     <font>
-                        <Font name="Open Sans Regular" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-         </children>
-         <GridPane.margin>
-            <Insets right="100.0" />
-         </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
-         <children>
-            <MFXButton fx:id="submitreqbutton" alignment="CENTER" prefWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Submit Requests" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </MFXButton>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
-               <font>
-                  <Font name="Open Sans Regular" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
+               </GridPane.margin>
             </Text>
-         </children>
-         <GridPane.margin>
-            <Insets left="40.0" top="10.0" />
-         </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
-         <children>
-            <SearchableComboBox fx:id="locationdrop" promptText="Location" />
-         </children>
-         <GridPane.margin>
-            <Insets left="50.0" top="10.0" />
-         </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
-      <VBox GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="7">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-         </children>
-         <GridPane.margin>
-            <Insets left="45.0" />
-         </GridPane.margin>
-      </VBox>
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5">
-         <children>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="7">
+               <GridPane.margin>
+                  <Insets right="130.0" />
+               </GridPane.margin>
+               <content>
+                  <VBox fx:id="itemvbox" />
+               </content>
+            </ScrollPane>
+            <VBox fx:id="sidepanel" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee">
+                  <HBox minHeight="36.0" minWidth="448.0" prefHeight="36.0" prefWidth="448.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Total Price">
+                           <font>
+                              <Font name="Open Sans Regular" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="260.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Label style="-fx-font-weight: bold;" text="PRICE">
+                           <font>
+                              <Font name="Open Sans Regular" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee:">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
                   </Text>
-               </children>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <MFXTextField fx:id="employeefield" prefWidth="200.0" promptText="Enter Employee">
+                  <SearchableComboBox fx:id="employeedrop" minHeight="40.0" prefHeight="40.0" promptText="Employee" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </SearchableComboBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deliver To:">
                      <font>
-                        <Font name="Open Sans Regular" size="18.0" />
+                        <Font name="Open Sans Regular" size="24.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Text>
+                  <SearchableComboBox fx:id="locationdrop" minHeight="40.0" prefHeight="40.0" promptText="Location" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </SearchableComboBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Special Requests:">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Text>
+                  <MFXTextField fx:id="requestfield" alignment="TOP_LEFT" minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" promptText="type here" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
                   </MFXTextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="448.0" spacing="20.0">
+                     <children>
+                        <MFXButton fx:id="submitbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="submitbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Submit" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="clearbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="clearbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Clear" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </VBox>
          </children>
-      </VBox>
-   </children>
-   <effect>
-      <Blend />
-   </effect>
-</GridPane>
+         <effect>
+            <Blend />
+         </effect>
+      </GridPane>
+   </center>
+</BorderPane>
