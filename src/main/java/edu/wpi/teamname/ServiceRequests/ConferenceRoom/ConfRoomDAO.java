@@ -8,10 +8,7 @@ import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.Location;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
   dbConnection connection = dbConnection.getInstance();
