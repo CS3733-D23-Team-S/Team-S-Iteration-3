@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
@@ -41,11 +40,6 @@ public class RoomBookingDetailsController extends PopUpController {
   @FXML MFXButton mealbutton;
   @FXML MFXButton roombutton;
   @FXML MFXButton flowerbutton;
-  @FXML ImageView homeicon1;
-  @FXML ImageView homeicon;
-  @FXML ImageView backicon;
-  @FXML ImageView backicon1;
-  @FXML ImageView helpicon;
 
   RoomBookingController rbc = new RoomBookingController();
 
@@ -64,7 +58,10 @@ public class RoomBookingDetailsController extends PopUpController {
               submitDetailsButton.setDisable(
                   eventTitleText.getText().trim().isEmpty()
                       || eventDescriptionText.getText().trim().isEmpty()
-                      || roomComboBox.getText().isEmpty());
+                      || roomComboBox.valueProperty().toString().length() == 0
+                      || startTimeField.valueProperty().toString().length() == 0
+                      || endTimeField.valueProperty().toString().length() == 0
+                      || staffMemberComboBox.getValue() == null);
             }));
 
     eventTitleText
@@ -75,18 +72,38 @@ public class RoomBookingDetailsController extends PopUpController {
               submitDetailsButton.setDisable(
                   eventTitleText.getText().trim().isEmpty()
                       || eventDescriptionText.getText().trim().isEmpty()
-                      || roomComboBox.getText().isEmpty());
+                      || roomComboBox.getValue() == null
+                      || startTimeField.valueProperty().toString().length() == 0
+                      || endTimeField.valueProperty().toString().length() == 0
+                      || staffMemberComboBox.getValue() == null);
             }));
 
     roomComboBox
-        .textProperty()
+        .valueProperty()
         .addListener(
             ((observable, oldValue, newValue) -> {
               // check if textField1 is non-empty and enable/disable the button accordingly
               submitDetailsButton.setDisable(
                   eventTitleText.getText().trim().isEmpty()
                       || eventDescriptionText.getText().trim().isEmpty()
-                      || roomComboBox.getText().isEmpty());
+                      || roomComboBox.getValue() == null
+                      || startTimeField.valueProperty().toString().length() == 0
+                      || endTimeField.valueProperty().toString().length() == 0
+                      || staffMemberComboBox.getValue() == null);
+            }));
+
+    staffMemberComboBox
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getValue() == null
+                      || startTimeField.valueProperty().toString().length() == 0
+                      || endTimeField.valueProperty().toString().length() == 0
+                      || staffMemberComboBox.getValue() == null);
             }));
 
     submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
@@ -132,10 +149,9 @@ public class RoomBookingDetailsController extends PopUpController {
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
     System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
-    stage.close();
     rbc.addNewRequest(
         roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
+    stage.close();
 
     // clearFields();
   }
