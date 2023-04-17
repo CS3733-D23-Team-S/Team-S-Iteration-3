@@ -42,8 +42,9 @@ public class FlowerPopupController extends PopUpController {
     flowerdescription.setText(
         dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getDescription());
 
-    PriceText.setText(String.valueOf(dbr.getFlowerDAO().get(flowerID).getPrice()));
-    SizeText.setText(dbr.getFlowerDAO().get(flowerID).getSize().name());
+    PriceText.setText(
+        String.valueOf(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getPrice()));
+    SizeText.setText(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getSize().name());
 
     Image image =
         new Image(
