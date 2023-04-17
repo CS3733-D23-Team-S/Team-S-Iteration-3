@@ -92,6 +92,7 @@
                </children>
             </HBox>
             <HBox fx:id="wf" prefHeight="100.0" prefWidth="200.0" spacing="5.0" />
+            <HBox fx:id="picBox" prefHeight="100.0" prefWidth="200.0" />
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="1" GridPane.rowIndex="5">

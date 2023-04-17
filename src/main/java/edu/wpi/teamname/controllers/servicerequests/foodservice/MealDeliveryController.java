@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -12,7 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class MealDeliveryController {
@@ -20,6 +24,7 @@ public class MealDeliveryController {
   // @FXML MFXButton backButton1;
   // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
+  @FXML HBox picBox;
   @FXML HBox wf;
   @FXML HBox qd;
   @FXML SplitMenuButton dietaryButton;
@@ -144,22 +149,7 @@ public class MealDeliveryController {
 
     walletFriendly();
     quickDelivery();
-  }
-
-  public void noFilter() {
-
-    for (Food f : DBR.getFoodDAO().getFoods().values()) {
-      MFXButton btn1 = new MFXButton();
-
-      btn1.setId(f.toString());
-      btn1.setText(f.toString());
-
-      btn1.setMaxWidth(103);
-      btn1.setMaxHeight(87);
-
-      wf.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> store(f.getFoodID()));
-    }
+    noFilter();
   }
 
   public void walletFriendly() {
@@ -194,6 +184,33 @@ public class MealDeliveryController {
 
       int finalI = i;
       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getQuick().get(finalI).getFoodID()));
+    }
+  }
+
+  public void noFilter() {
+//Food f : DBR.getFoodDAO().getFoods().values()
+    for (Food f : DBR.getFoodDAO().getFoods().values()) {
+
+      MFXButton btn1 = new MFXButton();
+      VBox food = new VBox();
+      Image pic = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView foodPic = new ImageView();
+      foodPic.setImage(pic);
+      btn1.setId(f.toString());
+      btn1.setText(f.toString());
+
+      btn1.setMaxWidth(103);
+      btn1.setMaxHeight(87);
+
+      food.getChildren().add(foodPic);
+      food.getChildren().add(btn1);
+
+      picBox.getChildren().add(food);
+      btn1.setOnMouseClicked(event -> store(f.getFoodID()));
+
+      // int finalIII = i;
+      // btn1.setOnMouseClicked(
+      // event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalIII).getFoodID()));
     }
   }
 

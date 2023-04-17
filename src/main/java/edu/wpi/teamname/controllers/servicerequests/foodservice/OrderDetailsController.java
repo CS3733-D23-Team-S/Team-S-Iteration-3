@@ -105,7 +105,7 @@ public class OrderDetailsController {
   public void addedOrder() {
 
     for (Food aFood : NewHomeController.cart.getTheCart().values()) {
-      System.out.println("works");
+
       Label newItemName = new Label();
       Label newItemQuantity = new Label();
       Label newItemPrice = new Label();
@@ -123,8 +123,6 @@ public class OrderDetailsController {
       HBox pricePrep = new HBox();
       pricePrep.setSpacing(80);
       pricePrep.setMaxWidth(1000);
-
-      // newRow.setStyle("-fx-background-color : red");
 
       newItemName.setText(aFood.getFoodName());
       newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px; -fx-font-weight: bold");
@@ -145,6 +143,7 @@ public class OrderDetailsController {
 
       items.getChildren().add(newRow);
       newRow.getChildren().add(itemInfo);
+
       itemInfo.getChildren().add(newItemName);
       itemInfo.getChildren().add(newItemDescription);
       itemInfo.getChildren().add(pricePrep);
