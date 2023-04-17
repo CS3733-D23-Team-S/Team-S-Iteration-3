@@ -1,18 +1,16 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import edu.wpi.teamname.controllers.NewHomeController;
-import java.io.IOException;
+import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
+public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Getter private String name;
-  private dbConnection connection;
+  private final dbConnection connection;
   @Getter private HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
 
   public FoodDeliveryDAOImp() {
@@ -143,20 +141,14 @@ public class FoodDeliveryDAOImp implements IDAO<FoodDelivery, Integer> {
         System.out.println("Loading the foods from the server");
         constructFromRemote();
       } else {
-        NewHomeController.delID = 0;
+        System.out.println("Foodrequest table is empty");
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  @Override
-  public void importCSV(String path) {}
-
-  @Override
-  public void exportCSV(String path) throws IOException {}
-
-  private void constructFromRemote() {
+  public void constructFromRemote() {
     try {
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + name);

@@ -35,6 +35,7 @@ public enum Screen {
   FLOWER_CART("views/flowersubmissiondetails.fxml"),
   FLOWER_REQTABLE("views/flowerrequesttable.fxml"),
   FLOWER_CONFIRMATION("views/flowerconfirmationpage.fxml"),
+  FLOWER_POPUP("views/flowerPopup.fxml"),
 
   NEW_USER("views/newUserPopUp.fxml");
 

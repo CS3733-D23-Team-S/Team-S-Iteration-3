@@ -13,7 +13,7 @@ import lombok.Getter;
 
 public class FoodDAOImpl implements IDAO<Food, Integer> {
   @Getter private String name;
-  private dbConnection connection;
+  private final dbConnection connection;
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
 
   public FoodDAOImpl() {
@@ -184,7 +184,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     }
   }
 
-  public Food getRow(Integer target) {
+  public Food get(Integer target) {
     if (foods.get(target) == null) {
       System.out.println("This food is not in the database, so its row cannot be printed");
       return null;
@@ -342,5 +342,126 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public ArrayList<Food> getWalletFriendlyFood() {
+    ArrayList<Food> wFriendlyFoods = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isWalletFriendly()) {
+        wFriendlyFoods.add(aFood);
+      }
+    }
+    return wFriendlyFoods;
+  }
+
+  public ArrayList<Food> getQuick() {
+    ArrayList<Food> quickFood = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isQuickDelivery()) {
+        quickFood.add(aFood);
+      }
+    }
+
+    return quickFood;
+  }
+
+  public ArrayList<Food> getVegetarian() {
+    ArrayList<Food> vegetarianFoods = new ArrayList<>();
+    for (Food aFood : getAll()) {
+      if (aFood.isVegetarian()) {
+        vegetarianFoods.add(aFood);
+      }
+    }
+    return vegetarianFoods;
+  }
+
+  public ArrayList<Food> getVegan() {
+    ArrayList<Food> veganFoods = new ArrayList<>();
+    for (Food aFood : getAll()) {
+      if (aFood.isVegan()) {
+        veganFoods.add(aFood);
+      }
+    }
+    return veganFoods;
+  }
+
+  public ArrayList<Food> getHalal() {
+    ArrayList<Food> halalFoods = new ArrayList<>();
+    for (Food aFood : getAll()) {
+      if (aFood.isHalal()) {
+        halalFoods.add(aFood);
+      }
+    }
+    return halalFoods;
+  }
+
+  public ArrayList<Food> getKosher() {
+    ArrayList<Food> kosherFoods = new ArrayList<>();
+    for (Food aFood : getAll()) {
+      if (aFood.isKosher()) {
+        kosherFoods.add(aFood);
+      }
+    }
+    return kosherFoods;
+  }
+
+  public ArrayList<Food> getGlutenFree() {
+    ArrayList<Food> glutenFreeFoods = new ArrayList<>();
+    for (Food aFood : getAll()) {
+      if (aFood.isGlutFree()) {
+        glutenFreeFoods.add(aFood);
+      }
+    }
+    return glutenFreeFoods;
+  }
+
+  public ArrayList<Food> getAmerican() {
+    ArrayList<Food> americanFood = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isAmerican()) {
+        americanFood.add(aFood);
+      }
+    }
+
+    return americanFood;
+  }
+
+  public ArrayList<Food> getItalian() {
+    ArrayList<Food> italianFood = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isItalian()) {
+        italianFood.add(aFood);
+      }
+    }
+
+    return italianFood;
+  }
+
+  public ArrayList<Food> getMexican() {
+    ArrayList<Food> mexicanFood = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isMexican()) {
+        mexicanFood.add(aFood);
+      }
+    }
+
+    return mexicanFood;
+  }
+
+  public ArrayList<Food> getIndian() {
+    ArrayList<Food> indianFood = new ArrayList<>();
+
+    for (Food aFood : getAll()) {
+      if (aFood.isIndian()) {
+        indianFood.add(aFood);
+      }
+    }
+
+    return indianFood;
   }
 }

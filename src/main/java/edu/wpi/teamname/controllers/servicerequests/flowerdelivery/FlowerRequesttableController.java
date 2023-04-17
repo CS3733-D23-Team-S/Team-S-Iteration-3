@@ -41,10 +41,6 @@ public class FlowerRequesttableController {
 
   @FXML private TableView requesttable;
 
-  private void flowerTable() {
-    dbr.flowerDeliveryGetAll();
-  }
-
   public void initialize() {
     backicon.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
     exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
@@ -94,7 +90,7 @@ public class FlowerRequesttableController {
     requesttable.getColumns().add(column8);
     requesttable.getColumns().add(column9);
 
-    for (FlowerDelivery order : dbr.flowerDeliveryGetAll()) {
+    for (FlowerDelivery order : dbr.getFlowerDeliveryDAO().getAll()) {
       requesttable.getItems().add(order);
     }
   }
