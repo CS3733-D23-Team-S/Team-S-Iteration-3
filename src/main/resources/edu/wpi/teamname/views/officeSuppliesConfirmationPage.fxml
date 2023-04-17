@@ -54,14 +54,14 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <ImageView fx:id="flowerimage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                                <ImageView fx:id="officeSupplyimage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                                     <HBox.margin>
                                         <Insets right="20.0" />
                                     </HBox.margin>
                                 </ImageView>
                                 <VBox fx:id="itemvbox" prefHeight="150.0" prefWidth="786.0">
                                     <children>
-                                        <Text fx:id="flowernametext" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Office Supply">
+                                        <Text fx:id="officeSupplynametext" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Office Supply">
                                             <font>
                                                 <Font name="Open Sans Regular" size="24.0" />
                                             </font>

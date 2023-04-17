@@ -71,8 +71,7 @@ public class OfficeSuppliesDetailsController {
   private void createDelivery() {
     OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(suppliesID);
     officeSupply.setQuantity(Integer.parseInt(quantityfield.getText()));
-    //officeSupply.setMessage(custommessagefield.getText());
-    //officeSuppliesCart.addOfficeSupplyItem(officeSupply);
+    officeSuppliesCart.addOfficeSupplyItem(officeSupply);
     Navigation.navigate(OFFICE_SUPPLIES_DELIVERY);
 
     // room = .getText get room from drop down box in the thingy
