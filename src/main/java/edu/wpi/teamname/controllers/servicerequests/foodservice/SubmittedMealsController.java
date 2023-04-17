@@ -4,9 +4,6 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,28 +13,27 @@ public class SubmittedMealsController {
 
   @FXML TableView submittedTableView;
 
-  @FXML private MFXButton roomButton2;
-  @FXML private MFXButton signagePage1;
-  @FXML private MFXButton navigation1;
-  @FXML private MFXButton cancel;
-  @FXML private MFXButton mealButton;
+  // @FXML private MFXButton roomButton2;
+  // @FXML private MFXButton signagePage1;
+  // @FXML private MFXButton navigation1;
+  // @FXML private MFXButton cancel;
+  // @FXML private MFXButton mealButton;
   // @FXML private MFXButton help;
 
-  @FXML private MFXButton subBack;
-  @FXML private MFXButton homeButton;
+  // @FXML private MFXButton homeButton;
 
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
 
   @FXML
   public void initialize() {
-    roomButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    mealButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    subBack.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    // roomButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    //  homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //  mealButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    //  cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+
+    //  signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    //  homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //  navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
 
     TableColumn<Food, String> column1 = new TableColumn<>("RequestID");
     column1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));
