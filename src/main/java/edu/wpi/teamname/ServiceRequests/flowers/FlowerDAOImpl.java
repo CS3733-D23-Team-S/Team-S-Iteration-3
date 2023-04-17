@@ -247,6 +247,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
 
   /**
    * Updates quantity of flower in database, probably not needed
+   *
    * @param target
    */
   public void updateQuantity(Flower target) {

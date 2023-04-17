@@ -148,8 +148,7 @@ public class MealDeliveryController {
 
   public void noFilter() {
 
-    for(Food f: DBR.getFoodDAO().getFoods().values())
-    {
+    for (Food f : DBR.getFoodDAO().getFoods().values()) {
       MFXButton btn1 = new MFXButton();
 
       btn1.setId(f.toString());
@@ -162,6 +161,7 @@ public class MealDeliveryController {
       btn1.setOnMouseClicked(event -> store(f.getFoodID()));
     }
   }
+
   public void walletFriendly() {
 
     for (int i = 0; i < DBR.getFoodDAO().getWalletFriendlyFood().size(); i++) {
@@ -177,7 +177,8 @@ public class MealDeliveryController {
       wf.getChildren().add(btn1);
 
       int finalII = i;
-      btn1.setOnMouseClicked(event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalII).getFoodID()));
+      btn1.setOnMouseClicked(
+          event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalII).getFoodID()));
     }
   }
 
@@ -205,7 +206,8 @@ public class MealDeliveryController {
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getVegetarian().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(
+          event -> store(DBR.getFoodDAO().getVegetarian().get(finalI).getFoodID()));
     }
     return null;
   }
@@ -235,7 +237,8 @@ public class MealDeliveryController {
       qd.getChildren().add(btn);
 
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getGlutenFree().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(
+          event -> store(DBR.getFoodDAO().getGlutenFree().get(finalI).getFoodID()));
     }
     return null;
   }

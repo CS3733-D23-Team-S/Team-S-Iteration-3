@@ -464,6 +464,4 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
 
     return indianFood;
   }
-
-
 }

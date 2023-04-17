@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerPopupController">
    <root>
       <GridPane prefHeight="400.0" prefWidth="700.0" styleClass="popupbg" stylesheets="@../../../../Stylesheets/FlowerPage.css">
@@ -24,23 +23,29 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <VBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <children>
-                  <Label text="Flower Name">
+                  <Label fx:id="flowername" text="Flower Name">
                      <font>
                         <Font name="Open Sans Regular" size="36.0" />
                      </font>
                   </Label>
+                  <Text fx:id="flowerdescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="600.0" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="Open Sans Regular" size="14.0" />
+                     </font>
+                  </Text>
                </children>
-            </HBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2">
                <children>
                   <Text fill="#1d3d94" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
                      <font>
@@ -85,7 +90,7 @@
                   </MFXButton>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
                <children>
                   <ImageView fx:id="flowerimage" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
                </children>
