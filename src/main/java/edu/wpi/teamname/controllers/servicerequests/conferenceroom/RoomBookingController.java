@@ -287,7 +287,7 @@ public class RoomBookingController {
     Text title = new Text(); // create text
     title.setText(roomRequest.getEventName());
     title.setFont(Font.font("Open Sans", FontWeight.BOLD, 15));
-    title.setStyle("Bold");
+    // title.setStyle("Bold");
     title.setFill(Paint.valueOf("#1D3D94"));
 
     Text creator = new Text(); // create creator line
