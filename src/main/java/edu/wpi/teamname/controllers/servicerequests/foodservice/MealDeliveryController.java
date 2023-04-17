@@ -6,13 +6,10 @@ import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +31,8 @@ public class MealDeliveryController {
   // @FXML HBox qd;
   @FXML SplitMenuButton dietaryButton;
   @FXML CheckComboBox dietCheck;
+
+  // add in filter for each dietary restriction
 
   // @FXML SplitMenuButton cuisine;
   // @FXML SplitMenuButton price;
@@ -77,12 +76,12 @@ public class MealDeliveryController {
         .getCheckModel()
         .getCheckedItems()
         .addListener(
-            new InvalidationListener() {
-              @Override
-              public void invalidated(Observable observable) {
-                //  filterByFeature(dietCheck.getCheckModel().getCheckedItems());  //FIX THIS
-                System.out.println(
-                    "\n SELECTED ITEMS: " + dietCheck.getCheckModel().getCheckedItems());
+            new ListChangeListener<String>() {
+              public void onChanged(Change<? extends String> c) {
+                while (c.next()) {}
+
+                // dietCheck.getCheckModel().getCheckedItems();
+                System.out.println(dietCheck.getCheckModel().getCheckedItems());
               }
             });
 
@@ -94,15 +93,13 @@ public class MealDeliveryController {
     MenuItem v = new MenuItem("Vegan");
 
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
-    dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
+    dietCheck.getItems().addAll("Vegetarian", "Gluten Free", "Halal", "Kosher", "Vegan");
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
     MenuItem It = new MenuItem("Italian");
     MenuItem Mex = new MenuItem("Mexican");
     MenuItem Ind = new MenuItem("Indian");
-
-    //  cuisine.getItems().addAll(Am, It, Mex, Ind);
 
     // add filters to filters hbox
     vegetarian.setOnAction(
