@@ -2,10 +2,8 @@ package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.SRCart;
+import edu.wpi.teamname.DAOs.orms.SRItem;
 import edu.wpi.teamname.DAOs.orms.User;
-import java.util.ArrayList;
-
-import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,12 +28,11 @@ public class ActiveUser {
     return single_instance;
   }
 
-  public void addToCart(IDataPack item, int quantity) {
+  public void addToCart(SRItem item, int quantity) {
     cart.addItem(item, quantity);
   }
 
   public void removeFromCart(IDataPack item) {
     cart.deleteItem(item);
   }
-
 }

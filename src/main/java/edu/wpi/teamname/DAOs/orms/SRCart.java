@@ -1,51 +1,45 @@
 package edu.wpi.teamname.DAOs.orms;
 
-import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.IDataPack;
-import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import edu.wpi.teamname.ServiceRequests.flowers.Flower;
+import java.util.HashMap;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+public class SRCart implements SRItem {
 
-public class SRCart {
+  // @Getter @Setter private HashMap<Integer, Flower> cartItems;
+  @Getter @Setter private HashMap<SRItem, Integer> cartItems;
 
+  public SRCart() {
 
-    // @Getter @Setter private HashMap<Integer, Flower> cartItems;
-    @Getter @Setter private HashMap<IDataPack, Integer> cartItems;
+    // cartItems = new HashMap<Integer, Flower>();
+    cartItems = new HashMap<>();
+  }
 
-    public SRCart() {
-
-        // cartItems = new HashMap<Integer, Flower>();
-       cartItems = new HashMap<>();
+  public double getTotalPrice() {
+    double totalPrice = 0;
+    for (SRItem item : cartItems.keySet()) {
+      totalPrice += item.getPrice() * cartItems.get(item);
     }
 
-    public double getTotalPrice() {
-        double totalPrice = 0;
-        for (IDataPack item : cartItems.keySet()) {
-            totalPrice += item.getPrice() * cartItems.get(item);
-        }
+    return totalPrice;
+  }
 
-        return totalPrice;
-    }
+  public void addItem(SRItem dataItem, int quantity) {
+    cartItems.put(dataItem, quantity);
+  }
 
-    public void addItem(IDataPack dataItem, int quantity) {
-        cartItems.put(dataItem, quantity);
-    }
+  public void deleteItem(IDataPack dataItem) {
+    cartItems.remove(dataItem);
+  }
 
-    public void deleteItem(IDataPack dataItem){
-        cartItems.remove(dataItem);
-    }
+  @Override
+  public String toString() {
+    return "SRCart{" + "cartItems=" + cartItems + '}';
+  }
 
-
-    @Override
-    public String toString() {
-        return "SRCart{" +
-                "cartItems=" + cartItems +
-                '}';
-    }
+  @Override
+  public double getPrice() {
+    return 0;
+  }
 }
-
