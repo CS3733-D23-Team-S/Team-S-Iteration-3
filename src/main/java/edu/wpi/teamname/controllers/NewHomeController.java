@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class NewHomeController {
-    @FXML MFXButton mealRequestsButton;
+  @FXML MFXButton mealRequestsButton;
   @FXML MFXButton reserveRoomButton;
   @FXML MFXButton flowerRequestsButton;
   @FXML MFXButton officeRequestsButton;

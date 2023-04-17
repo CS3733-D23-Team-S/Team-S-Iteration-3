@@ -54,7 +54,7 @@ public class OfficeSuppliesController {
 
       btn1.setOnMouseClicked(
           event -> {
-            store(o.getId());
+            store(o.getOfficesupplyid());
           });
     }
   }

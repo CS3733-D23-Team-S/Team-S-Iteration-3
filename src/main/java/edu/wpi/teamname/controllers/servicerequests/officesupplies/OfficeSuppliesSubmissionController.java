@@ -153,7 +153,6 @@ public class OfficeSuppliesSubmissionController {
       price.setText(String.valueOf("$ " + officeSupply.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
 
-
       /*recipientLabel.setText(String.valueOf(recipient));
       recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
