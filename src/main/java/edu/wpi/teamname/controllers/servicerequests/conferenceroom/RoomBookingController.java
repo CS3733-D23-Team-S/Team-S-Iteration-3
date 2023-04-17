@@ -58,6 +58,7 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
+    // set navigation
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
 
@@ -75,11 +76,7 @@ public class RoomBookingController {
 
     filterDate(LocalDate.now());
 
-    featureFilterComboBox
-        .getCheckModel()
-        .getCheckedItems()
-        .addListener(
-            new InvalidationListener() {
+    featureFilterComboBox.getCheckModel().getCheckedItems().addListener(new InvalidationListener() {
               @Override
               public void invalidated(Observable observable) {
                 filterByFeature(featureFilterComboBox.getCheckModel().getCheckedItems());
