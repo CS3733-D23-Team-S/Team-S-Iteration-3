@@ -83,6 +83,6 @@ public class OfficeSuppliesController {
 
     public void store(int x) {
         suppliesID = x;
-        Navigation.launchPopUp(OFFICESUPPLIES_POPUP);
+        Navigation.launchPopUp(OFFICE_SUPPLIES_POPUP);
     }
 }
