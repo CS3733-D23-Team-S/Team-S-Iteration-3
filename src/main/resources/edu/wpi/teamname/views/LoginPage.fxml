@@ -42,10 +42,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
+                        <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="15.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="20.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="5.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="6.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="7.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="308.3981170654297" minHeight="10.0" percentHeight="5.0" prefHeight="134.13171005249023" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="340.65077781677246" minHeight="10.0" percentHeight="5.0" prefHeight="60.368289947509766" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="460.96961975097656" minHeight="10.0" percentHeight="14.0" prefHeight="460.96961975097656" vgrow="SOMETIMES" />
@@ -77,12 +77,12 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham " wrappingWidth="700.0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
+                                    <Font name="Open Sans Regular" size="40.0" />
                                  </font>
                               </Text>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="and Women's Hospital" wrappingWidth="700.0" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
+                                    <Font name="Open Sans Regular" size="40.0" />
                                  </font>
                               </Text>
                            </children>
@@ -117,21 +117,21 @@
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <MFXButton fx:id="loginbutton" alignment="CENTER" prefWidth="150.0" style="-fx-background-color: #122E59; -fx-background-radius: 100;" text="Sign in" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <MFXButton fx:id="loginbutton" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 2;" text="Sign in" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="Open Sans Regular" size="20.0" />
                            </font>
                         </MFXButton>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <MFXButton fx:id="navigation" alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #122E59; -fx-background-radius: 100;" text="Navigation" textFill="WHITE">
+                              <MFXButton fx:id="navigation" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: \\; -fx-background-radius: 100; -fx-border-color: #000000;" text="Navigation">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font name="Open Sans Regular" size="20.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton fx:id="toSignage" alignment="CENTER" prefWidth="200.0" style="-fx-background-color: #122E59; -fx-background-radius: 100;" text="Signage" textFill="WHITE">
+                              <MFXButton fx:id="toSignage" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 2; -fx-border-color: #000000;" text="Signage">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font name="Open Sans Regular" size="20.0" />
                                  </font>
                               </MFXButton>
                            </children>
