@@ -10,7 +10,7 @@ import lombok.Getter;
 public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Getter private String name;
-  private dbConnection connection;
+  private final dbConnection connection;
   @Getter private HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
 
   public FoodDeliveryDAOImp() {

@@ -11,7 +11,7 @@ import lombok.Getter;
 public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
+  private final dbConnection connection;
   @Getter String name;
 
   public FlowerDeliveryDAOImpl() {
@@ -102,7 +102,6 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
         System.out.println("flowerDelivery table is empty");
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -203,6 +202,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
                       + name
                       + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost)"
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
       preparedStatement.setInt(1, request.getID());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());

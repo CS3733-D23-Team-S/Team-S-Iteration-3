@@ -15,7 +15,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Getter private String name;
   @Getter private final String CSVheader = "nodeID,xcoord,ycoord,floor,building";
-  private dbConnection connection;
+  private final dbConnection connection;
 
   @Getter private HashMap<Integer, Node> nodes = new HashMap<>();
 
@@ -99,7 +99,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   }
 
   @Override
-  public Node getRow(Integer target) {
+  public Node get(Integer target) {
     return nodes.get(target);
   }
 

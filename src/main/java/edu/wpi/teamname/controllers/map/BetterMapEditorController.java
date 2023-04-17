@@ -7,7 +7,6 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,9 +117,9 @@ public class BetterMapEditorController {
           new Circle(floorNodes.get(i).getXCoord(), floorNodes.get(i).getYCoord(), 10.0, Color.RED);
       listOfCircles.add(newCircle);
 
-      Move aMove = dataBase.getMoveDAO().getHashmapOfMoves().get(floorNodes.get(i).getNodeID());
+      Move aMove = dataBase.getMoveDAO().getLocationsAtNodeID().get(floorNodes.get(i)).get(0);
       if (aMove != null) {
-        Location aLoc = dataBase.getLocationDAO().getLocations().get(aMove.getLocation());
+        Location aLoc = dataBase.getLocationDAO().getLocationMap().get(aMove.getLocation());
 
         if (!aLoc.getNodeType().equals(NodeType.HALL)) {
           Text newText = new Text(aLoc.getShortName());
@@ -148,8 +147,8 @@ public class BetterMapEditorController {
   private void clearFields() {}
 
   public void addNode() {
-    Boolean nodeExists = false;
-    Boolean floorValid = true;
+    boolean nodeExists = false;
+    boolean floorValid = true;
     int ntNodeID;
     int xCoord;
     int yCoord;
@@ -238,8 +237,8 @@ public class BetterMapEditorController {
   }
 
   public void editNode() {
-    Boolean nodeExists = false;
-    Boolean floorValid = true;
+    boolean nodeExists = false;
+    boolean floorValid = true;
     // if fields are empty don't edit it
     // if certain fields aren't integers don't edit it
     // if node id can't be found don't edit it
@@ -300,8 +299,8 @@ public class BetterMapEditorController {
 
   public void addLocation() {
     NodeType nodeType = null;
-    Boolean nodeTypeValid = true;
-    Boolean locationExists = false;
+    boolean nodeTypeValid = true;
+    boolean locationExists = false;
     // make sure all fields are filled in
     if ((longNameTF.getText().equals(""))
         || (shortNameTF.getText().equals(""))
@@ -353,11 +352,12 @@ public class BetterMapEditorController {
           dataBase.getLocationDAO().add(newLocation);
 
           LocalDate thedate = LocalDate.now();
-          dataBase
-              .getMoveDAO()
-              .addToJustDBandLoc(
-                  new Move(
-                      Integer.parseInt(locNodeIDTXT.getText()), longNameTF.getText(), thedate));
+          //          dataBase
+          //              .getMoveDAO()
+          //              .addToJustDBandLoc(
+          //                  new Move(
+          //                      Integer.parseInt(locNodeIDTXT.getText()), longNameTF.getText(),
+          // thedate));
 
           mainTF.setText("Location successfully added");
         } else {
@@ -370,7 +370,7 @@ public class BetterMapEditorController {
   }
 
   public void removeLocation() {
-    Boolean locationExists = false;
+    boolean locationExists = false;
     Location locationToRemove = null;
     if (longNameTF.getText().equals("") || locNodeIDTXT.getText().equals("")) {
       mainTF.setText("Error: make sure the Long Name and NodeID text field are entered");
@@ -382,13 +382,13 @@ public class BetterMapEditorController {
           // locationToRemove = dataBase.getLocationDAO().getAll().get(i);
           dataBase.getLocationDAO().delete(longNameTF.getText());
 
-          dataBase
-              .getMoveDAO()
-              .delete(
-                  dataBase
-                      .getMoveDAO()
-                      .getHashmapOfMoves()
-                      .get(Integer.parseInt(locNodeIDTXT.getText())));
+          //          dataBase
+          //              .getMoveDAO()
+          //              .delete(
+          //                  dataBase
+          //                      .getMoveDAO()
+          //                      .getHashmapOfMoves()
+          //                      .get(Integer.parseInt(locNodeIDTXT.getText())));
 
           // line above removes it from the table visually
 
@@ -412,8 +412,8 @@ public class BetterMapEditorController {
 
   public void editLocation() {
     NodeType nodeType = null;
-    Boolean nodeTypeValid = true;
-    Boolean locationExists = false;
+    boolean nodeTypeValid = true;
+    boolean locationExists = false;
     // make sure all fields are filled in
     if ((longNameTF.getText().equals(""))
         || (shortNameTF.getText().equals(""))

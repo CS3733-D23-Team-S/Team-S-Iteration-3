@@ -43,28 +43,7 @@ public class Flower implements IDataPack {
 
   @Override
   public String toString() {
-    return "Flower{"
-        + "ID="
-        + ID
-        + ", name='"
-        + name
-        + '\''
-        + ", size='"
-        + size
-        + '\''
-        + ", price="
-        + price
-        + ", quantity="
-        + quantity
-        + ", isSoldOut="
-        + isSoldOut
-        + ", description='"
-        + description
-        + '\''
-        + ", image='"
-        + image
-        + '\''
-        + '}';
+    return name;
   }
 
   public String toCSVString() {
