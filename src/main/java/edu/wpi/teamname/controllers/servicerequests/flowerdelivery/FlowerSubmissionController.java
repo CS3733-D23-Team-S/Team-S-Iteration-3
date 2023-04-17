@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.flowerCart;
-import static edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController.recipient;
 import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
@@ -22,10 +21,11 @@ public class FlowerSubmissionController {
 
   @FXML MFXButton clearbutton;
   @FXML Text descriptiontext;
-  @FXML SearchableComboBox<?> employeedrop;
+  @FXML SearchableComboBox employeedrop;
   @FXML ImageView flowerimage;
   @FXML Text flowernametext;
   @FXML VBox itemvbox;
+  @FXML HBox itemhbox;
   @FXML SearchableComboBox locationdrop;
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
@@ -47,38 +47,45 @@ public class FlowerSubmissionController {
 
     displayCart();
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
+    clearbutton.setOnMouseClicked(event -> clearFields());
 
     // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
+    itemhbox.getChildren().clear();
+    itemvbox.getChildren().clear();
     System.out.println("Displaying flowers");
     for (Flower flower : flowerCart.getCartItems()) {
       Label name = new Label();
-      Label quantity = new Label();
+      // Label quantity = new Label();
       Label price = new Label();
-      Label message = new Label();
-      Label recipientLabel = new Label();
+      // Label message = new Label();
+      // Label recipientLabel = new Label();
+      Label description = new Label();
 
       HBox newRow = new HBox();
-      newRow.setSpacing(200);
-      newRow.setMaxWidth(1000);
-      // newRow.setStyle("-fx-background-color : red");
+      newRow.setMaxWidth(200);
 
       name.setText(flower.getName());
-      name.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      name.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      quantity.setText(String.valueOf(flower.getQuantity()));
-      quantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      description.setText(flower.getDescription());
+      description.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
+
+      /*quantity.setText(String.valueOf(flower.getQuantity()));
+      quantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       price.setText(String.valueOf(flower.getPrice()));
-      price.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
 
-      message.setText(String.valueOf(flower.getMessage()));
-      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      /*message.setText(String.valueOf(flower.getMessage()));
+      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
-      recipientLabel.setText(String.valueOf(recipient));
-      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      /*recipientLabel.setText(String.valueOf(recipient));
+      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       itemvbox.getChildren().add(name);
       /*quantityvbox.getChildren().add(quantity);
@@ -86,5 +93,9 @@ public class FlowerSubmissionController {
       requestvbox.getChildren().add(message);
       recipientvbox.getChildren().add(recipientLabel);*/
     }
+  }
+
+  public void clearFields() {
+    requestfield.clear();
   }
 }

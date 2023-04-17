@@ -4,109 +4,186 @@ import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.application.Platform;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import net.kurobako.gesturefx.GesturePane;
 
 public class AdminController {
-  @FXML ImageView homeIcon;
+  //  @FXML ImageView homeIcon;
 
-  @FXML MFXButton flowerButton;
-  @FXML ImageView userIcon;
-  @FXML ImageView helpIcon;
-  @FXML ImageView backIcon;
-  @FXML ImageView exitIcon;
-  @FXML ImageView topbarlogo;
-  @FXML ImageView hospitalLogo;
-  @FXML MFXButton submittedMealButton;
-  @FXML MFXButton submittedRoomButton;
+  @FXML MFXButton floorL2Button;
+  @FXML MFXButton floorL1Button;
+  @FXML MFXButton floor1Button;
+  @FXML MFXButton floor2Button;
+  @FXML MFXButton floor3Button;
   @FXML MFXButton mapEditorButton;
-  @FXML MFXButton navigationButton;
-  @FXML MFXButton signageButton;
-  @FXML MFXButton mealButton;
-  @FXML MFXButton roomButton;
+  ImageView floorView;
+  @FXML GesturePane mapView;
+  StackPane stackpane;
+  AnchorPane anchorpane = new AnchorPane();
 
-  @FXML MFXButton exportButton;
+  Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
 
-  @FXML MFXButton submittedFlowerButton;
+  Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
+
+  Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
+
+  Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
+
+  Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
+
+  private static final int maxCheckboxNumber = 5;
+  @FXML VBox vboxContainer;
+  @FXML CheckBox checkbox;
+  private int currentCheckboxNumber = 0;
 
   @FXML
   public void initialize() {
-    flowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-    homeIcon.setOnMouseClicked(event -> goToHomePage());
-    helpIcon.setOnMouseClicked(event -> goToHelpPage());
-    backIcon.setOnMouseClicked(event -> goToLoginPage());
-    exitIcon.setOnMouseClicked(event -> exitApplication());
-    submittedMealButton.setOnMouseClicked(event -> goToSubmittedMealRequestsPage());
-    submittedRoomButton.setOnMouseClicked(event -> goToSubmittedRoomRequestsPage());
-    submittedFlowerButton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_REQTABLE));
+
     mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
-    navigationButton.setOnMouseClicked(event -> goToPathfindingPage());
-    signageButton.setOnMouseClicked(event -> goToSignagePage());
-    mealButton.setOnMouseClicked(event -> goToMealDeliveryPage());
-    roomButton.setOnMouseClicked(event -> goToRoomReservationPage());
-    exportButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
-    Image HomeIcon = new Image(Main.class.getResource("images/homeicon.png").toString());
-    homeIcon.setImage(HomeIcon);
+    stackpane = new StackPane();
+    floorView =
+        new ImageView(
+            new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png"))));
+    floorL2Button.setStyle("-fx-background-color: #1D2B94");
+    stackpane.setPrefSize(800, 522);
+    mapView.setContent(stackpane);
+    // stackpane.setBackground(Background.fill(Color.RED));
 
-    Image HelpIcon = new Image(Main.class.getResource("images/helpicon.png").toString());
-    helpIcon.setImage(HelpIcon);
+    floorView.setImage(floor1);
+    stackpane.getChildren().add(floorView);
+    stackpane.getChildren().add(anchorpane);
+    anchorpane.setBackground(Background.fill(Color.TRANSPARENT));
 
-    Image ProfileIcon = new Image(Main.class.getResource("images/usericon.png").toString());
-    userIcon.setImage(ProfileIcon);
+    floorL1Button.setOnMouseClicked(event -> switchToFloorL1());
+    floorL2Button.setOnMouseClicked(event -> switchToFloorL2());
+    floor1Button.setOnMouseClicked(event -> switchToFloor1());
+    floor2Button.setOnMouseClicked(event -> switchToFloor2());
+    floor3Button.setOnMouseClicked(event -> switchToFloor3());
 
-    Image BackIcon = new Image(Main.class.getResource("images/backicon.png").toString());
-    backIcon.setImage(BackIcon);
-
-    Image TopBarIcon = new Image(Main.class.getResource("images/topbarLogo.png").toString());
-    topbarlogo.setImage(TopBarIcon);
-  }
-  // Functions to merge
-
-  public void goToHomePage() {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  public void goToHelpPage() {
-    Navigation.navigate(Screen.HELP_PAGE);
+    mapView.setMinScale(0.005);
+    mapView.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    //    Platform.runLater({
+    //          mapView.zoomTo(0.01, new Point2D(2500, 1750))
+    //        }
+    //        );
   }
 
-  public void goToSubmittedMealRequestsPage() {
-    System.out.println("i am running");
-    Navigation.navigate(Screen.SUBMITTED_MEALS);
+  public void toDoCheckbox() {
+    if (currentCheckboxNumber < maxCheckboxNumber) {
+      checkbox.setOnAction(event -> removeCheckbox(checkbox));
+      vboxContainer.getChildren().add(checkbox);
+      currentCheckboxNumber++;
+    } else {
+      System.out.println("Please complete one of the above tasks!");
+    }
   }
 
-  public void goToSubmittedRoomRequestsPage() {
-    Navigation.navigate(Screen.SUBMITTED_ROOM_REQUESTS);
+  public void removeCheckbox(CheckBox checkbox) {
+    vboxContainer.getChildren().remove(checkbox);
+    currentCheckboxNumber--;
+  }
+
+  public void changeButtonColor() {
+    if (floorView.getImage().equals(floorL1)) {
+      floorL1Button.setStyle("-fx-background-color: #1D2B94");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+
+    } else if (floorView.getImage().equals(floorL2)) {
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL2Button.setStyle("-fx-background-color: #1D2B94");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+
+    } else if (floorView.getImage().equals(floor1)) {
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor1Button.setStyle("-fx-background-color: #1D2B94");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+    } else if (floorView.getImage().equals(floor2)) {
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8");
+      floor2Button.setStyle("-fx-background-color: #1D2B94");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+    } else if (floorView.getImage().equals(floor3)) {
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8");
+      floor3Button.setStyle("-fx-background-color: #1D2B94");
+    }
+  }
+
+  public void switchToFloorL1() {
+    floorView.setImage(floorL1);
+    changeButtonColor();
+    // mapView.setContent(stackpane);
+  }
+
+  public void switchToFloorL2() {
+    floorView.setImage(floorL2);
+    changeButtonColor();
+    //    stackpane.getChildren().remove(floorView);
+    //    stackpane.getChildren().add(floorView);
+    // mapView.setContent(stackpane);
+  }
+
+  public void switchToFloor1() {
+    floorView.setImage(floor1);
+    changeButtonColor();
+    //    stackpane.getChildren().remove(floorView);
+    //    stackpane.getChildren().add(floorView);
+    //    mapView.setContent(stackpane);
+  }
+
+  public void switchToFloor2() {
+    floorView.setImage(floor2);
+    changeButtonColor();
+    //    stackpane.getChildren().remove(floorView);
+    //    stackpane.getChildren().add(floorView);
+    //    mapView.setContent(stackpane);
+  }
+
+  public void switchToFloor3() {
+    floorView.setImage(floor3);
+    changeButtonColor();
+    //    stackpane.getChildren().remove(floorView);
+    //    stackpane.getChildren().add(floorView);
+    //    mapView.setContent(stackpane);
+  }
+
+  List<Circle> floorL1Points = new ArrayList<>();
+  List<Circle> floorL2Points = new ArrayList<>();
+  List<Circle> floor1Points = new ArrayList<>();
+  List<Circle> floor2Points = new ArrayList<>();
+  List<Circle> floor3Points = new ArrayList<>();
+
+  public void showFloorL1locations() {
+    floorL1Points = new ArrayList<>();
+    floorL2Points = new ArrayList<>();
+    floor1Points = new ArrayList<>();
+    floor2Points = new ArrayList<>();
+    floor3Points = new ArrayList<>();
   }
 
   public void goToMapEditorPage() {
     Navigation.navigate(Screen.BETTER_MAP_EDITOR);
-  }
-
-  public void goToLoginPage() {
-    Navigation.navigate(Screen.LOGIN_PAGE);
-  }
-
-  public void exitApplication() {
-    Platform.exit();
-  }
-
-  public void goToSignagePage() {
-    Navigation.navigate(Screen.SIGNAGE_PAGE);
-  }
-
-  public void goToPathfindingPage() {
-    Navigation.navigate(Screen.PATHFINDING);
-  }
-
-  public void goToMealDeliveryPage() {
-    Navigation.navigate(Screen.SUBMITTED_MEALS);
-  }
-
-  public void goToRoomReservationPage() {
-    Navigation.navigate(Screen.ROOM_BOOKING);
   }
 }

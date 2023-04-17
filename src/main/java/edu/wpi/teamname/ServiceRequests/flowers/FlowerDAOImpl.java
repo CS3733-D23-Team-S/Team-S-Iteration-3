@@ -37,8 +37,8 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
             + "Quantity int,"
             + "Message Varchar(100),"
             + "SoldOut boolean,"
-            + "Description Varchar(100),"
-            + "Image Varchar(100))";
+            + "Description Varchar(1000),"
+            + "Image Varchar(200))";
 
     try {
       Statement st = connection.getConnection().createStatement();
@@ -268,12 +268,14 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
-  public List<Flower> getListSize(String size) {
+  public List<Flower> getListOfSize(String size) {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
     for (Flower flower : flowers) {
-      if (flower.getSize().toString().equals(size)) sizedFlowers.add(flower);
+      if (flower.getSize().toString().equalsIgnoreCase(size)) {
+        sizedFlowers.add(flower);
+      }
     }
 
     return sizedFlowers;
