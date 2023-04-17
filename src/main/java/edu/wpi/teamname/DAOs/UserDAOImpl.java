@@ -71,7 +71,11 @@ public class UserDAOImpl implements IDAO<User, String> {
     if (!checkIfUserExists(username)) {
       throw new Exception("User does not exist");
     } else {
-      return password.equals(listOfUsers.get(username).getPassword());
+      boolean successful = password.equals(listOfUsers.get(username).getPassword());
+      if (successful) {
+        ActiveUser.getInstance().setCurrentUser(listOfUsers.get(username));
+      }
+      return successful;
     }
   }
 
