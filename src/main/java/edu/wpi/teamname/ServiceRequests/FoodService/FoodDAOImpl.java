@@ -197,9 +197,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     ArrayList<Food> list = new ArrayList<Food>();
 
     for (Food aFood : foods.values()) {
-      if (aFood.isWalletFriendly()) {
         list.add(aFood);
-      }
     }
     return list;
   }
