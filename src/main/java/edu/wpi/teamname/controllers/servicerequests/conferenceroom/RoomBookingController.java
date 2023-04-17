@@ -119,7 +119,8 @@ public class RoomBookingController {
       LocalTime startTime,
       LocalTime endTime,
       String eventTitle,
-      String eventDescription)
+      String eventDescription,
+      boolean isPrivate)
       throws Exception {
 
     System.out.println("Adding new request");
@@ -132,7 +133,8 @@ public class RoomBookingController {
             "TestReserve",
             eventTitle,
             eventDescription,
-            "staff member");
+            "staff member",
+            isPrivate);
     DataBaseRepository.getInstance().addRoomRequest(newRequest); // TODO need this?
   }
 
