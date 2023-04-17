@@ -4,8 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDelivery;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
 import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -152,7 +151,6 @@ public class OfficeSuppliesSubmissionController {
 
       price.setText(String.valueOf("$ " + officeSupply.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
-
 
       /*recipientLabel.setText(String.valueOf(recipient));
       recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/

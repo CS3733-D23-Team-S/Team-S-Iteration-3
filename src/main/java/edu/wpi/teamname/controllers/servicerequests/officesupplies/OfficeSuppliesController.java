@@ -4,7 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
@@ -15,7 +15,7 @@ import javafx.scene.layout.FlowPane;
 
 public class OfficeSuppliesController {
   public static int suppliesID;
-  @FXML MFXButton viewcartbutton;
+  @FXML MFXButton viewcart;
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML MFXScrollPane scrollpane;
@@ -23,7 +23,7 @@ public class OfficeSuppliesController {
 
   public void initialize() {
 
-    viewcartbutton.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_CART));
+    viewcart.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_CART));
 
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_DELIVERY));
 
@@ -54,7 +54,7 @@ public class OfficeSuppliesController {
 
       btn1.setOnMouseClicked(
           event -> {
-            store(o.getId());
+            store(o.getOfficesupplyid());
           });
     }
   }

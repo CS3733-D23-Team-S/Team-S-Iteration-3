@@ -4,8 +4,8 @@ import static edu.wpi.teamname.controllers.servicerequests.officesupplies.Office
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -42,7 +42,8 @@ public class OfficeSuppliesPopupController extends PopUpController {
     PriceText.setText(String.valueOf(dbr.getOfficeSupplyDAO().get(suppliesID).getPrice()));
 
     Image image =
-        new Image(Main.class.getResource(dbr.getOfficeSupplyDAO().get(suppliesID).getImage()).toString());
+        new Image(
+            Main.class.getResource(dbr.getOfficeSupplyDAO().get(suppliesID).getImage()).toString());
     officesupplyimage.setImage(image);
   }
 
