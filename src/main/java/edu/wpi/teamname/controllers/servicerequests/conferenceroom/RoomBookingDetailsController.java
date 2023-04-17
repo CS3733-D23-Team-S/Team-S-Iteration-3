@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -9,7 +8,6 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -51,10 +49,43 @@ public class RoomBookingDetailsController {
 
   RoomBookingController rbc = new RoomBookingController();
 
-  ArrayList<ConfRoomLocation> rbcRoomList = rbc.roomList;
-
   @FXML
   public void initialize() throws ParseException {
+    submitDetailsButton.setDisable(true);
+
+    eventDescriptionText
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
+
+    eventTitleText
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
+
+    roomComboBox
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
+
     submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     clearButton.setOnMouseClicked(event -> clearFields());
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
@@ -84,6 +115,39 @@ public class RoomBookingDetailsController {
           event.consume();
         });
     initializeRoomComboBox();
+
+    eventDescriptionText
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
+
+    eventTitleText
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
+
+    roomComboBox
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.getText().isEmpty());
+            }));
   }
 
   // hard code items into room combo box (TODO read from list later)
@@ -96,6 +160,7 @@ public class RoomBookingDetailsController {
   // submit details from controller
   @FXML
   public void submitDetails(ActionEvent event) throws Exception {
+    boolean isPrivate = false;
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = startTimeField.getText();
@@ -103,7 +168,8 @@ public class RoomBookingDetailsController {
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
     System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription);
+    rbc.addNewRequest(
+        roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
 
     // clearFields();
   }
