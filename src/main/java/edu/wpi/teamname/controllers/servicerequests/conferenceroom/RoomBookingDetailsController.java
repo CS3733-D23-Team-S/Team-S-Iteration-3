@@ -8,14 +8,15 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class RoomBookingDetailsController extends PopUpController {
 
@@ -61,8 +62,26 @@ public class RoomBookingDetailsController extends PopUpController {
                       || roomComboBox.valueProperty().toString().length() == 0
                       || startTimeField.valueProperty().toString().length() == 0
                       || endTimeField.valueProperty().toString().length() == 0
+                      || roomBookingDate.valueProperty().toString().length() == 0
                       || staffMemberComboBox.getValue() == null);
             }));
+
+
+    roomBookingDate
+            .textProperty()
+            .addListener(
+                    ((observable, oldValue, newValue) -> {
+                      // check if textField1 is non-empty and enable/disable the button accordingly
+                      submitDetailsButton.setDisable(
+                              eventTitleText.getText().trim().isEmpty()
+                                      || eventDescriptionText.getText().trim().isEmpty()
+                                      || roomComboBox.valueProperty().toString().length() == 0
+                                      || startTimeField.valueProperty().toString().length() == 0
+                                      || endTimeField.valueProperty().toString().length() == 0
+                                      || roomBookingDate.valueProperty().toString().length() == 0
+                                      || staffMemberComboBox.getValue() == null);
+                    }));
+
 
     eventTitleText
         .textProperty()
@@ -74,6 +93,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || eventDescriptionText.getText().trim().isEmpty()
                       || roomComboBox.getValue() == null
                       || startTimeField.valueProperty().toString().length() == 0
+                      || roomBookingDate.valueProperty().toString().length() == 0
                       || endTimeField.valueProperty().toString().length() == 0
                       || staffMemberComboBox.getValue() == null);
             }));

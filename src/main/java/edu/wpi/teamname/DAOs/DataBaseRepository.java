@@ -9,14 +9,18 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
-import edu.wpi.teamname.ServiceRequests.flowers.*;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
-import java.io.*;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.Getter;
 
 public class DataBaseRepository {
 
@@ -152,7 +156,7 @@ public class DataBaseRepository {
       roomRequestDAO.add(confRoomRequest);
 
     } else {
-      throw new Exception();
+      throw new Exception("Room has conflicts");
     }
   }
 
