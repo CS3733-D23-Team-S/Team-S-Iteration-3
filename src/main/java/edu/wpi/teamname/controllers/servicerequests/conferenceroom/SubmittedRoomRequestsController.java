@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.controllers.PopUpController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
-public class SubmittedRoomRequestsController {
+public class SubmittedRoomRequestsController extends PopUpController {
 
   @FXML TableView submittedRoomRequestsTable;
   @FXML MFXButton backButton;
