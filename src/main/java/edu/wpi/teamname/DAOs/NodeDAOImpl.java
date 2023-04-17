@@ -121,6 +121,10 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
     }
   }
 
+  public void delete(Node node) {
+    delete(node.getNodeID());
+  }
+
   @Override
   public void add(Node addition) {
     nodes.put(addition.getNodeID(), addition);

@@ -125,6 +125,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     add(addition);
   }
 
+  public void add(Node emptyEdge) {
+    HashSet<Integer> neighs = new HashSet<>();
+    neighbors.put(emptyEdge.getNodeID(), neighs);
+  }
+
   private void constructFromRemote() {
     try {
       PreparedStatement getNeighbors =

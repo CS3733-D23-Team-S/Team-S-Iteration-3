@@ -1,11 +1,10 @@
 package edu.wpi.teamname.DAOs.orms;
 
 import edu.wpi.teamname.DAOs.IDataPack;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class User implements IDataPack {
 

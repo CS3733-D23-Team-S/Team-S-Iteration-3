@@ -32,7 +32,7 @@ public class UserDAO {
       return null;
     }
     String sessionId = generateSessionId();
-    user.setSessionID(sessionId);
+    //    user.setSessionID(sessionId);
     sessions.put(sessionId, user);
     return sessionId;
   }
@@ -44,7 +44,7 @@ public class UserDAO {
   public static void removeSession(String sessionId) {
     User user = getUserBySession(sessionId);
     if (user != null) {
-      user.setSessionID(null);
+      //      user.setSessionID(null);
     }
     sessions.remove(sessionId);
   }

@@ -53,7 +53,7 @@ public class UserDAOImpl implements IDAO<User, String> {
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
       preparedStatement.setInt(3, Permission.STAFF.ordinal());
-      User user = new User("Staff",username, password, Permission.STAFF);
+      User user = new User("Staff", username, password, Permission.STAFF);
       listOfUsers.put(username, user);
 
     } catch (SQLException e) {
@@ -89,8 +89,8 @@ public class UserDAOImpl implements IDAO<User, String> {
               + "password varchar(100) NOT NULL, "
               + "permission int)";
       stmt.execute(loginTableConstruct);
-      User admin = new User("Admin","admin", "admin", Permission.ADMIN);
-      User staff = new User("Staff","staff", "staff", Permission.STAFF);
+      User admin = new User("Admin", "admin", "admin", Permission.ADMIN);
+      User staff = new User("Staff", "staff", "staff", Permission.STAFF);
       listOfUsers.put("admin", admin);
       listOfUsers.put("staff", staff);
       ResultSet checkExists =
@@ -205,7 +205,7 @@ public class UserDAOImpl implements IDAO<User, String> {
         Permission permission = Permission.values()[data.getInt("permission")];
         Floor floor = Floor.values()[data.getInt("Floor")];
         String building = data.getString("Building");
-        User newUser = new User("Oof",username, password, permission);
+        User newUser = new User("Oof", username, password, permission);
         listOfUsers.put(username, newUser);
       }
     } catch (SQLException e) {
@@ -235,7 +235,8 @@ public class UserDAOImpl implements IDAO<User, String> {
           stmt.setInt(3, Integer.parseInt(fields[2]));
           stmt.executeUpdate();
           User newUser =
-              new User("Oof",fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
+              new User(
+                  "Oof", fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
           listOfUsers.put(fields[0], newUser);
         }
       } catch (SQLException e) {

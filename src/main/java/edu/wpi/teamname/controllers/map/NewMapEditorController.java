@@ -1,6 +1,5 @@
 package edu.wpi.teamname.controllers.map;
 
-import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
@@ -11,13 +10,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PopupControl;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
@@ -44,6 +46,7 @@ public class NewMapEditorController {
   Move mode;
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
+  FXMLLoader loader = new FXMLLoader();
   PopOver popOver = new PopOver();
 
   @FXML ComboBox<String> floorSelect;
@@ -53,13 +56,21 @@ public class NewMapEditorController {
   @FXML GesturePane mapPane;
   @FXML ToggleSwitch editToggle;
   @FXML ToggleSwitch showEdges;
+  // ______________________________________________
+  AddNodeController addNodeController;
   @FXML GridPane addNodeMenu;
+  @FXML private Button addButton;
+  @FXML private TextField buildingEnter;
+  @FXML private TextField nodeIDEnter;
+  private int currNodeX;
+  private int currNodeY;
+  // ______________________________________________
   ImageView floor;
   Floor currFloor = Floor.Floor1;
   Circle prevSelection;
+  private final Circle deleteReferenceCircle = new Circle(0, 0, 0, Color.TRANSPARENT);
   HashMap<Circle, Node> listOfCircles = new HashMap<>();
-  List<Node> clonedNodes;
-  AddNodeController addNodeController;
+
   List<Line> lines = new ArrayList<>();
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
   Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
@@ -68,12 +79,9 @@ public class NewMapEditorController {
   Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
 
   public void initialize() throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("views/addNodePopUp.fxml"));
-    addNodeMenu = loader.load();
-    addNodeController = loader.getController();
-    //    loader.setLocation(App.class.getResource());
+
+    initAddNodeController();
     initPopOver();
-    clonedNodes = List.copyOf(repo.getNodeDAO().getAll());
     stackPane.setPrefSize(1200.0, 742.0);
     floor = new ImageView(floor1);
     floor.setImage(floor1);
@@ -84,18 +92,15 @@ public class NewMapEditorController {
     mapPane.setMinScale(.0001);
     mapPane.setMaxScale(0.9);
     mapPane.zoomTo(.5, new Point2D(2000, 1500));
-
     floorSelect.getItems().add("Lower 1");
     floorSelect.getItems().add("Lower 2");
     floorSelect.getItems().add("Floor 1");
     floorSelect.getItems().add("Floor 2");
     floorSelect.getItems().add("Floor 3");
-    mapPane.setOnMouseClicked(
+    mapPane.setOnContextMenuRequested(
         event -> {
-          if (event.isShiftDown()) {
-            editingNodes = false;
-            rightClickMap(event);
-          }
+          editingNodes = false;
+          updatePopOver(event);
         });
     showEdges.setOnMouseClicked(
         event -> {
@@ -107,19 +112,16 @@ public class NewMapEditorController {
           resetColors();
           addNode.setStyle("-fx-background-color: #122E59");
           mode = Move.ADD_REMOVE;
+          allowDelete();
         });
     moveNode.setOnMouseClicked(
         event -> {
           resetColors();
           moveNode.setStyle("-fx-background-color: #122E59");
           mode = Move.MOVE;
+          stopDelete();
         });
-    removeNode.setOnMouseClicked(
-        event -> {
-          resetColors();
-          removeNode.setStyle("-fx-background-color: #122E59");
-          mode = Move.REMOVE;
-        });
+
     generateFloorNodes();
     floorSelect.setOnAction(
         event -> {
@@ -133,78 +135,130 @@ public class NewMapEditorController {
         });
   }
 
-  private void rightClickMap(javafx.scene.input.MouseEvent event) {
-    updatePopOver(event);
+  private void allowDelete() {
+    Platform.runLater(
+        () ->
+            stackPane
+                .getScene()
+                .addEventHandler(
+                    KeyEvent.KEY_PRESSED,
+                    (event) -> {
+                      //                    System.out.println(event.getCode());
+                      if (event.getCode().equals(KeyCode.DELETE)
+                          || event.getCode().equals(KeyCode.BACK_SPACE)) deleteNode(prevSelection);
+                    }));
   }
 
-  public void addNode() {
-    Node node = new Node(1, 1, 1, Floor.Floor1, "  ");
-    repo.getNodeDAO().getAll().add(node);
-    clonedNodes.add(node);
+  private void stopDelete() {
+    stackPane
+        .getScene()
+        .removeEventHandler(
+            KeyEvent.KEY_PRESSED,
+            (event) -> {
+              System.out.println(event.getCode());
+              if (event.getCode().equals(KeyCode.DELETE)
+                  || event.getCode().equals(KeyCode.BACK_SPACE)) deleteNode(prevSelection);
+            });
   }
 
-  public void deleteNode() {
-    Node node = new Node(1, 1, 1, Floor.Floor1, "  ");
-    repo.getNodeDAO().getAll().remove(node);
-    clonedNodes.remove(node);
+  private void initAddNodeController() {
+    try {
+      loader.setLocation(Main.class.getResource("views/addNodePopUp.fxml"));
+      addNodeMenu = loader.load();
+      addNodeController = loader.getController();
+      this.addButton = addNodeController.getAddButton();
+      this.nodeIDEnter = addNodeController.getNodeIDEnter();
+      this.buildingEnter = addNodeController.getBuildingEnter();
+      this.addButton.setOnMouseClicked(
+          event -> {
+            if (addNodeController.checkFieldsFilled()) {
+              addNode(
+                  Integer.parseInt(nodeIDEnter.getText()),
+                  currNodeX,
+                  currNodeY,
+                  buildingEnter.getText());
+            }
+          });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
-  public void addLocation() {}
+  public void addNode(int nodeID, int xCoord, int yCoord, String building) {
+    if (repo.getNodeDAO().getNodes().containsKey(nodeID)) return;
+    Node node = new Node(nodeID, xCoord, yCoord, currFloor, building);
+    repo.getNodeDAO().add(node);
+    repo.getEdgeDAO().add(node);
+    Circle newCircle = new Circle(node.getXCoord(), node.getYCoord(), 10.0, Color.RED);
+    initCircle(newCircle);
+    listOfCircles.put(newCircle, node);
+    anchorPane.getChildren().add(newCircle);
+  }
 
-  public void deleteLocation() {}
+  private void deleteNode(Circle circle) {
+    if (circle == deleteReferenceCircle) return;
+    Node node = listOfCircles.get(circle);
+    repo.getNodeDAO().delete(node);
+    listOfCircles.remove(circle);
+    anchorPane.getChildren().remove(circle);
+    prevSelection = deleteReferenceCircle;
+  }
+
+  private void addLocation() {}
+
+  private void deleteLocation() {}
 
   private void generateFloorNodes() {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
     listOfCircles.clear();
-    for (Node floorNode : clonedNodes) {
+    for (Node floorNode : repo.getNodeDAO().getAll()) {
       if (!floorNode.getFloor().equals(currFloor)) continue;
       Circle newCircle = new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.RED);
-      newCircle.setViewOrder(0);
-      newCircle.setMouseTransparent(false);
-      newCircle.setOnMouseClicked(
-          event -> {
-            circleHighlight(newCircle);
-            updateNodePopOver(newCircle);
-          });
-      newCircle.setOnMouseDragged(event -> circleDrag(newCircle, event));
-      newCircle.setOnMouseReleased(
-          event -> {
-            mapPane.setGestureEnabled(true);
-            newCircle.setStroke(Color.TRANSPARENT);
-          });
+      initCircle(newCircle);
       listOfCircles.put(newCircle, floorNode);
       prevSelection = newCircle;
     }
     anchorPane.getChildren().addAll(listOfCircles.keySet());
   }
 
-  private void circleHighlight(Circle circle) {
-    circle.setStroke(Color.YELLOW);
-    circle.setStrokeWidth(3);
-    prevSelection.setStroke(Color.TRANSPARENT);
-    prevSelection = circle;
-    nodeToCircle = listOfCircles.get(circle);
+  private void initCircle(Circle circle) {
+    circle.setViewOrder(0);
+    //		circle.setMouseTransparent(false);
+    circle.setOnMouseClicked(
+        event -> {
+          circle.setStroke(Color.YELLOW);
+          circle.setStrokeWidth(3);
+          prevSelection.setStroke(Color.TRANSPARENT);
+          prevSelection = circle;
+          nodeToCircle = listOfCircles.get(circle);
+          updateNodePopOver(circle);
+        });
+    circle.setOnMouseDragged(
+        event -> {
+          if (mode == Move.MOVE) {
+            mapPane.setGestureEnabled(false);
+            int currX = (int) event.getX();
+            int currY = (int) event.getY();
+            circle.setCenterX(currX);
+            circle.setCenterY(currY);
+            circle.setStroke(Color.YELLOW);
+            circle.setStrokeWidth(3);
+            Node temp = listOfCircles.get(circle);
+            temp.setXCoord(currX);
+            temp.setYCoord(currY);
+            anchorPane.getChildren().removeAll(lines);
+            lines.clear();
+            drawEdges();
+          }
+        });
+    circle.setOnMouseReleased(
+        event -> {
+          mapPane.setGestureEnabled(true);
+          circle.setStroke(Color.TRANSPARENT);
+        });
   }
 
   private void rightClickedCircle(Circle circle) {}
-
-  private void circleDrag(Circle circle, javafx.scene.input.MouseEvent event) {
-    if (mode == Move.MOVE) {
-      mapPane.setGestureEnabled(false);
-      int currX = (int) event.getX();
-      int currY = (int) event.getY();
-      circle.setCenterX(currX);
-      circle.setCenterY(currY);
-      circle.setStroke(Color.YELLOW);
-      circle.setStrokeWidth(3);
-      Node temp = listOfCircles.get(circle);
-      temp.setXCoord(currX);
-      temp.setYCoord(currY);
-      anchorPane.getChildren().removeAll(lines);
-      lines.clear();
-      drawEdges();
-    }
-  }
 
   private void drawEdges() {
     if (!edgeShow) {
@@ -213,7 +267,7 @@ public class NewMapEditorController {
       return;
     }
     HashMap<Integer, HashSet<Integer>> edges = repo.getEdgeDAO().getNeighbors();
-    for (Node floorNode : clonedNodes) {
+    for (Node floorNode : repo.getNodeDAO().getAll()) {
       if (!floorNode.getFloor().equals(currFloor)) continue;
       HashSet<Integer> currNeighbors = edges.get(floorNode.getNodeID());
       for (Integer currNeighbor : currNeighbors) {
@@ -258,14 +312,18 @@ public class NewMapEditorController {
     removeNode.setStyle("-fx-background-color: #1D3D94");
   }
 
-  private void updatePopOver(javafx.scene.input.MouseEvent event) {
+  private void updatePopOver(ContextMenuEvent event) {
     popOver.setTitle("Add Node?");
+    nodeIDEnter.clear();
+    buildingEnter.clear();
+    addNodeController.getWarning().setText("");
     popOver.setContentNode(addNodeMenu);
-    popOver.show(mapPane, event.getScreenX(), event.getScreenY());
+    currNodeX = (int) event.getX();
+    currNodeY = (int) event.getY();
+    popOver.show(mapPane, currNodeX, currNodeY);
   }
 
   private void initPopOver() {
-    popOver.setTitle("Screen Information");
     popOver.setHeaderAlwaysVisible(true);
     popOver.setAutoHide(true);
     popOver.setPrefSize(10, 30);
@@ -277,7 +335,6 @@ public class NewMapEditorController {
   private void updateNodePopOver(Circle circle) {
     if (mode == Move.ADD_REMOVE) {
       popOver.setTitle("Node Information");
-
       popOver.show(circle);
       editingNodes = true;
     }
