@@ -32,9 +32,9 @@ public class SubmittedMealsController {
   public void initialize() {
     roomButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    mealButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    mealButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    subBack.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    subBack.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));

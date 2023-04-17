@@ -43,11 +43,11 @@ public class ProductDetailsController {
 
     roomButton5.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
 
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
-    back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
 
     Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
 
@@ -62,7 +62,7 @@ public class ProductDetailsController {
             OrderItem check = NewHomeController.cart;
             NewHomeController.cart.addFoodItem(currentFood);
 
-            Navigation.navigate(Screen.MEAL_DELIVERY1);
+            Navigation.navigate(Screen.MEAL_DELIVERY);
 
           } catch (Exception e) {
             e.printStackTrace();

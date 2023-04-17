@@ -55,7 +55,7 @@ public class MealDeliveryController {
     navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     // Dietary Restriction
@@ -131,7 +131,7 @@ public class MealDeliveryController {
 
     clearButton.setOnMouseClicked(
         event -> {
-          Navigation.navigate(Screen.MEAL_DELIVERY1);
+          Navigation.navigate(Screen.MEAL_DELIVERY);
           filters.clear();
         });
 

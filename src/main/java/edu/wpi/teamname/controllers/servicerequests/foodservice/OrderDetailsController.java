@@ -48,7 +48,7 @@ public class OrderDetailsController {
     flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
     navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
@@ -56,7 +56,7 @@ public class OrderDetailsController {
     clearFields2();
     addedOrder();
 
-    back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
 
     String whoOrdered = "George Washington"; // eventually linked to account ordering
 
