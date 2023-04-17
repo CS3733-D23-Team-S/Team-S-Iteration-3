@@ -1,11 +1,11 @@
 ﻿ID,flowerName,Size,Price,Quantity,Message,SoldOut,Description,Image
-0,Spring Scents,SMALL,50,1,x,FALSE,"The ""Spring Scents"" bouquet is a delightful combination of fresh, fragrant blooms that evoke the essence of the season.",image
-1,Winter Vibes,MEDIUM,100,1,x,FALSE,"The ""Winter Vibes"" bouquet features an elegant blend of seasonal blooms in cool, wintry tones.",image
-2,Sapphire Style,LARGE,200,1,x,FALSE,"The ""Sapphire Style"" bouquet features rich blue and purple blooms reminiscent of the precious gemstone.",image
-3,Scents of Rainforest,SMALL,50,1,x,FALSE,"""Scents of Rainforest"" is a vibrant and exotic bouquet featuring an array of tropical blooms and foliage.",image
-4,Magnolia Magnificence,SMALL,50,1,x,FALSE,"A stunning display of delicate magnolia blooms in full blossom, exuding a sweet and captivating fragrance.",image
-5,Blessed Blossoms,MEDIUM,100,1,x,FALSE,"A stunning arrangement of delicate blooms, exuding an aura of divine serenity and grace.",image
-6,Pastel Passion,LARGE,200,1,x,FALSE,"The ""Pastel Passion"" bouquet is a delicate arrangement of soft-hued flowers that exudes a sense of romance and tranquility.",image
-7,Summer Glory,LARGE,200,1,x,FALSE,"""Summer Glory"" is a vibrant and cheerful bouquet bursting with the colors and scents of the season.",image
-8,Pretty Passion,SMALL,50,1,x,FALSE,"""Pretty Passion"" is a vibrant bouquet of colorful flowers that exudes joy and enthusiasm.",image
-9,Pink Perfection,MEDIUM,100,1,x,FALSE,"A stunning arrangement of various shades of pink blooms, perfectly showcasing the beauty of this color.",image
+0,Spring Scents,SMALL,50,1,x,FALSE,"The ""Spring Scents"" bouquet is a delightful combination of fresh & fragrant blooms that evoke the essence of the season.",bouquets/spring.png
+1,Winter Vibes,MEDIUM,100,1,x,FALSE,"The ""Winter Vibes"" bouquet features an elegant blend of seasonal blooms in cool & wintry tones.",bouquets/winter.png
+2,Sapphire Style,LARGE,200,1,x,FALSE,"The ""Sapphire Style"" bouquet features rich blue and purple blooms reminiscent of the precious gemstone.",bouquets/sapphire.png
+3,Scents of Rainforest,SMALL,50,1,x,FALSE,"""Scents of Rainforest"" is a vibrant and exotic bouquet featuring an array of tropical blooms and foliage.",bouquets/rainforest.png
+4,Magnolia Magnificence,SMALL,50,1,x,FALSE,A stunning display of delicate magnolia blooms in full blossom while exuding a sweet and captivating fragrance.,bouquets/magnolia.png
+5,Blessed Blossoms,MEDIUM,100,1,x,FALSE,A stunning arrangement of delicate blooms and exuding an aura of divine serenity and grace.,bouquets/blossom.png
+6,Pastel Passion,LARGE,200,1,x,FALSE,"The ""Pastel Passion"" bouquet is a delicate arrangement of soft-hued flowers that exudes a sense of romance and tranquility.",bouquets/pastel.png
+7,Summer Glory,LARGE,200,1,x,FALSE,"""Summer Glory"" is a vibrant and cheerful bouquet bursting with the colors and scents of the season.",bouquets/summer.png
+8,Pretty Passion,SMALL,50,1,x,FALSE,"""Pretty Passion"" is a vibrant bouquet of colorful flowers that exudes joy and enthusiasm.",bouquets/passion.png
+9,Pink Perfection,MEDIUM,100,1,x,FALSE,A stunning arrangement of various shades of pink blooms that perfectly showcasing the beauty of this color.,bouquets/pink.png
