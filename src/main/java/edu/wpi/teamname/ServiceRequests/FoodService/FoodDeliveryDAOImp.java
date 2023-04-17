@@ -97,6 +97,11 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
     }
   }
 
+  @Override
+  public FoodDelivery getRow(Integer target) {
+    return null;
+  }
+
   public void delete(Integer target) {
     try {
       PreparedStatement deleteFood =
