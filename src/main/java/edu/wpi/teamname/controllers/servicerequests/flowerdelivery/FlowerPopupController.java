@@ -2,8 +2,8 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
+import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class FlowerPopupController extends PopUpController {
   @FXML Text SizeText;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
-  public static Cart flowerCart = new Cart(1);
+  // public static Cart flowerCart = new Cart(1);
   public static String recipient;
 
   public void initialize() {
@@ -58,7 +58,7 @@ public class FlowerPopupController extends PopUpController {
     System.out.println("added");
     Flower flower = dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID);
     flower.setQuantity(flowercounter);
-    flowerCart.getCartItems().add(flower);
+    NewHomeController.flowerCart.getCartItems().add(flower);
     stage.close();
   }
 
