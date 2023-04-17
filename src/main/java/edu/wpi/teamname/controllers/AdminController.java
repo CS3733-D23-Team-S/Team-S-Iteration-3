@@ -26,6 +26,7 @@ public class AdminController {
   @FXML MFXButton floor1Button;
   @FXML MFXButton floor2Button;
   @FXML MFXButton floor3Button;
+  @FXML MFXButton mapEditorButton;
   ImageView floorView;
   @FXML GesturePane mapView;
   StackPane stackpane;
@@ -49,10 +50,13 @@ public class AdminController {
   @FXML
   public void initialize() {
 
+    mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
+
     stackpane = new StackPane();
     floorView =
         new ImageView(
-            new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
+            new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png"))));
+    floorL2Button.setStyle("-fx-background-color: #1D2B94");
     stackpane.setPrefSize(800, 522);
     mapView.setContent(stackpane);
     // stackpane.setBackground(Background.fill(Color.RED));
@@ -92,8 +96,6 @@ public class AdminController {
   }
 
   public void changeButtonColor() {
-    floorL1Button.setStyle("-fx-background-color: #1D2B94");
-
     if (floorView.getImage().equals(floorL1)) {
       floorL1Button.setStyle("-fx-background-color: #1D2B94");
       floorL2Button.setStyle("-fx-background-color: #CAD6F8");
