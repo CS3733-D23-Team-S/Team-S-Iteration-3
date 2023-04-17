@@ -76,7 +76,7 @@
          <children>
             <VBox fx:id="vBoxContainer" prefHeight="303.0" prefWidth="302.0">
                <children>
-                  <CheckBox fx:id="checkbox" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Meal Request 1">
+                  <CheckBox fx:id="checkbox1" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Meal Request 1">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -84,7 +84,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="checkbox" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Meal Request 2">
+                  <CheckBox fx:id="checkbox2" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Meal Request 2">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -92,7 +92,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="checkbox" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="pane" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Flower Request 1">
+                  <CheckBox fx:id="checkbox3" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="pane" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Flower Request 1">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -100,7 +100,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="checkbox" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Flower Request 2">
+                  <CheckBox fx:id="checkbox4" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Flower Request 2">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -108,7 +108,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="checkbox" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Room Booking 1">
+                  <CheckBox fx:id="checkbox5" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Check Room Booking 1">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
