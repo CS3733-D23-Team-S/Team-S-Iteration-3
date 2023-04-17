@@ -5,7 +5,7 @@ import java.util.HashMap;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SRCart implements SRItem {
+public class SRCart {
 
   // @Getter @Setter private HashMap<Integer, Flower> cartItems;
   @Getter @Setter private HashMap<SRItem, Integer> cartItems;
@@ -36,10 +36,5 @@ public class SRCart implements SRItem {
   @Override
   public String toString() {
     return "SRCart{" + "cartItems=" + cartItems + '}';
-  }
-
-  @Override
-  public double getPrice() {
-    return 0;
   }
 }
