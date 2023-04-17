@@ -202,5 +202,4 @@ public class DataBaseRepository {
   public int flowerGetNewDeliveryID() {
     return flowerDeliveryDAO.getAll().size();
   }
-
 }

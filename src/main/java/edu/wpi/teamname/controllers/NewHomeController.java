@@ -4,7 +4,7 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -53,7 +53,7 @@ public class NewHomeController {
   public static OrderItem cart;
 
   public static Cart flowerCart;
-  public static Cart officeSupplyCart;
+  public static OfficeSupplyCart officeSupplyCart;
 
   @FXML
   public void initialize() {
