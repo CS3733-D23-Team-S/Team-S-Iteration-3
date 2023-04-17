@@ -15,7 +15,7 @@ public class FlowerDelivery implements IDataPack {
   @Getter @Setter private String assignedTo;
   @Getter @Setter private String orderStatus;
   @Getter @Setter private double cost;
-  @Getter @Setter private String notes;
+  @Getter @Setter private String notes = "";
 
   public FlowerDelivery(
       int ID,

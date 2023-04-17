@@ -8,6 +8,7 @@ import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
 import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
 import java.sql.Time;
@@ -37,6 +38,7 @@ public class FlowerSubmissionController {
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
+  @FXML MFXScrollPane scroll;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
@@ -70,14 +72,14 @@ public class FlowerSubmissionController {
             FlowerDelivery currentFlowDev =
                 new FlowerDelivery(
                     NewHomeController.flowDevID++,
-                    FlowerPopupController.flowerCart.toString(),
+                    NewHomeController.flowerCart.toString(),
                     d,
                     t,
                     deliveryRoom,
                     "Abraham Lincoln",
                     Emp,
                     stat,
-                    FlowerPopupController.flowerCart.getTotalPrice(),
+                    NewHomeController.flowerCart.getTotalPrice(),
                     n);
 
             dbr.getFlowerDeliveryDAO().add(currentFlowDev);
@@ -107,30 +109,31 @@ public class FlowerSubmissionController {
 
   public void displayCart() {
     System.out.println("Displaying flowers");
-    System.out.println(FlowerPopupController.flowerCart.getCartItems().get(0));
+    System.out.println(NewHomeController.flowerCart.getCartItems().get(0));
 
-    for (Flower flower : FlowerPopupController.flowerCart.getCartItems()) {
+    for (Flower flower : NewHomeController.flowerCart.getCartItems()) {
 
       System.out.println("works");
 
       HBox newRow = new HBox();
       newRow.setSpacing(100);
-      newRow.setMaxWidth(900);
+      newRow.setMaxHeight(300);
+      newRow.setMaxWidth(1000);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
       flowerImage.setImage(image);
 
-      flowerImage.setFitHeight(150);
-      flowerImage.setFitWidth(150);
-      flowerImage.setPreserveRatio(true);
+      flowerImage.setFitHeight(160);
+      flowerImage.setFitWidth(160);
+      flowerImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(20);
+      itemInfo.setSpacing(30);
       itemInfo.setMaxWidth(1000);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(80);
+      priceQ.setSpacing(20);
       priceQ.setMaxWidth(1000);
 
       Label name = new Label();
@@ -146,8 +149,8 @@ public class FlowerSubmissionController {
       description.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
-      /*quantity.setText(String.valueOf(flower.getQuantity()));
-      quantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
+      quantity.setText(String.valueOf(flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
 
       price.setText(String.valueOf("$ " + flower.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
@@ -159,11 +162,13 @@ public class FlowerSubmissionController {
       recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       itemvbox.getChildren().add(newRow);
+      itemvbox.setSpacing(20);
       newRow.getChildren().add(flowerImage);
       newRow.getChildren().add(itemInfo);
 
       itemInfo.getChildren().add(name);
       itemInfo.getChildren().add(description);
+      description.setStyle("-fx-wrap-text: true;");
       itemInfo.getChildren().add(priceQ);
 
       priceQ.getChildren().add(price);
