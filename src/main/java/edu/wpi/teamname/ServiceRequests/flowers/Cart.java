@@ -1,7 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
 import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import lombok.Setter;
 public class Cart {
   @Getter @Setter private int cartID;
   // @Getter @Setter private HashMap<Integer, Flower> cartItems;
-  @Getter @Setter private List<Flower> cartItems;
+  @Getter @Setter private ArrayList<Flower> cartItems;
 
   public Cart(int cartID) {
     this.cartID = cartID;

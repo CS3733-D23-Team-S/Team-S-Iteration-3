@@ -34,7 +34,8 @@ public class FlowersTest {
   @Test
   public void testFlowerDelivery() {
     FD =
-        new FlowerDelivery(1000, "acarrt", null, null, "a room", "me", "ur mom", "Complete", 10.01);
+        new FlowerDelivery(
+            1000, "acarrt", null, null, "a room", "me", "ur mom", "Complete", 10.01, "n");
 
     FDDAOI.add(FD);
 
