@@ -40,7 +40,6 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
       st.execute(flowerRequestsTableConstruct);
 
       // Move to hashmap requests
-
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       System.out.println(e.getSQLState());
