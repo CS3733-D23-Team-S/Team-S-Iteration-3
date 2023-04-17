@@ -15,6 +15,7 @@ public class FlowerDelivery implements IDataPack {
   @Getter @Setter private String assignedTo;
   @Getter @Setter private String orderStatus;
   @Getter @Setter private double cost;
+  @Getter @Setter private String notes = "";
 
   public FlowerDelivery(
       int ID,
@@ -25,7 +26,8 @@ public class FlowerDelivery implements IDataPack {
       String orderedBy,
       String assignedTo,
       String orderStatus,
-      double cost) {
+      double cost,
+      String n) {
     this.ID = ID;
     this.cart = cart.toString();
     this.date = date;
@@ -35,6 +37,7 @@ public class FlowerDelivery implements IDataPack {
     this.assignedTo = assignedTo;
     this.orderStatus = orderStatus;
     this.cost = cost;
+    this.notes = n;
   }
 
   @Override
