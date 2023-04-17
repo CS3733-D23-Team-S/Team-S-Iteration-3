@@ -112,7 +112,7 @@
                               </Hyperlink>
                            </children>
                         </HBox>
-                        <Label fx:id="errormessageLabel" alignment="CENTER" prefHeight="150.0" prefWidth="850.0" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <Label fx:id="errormessageLabel" alignment="BASELINE_RIGHT" prefHeight="150.0" prefWidth="850.0" textAlignment="RIGHT" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
@@ -122,7 +122,7 @@
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
                         </MFXButton>
-                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
                               <MFXButton fx:id="navigation" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: \\; -fx-background-radius: 100; -fx-border-color: #000000;" text="Navigation">
                                  <font>
