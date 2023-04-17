@@ -44,7 +44,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       System.out.println(e.getSQLState());
-      System.out.println("Could not create flowerRequest");
+      System.out.println("Could not create officesupply");
       e.printStackTrace();
     }
   }
@@ -193,7 +193,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
   @Override
   public void add(OfficeSupplyDelivery request) {
     System.out.println("Here in add");
-    requests.put(request.getID(), request);
+    requests.put(request.getDeliveryid(), request);
     try {
       PreparedStatement preparedStatement =
           connection
@@ -204,7 +204,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
                       + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost, notes)"
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-      preparedStatement.setInt(1, request.getID());
+      preparedStatement.setInt(1, request.getDeliveryid());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
       preparedStatement.setTime(4, request.getTime());
@@ -217,7 +217,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
       preparedStatement.executeUpdate();
 
-      requests.put(request.getID(), request);
+      requests.put(request.getDeliveryid(), request);
 
     } catch (SQLException e) {
       System.out.println("Excepetion:");
