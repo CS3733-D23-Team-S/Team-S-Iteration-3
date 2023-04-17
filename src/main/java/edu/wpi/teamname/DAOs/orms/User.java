@@ -6,11 +6,13 @@ import lombok.Setter;
 
 public class User implements IDataPack {
 
+  @Getter private String name;
   @Getter private String userName;
   @Getter private String password;
   @Getter @Setter private Permission permission;
 
-  public User(String name, String pass, Permission perm) {
+  public User(String person, String name, String pass, Permission perm) {
+    this.name = person;
     this.userName = name;
     this.password = pass;
     this.permission = perm;

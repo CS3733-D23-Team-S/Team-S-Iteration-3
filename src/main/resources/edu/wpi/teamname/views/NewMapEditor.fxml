@@ -49,7 +49,7 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Text>
-                  <MFXButton fx:id="addNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <MFXButton fx:id="addNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add/Remove" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font name="Open Sans SemiBold" size="18.0" />
                      </font>

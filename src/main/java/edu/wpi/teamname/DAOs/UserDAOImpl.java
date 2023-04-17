@@ -50,7 +50,7 @@ public class UserDAOImpl implements IDAO<User, String> {
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
       preparedStatement.setInt(3, Permission.STAFF.ordinal());
-      User user = new User(username, password, Permission.STAFF);
+      User user = new User("Generic Staff", username, password, Permission.STAFF);
       listOfUsers.put(username, user);
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -89,7 +89,7 @@ public class UserDAOImpl implements IDAO<User, String> {
               + "password varchar(100) NOT NULL, "
               + "permission int)";
       stmt.execute(loginTableConstruct);
-      User admin = new User("admin", "admin", Permission.ADMIN);
+      User admin = new User("GenericAdmin", "admin", "admin", Permission.ADMIN);
       listOfUsers.put("admin", admin);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
@@ -194,7 +194,7 @@ public class UserDAOImpl implements IDAO<User, String> {
         Permission permission = Permission.values()[data.getInt("permission")];
         Floor floor = Floor.values()[data.getInt("Floor")];
         String building = data.getString("Building");
-        User newUser = new User(username, password, permission);
+        User newUser = new User("Oof", username, password, permission);
         listOfUsers.put(username, newUser);
       }
     } catch (SQLException e) {
@@ -224,7 +224,8 @@ public class UserDAOImpl implements IDAO<User, String> {
           stmt.setInt(3, Integer.parseInt(fields[2]));
           stmt.executeUpdate();
           User newUser =
-              new User(fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
+              new User(
+                  "Oof", fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
           listOfUsers.put(fields[0], newUser);
         }
       } catch (SQLException e) {
