@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -54,14 +53,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox prefWidth="850.0" GridPane.columnIndex="1">
+                        <HBox prefWidth="528.0" GridPane.columnIndex="1">
                            <children>
                               <ImageView fx:id="backIcon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/backiconblack.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets top="30.0" />
                                  </HBox.margin>
                               </ImageView>
                            </children>
@@ -92,32 +91,12 @@
                               <Font name="Open Sans Regular" size="36.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                              <Hyperlink fx:id="newUser" alignment="TOP_CENTER" graphicTextGap="0.0" lineSpacing="1.0" maxHeight="-Infinity" text="Click here to make one" textFill="#33567a" underline="true">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <padding>
-                                    <Insets left="5.0" top="3.0" />
-                                 </padding>
-                              </Hyperlink>
-                           </children>
-                        </HBox>
                         <Label fx:id="errormessageLabel" alignment="BASELINE_RIGHT" prefHeight="150.0" prefWidth="850.0" textAlignment="RIGHT" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <font>
                               <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <MFXButton fx:id="loginbutton" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 2;" text="Sign in" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <MFXButton fx:id="loginbutton" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 2;" text="Sign in" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <font>
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
