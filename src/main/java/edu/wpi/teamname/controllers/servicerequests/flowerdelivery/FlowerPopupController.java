@@ -21,6 +21,10 @@ public class FlowerPopupController extends PopUpController {
   @FXML Label quantitylabel;
   @FXML Label flowername;
   @FXML Text flowerdescription;
+
+  @FXML Text PriceText;
+  @FXML Text SizeText;
+
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   public static Cart flowerCart = new Cart(1);
   public static String recipient;
@@ -37,6 +41,9 @@ public class FlowerPopupController extends PopUpController {
     flowername.setText(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getName());
     flowerdescription.setText(
         dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getDescription());
+
+    PriceText.setText(String.valueOf(dbr.getFlowerDAO().get(flowerID).getPrice()));
+    SizeText.setText(dbr.getFlowerDAO().get(flowerID).getSize().name());
 
     Image image =
         new Image(
