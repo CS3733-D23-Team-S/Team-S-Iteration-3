@@ -97,6 +97,11 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
     }
   }
 
+  @Override
+  public FoodDelivery getRow(Integer target) {
+    return null;
+  }
+
   public void delete(Integer target) {
     try {
       PreparedStatement deleteFood =
@@ -118,7 +123,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
     }
   }
 
-  public FoodDelivery getRow(Integer target) {
+  public FoodDelivery get(Integer target) {
     if (foodRequests.get(target) == null) {
       System.out.println("This foodRequest is not in the database, so its row cannot be printed");
       return null;
