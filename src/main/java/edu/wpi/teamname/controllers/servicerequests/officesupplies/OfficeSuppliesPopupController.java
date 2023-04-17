@@ -16,39 +16,39 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class OfficeSuppliesPopupController extends PopUpController {
-    @FXML MFXButton addcartbutton;
-    @FXML MFXButton decrementbutton;
-    @FXML ImageView officesupplyimage;
-    @FXML MFXButton incrementbutton;
-    @FXML Label quantitylabel;
-    @FXML Label officesupplyname;
-    @FXML Text officesupplydescription;
+  @FXML MFXButton addcartbutton;
+  @FXML MFXButton decrementbutton;
+  @FXML ImageView officesupplyimage;
+  @FXML MFXButton incrementbutton;
+  @FXML Label quantitylabel;
+  @FXML Label officesupplyname;
+  @FXML Text officesupplydescription;
 
-    @FXML Text PriceText;
+  @FXML Text PriceText;
 
-    @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
-    public static Cart officeSupplyCart = new Cart(1);
-    public static String recipient;
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  public static Cart officeSupplyCart = new Cart(1);
+  public static String recipient;
 
-    public void initialize() {
-        showInfo();
-        addcartbutton.setOnMouseClicked(event -> createDelivery());
-    }
+  public void initialize() {
+    showInfo();
+    addcartbutton.setOnMouseClicked(event -> createDelivery());
+  }
 
-    private void showInfo() {
-        officesupplyname.setText(dbr.getFlowerDAO().get(flowerID).getName());
-        officesupplydescription.setText(dbr.getFlowerDAO().get(flowerID).getDescription());
+  private void showInfo() {
+    officesupplyname.setText(dbr.getFlowerDAO().get(flowerID).getName());
+    officesupplydescription.setText(dbr.getFlowerDAO().get(flowerID).getDescription());
 
-        PriceText.setText(String.valueOf(dbr.getFlowerDAO().get(flowerID).getPrice()));
+    PriceText.setText(String.valueOf(dbr.getFlowerDAO().get(flowerID).getPrice()));
 
-        Image image =
-                new Image(Main.class.getResource(dbr.getFlowerDAO().get(flowerID).getImage()).toString());
-        officesupplyimage.setImage(image);
-    }
+    Image image =
+        new Image(Main.class.getResource(dbr.getFlowerDAO().get(flowerID).getImage()).toString());
+    officesupplyimage.setImage(image);
+  }
 
-    private void createDelivery() {
-        Flower flower = dbr.getFlowerDAO().get(flowerID);
-        officeSupplyCart.addFlowerItem(flower);
-        stage.close();
-    }
+  private void createDelivery() {
+    Flower flower = dbr.getFlowerDAO().get(flowerID);
+    officeSupplyCart.addFlowerItem(flower);
+    stage.close();
+  }
 }

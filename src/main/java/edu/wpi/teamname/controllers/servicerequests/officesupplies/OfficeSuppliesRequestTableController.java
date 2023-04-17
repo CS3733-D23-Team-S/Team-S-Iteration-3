@@ -1,4 +1,3 @@
 package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
-public class OfficeSuppliesRequestTableController {
-}
+public class OfficeSuppliesRequestTableController {}

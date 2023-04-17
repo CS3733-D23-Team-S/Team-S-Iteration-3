@@ -4,6 +4,7 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -13,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class NewHomeController {
-  @FXML MFXButton mealRequestsButton;
+    @FXML MFXButton mealRequestsButton;
   @FXML MFXButton reserveRoomButton;
   @FXML MFXButton flowerRequestsButton;
   @FXML MFXButton officeRequestsButton;
@@ -47,10 +48,12 @@ public class NewHomeController {
 
   public static int delID;
   public static int flowDevID;
+  public static int officeSupplyID;
 
   public static OrderItem cart;
 
   public static Cart flowerCart;
+  public static Cart officeSupplyCart;
 
   @FXML
   public void initialize() {

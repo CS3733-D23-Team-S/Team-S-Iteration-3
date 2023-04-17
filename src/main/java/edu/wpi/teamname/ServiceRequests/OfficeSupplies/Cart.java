@@ -1,4 +1,3 @@
 package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
-public class Cart {
-}
+public class Cart {}
