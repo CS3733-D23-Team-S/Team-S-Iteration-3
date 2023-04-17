@@ -247,7 +247,6 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
 
   /**
    * Updates quantity of flower in database, probably not needed
-   *
    * @param target
    */
   public void updateQuantity(Flower target) {
@@ -268,12 +267,14 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
-  public List<Flower> getListSize(String size) {
+  public List<Flower> getListOfSize(String size) {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
     for (Flower flower : flowers) {
-      if (flower.getSize().toString().equals(size)) sizedFlowers.add(flower);
+      if (flower.getSize().toString().equalsIgnoreCase(size)) {
+        sizedFlowers.add(flower);
+      }
     }
 
     return sizedFlowers;

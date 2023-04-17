@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -145,168 +146,186 @@ public class MealDeliveryController {
     quickDelivery();
   }
 
-  public void walletFriendly() {
+  public void noFilter() {
 
-    for (int i = 0; i < DBR.getWalletFriendlyFood().size(); i++) {
-
+    for(Food f: DBR.getFoodDAO().getFoods().values())
+    {
       MFXButton btn1 = new MFXButton();
-      btn1.setId(DBR.getWalletFriendlyFood().get(i).toString());
-      btn1.setText(DBR.getWalletFriendlyFood().get(i).toString());
+
+      btn1.setId(f.toString());
+      btn1.setText(f.toString());
+
       btn1.setMaxWidth(103);
       btn1.setMaxHeight(87);
+
       wf.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+      btn1.setOnMouseClicked(event -> store(f.getFoodID()));
+    }
+  }
+  public void walletFriendly() {
+
+    for (int i = 0; i < DBR.getFoodDAO().getWalletFriendlyFood().size(); i++) {
+
+      MFXButton btn1 = new MFXButton();
+
+      btn1.setId(DBR.getFoodDAO().getWalletFriendlyFood().get(i).toString());
+      btn1.setText(DBR.getFoodDAO().getWalletFriendlyFood().get(i).toString());
+
+      btn1.setMaxWidth(103);
+      btn1.setMaxHeight(87);
+
+      wf.getChildren().add(btn1);
+
       int finalII = i;
-      btn1.setOnMouseClicked(event -> store(DBR.getWalletFriendlyFood().get(finalII).getFoodID()));
+      btn1.setOnMouseClicked(event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalII).getFoodID()));
     }
   }
 
   public void quickDelivery() {
 
-    for (int i = 0; i < DBR.getQuick().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getQuick().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getQuick().get(i).toString());
-      btn.setText(DBR.getQuick().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getQuick().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getQuick().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getQuick().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getQuick().get(finalI).getFoodID()));
     }
   }
 
   public Method chooseVegetarian() {
-    for (int i = 0; i < DBR.getVegetarian().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getVegetarian().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getVegetarian().get(i).toString());
-      btn.setText(DBR.getVegetarian().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getVegetarian().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getVegetarian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getVegetarian().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getVegetarian().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseVegan() {
-    for (int i = 0; i < DBR.getVegan().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getVegan().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getVegan().get(i).toString());
-      btn.setText(DBR.getVegan().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getVegan().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getVegan().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getVegan().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getVegan().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseGlutenFree() {
-    for (int i = 0; i < DBR.getGlutenFree().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getGlutenFree().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getGlutenFree().get(i).toString());
-      btn.setText(DBR.getGlutenFree().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getGlutenFree().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getGlutenFree().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getGlutenFree().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getGlutenFree().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseHalal() {
-    for (int i = 0; i < DBR.getHalal().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getHalal().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getHalal().get(i).toString());
-      btn.setText(DBR.getHalal().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getHalal().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getHalal().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getHalal().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getHalal().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseKosher() {
-    for (int i = 0; i < DBR.getKosher().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getKosher().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getKosher().get(i).toString());
-      btn.setText(DBR.getKosher().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getKosher().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getKosher().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getKosher().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseAmerican() {
-    for (int i = 0; i < DBR.getAmerican().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getAmerican().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getAmerican().get(i).toString());
-      btn.setText(DBR.getAmerican().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getAmerican().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getAmerican().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getKosher().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseItalian() {
-    for (int i = 0; i < DBR.getItalian().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getItalian().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getItalian().get(i).toString());
-      btn.setText(DBR.getItalian().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getItalian().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getItalian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getKosher().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseMexican() {
-    for (int i = 0; i < DBR.getMexican().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getMexican().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getMexican().get(i).toString());
-      btn.setText(DBR.getMexican().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getMexican().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getMexican().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getKosher().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
     return null;
   }
 
   public Method chooseIndian() {
-    for (int i = 0; i < DBR.getIndian().size(); i++) {
+    for (int i = 0; i < DBR.getFoodDAO().getIndian().size(); i++) {
       MFXButton btn = new MFXButton();
-      btn.setId(DBR.getIndian().get(i).toString());
-      btn.setText(DBR.getIndian().get(i).toString());
+      btn.setId(DBR.getFoodDAO().getIndian().get(i).toString());
+      btn.setText(DBR.getFoodDAO().getIndian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
-      btn.setOnMouseClicked(event -> Navigation.navigate(Screen.PRODUCT_DETAILS));
+
       int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getKosher().get(finalI).getFoodID()));
+      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
     return null;
   }

@@ -202,6 +202,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
                       + name
                       + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost)"
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
       preparedStatement.setInt(1, request.getID());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());

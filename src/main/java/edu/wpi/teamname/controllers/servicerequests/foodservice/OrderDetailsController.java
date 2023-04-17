@@ -88,7 +88,7 @@ public class OrderDetailsController {
                     NewHomeController.cart.getTotalPrice(),
                     theNote);
 
-            DBR.addFoodRequest(currentFoodDev);
+            DBR.getFoodDeliveryDAO().add(currentFoodDev);
 
             Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
 
