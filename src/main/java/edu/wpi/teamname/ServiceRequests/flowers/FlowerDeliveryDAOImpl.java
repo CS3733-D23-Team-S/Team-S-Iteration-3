@@ -152,7 +152,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
     return requests.values().stream().toList();
   }
 
-  @Override
+  //  @Override
   public FlowerDelivery get(Integer target) {
     return null;
   }
@@ -217,9 +217,14 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
       requests.put(request.getID(), request);
 
     } catch (SQLException e) {
-      System.out.println("Excepetion:");
+      System.out.println("Exception:");
       e.printStackTrace();
       System.out.println(e.getSQLState());
     }
+  }
+
+  @Override
+  public FlowerDelivery getRow(Integer target) {
+    return null;
   }
 }

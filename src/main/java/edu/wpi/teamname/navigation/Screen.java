@@ -21,7 +21,7 @@ public enum Screen {
   MEAL_DELIVERY_ORDER_CONFIRMATION("views/MealDeliveryOrderConfirmation.fxml"),
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
-  MAP_EDITOR("views/MapEditor.fxml"),
+  MAP_EDITOR("views/NewMapEditor.fxml"),
   BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
   NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
