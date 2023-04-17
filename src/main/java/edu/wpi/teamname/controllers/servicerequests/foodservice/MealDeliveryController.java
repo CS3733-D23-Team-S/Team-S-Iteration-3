@@ -17,8 +17,8 @@ import javafx.scene.text.Text;
 
 public class MealDeliveryController {
 
-  @FXML MFXButton backButton1;
-  @FXML MFXButton navigation1;
+  // @FXML MFXButton backButton1;
+  // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
   @FXML HBox wf;
   @FXML HBox qd;
@@ -31,13 +31,13 @@ public class MealDeliveryController {
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
 
-  @FXML MFXButton signagePage1;
+  // @FXML MFXButton signagePage1;
 
-  @FXML MFXButton mealbutton;
-  @FXML MFXButton roomButton1;
-  @FXML MFXButton flowerbutton; // //ADdd path to flowerbutton
-  @FXML MFXButton homeButton;
-  @FXML MFXButton exit;
+  // @FXML MFXButton mealbutton;
+  // @FXML MFXButton roomButton1;
+  // @FXML MFXButton flowerbutton; // //ADdd path to flowerbutton
+  // @FXML MFXButton homeButton;
+  // @FXML MFXButton exit;
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;
@@ -48,15 +48,15 @@ public class MealDeliveryController {
   @FXML
   public void initialize() {
 
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    // backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    // exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    //  signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    //  flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
-    roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    //   mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    //  roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
 
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");
@@ -131,7 +131,7 @@ public class MealDeliveryController {
 
     clearButton.setOnMouseClicked(
         event -> {
-          Navigation.navigate(Screen.MEAL_DELIVERY);
+          Navigation.launchPopUp(Screen.PRODUCT_DETAILS);
           filters.clear();
         });
 
@@ -327,6 +327,7 @@ public class MealDeliveryController {
       btn.setMaxHeight(87);
       qd.getChildren().add(btn);
 
+      btn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PRODUCT_DETAILS));
       int finalI = i;
       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
     }
@@ -335,7 +336,7 @@ public class MealDeliveryController {
 
   public void store(int x) {
     clickedFoodID = x;
-    Navigation.navigate(Screen.PRODUCT_DETAILS);
+    Navigation.launchPopUp(Screen.PRODUCT_DETAILS);
   }
 
   public void addFilter(MenuItem x) {
