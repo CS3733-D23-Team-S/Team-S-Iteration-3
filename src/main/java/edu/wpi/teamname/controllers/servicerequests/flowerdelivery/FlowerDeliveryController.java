@@ -45,7 +45,7 @@ public class FlowerDeliveryController {
     for (Flower f : dbr.getFlowerDAO().getListOfSize("small")) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(true);
+      view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
 
@@ -54,13 +54,14 @@ public class FlowerDeliveryController {
       btn1.setText(f.getName());
       btn1.setPrefWidth(250);
       btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
       btn1.setStyle("-fx-background-radius:10 10 10 10;");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
       flowpane.getChildren().add(btn1);
-      flowpane.setHgap(20);
-      flowpane.setVgap(20);
+      flowpane.setHgap(25);
+      flowpane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {

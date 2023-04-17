@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -50,12 +51,15 @@
                   <Insets />
                </GridPane.margin>
             </Text>
-            <VBox fx:id="itemvbox" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="7">
+            <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="7">
                <GridPane.margin>
                   <Insets right="130.0" />
                </GridPane.margin>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
+               <content>
+                  <VBox fx:id="itemvbox" />
+               </content>
+            </ScrollPane>
+            <VBox fx:id="sidepanel" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
                <children>
                   <HBox minHeight="36.0" minWidth="448.0" prefHeight="36.0" prefWidth="448.0">
                      <children>
