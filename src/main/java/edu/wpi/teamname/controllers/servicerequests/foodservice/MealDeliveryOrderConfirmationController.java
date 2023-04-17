@@ -24,10 +24,10 @@ public class MealDeliveryOrderConfirmationController {
     navigation2.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    backButton4.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
+    backButton4.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
   }
 }

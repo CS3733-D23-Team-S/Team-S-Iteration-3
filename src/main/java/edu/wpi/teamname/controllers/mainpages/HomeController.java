@@ -99,7 +99,7 @@ public class HomeController {
     helpIcon.setImage(helpbutton);
 
     buttonBarPathfinding.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    mealDeliveryButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
+    mealDeliveryButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
     reserveRoomButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
   }
@@ -109,7 +109,7 @@ public class HomeController {
   }
 
   public void goToMealPage() {
-    Navigation.navigate(Screen.MEAL_DELIVERY);
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
 
   public void goToLoginPage() {

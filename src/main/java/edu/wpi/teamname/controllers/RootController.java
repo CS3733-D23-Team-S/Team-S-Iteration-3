@@ -27,7 +27,7 @@ public class RootController {
 
     menunavigation.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     menusignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
+    menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     menuroom.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     menuflower.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 

@@ -107,7 +107,7 @@ public class NewSubmittedRoomRequestController implements Initializable {
   }
 
   public void goToMealDeliveryPage() {
-    Navigation.navigate(Screen.MEAL_DELIVERY);
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
 
   public void goToRoomReservationPage() {

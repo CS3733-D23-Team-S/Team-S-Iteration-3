@@ -85,7 +85,7 @@ public class NewHomeController {
 
     navbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
     navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY));
+    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     roombutton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
 
@@ -131,7 +131,7 @@ public class NewHomeController {
   }
 
   public void goToMealPage() {
-    Navigation.navigate(Screen.MEAL_DELIVERY);
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
 
   public void goToSignagePage() {
