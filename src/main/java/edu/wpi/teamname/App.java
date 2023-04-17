@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ public class App extends Application {
 
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
+  @Setter @Getter static GridPane top;
+  @Setter @Getter static GridPane left;
 
   @Override
   public void init() {
@@ -34,6 +37,8 @@ public class App extends Application {
     final BorderPane root = loader.load();
 
     App.rootPane = root;
+    top = (GridPane) App.rootPane.getTop();
+    left = (GridPane) App.rootPane.getLeft();
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
