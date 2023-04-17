@@ -28,3 +28,7 @@
 .image{
     -fx-background-radius: 15 15 15 15;
 }
+
+.popupbg{
+    -fx-background-color: #E9E9E9;
+}

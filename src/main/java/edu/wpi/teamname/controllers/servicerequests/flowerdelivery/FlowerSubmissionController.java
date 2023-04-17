@@ -47,6 +47,7 @@ public class FlowerSubmissionController {
 
     displayCart();
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
+    clearbutton.setOnMouseClicked(event -> clearFields());
 
     // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
@@ -86,5 +87,9 @@ public class FlowerSubmissionController {
       requestvbox.getChildren().add(message);
       recipientvbox.getChildren().add(recipientLabel);*/
     }
+  }
+
+  public void clearFields() {
+    requestfield.clear();
   }
 }

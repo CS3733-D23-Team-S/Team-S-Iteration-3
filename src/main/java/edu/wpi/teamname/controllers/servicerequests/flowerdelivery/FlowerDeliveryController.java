@@ -4,7 +4,6 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -65,7 +64,7 @@ public class FlowerDeliveryController {
       btn1.setMaxWidth(300);
       btn1.setMaxHeight(300);
       hbox1.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
+      btn1.setOnMouseClicked(event -> Navigation.launchPopUp(FLOWER_POPUP));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("small").get(finalII).getID()));
     }
@@ -81,7 +80,7 @@ public class FlowerDeliveryController {
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
+      btn1.setOnMouseClicked(event -> Navigation.launchPopUp(FLOWER_POPUP));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("medium").get(finalII).getID()));
     }
@@ -97,7 +96,7 @@ public class FlowerDeliveryController {
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
+      btn1.setOnMouseClicked(event -> Navigation.launchPopUp(FLOWER_POPUP));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("medium").get(finalII).getID()));
     }
@@ -113,7 +112,7 @@ public class FlowerDeliveryController {
       btn1.setMaxWidth(200);
       btn1.setMaxHeight(200);
       hbox1.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_ORDER));
+      btn1.setOnMouseClicked(event -> Navigation.launchPopUp(FLOWER_POPUP));
       int finalII = i;
       btn1.setOnMouseClicked(event -> store(dbr.getListOfSize("medium").get(finalII).getID()));
     }
@@ -121,6 +120,6 @@ public class FlowerDeliveryController {
 
   public void store(int x) {
     flowerID = x;
-    Navigation.navigate(FLOWER_ORDER);
+    Navigation.launchPopUp(FLOWER_POPUP);
   }
 }
