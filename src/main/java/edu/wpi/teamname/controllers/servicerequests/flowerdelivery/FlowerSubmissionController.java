@@ -5,10 +5,16 @@ import static edu.wpi.teamname.navigation.Screen.*;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
-import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
+import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +32,7 @@ public class FlowerSubmissionController {
   @FXML ImageView flowerimage;
   @FXML Text flowernametext;
   @FXML VBox itemvbox;
+  @FXML VBox sidepanel;
   @FXML SearchableComboBox locationdrop;
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
@@ -36,13 +43,57 @@ public class FlowerSubmissionController {
 
     displayCart();
 
+    String stat = "Recieved";
+
+    employeedrop.getItems().add("Nick Ho");
+    employeedrop.getItems().add("Nikesh Walling");
+    employeedrop.getItems().add("Prahladh Raja");
+    employeedrop.getItems().add("Tyler Brown");
+    employeedrop.getItems().add("Ryan Wright");
+    employeedrop.getItems().add("Jake Olsen");
+    employeedrop.getItems().add("Sarah Kogan");
+    employeedrop.getItems().add("Kashvi Singh");
+    employeedrop.getItems().add("Anthony Ticombe");
+    employeedrop.getItems().add("Nat Rubin");
+
     submitbutton.setOnMouseClicked(
         event -> {
           try {
-            // String Emp = employeefield.getText();
+            String Emp = employeedrop.getValue().toString();
             deliveryRoom = locationdrop.getValue().toString();
 
-            Navigation.navigate(FLOWER_CONFIRMATION);
+            String n = requestfield.getText();
+
+            Date d = Date.valueOf(LocalDate.now());
+            Time t = Time.valueOf(LocalTime.now());
+
+            FlowerDelivery currentFlowDev =
+                new FlowerDelivery(
+                    NewHomeController.flowDevID++,
+                    FlowerPopupController.flowerCart.toString(),
+                    d,
+                    t,
+                    deliveryRoom,
+                    "Abraham Lincoln",
+                    Emp,
+                    stat,
+                    FlowerPopupController.flowerCart.getTotalPrice(),
+                    n);
+
+            dbr.getFlowerDeliveryDAO().add(currentFlowDev);
+
+            sidepanel.getChildren().clear();
+
+            Label confirm = new Label();
+            Label thanks = new Label();
+            confirm.setText("Order Submitted!");
+            thanks.setText("Thank you for your order!");
+            confirm.setStyle("-fx-font-size: 48;");
+            thanks.setStyle("-fx-font-size:36; -fx-font-style: italic;");
+            sidepanel.setAlignment(Pos.CENTER);
+            sidepanel.getChildren().add(confirm);
+            sidepanel.getChildren().add(thanks);
+
           } catch (Exception e) {
             e.printStackTrace();
           }
@@ -64,7 +115,7 @@ public class FlowerSubmissionController {
 
       HBox newRow = new HBox();
       newRow.setSpacing(100);
-      newRow.setMaxWidth(1000);
+      newRow.setMaxWidth(900);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
