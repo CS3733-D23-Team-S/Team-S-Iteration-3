@@ -188,19 +188,26 @@ public class MealDeliveryController {
   }
 
   public void noFilter() {
-//Food f : DBR.getFoodDAO().getFoods().values()
+    // Food f : DBR.getFoodDAO().getFoods().values()
     for (Food f : DBR.getFoodDAO().getFoods().values()) {
 
-      MFXButton btn1 = new MFXButton();
       VBox food = new VBox();
+
       Image pic = new Image(Main.class.getResource(f.getImage()).toString());
-      ImageView foodPic = new ImageView();
-      foodPic.setImage(pic);
+      ImageView foodPic = new ImageView(pic);
+      foodPic.setPreserveRatio(true);
+      foodPic.setFitHeight(80);
+      foodPic.setFitWidth(60);
+
+      MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.toString());
 
       btn1.setMaxWidth(103);
       btn1.setMaxHeight(87);
+
+      btn1.setWrapText(true);
+      btn1.setGraphic(foodPic);
 
       food.getChildren().add(foodPic);
       food.getChildren().add(btn1);
