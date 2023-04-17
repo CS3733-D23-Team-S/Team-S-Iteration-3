@@ -6,6 +6,7 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.controllers.NewHomeController;
+import edu.wpi.teamname.controllers.PopUpController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -14,48 +15,63 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.controlsfx.control.tableview2.cell.TextField2TableCell;
 
-public class ProductDetailsController {
-  @FXML private MFXButton back3;
-  @FXML private MFXButton homeButton;
+public class ProductDetailsController extends PopUpController {
+  // @FXML private MFXButton back3;
+  // @FXML private MFXButton homeButton;
 
   @FXML private MFXButton addCart;
   @FXML private MFXButton clear;
+  @FXML private Label quantityLabel;
+
+  @FXML private Label productPrice;
+  @FXML private Label productDescription;
+  @FXML private MFXButton cancel;
   @FXML private MFXTextField quantity;
 
   @FXML private MFXTextField specialRequest;
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
   @FXML public TextField2TableCell fName;
-  @FXML public Label desc1;
-  @FXML public Label fPrice;
-  @FXML public Label prepTime;
 
-  @FXML MFXButton cancel;
+  @FXML public MFXButton add;
+  @FXML public MFXButton minus;
 
-  @FXML MFXButton roomButton5;
-  @FXML MFXButton mealbutton;
-  @FXML MFXButton signagePage1;
-  @FXML MFXButton navigation1;
+  // @FXML public Label desc1;
+  // @FXML public Label fPrice;
+  // @FXML public Label prepTime;
+
+  @FXML public Label productName;
+
+  // @FXML public Label quantityLabel;
+
+  // @FXML MFXButton cancel;
+
+  // @FXML MFXButton roomButton5;
+  // @FXML MFXButton mealbutton;
+  // @FXML MFXButton signagePage1;
+  // @FXML MFXButton navigation1;
 
   public static int orderID;
   public static int itemCount;
 
   public void initialize() {
+    itemCount = 1;
+    // roomButton5.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    // mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    roomButton5.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    //  cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
-    cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-
-    back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    // back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
     Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
+
+    add.setOnMouseClicked(event -> addQuantity());
+    minus.setOnMouseClicked(event -> subtractQuantity());
 
     addCart.setOnMouseClicked(
         event -> {
           try {
-            currentFood.setQuantity(
-                Integer.parseInt(quantity.getText())); // needs bounds if non int entered
+            currentFood.setQuantity(itemCount); // needs bounds if non int entered
 
             currentFood.setNote(specialRequest.getText()); // bounds for if non string entered
 
@@ -63,6 +79,7 @@ public class ProductDetailsController {
             NewHomeController.cart.addFoodItem(currentFood);
 
             Navigation.navigate(Screen.MEAL_DELIVERY1);
+            stage.close();
 
           } catch (Exception e) {
             e.printStackTrace();
@@ -71,12 +88,13 @@ public class ProductDetailsController {
 
     clearFields();
     clear.setOnMouseClicked(event -> clearFields());
+    cancel.setOnMouseClicked(event -> stage.close());
     clearFields();
     selectedFood();
     foodNamer();
     foodDescription();
     foodPrice();
-    foodPrep();
+    foodDescription();
   }
 
   public void count(String x) {
@@ -86,7 +104,7 @@ public class ProductDetailsController {
   }
 
   public void clearFields() {
-    quantity.clear();
+    // quantity.clear();          ////*************FIX
     specialRequest.clear();
   }
 
@@ -97,28 +115,46 @@ public class ProductDetailsController {
 
   public void foodNamer() {
 
-    fName.setId(selectedFood().getFoodDescription());
-    fName.setText(selectedFood().getFoodName().toString());
-    fName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+    productName.setId(selectedFood().getFoodDescription());
+    productName.setText(selectedFood().getFoodName().toString());
+    productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 24px; ");
   }
 
   public void foodDescription() {
 
-    desc1.setId(selectedFood().getFoodDescription());
-    desc1.setText(selectedFood().getFoodDescription().toString());
-    desc1.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+    productDescription.setId(selectedFood().getFoodDescription());
+    productDescription.setText(selectedFood().getFoodDescription().toString());
+    productDescription.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
   public void foodPrice() {
-    fPrice.setId(Double.toString(selectedFood().getFoodPrice()));
-    fPrice.setText("$ " + (selectedFood().getFoodPrice()));
-    fPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+    productPrice.setId(Double.toString(selectedFood().getFoodPrice()));
+    productPrice.setText("$ " + (selectedFood().getFoodPrice()));
+    productPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
-  public void foodPrep() {
-
-    prepTime.setId(Double.toString(selectedFood().getFoodPrepTime()));
-    prepTime.setText(Double.toString(selectedFood().getFoodPrepTime()) + " minutes");
-    prepTime.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+  public void foodQuantity() {
+    quantityLabel.setId(Double.toString(selectedFood().getFoodPrice()));
+    quantityLabel.setText("" + itemCount);
   }
+
+  public void addQuantity() {
+    itemCount++;
+    quantityLabel.setText(Integer.toString(itemCount));
+  }
+
+  public void subtractQuantity() {
+    itemCount--;
+    quantityLabel.setText(Integer.toString(itemCount));
+  }
+
+  /*
+   public void foodDescr() {
+
+     productDescription.setId(Double.toString(selectedFood().getFoodDescription()));
+     productDescription.setText(Double.toString(selectedFood().getFoodPrepTime()) + " minutes");
+     productDescription.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+   }
+
+  */
 }
