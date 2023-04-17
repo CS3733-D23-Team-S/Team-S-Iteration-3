@@ -3,11 +3,8 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class RootController {
@@ -79,32 +76,6 @@ public class RootController {
         event -> {
           Navigation.navigate(Screen.valueOf(backPath));
           event.consume();
-        });
-
-    // invert icons
-    menunavigation.setOnMouseEntered(
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent t) {
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setBrightness(250);
-            // colorAdjust.setHue(400);
-
-            navIcon.setEffect(colorAdjust);
-
-            menunavigation.setStyle("-fx-background-color:#000000;");
-          }
-        });
-
-    menunavigation.setOnMouseExited(
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent t) {
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setBrightness(0.1);
-
-            menunavigation.setStyle("-fx-background-color:#dae7f3;");
-          }
         });
   }
 }
