@@ -22,18 +22,18 @@ public class User implements IDataPack {
 
   @Override
   public String toString() {
-    return super.toString();
+    return "User= { Username: "
+        + userName
+        + ", Password: "
+        + password
+        + ", AccountType: "
+        + permission.ordinal()
+        + "}";
   }
 
   @Override
   public String toCSVString() {
 
     return userName + "," + password + "," + permission.ordinal();
-  }
-
-  public enum Permission {
-    ADMIN,
-    STAFF,
-    GUEST,
   }
 }

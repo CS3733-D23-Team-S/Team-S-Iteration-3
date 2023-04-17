@@ -5,26 +5,31 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Edge implements IDataPack {
-  @Getter @Setter private int startNodeID;
-  @Getter @Setter private int endNodeID;
+  @Getter @Setter private Node startNode;
+  @Getter @Setter private Node endNode;
 
-  public Edge(int sN, int eN) {
-    startNodeID = sN;
-    endNodeID = eN;
+  public Edge(Node sN, Node eN) {
+    startNode = sN;
+    endNode = eN;
   }
 
-  public void updateEdge(int sN, int eN) {
-    startNodeID = sN;
-    endNodeID = eN;
+  public void updateEdge(Node sN, Node eN) {
+    startNode = sN;
+    endNode = eN;
   }
 
   @Override
   public String toString() {
-    return "Edge{" + "startNode = " + startNodeID + ", endNode = " + endNodeID + '}';
+    return "Edge{"
+        + "startNode = "
+        + startNode.getNodeID()
+        + ", endNode = "
+        + endNode.getNodeID()
+        + '}';
   }
 
   @Override
   public String toCSVString() {
-    return startNodeID + "," + endNodeID;
+    return startNode.getNodeID() + "," + endNode.getNodeID();
   }
 }
