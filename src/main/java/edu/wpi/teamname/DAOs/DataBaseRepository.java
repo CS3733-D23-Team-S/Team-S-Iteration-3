@@ -9,6 +9,7 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.*;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
@@ -34,6 +35,8 @@ public class DataBaseRepository {
 
   @Getter FlowerDAOImpl flowerDAO;
   @Getter FlowerDeliveryDAOImpl flowerDeliveryDAO;
+
+  @Getter OfficeSupplyDAOImpl officeSupplyDAO;
   @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
@@ -48,6 +51,7 @@ public class DataBaseRepository {
     foodDeliveryDAO = new FoodDeliveryDAOImp();
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
+    officeSupplyDAO = new OfficeSupplyDAOImpl();
   }
 
   public static synchronized DataBaseRepository getInstance() {

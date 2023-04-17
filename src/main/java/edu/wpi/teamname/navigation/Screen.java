@@ -37,6 +37,12 @@ public enum Screen {
   FLOWER_CONFIRMATION("views/flowerconfirmationpage.fxml"),
   FLOWER_POPUP("views/flowerPopup.fxml"),
 
+  OFFICE_SUPPLIES_DELIVERY("views/officeSuppliesMain.fxml"),
+  OFFICE_SUPPLIES_CART("views/officeSuppliesSubmissionDetails.fxml"),
+  OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
+  OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
+  OFFICE_SUPPLIES_POPUP("views/flowerPopup.fxml"),
+
   NEW_USER("views/newUserPopUp.fxml");
 
   private final String filename;
