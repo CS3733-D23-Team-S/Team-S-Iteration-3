@@ -25,7 +25,7 @@ public class OfficeSupplyCart {
     return totalPrice;
   }
 
-  public void addFlowerItem(OfficeSupply officeSupply) {
+  public void addOfficeSupplyItem(OfficeSupply officeSupply) {
     cartItems.add(officeSupply);
   }
 

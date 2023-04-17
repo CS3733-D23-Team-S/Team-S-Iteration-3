@@ -5,8 +5,8 @@ import static edu.wpi.teamname.navigation.Screen.*;
 import static edu.wpi.teamname.navigation.Screen.HELP_PAGE;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -71,8 +71,8 @@ public class OfficeSuppliesDetailsController {
   private void createDelivery() {
     OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(suppliesID);
     officeSupply.setQuantity(Integer.parseInt(quantityfield.getText()));
-    // officeSupply.setMessage(custommessagefield.getText());
-    // officeSuppliesCart.addOfficeSupplyItem(officeSupply);
+    //officeSupply.setMessage(custommessagefield.getText());
+    //officeSuppliesCart.addOfficeSupplyItem(officeSupply);
     Navigation.navigate(OFFICE_SUPPLIES_DELIVERY);
 
     // room = .getText get room from drop down box in the thingy
