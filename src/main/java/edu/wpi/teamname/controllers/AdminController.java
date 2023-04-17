@@ -26,6 +26,7 @@ public class AdminController {
   @FXML MFXButton floor1Button;
   @FXML MFXButton floor2Button;
   @FXML MFXButton floor3Button;
+  @FXML MFXButton mapEditorButton;
   ImageView floorView;
   @FXML GesturePane mapView;
   StackPane stackpane;
@@ -48,6 +49,8 @@ public class AdminController {
 
   @FXML
   public void initialize() {
+
+    mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
 
     stackpane = new StackPane();
     floorView =

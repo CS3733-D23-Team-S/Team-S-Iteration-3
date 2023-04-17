@@ -120,5 +120,10 @@
             </VBox>
          </children>
       </Pane>
+      <MFXButton fx:id="mapEditorButton" contentDisplay="TOP" prefHeight="60.0" prefWidth="190.0" styleClass="MapEditorButton" stylesheets="@../../../../Stylesheets/AdminPage.css" text="Map Editor" translateX="150.0" translateY="120.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Open Sans Regular" size="24.0" />
+         </font>
+      </MFXButton>
     </children>
 </GridPane>
