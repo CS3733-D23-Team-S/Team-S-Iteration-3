@@ -32,7 +32,7 @@
            <children>
                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@../images/bwlogo.png" />
+                       <Image url="@../../images/bwlogo.png" />
                    </image>
                    <VBox.margin>
                        <Insets bottom="50.0" />
@@ -80,7 +80,7 @@
                </MFXButton>
                <ImageView fx:id="backicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@../images/backicon.png" />
+                       <Image url="@../../images/backicon.png" />
                    </image>
                    <VBox.margin>
                        <Insets right="150.0" top="175.0" />
@@ -88,7 +88,7 @@
                </ImageView>
                <ImageView fx:id="backicon1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@../images/exiticon.png" />
+                       <Image url="@../../images/exiticon.png" />
                    </image>
                    <VBox.margin>
                        <Insets right="150.0" />
@@ -96,7 +96,7 @@
                </ImageView>
                <ImageView fx:id="helpicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                    <image>
-                       <Image url="@../images/helpicon.png" />
+                       <Image url="@../../images/helpicon.png" />
                    </image>
                    <VBox.margin>
                        <Insets right="150.0" />
@@ -106,12 +106,12 @@
        </VBox>
        <ImageView fx:id="topbarlogo" fitHeight="70.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
            <image>
-               <Image url="@../images/topbarLogo.png" />
+               <Image url="@../../images/topbarLogo.png" />
            </image>
        </ImageView>
        <ImageView fx:id="homeicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
            <image>
-               <Image url="@../images/homeicon.png" />
+               <Image url="@../../images/homeicon.png" />
            </image>
          <GridPane.margin>
             <Insets right="80.0" />
@@ -119,7 +119,7 @@
        </ImageView>
        <ImageView fx:id="homeicon1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
            <image>
-               <Image url="@../images/ProfileIcon.png" />
+               <Image url="@../../images/ProfileIcon.png" />
            </image>
        </ImageView>
        <TableView fx:id="submittedRoomRequestsTable" prefHeight="771.0" prefWidth="1371.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.rowSpan="3" GridPane.valignment="TOP">
