@@ -97,8 +97,9 @@
                         </MenuButton>
                         <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Price">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                            <MenuItem mnemonicParsing="false" text="\$50" />
+                            <MenuItem mnemonicParsing="false" text="\$100" />
+                              <MenuItem mnemonicParsing="false" text="\$200" />
                           </items>
                            <font>
                               <Font size="20.0" />

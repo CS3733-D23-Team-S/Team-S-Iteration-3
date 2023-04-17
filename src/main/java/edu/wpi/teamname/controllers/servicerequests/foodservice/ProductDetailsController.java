@@ -63,7 +63,7 @@ public class ProductDetailsController extends PopUpController {
 
     // back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = DBR.retrieveFood(clickedFoodID);
+    Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
 
     add.setOnMouseClicked(event -> addQuantity());
     minus.setOnMouseClicked(event -> subtractQuantity());
@@ -110,7 +110,7 @@ public class ProductDetailsController extends PopUpController {
 
   public Food selectedFood() {
     System.out.println("working selected");
-    return DBR.retrieveFood(clickedFoodID);
+    return DBR.getFoodDAO().get(clickedFoodID);
   }
 
   public void foodNamer() {
