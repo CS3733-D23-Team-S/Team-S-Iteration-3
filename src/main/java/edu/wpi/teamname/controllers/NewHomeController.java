@@ -45,6 +45,7 @@ public class NewHomeController {
   public static int cartID = 0;
 
   public static int delID;
+  public static int flowDevID;
 
   public static OrderItem cart;
 
@@ -52,6 +53,7 @@ public class NewHomeController {
   public void initialize() {
 
     delID = DBR.getLastFoodDevID();
+    flowDevID = DBR.getLastFoodDevID();
 
     cart = new OrderItem(cartID++);
     // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
