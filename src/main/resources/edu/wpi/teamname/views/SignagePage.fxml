@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageController">
    <center>
       <GridPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #012D5A;">
@@ -48,7 +47,7 @@
             </VBox>
             <VBox prefHeight="360.0" prefWidth="624.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                    <Label alignment="BASELINE_RIGHT" text="Ears, Nose and Throat →" textAlignment="RIGHT" textFill="WHITE">
+                    <Label alignment="BASELINE_RIGHT" prefHeight="72.0" prefWidth="676.0" text="Ears, Nose and Throat →" textAlignment="RIGHT" textFill="WHITE">
                         <font>
                             <Font name="Open Sans Regular" size="59.0" />
                         </font>
