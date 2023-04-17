@@ -65,7 +65,7 @@ public class FlowerConfirmationController {
             Status.InProgress.toString(),
             calculateTotalCost());
 
-    dbr.flowerDeliveryAdd(fd);
+    dbr.getFlowerDeliveryDAO().add(fd);
   }
 
   private int calculateTotalCost() {
