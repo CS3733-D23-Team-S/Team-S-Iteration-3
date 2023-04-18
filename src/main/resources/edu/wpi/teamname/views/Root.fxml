@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
     <left>
-        <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../Stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
+        <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints fx:id="menucol1" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="50.0" />
                 <ColumnConstraints fx:id="menucol2" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" prefWidth="150.0" />
@@ -33,12 +27,12 @@
             <children>
             <Pane fx:id="menunavigation" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <children>
-                      <ImageView fx:id="navIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="navIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../templateIcons/navicon.png" />
                           </image>
                       </ImageView>
-                      <Label fx:id="navLabel" alignment="CENTER" layoutX="60.0" layoutY="30.0" text="Navigation" textFill="WHITE">
+                      <Label fx:id="navLabel" alignment="CENTER" layoutX="60.0" layoutY="27.5" text="Navigation" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>
@@ -47,12 +41,12 @@
             </Pane>
             <Pane fx:id="menusignage" prefHeight="200.0" prefWidth="192.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <children>
-                      <Label fx:id="signageLabel" layoutX="60.0" layoutY="30.0" text="Signage" textFill="WHITE">
+                      <Label fx:id="signageLabel" layoutX="60.0" layoutY="27.5" text="Signage" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>
                       </Label>
-                      <ImageView fx:id="signageIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="signageIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../templateIcons/signageicon.png" />
                           </image>
@@ -61,12 +55,12 @@
             </Pane>
             <Pane fx:id="menumeal" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
-                      <ImageView fx:id="mealIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="mealIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../templateIcons/mealicon.png" />
                           </image>
                       </ImageView>
-                      <Label fx:id="mealLabel" layoutX="60.0" layoutY="30.0" text="Meal Delivery" textFill="WHITE">
+                      <Label fx:id="mealLabel" layoutX="60.0" layoutY="27.5" text="Meal Delivery" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>
@@ -75,12 +69,12 @@
             </Pane>
             <Pane fx:id="menuroom" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="3">
                <children>
-                      <ImageView fx:id="roomIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="roomIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../templateIcons/roomicon.png" />
                           </image>
                       </ImageView>
-                      <Label fx:id="roomLabel" layoutX="60.0" layoutY="30.0" text="Room Booking" textFill="WHITE">
+                      <Label fx:id="roomLabel" layoutX="60.0" layoutY="27.5" text="Room Booking" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>
@@ -89,12 +83,12 @@
             </Pane>
             <Pane fx:id="menuflower" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="4">
                <children>
-                      <Label fx:id="flowerLabel" layoutX="60.0" layoutY="30.0" text="Flower Delivery" textFill="WHITE">
+                      <Label fx:id="flowerLabel" layoutX="60.0" layoutY="27.5" text="Flower Delivery" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>
                       </Label>
-                      <ImageView fx:id="flowerIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                      <ImageView fx:id="flowerIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../templateIcons/flowericon.png" />
                           </image>
@@ -111,12 +105,12 @@
                 </ImageView>
             <Pane fx:id="menuoffice" layoutX="10.0" layoutY="334.0" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="menuLabel" layoutX="60.0" layoutY="30.0" text="Office Supplies" textFill="WHITE">
+                  <Label fx:id="officeLabel" layoutX="60.0" layoutY="27.5" text="Office Supplies" textFill="WHITE">
                      <font>
                         <Font name="Open Sans" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="menuIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="officeIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../templateIcons/pen.png" />
                      </image>
@@ -127,7 +121,7 @@
         </GridPane>
     </left>
     <top>
-        <GridPane minWidth="400.0" prefHeight="90.0" prefWidth="1600.0" styleClass="topbar" stylesheets="@../../../../Stylesheets/UITemplateCSS.css" BorderPane.alignment="CENTER">
+        <GridPane minWidth="400.0" prefHeight="90.0" prefWidth="1600.0" styleClass="topbar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" percentWidth="15.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" percentWidth="5.0" prefWidth="40.0" />
@@ -143,7 +137,7 @@
             <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <children>
-                      <HBox alignment="CENTER_LEFT" maxHeight="240.0" maxWidth="240.0" minWidth="240.0" prefHeight="100.0" prefWidth="240.0" styleClass="top" stylesheets="@../../../../Stylesheets/UITemplateCSS.css">
+                      <HBox alignment="CENTER_LEFT" maxHeight="240.0" maxWidth="240.0" minWidth="240.0" prefHeight="100.0" prefWidth="240.0" styleClass="top" stylesheets="@../../../../Stylesheets/UITemplate.css">
                           <children>
                               <ImageView fx:id="backIcon" fitHeight="30.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
