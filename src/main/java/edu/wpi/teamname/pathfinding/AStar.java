@@ -6,14 +6,11 @@ import edu.wpi.teamname.DAOs.MoveDAOImpl;
 import edu.wpi.teamname.DAOs.NodeDAOImpl;
 import edu.wpi.teamname.DAOs.orms.Node;
 import java.util.*;
-import lombok.Getter;
-import lombok.Setter;
 
-public class AStar {
-
-  @Getter @Setter NodeDAOImpl nodeDAO;
-  @Getter @Setter EdgeDAOImpl edgeDAO;
-  @Getter @Setter MoveDAOImpl moveDAO;
+public class AStar implements IPathFinder {
+  NodeDAOImpl nodeDAO;
+  EdgeDAOImpl edgeDAO;
+  MoveDAOImpl moveDAO;
 
   public AStar() {
     this.nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
@@ -28,15 +25,9 @@ public class AStar {
    * @param e
    * @return
    */
+  @Override
   public ArrayList<Integer> findPath(int s, int e) {
     Node start, end;
-    // try and catch shit
-    //        if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start =
-    //     nodeDAO.getNodes().get(Integer.parseInt(s));
-    //        else start = nodeDAO.getNodes().get(moveDAO.getListOfMoves().get(e).getNodeID());
-    //        if (e.replaceAll("[a-zA-Z]+/g", "").isEmpty()) end =
-    // nodeDAO.getNodes().get(Integer.parseInt(e));
-    //        else end = nodeDAO.getNodes().get(moveDao.getMoves().get(e).getNodeID());
     start = this.nodeDAO.getNodes().get(s);
     end = this.nodeDAO.getNodes().get(e);
     final PriorityQueue<HeuristicNode> nodesYetToSearch =
@@ -84,12 +75,9 @@ public class AStar {
     }
     pathTaken.add(currentNode.getNodeID());
     Collections.reverse(pathTaken);
-    // for (int curr : pathTaken) System.out.println(curr);
     return pathTaken;
   }
 
-  //
-  // pathTaken.put(currentNode.getNodeID(),moveDao.getNodeToLoc().get(currentNode.getNodeID()).get(1));
   static class HeuristicNode implements Comparator<HeuristicNode> {
     Node node;
     double weight;

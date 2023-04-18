@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,6 +62,7 @@ public class PathfindingController {
   @FXML ImageView homeIcon;
   @FXML MFXTextField startingLocationError;
   @FXML MFXTextField destinationError;
+  @FXML Label textualDirections;
 
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
@@ -256,8 +258,11 @@ public class PathfindingController {
   PathfindingEntity pfe;
   List<Line> pathLines = new ArrayList<>();
   List<Circle> circlesOnFloor = new ArrayList<>();
+  String textDir = "";
 
   public void showPathNew(List<Node> floorNodes) {
+    textDir = "";
+    String currDir = "";
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
@@ -330,7 +335,34 @@ public class PathfindingController {
           Line line = new Line(startX, startY, endX, endY);
           line.setFill(Color.BLACK);
           line.setStrokeWidth(5.0);
+          if (startX != endX) {
+            if (startX > endX) {
+              currDir = "East";
+            } else {
+              currDir = "West";
+            }
+          }
+          if (startY != endY) {
+            if (startY > endY) {
+              if (currDir.equals("East")) {
+                currDir = "Southeast";
+              } else if (currDir.equals("West")) {
+                currDir = "Southwest";
+              } else {
+                currDir = "South";
+              }
+            } else {
+              if (currDir.equals("East")) {
+                currDir = "Northeast";
+              } else if (currDir.equals("West")) {
+                currDir = "Northwest";
+              } else {
+                currDir = "North";
+              }
+            }
+          }
           pathLines.add(line);
+          textDir = textDir + i + ". Go " + currDir + " until you reach ...\n";
         }
       } else {
         if (!startNodeInFloor && !endNodeInFloor) {
@@ -344,10 +376,11 @@ public class PathfindingController {
       }
     }
     anchorPane.getChildren().addAll(pathLines);
+    textualDirections.setText(textDir);
   }
 
   /*
-    public void generateFloorNodes(List<Node> lon, List<Circle> loc) {
+  public void generateFloorNodes(List<Node> lon, List<Circle> loc, Floor floor) {
       DataBaseRepository dbr = DataBaseRepository.getInstance();
       floor1Nodes.clear();
       floor2Nodes.clear();
@@ -360,11 +393,26 @@ public class PathfindingController {
       floor3Circles.clear();
       floorL1Circles.clear();
       floorL2Circles.clear();
-      for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-        if ()
+      for (int i = 0; i < dbr.getNodeDAO().getAll().size(); i++) {
+        if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(floor)) {
+
+        }
       }
+      for (int i = 0; i < lon.size(); i++) {
+        Circle newCircle = new Circle(lon.get(i).getXCoord(), lon.get(i).getYCoord(),
+                10.0, Color.RED);
+        loc.add(newCircle);
+        Node aNode = lon.get(i);
+        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+          if (aNode.getNodeID() == dataBase.getMoveDAO().getAll().get(i).getNodeID()) {
+            if ()
+          }
+        }
+      }
+
     }
-  */
+   */
+
   public void generateFloor1Nodes() {
     floor1Nodes.clear();
     floor2Nodes.clear();
@@ -532,7 +580,7 @@ public class PathfindingController {
             }
           }
         });
-
+    textualDirections.setText("");
     if (floor.getImage().equals(floor1)) {
       for (int i = 0; i < floor1Circles.size(); i++) {
         floor1Circles.get(i).setFill(Color.RED);

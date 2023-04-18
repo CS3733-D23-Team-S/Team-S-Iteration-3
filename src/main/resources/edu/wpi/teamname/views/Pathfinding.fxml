@@ -87,7 +87,7 @@
                   <Font size="20.0" />
                </font>
             </MFXTextField>
-            <Label alignment="TOP_LEFT" prefHeight="397.0" prefWidth="304.0" />
+            <Label fx:id="textualDirections" alignment="TOP_LEFT" prefHeight="397.0" prefWidth="304.0" />
          </children>
       </VBox>
       <MFXButton fx:id="findPathButton" prefHeight="254.0" prefWidth="128.0" style="-fx-background-color: #1D3D94; -fx-border-radius: 20; -fx-border-color: #FFFFFF;" text="Show Path" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">

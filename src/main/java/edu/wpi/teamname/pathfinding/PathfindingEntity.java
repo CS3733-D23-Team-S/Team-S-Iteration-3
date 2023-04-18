@@ -11,6 +11,7 @@ public class PathfindingEntity {
   @Getter @Setter int destination;
   @Getter @Setter String alg;
   @Getter @Setter AStar aStar;
+  @Getter @Setter BFS bfs;
   @Getter @Setter DFS dfs;
   @Getter @Setter ArrayList<PathEntity> pathEntities;
 
@@ -19,6 +20,7 @@ public class PathfindingEntity {
     this.destination = destination;
     this.alg = "AStar";
     this.aStar = new AStar();
+    this.bfs = new BFS();
     this.dfs = new DFS();
     this.pathEntities = new ArrayList<>();
   }
@@ -32,7 +34,7 @@ public class PathfindingEntity {
     if (this.alg.equals("AStar")) {
       passedNodeIDs.addAll(this.aStar.findPath(this.startingLocation, this.destination));
     } else if (this.alg.equals("Breadth-first search")) {
-      // breadth first search it
+      passedNodeIDs.addAll(this.bfs.findPath(this.startingLocation, this.destination));
     } else if (this.alg.equals("Depth-first search")) {
       passedNodeIDs.addAll(this.dfs.findPath(this.startingLocation, this.destination));
     }
