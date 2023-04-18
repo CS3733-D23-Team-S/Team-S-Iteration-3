@@ -6,7 +6,6 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
-import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -74,15 +73,15 @@ public class FlowerSubmissionController {
 
             FlowerDelivery currentFlowDev =
                 new FlowerDelivery(
-                    NewHomeController.flowDevID++,
-                    NewHomeController.flowerCart.toString(),
+                    FlowerDeliveryController.flowDevID++,
+                    FlowerDeliveryController.flowerCart.toString(),
                     d,
                     t,
                     deliveryRoom,
                     "Abraham Lincoln",
                     Emp,
                     stat,
-                    NewHomeController.flowerCart.getTotalPrice(),
+                    FlowerDeliveryController.flowerCart.getTotalPrice(),
                     n);
 
             dbr.getFlowerDeliveryDAO().add(currentFlowDev);
@@ -112,9 +111,9 @@ public class FlowerSubmissionController {
 
   public void displayCart() {
     System.out.println("Displaying flowers");
-    System.out.println(NewHomeController.flowerCart.getCartItems().get(0));
+    System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
 
-    for (Flower flower : NewHomeController.flowerCart.getCartItems()) {
+    for (Flower flower : FlowerDeliveryController.flowerCart.getCartItems()) {
 
       System.out.println("works");
 

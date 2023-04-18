@@ -15,7 +15,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerPopupController">
    <root>
-      <GridPane prefHeight="400.0" prefWidth="700.0" styleClass="popupbg" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+      <GridPane prefHeight="400.0" prefWidth="700.0" styleClass="popupbg" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.4444580078125" minWidth="10.0" prefWidth="149.0" />
@@ -68,7 +68,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </MFXButton>
-                        <Label fx:id="quantitylabel" alignment="CENTER" prefWidth="60.0" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="1" textFill="#1d3d94">
+                        <Label fx:id="quantitylabel" alignment="CENTER" prefWidth="60.0" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="1" textFill="#1d3d94">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -83,7 +83,7 @@
                         </MFXButton>
                      </children>
                   </HBox>
-                  <MFXButton fx:id="addcartbutton" styleClass="submitbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Add to Cart" textFill="WHITE">
+                  <MFXButton fx:id="addcartbutton" styleClass="submitbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Add to Cart" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>

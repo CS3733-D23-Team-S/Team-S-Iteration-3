@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
-import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -58,7 +57,7 @@ public class FlowerPopupController extends PopUpController {
     System.out.println("added");
     Flower flower = dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID);
     flower.setQuantity(flowercounter);
-    NewHomeController.flowerCart.getCartItems().add(flower);
+    FlowerDeliveryController.flowerCart.getCartItems().add(flower);
     stage.close();
   }
 
