@@ -44,7 +44,9 @@ public enum Screen {
   OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),
 
-  NEW_USER("views/newUserPopUp.fxml");
+  NEW_USER("views/newUserPopUp.fxml"),
+
+  STAFF("views/StaffPage.fxml");
 
   private final String filename;
 

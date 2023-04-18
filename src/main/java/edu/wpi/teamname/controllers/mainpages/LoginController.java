@@ -26,6 +26,7 @@ public class LoginController {
   @FXML PasswordField pfPassword;
 
   @FXML private TextField tfUsername;
+
   public ActiveUser activeUser = ActiveUser.getInstance();
   // @FXML private Hyperlink newUser;
 
@@ -81,7 +82,7 @@ public class LoginController {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
             // ActiveUser.getInstance().setCurrentUser(
-            Navigation.navigate(ADMIN_PAGE);
+            Navigation.navigate(STAFF);
           }
         });
   }
