@@ -1,11 +1,11 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.Location;
+import lombok.Getter;
+
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,7 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
@@ -61,6 +62,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
 
   @Override
   public void add(ConfRoomRequest request) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       PreparedStatement preparedStatement =
           connection
@@ -126,6 +128,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   public boolean hasConflicts(
       String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
       throws Exception {
+    dbConnection connection = dbConnection.getInstance();
 
     try {
 
@@ -270,6 +273,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
 
   @Override
   public List<ConfRoomRequest> getAll() {
+    dbConnection connection = dbConnection.getInstance();
 
     List<ConfRoomRequest> requestList = new ArrayList<>();
 

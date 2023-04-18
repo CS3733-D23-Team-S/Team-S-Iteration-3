@@ -1,10 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
-import static edu.wpi.teamname.controllers.servicerequests.officesupplies.OfficeSuppliesController.suppliesID;
-import static edu.wpi.teamname.navigation.Screen.*;
-import static edu.wpi.teamname.navigation.Screen.HELP_PAGE;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import edu.wpi.teamname.navigation.Navigation;
@@ -14,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+
+import static edu.wpi.teamname.controllers.servicerequests.officesupplies.OfficeSuppliesController.suppliesID;
+import static edu.wpi.teamname.navigation.Screen.*;
 
 public class OfficeSuppliesDetailsController {
   public static OfficeSupplyCart officeSuppliesCart = new OfficeSupplyCart(1);
@@ -44,6 +44,7 @@ public class OfficeSuppliesDetailsController {
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
+
     addtocartbutton.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_DELIVERY));
     backicon.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_DELIVERY));
     exiticon.setOnMouseClicked(event -> Navigation.navigate(SIGNAGE_PAGE));
@@ -69,6 +70,7 @@ public class OfficeSuppliesDetailsController {
   }
 
   private void createDelivery() {
+    dbConnection connection = dbConnection.getInstance();
     OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(suppliesID);
     officeSupply.setQuantity(Integer.parseInt(quantityfield.getText()));
     // officeSupply.setMessage(custommessagefield.getText());

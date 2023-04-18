@@ -1,13 +1,14 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
-
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
+import lombok.Getter;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
@@ -66,6 +67,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void add(FoodDelivery request) {
+    dbConnection connection = dbConnection.getInstance();
 
     try {
       PreparedStatement preparedStatement =
@@ -158,6 +160,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;

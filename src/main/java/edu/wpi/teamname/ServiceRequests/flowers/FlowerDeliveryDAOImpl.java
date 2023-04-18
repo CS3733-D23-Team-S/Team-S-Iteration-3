@@ -1,16 +1,17 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
-
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
+import lombok.Getter;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
@@ -66,6 +67,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
   }
 
   public void constructFromRemote() {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
@@ -197,6 +199,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Override
   public void add(FlowerDelivery request) {
+    dbConnection connection = dbConnection.getInstance();
 
     requests.put(request.getID(), request);
     try {

@@ -1,16 +1,17 @@
 package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
-
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
+import lombok.Getter;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery, Integer> {
 
@@ -98,6 +99,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   @Override
   public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -198,8 +200,8 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   @Override
   public void add(OfficeSupplyDelivery request) {
-    System.out.println("Here in add");
-    requests.put(request.getDeliveryid(), request);
+    dbConnection connection = dbConnection.getInstance();
+
     try {
       PreparedStatement preparedStatement =
           connection
@@ -221,6 +223,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
       preparedStatement.setString(11, "Office");
+      requests.put(request.getDeliveryid(), request);
 
       PreparedStatement preparedStatement2 =
           connection
