@@ -140,14 +140,16 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
     this.add(newNode);
   }
 
-    public void updateNodeID(int oldID, int newID){
-      try{
-        PreparedStatement statement = connection.getConnection().prepareStatement(
-                "UPDATE " + name + " SET nodeID=? WHERE nodeID=?");
-      }catch (SQLException e){
-        e.printStackTrace();
-      }
+  public void updateNodeID(int oldID, int newID) {
+    try {
+      PreparedStatement statement =
+          connection
+              .getConnection()
+              .prepareStatement("UPDATE " + name + " SET nodeID=? WHERE nodeID=?");
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+  }
 
   private void addToRemote(Node addition) {
     try {

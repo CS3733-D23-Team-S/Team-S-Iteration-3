@@ -115,9 +115,7 @@ public class EditNodeController {
       moveBox
           .getChildren()
           .add(new Label(move.getLocationName() + " on " + move.getDate().toString()));
-      if (move.getDate().toEpochDay() < LocalDate.now().toEpochDay()) {
         locationBox.getChildren().add(new Label(move.getLocationName()));
-      }
     }
   }
 }

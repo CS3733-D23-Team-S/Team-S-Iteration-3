@@ -214,10 +214,6 @@ public class NewMapEditorController {
     prevSelection = deleteReferenceCircle;
   }
 
-  private void addLocation() {}
-
-  private void deleteLocation() {}
-
   private void generateFloorNodes() {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
     listOfCircles.clear();
