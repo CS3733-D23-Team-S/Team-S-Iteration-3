@@ -46,7 +46,8 @@ public class FlowerSubmissionController {
 
     displayCart();
 
-    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
+    totalprice.setText(
+        "$ " + String.format("%.02f", FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -152,13 +153,13 @@ public class FlowerSubmissionController {
 
       description.setText(flower.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
 
       quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans;");
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
 
-      price.setText(String.valueOf("$ " + flower.getPrice()));
-      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
+      price.setText("$ " + String.format("%.02f", flower.getPrice()));
+      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
 
       /*message.setText(String.valueOf(flower.getMessage()));
       message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
@@ -173,7 +174,6 @@ public class FlowerSubmissionController {
 
       itemInfo.getChildren().add(name);
       itemInfo.getChildren().add(description);
-      description.setStyle("-fx-wrap-text: true;");
       itemInfo.getChildren().add(priceQ);
 
       priceQ.getChildren().add(price);
@@ -183,5 +183,7 @@ public class FlowerSubmissionController {
 
   public void clearFields() {
     requestfield.clear();
+    employeedrop.valueProperty().set(null);
+    locationdrop.valueProperty().set(null);
   }
 }
