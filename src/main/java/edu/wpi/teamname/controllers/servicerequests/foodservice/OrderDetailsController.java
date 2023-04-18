@@ -48,6 +48,23 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
+    submit.setDisable(true);
+
+    location1
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submit.setDisable(location1.getValue() == null || empNum.getValue() == null);
+            }));
+
+    empNum
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submit.setDisable(location1.getValue() == null || empNum.getValue() == null);
+            }));
 
     totalPrice.setText("$ " + String.format("%.02f", MealDeliveryController.cart.getTotalPrice()));
 
