@@ -13,15 +13,6 @@ public class SubmittedMealsController {
 
   @FXML TableView submittedTableView;
 
-  // @FXML private MFXButton roomButton2;
-  // @FXML private MFXButton signagePage1;
-  // @FXML private MFXButton navigation1;
-  // @FXML private MFXButton cancel;
-  // @FXML private MFXButton mealButton;
-  // @FXML private MFXButton help;
-
-  // @FXML private MFXButton homeButton;
-
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
 
   @FXML

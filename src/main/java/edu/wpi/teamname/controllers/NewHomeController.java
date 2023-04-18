@@ -53,6 +53,7 @@ public class NewHomeController {
   @FXML
   public void initialize() {
 
+    // flowerCart = new Cart(cartID++);
     delID = DBR.getLastFoodDevID();
     // flowDevID = DBR.flowerGetNewDeliveryID();
 
