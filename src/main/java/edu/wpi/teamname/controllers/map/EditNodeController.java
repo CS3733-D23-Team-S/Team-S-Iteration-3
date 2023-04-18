@@ -60,11 +60,12 @@ public class EditNodeController {
     addLocation.setOnMouseClicked(
         event -> {
           String longName = locationField.getValue();
-          if (!longName.isEmpty()) {
-            for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()))
-              if (longName.equals(move.getLocationName())) return;
-          }
           LocalDate date = dateSelect.getValue();
+          if (!longName.isEmpty()) {
+            if (repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()) == null) return;
+            for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()))
+              if (longName.equals(move.getLocationName()) || date.isEqual(move.getDate())) return;
+          }
           Move newMove = new Move(this.node, repo.getLocationDAO().get(longName), date);
           addedMoves.add(newMove);
           locationBox.getChildren().add(new Label(longName));
@@ -116,7 +117,11 @@ public class EditNodeController {
   }
 
   private void updateEdgeBox() {
-    if (showClosest) {
+    try {
+      edgeField.getItems().clear();
+    } catch (IndexOutOfBoundsException ignored) {
+    }
+    if (!showClosest) {
       edgeField.setPromptText("Nearest Nodes");
       for (Node potentialEdge : repo.getNodeDAO().getAll()) {
         if (calcWeight(potentialEdge) < 60) edgeField.getItems().add(potentialEdge.getNodeID());

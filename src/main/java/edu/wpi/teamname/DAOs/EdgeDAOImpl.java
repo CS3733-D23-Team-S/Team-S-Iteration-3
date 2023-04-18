@@ -129,9 +129,14 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   @Override
   public void add(Edge addition) {
     edges.add(addition);
+    if (getNeighbors().get(addition.getStartNode().getNodeID()) == null)
+      add(addition.getStartNode());
+    if (getNeighbors().get(addition.getEndNode().getNodeID()) == null) add(addition.getEndNode());
     getNeighbors().get(addition.getStartNode().getNodeID()).add(addition.getEndNode().getNodeID());
     getNeighbors().get(addition.getEndNode().getNodeID()).add(addition.getStartNode().getNodeID());
-    ;
+    getNeighbors()
+        .get(addition.getStartNode().getNodeID())
+        .remove(addition.getStartNode().getNodeID());
   }
 
   public void add(Node stN, Node enN) {

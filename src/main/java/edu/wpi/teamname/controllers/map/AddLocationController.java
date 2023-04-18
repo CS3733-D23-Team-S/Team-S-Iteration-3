@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers.map;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Location;
 import edu.wpi.teamname.DAOs.orms.NodeType;
-import edu.wpi.teamname.controllers.PopUpController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,13 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.controlsfx.control.SearchableComboBox;
 
-public class AddLocationController extends PopUpController {
+public class AddLocationController {
   DataBaseRepository repo = DataBaseRepository.getInstance();
 
   @FXML private Button deleteLoc;
 
-  @FXML private ChoiceBox<String> locationSelect;
+  @FXML private SearchableComboBox<String> locationSelect;
 
   @FXML private TextField longNameField;
 
@@ -52,7 +52,6 @@ public class AddLocationController extends PopUpController {
                     shortNameField.getText(),
                     NodeType.values()[nodeTypeSelect.getSelectionModel().getSelectedIndex()]);
             repo.getLocationDAO().add(location);
-            super.stage.close();
           }
         });
   }

@@ -1,6 +1,5 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.sql.*;
@@ -167,7 +166,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
         String orderer = rs.getString("orderer");
         String assignedto = rs.getString("assignedTo");
         String status = rs.getString("status");
-        Double cost = rs.getDouble("cost");
+        double cost = rs.getDouble("cost");
         String notes = rs.getString("notes");
 
         FoodDelivery fd =

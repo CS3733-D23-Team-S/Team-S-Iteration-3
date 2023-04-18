@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,6 +60,7 @@ public class AdminController {
     floorL2Button.setStyle("-fx-background-color: #1D2B94");
     stackpane.setPrefSize(800, 522);
     mapView.setContent(stackpane);
+
     // stackpane.setBackground(Background.fill(Color.RED));
 
     floorView.setImage(floor1);
@@ -74,6 +76,7 @@ public class AdminController {
 
     mapView.setMinScale(0.005);
     mapView.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    mapView.zoomTo(.5, new Point2D(2000, 1500));
     //    Platform.runLater({
     //          mapView.zoomTo(0.01, new Point2D(2500, 1750))
     //        }

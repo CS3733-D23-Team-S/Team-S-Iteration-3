@@ -65,7 +65,7 @@
                   <Insets right="30.0" />
                </padding>
             </ToggleSwitch>
-            <MFXButton fx:id="addNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add/Remove" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <MFXButton fx:id="addAndRemove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add/Remove" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Open Sans SemiBold" size="18.0" />
                </font>

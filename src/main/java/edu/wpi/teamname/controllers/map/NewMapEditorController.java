@@ -5,8 +5,6 @@ import edu.wpi.teamname.DAOs.orms.Edge;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 
 import java.io.IOException;
@@ -25,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -43,7 +42,6 @@ public class NewMapEditorController {
 	}
 
 	Node nodeToCircle;
-	boolean editingNodes = true;
 	boolean edgeShow = false;
 	DataBaseRepository repo = DataBaseRepository.getInstance();
 	Move mode;
@@ -54,7 +52,7 @@ public class NewMapEditorController {
 	@FXML
 	ComboBox<String> floorSelect;
 	@FXML
-	MFXButton addNode;
+	MFXButton addAndRemove;
 	@FXML
 	MFXButton moveNode;
 	@FXML
@@ -68,7 +66,7 @@ public class NewMapEditorController {
 	@FXML
 	private GridPane addNodeMenu;
 	@FXML
-	private Button addButton;
+	private Button addNodeButton;
 	@FXML
 	private TextField buildingEnter;
 	@FXML
@@ -80,11 +78,15 @@ public class NewMapEditorController {
 	private VBox editMenu;
 
 	// ______________________________________________
+	AddLocationController addLocationController;
+	@FXML
+	BorderPane locationMenu;
+
+	// ______________________________________________
 	ImageView floor;
 	Floor currFloor = Floor.Floor1;
 	Circle prevSelection;
-	int imageX;
-	int imageY;
+	double imageX, imageY;
 	private final Circle deleteReferenceCircle = new Circle(0, 0, 0, Color.TRANSPARENT);
 	HashMap<Circle, Node> listOfCircles = new HashMap<>();
 
@@ -100,14 +102,16 @@ public class NewMapEditorController {
 
 		initAddNodeController();
 		initEditController();
+		initAddLocationController();
 		initPopOver();
-		stackPane.setPrefSize(1200.0, 742.0);
+		//    stackPane.setPrefSize(1200.0, 742.0);
 		floor = new ImageView(floor1);
 		floor.setImage(floor1);
 		stackPane.getChildren().add(floor);
 		stackPane.getChildren().add(anchorPane);
 		anchorPane.setBackground(Background.fill(Color.TRANSPARENT));
-//    stackPane.setMouseTransparent(true);
+		//    anchorPane.setPickOnBounds(true);
+		//    mapPane.setPickOnBounds(false);
 		mapPane.setContent(stackPane);
 		mapPane.setMinScale(.0001);
 		mapPane.setMaxScale(0.9);
@@ -117,16 +121,13 @@ public class NewMapEditorController {
 		floorSelect.getItems().add("Floor 1");
 		floorSelect.getItems().add("Floor 2");
 		floorSelect.getItems().add("Floor 3");
-		mapPane.setOnContextMenuRequested(
-				event -> {
-					editingNodes = false;
-					updatePopOver(event);
-				});
+		anchorPane.setOnContextMenuRequested(this::updatePopOver);
+
 		showEdges.setOnMouseClicked(event -> drawEdges());
-		addNode.setOnMouseClicked(
+		addAndRemove.setOnMouseClicked(
 				event -> {
 					resetColors();
-					addNode.setStyle("-fx-background-color: #122E59");
+					addAndRemove.setStyle("-fx-background-color: #122E59");
 					mode = Move.ADD_REMOVE;
 					allowDelete();
 				});
@@ -137,7 +138,7 @@ public class NewMapEditorController {
 					mode = Move.MOVE;
 					stopDelete();
 				});
-		addLocation.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ADD_LOCATION));
+		addLocation.setOnMouseClicked(event -> updateLocationPopOver());
 		generateFloorNodes();
 		floorSelect.setOnAction(
 				event -> {
@@ -183,16 +184,31 @@ public class NewMapEditorController {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/addNodePopUp.fxml"));
 			addNodeMenu = loader.load();
 			addNodeController = loader.getController();
-			this.addButton = addNodeController.getAddButton();
+			this.addNodeButton = addNodeController.getAddButton();
 			this.nodeIDEnter = addNodeController.getNodeIDEnter();
 			this.buildingEnter = addNodeController.getBuildingEnter();
-			this.addButton.setOnMouseClicked(
+
+			this.addNodeButton.setOnMouseClicked(
 					event -> {
 						if (addNodeController.checkFieldsFilled()) {
 							addNode(
-									Integer.parseInt(nodeIDEnter.getText()), imageX, imageY, buildingEnter.getText());
+									Integer.parseInt(nodeIDEnter.getText()),
+									(int) Math.round(imageX),
+									(int) Math.round(imageY),
+									buildingEnter.getText());
+							//              addNodeEvent(event);
 						}
 					});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void initAddLocationController() {
+		try {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/addLocation.fxml"));
+			locationMenu = loader.load();
+			addLocationController = loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -208,19 +224,29 @@ public class NewMapEditorController {
 		}
 	}
 
+//	public void addNodeEvent(MouseEvent event) {
+//		Circle newCircle = new Circle(event.getX(), event.getY(), 10.0, Color.RED);
+//
+//		anchorPane.getChildren().add(newCircle);
+//	}
+
 	public void addNode(int nodeID, int xCoord, int yCoord, String building) {
+
 		if (repo.getNodeDAO().getNodes().containsKey(nodeID)) return;
+
 		Node node = new Node(nodeID, xCoord, yCoord, currFloor, building);
 		repo.getNodeDAO().add(node);
 		repo.getEdgeDAO().add(node);
+
 		Circle newCircle = new Circle(node.getXCoord(), node.getYCoord(), 10.0, Color.RED);
 		for (Node potentialEdge : repo.getNodeDAO().getAll()) {
 			// Likely to be an elevator or stairs
-			if (calcWeight(node, potentialEdge) < 15) {
+			if (calcWeight(node, potentialEdge) < 60) {
 				Edge edge = new Edge(node, potentialEdge);
 				repo.getEdgeDAO().add(edge);
 			}
 		}
+
 		initCircle(newCircle);
 		listOfCircles.put(newCircle, node);
 		anchorPane.getChildren().add(newCircle);
@@ -288,7 +314,7 @@ public class NewMapEditorController {
 		circle.setOnMouseDragged(
 				event -> {
 					if (mode == Move.MOVE) {
-						mapPane.setGestureEnabled(false);
+						prevSelection = circle;
 						int currX = (int) event.getX();
 						int currY = (int) event.getY();
 						circle.setCenterX(currX);
@@ -304,7 +330,15 @@ public class NewMapEditorController {
 						event.consume();
 					}
 				});
-		circle.setOnMouseReleased(event -> mapPane.setGestureEnabled(true));
+		circle.setOnMouseReleased(
+				event -> {
+					if (mode == Move.MOVE && listOfCircles.get(prevSelection) != null) {
+						repo.getNodeDAO().updateNodeLocation(listOfCircles.get(prevSelection));
+						System.out.println("Sent node location update");
+						//            System.out.println(listOfCircles.get(circle).toString());
+						event.consume();
+					}
+				});
 	}
 
 	private void drawEdges() {
@@ -355,20 +389,23 @@ public class NewMapEditorController {
 	}
 
 	private void resetColors() {
-		addNode.setStyle("-fx-background-color: #1D3D94");
+		addAndRemove.setStyle("-fx-background-color: #1D3D94");
 		moveNode.setStyle("-fx-background-color: #1D3D94");
 		addLocation.setStyle("-fx-background-color: #1D3D94");
 	}
 
 	private void updatePopOver(ContextMenuEvent event) {
 		popOver.setTitle("Add Node?");
+		popOver.setArrowLocation(PopOver.ArrowLocation.LEFT_TOP);
 		nodeIDEnter.clear();
 		buildingEnter.clear();
 		addNodeController.getWarning().setText("");
 		popOver.setContentNode(addNodeMenu);
-		Point2D localCoords = mapPane.getAffine().transform(event.getSceneX(), event.getSceneY());
-		imageX = (int) localCoords.getX();
-		imageY = (int) localCoords.getY();
+		//    Point2D localCoords = mapPane.getAffine().transform(event.getX(), event.getY());
+		//    Point2D localCoords = mapPane.localToParent(event.getX(), event.getY());
+		imageX = event.getX();
+		imageY = event.getY();
+		//    System.out.println("X " + imageX + "; Y " + imageY);
 		popOver.show(anchorPane, event.getScreenX(), event.getScreenY());
 	}
 
@@ -388,10 +425,17 @@ public class NewMapEditorController {
 
 	private void updateNodePopOver(Circle circle) {
 		popOver.setTitle("Node Information");
+		popOver.setArrowLocation(PopOver.ArrowLocation.LEFT_TOP);
 		showNodeIDs();
 		editNodeController.setInfo(listOfCircles.get(circle));
 		popOver.setContentNode(editMenu);
 		popOver.show(circle);
-		editingNodes = true;
+	}
+
+	private void updateLocationPopOver() {
+		popOver.setTitle("Edit Locations");
+		popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_RIGHT);
+		popOver.setContentNode(locationMenu);
+		popOver.show(addLocation);
 	}
 }
