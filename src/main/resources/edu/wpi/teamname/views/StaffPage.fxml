@@ -14,7 +14,7 @@
 <GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffController">
             <columnConstraints>
                 <ColumnConstraints />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" prefWidth="618.6666259765625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" percentWidth="45.0" prefWidth="618.6666259765625" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="757.9999999999999" minWidth="10.0" prefWidth="757.9999999999999" />
                 <ColumnConstraints />
             </columnConstraints>
@@ -31,11 +31,6 @@
                         <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="To Do" translateX="10.0" translateY="25.0">
                             <font>
                                 <Font name="Open Sans Regular" size="36.0" />
-                            </font>
-                        </Label>
-                        <Label text="View All Service Requests" translateX="550.0" translateY="20.0">
-                            <font>
-                                <Font size="36.0" />
                             </font>
                         </Label>
                     </children>
@@ -70,6 +65,11 @@
                     </children>
                 </HBox>
                 <GesturePane fx:id="mapView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="643.0" translateX="40.0" translateY="5.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
-      <TableView fx:id="taskTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+      <TableView fx:id="taskTable" prefHeight="720.0" prefWidth="671.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                  <Label text="View All Service Requests" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                      <font>
+                          <Font size="36.0" />
+                      </font>
+                  </Label>
             </children>
         </GridPane>

@@ -55,7 +55,7 @@ public class StaffController {
   public ObservableList<Request> data = FXCollections.observableArrayList();
   @FXML TableColumn<Request, String> serviceRequestType = new TableColumn<>("Service Request Type");
   @FXML TableColumn<Request, String> timeOrdered = new TableColumn<>("Time Ordered");
-  @FXML TableColumn<Request, String> status = new TableColumn<>("Status");
+  @FXML TableColumn<Request, String> status = new TableColumn<>("Update Status");
 
   @FXML
   public void initialize() {
@@ -108,6 +108,13 @@ public class StaffController {
                     Request item = getTableView().getItems().get(getIndex());
                     System.out.println(item);
                     item.setOrderStatus(dropdown.getSelectionModel().getSelectedItem());
+
+                    DBR.getRequestDAO()
+                        .updateRequest(
+                            item.getOrderStatus(),
+                            item.getOrderedBy(),
+                            item.getDeliveryTime(),
+                            item.getRequestType());
 
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
