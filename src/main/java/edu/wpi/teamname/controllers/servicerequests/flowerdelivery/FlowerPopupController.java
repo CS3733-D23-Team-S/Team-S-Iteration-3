@@ -42,7 +42,8 @@ public class FlowerPopupController extends PopUpController {
         dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getDescription());
 
     PriceText.setText(
-        String.valueOf(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getPrice()));
+        String.format(
+            "%.02f", dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getPrice()));
     SizeText.setText(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getSize().name());
 
     Image image =
@@ -51,6 +52,7 @@ public class FlowerPopupController extends PopUpController {
                 .getResource(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getImage())
                 .toString());
     flowerimage.setImage(image);
+    flowerimage.setPreserveRatio(true);
   }
 
   private void createDelivery() {
