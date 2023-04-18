@@ -1,9 +1,8 @@
 package edu.wpi.teamname.ServiceRequests.GeneralRequest;
 
+import java.time.LocalTime;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalTime;
 
 public class Request {
   @Getter @Setter String requestType;

@@ -2,11 +2,16 @@ package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import java.io.*;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery, Integer> {
 
@@ -36,9 +41,14 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
               + "assignedTo Varchar(400),"
               + "orderStatus Varchar(1000),"
               + "cost DOUBLE PRECISION,"
-              + "notes Varchar(100))";
+              + "notes Varchar(100)" +
+                  "+ requestType varchar(100))";
 
       st.execute(officeSupplyRequestsTableConstruct);
+
+
+
+
 
       // Move to hashmap requests
     } catch (SQLException e) {
@@ -214,6 +224,15 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
       preparedStatement.setString(8, request.getOrderStatus());
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
+
+      PreparedStatement preparedStatement2 =
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "INSERT INTO "
+                                      + allRequestTable
+                                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) "
+                                      + "SELECT requestType, room, ordertime, assignedto, orderedby, orderstatus from officesuppliesrequests");
 
       preparedStatement.executeUpdate();
 
