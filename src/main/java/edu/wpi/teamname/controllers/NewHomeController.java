@@ -4,6 +4,8 @@ import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
+import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -45,24 +47,29 @@ public class NewHomeController {
   public static int cartID = 0;
 
   public static int delID;
-  // public static int flowDevID;
+  public static int flowDevID;
+  public static int officeSupplyID;
 
   public static OrderItem cart;
-  // public static Cart flowerCart;
+
+  public static Cart flowerCart;
+  public static OfficeSupplyCart officeSupplyCart;
 
   @FXML
   public void initialize() {
 
     delID = DBR.getLastFoodDevID();
-    // flowDevID = DBR.flowerGetNewDeliveryID();
+    flowDevID = DBR.flowerGetNewDeliveryID();
 
     cart = new OrderItem(cartID++);
-    // flowerCart = new Cart(cartID++);
+    flowerCart = new Cart(cartID++);
+    officeSupplyCart = new OfficeSupplyCart(cartID++);
+
     // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     flowerRequestsButton.setOnMouseClicked(event -> goToFlowerPage());
-    // officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
+    officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
     // furnitureRequestsButton.setOnMouseClicked(event -> goToFurniturePage());
     signageButton.setOnMouseClicked(event -> goToSignagePage());
     navigationButton.setOnMouseClicked(event -> goToNavigationPage());
@@ -154,9 +161,9 @@ public class NewHomeController {
     Navigation.navigate(Screen.FLOWER_DELIVERY);
   }
 
-  //    public void goToOfficePage() {
-  //        Navigation.navigate(Screen.MEAL_DELIVERY);
-  //    }
+  public void goToOfficePage() {
+    Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
+  }
   //
   //    public void goToFurniturePage() {
   //        Navigation.navigate(Screen.LOGIN_PAGE);
