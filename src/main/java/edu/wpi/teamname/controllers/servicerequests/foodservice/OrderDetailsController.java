@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import edu.wpi.teamname.navigation.Navigation;
@@ -14,6 +15,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
@@ -45,7 +48,18 @@ public class OrderDetailsController {
   @FXML
   public void initialize() {
 
-    // totalPrice.setText("$ "+ String.valueOf().getTotalPrice());
+    totalPrice.setText("$ " + String.valueOf(MealDeliveryController.cart.getTotalPrice()));
+
+    empNum.getItems().add("Nick Ho");
+    empNum.getItems().add("Nikesh Walling");
+    empNum.getItems().add("Prahladh Raja");
+    empNum.getItems().add("Tyler Brown");
+    empNum.getItems().add("Ryan Wright");
+    empNum.getItems().add("Jake Olsen");
+    empNum.getItems().add("Sarah Kogan");
+    empNum.getItems().add("Kashvi Singh");
+    empNum.getItems().add("Anthony Ticombe");
+    empNum.getItems().add("Nat Rubin");
 
     // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
     // roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
@@ -118,36 +132,53 @@ public class OrderDetailsController {
       Label newItemPrepTime = new Label();
       Label newItemDescription = new Label();
 
+      ImageView foodImage = new ImageView();
+      Image image = new Image(Main.class.getResource(aFood.getImage()).toString());
+      foodImage.setImage(image);
+      foodImage.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      foodImage.setFitHeight(160);
+      foodImage.setFitWidth(160);
+      foodImage.setPreserveRatio(false);
+
       HBox newRow = new HBox();
-      newRow.setSpacing(200);
+      newRow.setSpacing(100);
       newRow.setMaxWidth(1000);
+      newRow.setMaxHeight(300);
 
       VBox itemInfo = new VBox();
       itemInfo.setSpacing(10);
-      itemInfo.setMaxWidth(1000);
+      itemInfo.setMaxWidth(1500);
+      itemInfo.setMaxHeight(100);
 
       HBox pricePrep = new HBox();
-      pricePrep.setSpacing(80);
+      pricePrep.setSpacing(30);
       pricePrep.setMaxWidth(1000);
 
       newItemName.setText(aFood.getFoodName());
-      newItemName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px; -fx-font-weight: bold");
+      newItemName.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      newItemQuantity.setText(String.valueOf(aFood.getQuantity()));
-      newItemQuantity.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemQuantity.setText(String.valueOf("Quantity: " + aFood.getQuantity() + "x"));
+      newItemQuantity.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans;");
 
       newItemPrice.setText(String.valueOf("$ " + aFood.getFoodPrice()));
-      newItemPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemPrice.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans");
 
       newItemPrepTime.setText(String.valueOf(aFood.getFoodPrepTime() + " minutes"));
-      newItemPrepTime.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemPrepTime.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans");
 
       newItemDescription.setText(String.valueOf(aFood.getFoodDescription()));
-      newItemDescription.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
+      newItemDescription.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
       // orderVBox.getChildren().add(newRow);
 
       items.getChildren().add(newRow);
+      newRow.getChildren().add(foodImage);
       newRow.getChildren().add(itemInfo);
 
       itemInfo.getChildren().add(newItemName);
