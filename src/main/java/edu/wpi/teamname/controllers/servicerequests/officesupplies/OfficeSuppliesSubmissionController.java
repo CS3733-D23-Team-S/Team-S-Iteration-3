@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
@@ -74,7 +75,7 @@ public class OfficeSuppliesSubmissionController {
                     d,
                     t,
                     deliveryRoom,
-                    "Abraham Lincoln",
+                    ActiveUser.getInstance().getCurrentUser().getUserName(),
                     Emp,
                     stat,
                     OfficeSuppliesController.officeSupplyCart.getTotalPrice(),
