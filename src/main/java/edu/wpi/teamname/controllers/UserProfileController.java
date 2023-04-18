@@ -28,6 +28,7 @@ public class UserProfileController {
   @FXML TextField2TableCell emailCell;
   @FXML Label welcomeText;
 
+  // TODO connect to database
   String name = "", position = "", email = "", password = "";
 
   @FXML
@@ -77,6 +78,5 @@ public class UserProfileController {
     nameField.clear();
     positionField.clear();
     emailField.clear();
-    passwordField.clear();
   }
 }

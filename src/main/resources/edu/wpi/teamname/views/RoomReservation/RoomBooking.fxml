@@ -76,7 +76,7 @@
       <TextField2TableCell fx:id="currentDateText" GridPane.columnIndex="1" />
       <HBox alignment="CENTER_RIGHT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="419.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <children>
-              <MFXButton fx:id="addMeetingButton" onMouseClicked="#initialize" prefHeight="46.0" prefWidth="173.0" style="-fx-background-color: #1d3d94;" text="+ Add Meeting" textFill="WHITE">
+              <MFXButton fx:id="addMeetingButton" prefHeight="46.0" prefWidth="173.0" style="-fx-background-color: #1d3d94;" text="+ Add Meeting" textFill="WHITE">
                   <font>
                       <Font size="16.0" />
                   </font>
