@@ -3,8 +3,6 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -43,23 +41,10 @@ public class NewHomeController {
 
   @FXML DataBaseRepository DBR = DataBaseRepository.getInstance();
 
-  public static int cartID = 0;
-
-  public static int delID;
-  public static int flowDevID;
-
-  public static OrderItem cart;
-
-  public static Cart flowerCart;
-
   @FXML
   public void initialize() {
 
-    delID = DBR.getLastFoodDevID();
-    flowDevID = DBR.flowerGetNewDeliveryID();
-
-    cart = new OrderItem(cartID++);
-    flowerCart = new Cart(cartID++);
+    // flowerCart = new Cart(cartID++);
     // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());

@@ -19,6 +19,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,6 +46,7 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
   @FXML MFXDatePicker DateFilterPicker;
+  @FXML ScrollPane scrollPane;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -58,6 +61,9 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
+    scrollPane.setStyle("-fx-box-border: transparent;");
+
+    // set navigation
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
 
@@ -178,11 +184,22 @@ public class RoomBookingController {
 
     for (int i = 0; i < roomList.size(); i++) {
 
+      Rectangle meetingRect = new Rectangle();
+      meetingRect.setWidth(170);
+      meetingRect.setHeight(85);
+      meetingRect.setArcHeight(15);
+      meetingRect.setArcWidth(15);
+      meetingRect.setStyle("-fx-border-color: #000000");
+      meetingRect.setStyle("-fx-border-style: dashed");
+      // rect.setStyle("-fx-background-radius: 15;");
+      meetingRect.setFill(Paint.valueOf("#B5C5EE"));
+
       // vbox
       VBox roomVBox = new VBox();
       roomVBox.setAlignment(Pos.valueOf("TOP_CENTER"));
-      // roomVBox.setPrefHeight(612.0);
-      roomVBox.setPrefWidth(200);
+      roomVBox.setMinHeight(500);
+      roomVBox.setPrefWidth(170);
+      roomVBox.setMaxWidth(170);
       roomVBox.setSpacing(5);
       // roomVBox.setStyle("-fx-border-style: solid dashed double dotted");
       roomVBox.setStyle("-fx-border-color: #00000000 #D8D8D8 #FFFFFF00 #D8D8D8");
@@ -194,11 +211,13 @@ public class RoomBookingController {
       TextFieldTableCell textField = new TextFieldTableCell();
       textField.setAlignment(Pos.valueOf("CENTER"));
       textField.setTextAlignment(TextAlignment.valueOf("CENTER"));
-      textField.setPrefSize(175, 75);
-      textField.setMinWidth(175);
+      textField.setPrefSize(160, 75);
+      textField.setMinWidth(160);
+      textField.setMaxWidth(140);
       textField.setMinHeight(75);
       textField.setMaxHeight(75);
       textField.setWrapText(true);
+
       // textField.setStyle("-fx-border-style: solid dashed double dotted;");
       textField.setStyle("-fx-border-color: #FFFFFF00 #FFFFFF00 #D8D8D8 #FFFFFF00");
       textField.setFont(Font.font("Open Sans"));
@@ -274,7 +293,7 @@ public class RoomBookingController {
     Rectangle rect = new Rectangle(); // create rectangle
     rect.getStyleClass().add("room-request-rect");
 
-    rect.setWidth(170);
+    rect.setWidth(150);
     rect.setHeight(85);
     rect.setArcHeight(15);
     rect.setArcWidth(15);
@@ -284,20 +303,22 @@ public class RoomBookingController {
     VBox eventVBox = new VBox();
     eventVBox.setSpacing(2);
 
-    Text title = new Text(); // create text
+    Label title = new Label(); // create text
     title.setText(roomRequest.getEventName());
-    title.setFont(Font.font("Open Sans", FontWeight.BOLD, 15));
-    // title.setStyle("Bold");
-    title.setFill(Paint.valueOf("#1D3D94"));
+    title.setFont(Font.font("Open Sans", FontWeight.BOLD, 13));
+    title.setTextFill(Paint.valueOf("#1D3D94"));
+    title.setWrapText(false);
+    title.maxWidth(130);
+    title.setEllipsisString("...");
 
     Text creator = new Text(); // create creator line
     creator.setText(roomRequest.getReservedBy());
-    creator.setFont(Font.font("Open Sans", 15));
+    creator.setFont(Font.font("Open Sans", 13));
     creator.setFill(Paint.valueOf("#1D3D94"));
 
     Text time = new Text();
     time.setText(roomRequest.getStartTime() + " - " + roomRequest.getEndTime());
-    time.setFont(Font.font("Open Sans", 15));
+    time.setFont(Font.font("Open Sans", 13));
     time.setFill(Paint.valueOf("#1D3D9450"));
 
     resGroup.getChildren().add(rect);

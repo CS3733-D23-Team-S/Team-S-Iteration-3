@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -26,10 +25,12 @@ public class OrderDetailsController {
   @FXML private MFXButton clear2;
 
   @FXML private SearchableComboBox location1;
-  @FXML private MFXTextField empNum;
+  @FXML private SearchableComboBox empNum;
+  // @FXML private MFXTextField empNum;
   @FXML private VBox items;
 
   @FXML private MFXTextField request1;
+  @FXML private Label totalPrice;
 
   // @FXML private MFXButton roomButton1;
   // @FXML private MFXButton mealButton2;
@@ -42,6 +43,9 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
+
+    // totalPrice.setText("$ "+ String.valueOf().getTotalPrice());
+
     // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
     // roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     // signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
@@ -64,7 +68,7 @@ public class OrderDetailsController {
     submit.setOnMouseClicked(
         event -> {
           try {
-            String Emp = empNum.getText();
+            String Emp = empNum.getValue().toString();
             String theNote = request1.getText();
 
             String loc = location1.getValue().toString();
@@ -74,15 +78,15 @@ public class OrderDetailsController {
 
             FoodDelivery currentFoodDev =
                 new FoodDelivery(
-                    NewHomeController.delID++,
-                    NewHomeController.cart.toString(),
+                    MealDeliveryController.delID++,
+                    MealDeliveryController.cart.toString(),
                     currentd,
                     currentt,
                     loc,
                     whoOrdered,
                     Emp,
                     stat,
-                    NewHomeController.cart.getTotalPrice(),
+                    MealDeliveryController.cart.getTotalPrice(),
                     theNote);
 
             DBR.getFoodDeliveryDAO().add(currentFoodDev);
@@ -99,12 +103,13 @@ public class OrderDetailsController {
 
   public void clearFields2() {
     location1.valueProperty().set(null);
-    empNum.clear();
+    empNum.valueProperty().set(null);
   }
 
   public void addedOrder() {
 
-    for (Food aFood : NewHomeController.cart.getTheCart().values()) {
+    System.out.println(MealDeliveryController.cart.getTheCart().size());
+    for (Food aFood : MealDeliveryController.cart.getTheCart().values()) {
 
       Label newItemName = new Label();
       Label newItemQuantity = new Label();

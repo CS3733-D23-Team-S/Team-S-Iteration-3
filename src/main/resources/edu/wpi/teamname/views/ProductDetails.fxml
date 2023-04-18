@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -19,20 +20,20 @@
    <root>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #ffffff;">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="70.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -68,46 +69,18 @@
                </children>
             </VBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="2" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="120.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
-               <children>
-                  <MFXButton fx:id="addCart" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #ffffff; -fx-border-color: #122E59; -fx-border-radius: 10; -fx-border-width: 5;" text="Add " textFill="#122e59">
-                     <font>
-                        <Font name="Open Sans Regular" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="30.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton fx:id="clear" prefHeight="60.0" prefWidth="140.0" style="-fx-border-width: 5; -fx-border-color: #122E59; -fx-border-radius: 10;" text="Clear">
-                     <font>
-                        <Font name="Open Sans Regular" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="30.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton fx:id="cancel" prefHeight="60.0" prefWidth="140.0" style="-fx-border-width: 5; -fx-border-color: #122E59; -fx-border-radius: 10;" text="Cancel">
-                     <font>
-                        <Font name="Open Sans Regular" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="30.0" />
-                     </HBox.margin>
-                  </MFXButton>
-               </children>
-            </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
                <children>
-                  <Label fx:id="productName" text="Label">
+                  <Label fx:id="productName" prefHeight="52.0" prefWidth="167.0" text="Label">
                      <font>
-                        <Font name="Open Sans Regular" size="24.0" />
+                        <Font name="Open Sans Regular" size="36.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="45.0" prefWidth="686.0" spacing="100.0">
                      <children>
                         <Label fx:id="productDescription" text="description">
                            <font>
-                              <Font name="Open Sans Regular" size="18.0" />
+                              <Font name="Open Sans Italic" size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -120,53 +93,104 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-            
-                        <Label text="Quantity">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
+                  <VBox alignment="CENTER">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
-                  </Label>
-                  <HBox prefHeight="43.0" prefWidth="686.0">
                      <children>
-                        <MFXButton fx:id="minus" text="-">
+                        <HBox>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label text="Special Request">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <MFXTextField fx:id="specialRequest" floatMode="ABOVE" prefHeight="62.0" prefWidth="327.0" promptText="Enter Special Request">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </HBox.margin>
+                              </MFXTextField>
+                           </children>
+                        </HBox>
+                  
+                              <Label text="Quantity" textFill="#1d3d94">
                            <font>
-                              <Font name="Open Sans Bold" size="24.0" />
+                              <Font size="18.0" />
                            </font>
-                        </MFXButton>
-                        <Label fx:id="quantityLabel" text="1">
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="686.0">
+                           <children>
+                              <MFXButton fx:id="minus" text="-" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                              </MFXButton>
+                              <Label fx:id="quantityLabel" alignment="CENTER" prefWidth="60.0" style="-fx-background-color: c0c0c0; -fx-background-radius: 10 10 10 10;" text="1" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <MFXButton fx:id="add" text="+" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="20.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <MFXButton fx:id="addCart" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #1d3d94; -fx-background-radius: 10 10 10 10;" text="Add " textFill="WHITE">
                            <font>
-                              <Font size="24.0" />
+                              <Font name="Open Sans Regular" size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets top="10.0" />
+                              <Insets />
                            </HBox.margin>
-                        </Label>
-                        <MFXButton fx:id="add" text="+">
+                        </MFXButton>
+                        <MFXButton fx:id="clear" prefHeight="60.0" prefWidth="140.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #1d3d94;" text="Clear" textFill="WHITE">
                            <font>
-                              <Font name="Open Sans Bold" size="24.0" />
+                              <Font name="Open Sans Regular" size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </MFXButton>
+                        <MFXButton fx:id="cancel" prefHeight="60.0" prefWidth="140.0" style="-fx-background-color: #1d3d94; -fx-background-radius: 10 10 10 10;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans Regular" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </MFXButton>
                      </children>
                   </HBox>
-                  <Label text="Special Request">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <MFXTextField fx:id="specialRequest" floatMode="ABOVE" prefHeight="62.0" prefWidth="327.0" promptText="Enter Special Request">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </MFXTextField>
                </children>
             </VBox>
-            <ImageView fx:id="foodImage" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+               <children>
+                  <ImageView fx:id="foodImage" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </root>

@@ -1,15 +1,10 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
-import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController.clickedFoodID;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.controllers.PopUpController;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.awt.*;
@@ -68,7 +63,7 @@ public class ProductDetailsController extends PopUpController {
 
     // back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
+    Food currentFood = DBR.getFoodDAO().get(MealDeliveryController.clickedFoodID);
 
     add.setOnMouseClicked(event -> addQuantity());
     minus.setOnMouseClicked(event -> subtractQuantity());
@@ -80,10 +75,9 @@ public class ProductDetailsController extends PopUpController {
 
             currentFood.setNote(specialRequest.getText()); // bounds for if non string entered
 
-            OrderItem check = NewHomeController.cart;
-            NewHomeController.cart.addFoodItem(currentFood);
+            OrderItem check = MealDeliveryController.cart;
+            MealDeliveryController.cart.addFoodItem(currentFood);
 
-            Navigation.navigate(Screen.MEAL_DELIVERY1);
             stage.close();
 
           } catch (Exception e) {
@@ -116,14 +110,14 @@ public class ProductDetailsController extends PopUpController {
 
   public Food selectedFood() {
     System.out.println("working selected");
-    return DBR.getFoodDAO().get(clickedFoodID);
+    return DBR.getFoodDAO().get(MealDeliveryController.clickedFoodID);
   }
 
   public void foodNamer() {
 
     productName.setId(selectedFood().getFoodDescription());
     productName.setText(selectedFood().getFoodName().toString());
-    productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 24px; ");
+    productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 36px; ");
   }
 
   public void foodDescription() {

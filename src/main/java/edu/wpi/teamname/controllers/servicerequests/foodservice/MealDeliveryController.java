@@ -3,14 +3,13 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -22,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.CheckComboBox;
 
 public class MealDeliveryController {
 
@@ -33,7 +31,7 @@ public class MealDeliveryController {
   // @FXML HBox wf;
   // @FXML HBox qd;
   @FXML SplitMenuButton dietaryButton;
-  @FXML CheckComboBox dietCheck;
+  // @FXML CheckComboBox dietCheck;
 
   // @FXML SplitMenuButton cuisine;
   // @FXML SplitMenuButton price;
@@ -60,31 +58,15 @@ public class MealDeliveryController {
   public ArrayList<MenuItem> filters = new ArrayList<>();
   public ArrayList<String> filterList = new ArrayList<>();
 
+  public static int delID;
+  public static OrderItem cart;
+
   @FXML
   public void initialize() {
 
-    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    // backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    // exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    //  signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    //  flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    delID = DBR.getLastFoodDevID();
 
-    //   mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    //  roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-
-    dietCheck
-        .getCheckModel()
-        .getCheckedItems()
-        .addListener(
-            new InvalidationListener() {
-              @Override
-              public void invalidated(Observable observable) {
-                //  filterByFeature(dietCheck.getCheckModel().getCheckedItems());  //FIX THIS
-                System.out.println(
-                    "\n SELECTED ITEMS: " + dietCheck.getCheckModel().getCheckedItems());
-              }
-            });
+    cart = new OrderItem(1);
 
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");
@@ -94,7 +76,7 @@ public class MealDeliveryController {
     MenuItem v = new MenuItem("Vegan");
 
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
-    dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
+    // dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
