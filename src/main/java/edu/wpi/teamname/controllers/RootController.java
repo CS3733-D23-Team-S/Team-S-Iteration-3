@@ -140,12 +140,15 @@ public class RootController {
         });
 
     // BACK ICON
+    /*
     backIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.ADMIN_PAGE); // TODO fix!!
           event.consume();
         });
+
+       */
   }
 
   public void clearMenuClasses() {
