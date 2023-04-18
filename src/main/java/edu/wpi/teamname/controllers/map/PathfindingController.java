@@ -2,7 +2,6 @@ package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
-import edu.wpi.teamname.DAOs.orms.Location;
 import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
@@ -66,7 +65,7 @@ public class PathfindingController {
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-      allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation());
+      allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation().getLongName());
     }
     // alphabetize
     Collections.sort(allLongNames);
@@ -116,7 +115,7 @@ public class PathfindingController {
     // get location long name
     for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
       if (id == dbr.getMoveDAO().getAll().get(i).getNodeID()) {
-        longName = dbr.getMoveDAO().getAll().get(i).getLocation();
+        longName = dbr.getMoveDAO().getAll().get(i).getLocation().getLongName();
       }
     }
     if (startingLocationList.getSelectionModel().isEmpty()) {
@@ -286,6 +285,7 @@ public class PathfindingController {
             .getListOfMoves()
             .get(i)
             .getLocation()
+            .getLongName()
             .equals(startingLocationList.getValue())) {
           startingID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
         }
@@ -293,6 +293,7 @@ public class PathfindingController {
             .getListOfMoves()
             .get(i)
             .getLocation()
+            .getLongName()
             .equals(destinationList.getValue())) {
           endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
         }
@@ -307,6 +308,9 @@ public class PathfindingController {
       }
       if (startNodeInFloor && endNodeInFloor) {
         pfe = new PathfindingEntity(startingID, endID);
+        if (!algList.getSelectionModel().isEmpty()) {
+          pfe.setAlg(algList.getValue());
+        }
         pfe.generatePath();
         for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
           for (int j = 0; j < floorNodes.size(); j++) {
