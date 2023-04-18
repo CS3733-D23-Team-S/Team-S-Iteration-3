@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -29,7 +31,17 @@ public class UserProfileController {
   @FXML Label welcomeText;
 
   // TODO connect to database
-  String name = "", position = "", email = "", password = "";
+  ActiveUser activeUser = ActiveUser.getInstance();
+
+  User user =
+      activeUser.getCurrentUser(); // new User("Michael O'Connor", "password", Permission.ADMIN);
+  // String name = user.getUserName();
+  String name = user.getFirstName() + " " + user.getLastName();
+  String position = user.getTitle();
+  String permissions = user.getPermission().toString();
+  String email = user.getEmail();
+  String password = user.getPassword();
+  String timeString = "";
 
   @FXML
   public void initialize() {
@@ -38,7 +50,10 @@ public class UserProfileController {
     clearButton.setOnMouseClicked(event -> clearFields());
     updatePassField.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.USER_PROFILE_POPUP));
 
-    String timeString = "";
+    nameCell.setText(name);
+    permissionsCell.setText(permissions);
+    roleCell.setText(position);
+    emailCell.setText(email);
 
     int currentHour = LocalTime.now().getHour();
     if (currentHour >= 5 && currentHour <= 11) {
@@ -49,7 +64,8 @@ public class UserProfileController {
       timeString = "Good evening";
     }
 
-    welcomeText.setText(timeString + ", " + "Michael!");
+    System.out.println(name);
+    welcomeText.setText(timeString + ", " + name + "!");
 
     // ROUND IMAGE
     Rectangle circle = new Rectangle(300, 300);
@@ -70,8 +86,13 @@ public class UserProfileController {
     // TODO handle empty fields, invalid inputs, etc
 
     nameCell.setText(name);
+    String permissionstring =
+        permissions.substring(0, 1).toUpperCase() + permissions.substring(1).toLowerCase();
+    permissionsCell.setText(permissionstring);
+
     roleCell.setText(position);
     emailCell.setText(email);
+    welcomeText.setText(timeString + ", " + name + "!");
   }
 
   public void clearFields() {

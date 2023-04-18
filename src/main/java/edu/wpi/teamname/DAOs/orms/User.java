@@ -9,12 +9,34 @@ import lombok.Setter;
 public class User implements IDataPack {
 
   @Getter @Setter private String userName;
+
   @Getter @Setter private String password;
+  @Getter @Setter private String firstName;
+  @Getter @Setter private String lastName;
+
   @Getter @Setter private String sessionID;
   @Getter @Setter private Permission permission;
+  @Getter @Setter private String email;
   @Getter @Setter private LocalDate DOB;
   @Getter @Setter private String title;
   @Getter @Setter private List<SRItem> cart;
+
+  public User(
+      String name,
+      String pass,
+      String first,
+      String last,
+      Permission perm,
+      String e,
+      String title) {
+    this.userName = name;
+    this.password = pass;
+    this.firstName = first;
+    this.lastName = last;
+    this.email = e;
+    this.permission = perm;
+    this.title = title;
+  }
 
   public User(String name, String pass, Permission perm) {
     this.userName = name;
@@ -33,13 +55,13 @@ public class User implements IDataPack {
         + ", Password: "
         + password
         + ", AccountType: "
-        + permission.ordinal()
+        + permission
         + "}";
   }
 
   @Override
   public String toCSVString() {
 
-    return userName + "," + password + "," + permission.ordinal();
+    return userName + "," + password;
   }
 }

@@ -1,8 +1,10 @@
 package edu.wpi.teamname;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.teamname.DAOs.UserDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import org.junit.jupiter.api.Test;
 
 public class UserDAOImplTest {
@@ -11,7 +13,7 @@ public class UserDAOImplTest {
 
   @Test
   public void loginTest() throws Exception {
-    userDAOImpl.createLoginInfo("admin", "admin");
+    userDAOImpl.createLoginInfo("admin", "admin", Permission.ADMIN);
     assertTrue(userDAOImpl.login("admin", "admin"));
   }
 
