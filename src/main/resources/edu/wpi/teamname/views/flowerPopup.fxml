@@ -27,9 +27,9 @@
             <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.888886345757385" minHeight="10.0" prefHeight="15.000006781684021" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="60.888886345757385" minHeight="10.0" prefHeight="34.55554877387152" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="229.99999321831598" minHeight="10.0" prefHeight="40.00002034505209" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="229.99999321831598" minHeight="10.0" prefHeight="187.77779473198788" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -48,7 +48,7 @@
                   </Text>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <children>
                   <Text fill="#1d3d94" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
                      <font>
@@ -85,7 +85,7 @@
                   </HBox>
                   <MFXButton fx:id="addcartbutton" styleClass="submitbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Add to Cart" textFill="WHITE">
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font size="20.0" />
@@ -93,37 +93,37 @@
                   </MFXButton>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.rowSpan="2">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.rowSpan="3">
                <children>
                   <ImageView fx:id="flowerimage" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <children>
-                  <Label prefHeight="30.0" prefWidth="46.0" text="Price: $">
+                  <Label prefHeight="30.0" prefWidth="60.0" text="Price:  $">
+                     <font>
+                        <Font name="Open Sans Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="PriceText" prefHeight="38.0" prefWidth="80.0" text="Text">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Text fx:id="PriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="65.24786376953125">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <children>
-                  <Label prefHeight="38.0" prefWidth="45.0" text="Size:">
+                  <Label prefHeight="38.0" prefWidth="60.0" text="Size:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Text fx:id="SizeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                  <Label fx:id="SizeText" prefHeight="38.0" prefWidth="80.0" text="Text">
                      <font>
                         <Font size="14.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </HBox>
          </children>

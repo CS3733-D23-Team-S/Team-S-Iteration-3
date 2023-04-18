@@ -124,7 +124,7 @@
                   </HBox>
                </children>
             </VBox>
-            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
+            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="670.0" prefWidth="1450.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
           </children>
          <effect>
             <Blend />

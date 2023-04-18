@@ -71,7 +71,7 @@
                               <Insets right="260.0" />
                            </HBox.margin>
                         </Text>
-                        <Label style="-fx-font-weight: bold;" text="PRICE">
+                        <Label fx:id="totalprice" style="-fx-font-weight: bold;" text="PRICE">
                            <font>
                               <Font name="Open Sans Regular" size="24.0" />
                            </font>
