@@ -72,7 +72,8 @@ public class UserDAOImpl implements IDAO<User, String> {
       throw new Exception("User does not exist");
     } else {
       if (password.equals(listOfUsers.get(username).getPassword())) {
-        ActiveUser.getInstance().setCurrentUser(get(username));
+        ActiveUser.getInstance().setCurrentUser(listOfUsers.get(username));
+        System.out.println(ActiveUser.getInstance().getCurrentUser().getFirstName());
         return true;
       }
     }
@@ -228,14 +229,19 @@ public class UserDAOImpl implements IDAO<User, String> {
     }
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String listOfNodes = "SELECT username, password, permission FROM hospitaldb.login";
+      String listOfNodes =
+          "SELECT username, password, permission, firstname, lastname, email, jobtitle FROM hospitaldb.login";
       ResultSet data = stmt.executeQuery(listOfNodes);
       while (data.next()) {
         String username = data.getString("username");
         String password = data.getString("password");
         Permission permission = Permission.values()[data.getInt("permission")];
+        String f = data.getString("firstname");
+        String l = data.getString("lastname");
+        String e = data.getString("email");
+        String t = data.getString("jobtitle");
 
-        User newUser = new User(username, password, permission);
+        User newUser = new User(username, password, f, l, permission, e, t);
         listOfUsers.put(username, newUser);
       }
     } catch (SQLException e) {
