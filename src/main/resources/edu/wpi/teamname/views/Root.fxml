@@ -109,14 +109,14 @@
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </ImageView>
-            <Pane fx:id="menuflower1" layoutX="10.0" layoutY="334.0" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.rowIndex="5">
+            <Pane fx:id="menuoffice" layoutX="10.0" layoutY="334.0" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="flowerLabel1" layoutX="60.0" layoutY="30.0" text="Office Supplies" textFill="WHITE">
+                  <Label fx:id="menuLabel" layoutX="60.0" layoutY="30.0" text="Office Supplies" textFill="WHITE">
                      <font>
                         <Font name="Open Sans" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="flowerIcon1" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="menuIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../templateIcons/pen.png" />
                      </image>
