@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
@@ -59,7 +60,7 @@ public class OrderDetailsController {
 
     // back2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    String whoOrdered = "George Washington"; // eventually linked to account ordering
+    String whoOrdered = ActiveUser.getInstance().getCurrentUser().getUserName();
 
     String stat = "Received";
 

@@ -9,6 +9,8 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDAOImpl;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDeliveryDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.*;
 import edu.wpi.teamname.pathfinding.AStar;
 import java.io.*;
@@ -34,6 +36,10 @@ public class DataBaseRepository {
 
   @Getter FlowerDAOImpl flowerDAO;
   @Getter FlowerDeliveryDAOImpl flowerDeliveryDAO;
+
+  @Getter OfficeSupplyDAOImpl officeSupplyDAO;
+
+  @Getter OfficeSupplyDeliveryDAOImpl officeSupplyDeliveryDAO;
   @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
@@ -48,6 +54,8 @@ public class DataBaseRepository {
     foodDeliveryDAO = new FoodDeliveryDAOImp();
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
+    officeSupplyDAO = new OfficeSupplyDAOImpl();
+    officeSupplyDeliveryDAO = new OfficeSupplyDeliveryDAOImpl();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -70,6 +78,9 @@ public class DataBaseRepository {
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
 
+    officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
+    officeSupplyDeliveryDAO.initTable(connection.getOSuppliesRequestsTable());
+
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
@@ -81,6 +92,9 @@ public class DataBaseRepository {
     flowerDeliveryDAO.loadRemote("flowersssssss!?");
     foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
     foodDeliveryDAO.loadRemote("This means nothing");
+
+    officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
+    officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
   }
 
   public boolean login(String text, String text1) throws Exception {
