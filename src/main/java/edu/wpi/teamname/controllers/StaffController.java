@@ -92,6 +92,7 @@ public class StaffController {
     status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
 
     status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
     taskTable.getColumns().add(status);
 
     status.setCellFactory(
@@ -101,10 +102,13 @@ public class StaffController {
 
             {
               dropdown.getItems().addAll("Recieved", "In Progress", "Complete");
+              // dropdown.setPromptText();
               dropdown.setOnAction(
                   event -> {
                     Request item = getTableView().getItems().get(getIndex());
+                    System.out.println(item);
                     item.setOrderStatus(dropdown.getSelectionModel().getSelectedItem());
+
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
                   });
