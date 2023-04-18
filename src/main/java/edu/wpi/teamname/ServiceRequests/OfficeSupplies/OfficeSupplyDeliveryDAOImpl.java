@@ -1,4 +1,4 @@
-package edu.wpi.teamname.ServiceRequests.flowers;
+package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
+public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery, Integer> {
 
-  @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
+  @Getter HashMap<Integer, OfficeSupplyDelivery> requests = new HashMap<>();
   private final dbConnection connection;
   @Getter String name;
 
-  public FlowerDeliveryDAOImpl() {
+  public OfficeSupplyDeliveryDAOImpl() {
     connection = dbConnection.getInstance();
   }
 
@@ -23,7 +23,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
     try {
       Statement st = connection.getConnection().createStatement();
 
-      String flowerRequestsTableConstruct =
+      String officeSupplyRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
               + name
               + " "
@@ -38,13 +38,13 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(100))";
 
-      st.execute(flowerRequestsTableConstruct);
+      st.execute(officeSupplyRequestsTableConstruct);
 
       // Move to hashmap requests
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       System.out.println(e.getSQLState());
-      System.out.println("Could not create flowerRequest");
+      System.out.println("Could not create officesupply");
       e.printStackTrace();
     }
   }
@@ -77,10 +77,10 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
         double cost = data.getDouble("cost");
         String notes = data.getString("notes");
 
-        FlowerDelivery fd =
-            new FlowerDelivery(
+        OfficeSupplyDelivery od =
+            new OfficeSupplyDelivery(
                 ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost, notes);
-        requests.put(ID, fd);
+        requests.put(ID, od);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -149,12 +149,12 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
    * @return List of all FlowerDeliveries on success
    */
   @Override
-  public List<FlowerDelivery> getAll() {
+  public List<OfficeSupplyDelivery> getAll() {
     return requests.values().stream().toList();
   }
 
   @Override
-  public FlowerDelivery getRow(Integer target) {
+  public OfficeSupplyDelivery getRow(Integer target) {
     return null;
   }
 
@@ -165,7 +165,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
    * @return request (FlowerDelivery) on success, otherwise returns null or exception
    */
   // TODO: Change to hashmap
-  public FlowerDelivery get(int ID) {
+  public OfficeSupplyDelivery get(int ID) {
     return requests.get(ID);
   }
 
@@ -191,9 +191,9 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
   }
 
   @Override
-  public void add(FlowerDelivery request) {
-
-    requests.put(request.getID(), request);
+  public void add(OfficeSupplyDelivery request) {
+    System.out.println("Here in add");
+    requests.put(request.getDeliveryid(), request);
     try {
       PreparedStatement preparedStatement =
           connection
@@ -204,7 +204,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
                       + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost, notes)"
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-      preparedStatement.setInt(1, request.getID());
+      preparedStatement.setInt(1, request.getDeliveryid());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
       preparedStatement.setTime(4, request.getTime());
@@ -217,7 +217,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
       preparedStatement.executeUpdate();
 
-      requests.put(request.getID(), request);
+      requests.put(request.getDeliveryid(), request);
 
     } catch (SQLException e) {
       System.out.println("Excepetion:");

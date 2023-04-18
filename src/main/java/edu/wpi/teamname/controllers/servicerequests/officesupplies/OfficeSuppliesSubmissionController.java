@@ -1,12 +1,11 @@
-package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
+package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.ServiceRequests.flowers.Flower;
-import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -24,29 +23,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
-public class FlowerSubmissionController {
+public class OfficeSuppliesSubmissionController {
   public static String deliveryRoom;
 
   @FXML MFXButton clearbutton;
   @FXML Text descriptiontext;
   @FXML SearchableComboBox employeedrop;
-  @FXML ImageView flowerimage;
-  @FXML Text flowernametext;
+  @FXML ImageView officeSupplyimage;
+  @FXML Text officeSupplynametext;
   @FXML VBox itemvbox;
   @FXML VBox sidepanel;
   @FXML SearchableComboBox locationdrop;
   @FXML Text pricetext;
+  @FXML Label pricey;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
-  @FXML Label totalprice;
   @FXML MFXScrollPane scroll;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 
     displayCart();
-
-    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -61,6 +58,9 @@ public class FlowerSubmissionController {
     employeedrop.getItems().add("Anthony Ticombe");
     employeedrop.getItems().add("Nat Rubin");
 
+    pricey.setText(
+        "$ " + String.valueOf(OfficeSuppliesController.officeSupplyCart.getTotalPrice()));
+
     submitbutton.setOnMouseClicked(
         event -> {
           try {
@@ -72,20 +72,20 @@ public class FlowerSubmissionController {
             Date d = Date.valueOf(LocalDate.now());
             Time t = Time.valueOf(LocalTime.now());
 
-            FlowerDelivery currentFlowDev =
-                new FlowerDelivery(
-                    FlowerDeliveryController.flowDevID++,
-                    FlowerDeliveryController.flowerCart.toString(),
+            OfficeSupplyDelivery currentOfficeSupply =
+                new OfficeSupplyDelivery(
+                    OfficeSuppliesController.officeSupplyID++,
+                    OfficeSuppliesController.officeSupplyCart.toString(),
                     d,
                     t,
                     deliveryRoom,
                     ActiveUser.getInstance().getCurrentUser().getUserName(),
                     Emp,
                     stat,
-                    FlowerDeliveryController.flowerCart.getTotalPrice(),
+                    OfficeSuppliesController.officeSupplyCart.getTotalPrice(),
                     n);
 
-            dbr.getFlowerDeliveryDAO().add(currentFlowDev);
+            dbr.getOfficeSupplyDeliveryDAO().add(currentOfficeSupply);
 
             sidepanel.getChildren().clear();
 
@@ -106,39 +106,34 @@ public class FlowerSubmissionController {
 
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
     clearbutton.setOnMouseClicked(event -> clearFields());
-
-    // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
-    System.out.println("Displaying flowers");
-    System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
+    System.out.println("Displaying office Supplies");
 
-    for (Flower flower : FlowerDeliveryController.flowerCart.getCartItems()) {
+    for (OfficeSupply officeSupply : OfficeSuppliesController.officeSupplyCart.getCartItems()) {
 
       System.out.println("works");
 
       HBox newRow = new HBox();
-      newRow.setSpacing(50);
+      newRow.setSpacing(100);
       newRow.setMaxHeight(300);
       newRow.setMaxWidth(1000);
 
-      ImageView flowerImage = new ImageView();
-      Image image = new Image(Main.class.getResource(flower.getImage()).toString());
-      flowerImage.setImage(image);
-      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
+      ImageView officeSupplyImage = new ImageView();
+      Image image = new Image(Main.class.getResource(officeSupply.getImage()).toString());
+      officeSupplyImage.setImage(image);
 
-      flowerImage.setFitHeight(160);
-      flowerImage.setFitWidth(160);
-      flowerImage.setPreserveRatio(false);
+      officeSupplyImage.setFitHeight(160);
+      officeSupplyImage.setFitWidth(160);
+      officeSupplyImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(20);
+      itemInfo.setSpacing(30);
       itemInfo.setMaxWidth(1000);
-      itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(30);
+      priceQ.setSpacing(20);
       priceQ.setMaxWidth(1000);
 
       Label name = new Label();
@@ -146,29 +141,26 @@ public class FlowerSubmissionController {
       Label description = new Label();
       Label quantity = new Label();
 
-      name.setText(flower.getName());
+      name.setText(officeSupply.getName());
       name.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      description.setText(flower.getDescription());
+      description.setText(officeSupply.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
-      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans;");
+      quantity.setText(String.valueOf(officeSupply.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
 
-      price.setText(String.valueOf("$ " + flower.getPrice()));
+      price.setText(String.valueOf("$ " + officeSupply.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
-
-      /*message.setText(String.valueOf(flower.getMessage()));
-      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       /*recipientLabel.setText(String.valueOf(recipient));
       recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       itemvbox.getChildren().add(newRow);
       itemvbox.setSpacing(20);
-      newRow.getChildren().add(flowerImage);
+      newRow.getChildren().add(officeSupplyImage);
       newRow.getChildren().add(itemInfo);
 
       itemInfo.getChildren().add(name);
