@@ -6,7 +6,10 @@ import edu.wpi.teamname.DAOs.orms.User;
 import lombok.Getter;
 
 import java.io.*;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -99,7 +102,6 @@ public class UserDAOImpl implements IDAO<User, String> {
       stmt.execute(loginTableConstruct);
       System.out.println("Created the Users Table");
 
-
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -134,7 +136,7 @@ public class UserDAOImpl implements IDAO<User, String> {
     }
   }
 
-  public void updateUserInfo(String username, String firstName, String lastName, String email){
+  public void updateUserInfo(String username, String firstName, String lastName, String email) {
     User thisUser = listOfUsers.get(username);
     thisUser.setEmail(email);
     thisUser.setLastName(lastName);
@@ -142,10 +144,10 @@ public class UserDAOImpl implements IDAO<User, String> {
 
     try {
       PreparedStatement preparedStatement =
-              connection
-                      .getConnection()
-                      .prepareStatement(
-                              "UPDATE hospitaldb.login SET firstname = ?, lastname = ?, email = ? WHERE username = ? ");
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "UPDATE hospitaldb.login SET firstname = ?, lastname = ?, email = ? WHERE username = ? ");
 
       preparedStatement.setString(1, firstName);
       preparedStatement.setString(2, lastName);
@@ -153,13 +155,12 @@ public class UserDAOImpl implements IDAO<User, String> {
       preparedStatement.setString(4, username);
       preparedStatement.executeUpdate();
 
-
-  } catch (SQLException e) {
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
-    public void initUsers() {
+  public void initUsers() {
     createLoginInfo("admin", "admin", Permission.ADMIN);
     createLoginInfo("staff", "staff", Permission.STAFF);
     createLoginInfo("jolsen", "12346", Permission.STAFF);
@@ -194,9 +195,9 @@ public class UserDAOImpl implements IDAO<User, String> {
     }
   }
 
-  public List<String> getAssignableUsers(){
+  public List<String> getAssignableUsers() {
     List<String> temp = new ArrayList<>();
-    for (User thisUser: listOfUsers.values()){
+    for (User thisUser : listOfUsers.values()) {
       if (thisUser.getPermission().equals(Permission.STAFF)) temp.add(thisUser.getUserName());
     }
     Collections.sort(temp);
@@ -213,8 +214,6 @@ public class UserDAOImpl implements IDAO<User, String> {
   public User get(String target) {
     return listOfUsers.get(target);
   }
-
-
 
   @Override
   public void delete(String target) {
