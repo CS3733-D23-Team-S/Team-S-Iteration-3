@@ -47,6 +47,7 @@ public class PathfindingController {
   Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
   Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
   Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
+
   @FXML MFXButton floor1Button;
   @FXML MFXButton floor2Button;
   @FXML MFXButton floor3Button;
@@ -60,8 +61,8 @@ public class PathfindingController {
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
   @FXML ImageView homeIcon;
-  @FXML MFXTextField startingLocationError;
-  @FXML MFXTextField destinationError;
+  @FXML Label startingLocationError;
+  @FXML Label destinationError;
   @FXML Label textualDirections;
 
   public void setLocationLongNames() {
