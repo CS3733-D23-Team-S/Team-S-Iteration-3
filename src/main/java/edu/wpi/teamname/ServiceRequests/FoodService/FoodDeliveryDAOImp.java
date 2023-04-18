@@ -96,7 +96,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
                       + allRequestTable
                       + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
                       + " (?, ?, ?, ?, ?, ?)");
-      preparedStatement2.setString(1, "Room");
+      preparedStatement2.setString(1, "Food");
       preparedStatement2.setString(2, request.getLocation());
       preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
       preparedStatement2.setString(4, request.getAssignedTo());

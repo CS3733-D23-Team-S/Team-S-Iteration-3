@@ -184,6 +184,6 @@ public class AdminController {
   }
 
   public void goToMapEditorPage() {
-    Navigation.navigate(Screen.BETTER_MAP_EDITOR);
+    Navigation.navigate(Screen.NEW_ADMIN_PAGE);
   }
 }

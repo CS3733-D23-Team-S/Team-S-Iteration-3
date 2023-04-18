@@ -43,6 +43,7 @@ public enum Screen {
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
   OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),
+  NEW_ADMIN_PAGE("views/newAdminPage.fxml"),
 
   NEW_USER("views/newUserPopUp.fxml");
 
