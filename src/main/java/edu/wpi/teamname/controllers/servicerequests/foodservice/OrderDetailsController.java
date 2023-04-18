@@ -5,11 +5,8 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-
 import java.awt.*;
 import java.sql.Date;
 import java.sql.Time;
@@ -34,6 +31,7 @@ public class OrderDetailsController {
   @FXML private SearchableComboBox empNum;
   // @FXML private MFXTextField empNum;
   @FXML private VBox items;
+  @FXML private VBox allThings;
 
   @FXML private MFXTextField request1;
   @FXML private Label totalPrice;
@@ -50,7 +48,7 @@ public class OrderDetailsController {
   @FXML
   public void initialize() {
 
-    totalPrice.setText("$ " + String.valueOf(MealDeliveryController.cart.getTotalPrice()));
+    totalPrice.setText("$ " + String.format("%.02f", MealDeliveryController.cart.getTotalPrice()));
 
     empNum.getItems().add("Nick Ho");
     empNum.getItems().add("Nikesh Walling");
@@ -100,11 +98,20 @@ public class OrderDetailsController {
 
             DBR.getFoodDeliveryDAO().add(currentFoodDev);
 
-            Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
+            // Navigation.navigate(Screen.MEAL_DELIVERY_ORDER_CONFIRMATION);
 
           } catch (Exception e) {
             e.printStackTrace();
           }
+          Label confirm = new Label();
+          Label thanks = new Label();
+          confirm.setText("Order Submitted!");
+          thanks.setText("Thank you for your order!");
+          confirm.setStyle("-fx-font-size: 48;");
+          thanks.setStyle("-fx-font-size:36; -fx-font-style: italic;");
+
+          allThings.getChildren().clear();
+          allThings.getChildren().add(thanks);
         });
 
     clear2.setOnMouseClicked(event -> clearFields2());
@@ -142,13 +149,13 @@ public class OrderDetailsController {
 
       VBox itemInfo = new VBox();
       itemInfo.setSpacing(10);
-      itemInfo.setMaxWidth(1500);
+      itemInfo.setPrefWidth(1500);
       itemInfo.setMaxHeight(100);
 
       HBox pricePrep = new HBox();
-      pricePrep.setSpacing(30);
+      pricePrep.setSpacing(40);
       pricePrep.setMaxWidth(1500);
-     // pricePrep.setPadding(new Insets(10,50,50,50));
+      // pricePrep.setPadding(new Insets(10,50,50,50));
 
       newItemName.setText(aFood.getFoodName());
       newItemName.setStyle(
@@ -159,7 +166,7 @@ public class OrderDetailsController {
       newItemQuantity.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans;");
 
-      newItemPrice.setText(String.valueOf("$ " + aFood.getFoodPrice()));
+      newItemPrice.setText("$ " + String.format("%.02f", aFood.getFoodPrice()));
       newItemPrice.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans");
 

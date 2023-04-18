@@ -129,7 +129,7 @@ public class ProductDetailsController extends PopUpController {
 
   public void foodPrice() {
     productPrice.setId(Double.toString(selectedFood().getFoodPrice()));
-    productPrice.setText("$ " + (selectedFood().getFoodPrice()));
+    productPrice.setText("$ " + String.format("%.02f", selectedFood().getFoodPrice()));
     productPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 

@@ -32,32 +32,33 @@
    <children>
       <ScrollPane prefHeight="740.0" prefWidth="861.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="3">
          <content>
-            <VBox fx:id="items" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="items" prefHeight="712.0" prefWidth="902.0" />
          </content>
       </ScrollPane>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-         <children>
-            <MFXButton fx:id="submit" alignment="CENTER" minWidth="140.0" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10 10 10 10;" text="Submit" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </MFXButton>
-            <MFXButton fx:id="clear2" alignment="CENTER" minWidth="140.0" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 10 10 10 10;" text="Clear " textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </MFXButton>
-         </children></HBox>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <VBox GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      <VBox fx:id="allThings" prefHeight="783.0" prefWidth="572.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Total Price">
+                     <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets right="100.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="totalPrice" text="totalPrice">
+                     <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee">
                <font>
                   <Font name="Open Sans Regular" size="24.0" />
@@ -95,6 +96,26 @@
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin></MFXTextField>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <MFXButton fx:id="submit" alignment="CENTER" minWidth="140.0" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10 10 10 10;" text="Submit" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="clear2" alignment="CENTER" minWidth="140.0" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: transparent; -fx-border-color: #000000; -fx-border-width: 2; -fx-border-radius: 10 10 10 10;" text="Clear " textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Cart" wrappingWidth="216.0640411376953" GridPane.columnIndex="1">
@@ -102,25 +123,5 @@
             <Font name="Open Sans Regular" size="46.0" />
          </font>
       </Text>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <children>
-            <Label text="Total Price">
-               <font>
-                  <Font name="Open Sans Bold" size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets right="100.0" />
-               </padding>
-            </Label>
-            <Label fx:id="totalPrice" text="totalPrice">
-               <font>
-                  <Font name="Open Sans Bold" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
    </children>
 </GridPane>
