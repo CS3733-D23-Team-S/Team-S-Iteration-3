@@ -53,16 +53,18 @@ public class NewHomeController {
   @FXML
   public void initialize() {
 
+    // flowerCart = new Cart(cartID++);
     delID = DBR.getLastFoodDevID();
     // flowDevID = DBR.flowerGetNewDeliveryID();
 
     cart = new OrderItem(cartID++);
     // flowerCart = new Cart(cartID++);
+
     // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());
     reserveRoomButton.setOnMouseClicked(event -> goToRoomPage());
     flowerRequestsButton.setOnMouseClicked(event -> goToFlowerPage());
-    // officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
+    officeRequestsButton.setOnMouseClicked(event -> goToOfficePage());
     // furnitureRequestsButton.setOnMouseClicked(event -> goToFurniturePage());
     signageButton.setOnMouseClicked(event -> goToSignagePage());
     navigationButton.setOnMouseClicked(event -> goToNavigationPage());
@@ -154,9 +156,9 @@ public class NewHomeController {
     Navigation.navigate(Screen.FLOWER_DELIVERY);
   }
 
-  //    public void goToOfficePage() {
-  //        Navigation.navigate(Screen.MEAL_DELIVERY);
-  //    }
+  public void goToOfficePage() {
+    Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
+  }
   //
   //    public void goToFurniturePage() {
   //        Navigation.navigate(Screen.LOGIN_PAGE);

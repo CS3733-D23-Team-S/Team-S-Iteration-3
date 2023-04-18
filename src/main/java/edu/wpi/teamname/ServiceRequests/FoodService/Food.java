@@ -13,7 +13,7 @@ public class Food implements IDataPack {
   @Getter @Setter private double FoodPrice;
   @Getter @Setter private String FoodDescription;
   @Getter @Setter private int quantity;
-  @Setter private boolean isSoldOut;
+  @Setter @Getter private boolean isSoldOut;
   @Getter @Setter private String image;
   @Getter @Setter private int calories;
 
@@ -72,10 +72,6 @@ public class Food implements IDataPack {
     isHalal = hal;
     isGlutFree = g;
     isKosher = k;
-  }
-
-  public boolean isSoldOut() {
-    return isSoldOut;
   }
 
   public boolean isWalletFriendly() {

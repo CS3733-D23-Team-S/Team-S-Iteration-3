@@ -12,6 +12,7 @@ public class User implements IDataPack {
   @Getter @Setter private String password;
   @Getter @Setter private String sessionID;
   @Getter @Setter private Permission permission;
+  @Getter @Setter private String email;
   @Getter @Setter private LocalDate DOB;
   @Getter @Setter private String title;
   @Getter @Setter private List<SRItem> cart;

@@ -5,7 +5,7 @@ public enum Screen {
   WELCOME_PAGE("views/WelcomePage.fxml"),
   LOGIN_PAGE("views/LoginPage.fxml"),
   HOME("views/NewHomepage.fxml"),
-  MEAL_DELIVERY1("views/MealDelivery/MealDelivery.fxml"),
+  MEAL_DELIVERY1("views/MealDelivery/MealDelivery1.fxml"),
   SERVICE_REQUEST("views/ServiceRequestPages/ServiceRequest.fxml"),
   ROOM_BOOKING("views/RoomReservation/RoomBooking.fxml"),
   ROOM_BOOKING_DETAILS("views/RoomReservation/RoomBookingDetails.fxml"),
@@ -26,9 +26,10 @@ public enum Screen {
   CSV_MANAGE("views/CSVPage.fxml"),
   ADMIN_PAGE("views/AdminPage.fxml"),
   SUBMITTED_MEAL_REQUESTS("views/MealDelivery/NewSubmittedMealRequests.fxml"),
+  USER_PROFILE("views/UserProfile.fxml"),
+  USER_PROFILE_POPUP("views/changePasswordPopup.fxml"),
   // MAP_EDITOR("views/MapEditor.fxml"),
   // CSV_MANAGE("views/CSVPage.fxml"),
-
   FLOWER_DELIVERY("views/FlowerDelivery/flowerDeliveryMain.fxml"),
   FLOWER_ORDER("views/FlowerDelivery/flowerorderdetails.fxml"),
   FLOWER_CART("views/FlowerDelivery/flowersubmissiondetails.fxml"),
@@ -36,7 +37,16 @@ public enum Screen {
   FLOWER_CONFIRMATION("views/FlowerDelivery/flowerconfirmationpage.fxml"),
   FLOWER_POPUP("views/FlowerDelivery/flowerPopup.fxml"),
 
-  NEW_USER("views/newUserPopUp.fxml");
+  OFFICE_SUPPLIES_DELIVERY("views/officeSuppliesMain.fxml"),
+  OFFICE_SUPPLIES_ORDER("views/officeSuppliesOrderDetails.fxml"),
+  OFFICE_SUPPLIES_CART("views/officeSuppliesSumbissionDetails.fxml"),
+  OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
+  OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
+  OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),
+
+  NEW_USER("views/newUserPopUp.fxml"),
+
+  STAFF("views/StaffPage.fxml");
 
   private final String filename;
 

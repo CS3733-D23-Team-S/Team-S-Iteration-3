@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
@@ -25,7 +26,6 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
   public static String deliveryRoom;
-
   @FXML MFXButton clearbutton;
   @FXML Text descriptiontext;
   @FXML SearchableComboBox employeedrop;
@@ -37,12 +37,51 @@ public class FlowerSubmissionController {
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
+  @FXML Label totalprice;
   @FXML MFXScrollPane scroll;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 
+    submitbutton.setDisable(true);
+
+    employeedrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    locationdrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    requestfield
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
     displayCart();
+
+    totalprice.setText(
+        "$ " + String.format("%.02f", FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -75,7 +114,7 @@ public class FlowerSubmissionController {
                     d,
                     t,
                     deliveryRoom,
-                    "Abraham Lincoln",
+                    ActiveUser.getInstance().getCurrentUser().getUserName(),
                     Emp,
                     stat,
                     FlowerDeliveryController.flowerCart.getTotalPrice(),
@@ -102,8 +141,6 @@ public class FlowerSubmissionController {
 
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
     clearbutton.setOnMouseClicked(event -> clearFields());
-
-    // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
@@ -115,24 +152,26 @@ public class FlowerSubmissionController {
       System.out.println("works");
 
       HBox newRow = new HBox();
-      newRow.setSpacing(100);
+      newRow.setSpacing(50);
       newRow.setMaxHeight(300);
       newRow.setMaxWidth(1000);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
       flowerImage.setImage(image);
+      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
 
       flowerImage.setFitHeight(160);
       flowerImage.setFitWidth(160);
       flowerImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(30);
-      itemInfo.setMaxWidth(1000);
+      itemInfo.setSpacing(20);
+      itemInfo.setPrefWidth(800);
+      itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(20);
+      priceQ.setSpacing(30);
       priceQ.setMaxWidth(1000);
 
       Label name = new Label();
@@ -146,19 +185,13 @@ public class FlowerSubmissionController {
 
       description.setText(flower.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
 
-      quantity.setText(String.valueOf(flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
+      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
 
-      price.setText(String.valueOf("$ " + flower.getPrice()));
-      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
-
-      /*message.setText(String.valueOf(flower.getMessage()));
-      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
-
-      /*recipientLabel.setText(String.valueOf(recipient));
-      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
+      price.setText("$ " + String.format("%.02f", flower.getPrice()));
+      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
 
       itemvbox.getChildren().add(newRow);
       itemvbox.setSpacing(20);
@@ -167,7 +200,6 @@ public class FlowerSubmissionController {
 
       itemInfo.getChildren().add(name);
       itemInfo.getChildren().add(description);
-      description.setStyle("-fx-wrap-text: true;");
       itemInfo.getChildren().add(priceQ);
 
       priceQ.getChildren().add(price);
@@ -177,5 +209,7 @@ public class FlowerSubmissionController {
 
   public void clearFields() {
     requestfield.clear();
+    employeedrop.valueProperty().set(null);
+    locationdrop.valueProperty().set(null);
   }
 }
