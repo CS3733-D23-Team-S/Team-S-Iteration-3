@@ -9,7 +9,11 @@ import lombok.Setter;
 public class User implements IDataPack {
 
   @Getter @Setter private String userName;
+
   @Getter @Setter private String password;
+  @Getter @Setter private String firstName;
+  @Getter @Setter private String lastName;
+
   @Getter @Setter private String sessionID;
   @Getter @Setter private Permission permission;
   @Getter @Setter private String email;
@@ -34,13 +38,13 @@ public class User implements IDataPack {
         + ", Password: "
         + password
         + ", AccountType: "
-        + permission.ordinal()
+        + permission
         + "}";
   }
 
   @Override
   public String toCSVString() {
 
-    return userName + "," + password + "," + permission.ordinal();
+    return userName + "," + password;
   }
 }

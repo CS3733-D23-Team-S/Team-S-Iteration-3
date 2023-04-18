@@ -12,16 +12,18 @@ import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDAOImpl;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDeliveryDAOImpl;
-import edu.wpi.teamname.ServiceRequests.flowers.*;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
-import java.io.*;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.Getter;
 
 public class DataBaseRepository {
 
@@ -82,6 +84,7 @@ public class DataBaseRepository {
     foodDAO.initTable(connection.getFoodTable());
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
+    System.out.println(userDAO.getListOfUsers());
     requestDAO.initTable("all Requests");
 
     officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
