@@ -48,7 +48,7 @@
             </HBox>
             <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <MFXButton text="Map Editor">
+                  <MFXButton fx:id="toMapEditor" text="Map Editor">
                      <font>
                         <Font name="Open Sans Regular" size="24.0" />
                      </font>

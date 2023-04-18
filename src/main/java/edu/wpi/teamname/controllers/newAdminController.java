@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.MoveDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
@@ -13,13 +15,17 @@ import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDelivery;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
 import java.sql.Date;
 import java.sql.Time;
+
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class newAdminController {
-
+  @FXML MFXButton toMapEditor;
   @FXML TableView mealTable;
   @FXML TableView flowerTable;
   @FXML TableView roomTable;
@@ -30,7 +36,11 @@ public class newAdminController {
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
 
+  MoveDAOImpl moverepo = DataBaseRepository.getInstance().getMoveDAO();
+
   public void initialize() {
+
+    toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
 
     TableColumn<Food, String> Mcolumn1 = new TableColumn<>("RequestID");
     Mcolumn1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));
@@ -237,6 +247,23 @@ public class newAdminController {
 
     for (Request r : dbr.getRequestDAO().getRequests()) {
       allTable.getItems().add(r);
+    }
+
+    TableColumn<Food, String> MOcolumn1 = new TableColumn<>("Node ID");
+    MOcolumn1.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
+
+    TableColumn<Food, String> MOcolumn2 = new TableColumn<>("Location");
+    MOcolumn2.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+    TableColumn<Food, String> MOcolumn3 = new TableColumn<>("Date");
+    MOcolumn3.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+    moveTable.getColumns().add(MOcolumn1);
+    moveTable.getColumns().add(MOcolumn2);
+    moveTable.getColumns().add(MOcolumn3);
+
+    for (Move m : moverepo.getAll()) {
+      moveTable.getItems().add(m);
     }
   }
 }
