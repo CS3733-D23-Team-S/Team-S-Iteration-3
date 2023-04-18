@@ -94,8 +94,15 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + allRequestTable
-                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy) "
-                      + "SELECT requestType, location, ordertime, assignedto, orderer from foodrequests");
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
+                      + " (?, ?, ?, ?, ?, ?)");
+      preparedStatement2.setString(1, "Room");
+      preparedStatement2.setString(2, request.getLocation());
+      preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
+      preparedStatement2.setString(4, request.getAssignedTo());
+      preparedStatement2.setString(5, request.getOrderer());
+      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.executeUpdate();
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();
