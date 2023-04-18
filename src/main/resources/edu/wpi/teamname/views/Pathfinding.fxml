@@ -127,12 +127,12 @@
                <children>
                   <MFXButton fx:id="findPathButton" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Show Path" textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </MFXButton>
                   <MFXButton fx:id="clearFieldsButton" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1D3D94; -fx-border-radius: 10;" text="Clear">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </MFXButton>
                </children>
