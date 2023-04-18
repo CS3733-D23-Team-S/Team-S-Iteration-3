@@ -9,28 +9,7 @@ public class Main {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
 
-    //    RoomRequestDAO roomRequestDAO = database.getRoomRequestDAO();
-    //    ConfRoomRequest confRoomRequest =
-    //        new ConfRoomRequest(
-    //            LocalDate.of(2023, 4, 17),
-    //            LocalTime.of(14, 45),
-    //            LocalTime.of(15, 10),
-    //            "BTM Conference Center",
-    //            "staff",
-    //            "nothing",
-    //            "Yes",
-    //            "staff",
-    //            true);
-    //    roomRequestDAO.add(confRoomRequest);
-    //
-    //    System.out.println(
-    //        roomRequestDAO.hasConflicts(
-    //            "BTM Conference Center",
-    //            LocalDate.of(2023, 4, 17),
-    //            LocalTime.of(14, 45),
-    //            LocalTime.of(15, 10)));
-
-    // App.launch(App.class, args);
+    App.launch(App.class, args);
     // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     dbConnection.getInstance().getConnection().close();
