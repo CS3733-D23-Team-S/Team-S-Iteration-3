@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -71,12 +70,6 @@
                     </children>
                 </HBox>
                 <GesturePane fx:id="mapView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="643.0" translateX="40.0" translateY="5.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
-                <TableView fx:id="toDoTable" maxHeight="600.0" maxWidth="600.0" minHeight="200.0" minWidth="10.0" prefHeight="200.0" prefWidth="500.0" stylesheets="@../../../../Stylesheets/StaffPage.css" translateX="10.0" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
-                    <columns>
-                        <TableColumn id="serviceRequestType" fx:id="serviceRequestType" prefWidth="200.0" text="Service Request Type" />
-                        <TableColumn id="date" fx:id="date" minWidth="2.4444580078125" prefWidth="200.0" text="Date" />
-                        <TableColumn id="status" fx:id="status" minWidth="1.5555267333984375" prefWidth="200.0" text="Status" />
-                    </columns>
-                </TableView>
+      <TableView fx:id="taskTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             </children>
         </GridPane>
