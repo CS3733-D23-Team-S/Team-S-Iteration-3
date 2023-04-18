@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.UserDAOImpl;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
 import edu.wpi.teamname.controllers.PopUpController;
 import edu.wpi.teamname.navigation.Navigation;
@@ -46,6 +48,8 @@ public class RoomBookingDetailsController extends PopUpController {
   RoomBookingController rbc = new RoomBookingController();
 
   ArrayList<ConfRoomLocation> rbcRoomList = rbc.roomList;
+
+  UserDAOImpl ud = DataBaseRepository.getInstance().getUserDAO();
 
   @FXML
   public void initialize() {
@@ -148,13 +152,9 @@ public class RoomBookingDetailsController extends PopUpController {
   }
 
   public void initializeStaffList() {
-    staffMemberComboBox.getItems().add("Anthony Titcombe");
-    staffMemberComboBox.getItems().add("Ryan Wright");
-    staffMemberComboBox.getItems().add("Nick Ho");
-    staffMemberComboBox.getItems().add("Jake Olsen");
-    staffMemberComboBox.getItems().add("Nikesh Walling");
-    staffMemberComboBox.getItems().add("Kashvi Singh");
-    staffMemberComboBox.getItems().add("Sarah Kogan");
+    for (User u : ud.getListOfUsers().values()) {
+      staffMemberComboBox.getItems().add(u.getFirstName() + " " + u.getLastName());
+    }
   }
 
   // submit details from controller
