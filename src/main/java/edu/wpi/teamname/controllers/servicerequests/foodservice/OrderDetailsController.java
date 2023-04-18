@@ -9,6 +9,8 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+
+import java.awt.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -60,14 +62,6 @@ public class OrderDetailsController {
     empNum.getItems().add("Kashvi Singh");
     empNum.getItems().add("Anthony Ticombe");
     empNum.getItems().add("Nat Rubin");
-
-    // flowerbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-    // roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    // signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    // mealButton2.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    // cancel.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
 
     clearFields2();
     addedOrder();
@@ -153,13 +147,15 @@ public class OrderDetailsController {
 
       HBox pricePrep = new HBox();
       pricePrep.setSpacing(30);
-      pricePrep.setMaxWidth(1000);
+      pricePrep.setMaxWidth(1500);
+     // pricePrep.setPadding(new Insets(10,50,50,50));
 
       newItemName.setText(aFood.getFoodName());
       newItemName.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
 
       newItemQuantity.setText(String.valueOf("Quantity: " + aFood.getQuantity() + "x"));
+
       newItemQuantity.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans;");
 
