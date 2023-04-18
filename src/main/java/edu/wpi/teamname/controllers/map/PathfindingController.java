@@ -512,17 +512,27 @@ public class PathfindingController {
         }
       }
     }
+    anchorPane.getChildren().addAll(lol);
+    /*
     if (floorForLOL.equals(Floor.Floor1)) {
       anchorPane.getChildren().addAll(floor1Lines);
+      anchorPane.getChildren().addAll(lol);
     } else if (floorForLOL.equals(Floor.Floor2)) {
       anchorPane.getChildren().addAll(floor2Lines);
+      anchorPane.getChildren().addAll(lol);
     } else if (floorForLOL.equals(Floor.Floor3)) {
       anchorPane.getChildren().addAll(floor3Lines);
+      anchorPane.getChildren().addAll(lol);
+
     } else if (floorForLOL.equals(Floor.FloorL1)) {
       anchorPane.getChildren().addAll(floorL1Lines);
+      anchorPane.getChildren().addAll(lol);
+
     } else if (floorForLOL.equals(Floor.FloorL2)) {
       anchorPane.getChildren().addAll(floorL2Lines);
+      anchorPane.getChildren().addAll(lol);
     }
+    */
     // anchorPane.getChildren().addAll(floor1Lines);
     //    floor1Lines = floor1LinesPlaceholder;
     //    floor2Lines = floor2LinesPlaceholder;
@@ -599,6 +609,7 @@ public class PathfindingController {
           endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
         }
       }
+
       for (int i = 0; i < floorNodes.size(); i++) {
         if (floorNodes.get(i).getNodeID() == startingID) {
           startNodeInFloor = true;
@@ -607,6 +618,7 @@ public class PathfindingController {
           endNodeInFloor = true;
         }
       }
+
       if (startNodeInFloor && endNodeInFloor) {
         pfe = new PathfindingEntity(startingID, endID);
         if (!algList.getSelectionModel().isEmpty()) {
@@ -1148,6 +1160,17 @@ public class PathfindingController {
 
   public void clearFields() {
     anchorPane.getChildren().clear();
+    anchorPane.getChildren().removeAll(floor1Lines);
+    anchorPane.getChildren().removeAll(floor2Lines);
+    anchorPane.getChildren().removeAll(floor3Lines);
+    anchorPane.getChildren().removeAll(floorL1Lines);
+    anchorPane.getChildren().removeAll(floorL2Lines);
+    pathLines.clear();
+    floor1Lines.clear();
+    floor2Lines.clear();
+    floor3Lines.clear();
+    floorL1Lines.clear();
+    floorL2Lines.clear();
     startingLocationList.getSelectionModel().clearSelection();
     startingLocationList.setButtonCell(
         new ListCell<String>() {
