@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerOrderDetailsController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="7.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="10.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="5.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="10.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="118.36819458007812" minHeight="10.0" percentHeight="20.0" prefHeight="49.068939208984375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="15.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="10.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+         <children>
+            <ImageView fx:id="homeicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/homeicon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/usericon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" />
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+         <children>
+            <ImageView fx:id="topbarlogo" fitHeight="45.0" fitWidth="625.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/topbarLogo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #122E59;" GridPane.rowSpan="11">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/bwlogo.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </ImageView>
+            <MFXButton fx:id="navigationbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="signagebutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="mealbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Meal Delivery" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="roombutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Room Reservation" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <MFXButton fx:id="flowerbutton" alignment="TOP_LEFT" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Flower Delivery" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" />
+               </VBox.margin>
+            </MFXButton>
+            <ImageView fx:id="backicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/backicon.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" right="150.0" top="140.0" />
+               </VBox.margin>
+            </ImageView>
+            <ImageView fx:id="exiticon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/exiticon.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" right="150.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <ImageView fx:id="helpicon" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/helpicon.png" />
+               </image>
+               <VBox.margin>
+                  <Insets right="150.0" top="10.0" />
+               </VBox.margin>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Name:">
+               <font>
+                  <Font name="Open Sans Regular" size="36.0" />
+               </font>
+            </Text>
+            <Label fx:id="namelabel" text="Name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Description:">
+               <font>
+                  <Font name="Open Sans Regular" size="36.0" />
+               </font>
+            </Text>
+            <Label fx:id="descriptionlabel" text="Description">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Price:">
+               <font>
+                  <Font name="Open Sans Regular" size="36.0" />
+               </font>
+            </Text>
+            <Label fx:id="pricelabel" text="Price">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Size:">
+                     <font>
+                        <Font name="Open Sans Regular" size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:">
+                     <font>
+                        <Font name="Open Sans Regular" size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="200.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recipient:">
+                     <font>
+                        <Font name="Open Sans Regular" size="36.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="200.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="sizelabel" text="Size">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <MFXTextField fx:id="quantityfield" prefHeight="50.0" prefWidth="200.0" promptText="Enter Quantity">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="-10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="235.0" />
+                     </HBox.margin>
+                  </MFXTextField>
+                  <MFXTextField fx:id="recipientfield" prefHeight="50.0" prefWidth="200.0" promptText="Enter Recipient">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="-10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="155.0" />
+                     </HBox.margin>
+                  </MFXTextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="30.0" top="10.0" />
+         </GridPane.margin>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Message:">
+               <font>
+                  <Font name="Open Sans Regular" size="36.0" />
+               </font>
+            </Text>
+            <MFXTextField fx:id="custommessagefield" prefHeight="0.0" prefWidth="750.0" promptText="Enter Message">
+               <font>
+                  <Font name="Open Sans Regular" size="24.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" top="-10.0" />
+               </padding>
+            </MFXTextField>
+         </children>
+      </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="10" GridPane.rowSpan="3">
+         <children>
+            <MFXButton fx:id="clearbutton" alignment="CENTER" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Clear">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="addtocartbutton" alignment="CENTER" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: #122E59; -fx-border-width: 3; -fx-border-radius: 10 10 10 10;" text="Add to Cart" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="900.0" />
+               </HBox.margin>
+            </MFXButton>
+         </children>
+      </HBox>
+   </children>
+   <effect>
+      <Blend />
+   </effect>
+</GridPane>

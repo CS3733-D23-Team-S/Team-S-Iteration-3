@@ -1,5 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.sql.*;
@@ -21,6 +23,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
     this.name = name;
     try {
       Statement st = connection.getConnection().createStatement();
+
       String foodRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
               + name
@@ -35,7 +38,8 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               + "Status Varchar(100),"
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
-              + "foreign key (location) REFERENCES "
+              + "requestType varchar(100),"
+              + "foreign key (location) references "
               + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
       st.execute(foodRequestsTableConstruct);
@@ -84,7 +88,24 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
 
+      PreparedStatement preparedStatement2 =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + allRequestTable
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
+                      + " (?, ?, ?, ?, ?, ?)");
+      preparedStatement2.setString(1, "Room");
+      preparedStatement2.setString(2, request.getLocation());
+      preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
+      preparedStatement2.setString(4, request.getAssignedTo());
+      preparedStatement2.setString(5, request.getOrderer());
+      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.executeUpdate();
+
       preparedStatement.executeUpdate();
+      preparedStatement2.executeUpdate();
 
       foodRequests.put(request.getDeliveryID(), request);
 
@@ -166,7 +187,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
         String orderer = rs.getString("orderer");
         String assignedto = rs.getString("assignedTo");
         String status = rs.getString("status");
-        double cost = rs.getDouble("cost");
+        Double cost = rs.getDouble("cost");
         String notes = rs.getString("notes");
 
         FoodDelivery fd =

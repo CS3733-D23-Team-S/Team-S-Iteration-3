@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
-import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -22,8 +21,8 @@ public class FlowerPopupController extends PopUpController {
   @FXML Label flowername;
   @FXML Text flowerdescription;
 
-  @FXML Text PriceText;
-  @FXML Text SizeText;
+  @FXML Label PriceText;
+  @FXML Label SizeText;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   // public static Cart flowerCart = new Cart(1);
@@ -43,7 +42,8 @@ public class FlowerPopupController extends PopUpController {
         dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getDescription());
 
     PriceText.setText(
-        String.valueOf(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getPrice()));
+        String.format(
+            "%.02f", dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getPrice()));
     SizeText.setText(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getSize().name());
 
     Image image =
@@ -52,13 +52,14 @@ public class FlowerPopupController extends PopUpController {
                 .getResource(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getImage())
                 .toString());
     flowerimage.setImage(image);
+    flowerimage.setPreserveRatio(true);
   }
 
   private void createDelivery() {
     System.out.println("added");
     Flower flower = dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID);
     flower.setQuantity(flowercounter);
-    NewHomeController.flowerCart.getCartItems().add(flower);
+    FlowerDeliveryController.flowerCart.getCartItems().add(flower);
     stage.close();
   }
 
@@ -70,7 +71,9 @@ public class FlowerPopupController extends PopUpController {
   }
 
   public void subtractquantity() {
-    flowercounter--;
     quantitylabel.setText(Integer.toString(flowercounter));
+    if (flowercounter > 1) {
+      flowercounter--;
+    }
   }
 }

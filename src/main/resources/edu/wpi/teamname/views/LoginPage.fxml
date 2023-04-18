@@ -107,7 +107,7 @@
                               </MFXButton>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <MFXButton fx:id="navigation" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-color: \\; -fx-background-radius: 100; -fx-border-color: #000000;" text="Navigation">
+                                    <MFXButton fx:id="navigation" alignment="CENTER" prefHeight="57.0" prefWidth="150.0" style="-fx-background-radius: 100; -fx-border-color: #000000;" text="Navigation">
                                        <font>
                                           <Font name="Open Sans Regular" size="20.0" />
                                        </font>

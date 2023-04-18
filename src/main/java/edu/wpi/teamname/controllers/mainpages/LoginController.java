@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.mainpages;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -25,6 +26,8 @@ public class LoginController {
   @FXML PasswordField pfPassword;
 
   @FXML private TextField tfUsername;
+
+  public ActiveUser activeUser = ActiveUser.getInstance();
   // @FXML private Hyperlink newUser;
 
   private String errorMessage = "";
@@ -78,7 +81,8 @@ public class LoginController {
         event -> {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
-            Navigation.navigate(HOME);
+            // ActiveUser.getInstance().setCurrentUser(
+            Navigation.navigate(ADMIN_PAGE);
           }
         });
   }

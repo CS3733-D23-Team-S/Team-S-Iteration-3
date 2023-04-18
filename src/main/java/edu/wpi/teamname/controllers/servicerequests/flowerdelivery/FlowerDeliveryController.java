@@ -4,6 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -27,7 +28,14 @@ public class FlowerDeliveryController {
   @FXML MFXScrollPane scrollpane;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
+  private int cartID = 1;
+  public static int flowDevID;
+  public static Cart flowerCart;
+
   public void initialize() {
+
+    flowerCart = new Cart(cartID++);
+    flowDevID = dbr.flowerGetNewDeliveryID();
 
     viewcartbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_CART));
 
@@ -45,7 +53,7 @@ public class FlowerDeliveryController {
     for (Flower f : dbr.getFlowerDAO().getListOfSize("small")) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(false);
+      view.setPreserveRatio(true);
       view.setFitHeight(150);
       view.setFitWidth(150);
 
