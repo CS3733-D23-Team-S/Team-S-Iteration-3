@@ -36,8 +36,8 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
                   "CREATE TABLE IF NOT EXISTS "
                       + name
                       + " (startNode int, endNode int, "
-                      + "FOREIGN KEY (startNode) REFERENCES hospitaldb2.nodes(nodeID)ON DELETE CASCADE, "
-                      + "FOREIGN KEY (endNode) REFERENCES hospitaldb2.nodes(nodeID) ON DELETE CASCADE)");
+                      + "FOREIGN KEY (startNode) REFERENCES hospitaldb.nodes(nodeID)ON DELETE CASCADE ON UPDATE CASCADE, "
+                      + "FOREIGN KEY (endNode) REFERENCES hospitaldb.nodes(nodeID) ON DELETE CASCADE ON UPDATE CASCADE)");
       stmt.execute();
       System.out.println("Created the edge table");
     } catch (SQLException e) {
@@ -128,15 +128,31 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
    */
   @Override
   public void add(Edge addition) {
-    edges.add(addition);
-    if (getNeighbors().get(addition.getStartNode().getNodeID()) == null)
-      add(addition.getStartNode());
-    if (getNeighbors().get(addition.getEndNode().getNodeID()) == null) add(addition.getEndNode());
-    getNeighbors().get(addition.getStartNode().getNodeID()).add(addition.getEndNode().getNodeID());
-    getNeighbors().get(addition.getEndNode().getNodeID()).add(addition.getStartNode().getNodeID());
-    getNeighbors()
-        .get(addition.getStartNode().getNodeID())
-        .remove(addition.getStartNode().getNodeID());
+    //    edges.add(addition);
+    //    if (getNeighbors().get(addition.getStartNode().getNodeID()) == null)
+    //      add(addition.getStartNode());
+    //    if (getNeighbors().get(addition.getEndNode().getNodeID()) == null)
+    // add(addition.getEndNode());
+    //
+    // getNeighbors().get(addition.getStartNode().getNodeID()).add(addition.getEndNode().getNodeID());
+    //
+    // getNeighbors().get(addition.getEndNode().getNodeID()).add(addition.getStartNode().getNodeID());
+    //    getNeighbors()
+    //        .get(addition.getStartNode().getNodeID())
+    //        .remove(addition.getStartNode().getNodeID());
+    try {
+      PreparedStatement statement =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO " + name + " (startNode, endNode) " + "VALUES (?" + ",?)");
+      statement.setInt(1, addition.getStartNode().getNodeID());
+      statement.setInt(2, addition.getEndNode().getNodeID());
+      statement.executeUpdate();
+      System.out.println("Successfully added the edge: " + addition);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void add(Node stN, Node enN) {

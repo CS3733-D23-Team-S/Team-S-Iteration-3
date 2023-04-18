@@ -40,7 +40,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
                   "CREATE TABLE IF NOT EXISTS "
                       + name
                       + " (nodeID int, location varchar(100), date DATE, FOREIGN KEY (nodeID) "
-                      + "REFERENCES hospitaldb2.nodes(nodeID) ON DELETE CASCADE)");
+                      + "REFERENCES hospitaldb.nodes(nodeID) ON DELETE CASCADE ON UPDATE CASCADE)");
 
       stmt.execute();
     } catch (SQLException e) {
@@ -132,21 +132,19 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Override
   public void add(Move addition) {
-    listOfMoves.add(addition);
-    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
-      ArrayList<Move> moveArrayList = new ArrayList<>();
-      moveArrayList.add(addition);
-      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
-    } else {
-      locationMoveHistory.get(addition.getLocationName()).add(addition);
-    }
-    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
-      ArrayList<Move> moveArrayList = new ArrayList<>();
-      moveArrayList.add(addition);
-      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
-    } else {
-      locationsAtNodeID.get(addition.getNodeID()).add(addition);
-    }
+    //    listOfMoves.add(addition);
+    //    ArrayList<Move> moveArrayList = new ArrayList<>();
+    //    moveArrayList.add(addition);
+    //    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
+    //      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
+    //    } else {
+    //      locationMoveHistory.get(addition.getLocationName()).add(addition);
+    //    }
+    //    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
+    //      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
+    //    } else {
+    //      locationsAtNodeID.get(addition.getNodeID()).add(addition);
+    //    }
     try {
       PreparedStatement stmt =
           connection
@@ -156,7 +154,9 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       stmt.setString(2, addition.getLocationName());
       stmt.setDate(3, Date.valueOf(addition.getDate()));
       stmt.executeUpdate();
+      System.out.println("Added the move to the remote somehow");
     } catch (SQLException e) {
+      System.out.println("Error adding a move to the remote");
       e.printStackTrace();
     }
   }

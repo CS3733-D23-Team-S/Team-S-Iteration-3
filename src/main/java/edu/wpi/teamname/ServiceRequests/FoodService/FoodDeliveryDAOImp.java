@@ -36,7 +36,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
               + "foreign key (location) REFERENCES "
-              + "hospitaldb2.locations(longname) ON DELETE CASCADE)";
+              + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
       st.execute(foodRequestsTableConstruct);
       System.out.println("Created the foodRequest table");

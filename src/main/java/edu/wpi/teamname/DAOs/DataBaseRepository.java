@@ -55,6 +55,11 @@ public class DataBaseRepository {
     return single_instance;
   }
 
+  public void forceUpdate() {
+    moveDAO.constructFromRemote();
+    edgeDAO.constructFromRemote();
+  }
+
   public void load() {
     dbConnection connection = dbConnection.getInstance();
     pathFinder = new AStar();

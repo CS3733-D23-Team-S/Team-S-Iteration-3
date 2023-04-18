@@ -147,10 +147,15 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
       PreparedStatement statement =
           connection
               .getConnection()
-              .prepareStatement("UPDATE " + name + " SET nodeID=? WHERE nodeID=? CASCADE");
+              .prepareStatement("UPDATE " + name + " SET nodeID=? WHERE nodeID=?");
       statement.setInt(1, newID);
       statement.setInt(2, oldID);
       statement.executeUpdate();
+      Node temp = nodes.get(oldID);
+      nodes.remove(oldID);
+      nodes.put(newID, temp);
+      DataBaseRepository.getInstance().forceUpdate();
+      System.out.println("successfully updated");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -185,17 +190,14 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
       stmt.setInt(3, addition.getYCoord());
       stmt.setInt(4, addition.getFloor().ordinal());
       stmt.setString(5, addition.getBuilding());
-
       stmt.executeUpdate();
-
       System.out.println("Node added to Database");
-
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  private void constructFromRemote() {
+  void constructFromRemote() {
     if (!nodes.isEmpty()) {
       System.out.println("There is already stuff in the orm database");
       return;

@@ -9,7 +9,7 @@ public class dbConnection {
   private static dbConnection single_instance;
 
   Connection c;
-  final String schemaName = "hospitaldb2";
+  final String schemaName = "hospitaldb";
   @Getter final String nodeTable = schemaName + "." + "nodes";
   @Getter final String edgesTable = schemaName + "." + "edges";
   @Getter final String moveTable = schemaName + "." + "moves";

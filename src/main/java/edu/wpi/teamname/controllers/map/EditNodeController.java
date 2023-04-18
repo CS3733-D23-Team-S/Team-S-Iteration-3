@@ -54,7 +54,7 @@ public class EditNodeController {
           if (repo.getNodeDAO().get(id) != null) {
             edgeBox.getChildren().add(new Label(String.valueOf(id)));
             addedEdges.add(id);
-            edgeField.getItems().remove(id);
+            updateEdgeBox();
           }
         });
     addLocation.setOnMouseClicked(
@@ -62,19 +62,19 @@ public class EditNodeController {
           String longName = locationField.getValue();
           LocalDate date = dateSelect.getValue();
           if (!longName.isEmpty()) {
-            if (repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()) == null) return;
-            for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()))
-              if (longName.equals(move.getLocationName()) || date.isEqual(move.getDate())) return;
+            if (repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()) != null)
+              for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()))
+                if (longName.equals(move.getLocationName()) && date.isEqual(move.getDate())) return;
           }
           Move newMove = new Move(this.node, repo.getLocationDAO().get(longName), date);
           addedMoves.add(newMove);
+          System.out.println("Added the move: " + newMove);
           locationBox.getChildren().add(new Label(longName));
           Label label =
               new Label(newMove.getLocationName() + " on " + newMove.getDate().toString());
           label.setWrapText(true);
           label.maxWidth(70);
           moveBox.getChildren().add(label);
-          update();
         });
     checkBox.setOnMouseClicked(
         event -> {
@@ -82,23 +82,26 @@ public class EditNodeController {
           updateEdgeBox();
         });
     submitUpdate.setOnMouseClicked(
-        event -> {
-          System.out.println("Tried to update");
-          repo.getNodeDAO()
-              .updateNodeID(this.node.getNodeID(), Integer.parseInt(nodeIDLabel.getText()));
+        event -> { //					System.out.println("Tried to update");
           for (int id : addedEdges) {
             Edge newEdge = new Edge(this.node, repo.getNodeDAO().get(id));
+            System.out.println(newEdge);
             repo.getEdgeDAO().add(newEdge);
           }
           for (Move move : addedMoves) {
+            System.out.println("adding the move " + move.toString());
             repo.getMoveDAO().add(move);
           }
+          if (node.getNodeID() != Integer.parseInt(nodeIDLabel.getText()))
+            repo.getNodeDAO()
+                .updateNodeID(this.node.getNodeID(), Integer.parseInt(nodeIDLabel.getText()));
+          this.node.setNodeID(Integer.parseInt(nodeIDLabel.getText()));
+          DataBaseRepository.getInstance().forceUpdate();
         });
   }
 
   private void update() {
-    addedEdges.clear();
-    addedMoves.clear();
+    edgeField.getItems().removeAll();
     for (Node potentialEdge : repo.getNodeDAO().getAll()) {
       if (calcWeight(potentialEdge) < 60
           && !edgeField.getItems().contains(potentialEdge.getNodeID()))
@@ -117,10 +120,7 @@ public class EditNodeController {
   }
 
   private void updateEdgeBox() {
-    try {
-      edgeField.getItems().clear();
-    } catch (IndexOutOfBoundsException ignored) {
-    }
+    edgeField.getItems().removeAll();
     if (!showClosest) {
       edgeField.setPromptText("Nearest Nodes");
       for (Node potentialEdge : repo.getNodeDAO().getAll()) {
@@ -135,34 +135,35 @@ public class EditNodeController {
 
   public void setInfo(Node node) {
     this.node = node;
+    addedEdges.clear();
+    addedMoves.clear();
     update();
     nodeIDLabel.clear();
-    try {
-      edgeBox.getChildren().clear();
-      moveBox.getChildren().clear();
-      locationBox.getChildren().clear();
-    } catch (IndexOutOfBoundsException ignored) {
-    }
+    edgeBox.getChildren().clear();
+    moveBox.getChildren().clear();
+    locationBox.getChildren().clear();
     nodeIDLabel.setText(String.valueOf(node.getNodeID()));
-    if (repo.getEdgeDAO().getNeighbors().get(node.getNodeID()) == null) return;
-    for (Integer neighbor : repo.getEdgeDAO().getNeighbors().get(node.getNodeID())) {
-      edgeBox.getChildren().add(new Label(String.valueOf(neighbor)));
-    }
-    if (repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()) == null) return;
-    List<String> sortedLocations = new ArrayList<>();
-    Label label = new Label();
-    for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID())) {
-      label.setText(move.getLocationName() + " on " + move.getDate().toString());
-      label.setWrapText(true);
-      label.maxWidth(70);
-      moveBox.getChildren().add(label);
-      sortedLocations.add(
-          move.getLocationName() + " - " + move.getLocation().getNodeType().toString());
-    }
-    Collections.sort(sortedLocations);
-    for (String name : sortedLocations) {
-      label.setText(name);
-      locationBox.getChildren().add(label);
+    if (repo.getEdgeDAO().getNeighbors().get(node.getNodeID()) != null)
+      for (Integer neighbor : repo.getEdgeDAO().getNeighbors().get(node.getNodeID())) {
+        edgeBox.getChildren().add(new Label(String.valueOf(neighbor)));
+      }
+    if (repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID()) != null) {
+      List<String> sortedLocations = new ArrayList<>();
+      for (Move move : repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID())) {
+        Label label = new Label();
+        label.setText(move.getLocationName() + " on " + move.getDate().toString());
+        label.setWrapText(true);
+        label.maxWidth(70);
+        moveBox.getChildren().add(label);
+        sortedLocations.add(
+            move.getLocationName() + " - " + move.getLocation().getNodeType().toString());
+      }
+      Collections.sort(sortedLocations);
+      for (String name : sortedLocations) {
+        Label label = new Label();
+        label.setText(name);
+        locationBox.getChildren().add(label);
+      }
     }
   }
 }
