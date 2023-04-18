@@ -38,7 +38,7 @@ public enum Screen {
 
   OFFICE_SUPPLIES_DELIVERY("views/officeSuppliesMain.fxml"),
   OFFICE_SUPPLIES_ORDER("views/officeSuppliesOrderDetails.fxml"),
-  OFFICE_SUPPLIES_CART("views/officeSuppliesSubmissionDetails.fxml"),
+  OFFICE_SUPPLIES_CART("views/officeSuppliesSumbissionDetails.fxml"),
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
   OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),

@@ -47,23 +47,19 @@ public class NewHomeController {
   public static int cartID = 0;
 
   public static int delID;
-  public static int flowDevID;
-  public static int officeSupplyID;
+  // public static int flowDevID;
 
   public static OrderItem cart;
-
-  public static Cart flowerCart;
-  public static OfficeSupplyCart officeSupplyCart;
+  // public static Cart flowerCart;
 
   @FXML
   public void initialize() {
 
     delID = DBR.getLastFoodDevID();
-    flowDevID = DBR.flowerGetNewDeliveryID();
+    // flowDevID = DBR.flowerGetNewDeliveryID();
 
     cart = new OrderItem(cartID++);
-    flowerCart = new Cart(cartID++);
-    officeSupplyCart = new OfficeSupplyCart(cartID++);
+    // flowerCart = new Cart(cartID++);
 
     // back5.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
     mealRequestsButton.setOnMouseClicked(event -> goToMealPage());

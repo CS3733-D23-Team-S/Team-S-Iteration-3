@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class OfficeSupplyDelivery implements IDataPack {
-  @Getter @Setter private int ID;
+  @Getter @Setter private int deliveryid;
   @Getter @Setter private String cart;
   @Getter @Setter private Date date;
   @Getter @Setter private Time time;
@@ -28,7 +28,7 @@ public class OfficeSupplyDelivery implements IDataPack {
       String orderStatus,
       double cost,
       String n) {
-    this.ID = ID;
+    this.deliveryid = ID;
     this.cart = cart.toString();
     this.date = date;
     this.time = time;
@@ -42,7 +42,7 @@ public class OfficeSupplyDelivery implements IDataPack {
 
   @Override
   public String toString() {
-    return ID
+    return deliveryid
         + " "
         + cart
         + " "
@@ -62,7 +62,7 @@ public class OfficeSupplyDelivery implements IDataPack {
   }
 
   public String toCSVString() {
-    return ID
+    return deliveryid
         + ","
         + cart
         + ","
