@@ -61,14 +61,14 @@ public class RootController {
     homeIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-            if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.ADMIN) {
-                System.out.println("Going to Admin page");
-                Navigation.navigate(Screen.HOME);
-            }
-            if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
-                System.out.println("Going to Staff page");
-                Navigation.navigate(Screen.HOME);
-            }
+          if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.ADMIN) {
+            System.out.println("Going to Admin page");
+            Navigation.navigate(Screen.HOME);
+          }
+          if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
+            System.out.println("Going to Staff page");
+            Navigation.navigate(Screen.HOME);
+          }
           Navigation.navigate(Screen.HOME);
           event.consume();
         });
