@@ -27,24 +27,28 @@ public class BFS implements IPathFinder {
     start = this.nodeDAO.getNodes().get(s);
     end = this.nodeDAO.getNodes().get(e);
 
-    Stack<Node> stack = new Stack<>();
+    Queue<Node> queue = new LinkedList<>();
     HashSet<Node> visitedNodes = new HashSet<>();
     Map<Node, Node> path = new HashMap<>();
-    Node currentNeighbor;
+    Node currentNeighbor = null;
     path.put(start, null);
 
     Node currentNode = null;
 
-    stack.push(start);
+    queue.offer(start);
 
-    while (!stack.isEmpty()) {
-      currentNode = stack.pop();
+    while (!queue.isEmpty()) {
+      currentNode = queue.poll();
       visitedNodes.add(currentNode);
       for (int nodeID : this.edgeDAO.getNeighbors().get(currentNode.getNodeID())) {
         currentNeighbor = this.nodeDAO.getNodes().get(nodeID);
         if (!visitedNodes.contains(currentNeighbor)) {
-          stack.push(currentNeighbor);
+          queue.offer(currentNeighbor);
           path.put(currentNeighbor, currentNode);
+        }
+        if (currentNode == end) {
+          System.out.println(currentNeighbor.toString());
+          return constructShortestPath(currentNode, path);
         }
       }
     }

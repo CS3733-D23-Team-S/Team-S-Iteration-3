@@ -44,6 +44,10 @@ public class DFS implements IPathFinder {
           stack.push(currentNeighbor);
           path.put(currentNeighbor, currentNode);
         }
+        if (currentNode == end) {
+          System.out.println(currentNeighbor.toString());
+          return constructShortestPath(currentNode, path);
+        }
       }
     }
     return constructShortestPath(currentNode, path);
