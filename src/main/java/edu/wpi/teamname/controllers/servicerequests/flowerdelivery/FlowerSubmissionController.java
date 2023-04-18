@@ -134,7 +134,7 @@ public class FlowerSubmissionController {
 
       VBox itemInfo = new VBox();
       itemInfo.setSpacing(20);
-      itemInfo.setMaxWidth(1000);
+      itemInfo.setPrefWidth(800);
       itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
