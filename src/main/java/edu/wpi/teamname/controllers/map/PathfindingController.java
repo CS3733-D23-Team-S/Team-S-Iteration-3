@@ -3,7 +3,6 @@ package edu.wpi.teamname.controllers.map;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
-import edu.wpi.teamname.DAOs.orms.NodeType;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -54,6 +53,7 @@ public class PathfindingController {
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
   Floor floorForLOL = null;
+  // Floor currFloor = null;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
@@ -169,9 +169,6 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor1Lines);
-    if (floorForLOL.equals(Floor.Floor1)) {
-      anchorPane.getChildren().addAll(pathLines);
-    }
   }
 
   public void toFloor2() {
@@ -196,9 +193,6 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor2Lines);
-    if (floorForLOL.equals(Floor.Floor2)) {
-      anchorPane.getChildren().addAll(pathLines);
-    }
   }
 
   public void toFloor3() {
@@ -223,9 +217,6 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor3Lines);
-    if (floorForLOL.equals(Floor.Floor3)) {
-      anchorPane.getChildren().addAll(pathLines);
-    }
   }
 
   public void toFloorL1() {
@@ -250,9 +241,6 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floor3Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floorL1Lines);
-    if (floorForLOL.equals(Floor.FloorL1)) {
-      anchorPane.getChildren().addAll(pathLines);
-    }
   }
 
   public void toFloorL2() {
@@ -277,9 +265,6 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floor3Lines);
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().addAll(floorL2Lines);
-    if (floorForLOL.equals(Floor.FloorL2)) {
-      anchorPane.getChildren().addAll(pathLines);
-    }
   }
 
   DataBaseRepository dataBase = DataBaseRepository.getInstance();
@@ -330,8 +315,8 @@ public class PathfindingController {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
-    boolean startNodeInFloor = false;
-    boolean endNodeInFloor = false;
+    boolean startNodeInFloor = true;
+    boolean endNodeInFloor = true;
     int startingID = 0;
     int endID = 0;
     double startX = 0.0;
@@ -370,14 +355,7 @@ public class PathfindingController {
           endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
         }
       }
-      for (int i = 0; i < floorNodes.size(); i++) {
-        if (floorNodes.get(i).getNodeID() == startingID) {
-          startNodeInFloor = true;
-        }
-        if (floorNodes.get(i).getNodeID() == endID) {
-          endNodeInFloor = true;
-        }
-      }
+      // get first node and move to that floor
       if (startNodeInFloor && endNodeInFloor) {
         pfe = new PathfindingEntity(startingID, endID);
         if (!algList.getSelectionModel().isEmpty()) {
@@ -512,34 +490,215 @@ public class PathfindingController {
         }
       }
     }
+    textualDirections.setText(textDir);
     anchorPane.getChildren().addAll(lol);
-    /*
+
     if (floorForLOL.equals(Floor.Floor1)) {
       anchorPane.getChildren().addAll(floor1Lines);
-      anchorPane.getChildren().addAll(lol);
+      // anchorPane.getChildren().addAll(lol);
     } else if (floorForLOL.equals(Floor.Floor2)) {
       anchorPane.getChildren().addAll(floor2Lines);
-      anchorPane.getChildren().addAll(lol);
+      // anchorPane.getChildren().addAll(lol);
     } else if (floorForLOL.equals(Floor.Floor3)) {
       anchorPane.getChildren().addAll(floor3Lines);
-      anchorPane.getChildren().addAll(lol);
+      // anchorPane.getChildren().addAll(lol);
 
     } else if (floorForLOL.equals(Floor.FloorL1)) {
       anchorPane.getChildren().addAll(floorL1Lines);
-      anchorPane.getChildren().addAll(lol);
+      // anchorPane.getChildren().addAll(lol);
 
     } else if (floorForLOL.equals(Floor.FloorL2)) {
       anchorPane.getChildren().addAll(floorL2Lines);
-      anchorPane.getChildren().addAll(lol);
+      // anchorPane.getChildren().addAll(lol);
     }
-    */
+
     // anchorPane.getChildren().addAll(floor1Lines);
     //    floor1Lines = floor1LinesPlaceholder;
     //    floor2Lines = floor2LinesPlaceholder;
     //    floor3Lines = floor3LinesPlaceholder;
     //    floorL1Lines = floorL1LinesPlaceholder;
     //    floorL2Lines = floorL2LinesPlaceholder;
-    textualDirections.setText(textDir);
+
+  }
+
+  // test for showing paths method
+  public void showPathTesting() {
+    // add lines to placeholders
+    // set actual lines to placeholders at the end
+    anchorPane.getChildren().removeAll(floor1Lines);
+    anchorPane.getChildren().removeAll(floor2Lines);
+    anchorPane.getChildren().removeAll(floor3Lines);
+    anchorPane.getChildren().removeAll(floorL1Lines);
+    anchorPane.getChildren().removeAll(floorL2Lines);
+    floor1Lines.clear();
+    floor2Lines.clear();
+    floor3Lines.clear();
+    floorL1Lines.clear();
+    floorL2Lines.clear();
+
+    List<Line> floor1LinesPlaceholder = new ArrayList<>();
+    List<Line> floor2LinesPlaceholder = new ArrayList<>();
+    List<Line> floor3LinesPlaceholder = new ArrayList<>();
+    List<Line> floorL1LinesPlaceholder = new ArrayList<>();
+    List<Line> floorL2LinesPlaceholder = new ArrayList<>();
+
+    String currLocationName = "";
+    textDir = "";
+    String currDir = "";
+
+    DataBaseRepository dbr = DataBaseRepository.getInstance();
+    anchorPane.getChildren().removeAll(pathLines);
+    pathLines.clear();
+    int startingID = 0;
+    int endID = 0;
+    double startX = 0.0;
+    double startY = 0.0;
+    double endX = 0.0;
+    double endY = 0.0;
+    Floor thisFloor = null;
+    Floor nextFloor = null;
+    if (startingLocationList.getSelectionModel().isEmpty()) {
+      startingLocationError.setText("Error: you haven't filled in the starting location");
+    }
+    if (destinationList.getSelectionModel().isEmpty()) {
+      destinationError.setText("Error: you haven't filled in the destination");
+    }
+    if (!startingLocationList.getSelectionModel().isEmpty()
+        && (!destinationList.getSelectionModel().isEmpty())) {
+      startingLocationError.setText("");
+      destinationError.setText("");
+      // find node IDs through moves
+      for (int i = 0; i < dbr.getMoveDAO().getListOfMoves().size(); i++) {
+        if (dbr.getMoveDAO()
+            .getListOfMoves()
+            .get(i)
+            .getLocation()
+            .getLongName()
+            .equals(startingLocationList.getValue())) {
+          startingID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
+        }
+        if (dbr.getMoveDAO()
+            .getListOfMoves()
+            .get(i)
+            .getLocation()
+            .getLongName()
+            .equals(destinationList.getValue())) {
+          endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
+        }
+      }
+      pfe = new PathfindingEntity(startingID, endID);
+      if (!algList.getSelectionModel().isEmpty()) {
+        pfe.setAlg(algList.getValue());
+      }
+      pfe.generatePath();
+      // go through list of nodes
+      // find the floor the node is on
+      // add a line to the list of lines for that floor
+
+      for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
+        for (int j = 0; j < dataBase.getNodeDAO().getAll().size(); j++) {
+          // check if first node is same or whatever
+          if (pfe.getPathEntities().get(i).getNodePassed()
+              == dataBase.getNodeDAO().getAll().get(j).getNodeID()) {
+            thisFloor = dataBase.getNodeDAO().getAll().get(j).getFloor();
+            startX = dataBase.getNodeDAO().getAll().get(j).getXCoord();
+            startY = dataBase.getNodeDAO().getAll().get(j).getYCoord();
+          }
+        }
+        for (int j = 0; j < dataBase.getNodeDAO().getAll().size(); j++) {
+          if (pfe.getPathEntities().get(i + 1).getNodePassed()
+              == dataBase.getNodeDAO().getAll().get(j).getNodeID()) {
+            nextFloor = dataBase.getNodeDAO().getAll().get(j).getFloor();
+            endX = dataBase.getNodeDAO().getAll().get(j).getXCoord();
+            endY = dataBase.getNodeDAO().getAll().get(j).getYCoord();
+            for (int k = 0; k < dataBase.getMoveDAO().getListOfMoves().size(); k++) {
+              if (dataBase.getMoveDAO().getListOfMoves().get(k).getNodeID()
+                  == dataBase.getNodeDAO().getAll().get(j).getNodeID()) {
+                currLocationName = dataBase.getMoveDAO().getListOfMoves().get(k).getLocationName();
+              }
+            }
+          }
+        }
+        Line line = new Line(startX, startY, endX, endY);
+        line.setFill(Color.BLACK);
+        line.setStrokeWidth(5.0);
+        if (thisFloor != nextFloor) {
+          // line stops at this point
+        } else {
+          if (thisFloor.equals(Floor.Floor1)) {
+            floor1LinesPlaceholder.add(line);
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            floor2LinesPlaceholder.add(line);
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            floor3LinesPlaceholder.add(line);
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            floorL1LinesPlaceholder.add(line);
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            floorL2LinesPlaceholder.add(line);
+          }
+        }
+        if (startX != endX) {
+          if (startX > endX) {
+            currDir = "West";
+          } else {
+            currDir = "East";
+          }
+        }
+        if (startY != endY) {
+          if (startY > endY) {
+            if (currDir.equals("East")) {
+              currDir = "Northeast";
+            } else if (currDir.equals("West")) {
+              currDir = "Northwest";
+            } else {
+              currDir = "North";
+            }
+          } else {
+            if (currDir.equals("East")) {
+              currDir = "Southeast";
+            } else if (currDir.equals("West")) {
+              currDir = "Southwest";
+            } else {
+              currDir = "South";
+            }
+          }
+        }
+        int stepNum = i + 1;
+        textDir =
+            textDir + stepNum + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
+        currDir = "";
+        if (i == 0) {
+          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
+            toFloor1();
+          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
+            toFloor2();
+          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
+            toFloor3();
+          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
+            toFloorL1();
+          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
+            toFloorL2();
+          }
+        }
+      }
+      textualDirections.setText(textDir);
+      floor1Lines.addAll(floor1LinesPlaceholder);
+      floor2Lines.addAll(floor2LinesPlaceholder);
+      floor3Lines.addAll(floor3LinesPlaceholder);
+      floorL1Lines.addAll(floorL1LinesPlaceholder);
+      floorL2Lines.addAll(floorL2LinesPlaceholder);
+      if (floor.getImage().equals(floor1)) {
+        anchorPane.getChildren().addAll(floor1Lines);
+      } else if (floor.getImage().equals(floor2)) {
+        anchorPane.getChildren().addAll(floor2Lines);
+      } else if (floor.getImage().equals(floor3)) {
+        anchorPane.getChildren().addAll(floor3Lines);
+      } else if (floor.getImage().equals(floorL1)) {
+        anchorPane.getChildren().addAll(floorL1Lines);
+      } else if (floor.getImage().equals(floorL2)) {
+        anchorPane.getChildren().addAll(floorL2Lines);
+      }
+    }
   }
 
   // this method returns all lines (lines for each floor) in one floor, but no errors in dfs or
@@ -799,225 +958,6 @@ public class PathfindingController {
     textualDirections.setText(textDir);
   }
 
-  /*
-  public void showPathNew(List<Node> floorNodes, List<Line> lol) {
-    floor1Lines.clear();
-    floor2Lines.clear();
-    floor3Lines.clear();
-    floorL1Lines.clear();
-    floorL2Lines.clear();
-    Node prevNode = null;
-    Node nextNode = null;
-    String currLocationName = "";
-    textDir = "";
-    String currDir = "";
-    DataBaseRepository dbr = DataBaseRepository.getInstance();
-    anchorPane.getChildren().removeAll(pathLines);
-    pathLines.clear();
-    Boolean startNodeInFloor = false;
-    Boolean endNodeInFloor = false;
-    int startingID = 0;
-    int endID = 0;
-    double startX = 0.0;
-    double startY = 0.0;
-    double endX = 0.0;
-    double endY = 0.0;
-    if (startingLocationList.getSelectionModel().isEmpty()) {
-      startingLocationError.setText("Error: you haven't filled in the starting location");
-    }
-    if (destinationList.getSelectionModel().isEmpty()) {
-      destinationError.setText("Error: you haven't filled in the destination");
-    }
-    if (!startingLocationList.getSelectionModel().isEmpty()
-            && (!destinationList.getSelectionModel().isEmpty())) {
-      startingLocationError.setText("");
-      destinationError.setText("");
-      // find node IDs through moves
-      for (int i = 0; i < dbr.getMoveDAO().getListOfMoves().size(); i++) {
-        if (dbr.getMoveDAO()
-                .getListOfMoves()
-                .get(i)
-                .getLocation()
-                .getLongName()
-                .equals(startingLocationList.getValue())) {
-          startingID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
-        }
-        if (dbr.getMoveDAO()
-                .getListOfMoves()
-                .get(i)
-                .getLocation()
-                .getLongName()
-                .equals(destinationList.getValue())) {
-          endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
-        }
-      }
-      for (int i = 0; i < floorNodes.size(); i++) {
-        if (floorNodes.get(i).getNodeID() == startingID) {
-          startNodeInFloor = true;
-        }
-        if (floorNodes.get(i).getNodeID() == endID) {
-          endNodeInFloor = true;
-        }
-      }
-      if (startNodeInFloor && endNodeInFloor) {
-        pfe = new PathfindingEntity(startingID, endID);
-        if (!algList.getSelectionModel().isEmpty()) {
-          pfe.setAlg(algList.getValue());
-        }
-        pfe.generatePath();
-        for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
-          for (int j = 0; j < floorNodes.size(); j++) {
-
-            // check if first node is same or whatever
-            if (pfe.getPathEntities().get(i).getNodePassed() == floorNodes.get(j).getNodeID()) {
-              startX = floorNodes.get(j).getXCoord();
-              startY = floorNodes.get(j).getYCoord();
-            }
-            prevNode = floorNodes.get(j);
-          }
-          for (int j = 0; j < floorNodes.size(); j++) {
-            if (pfe.getPathEntities().get(i + 1).getNodePassed() == floorNodes.get(j).getNodeID()) {
-              endX = floorNodes.get(j).getXCoord();
-              endY = floorNodes.get(j).getYCoord();
-              for (int k = 0; k < dataBase.getMoveDAO().getListOfMoves().size(); k++) {
-                if (dataBase.getMoveDAO().getListOfMoves().get(k).getNodeID()
-                        == floorNodes.get(j).getNodeID()) {
-                  currLocationName =
-                          dataBase.getMoveDAO().getListOfMoves().get(k).getLocationName();
-                }
-              }
-              nextNode = floorNodes.get(j);
-            }
-          }
-          if (prevNode.getFloor() != nextNode.getFloor()) {
-            // get nextNode.floor
-            if (nextNode.getFloor().equals(Floor.Floor1)) {
-              showPathNew(floor1Nodes, floor1Lines);
-              i = pfe.getPathEntities().size();
-            } else if (nextNode.getFloor().equals(Floor.Floor2)) {
-              showPathNew(floor2Nodes, floor2Lines);
-              i = pfe.getPathEntities().size();
-            } else if (nextNode.getFloor().equals(Floor.Floor3)) {
-              showPathNew(floor3Nodes, floor3Lines);
-              i = pfe.getPathEntities().size();
-            } else if (nextNode.getFloor().equals(Floor.FloorL1)) {
-              showPathNew(floorL1Nodes, floorL1Lines);
-              i = pfe.getPathEntities().size();
-            } else if (nextNode.getFloor().equals(Floor.FloorL2)) {
-              showPathNew(floorL2Nodes, floorL2Lines);
-              i = pfe.getPathEntities().size();
-            }
-          }
-          Line line = new Line(startX, startY, endX, endY);
-          line.setFill(Color.BLACK);
-          line.setStrokeWidth(5.0);
-          if (startX != endX) {
-            if (startX > endX) {
-              currDir = "East";
-            } else {
-              currDir = "West";
-            }
-          }
-          if (startY != endY) {
-            if (startY > endY) {
-              if (currDir.equals("East")) {
-                currDir = "Southeast";
-              } else if (currDir.equals("West")) {
-                currDir = "Southwest";
-              } else {
-                currDir = "South";
-              }
-            } else {
-              if (currDir.equals("East")) {
-                currDir = "Northeast";
-              } else if (currDir.equals("West")) {
-                currDir = "Northwest";
-              } else {
-                currDir = "North";
-              }
-            }
-          }
-          pathLines.add(line);
-          textDir =
-                  textDir + i + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
-        }
-      } else {
-        if (!startNodeInFloor && !endNodeInFloor) {
-          startingLocationError.setText("Error: the starting location is not in the current floor");
-          destinationError.setText("Error: the destination is not in the current floor");
-        } else if (!startNodeInFloor) {
-          startingLocationError.setText("Error: the starting location is not in the current floor");
-        } else if (!endNodeInFloor) {
-          destinationError.setText("Error: the destination is not in the current floor");
-        }
-      }
-    }
-    anchorPane.getChildren().addAll(pathLines);
-    textualDirections.setText(textDir);
-  }
-  */
-
-  public void generateFloorNodes(List<Node> lon, List<Circle> loc, Floor floor) {
-    DataBaseRepository dbr = DataBaseRepository.getInstance();
-    floor1Nodes.clear();
-    floor2Nodes.clear();
-    floor3Nodes.clear();
-    floorL1Nodes.clear();
-    floorL2Nodes.clear();
-    anchorPane.getChildren().clear();
-    floor1Circles.clear();
-    floor2Circles.clear();
-    floor3Circles.clear();
-    floorL1Circles.clear();
-    floorL2Circles.clear();
-    for (int i = 0; i < dbr.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(floor)) {}
-    }
-    for (int i = 0; i < lon.size(); i++) {
-      Circle newCircle =
-          new Circle(lon.get(i).getXCoord(), lon.get(i).getYCoord(), 10.0, Color.RED);
-      loc.add(newCircle);
-      Node aNode = lon.get(i);
-      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
-        if (aNode.getNodeID() == dataBase.getMoveDAO().getAll().get(j).getNodeID()) {
-          for (int k = 0; k < dataBase.getLocationDAO().getAll().size(); k++) {
-            if (dataBase
-                .getLocationDAO()
-                .getAll()
-                .get(j)
-                .getLongName()
-                .equals(dataBase.getMoveDAO().getAll().get(j).getLocationName())) {
-              if (dataBase.getLocationDAO().getAll().get(j).getNodeType().equals(NodeType.CONF)) {
-                newCircle.setFill(Color.GREEN);
-              } else if (dataBase
-                  .getLocationDAO()
-                  .getAll()
-                  .get(j)
-                  .getNodeType()
-                  .equals(NodeType.REST)) {
-                newCircle.setFill(Color.BLUE);
-              } else if (dataBase
-                      .getLocationDAO()
-                      .getAll()
-                      .get(j)
-                      .getNodeType()
-                      .equals(NodeType.SERV)
-                  || (dataBase.getLocationDAO().getAll().get(j).getNodeType().equals(NodeType.RETL))
-                  || (dataBase
-                      .getLocationDAO()
-                      .getAll()
-                      .get(j)
-                      .getNodeType()
-                      .equals(NodeType.INFO))) {
-                newCircle.setFill(Color.RED);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   public void generateFloor1Nodes() {
     floor1Nodes.clear();
     floor2Nodes.clear();
@@ -1257,7 +1197,8 @@ public class PathfindingController {
     circlesOnFloor = floor1Circles;
     nodeList = floor1Nodes;
     changeFloorButtonColors();
-    findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
+    // findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
     // findPathButton.setOnMouseClicked(event -> showPathAcrossFloors(nodeList, pathLines));
+    findPathButton.setOnMouseClicked(event -> showPathTesting());
   }
 }
