@@ -110,7 +110,9 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
     try {
       PreparedStatement stmt =
-          connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE nodeID=?");
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE nodeID=? CASCADE");
       stmt.setInt(1, target);
       stmt.execute();
 
@@ -137,6 +139,15 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
     Node newNode = new Node(nodeID, xCoord, yCoord, floor, building);
     this.add(newNode);
   }
+
+    public void updateNodeID(int oldID, int newID){
+      try{
+        PreparedStatement statement = connection.getConnection().prepareStatement(
+                "UPDATE " + name + " SET nodeID=? WHERE nodeID=?");
+      }catch (SQLException e){
+        e.printStackTrace();
+      }
+    }
 
   private void addToRemote(Node addition) {
     try {

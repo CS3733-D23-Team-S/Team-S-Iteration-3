@@ -39,7 +39,7 @@
                         <VBox fx:id="edgeBox" prefHeight="200.0" prefWidth="100.0" />
                         <HBox alignment="CENTER">
                            <children>
-                              <SearchableComboBox fx:id="edgeField" prefWidth="100.0">
+                              <SearchableComboBox fx:id="edgeField" prefWidth="130.0" promptText="Nearest Nodes">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

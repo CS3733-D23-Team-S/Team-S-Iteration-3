@@ -20,6 +20,7 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" percentWidth="50.0" prefWidth="199.7777099609375" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="83.2222900390625" />
+            <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="149.22222900390625" minHeight="10.0" percentHeight="30.0" prefHeight="64.33331298828125" vgrow="SOMETIMES" />

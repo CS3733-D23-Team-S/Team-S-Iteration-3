@@ -36,7 +36,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         "CREATE TABLE IF NOT EXISTS "
             + name
             + " "
-            + "(nodeID int, location varchar(100) UNIQUE, date DATE)";
+            + "(nodeID int FOREIGN KEY, location varchar(100) UNIQUE, date DATE)";
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(moveTable);

@@ -28,7 +28,10 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   @Override
   public void initTable(String name) {
     this.name = name;
-    String edgeTable = "CREATE TABLE IF NOT EXISTS " + name + " (startNode int, endNode int)";
+    String edgeTable =
+        "CREATE TABLE IF NOT EXISTS "
+            + name
+            + " (startNode int FOREIGN KEY, endNode int FOREIGN KEY)";
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(edgeTable);
