@@ -19,9 +19,7 @@ public class ActiveUser {
 
   private static ActiveUser single_instance = null;
 
-  private ActiveUser() {
-    cart = new SRCart();
-  }
+  private ActiveUser() {}
 
   public static synchronized ActiveUser getInstance() {
     if (single_instance == null) single_instance = new ActiveUser();
