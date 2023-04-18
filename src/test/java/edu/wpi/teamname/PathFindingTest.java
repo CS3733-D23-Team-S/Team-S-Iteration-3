@@ -1,13 +1,14 @@
 package edu.wpi.teamname;
 
-public class PathFindingTest {
+/*public class PathFindingTest {
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
 
-  //  @BeforeAll
-  //  public static void init() {
-  //    UserDAOImpl.DataBaseRepository.getInstance().load();
-  //  }
+    // BFS
+  	@Test
+  	public void simpleTest() {
+        List<Node> expectedPath = new ArrayList<>();
+        expectedPath.add
+          assertTrue(expectedPath);
+    }
 
-  //	@Test
-  //	public static void
-
-}
+}*/
