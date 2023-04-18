@@ -2,8 +2,6 @@ package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
-import lombok.Getter;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import lombok.Getter;
 
 public class UserDAOImpl implements IDAO<User, String> {
 
