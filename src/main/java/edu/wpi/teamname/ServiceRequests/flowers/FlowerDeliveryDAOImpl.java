@@ -2,11 +2,16 @@ package edu.wpi.teamname.ServiceRequests.flowers;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import java.io.*;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
@@ -36,7 +41,8 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
               + "assignedTo Varchar(400),"
               + "orderStatus Varchar(1000),"
               + "cost DOUBLE PRECISION,"
-              + "notes Varchar(100))";
+              + "notes Varchar(100),"
+              + "requestType varchar(100))";
 
       st.execute(flowerRequestsTableConstruct);
 
@@ -201,8 +207,8 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost, notes)"
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost, notes, requestType)"
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       preparedStatement.setInt(1, request.getID());
       preparedStatement.setString(2, request.getCart());
@@ -214,13 +220,24 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
       preparedStatement.setString(8, request.getOrderStatus());
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
+      preparedStatement.setString(11, "Flower");
+
+      PreparedStatement preparedStatement2 =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + allRequestTable
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) "
+                      + "SELECT requestType, room, ordertime, assignedto, orderedby, orderstatus from flowerrequests");
 
       preparedStatement.executeUpdate();
+      preparedStatement2.executeUpdate();
 
       requests.put(request.getID(), request);
 
     } catch (SQLException e) {
-      System.out.println("Excepetion:");
+      System.out.println("Exception:");
       e.printStackTrace();
       System.out.println(e.getSQLState());
     }

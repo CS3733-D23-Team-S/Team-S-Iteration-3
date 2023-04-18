@@ -9,6 +9,7 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
@@ -39,6 +40,7 @@ public class DataBaseRepository {
   @Getter FlowerDAOImpl flowerDAO;
   @Getter FlowerDeliveryDAOImpl flowerDeliveryDAO;
   @Getter UserDAOImpl userDAO;
+  @Getter RequestDAO requestDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
@@ -52,6 +54,7 @@ public class DataBaseRepository {
     foodDeliveryDAO = new FoodDeliveryDAOImp();
     flowerDAO = new FlowerDAOImpl();
     flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
+    requestDAO = new RequestDAO();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -73,6 +76,7 @@ public class DataBaseRepository {
     foodDAO.initTable(connection.getFoodTable());
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
+    requestDAO.initTable("all Requests");
 
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");

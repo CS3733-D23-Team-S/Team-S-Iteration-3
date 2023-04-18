@@ -8,15 +8,16 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import lombok.Getter;
-import lombok.Setter;
-import org.controlsfx.control.SearchableComboBox;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import lombok.Getter;
+import lombok.Setter;
+import org.controlsfx.control.SearchableComboBox;
 
 public class RoomBookingDetailsController extends PopUpController {
 
@@ -66,22 +67,20 @@ public class RoomBookingDetailsController extends PopUpController {
                       || staffMemberComboBox.getValue() == null);
             }));
 
-
     roomBookingDate
-            .textProperty()
-            .addListener(
-                    ((observable, oldValue, newValue) -> {
-                      // check if textField1 is non-empty and enable/disable the button accordingly
-                      submitDetailsButton.setDisable(
-                              eventTitleText.getText().trim().isEmpty()
-                                      || eventDescriptionText.getText().trim().isEmpty()
-                                      || roomComboBox.valueProperty().toString().length() == 0
-                                      || startTimeField.valueProperty().toString().length() == 0
-                                      || endTimeField.valueProperty().toString().length() == 0
-                                      || roomBookingDate.valueProperty().toString().length() == 0
-                                      || staffMemberComboBox.getValue() == null);
-                    }));
-
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitDetailsButton.setDisable(
+                  eventTitleText.getText().trim().isEmpty()
+                      || eventDescriptionText.getText().trim().isEmpty()
+                      || roomComboBox.valueProperty().toString().length() == 0
+                      || startTimeField.valueProperty().toString().length() == 0
+                      || endTimeField.valueProperty().toString().length() == 0
+                      || roomBookingDate.valueProperty().toString().length() == 0
+                      || staffMemberComboBox.getValue() == null);
+            }));
 
     eventTitleText
         .textProperty()
@@ -169,9 +168,21 @@ public class RoomBookingDetailsController extends PopUpController {
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
     System.out.println("Took in inputs from RBD Controller");
-    rbc.addNewRequest(
-        roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
-    stage.close();
+    try {
+      rbc.addNewRequest(
+          roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
+      stage.close();
+    } catch (Exception e) {
+      Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+      errorAlert.setTitle("Time Dialog");
+      errorAlert.setContentText("There's scheduling clashes");
+
+      DialogPane dialogPane = errorAlert.getDialogPane();
+      dialogPane.setStyle("-fx-background-color: #000000");
+      // dialogPane.getStylesheets().add("myDialogs.css");
+      // dialogPane.getStyleClass().add("myDialog");
+      errorAlert.showAndWait();
+    }
 
     // clearFields();
   }

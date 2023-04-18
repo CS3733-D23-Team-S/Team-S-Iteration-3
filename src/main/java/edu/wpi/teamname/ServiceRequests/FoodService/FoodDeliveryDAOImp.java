@@ -2,10 +2,13 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
+import lombok.Getter;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
@@ -36,6 +39,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               + "Status Varchar(100),"
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
+              + "requestType varchar(100),"
               + "foreign key (location) references "
               + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
@@ -85,7 +89,17 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
 
+      PreparedStatement preparedStatement2 =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + allRequestTable
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy) "
+                      + "SELECT requestType, location, ordertime, assignedto, orderer from foodrequests");
+
       preparedStatement.executeUpdate();
+      preparedStatement2.executeUpdate();
 
       foodRequests.put(request.getDeliveryID(), request);
 
