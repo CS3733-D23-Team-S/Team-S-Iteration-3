@@ -28,7 +28,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="welcomeText" prefHeight="84.0" prefWidth="874.0" text="Good morning, Michael!" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+        <Label fx:id="welcomeText" prefHeight="84.0" prefWidth="1512.0" text="Good morning, Michael!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
             <font>
                 <Font name="Arial Bold" size="40.0" />
             </font>
@@ -108,7 +108,7 @@
                   <Image url="@../images/michaelprofile.png" />
                </image>
             </ImageView>
-            <TextField2TableCell id="nameCell" fx:id="nameCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" style="-fx-font-style: BOLD;" text="Michael O'Connor" textAlignment="CENTER">
+            <TextField2TableCell id="nameCell" fx:id="nameCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Michael O'Connor" textAlignment="CENTER">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>

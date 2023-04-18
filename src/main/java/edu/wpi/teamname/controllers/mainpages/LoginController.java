@@ -26,6 +26,7 @@ public class LoginController {
   @FXML PasswordField pfPassword;
 
   @FXML private TextField tfUsername;
+
   public ActiveUser activeUser = ActiveUser.getInstance();
   // @FXML private Hyperlink newUser;
 

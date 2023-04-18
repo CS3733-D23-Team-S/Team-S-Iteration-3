@@ -24,7 +24,7 @@ public class OrderItem {
   public double getTotalPrice() {
     double totalprice = 0.0;
     for (Food aFood : theCart.values()) {
-      totalprice += aFood.getFoodPrice();
+      totalprice += aFood.getFoodPrice() * aFood.getQuantity();
     }
 
     return totalprice;
