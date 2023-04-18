@@ -33,8 +33,6 @@ public class RootController {
   @FXML ImageView exitIcon;
   @FXML ImageView backIcon;
 
-  String backPath = "views/Home.fxml";
-
   public void initialize() {
 
     menunavigation.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
@@ -47,19 +45,19 @@ public class RootController {
     homeLogo1.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     homeLogo2.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     homeIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     userIcon.addEventHandler(
@@ -77,7 +75,7 @@ public class RootController {
     backIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.valueOf(backPath));
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
   }
