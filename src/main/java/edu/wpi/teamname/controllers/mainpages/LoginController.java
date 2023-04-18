@@ -78,7 +78,7 @@ public class LoginController {
         event -> {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
-            Navigation.navigate(HOME);
+            Navigation.navigate(ADMIN_PAGE);
           }
         });
   }
