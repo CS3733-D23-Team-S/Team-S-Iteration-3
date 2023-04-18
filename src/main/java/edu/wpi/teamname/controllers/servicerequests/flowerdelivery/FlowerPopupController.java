@@ -69,7 +69,9 @@ public class FlowerPopupController extends PopUpController {
   }
 
   public void subtractquantity() {
-    flowercounter--;
     quantitylabel.setText(Integer.toString(flowercounter));
+    if (flowercounter > 1) {
+      flowercounter--;
+    }
   }
 }
