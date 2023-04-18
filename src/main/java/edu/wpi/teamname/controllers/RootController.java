@@ -35,8 +35,6 @@ public class RootController {
   @FXML ImageView exitIcon;
   @FXML ImageView backIcon;
 
-  String backPath = "views/Home.fxml";
-
   public void initialize() {
 
     menunavigation.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
@@ -49,13 +47,13 @@ public class RootController {
     homeLogo1.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     homeLogo2.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     homeIcon.addEventHandler(
@@ -63,19 +61,19 @@ public class RootController {
         event -> {
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.ADMIN) {
             System.out.println("Going to Admin page");
-            Navigation.navigate(Screen.HOME);
+            Navigation.navigate(Screen.ADMIN_PAGE);
           }
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
             System.out.println("Going to Staff page");
-            Navigation.navigate(Screen.HOME);
+            Navigation.navigate(Screen.ADMIN_PAGE);
           }
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
     userIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.USER_PROFILE);
           event.consume();
         });
     exitIcon.addEventHandler(
@@ -87,7 +85,7 @@ public class RootController {
     backIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.valueOf(backPath));
+          Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
   }
