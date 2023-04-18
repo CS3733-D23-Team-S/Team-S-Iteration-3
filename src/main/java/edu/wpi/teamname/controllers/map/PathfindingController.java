@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.map;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -261,6 +262,7 @@ public class PathfindingController {
   String textDir = "";
 
   public void showPathNew(List<Node> floorNodes) {
+    String currLocationName = "";
     textDir = "";
     String currDir = "";
     DataBaseRepository dbr = DataBaseRepository.getInstance();
@@ -330,6 +332,13 @@ public class PathfindingController {
             if (pfe.getPathEntities().get(i + 1).getNodePassed() == floorNodes.get(j).getNodeID()) {
               endX = floorNodes.get(j).getXCoord();
               endY = floorNodes.get(j).getYCoord();
+              for (int k = 0; k < dataBase.getMoveDAO().getListOfMoves().size(); k++) {
+                if (dataBase.getMoveDAO().getListOfMoves().get(k).getNodeID()
+                    == floorNodes.get(j).getNodeID()) {
+                  currLocationName =
+                      dataBase.getMoveDAO().getListOfMoves().get(k).getLocationName();
+                }
+              }
             }
           }
           Line line = new Line(startX, startY, endX, endY);
@@ -362,7 +371,8 @@ public class PathfindingController {
             }
           }
           pathLines.add(line);
-          textDir = textDir + i + ". Go " + currDir + " until you reach ...\n";
+          textDir =
+              textDir + i + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
         }
       } else {
         if (!startNodeInFloor && !endNodeInFloor) {
@@ -379,39 +389,66 @@ public class PathfindingController {
     textualDirections.setText(textDir);
   }
 
-  /*
   public void generateFloorNodes(List<Node> lon, List<Circle> loc, Floor floor) {
-      DataBaseRepository dbr = DataBaseRepository.getInstance();
-      floor1Nodes.clear();
-      floor2Nodes.clear();
-      floor3Nodes.clear();
-      floorL1Nodes.clear();
-      floorL2Nodes.clear();
-      anchorPane.getChildren().clear();
-      floor1Circles.clear();
-      floor2Circles.clear();
-      floor3Circles.clear();
-      floorL1Circles.clear();
-      floorL2Circles.clear();
-      for (int i = 0; i < dbr.getNodeDAO().getAll().size(); i++) {
-        if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(floor)) {
-
-        }
-      }
-      for (int i = 0; i < lon.size(); i++) {
-        Circle newCircle = new Circle(lon.get(i).getXCoord(), lon.get(i).getYCoord(),
-                10.0, Color.RED);
-        loc.add(newCircle);
-        Node aNode = lon.get(i);
-        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
-          if (aNode.getNodeID() == dataBase.getMoveDAO().getAll().get(i).getNodeID()) {
-            if ()
+    DataBaseRepository dbr = DataBaseRepository.getInstance();
+    floor1Nodes.clear();
+    floor2Nodes.clear();
+    floor3Nodes.clear();
+    floorL1Nodes.clear();
+    floorL2Nodes.clear();
+    anchorPane.getChildren().clear();
+    floor1Circles.clear();
+    floor2Circles.clear();
+    floor3Circles.clear();
+    floorL1Circles.clear();
+    floorL2Circles.clear();
+    for (int i = 0; i < dbr.getNodeDAO().getAll().size(); i++) {
+      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(floor)) {}
+    }
+    for (int i = 0; i < lon.size(); i++) {
+      Circle newCircle =
+          new Circle(lon.get(i).getXCoord(), lon.get(i).getYCoord(), 10.0, Color.RED);
+      loc.add(newCircle);
+      Node aNode = lon.get(i);
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (aNode.getNodeID() == dataBase.getMoveDAO().getAll().get(j).getNodeID()) {
+          for (int k = 0; k < dataBase.getLocationDAO().getAll().size(); k++) {
+            if (dataBase
+                .getLocationDAO()
+                .getAll()
+                .get(j)
+                .getLongName()
+                .equals(dataBase.getMoveDAO().getAll().get(j).getLocationName())) {
+              if (dataBase.getLocationDAO().getAll().get(j).getNodeType().equals(NodeType.CONF)) {
+                newCircle.setFill(Color.GREEN);
+              } else if (dataBase
+                  .getLocationDAO()
+                  .getAll()
+                  .get(j)
+                  .getNodeType()
+                  .equals(NodeType.REST)) {
+                newCircle.setFill(Color.BLUE);
+              } else if (dataBase
+                      .getLocationDAO()
+                      .getAll()
+                      .get(j)
+                      .getNodeType()
+                      .equals(NodeType.SERV)
+                  || (dataBase.getLocationDAO().getAll().get(j).getNodeType().equals(NodeType.RETL))
+                  || (dataBase
+                      .getLocationDAO()
+                      .getAll()
+                      .get(j)
+                      .getNodeType()
+                      .equals(NodeType.INFO))) {
+                newCircle.setFill(Color.RED);
+              }
+            }
           }
         }
       }
-
     }
-   */
+  }
 
   public void generateFloor1Nodes() {
     floor1Nodes.clear();

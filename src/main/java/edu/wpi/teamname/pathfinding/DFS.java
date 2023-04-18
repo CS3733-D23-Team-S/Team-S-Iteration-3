@@ -9,7 +9,7 @@ import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 
-public class DFS {
+public class DFS implements IPathFinder {
   @Getter @Setter NodeDAOImpl nodeDAO;
   @Getter @Setter EdgeDAOImpl edgeDAO;
   @Getter @Setter MoveDAOImpl moveDAO;
@@ -20,7 +20,7 @@ public class DFS {
     this.moveDAO = DataBaseRepository.getInstance().getMoveDAO();
   }
 
-  public List<Integer> findPath(int s, int e) {
+  public ArrayList<Integer> findPath(int s, int e) {
     Node start, end;
     start = this.nodeDAO.getNodes().get(s);
     end = this.nodeDAO.getNodes().get(s);
