@@ -4,5 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 
 public class SnakeGameController {
-    @FXML private Canvas
+  @FXML private Canvas canvas;
+
+  @FXML
+  public void initiate() {
+    System.out.println("Hwere!");
+  }
 }

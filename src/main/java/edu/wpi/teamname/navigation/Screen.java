@@ -36,7 +36,8 @@ public enum Screen {
   FLOWER_CONFIRMATION("views/FlowerDelivery/flowerconfirmationpage.fxml"),
   FLOWER_POPUP("views/FlowerDelivery/flowerPopup.fxml"),
 
-  NEW_USER("views/newUserPopUp.fxml");
+  NEW_USER("views/newUserPopUp.fxml"),
+  SNAKE_GAME("views/snakeGame.fxml");
 
   private final String filename;
 
