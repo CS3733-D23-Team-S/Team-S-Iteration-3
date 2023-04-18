@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,14 +13,13 @@
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="8.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" prefWidth="100.0" />
       <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
@@ -40,8 +38,8 @@
       <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="12" />
-      <HBox prefHeight="567.0" prefWidth="1200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="12" />
+      <HBox prefHeight="567.0" prefWidth="1200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
          <children>
             <MFXButton fx:id="floorL2Button" prefHeight="65.0" prefWidth="240.0" text="Floor L2">
                <font>
@@ -70,7 +68,7 @@
             </MFXButton>
          </children>
       </HBox>
-      <GesturePane fx:id="mapPane" prefHeight="810.0" prefWidth="1200.0" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.rowSpan="11" />
+      <GesturePane fx:id="mapPane" prefHeight="313.0" prefWidth="714.0" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="11" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <children>
             <SearchableComboBox fx:id="startingLocationList" prefHeight="63.0" prefWidth="360.0" promptText="Choose Starting Location" />
@@ -78,7 +76,7 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
          <children>
-            <SearchableComboBox fx:id="destinationList" prefHeight="63.0" prefWidth="320.0" promptText="Choose Destination" />
+            <SearchableComboBox fx:id="destinationList" prefHeight="49.0" prefWidth="358.0" promptText="Choose Destination" />
          </children>
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" GridPane.rowSpan="3">
@@ -96,14 +94,14 @@
             <Font size="20.0" />
          </font>
       </MFXButton>
-      <MFXButton fx:id="clearFieldsButton" prefHeight="209.0" prefWidth="128.0" style="-fx-border-color: #000000; -fx-border-radius: 15;" text="Clear" GridPane.columnIndex="3" GridPane.rowIndex="5">
+      <MFXButton fx:id="clearFieldsButton" prefHeight="209.0" prefWidth="128.0" style="-fx-border-color: #000000; -fx-border-radius: 15;" text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <font>
             <Font size="20.0" />
          </font>
       </MFXButton>
       <HBox minHeight="-Infinity" prefHeight="27.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <children>
-            <MFXTextField fx:id="startingLocationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="448.0">
+            <MFXTextField fx:id="startingLocationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="360.0">
                <textFill>
                   <Color red="0.545098066329956" opacity="0.8700000047683716" />
                </textFill>
@@ -112,7 +110,7 @@
       </HBox>
       <HBox minHeight="-Infinity" prefHeight="27.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
          <children>
-            <MFXTextField fx:id="destinationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="448.0">
+            <MFXTextField fx:id="destinationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="360.0">
                <textFill>
                   <Color red="0.545098066329956" opacity="0.8700000047683716" />
                </textFill>
