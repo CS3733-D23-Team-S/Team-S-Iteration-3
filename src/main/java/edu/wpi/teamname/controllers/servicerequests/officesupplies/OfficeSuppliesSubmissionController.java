@@ -35,6 +35,7 @@ public class OfficeSuppliesSubmissionController {
   @FXML VBox sidepanel;
   @FXML SearchableComboBox locationdrop;
   @FXML Text pricetext;
+  @FXML Label pricey;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
   @FXML MFXScrollPane scroll;
@@ -56,6 +57,9 @@ public class OfficeSuppliesSubmissionController {
     employeedrop.getItems().add("Kashvi Singh");
     employeedrop.getItems().add("Anthony Ticombe");
     employeedrop.getItems().add("Nat Rubin");
+
+    pricey.setText(
+        "$ " + String.valueOf(OfficeSuppliesController.officeSupplyCart.getTotalPrice()));
 
     submitbutton.setOnMouseClicked(
         event -> {
