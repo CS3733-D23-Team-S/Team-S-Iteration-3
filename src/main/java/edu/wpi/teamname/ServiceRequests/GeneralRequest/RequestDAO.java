@@ -1,7 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.GeneralRequest;
 
 import edu.wpi.teamname.DAOs.dbConnection;
-
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class RequestDAO {
             + "deliveryLocation Varchar(200),"
             + "requestTime time,"
             + "orderedBy varchar(100),"
-            + " assignedTo varchar(100)," +
-                " orderStatus varchar(100))";
+            + " assignedTo varchar(100),"
+            + " orderStatus varchar(100))";
     try {
       Statement stmt = connection.getConnection().createStatement();
       stmt.execute(allRequestsRoomTableConstruct);
@@ -39,7 +38,7 @@ public class RequestDAO {
     System.out.println("Created the universal requests table");
   }
 
-  public void loadFromRemote(){
+  public void loadFromRemote() {
     ArrayList<Request> curr = new ArrayList<>();
     try {
       Statement st = connection.getConnection().createStatement();
@@ -48,73 +47,62 @@ public class RequestDAO {
       while (rs.next()) {
         String requestType = rs.getString("requestType");
         String location = rs.getString("deliveryLocation");
-        String orderStatus =rs.getString("orderStatus");
+        String orderStatus = rs.getString("orderStatus");
         LocalTime ordertime = rs.getTime("ordertime").toLocalTime();
         String orderedBy = rs.getString("orderedBy");
         String assignedTo = rs.getString("assignedTo");
-        Request newRequest = new Request(requestType, ordertime, orderStatus, location, assignedTo, orderedBy);
+        Request newRequest =
+            new Request(requestType, ordertime, orderStatus, location, assignedTo, orderedBy);
 
         curr.add(newRequest);
-
-
-
-  }
+      }
       requests = curr;
-} catch (SQLException e) {
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
-    public void updateRequest(String orderStatus, String orderedBy, LocalTime orderTime, String orderType){
+  public void updateRequest(
+      String orderStatus, String orderedBy, LocalTime orderTime, String orderType) {
     PreparedStatement preparedStatement2;
 
-    try{
+    try {
       PreparedStatement preparedStatement =
-              connection
-                      .getConnection()
-                      .prepareStatement(
-                              "UPDATE hospitaldb.allrequests SET orderStatus = ? WHERE orderedby = ? AND requesttime = ? ");
-
-
-    preparedStatement.setString(1, orderStatus);
-    preparedStatement.setString(2, orderedBy);
-    preparedStatement.setTime(3, Time.valueOf(orderTime));
-    preparedStatement.executeUpdate();
-
-    if (orderType.equals("Food")){
-      connection
+          connection
               .getConnection()
               .prepareStatement(
-                      "UPDATE hospitaldb.foodrequests SET status = ? WHERE orderer = ? AND ordertime = ? ");
+                  "UPDATE hospitaldb.allrequests SET orderStatus = ? WHERE orderedby = ? AND requesttime = ? ");
 
+      preparedStatement.setString(1, orderStatus);
+      preparedStatement.setString(2, orderedBy);
+      preparedStatement.setTime(3, Time.valueOf(orderTime));
+      preparedStatement.executeUpdate();
 
+      if (orderType.equals("Food")) {
+        connection
+            .getConnection()
+            .prepareStatement(
+                "UPDATE hospitaldb.foodrequests SET status = ? WHERE orderer = ? AND ordertime = ? ");
 
-    } else if (orderType.equals("Flower")) {
-      connection
-              .getConnection()
-              .prepareStatement(
-                      "UPDATE hospitaldb.flowerrequests SET orderstatus = ? WHERE orderedby = ? AND ordertime = ? ");
-    } else if (orderType.equals("Room")) {
-      connection
-              .getConnection()
-              .prepareStatement(
-                      "UPDATE hospitaldb.roomreservations SET orderstatus = ? WHERE reservedby = ? AND starttime = ? ");
+      } else if (orderType.equals("Flower")) {
+        connection
+            .getConnection()
+            .prepareStatement(
+                "UPDATE hospitaldb.flowerrequests SET orderstatus = ? WHERE orderedby = ? AND ordertime = ? ");
+      } else if (orderType.equals("Room")) {
+        connection
+            .getConnection()
+            .prepareStatement(
+                "UPDATE hospitaldb.roomreservations SET orderstatus = ? WHERE reservedby = ? AND starttime = ? ");
 
-
-
-    }else if (orderType.equals("Office")){
-      connection
-              .getConnection()
-              .prepareStatement(
-                      "UPDATE hospitaldb.officesuppliesrequests SET orderstatus  = ? WHERE orderedby = ? AND ordertime = ? ");
-    }
-    } catch(Exception e){
+      } else if (orderType.equals("Office")) {
+        connection
+            .getConnection()
+            .prepareStatement(
+                "UPDATE hospitaldb.officesuppliesrequests SET orderstatus  = ? WHERE orderedby = ? AND ordertime = ? ");
+      }
+    } catch (Exception e) {
       e.printStackTrace();
     }
-
-
-
-    }
-
-
+  }
 }
