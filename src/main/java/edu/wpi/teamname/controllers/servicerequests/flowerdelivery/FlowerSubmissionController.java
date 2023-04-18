@@ -45,7 +45,7 @@ public class FlowerSubmissionController {
 
     displayCart();
 
-    totalprice.setText("$ " + String.valueOf(NewHomeController.flowerCart.getTotalPrice()));
+    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
