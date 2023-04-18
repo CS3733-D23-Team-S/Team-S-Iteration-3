@@ -22,6 +22,7 @@ public enum Screen {
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   MAP_EDITOR("views/NewMapEditor.fxml"),
+  ADD_LOCATION("views/addLocation.fxml"),
   BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
   NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),

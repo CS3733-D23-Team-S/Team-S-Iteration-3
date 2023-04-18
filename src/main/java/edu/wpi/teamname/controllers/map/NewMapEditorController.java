@@ -4,6 +4,8 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class NewMapEditorController {
   @FXML ComboBox<String> floorSelect;
   @FXML MFXButton addNode;
   @FXML MFXButton moveNode;
-  @FXML MFXButton removeNode;
+  @FXML MFXButton addLocation;
   @FXML GesturePane mapPane;
   @FXML ToggleSwitch editToggle;
   @FXML ToggleSwitch showEdges;
@@ -58,8 +60,7 @@ public class NewMapEditorController {
   @FXML private Button addButton;
   @FXML private TextField buildingEnter;
   @FXML private TextField nodeIDEnter;
-  private int currNodeX;
-  private int currNodeY;
+
   // ______________________________________________
   EditNodeController editNodeController;
   @FXML private VBox editMenu;
@@ -68,6 +69,8 @@ public class NewMapEditorController {
   ImageView floor;
   Floor currFloor = Floor.Floor1;
   Circle prevSelection;
+  int imageX;
+  int imageY;
   private final Circle deleteReferenceCircle = new Circle(0, 0, 0, Color.TRANSPARENT);
   HashMap<Circle, Node> listOfCircles = new HashMap<>();
 
@@ -121,7 +124,7 @@ public class NewMapEditorController {
           mode = Move.MOVE;
           stopDelete();
         });
-
+    addLocation.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ADD_LOCATION));
     generateFloorNodes();
     floorSelect.setOnAction(
         event -> {
@@ -173,10 +176,7 @@ public class NewMapEditorController {
           event -> {
             if (addNodeController.checkFieldsFilled()) {
               addNode(
-                  Integer.parseInt(nodeIDEnter.getText()),
-                  currNodeX,
-                  currNodeY,
-                  buildingEnter.getText());
+                  Integer.parseInt(nodeIDEnter.getText()), imageX, imageY, buildingEnter.getText());
             }
           });
     } catch (IOException e) {
@@ -320,17 +320,19 @@ public class NewMapEditorController {
   private void resetColors() {
     addNode.setStyle("-fx-background-color: #1D3D94");
     moveNode.setStyle("-fx-background-color: #1D3D94");
-    removeNode.setStyle("-fx-background-color: #1D3D94");
+    addLocation.setStyle("-fx-background-color: #1D3D94");
   }
 
   private void updatePopOver(ContextMenuEvent event) {
+
     popOver.setTitle("Add Node?");
     nodeIDEnter.clear();
     buildingEnter.clear();
     addNodeController.getWarning().setText("");
     popOver.setContentNode(addNodeMenu);
-    currNodeX = (int) event.getX();
-    currNodeY = (int) event.getY();
+    Point2D localCoords = mapPane.getAffine().transform(event.getSceneX(), event.getSceneY());
+    imageX = (int) localCoords.getX();
+    imageY = (int) localCoords.getY();
     popOver.show(anchorPane, event.getScreenX(), event.getScreenY());
   }
 
@@ -344,6 +346,7 @@ public class NewMapEditorController {
   }
 
   private void updateNodePopOver(Circle circle) {
+
     if (mode == Move.ADD_REMOVE) {
       popOver.setTitle("Node Information");
       editNodeController.setInfo(listOfCircles.get(circle));

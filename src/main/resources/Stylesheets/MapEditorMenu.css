@@ -3,8 +3,8 @@
 }
 .combo-box {
     -fx-background-color: #1D3D94;
-    -fx-pref-width: 150;
-    -fx-cell-size: 150;
+    -fx-pref-width: 120;
+    -fx-cell-size: 120;
 }
 
 
