@@ -4,9 +4,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Getter;
 
 public class UserDAO {
-  private static final Map<String, User> users = new HashMap<>();
+  @Getter private static final Map<String, User> users = new HashMap<>();
   private static final Map<String, User> sessions = new HashMap<>();
   private static final SecureRandom random = new SecureRandom();
 
