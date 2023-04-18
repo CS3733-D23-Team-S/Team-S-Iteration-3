@@ -20,10 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -46,7 +43,6 @@ public class NewMapEditorController {
   Move mode;
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
-  FXMLLoader loader = new FXMLLoader();
   PopOver popOver = new PopOver();
 
   @FXML ComboBox<String> floorSelect;
@@ -58,12 +54,16 @@ public class NewMapEditorController {
   @FXML ToggleSwitch showEdges;
   // ______________________________________________
   AddNodeController addNodeController;
-  @FXML GridPane addNodeMenu;
+  @FXML private GridPane addNodeMenu;
   @FXML private Button addButton;
   @FXML private TextField buildingEnter;
   @FXML private TextField nodeIDEnter;
   private int currNodeX;
   private int currNodeY;
+  // ______________________________________________
+  EditNodeController editNodeController;
+  @FXML private VBox editMenu;
+
   // ______________________________________________
   ImageView floor;
   Floor currFloor = Floor.Floor1;
@@ -81,6 +81,7 @@ public class NewMapEditorController {
   public void initialize() throws IOException {
 
     initAddNodeController();
+    initEditController();
     initPopOver();
     stackPane.setPrefSize(1200.0, 742.0);
     floor = new ImageView(floor1);
@@ -104,7 +105,6 @@ public class NewMapEditorController {
         });
     showEdges.setOnMouseClicked(
         event -> {
-          edgeShow = !edgeShow;
           drawEdges();
         });
     addNode.setOnMouseClicked(
@@ -163,7 +163,7 @@ public class NewMapEditorController {
 
   private void initAddNodeController() {
     try {
-      loader.setLocation(Main.class.getResource("views/addNodePopUp.fxml"));
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/addNodePopUp.fxml"));
       addNodeMenu = loader.load();
       addNodeController = loader.getController();
       this.addButton = addNodeController.getAddButton();
@@ -179,6 +179,16 @@ public class NewMapEditorController {
                   buildingEnter.getText());
             }
           });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void initEditController() {
+    try {
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/EditNodePopOver.fxml"));
+      editMenu = loader.load();
+      editNodeController = loader.getController();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -223,7 +233,13 @@ public class NewMapEditorController {
 
   private void initCircle(Circle circle) {
     circle.setViewOrder(0);
-    //		circle.setMouseTransparent(false);
+    circle.setMouseTransparent(false);
+    circle.setOnContextMenuRequested(
+        event -> {
+          System.out.println("Circled clicked");
+          updateNodePopOver(circle);
+          event.consume();
+        });
     circle.setOnMouseClicked(
         event -> {
           circle.setStroke(Color.YELLOW);
@@ -231,7 +247,6 @@ public class NewMapEditorController {
           prevSelection.setStroke(Color.TRANSPARENT);
           prevSelection = circle;
           nodeToCircle = listOfCircles.get(circle);
-          updateNodePopOver(circle);
         });
     circle.setOnMouseDragged(
         event -> {
@@ -249,21 +264,17 @@ public class NewMapEditorController {
             anchorPane.getChildren().removeAll(lines);
             lines.clear();
             drawEdges();
+            event.consume();
           }
         });
-    circle.setOnMouseReleased(
-        event -> {
-          mapPane.setGestureEnabled(true);
-          circle.setStroke(Color.TRANSPARENT);
-        });
+    circle.setOnMouseReleased(event -> mapPane.setGestureEnabled(true));
   }
 
-  private void rightClickedCircle(Circle circle) {}
-
   private void drawEdges() {
+    edgeShow = showEdges.isSelected();
+    anchorPane.getChildren().removeAll(lines);
+    lines.clear();
     if (!edgeShow) {
-      anchorPane.getChildren().removeAll(lines);
-      lines.clear();
       return;
     }
     HashMap<Integer, HashSet<Integer>> edges = repo.getEdgeDAO().getNeighbors();
@@ -320,7 +331,7 @@ public class NewMapEditorController {
     popOver.setContentNode(addNodeMenu);
     currNodeX = (int) event.getX();
     currNodeY = (int) event.getY();
-    popOver.show(mapPane, currNodeX, currNodeY);
+    popOver.show(anchorPane, event.getScreenX(), event.getScreenY());
   }
 
   private void initPopOver() {
@@ -335,6 +346,8 @@ public class NewMapEditorController {
   private void updateNodePopOver(Circle circle) {
     if (mode == Move.ADD_REMOVE) {
       popOver.setTitle("Node Information");
+      editNodeController.setInfo(listOfCircles.get(circle));
+      popOver.setContentNode(editMenu);
       popOver.show(circle);
       editingNodes = true;
     }
