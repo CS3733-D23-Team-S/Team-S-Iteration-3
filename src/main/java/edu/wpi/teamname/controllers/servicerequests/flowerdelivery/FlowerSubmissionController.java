@@ -26,7 +26,6 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
   public static String deliveryRoom;
-
   @FXML MFXButton clearbutton;
   @FXML Text descriptiontext;
   @FXML SearchableComboBox employeedrop;
@@ -108,7 +107,6 @@ public class FlowerSubmissionController {
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
     clearbutton.setOnMouseClicked(event -> clearFields());
 
-    // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
@@ -160,12 +158,6 @@ public class FlowerSubmissionController {
 
       price.setText("$ " + String.format("%.02f", flower.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
-
-      /*message.setText(String.valueOf(flower.getMessage()));
-      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
-
-      /*recipientLabel.setText(String.valueOf(recipient));
-      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
 
       itemvbox.getChildren().add(newRow);
       itemvbox.setSpacing(20);
