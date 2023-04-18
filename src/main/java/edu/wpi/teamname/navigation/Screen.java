@@ -5,7 +5,7 @@ public enum Screen {
   WELCOME_PAGE("views/WelcomePage.fxml"),
   LOGIN_PAGE("views/LoginPage.fxml"),
   HOME("views/NewHomepage.fxml"),
-  MEAL_DELIVERY1("views/MealDelivery/MealDelivery.fxml"),
+  MEAL_DELIVERY1("views/MealDelivery/MealDelivery1.fxml"),
   SERVICE_REQUEST("views/ServiceRequestPages/ServiceRequest.fxml"),
   ROOM_BOOKING("views/RoomReservation/RoomBooking.fxml"),
   ROOM_BOOKING_DETAILS("views/RoomReservation/RoomBookingDetails.fxml"),
@@ -44,7 +44,9 @@ public enum Screen {
   OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),
 
-  NEW_USER("views/newUserPopUp.fxml");
+  NEW_USER("views/newUserPopUp.fxml"),
+
+  STAFF("views/StaffPage.fxml");
 
   private final String filename;
 

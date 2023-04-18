@@ -1,6 +1,7 @@
 package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.App;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.controllers.PopUpController;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 
 public class Navigation {
   private BorderPane originalRootPane = App.getRootPane();
+  User user;
 
   public static void navigate(final Screen screen) {
     final String filename = screen.getFilename();
@@ -19,9 +21,9 @@ public class Navigation {
       final FXMLLoader loader = new FXMLLoader(resource);
 
       App.getRootPane().setCenter(loader.load());
-      if (filename.equals("views/SignagePage.fxml")
-          || filename.equals("views/LoginPage.fxml")
-          || ActiveUser.getInstance().getCurrentUser() == null) {
+      if (filename.equals("views/SignagePage.fxml") || filename.equals("views/LoginPage.fxml")
+      /*|| (filename.equals("views/Pathfinding.fxml"))
+      && (ActiveUser.getInstance().getCurrentUser() == null)*/ ) {
         App.getRootPane().setTop(null);
         App.getRootPane().setLeft(null);
       } else {

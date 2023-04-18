@@ -1,0 +1,23 @@
+.Button {
+    -fx-background-color: #CAD6F8;
+    -fx-border-radius: 2;
+    -fx-border-color: #000000;
+
+}
+
+
+
+     #serviceDeliveryType {
+         -fx-alignment: LEFT;
+         /-fx-font-size: 18;
+     }
+
+     #date {
+         -fx-alignment: LEFT;
+         /-fx-font-size: 18;
+     }
+
+     #status {
+         -fx-alignment: LEFT;
+         /-fx-font-size: 18;
+ }
