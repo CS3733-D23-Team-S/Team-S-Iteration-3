@@ -2,13 +2,14 @@ package edu.wpi.teamname.DAOs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import lombok.Getter;
 
 public class dbConnection {
   private static dbConnection single_instance;
 
   Connection c;
-  final String schemaName = "hospitaldb";
+  final String schemaName = "hospitaldb2";
   @Getter final String nodeTable = schemaName + "." + "nodes";
   @Getter final String edgesTable = schemaName + "." + "edges";
   @Getter final String moveTable = schemaName + "." + "moves";
@@ -30,6 +31,8 @@ public class dbConnection {
       String user = "teams";
       String password = "teams160";
       c = DriverManager.getConnection(url, user, password);
+      PreparedStatement stmt = c.prepareStatement("CREATE SCHEMA IF NOT EXISTS " + schemaName);
+      stmt.execute();
     } catch (Exception e) {
       e.printStackTrace();
       System.err.println(e.getClass().getName() + ": " + e.getMessage());

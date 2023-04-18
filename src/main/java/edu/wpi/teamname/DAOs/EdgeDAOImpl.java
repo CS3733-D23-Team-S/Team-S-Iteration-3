@@ -28,13 +28,17 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   @Override
   public void initTable(String name) {
     this.name = name;
-    String edgeTable =
-        "CREATE TABLE IF NOT EXISTS "
-            + name
-            + " (startNode int FOREIGN KEY, endNode int FOREIGN KEY)";
     try {
-      Statement stmt = connection.getConnection().createStatement();
-      stmt.execute(edgeTable);
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "CREATE TABLE IF NOT EXISTS "
+                      + name
+                      + " (startNode int, endNode int, "
+                      + "FOREIGN KEY (startNode) REFERENCES hospitaldb2.nodes(nodeID)ON DELETE CASCADE, "
+                      + "FOREIGN KEY (endNode) REFERENCES hospitaldb2.nodes(nodeID) ON DELETE CASCADE)");
+      stmt.execute();
       System.out.println("Created the edge table");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -99,7 +103,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Override
   public Edge get(Edge target) {
-    return null;
+    return target;
+  }
+
+  public HashSet<Integer> getNeighbors(int targetID) {
+    return neighbors.get(targetID);
   }
 
   /**
@@ -121,6 +129,9 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   @Override
   public void add(Edge addition) {
     edges.add(addition);
+    getNeighbors().get(addition.getStartNode().getNodeID()).add(addition.getEndNode().getNodeID());
+    getNeighbors().get(addition.getEndNode().getNodeID()).add(addition.getStartNode().getNodeID());
+    ;
   }
 
   public void add(Node stN, Node enN) {
@@ -133,7 +144,9 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     neighbors.put(emptyEdge.getNodeID(), neighs);
   }
 
-  private void constructFromRemote() {
+  void constructFromRemote() {
+    edges.clear();
+    neighbors.clear();
     try {
       PreparedStatement getNeighbors =
           connection.getConnection().prepareStatement("SELECT * FROM " + name);
@@ -157,6 +170,7 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
       for (int currentID : neighbors.keySet()) {
         neighbors.get(currentID).remove(currentID);
       }
+      System.out.println("Successfully loaded from the edges remote");
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());

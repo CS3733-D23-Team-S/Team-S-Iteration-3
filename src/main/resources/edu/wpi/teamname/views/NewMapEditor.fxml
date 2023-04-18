@@ -36,7 +36,7 @@
                   <Insets />
                </GridPane.margin>
             </Text>
-            <MFXButton fx:id="moveNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Edit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <MFXButton fx:id="moveNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Move" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font name="Open Sans SemiBold" size="18.0" />
                </font>

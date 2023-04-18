@@ -1,5 +1,6 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.sql.*;
@@ -21,7 +22,6 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
     this.name = name;
     try {
       Statement st = connection.getConnection().createStatement();
-
       String foodRequestsTableConstruct =
           "CREATE TABLE IF NOT EXISTS "
               + name
@@ -36,8 +36,8 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               + "Status Varchar(100),"
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
-              + "foreign key (location) references "
-              + "hospitaldb.locations(longname) ON DELETE CASCADE)";
+              + "foreign key (location) REFERENCES "
+              + "hospitaldb2.locations(longname) ON DELETE CASCADE)";
 
       st.execute(foodRequestsTableConstruct);
       System.out.println("Created the foodRequest table");

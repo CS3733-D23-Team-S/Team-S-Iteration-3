@@ -32,14 +32,17 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void initTable(String name) {
     this.name = name;
-    String moveTable =
-        "CREATE TABLE IF NOT EXISTS "
-            + name
-            + " "
-            + "(nodeID int FOREIGN KEY, location varchar(100) UNIQUE, date DATE)";
     try {
-      Statement stmt = connection.getConnection().createStatement();
-      stmt.execute(moveTable);
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "CREATE TABLE IF NOT EXISTS "
+                      + name
+                      + " (nodeID int, location varchar(100), date DATE, FOREIGN KEY (nodeID) "
+                      + "REFERENCES hospitaldb2.nodes(nodeID) ON DELETE CASCADE)");
+
+      stmt.execute();
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println("Error with creating the node table");
@@ -179,7 +182,10 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  private void constructFromRemote() {
+  void constructFromRemote() {
+    listOfMoves.clear();
+    locationsAtNodeID.clear();
+    locationMoveHistory.clear();
     if (!listOfMoves.isEmpty()) {
       System.out.println("There is already stuff in the orm database");
       return;
@@ -211,6 +217,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         }
         listOfMoves.add(thisMove);
       }
+      System.out.println("Successfully loaded from the moves remote");
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
