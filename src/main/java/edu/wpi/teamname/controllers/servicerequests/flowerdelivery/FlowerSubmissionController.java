@@ -26,7 +26,6 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerSubmissionController {
   public static String deliveryRoom;
-
   @FXML MFXButton clearbutton;
   @FXML Text descriptiontext;
   @FXML SearchableComboBox employeedrop;
@@ -44,9 +43,45 @@ public class FlowerSubmissionController {
 
   public void initialize() {
 
+    submitbutton.setDisable(true);
+
+    employeedrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    locationdrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    requestfield
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
     displayCart();
 
-    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
+    totalprice.setText(
+        "$ " + String.format("%.02f", FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -106,8 +141,6 @@ public class FlowerSubmissionController {
 
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
     clearbutton.setOnMouseClicked(event -> clearFields());
-
-    // submitreqbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_REQTABLE));
   }
 
   public void displayCart() {
@@ -134,7 +167,7 @@ public class FlowerSubmissionController {
 
       VBox itemInfo = new VBox();
       itemInfo.setSpacing(20);
-      itemInfo.setMaxWidth(1000);
+      itemInfo.setPrefWidth(800);
       itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
@@ -152,19 +185,13 @@ public class FlowerSubmissionController {
 
       description.setText(flower.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
 
       quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans;");
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
 
-      price.setText(String.valueOf("$ " + flower.getPrice()));
-      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
-
-      /*message.setText(String.valueOf(flower.getMessage()));
-      message.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
-
-      /*recipientLabel.setText(String.valueOf(recipient));
-      recipientLabel.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");*/
+      price.setText("$ " + String.format("%.02f", flower.getPrice()));
+      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
 
       itemvbox.getChildren().add(newRow);
       itemvbox.setSpacing(20);
@@ -173,7 +200,6 @@ public class FlowerSubmissionController {
 
       itemInfo.getChildren().add(name);
       itemInfo.getChildren().add(description);
-      description.setStyle("-fx-wrap-text: true;");
       itemInfo.getChildren().add(priceQ);
 
       priceQ.getChildren().add(price);
@@ -183,5 +209,7 @@ public class FlowerSubmissionController {
 
   public void clearFields() {
     requestfield.clear();
+    employeedrop.valueProperty().set(null);
+    locationdrop.valueProperty().set(null);
   }
 }

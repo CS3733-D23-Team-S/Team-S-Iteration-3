@@ -53,10 +53,13 @@
             </Text>
             <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="7">
                <GridPane.margin>
-                  <Insets right="130.0" />
+                  <Insets right="140.0" />
                </GridPane.margin>
                <content>
-                  <VBox fx:id="itemvbox" />
+                  <VBox fx:id="itemvbox">
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding></VBox>
                </content>
             </ScrollPane>
             <VBox fx:id="sidepanel" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
