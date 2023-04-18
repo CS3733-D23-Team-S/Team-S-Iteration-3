@@ -52,7 +52,7 @@
                               <Insets right="880.0" />
                            </HBox.margin>
                         </Text>
-                            <MFXButton fx:id="viewcartbutton" alignment="CENTER" minWidth="150.0" prefWidth="150.0" styleClass="viewcartbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER" textFill="WHITE">
+                            <MFXButton fx:id="viewcartbutton" alignment="CENTER" minWidth="150.0" prefWidth="150.0" styleClass="viewcartbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER" textFill="WHITE">
                                 <font>
                                     <Font size="24.0" />
                                 </font>
@@ -67,7 +67,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" spacing="20.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -83,7 +83,7 @@
                               <Insets left="500.0" />
                            </HBox.margin>
                         </Text>
-                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Size">
+                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size">
                           <items>
                             <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
                             <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
@@ -96,7 +96,7 @@
                               <Insets />
                            </HBox.margin>
                         </MenuButton>
-                        <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Price">
+                        <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Price">
                           <items>
                             <MenuItem mnemonicParsing="false" text="\$50" />
                             <MenuItem mnemonicParsing="false" text="\$100" />
@@ -109,7 +109,7 @@
                               <Insets />
                            </HBox.margin>
                         </MenuButton>
-                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Clear FIlters">
+                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="150.0" prefHeight="40.0" prefWidth="150.0" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear FIlters">
                            <font>
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
@@ -124,7 +124,7 @@
                   </HBox>
                </children>
             </VBox>
-            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
+            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="670.0" prefWidth="1450.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
           </children>
          <effect>
             <Blend />

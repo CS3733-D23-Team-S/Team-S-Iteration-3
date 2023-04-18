@@ -11,9 +11,9 @@ import lombok.Setter;
 
 public class AStar {
 
-  @Getter @Setter NodeDAOImpl nodeDAO;
-  @Getter @Setter EdgeDAOImpl edgeDAO;
-  @Getter @Setter MoveDAOImpl moveDAO;
+  @Getter @Setter private NodeDAOImpl nodeDAO;
+  @Getter @Setter private EdgeDAOImpl edgeDAO;
+  @Getter @Setter private MoveDAOImpl moveDAO;
 
   public AStar() {
     this.nodeDAO = DataBaseRepository.getInstance().getNodeDAO();

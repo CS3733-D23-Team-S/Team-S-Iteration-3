@@ -30,7 +30,7 @@
     </rowConstraints>
     <children>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-      <TableView fx:id="mealRequestsTable" prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/SubmitMealRequestsPage.css" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
+      <TableView fx:id="mealRequestsTable" prefHeight="595.0" prefWidth="1360.0" stylesheets="@../../../../../Stylesheets/SubmitMealRequestsPage.css" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="7">
         <columns>
           <TableColumn fx:id="mealID" prefWidth="280.0" text="Meal ID" />
           <TableColumn fx:id="orderTime" prefWidth="300.0" text="Order Time" />

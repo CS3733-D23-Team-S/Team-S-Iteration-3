@@ -15,8 +15,7 @@
 <?import org.controlsfx.control.CheckComboBox?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
+<GridPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1229.7825927734375" minWidth="10.0" percentWidth="80.0" prefWidth="1229.7825927734375" />
@@ -39,7 +38,7 @@
                       <Font name="Arial" size="42.0" />
                   </font>
               </TextField2TableCell>
-            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1280.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="1280.0">
                <children>
                     <TextFieldTableCell fx:id="dateHeaderTextField" editable="false" prefHeight="48.0" prefWidth="236.0" text="Monday, March 1" wrapText="true">
                         <font>
@@ -66,7 +65,7 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane prefWidth="1523.0" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+      <ScrollPane fx:id="scrollPane" prefWidth="1500.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
          <GridPane.margin>
             <Insets top="30.0" />
          </GridPane.margin>
@@ -75,7 +74,7 @@
          </content>
       </ScrollPane>
       <TextField2TableCell fx:id="currentDateText" GridPane.columnIndex="1" />
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="48.0" prefWidth="419.0" GridPane.columnIndex="2">
+      <HBox alignment="CENTER_RIGHT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="419.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <children>
               <MFXButton fx:id="addMeetingButton" onMouseClicked="#initialize" prefHeight="46.0" prefWidth="173.0" style="-fx-background-color: #1d3d94;" text="+ Add Meeting" textFill="WHITE">
                   <font>

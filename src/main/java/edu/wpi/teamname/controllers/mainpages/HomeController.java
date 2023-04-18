@@ -109,7 +109,7 @@ public class HomeController {
   }
 
   public void goToMealPage() {
-    Navigation.navigate(Screen.MEAL_DELIVERY);
+    Navigation.navigate(Screen.MEAL_DELIVERY1);
   }
 
   public void goToLoginPage() {

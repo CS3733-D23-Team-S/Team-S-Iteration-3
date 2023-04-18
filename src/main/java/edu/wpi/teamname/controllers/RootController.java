@@ -4,64 +4,81 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 public class RootController {
+
+  // menu items
+  @FXML Pane menunavigation;
+  @FXML Pane menusignage;
+  @FXML Pane menumeal;
+  @FXML Pane menuroom;
+  @FXML Pane menuflower;
+  @FXML Pane menuoffice;
+
+  // icons
+  @FXML ImageView navIcon;
+  @FXML ImageView signageIcon;
+  @FXML ImageView mealIcon;
+  @FXML ImageView roomIcon;
+  @FXML ImageView flowerIcon;
+  @FXML ImageView menuIcon;
+
+  // top bar icons
+  @FXML ImageView homeLogo1;
+  @FXML ImageView homeLogo2;
   @FXML ImageView homeIcon;
   @FXML ImageView userIcon;
   @FXML ImageView exitIcon;
   @FXML ImageView backIcon;
-  @FXML Label navLabel;
-  @FXML Label signageLabel;
-  @FXML Label mealLabel;
-  @FXML Label roomLabel;
-  @FXML Label flowerLabel;
-  @FXML ImageView helpIcon;
+
+  String backPath = "views/Home.fxml";
 
   public void initialize() {
-    homeIcon.setOnMouseClicked(event -> gotoHomePage());
-    exitIcon.setOnMouseClicked(event -> exitApp());
-    // backIcon.setOnMouseClicked(event -> back());
-    navLabel.setOnMouseClicked(event -> gotoNavigation());
-    signageLabel.setOnMouseClicked(event -> gotoSignage());
-    mealLabel.setOnMouseClicked(event -> gotoMealRequest());
-    roomLabel.setOnMouseClicked(event -> gotoRoomBooking());
-    flowerLabel.setOnMouseClicked(event -> gotoFlowerRequest());
-    helpIcon.setOnMouseClicked(event -> gotoHelpPage());
-  }
 
-  public void gotoHomePage() {
-    Navigation.navigate(Screen.HOME);
-  }
+    menunavigation.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
+    menusignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
+    menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
+    menuroom.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    menuflower.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    menuoffice.setOnMouseClicked(event -> Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY));
 
-  public void exitApp() {
-    Platform.exit();
-  }
-
-  // public void back(){Navigation.navigate(Screen.);}
-  // depends on each page
-  public void gotoNavigation() {
-    Navigation.navigate(Screen.PATHFINDING);
-  }
-
-  public void gotoSignage() {
-    Navigation.navigate(Screen.SIGNAGE_PAGE);
-  }
-
-  public void gotoMealRequest() {
-    Navigation.navigate(Screen.MEAL_DELIVERY1);
-  }
-
-  public void gotoRoomBooking() {
-    Navigation.navigate(Screen.ROOM_BOOKING);
-  }
-
-  public void gotoFlowerRequest() {
-    Navigation.navigate(Screen.FLOWER_DELIVERY);
-  }
-
-  public void gotoHelpPage() {
-    Navigation.navigate(Screen.HELP_PAGE);
+    homeLogo1.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    homeLogo2.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    homeIcon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    userIcon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+          event.consume();
+        });
+    exitIcon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Platform.exit();
+          event.consume();
+        });
+    backIcon.addEventHandler(
+        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.valueOf(backPath));
+          event.consume();
+        });
   }
 }

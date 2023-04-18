@@ -2,11 +2,11 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.navigation.Screen.*;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
-import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -38,12 +38,15 @@ public class FlowerSubmissionController {
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
+  @FXML Label totalprice;
   @FXML MFXScrollPane scroll;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 
     displayCart();
+
+    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -71,15 +74,15 @@ public class FlowerSubmissionController {
 
             FlowerDelivery currentFlowDev =
                 new FlowerDelivery(
-                    NewHomeController.flowDevID++,
-                    NewHomeController.flowerCart.toString(),
+                    FlowerDeliveryController.flowDevID++,
+                    FlowerDeliveryController.flowerCart.toString(),
                     d,
                     t,
                     deliveryRoom,
-                    "Abraham Lincoln",
+                    ActiveUser.getInstance().getCurrentUser().getUserName(),
                     Emp,
                     stat,
-                    NewHomeController.flowerCart.getTotalPrice(),
+                    FlowerDeliveryController.flowerCart.getTotalPrice(),
                     n);
 
             dbr.getFlowerDeliveryDAO().add(currentFlowDev);
@@ -109,31 +112,33 @@ public class FlowerSubmissionController {
 
   public void displayCart() {
     System.out.println("Displaying flowers");
-    System.out.println(NewHomeController.flowerCart.getCartItems().get(0));
+    System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
 
-    for (Flower flower : NewHomeController.flowerCart.getCartItems()) {
+    for (Flower flower : FlowerDeliveryController.flowerCart.getCartItems()) {
 
       System.out.println("works");
 
       HBox newRow = new HBox();
-      newRow.setSpacing(100);
+      newRow.setSpacing(50);
       newRow.setMaxHeight(300);
       newRow.setMaxWidth(1000);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
       flowerImage.setImage(image);
+      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
 
       flowerImage.setFitHeight(160);
       flowerImage.setFitWidth(160);
       flowerImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(30);
+      itemInfo.setSpacing(20);
       itemInfo.setMaxWidth(1000);
+      itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(20);
+      priceQ.setSpacing(30);
       priceQ.setMaxWidth(1000);
 
       Label name = new Label();
@@ -147,10 +152,10 @@ public class FlowerSubmissionController {
 
       description.setText(flower.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
-      quantity.setText(String.valueOf(flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
+      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans;");
 
       price.setText(String.valueOf("$ " + flower.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");

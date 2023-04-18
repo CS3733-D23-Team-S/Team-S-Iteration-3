@@ -198,7 +198,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Override
   public void add(FlowerDelivery request) {
-    System.out.println("Here in add");
+
     requests.put(request.getID(), request);
     try {
       PreparedStatement preparedStatement =

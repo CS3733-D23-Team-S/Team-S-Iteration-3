@@ -71,7 +71,7 @@
                               <Insets right="260.0" />
                            </HBox.margin>
                         </Text>
-                        <Label style="-fx-font-weight: bold;" text="PRICE">
+                        <Label fx:id="totalprice" style="-fx-font-weight: bold;" text="PRICE">
                            <font>
                               <Font name="Open Sans Regular" size="24.0" />
                            </font>
@@ -89,7 +89,7 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Text>
-                  <SearchableComboBox fx:id="employeedrop" minHeight="40.0" prefHeight="40.0" promptText="Employee" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                  <SearchableComboBox fx:id="employeedrop" minHeight="40.0" prefHeight="40.0" promptText="Employee" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -102,7 +102,7 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Text>
-                  <SearchableComboBox fx:id="locationdrop" minHeight="40.0" prefHeight="40.0" promptText="Location" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                  <SearchableComboBox fx:id="locationdrop" minHeight="40.0" prefHeight="40.0" promptText="Location" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -115,7 +115,7 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Text>
-                  <MFXTextField fx:id="requestfield" alignment="TOP_LEFT" minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" promptText="type here" styleClass="searchelements" stylesheets="@../../../../Stylesheets/FlowerPage.css">
+                  <MFXTextField fx:id="requestfield" alignment="TOP_LEFT" minHeight="300.0" minWidth="500.0" prefHeight="300.0" prefWidth="500.0" promptText="type here" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -125,12 +125,12 @@
                   </MFXTextField>
                   <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="448.0" spacing="20.0">
                      <children>
-                        <MFXButton fx:id="submitbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="submitbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Submit" textAlignment="CENTER" textFill="WHITE">
+                        <MFXButton fx:id="submitbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="submitbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Submit" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="clearbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="clearbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Clear" textAlignment="CENTER">
+                        <MFXButton fx:id="clearbutton" alignment="CENTER" minWidth="100.0" prefWidth="100.0" styleClass="clearbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear" textAlignment="CENTER">
                            <font>
                               <Font size="20.0" />
                            </font>
