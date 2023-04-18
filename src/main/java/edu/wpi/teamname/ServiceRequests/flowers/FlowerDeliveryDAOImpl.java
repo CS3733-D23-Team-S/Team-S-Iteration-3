@@ -1,17 +1,16 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import lombok.Getter;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+import lombok.Getter;
 
 public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
@@ -228,8 +227,14 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + allRequestTable
-                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) "
-                      + "SELECT requestType, room, ordertime, assignedto, orderedby, orderstatus from flowerrequests");
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
+                      + " (?, ?, ?, ?, ?, ?)");
+      preparedStatement2.setString(1, "Flower");
+      preparedStatement2.setString(2, request.getRoom());
+      preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
+      preparedStatement2.setString(4, request.getAssignedTo());
+      preparedStatement2.setString(5, request.getOrderedBy());
+      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();

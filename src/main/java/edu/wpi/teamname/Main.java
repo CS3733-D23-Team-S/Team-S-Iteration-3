@@ -25,6 +25,7 @@ public class Main {
             "Yes",
             "staff",
             true);
+    roomRequestDAO.add(confRoomRequest);
 
     System.out.println(
         roomRequestDAO.hasConflicts(
@@ -33,7 +34,7 @@ public class Main {
             LocalTime.of(14, 45),
             LocalTime.of(15, 10)));
 
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
     // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     dbConnection.getInstance().getConnection().close();

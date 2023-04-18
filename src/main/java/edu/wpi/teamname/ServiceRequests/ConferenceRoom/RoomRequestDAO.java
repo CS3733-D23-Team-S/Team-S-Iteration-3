@@ -1,11 +1,11 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.Location;
+import lombok.Getter;
+
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,7 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.Getter;
+
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
@@ -82,7 +83,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
       preparedStatement.setString(10, request.getOrderStatus().name()); // TODO fix
       preparedStatement.setString(11, request.getNotes());
       preparedStatement.setBoolean(12, request.isPrivate());
-      preparedStatement.setString(13, "Food");
+      preparedStatement.setString(13, "Room");
       preparedStatement.executeUpdate();
 
       PreparedStatement preparedStatement2 =
@@ -91,11 +92,14 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
               .prepareStatement(
                   "INSERT INTO "
                       + allRequestTable
-                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) "
-                      + "SELECT requestType, room, starttime, assignedto, reservedby, orderstatus from roomreservations");
-      preparedStatement.setString(1, "Food");
-      preparedStatement.setString(2, request.getRoom());
-      preparedStatement.setTime(3, Time.valueOf((request.getStartTime())));
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
+                      + " (?, ?, ?, ?, ?, ?)");
+      preparedStatement2.setString(1, "Room");
+      preparedStatement2.setString(2, request.getRoom());
+      preparedStatement2.setTime(3, Time.valueOf((request.getStartTime())));
+      preparedStatement2.setString(4, request.getAssignedTo());
+      preparedStatement2.setString(5, request.getReservedBy());
+      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
       preparedStatement2.executeUpdate();
       requests.add(request);
       //      preparedStatement.executeUpdate();
