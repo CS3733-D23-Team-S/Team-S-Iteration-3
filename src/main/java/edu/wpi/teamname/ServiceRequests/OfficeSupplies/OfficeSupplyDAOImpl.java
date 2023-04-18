@@ -3,7 +3,6 @@ package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
 import java.io.*;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -147,8 +146,8 @@ public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (officesupplyid, name, price, description, quantity, issoldout, image)"
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?)");
+                      + " (officesupplyid, name, price, description, quantity, issoldout, image, requestType)"
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, addition.getOfficesupplyid());
       preparedStatement.setString(2, addition.getName());
       preparedStatement.setDouble(3, addition.getPrice());
@@ -156,6 +155,7 @@ public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
       preparedStatement.setInt(5, addition.getQuantity());
       preparedStatement.setBoolean(6, addition.isSoldOut());
       preparedStatement.setString(7, addition.getImage());
+      preparedStatement.setString(8, "Office");
 
       preparedStatement.executeUpdate();
 
