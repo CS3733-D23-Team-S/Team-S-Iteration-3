@@ -29,7 +29,7 @@ public class OfficeSuppliesController {
   public void initialize() {
 
     officeSupplyCart = new OfficeSupplyCart(cartID++);
-    officeSupplyID = dbr.getOfficeSupplyDAO().getSupplies().size();
+    officeSupplyID = dbr.getOfficeSupplyDeliveryDAO().getRequests().size();
 
     viewcart.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_CART));
 
