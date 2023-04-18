@@ -41,6 +41,40 @@ public class OfficeSuppliesSubmissionController {
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
+    submitbutton.setDisable(true);
+
+    employeedrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    locationdrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    requestfield
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitbutton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
 
     displayCart();
 
