@@ -1,16 +1,20 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
 import java.io.*;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
 public class UserDAOImpl implements IDAO<User, String> {
 
-  private dbConnection connection;
+  private final dbConnection connection;
 
   @Getter private HashMap<String, User> listOfUsers = new HashMap<>();
   @Getter private String name;
@@ -20,7 +24,7 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username
+   * @param username the username entered by the user
    * @return true if user exists, false if otherwise
    */
   private boolean checkIfUserExists(String username) {
@@ -28,8 +32,8 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   /**
-   * @param username
-   * @param password
+   * @param username the username of the new account
+   * @param password the password of the new account
    * @return false if user already exists, true if user is made successfully
    */
   public boolean createLoginInfo(String username, String password) {
@@ -48,9 +52,10 @@ public class UserDAOImpl implements IDAO<User, String> {
                       + "(?, ?, ?)");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
-      preparedStatement.setInt(3, User.Permission.STAFF.ordinal());
-      User user = new User(username, password, User.Permission.STAFF);
+      preparedStatement.setInt(3, Permission.STAFF.ordinal());
+      User user = new User(username, password, Permission.STAFF);
       listOfUsers.put(username, user);
+
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -76,15 +81,18 @@ public class UserDAOImpl implements IDAO<User, String> {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String loginTableConstruct =
-          "CREATE TYPE permissionLevel AS ENUM"
-              + " ('admin','general','guest') AND CREATE TABLE IF NOT EXISTS "
+          //          "CREATE TYPE permissionLevel AS ENUM"
+          //              + " ('admin','general','guest') AND
+          "CREATE TABLE IF NOT EXISTS "
               + name
               + " (username varchar(100) UNIQUE PRIMARY KEY, "
               + "password varchar(100) NOT NULL, "
-              + "permission permissionLevel)";
+              + "permission int)";
       stmt.execute(loginTableConstruct);
-      User admin = new User("admin", "admin", User.Permission.ADMIN);
+      User admin = new User("admin", "admin", Permission.ADMIN);
+      User staff = new User("staff", "staff", Permission.STAFF);
       listOfUsers.put("admin", admin);
+      listOfUsers.put("staff", staff);
       ResultSet checkExists =
           connection.getConnection().createStatement().executeQuery("SELECT  * FROM " + name);
       if (checkExists.next()) return;
@@ -94,9 +102,18 @@ public class UserDAOImpl implements IDAO<User, String> {
               + name
               + " (username, password, permission) VALUES "
               + "('admin','admin',"
-              + User.Permission.ADMIN.ordinal()
+              + Permission.ADMIN.ordinal()
               + ")";
       stmt.executeUpdate(addAdmin);
+
+      String addStaff =
+          "INSERT INTO "
+              + name
+              + " (username, password, permission) VALUES "
+              + "('staff','staff',"
+              + Permission.STAFF.ordinal()
+              + ")";
+      stmt.executeUpdate(addStaff);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -159,7 +176,7 @@ public class UserDAOImpl implements IDAO<User, String> {
   }
 
   @Override
-  public User getRow(String target) {
+  public User get(String target) {
     return null;
   }
 
@@ -185,7 +202,7 @@ public class UserDAOImpl implements IDAO<User, String> {
       while (data.next()) {
         String username = data.getString("username");
         String password = data.getString("password");
-        User.Permission permission = User.Permission.values()[data.getInt("permission")];
+        Permission permission = Permission.values()[data.getInt("permission")];
         Floor floor = Floor.values()[data.getInt("Floor")];
         String building = data.getString("Building");
         User newUser = new User(username, password, permission);
@@ -218,7 +235,7 @@ public class UserDAOImpl implements IDAO<User, String> {
           stmt.setInt(3, Integer.parseInt(fields[2]));
           stmt.executeUpdate();
           User newUser =
-              new User(fields[0], fields[1], User.Permission.values()[Integer.parseInt(fields[2])]);
+              new User(fields[0], fields[1], Permission.values()[Integer.parseInt(fields[2])]);
           listOfUsers.put(fields[0], newUser);
         }
       } catch (SQLException e) {

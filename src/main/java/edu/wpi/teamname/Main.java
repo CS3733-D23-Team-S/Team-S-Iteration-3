@@ -2,51 +2,39 @@ package edu.wpi.teamname;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.dbConnection;
-import java.sql.SQLException;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Main {
 
-  public static void main(String[] args) throws SQLException {
+  public static void main(String[] args) throws Exception {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
-    //    EdgeDAOImpl edgeDAO = database.getEdgeDAO();
-    //    System.out.println(edgeDAO.getNeighbors());
-    //    AStar astar = new AStar();
-    //    astar.findPath(870, 850);
-    //    for (int key : DataBaseRepository.getInstance().getEdgeDAO().getNeighbors().keySet()) {
-    //      System.out.print(key);
-    //      System.out.print("\t Neighbors:\t");
-    //      System.out.println(
-    //          DataBaseRepository.getInstance().getEdgeDAO().getNeighbors().get(key).toString());
-    //    }
+
+    RoomRequestDAO roomRequestDAO = database.getRoomRequestDAO();
+    ConfRoomRequest confRoomRequest =
+        new ConfRoomRequest(
+            LocalDate.of(2023, 4, 17),
+            LocalTime.of(14, 45),
+            LocalTime.of(15, 10),
+            "BTM Conference Center",
+            "staff",
+            "nothing",
+            "Yes",
+            "staff",
+            true);
+
+    System.out.println(
+        roomRequestDAO.hasConflicts(
+            "BTM Conference Center",
+            LocalDate.of(2023, 4, 17),
+            LocalTime.of(14, 45),
+            LocalTime.of(15, 10)));
 
     App.launch(App.class, args);
-    // Debugging stuff in order to check everything looks about right
-
-    //    LocalDate startDate = LocalDate.of(2022, 5, 13);
-    //    LocalTime startTime = LocalTime.of(14, 50);
-    //    LocalTime endTime = LocalTime.of(15, 35);
-    //
-    //    ConfRoomRequest confRoomRequest =
-    //        new ConfRoomRequest(
-    //            LocalDate.of(2022, 5, 13),
-    //            LocalTime.of(14, 45),
-    //            LocalTime.of(15, 10),
-    //            "BTM Conference Center",
-    //            "staff",
-    //            "nothing",
-    //            "Yes",
-    //            "staff");
-    //    database.getRoomRequestDAO().add(confRoomRequest);
-    //    RoomRequestDAO roomRequestDAO = database.getRoomRequestDAO();
-    //    ConfRoomDAO confRoomDAO = database.getConfRoomDAO();
-    //    ArrayList<ConfRoomLocation> roomLocations = new ArrayList<>();
-    //    System.out.println(roomRequestDAO.getAll());
-    //    App.launch(App.class, args);
-    //
-    //    System.out.println(roomLocations);
-
-    // Debugging stuff in order to check everything looks about right
+    // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     dbConnection.getInstance().getConnection().close();
     //    for (int key : NodeDaoImpl.getInstance().getNodes().keySet())

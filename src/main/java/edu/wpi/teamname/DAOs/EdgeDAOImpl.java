@@ -17,7 +17,7 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Getter private String name;
   @Getter private final String CSVheader = "startNode,endNode";
-  private dbConnection connection;
+  private final dbConnection connection;
   List<Edge> edges = new ArrayList<>();
   @Getter HashMap<Integer, HashSet<Integer>> neighbors = new HashMap<>();
 
@@ -94,18 +94,19 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     return edges;
   }
 
+  @Override
+  public Edge get(Edge target) {
+    return null;
+  }
+
   /**
    * This is not finished since this is going to take a lot of manipulation
    *
    * @param target the edge to delete
    */
   @Override
-  public Edge getRow(Edge target) {
-    return null;
-  }
-
-  @Override
   public void delete(Edge target) {
+
     edges.remove(target);
   }
 
@@ -119,50 +120,34 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     edges.add(addition);
   }
 
-  public void add(int stN, int enN) {
+  public void add(Node stN, Node enN) {
     Edge addition = new Edge(stN, enN);
     add(addition);
   }
 
   private void constructFromRemote() {
     try {
-      Statement stmt = connection.getConnection().createStatement();
-      // String getNodes = "SELECT DISTINCT startNode FROM " + name;
-      List<Node> listOfNodes = DataBaseRepository.getInstance().getNodeDAO().getAll();
       PreparedStatement getNeighbors =
-          connection
-              .getConnection()
-              .prepareStatement("SELECT * FROM " + name + " WHERE startNode=? OR endNode=?");
-      try {
-        //        ResultSet listOfNodes = stmt.executeQuery(getNodes);
-        for (Node currentNode : listOfNodes) {
-          int currentNodeID = currentNode.getNodeID();
-          getNeighbors.setInt(1, currentNodeID);
-          getNeighbors.setInt(2, currentNodeID);
-          ResultSet data = getNeighbors.executeQuery();
-          HashSet<Integer> neighbors = new HashSet<>();
-          while (data.next()) {
-            neighbors.add(data.getInt("endNode"));
-            neighbors.add(data.getInt("startNode"));
-          }
-          neighbors.remove(currentNodeID);
-          this.neighbors.put(currentNodeID, neighbors);
+          connection.getConnection().prepareStatement("SELECT * FROM " + name);
+      ResultSet data = getNeighbors.executeQuery();
+
+      while (data.next()) {
+        int startNodeID = data.getInt("startNode");
+        int endNodeID = data.getInt("endNode");
+        if (!neighbors.containsKey(startNodeID)) {
+          HashSet<Integer> edges = new HashSet<>();
+          neighbors.put(startNodeID, edges);
         }
-      } catch (SQLException e) {
-        e.printStackTrace();
-        System.out.println(e.getSQLState());
-        System.out.println("Error accessing the remote and constructing the list of edges");
+        if (!neighbors.containsKey(endNodeID)) {
+          HashSet<Integer> edges = new HashSet<>();
+          neighbors.put(endNodeID, edges);
+        }
+        neighbors.get(startNodeID).add(endNodeID);
+        neighbors.get(endNodeID).add(startNodeID);
       }
-      try {
-        PreparedStatement getEdges =
-            connection.getConnection().prepareStatement("SELECT * FROM " + name);
-        ResultSet edgeList = getEdges.executeQuery();
-        while (edgeList.next()) {
-          Edge edge = new Edge(edgeList.getInt("startNode"), edgeList.getInt("endNode"));
-          edges.add(edge);
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
+      // Removes the current node's ID from its list of neighbors so that it doesn't cause a loop
+      for (int currentID : neighbors.keySet()) {
+        neighbors.get(currentID).remove(currentID);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -178,14 +163,12 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
         String line;
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
-          Edge thisEdge = new Edge(Integer.parseInt(fields[0]), Integer.parseInt(fields[1]));
-          edges.add(thisEdge);
           PreparedStatement stmt =
               connection
                   .getConnection()
                   .prepareStatement("INSERT INTO " + name + " (startNode, endNode) VALUES (?,?)");
-          stmt.setInt(1, thisEdge.getStartNodeID());
-          stmt.setInt(2, thisEdge.getEndNodeID());
+          stmt.setInt(1, Integer.parseInt(fields[0]));
+          stmt.setInt(2, Integer.parseInt(fields[1]));
           stmt.execute();
         }
         System.out.println("Loaded to the remote");

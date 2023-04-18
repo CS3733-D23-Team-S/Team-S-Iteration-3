@@ -17,7 +17,7 @@ import lombok.Getter;
 */
 public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   @Getter private String name;
-  private dbConnection connection;
+  private final dbConnection connection;
   @Getter private HashMap<Integer, Flower> flowers = new HashMap<>();
 
   public FlowerDAOImpl() {
@@ -37,8 +37,8 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
             + "Quantity int,"
             + "Message Varchar(100),"
             + "SoldOut boolean,"
-            + "Description Varchar(100),"
-            + "Image Varchar(100))";
+            + "Description Varchar(1000),"
+            + "Image Varchar(200))";
 
     try {
       Statement st = connection.getConnection().createStatement();
@@ -111,7 +111,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   }
 
   @Override
-  public Flower getRow(Integer ID) {
+  public Flower get(Integer ID) {
     return flowers.get(ID);
   }
 
@@ -135,6 +135,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
+  // TODO: Make it work with database
   public void add(Flower thisFlower) {
     try {
       PreparedStatement preparedStatement =
@@ -143,7 +144,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
+                      + " (ID, flowerName, size, price, quantity, Message, SoldOut, description, image) "
                       + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, thisFlower.getID());
       preparedStatement.setString(2, thisFlower.getName());
@@ -155,7 +156,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       preparedStatement.setString(8, thisFlower.getDescription());
       preparedStatement.setString(9, thisFlower.getImage());
 
-      preparedStatement.execute();
+      preparedStatement.executeUpdate();
 
       flowers.put(thisFlower.getID(), thisFlower);
 
@@ -225,13 +226,13 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
                           + " (ID, flowerName, size, price, quantity, message, SoldOut, description, image) "
                           + "VALUES (?,?,?,?,?,?,?,?,?)");
 
-          stmt.setInt(1, Integer.valueOf(fields[0]));
+          stmt.setInt(1, Integer.parseInt(fields[0]));
           stmt.setString(2, fields[1]);
           stmt.setString(3, fields[2]);
-          stmt.setDouble(4, Double.valueOf(fields[3]));
-          stmt.setInt(5, Integer.valueOf(fields[4]));
+          stmt.setDouble(4, Double.parseDouble(fields[3]));
+          stmt.setInt(5, Integer.parseInt(fields[4]));
           stmt.setString(6, fields[5]);
-          stmt.setBoolean(7, Boolean.valueOf(fields[6]));
+          stmt.setBoolean(7, Boolean.parseBoolean(fields[6]));
           stmt.setString(8, fields[7]);
           stmt.setString(9, fields[8]);
           this.flowers.put(flower.getID(), flower);
@@ -254,7 +255,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       PreparedStatement preparedStatement =
           connection
               .getConnection()
-              .prepareStatement("Update " + name + " SET Quantity = ?, " + "WHERE FlowerID = ?");
+              .prepareStatement("UPDATE " + name + " SET Quantity = ? " + " WHERE FlowerID = ?");
 
       preparedStatement.setInt(1, target.getQuantity());
       preparedStatement.setInt(2, target.getID());
@@ -267,20 +268,14 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
     }
   }
 
-  public Flower retrieveFlower(Integer ID) {
-    if (flowers.get(ID) == null) {
-      throw new NullPointerException("Flower not in database\n");
-    } else {
-      return flowers.get(ID);
-    }
-  }
-
-  public List<Flower> getListSize(String size) {
+  public List<Flower> getListOfSize(String size) {
     List<Flower> flowers = getAll();
     List<Flower> sizedFlowers = new ArrayList<>();
 
     for (Flower flower : flowers) {
-      if (flower.getSize().toString().equals(size)) sizedFlowers.add(flower);
+      if (flower.getSize().toString().equalsIgnoreCase(size)) {
+        sizedFlowers.add(flower);
+      }
     }
 
     return sizedFlowers;

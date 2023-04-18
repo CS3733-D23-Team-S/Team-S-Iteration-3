@@ -1,0 +1,22 @@
+.Button {
+    -fx-background-color: #CAD6F8;
+    -fx-border-radius: 2;
+    -fx-border-color: #000000;
+}
+
+.check-box {
+    -fx-border-color: #D9D9D9;
+
+}
+
+.pane {
+    -fx-background-color: #CAD6F8;
+    -fx-background-radius: 10;
+    -fx-border-radius: 2;
+}
+
+.MapEditorButton {
+    -fx-border-radius: 2;
+    -fx-background-color: #CAD6F8;
+
+}

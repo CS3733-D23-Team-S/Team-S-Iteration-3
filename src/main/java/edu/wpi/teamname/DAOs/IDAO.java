@@ -44,12 +44,17 @@ public interface IDAO<T, U> {
   List<T> getAll();
 
   /**
+   * gets a row from a datatable
+   *
+   * @param target
+   */
+  T get(U target);
+
+  /**
    * Deletes a datapack from the DAO
    *
    * @param target the target orm to be deleted
    */
-  T getRow(U target);
-
   void delete(U target);
 
   /**

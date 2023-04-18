@@ -1,0 +1,25 @@
+.menustyling:hover {
+    -fx-background-color: #F4F4F4;
+    -fx-cursor: hand;
+}
+
+.menustyling:hover > * {
+    -fx-text-fill: #122E59;
+}
+
+.menubar {
+    -fx-background-color: #122E59;
+}
+
+.top {
+    -fx-background-color: #122E59;
+}
+
+.pane {
+    -fx-background-color: #122E59;
+}
+
+.topbar {
+    -fx-background-color: #E6E6E6;
+}
+

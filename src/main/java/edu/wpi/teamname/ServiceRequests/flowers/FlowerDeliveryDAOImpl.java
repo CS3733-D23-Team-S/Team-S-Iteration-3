@@ -1,17 +1,17 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
+import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
-public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
+public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Getter HashMap<Integer, FlowerDelivery> requests = new HashMap<>();
-  private dbConnection connection = dbConnection.getInstance();
+  private final dbConnection connection;
   @Getter String name;
 
   public FlowerDeliveryDAOImpl() {
@@ -28,19 +28,19 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
               + name
               + " "
               + "(deliveryID int UNIQUE PRIMARY KEY,"
-              + "cart Varchar(60000),"
+              + "cart Varchar(400),"
               + "orderDate Date,"
               + "orderTime Time,"
-              + "room Varchar(60000),"
-              + "orderedBy Varchar(60000),"
-              + "assignedTo Varchar(60000),"
-              + "orderStatus Varchar(60000),"
-              + "cost DOUBLE PRECISION)";
+              + "room Varchar(400),"
+              + "orderedBy Varchar(400),"
+              + "assignedTo Varchar(400),"
+              + "orderStatus Varchar(1000),"
+              + "cost DOUBLE PRECISION,"
+              + "notes Varchar(100))";
 
       st.execute(flowerRequestsTableConstruct);
 
       // Move to hashmap requests
-
     } catch (SQLException e) {
       System.out.println(e.getMessage());
       System.out.println(e.getSQLState());
@@ -60,7 +60,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
     }
   }
 
-  private void constructFromRemote() {
+  public void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
@@ -75,10 +75,11 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         String assignedTo = data.getString("assignedTo");
         String orderStatus = data.getString("orderStatus");
         double cost = data.getDouble("cost");
+        String notes = data.getString("notes");
 
         FlowerDelivery fd =
             new FlowerDelivery(
-                ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost);
+                ID, cart, date, time, room, orderedBy, assignedTo, orderStatus, cost, notes);
         requests.put(ID, fd);
       }
     } catch (SQLException e) {
@@ -99,11 +100,9 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
         System.out.println("Loading the flowerDeliveries from the server");
         constructFromRemote();
       } else {
-        System.out.println("Loading the flowerDeliveries to the server");
-        // constructRemote(pathToCSV);
+        System.out.println("flowerDelivery table is empty");
       }
     } catch (SQLException e) {
-      e.getMessage();
       e.printStackTrace();
     }
   }
@@ -141,21 +140,6 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
       }
     } catch (IOException e) {
       e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void importCSV(String path) {}
-
-  @Override
-  public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write(
-        "deliveryID,cart,orderDate,orderTime,room,orderedBye,assignedTo,orderStatus,cost)");
-    for (FlowerDelivery flowerDelivery : requests.values()) {
-      fileWriter.newLine();
-      fileWriter.write(flowerDelivery.toCSVString());
     }
   }
 
@@ -217,8 +201,9 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost)"
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (deliveryID, cart, orderDate, orderTime, room, orderedBy, assignedTo, orderStatus, cost, notes)"
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
       preparedStatement.setInt(1, request.getID());
       preparedStatement.setString(2, request.getCart());
       preparedStatement.setDate(3, request.getDate());
@@ -228,6 +213,7 @@ public class FlowerDeliveryDAOImpl implements IDAO<FlowerDelivery, Integer> {
       preparedStatement.setString(7, request.getAssignedTo());
       preparedStatement.setString(8, request.getOrderStatus());
       preparedStatement.setDouble(9, request.getCost());
+      preparedStatement.setString(10, request.getNotes());
 
       preparedStatement.executeUpdate();
 

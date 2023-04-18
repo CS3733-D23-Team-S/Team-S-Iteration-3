@@ -15,7 +15,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Getter private String name;
   @Getter private final String CSVheader = "nodeID,xcoord,ycoord,floor,building";
-  private dbConnection connection;
+  private final dbConnection connection;
 
   @Getter private HashMap<Integer, Node> nodes = new HashMap<>();
 
@@ -99,18 +99,23 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   }
 
   @Override
-  public Node getRow(Integer target) {
-    return null;
+  public Node get(Integer target) {
+    return nodes.get(target);
   }
 
   @Override
   public void delete(Integer target) {
     nodes.remove(target);
+    System.out.println("Node deleted from Local");
+
     try {
       PreparedStatement stmt =
           connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE nodeID=?");
       stmt.setInt(1, target);
       stmt.execute();
+
+      System.out.println("Node deleted from database");
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -119,6 +124,8 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   @Override
   public void add(Node addition) {
     nodes.put(addition.getNodeID(), addition);
+    System.out.println("Node added to Local");
+
     this.addToRemote(addition);
   }
 
@@ -141,7 +148,11 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
       stmt.setInt(3, addition.getYCoord());
       stmt.setInt(4, addition.getFloor().ordinal());
       stmt.setString(5, addition.getBuilding());
+
       stmt.executeUpdate();
+
+      System.out.println("Node added to Database");
+
     } catch (SQLException e) {
       e.printStackTrace();
     }

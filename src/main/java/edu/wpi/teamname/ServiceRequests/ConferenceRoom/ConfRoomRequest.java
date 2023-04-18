@@ -18,6 +18,7 @@ public class ConfRoomRequest {
   @Getter @Setter String assignedTo = "NA";
   @Getter @Setter Status orderStatus;
   @Getter @Setter String notes;
+  @Getter @Setter boolean isPrivate = false;
 
   public ConfRoomRequest(
       LocalDate eventDate,
@@ -27,7 +28,8 @@ public class ConfRoomRequest {
       String reservedBy,
       String eventName,
       String eventDescription,
-      String assignedTo) {
+      String assignedTo,
+      Boolean isPrivate) {
     this.orderDate = LocalDate.now();
     this.eventDate = eventDate;
     this.startTime = startTime;
@@ -38,39 +40,5 @@ public class ConfRoomRequest {
     this.eventDescription = eventDescription;
     this.assignedTo = assignedTo;
     this.orderStatus = Status.Received;
-  }
-
-  @Override
-  public String toString() {
-    return "ConfRoomRequest{"
-        + "orderDate="
-        + orderDate
-        + ", eventDate="
-        + eventDate
-        + ", startTime="
-        + startTime
-        + ", endTime="
-        + endTime
-        + ", room='"
-        + room
-        + '\''
-        + ", reservedBy='"
-        + reservedBy
-        + '\''
-        + ", eventName='"
-        + eventName
-        + '\''
-        + ", eventDescription='"
-        + eventDescription
-        + '\''
-        + ", assignedTo='"
-        + assignedTo
-        + '\''
-        + ", orderStatus="
-        + orderStatus
-        + ", notes='"
-        + notes
-        + '\''
-        + '}';
   }
 }
