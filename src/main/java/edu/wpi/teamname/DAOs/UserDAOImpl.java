@@ -1,6 +1,5 @@
 package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
 import lombok.Getter;
@@ -122,7 +121,7 @@ public class UserDAOImpl implements IDAO<User, String> {
   public void loadRemote(String pathToCSV) {
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String checkTable = "SELECT * FROM " + name + " LIMIT 2";
+      String checkTable = "SELECT username, password, permission FROM hospitaldb.login ";
       ResultSet check = stmt.executeQuery(checkTable);
       if (check.next()) {
         System.out.println("Loading the users from the server");
@@ -230,14 +229,13 @@ public class UserDAOImpl implements IDAO<User, String> {
     }
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String listOfNodes = "SELECT * FROM " + name;
+      String listOfNodes = "SELECT username, password, permission FROM hospitaldb.login";
       ResultSet data = stmt.executeQuery(listOfNodes);
       while (data.next()) {
         String username = data.getString("username");
         String password = data.getString("password");
         Permission permission = Permission.values()[data.getInt("permission")];
-        Floor floor = Floor.values()[data.getInt("Floor")];
-        String building = data.getString("Building");
+
         User newUser = new User(username, password, permission);
         listOfUsers.put(username, newUser);
       }
