@@ -52,6 +52,7 @@ public class FlowerPopupController extends PopUpController {
                 .getResource(dbr.getFlowerDAO().get(FlowerDeliveryController.flowerID).getImage())
                 .toString());
     flowerimage.setImage(image);
+    flowerimage.setPreserveRatio(true);
   }
 
   private void createDelivery() {

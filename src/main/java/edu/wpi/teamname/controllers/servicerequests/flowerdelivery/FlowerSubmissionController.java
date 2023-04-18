@@ -106,7 +106,6 @@ public class FlowerSubmissionController {
 
     locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
     clearbutton.setOnMouseClicked(event -> clearFields());
-
   }
 
   public void displayCart() {
