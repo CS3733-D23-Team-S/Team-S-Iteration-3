@@ -21,8 +21,8 @@ public class FlowerPopupController extends PopUpController {
   @FXML Label flowername;
   @FXML Text flowerdescription;
 
-  @FXML Text PriceText;
-  @FXML Text SizeText;
+  @FXML Label PriceText;
+  @FXML Label SizeText;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   // public static Cart flowerCart = new Cart(1);
@@ -69,7 +69,9 @@ public class FlowerPopupController extends PopUpController {
   }
 
   public void subtractquantity() {
-    flowercounter--;
     quantitylabel.setText(Integer.toString(flowercounter));
+    if (flowercounter > 1) {
+      flowercounter--;
+    }
   }
 }

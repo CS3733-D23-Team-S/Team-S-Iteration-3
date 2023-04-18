@@ -15,6 +15,7 @@ public class RootController {
   @FXML Pane menumeal;
   @FXML Pane menuroom;
   @FXML Pane menuflower;
+  @FXML Pane menuoffice;
 
   // icons
   @FXML ImageView navIcon;
@@ -22,6 +23,7 @@ public class RootController {
   @FXML ImageView mealIcon;
   @FXML ImageView roomIcon;
   @FXML ImageView flowerIcon;
+  @FXML ImageView menuIcon;
 
   // top bar icons
   @FXML ImageView homeLogo1;
@@ -40,6 +42,7 @@ public class RootController {
     menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     menuroom.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     menuflower.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    menuoffice.setOnMouseClicked(event -> Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY));
 
     homeLogo1.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
