@@ -4,6 +4,8 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -36,6 +38,7 @@ public class PathfindingController {
   @FXML public ComboBox<String> startingLocationList = new SearchableComboBox<>();
   @FXML public ComboBox<String> destinationList = new SearchableComboBox<>();
   @FXML public ComboBox<String> algList = new SearchableComboBox<>();
+  @FXML MFXButton pathfindingToLogin;
 
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
@@ -673,18 +676,19 @@ public class PathfindingController {
   }
 
   public void initialize() {
+
     algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
+    pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
     dataBase = DataBaseRepository.getInstance();
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
     setLocationLongNames();
 
-    stackPane.setPrefSize(1200, 810);
+    stackPane.setPrefSize(714, 313);
 
     floor =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
-
     floor.setImage(floor1);
     stackPane.getChildren().add(floor);
     stackPane.getChildren().add(anchorPane);
