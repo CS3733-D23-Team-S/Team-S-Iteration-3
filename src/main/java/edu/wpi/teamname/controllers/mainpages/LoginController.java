@@ -80,7 +80,7 @@ public class LoginController {
         event -> {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
-            //ActiveUser.getInstance().setCurrentUser(
+            // ActiveUser.getInstance().setCurrentUser(
             Navigation.navigate(ADMIN_PAGE);
           }
         });
