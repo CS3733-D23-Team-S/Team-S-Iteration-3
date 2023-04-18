@@ -307,7 +307,6 @@ public class RoomBookingController {
     Label title = new Label(); // create text
     title.setText(roomRequest.getEventName());
     title.setFont(Font.font("Open Sans", FontWeight.BOLD, 13));
-    title.setStyle("Bold");
     title.setTextFill(Paint.valueOf("#1D3D94"));
     title.setWrapText(false);
     title.maxWidth(130);

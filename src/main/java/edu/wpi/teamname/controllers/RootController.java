@@ -54,6 +54,9 @@ public class RootController {
           Navigation.navigate(Screen.ADMIN_PAGE);
           event.consume();
         });
+
+    // invert home onclick
+
     homeIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
