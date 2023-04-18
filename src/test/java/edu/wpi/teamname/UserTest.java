@@ -22,6 +22,6 @@ public class UserTest {
 
   @Test
   public void toCSVStringTest() {
-    assertEquals(user.toCSVString(), "admin,admin,0");
+    assertEquals(user.toCSVString(), "admin,admin");
   }
 }

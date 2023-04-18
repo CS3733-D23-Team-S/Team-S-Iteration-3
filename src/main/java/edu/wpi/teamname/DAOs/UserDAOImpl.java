@@ -69,6 +69,7 @@ public class UserDAOImpl implements IDAO<User, String> {
    */
   public boolean login(String username, String password) throws Exception {
     if (!checkIfUserExists(username)) {
+      System.out.println(getAll());
       throw new Exception("User does not exist");
     } else {
       if (password.equals(listOfUsers.get(username).getPassword())) {
@@ -206,6 +207,7 @@ public class UserDAOImpl implements IDAO<User, String> {
 
   @Override
   public List<User> getAll() {
+    DataBaseRepository dbr = DataBaseRepository.getInstance();
     return listOfUsers.values().stream().toList();
   }
 
@@ -216,7 +218,24 @@ public class UserDAOImpl implements IDAO<User, String> {
 
   @Override
   public void delete(String target) {
-    listOfUsers.remove(target);
+    try {
+      PreparedStatement deleteFood =
+          connection
+              .getConnection()
+              .prepareStatement("DELETE FROM " + name + " WHERE username = ?");
+
+      deleteFood.setString(1, target);
+      deleteFood.execute();
+
+      // remove from local Hashmap
+      listOfUsers.remove(target);
+
+      System.out.println("User deleted");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+    }
   }
 
   @Override
