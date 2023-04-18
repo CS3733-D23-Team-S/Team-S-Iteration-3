@@ -5,7 +5,6 @@ import static edu.wpi.teamname.navigation.Screen.*;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
-import edu.wpi.teamname.controllers.NewHomeController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -70,15 +69,15 @@ public class OfficeSuppliesSubmissionController {
 
             OfficeSupplyDelivery currentOfficeSupply =
                 new OfficeSupplyDelivery(
-                    NewHomeController.officeSupplyID++,
-                    NewHomeController.officeSupplyCart.toString(),
+                    OfficeSuppliesController.officeSupplyID++,
+                    OfficeSuppliesController.officeSupplyCart.toString(),
                     d,
                     t,
                     deliveryRoom,
                     "Abraham Lincoln",
                     Emp,
                     stat,
-                    NewHomeController.officeSupplyCart.getTotalPrice(),
+                    OfficeSuppliesController.officeSupplyCart.getTotalPrice(),
                     n);
 
             dbr.getOfficeSupplyDeliveryDAO().add(currentOfficeSupply);
@@ -106,9 +105,8 @@ public class OfficeSuppliesSubmissionController {
 
   public void displayCart() {
     System.out.println("Displaying office Supplies");
-    System.out.println(NewHomeController.officeSupplyCart.getCartItems().get(0));
 
-    for (OfficeSupply officeSupply : NewHomeController.officeSupplyCart.getCartItems()) {
+    for (OfficeSupply officeSupply : OfficeSuppliesController.officeSupplyCart.getCartItems()) {
 
       System.out.println("works");
 

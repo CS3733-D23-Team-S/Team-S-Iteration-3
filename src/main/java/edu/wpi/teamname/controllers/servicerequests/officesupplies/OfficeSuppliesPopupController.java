@@ -1,11 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
-import static edu.wpi.teamname.controllers.servicerequests.officesupplies.OfficeSuppliesController.suppliesID;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -27,29 +24,54 @@ public class OfficeSuppliesPopupController extends PopUpController {
   @FXML Text PriceText;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
-  public static OfficeSupplyCart officeSupplyCart = new OfficeSupplyCart(1);
-  public static String recipient;
+  public static int supplycounter;
 
   public void initialize() {
     showInfo();
     addcartbutton.setOnMouseClicked(event -> createDelivery());
+
+    supplycounter = 1;
+    incrementbutton.setOnMouseClicked(event -> addquantity());
+    decrementbutton.setOnMouseClicked(event -> subtractquantity());
   }
 
   private void showInfo() {
-    officesupplyname.setText(dbr.getOfficeSupplyDAO().get(suppliesID).getName());
-    officesupplydescription.setText(dbr.getOfficeSupplyDAO().get(suppliesID).getDescription());
+    officesupplyname.setText(
+        dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID).getName());
+    officesupplydescription.setText(
+        dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID).getDescription());
 
-    PriceText.setText(String.valueOf(dbr.getOfficeSupplyDAO().get(suppliesID).getPrice()));
+    PriceText.setText(
+        String.valueOf(
+            dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID).getPrice()));
 
     Image image =
         new Image(
-            Main.class.getResource(dbr.getOfficeSupplyDAO().get(suppliesID).getImage()).toString());
+            Main.class
+                .getResource(
+                    dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID).getImage())
+                .toString());
     officesupplyimage.setImage(image);
   }
 
   private void createDelivery() {
-    OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(suppliesID);
-    officeSupplyCart.addOfficeSupplyItem(officeSupply);
+    OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID);
+    officeSupply.setQuantity(supplycounter);
+    OfficeSuppliesController.officeSupplyCart.addOfficeSupplyItem(officeSupply);
     stage.close();
+  }
+
+  public void addquantity() {
+    supplycounter++;
+    quantitylabel.setText(Integer.toString(supplycounter));
+  }
+
+  public void subtractquantity() {
+    supplycounter--;
+    if (supplycounter < 1) {
+      supplycounter = 1;
+    }
+
+    quantitylabel.setText(Integer.toString(supplycounter));
   }
 }

@@ -78,6 +78,9 @@ public class DataBaseRepository {
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
 
+    officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
+    officeSupplyDeliveryDAO.initTable(connection.getOSuppliesRequestsTable());
+
     nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
@@ -89,6 +92,9 @@ public class DataBaseRepository {
     flowerDeliveryDAO.loadRemote("flowersssssss!?");
     foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
     foodDeliveryDAO.loadRemote("This means nothing");
+
+    officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
+    officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
   }
 
   public boolean login(String text, String text1) throws Exception {

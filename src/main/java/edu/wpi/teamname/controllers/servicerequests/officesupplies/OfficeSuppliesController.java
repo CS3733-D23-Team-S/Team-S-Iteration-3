@@ -21,11 +21,17 @@ public class OfficeSuppliesController {
   @FXML MFXScrollPane scrollpane;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
+  private int cartID = 1;
+  public static OfficeSupplyCart officeSupplyCart;
+
+  public static int officeSupplyID;
+
   public void initialize() {
 
-    viewcart.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_CART));
+    officeSupplyCart = new OfficeSupplyCart(cartID++);
+    officeSupplyID = dbr.getOfficeSupplyDAO().getSupplies().size();
 
-    clearfilter.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_DELIVERY));
+    viewcart.setOnMouseClicked(event -> Navigation.navigate(OFFICE_SUPPLIES_CART));
 
     noFilter();
   }

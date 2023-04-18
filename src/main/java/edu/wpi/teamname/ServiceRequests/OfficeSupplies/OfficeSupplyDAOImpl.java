@@ -25,21 +25,21 @@ public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
   public void initTable(String name) {
     this.name = name;
 
-    String foodTable =
+    String osTable =
         "CREATE TABLE IF NOT EXISTS "
             + name
             + " "
             + "(officesupplyid int UNIQUE PRIMARY KEY,"
             + "name Varchar(100),"
             + "Price double precision,"
-            + "Description Varchar(100),"
+            + "Description Varchar(1000),"
             + "Quantity int,"
             + "isSoldOut boolean,"
-            + "Image Varchar(100),";
+            + "Image Varchar(100))";
     try {
       Statement stmt = connection.getConnection().createStatement();
-      stmt.execute(foodTable);
-      System.out.println("Created the foods table");
+      stmt.execute(osTable);
+      System.out.println("Created the office supplies table");
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -67,10 +67,10 @@ public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
       String checkTable = "SELECT * FROM " + name;
       ResultSet check = stmt.executeQuery(checkTable);
       if (check.next()) {
-        System.out.println("Loading the foods from the server");
+        System.out.println("Loading the Office Supplies from the server");
         constructFromRemote();
       } else {
-        System.out.println("Loading the foods to the server");
+        System.out.println("Loading the Office Supplies to the server");
         constructRemote(pathToCSV);
       }
     } catch (SQLException e) {
@@ -193,7 +193,7 @@ public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getMessage());
-      System.out.println("Error accessing the remote and constructing the list of foods");
+      System.out.println("Error accessing the remote and constructing the list of OfficeSuppliess");
     }
   }
 
