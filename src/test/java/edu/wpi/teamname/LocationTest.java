@@ -20,6 +20,7 @@ public class LocationTest {
     assertEquals(
         location.toString(),
         "Location{notetype = CONF, longname = Long Location, shortname = Short Location}");
+    System.out.println(location.toString());
   }
 
   @Test

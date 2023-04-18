@@ -191,6 +191,7 @@ public class UserDAOImpl implements IDAO<User, String> {
 
   @Override
   public void add(User addition) {
+
     listOfUsers.put(addition.getUserName(), addition);
   }
 
