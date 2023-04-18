@@ -37,7 +37,7 @@ public enum Screen {
   FLOWER_POPUP("views/FlowerDelivery/flowerPopup.fxml"),
 
   NEW_USER("views/newUserPopUp.fxml"),
-  SNAKE_GAME("views/snakeGame.fxml");
+  SNAKE_GAME("views/WelcomePage.fxml");
 
   private final String filename;
 
