@@ -23,7 +23,7 @@ public class DFS implements IPathFinder {
   public ArrayList<Integer> findPath(int s, int e) {
     Node start, end;
     start = this.nodeDAO.getNodes().get(s);
-    end = this.nodeDAO.getNodes().get(s);
+    end = this.nodeDAO.getNodes().get(e);
 
     Stack<Node> stack = new Stack<>();
     HashSet<Node> visitedNodes = new HashSet<>();
