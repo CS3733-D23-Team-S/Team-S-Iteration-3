@@ -82,7 +82,7 @@ public class LoginController {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
             // ActiveUser.getInstance().setCurrentUser(
-            Navigation.navigate(STAFF);
+            Navigation.navigate(ADMIN_PAGE);
           }
         });
   }

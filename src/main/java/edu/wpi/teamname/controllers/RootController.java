@@ -88,7 +88,7 @@ public class RootController {
     backIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.ADMIN_PAGE);
+          Navigation.navigate(Screen.ADMIN_PAGE); // Fix!!!!!!
           event.consume();
         });
   }
