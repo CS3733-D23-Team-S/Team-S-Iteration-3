@@ -37,12 +37,15 @@ public class FlowerSubmissionController {
   @FXML Text pricetext;
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
+  @FXML Label totalprice;
   @FXML MFXScrollPane scroll;
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 
     displayCart();
+
+    totalprice.setText("$ " + String.valueOf(FlowerDeliveryController.flowerCart.getTotalPrice()));
 
     String stat = "Recieved";
 
@@ -115,24 +118,26 @@ public class FlowerSubmissionController {
       System.out.println("works");
 
       HBox newRow = new HBox();
-      newRow.setSpacing(100);
+      newRow.setSpacing(50);
       newRow.setMaxHeight(300);
       newRow.setMaxWidth(1000);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
       flowerImage.setImage(image);
+      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
 
       flowerImage.setFitHeight(160);
       flowerImage.setFitWidth(160);
       flowerImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(30);
+      itemInfo.setSpacing(20);
       itemInfo.setMaxWidth(1000);
+      itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(20);
+      priceQ.setSpacing(30);
       priceQ.setMaxWidth(1000);
 
       Label name = new Label();
@@ -146,10 +151,10 @@ public class FlowerSubmissionController {
 
       description.setText(flower.getDescription());
       description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
-      quantity.setText(String.valueOf(flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
+      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans;");
 
       price.setText(String.valueOf("$ " + flower.getPrice()));
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
