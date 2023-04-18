@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
     <left>
         <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -137,18 +143,7 @@
             <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <children>
-                      <HBox alignment="CENTER_LEFT" maxHeight="240.0" maxWidth="240.0" minWidth="240.0" prefHeight="100.0" prefWidth="240.0" styleClass="top" stylesheets="@../../../../Stylesheets/UITemplate.css">
-                          <children>
-                              <ImageView fx:id="backIcon" fitHeight="30.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                      <Image url="@../templateIcons/backicon.png" />
-                                  </image>
-                                  <HBox.margin>
-                                      <Insets left="15.0" />
-                                  </HBox.margin>
-                              </ImageView>
-                          </children>
-                      </HBox>
+                      <HBox alignment="CENTER_LEFT" maxHeight="240.0" maxWidth="240.0" minWidth="240.0" prefHeight="100.0" prefWidth="240.0" styleClass="top" stylesheets="@../../../../Stylesheets/UITemplate.css" />
                       <ImageView fx:id="homeLogo1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" x="150.0">
                           <image>
                               <Image url="@../templateIcons/bwlogo.png" />
