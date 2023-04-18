@@ -62,7 +62,7 @@ public class RootController {
     userIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
+          Navigation.navigate(Screen.USER_PROFILE);
           event.consume();
         });
     exitIcon.addEventHandler(
