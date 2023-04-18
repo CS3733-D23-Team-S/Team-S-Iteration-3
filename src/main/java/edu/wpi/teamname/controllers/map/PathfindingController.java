@@ -254,17 +254,9 @@ public class PathfindingController {
   List<Circle> floor3Circles = new ArrayList<>();
   List<Circle> floorL1Circles = new ArrayList<>();
   List<Circle> floorL2Circles = new ArrayList<>();
-  List<Integer> floor1PathNodeIDs = new ArrayList<>();
-  List<Location> floor1Locations;
-  List<Location> floor2Locations;
-  List<Location> floor3Locations;
-  List<Location> floorL1Locations;
-  List<Location> floorL2Locations;
   PathfindingEntity pfe;
   List<Line> pathLines = new ArrayList<>();
   List<Circle> circlesOnFloor = new ArrayList<>();
-  @FXML MFXButton removeStartingLocation;
-  @FXML MFXButton removeDestination;
 
   public void showPathNew(List<Node> floorNodes) {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
