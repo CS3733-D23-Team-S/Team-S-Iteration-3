@@ -120,9 +120,9 @@ public class RootController {
           }
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
             System.out.println("Going to Staff page");
-            Navigation.navigate(Screen.ADMIN_PAGE);
+            Navigation.navigate(Screen.STAFF);
           }
-          Navigation.navigate(Screen.ADMIN_PAGE);
+
           event.consume();
         });
 
