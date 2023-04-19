@@ -9,7 +9,7 @@ import lombok.Setter;
 
 public class ActiveUser {
 
-  @Getter @Setter User currentUser;
+  @Getter User currentUser;
 
   @Getter Permission permission;
 
@@ -20,6 +20,11 @@ public class ActiveUser {
   private static ActiveUser single_instance = null;
 
   private ActiveUser() {}
+
+  public void setCurrentUser(User user) {
+    this.currentUser = user;
+    this.permission = user.getPermission();
+  }
 
   public static synchronized ActiveUser getInstance() {
     if (single_instance == null) single_instance = new ActiveUser();

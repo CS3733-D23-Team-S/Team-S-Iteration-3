@@ -20,6 +20,7 @@ public class SignageController {
     tapButton.setOnMouseClicked(
         event -> {
           if (ActiveUser.getInstance().isLoggedIn()) {
+            System.out.println(ActiveUser.getInstance().getPermission().name());
             if (ActiveUser.getInstance().getPermission() == Permission.ADMIN) {
               Navigation.navigate(Screen.ADMIN_PAGE);
             } else {
