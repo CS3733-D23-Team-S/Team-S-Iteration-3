@@ -32,14 +32,17 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   @Override
   public void initTable(String name) {
     this.name = name;
-    String moveTable =
-        "CREATE TABLE IF NOT EXISTS "
-            + name
-            + " "
-            + "(nodeID int, location varchar(100) UNIQUE, date DATE)";
     try {
-      Statement stmt = connection.getConnection().createStatement();
-      stmt.execute(moveTable);
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "CREATE TABLE IF NOT EXISTS "
+                      + name
+                      + " (nodeID int, location varchar(100), date DATE, FOREIGN KEY (nodeID) "
+                      + "REFERENCES hospitaldb.nodes(nodeID) ON DELETE CASCADE ON UPDATE CASCADE)");
+
+      stmt.execute();
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println("Error with creating the node table");
@@ -129,21 +132,19 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Override
   public void add(Move addition) {
-    listOfMoves.add(addition);
-    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
-      ArrayList<Move> moveArrayList = new ArrayList<>();
-      moveArrayList.add(addition);
-      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
-    } else {
-      locationMoveHistory.get(addition.getLocationName()).add(addition);
-    }
-    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
-      ArrayList<Move> moveArrayList = new ArrayList<>();
-      moveArrayList.add(addition);
-      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
-    } else {
-      locationsAtNodeID.get(addition.getNodeID()).add(addition);
-    }
+    //    listOfMoves.add(addition);
+    //    ArrayList<Move> moveArrayList = new ArrayList<>();
+    //    moveArrayList.add(addition);
+    //    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
+    //      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
+    //    } else {
+    //      locationMoveHistory.get(addition.getLocationName()).add(addition);
+    //    }
+    //    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
+    //      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
+    //    } else {
+    //      locationsAtNodeID.get(addition.getNodeID()).add(addition);
+    //    }
     try {
       PreparedStatement stmt =
           connection
@@ -153,7 +154,9 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       stmt.setString(2, addition.getLocationName());
       stmt.setDate(3, Date.valueOf(addition.getDate()));
       stmt.executeUpdate();
+      System.out.println("Added the move to the remote somehow");
     } catch (SQLException e) {
+      System.out.println("Error adding a move to the remote");
       e.printStackTrace();
     }
   }
@@ -179,7 +182,10 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  private void constructFromRemote() {
+  void constructFromRemote() {
+    listOfMoves.clear();
+    locationsAtNodeID.clear();
+    locationMoveHistory.clear();
     if (!listOfMoves.isEmpty()) {
       System.out.println("There is already stuff in the orm database");
       return;
@@ -211,6 +217,10 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         }
         listOfMoves.add(thisMove);
       }
+      for (List<Move> list : locationsAtNodeID.values()) {
+        list.sort(new DateComparator());
+      }
+      System.out.println("Successfully loaded from the moves remote");
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
@@ -258,5 +268,11 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.US));
     // Parse the output string into a LocalDate object
     return LocalDate.parse(outputString);
+  }
+
+  private class DateComparator implements Comparator<Move> {
+    public int compare(Move o1, Move o2) {
+      return o1.getDate().compareTo(o2.getDate());
+    }
   }
 }
