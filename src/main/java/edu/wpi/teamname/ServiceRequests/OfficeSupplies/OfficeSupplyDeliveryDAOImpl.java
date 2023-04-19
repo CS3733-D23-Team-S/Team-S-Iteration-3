@@ -1,17 +1,16 @@
 package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import lombok.Getter;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+import lombok.Getter;
 
 public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery, Integer> {
 

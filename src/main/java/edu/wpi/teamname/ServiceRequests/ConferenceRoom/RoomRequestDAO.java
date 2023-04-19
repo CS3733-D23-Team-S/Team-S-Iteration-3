@@ -1,9 +1,9 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import lombok.Getter;
-
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,8 +11,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+import lombok.Getter;
 
 public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   protected static final String schemaName = "hospitaldb";
@@ -103,7 +102,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
       throw new RuntimeException(ex);
     }
   }
-
 
   public boolean hasConflicts(
       String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)

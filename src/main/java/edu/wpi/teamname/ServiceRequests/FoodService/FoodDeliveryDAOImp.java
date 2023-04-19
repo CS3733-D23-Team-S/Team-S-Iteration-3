@@ -4,13 +4,10 @@ import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequ
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import lombok.Getter;
-
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
-
-import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+import lombok.Getter;
 
 public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
@@ -106,7 +103,6 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderer());
       preparedStatement2.setString(6, "Received");
-
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();
