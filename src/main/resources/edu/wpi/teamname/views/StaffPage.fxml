@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,7 +14,7 @@
 <GridPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffController">
             <columnConstraints>
                 <ColumnConstraints />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" prefWidth="618.6666259765625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" percentWidth="45.0" prefWidth="618.6666259765625" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="757.9999999999999" minWidth="10.0" prefWidth="757.9999999999999" />
                 <ColumnConstraints />
             </columnConstraints>
@@ -27,17 +26,20 @@
                 <RowConstraints />
             </rowConstraints>
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="620.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="2">
                     <children>
                         <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="To Do" translateX="10.0" translateY="25.0">
                             <font>
                                 <Font name="Open Sans Regular" size="36.0" />
                             </font>
                         </Label>
-                        <Label text="View All Service Requests" translateX="550.0" translateY="20.0">
+                        <Label text="View All Service Requests">
                             <font>
                                 <Font size="36.0" />
                             </font>
+               <HBox.margin>
+                  <Insets top="45.0" />
+               </HBox.margin>
                         </Label>
                     </children>
                 </HBox>
@@ -71,12 +73,6 @@
                     </children>
                 </HBox>
                 <GesturePane fx:id="mapView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="643.0" translateX="40.0" translateY="5.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
-                <TableView fx:id="toDoTable" maxHeight="600.0" maxWidth="600.0" minHeight="200.0" minWidth="10.0" prefHeight="200.0" prefWidth="500.0" stylesheets="@../../../../Stylesheets/StaffPage.css" translateX="10.0" translateY="-25.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
-                    <columns>
-                        <TableColumn id="serviceRequestType" fx:id="serviceRequestType" prefWidth="200.0" text="Service Request Type" />
-                        <TableColumn id="date" fx:id="date" minWidth="2.4444580078125" prefWidth="200.0" text="Date" />
-                        <TableColumn id="status" fx:id="status" minWidth="1.5555267333984375" prefWidth="200.0" text="Status" />
-                    </columns>
-                </TableView>
+      <TableView fx:id="taskTable" prefHeight="720.0" prefWidth="671.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             </children>
         </GridPane>

@@ -1,17 +1,18 @@
 package edu.wpi.teamname.controllers.mainpages;
 
+import static edu.wpi.teamname.navigation.Screen.*;
+
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-
-import static edu.wpi.teamname.navigation.Screen.*;
 
 public class LoginController {
   DataBaseRepository loginManager;

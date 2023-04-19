@@ -239,7 +239,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
       preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderedBy());
-      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.setString(6, "Received");
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();

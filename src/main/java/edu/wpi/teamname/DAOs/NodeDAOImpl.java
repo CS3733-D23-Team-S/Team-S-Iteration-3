@@ -105,20 +105,28 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Override
   public void delete(Integer target) {
+    //		System.out.println("To delete " + target);
     nodes.remove(target);
-    System.out.println("Node deleted from Local");
-
+    //		for (Node val : nodes.values()) {
+    //			System.out.println(val.getNodeID());
+    //		}
+    //		System.out.println();
+    //		System.out.println("Node deleted from Local");
     try {
       PreparedStatement stmt =
           connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE nodeID=?");
       stmt.setInt(1, target);
       stmt.execute();
-
       System.out.println("Node deleted from database");
-
+      DataBaseRepository.getInstance().getMoveDAO().constructFromRemote();
+      DataBaseRepository.getInstance().getEdgeDAO().constructFromRemote();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  public void delete(Node node) {
+    delete(node.getNodeID());
   }
 
   @Override
@@ -132,6 +140,40 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   public void add(int nodeID, int xCoord, int yCoord, Floor floor, String building) {
     Node newNode = new Node(nodeID, xCoord, yCoord, floor, building);
     this.add(newNode);
+  }
+
+  public void updateNodeID(int oldID, int newID) {
+    try {
+      PreparedStatement statement =
+          connection
+              .getConnection()
+              .prepareStatement("UPDATE " + name + " SET nodeID=? WHERE nodeID=?");
+      statement.setInt(1, newID);
+      statement.setInt(2, oldID);
+      statement.executeUpdate();
+      Node temp = nodes.get(oldID);
+      nodes.remove(oldID);
+      nodes.put(newID, temp);
+      DataBaseRepository.getInstance().forceUpdate();
+      System.out.println("successfully updated");
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void updateNodeLocation(Node node) {
+    try {
+      PreparedStatement statement =
+          connection
+              .getConnection()
+              .prepareStatement("UPDATE " + name + " SET xCoord=?, yCoord=? WHERE nodeID=?");
+      statement.setInt(1, node.getXCoord());
+      statement.setInt(2, node.getYCoord());
+      statement.setInt(3, node.getNodeID());
+      statement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   private void addToRemote(Node addition) {
@@ -148,17 +190,14 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
       stmt.setInt(3, addition.getYCoord());
       stmt.setInt(4, addition.getFloor().ordinal());
       stmt.setString(5, addition.getBuilding());
-
       stmt.executeUpdate();
-
       System.out.println("Node added to Database");
-
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  private void constructFromRemote() {
+  void constructFromRemote() {
     if (!nodes.isEmpty()) {
       System.out.println("There is already stuff in the orm database");
       return;

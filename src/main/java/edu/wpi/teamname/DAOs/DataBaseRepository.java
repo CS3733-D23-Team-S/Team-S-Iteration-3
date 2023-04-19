@@ -68,6 +68,11 @@ public class DataBaseRepository {
     return single_instance;
   }
 
+  public void forceUpdate() {
+    moveDAO.constructFromRemote();
+    edgeDAO.constructFromRemote();
+  }
+
   public void load() {
     dbConnection connection = dbConnection.getInstance();
     pathFinder = new AStar();
@@ -102,6 +107,9 @@ public class DataBaseRepository {
 
     officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
     officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
+    //    for (Move move : moveDAO.getAll()) {
+    //      System.out.println(move);
+    //    }
   }
 
   public boolean login(String text, String text1) throws Exception {

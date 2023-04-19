@@ -80,4 +80,8 @@ public class FlowerDelivery implements IDataPack {
         + ","
         + cost;
   }
+
+  public void setOrderStatus(String orderStatus) {
+    this.orderStatus = orderStatus;
+  }
 }
