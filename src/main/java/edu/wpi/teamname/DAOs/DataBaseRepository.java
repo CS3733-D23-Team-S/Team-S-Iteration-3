@@ -223,4 +223,8 @@ public class DataBaseRepository {
   public int flowerGetNewDeliveryID() {
     return flowerDeliveryDAO.getAll().size();
   }
+
+  public void forceGlobalUpdate() {
+    System.out.println("Eventually is going to force an update to all of the orms periodically");
+  }
 }
