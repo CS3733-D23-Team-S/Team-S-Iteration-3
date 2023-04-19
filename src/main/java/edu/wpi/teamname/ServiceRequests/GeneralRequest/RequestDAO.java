@@ -41,6 +41,7 @@ public class RequestDAO {
 
   public void loadFromRemote() {
     ArrayList<Request> curr = new ArrayList<>();
+
     try {
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + allRequestTable);

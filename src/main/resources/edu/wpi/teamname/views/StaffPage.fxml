@@ -26,12 +26,20 @@
                 <RowConstraints />
             </rowConstraints>
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="620.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="2">
                     <children>
                         <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="To Do" translateX="10.0" translateY="25.0">
                             <font>
                                 <Font name="Open Sans Regular" size="36.0" />
                             </font>
+                        </Label>
+                        <Label text="View All Service Requests">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+               <HBox.margin>
+                  <Insets top="45.0" />
+               </HBox.margin>
                         </Label>
                     </children>
                 </HBox>
@@ -66,10 +74,5 @@
                 </HBox>
                 <GesturePane fx:id="mapView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="643.0" translateX="40.0" translateY="5.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
       <TableView fx:id="taskTable" prefHeight="720.0" prefWidth="671.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-                  <Label text="View All Service Requests" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                      <font>
-                          <Font size="36.0" />
-                      </font>
-                  </Label>
             </children>
         </GridPane>
