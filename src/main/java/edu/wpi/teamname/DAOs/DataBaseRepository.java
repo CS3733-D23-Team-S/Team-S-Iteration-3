@@ -15,9 +15,7 @@ import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDeliveryDAOIm
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,8 +63,14 @@ public class DataBaseRepository {
   }
 
   public static synchronized DataBaseRepository getInstance() {
+    dbConnection connection = dbConnection.getInstance();
     if (single_instance == null) single_instance = new DataBaseRepository();
     return single_instance;
+  }
+
+  public void forceUpdate() {
+    moveDAO.constructFromRemote();
+    edgeDAO.constructFromRemote();
   }
 
   public void load() {
@@ -83,7 +87,6 @@ public class DataBaseRepository {
     foodDAO.initTable(connection.getFoodTable());
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
-    System.out.println(userDAO.getListOfUsers());
     requestDAO.initTable("all Requests");
 
     officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
@@ -104,6 +107,9 @@ public class DataBaseRepository {
 
     officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
     officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
+    //    for (Move move : moveDAO.getAll()) {
+    //      System.out.println(move);
+    //    }
   }
 
   public boolean login(String text, String text1) throws Exception {
@@ -216,5 +222,9 @@ public class DataBaseRepository {
 
   public int flowerGetNewDeliveryID() {
     return flowerDeliveryDAO.getAll().size();
+  }
+
+  public void forceGlobalUpdate() {
+    System.out.println("Eventually is going to force an update to all of the orms periodically");
   }
 }

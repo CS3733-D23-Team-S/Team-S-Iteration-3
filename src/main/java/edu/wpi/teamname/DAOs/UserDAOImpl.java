@@ -74,6 +74,7 @@ public class UserDAOImpl implements IDAO<User, String> {
     } else {
       if (password.equals(listOfUsers.get(username).getPassword())) {
         ActiveUser.getInstance().setCurrentUser(listOfUsers.get(username));
+        ActiveUser.getInstance().setLoggedIn(true);
         System.out.println(ActiveUser.getInstance().getCurrentUser().getFirstName());
         return true;
       }

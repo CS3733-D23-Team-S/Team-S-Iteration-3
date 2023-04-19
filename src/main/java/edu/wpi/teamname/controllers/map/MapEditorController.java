@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.map;
+// package edu.wpi.teamname.controllers.map;
 //
 // import edu.wpi.teamname.DAOs.DataBaseRepository;
 // import edu.wpi.teamname.DAOs.orms.*;
@@ -20,7 +20,7 @@ package edu.wpi.teamname.controllers.map;
 // import javafx.scene.control.TableView;
 // import javafx.scene.control.cell.PropertyValueFactory;
 //
-public class MapEditorController {}
+// public class MapEditorController {}
 //
 //	DataBaseRepository dataBase;
 //	@FXML

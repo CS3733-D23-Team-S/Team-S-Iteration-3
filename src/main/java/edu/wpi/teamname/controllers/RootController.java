@@ -120,9 +120,9 @@ public class RootController {
           }
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
             System.out.println("Going to Staff page");
-            Navigation.navigate(Screen.ADMIN_PAGE);
+            Navigation.navigate(Screen.STAFF);
           }
-          Navigation.navigate(Screen.ADMIN_PAGE);
+
           event.consume();
         });
 
@@ -140,12 +140,15 @@ public class RootController {
         });
 
     // BACK ICON
+    /*
     backIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.ADMIN_PAGE); // TODO fix!!
           event.consume();
         });
+
+       */
   }
 
   public void clearMenuClasses() {

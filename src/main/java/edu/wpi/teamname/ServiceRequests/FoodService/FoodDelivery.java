@@ -92,4 +92,8 @@ public class FoodDelivery implements IDataPack {
 
     return finale;
   }
+
+  public void setOrderStatus(String orderStatus) {
+    this.orderStatus = "Recieved";
+  }
 }

@@ -10,6 +10,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -266,17 +267,9 @@ public class BetterMapEditorController {
         }
         if (nodeExists) {
           // check if floor is valid
-          if (floorTF.getText().equals("Floor1")) {
-            floor = Floor.Floor1;
-          } else if (floorTF.getText().equals("Floor2")) {
-            floor = Floor.Floor2;
-          } else if (floorTF.getText().equals("Floor3")) {
-            floor = Floor.Floor3;
-          } else if (floorTF.getText().equals("FloorL1")) {
-            floor = Floor.FloorL1;
-          } else if (floorTF.getText().equals("FloorL2")) {
-            floor = Floor.FloorL2;
-          } else {
+          try {
+            floor = Floor.valueOf(floorTF.getText());
+          } catch (IllegalArgumentException e) {
             floorValid = false;
           }
           if (floorValid) {
@@ -317,33 +310,12 @@ public class BetterMapEditorController {
         mainTF.setText("Error: the Long Name you entered is already designated to a location");
       } else {
         // make sure nodeType is an enum and nodeTypeValid is true
-        if (nodeTypeTF.getText().equals("CONF")) {
-          nodeType = NodeType.CONF;
-        } else if (nodeTypeTF.getText().equals("DEPT")) {
-          nodeType = NodeType.DEPT;
-        } else if (nodeTypeTF.getText().equals("ELEV")) {
-          nodeType = NodeType.ELEV;
-        } else if (nodeTypeTF.getText().equals("EXIT")) {
-          nodeType = NodeType.EXIT;
-        } else if (nodeTypeTF.getText().equals("HALL")) {
-          nodeType = NodeType.HALL;
-        } else if (nodeTypeTF.getText().equals("LABS")) {
-          nodeType = NodeType.LABS;
-        } else if (nodeTypeTF.getText().equals("REST")) {
-          nodeType = NodeType.REST;
-        } else if (nodeTypeTF.getText().equals("RETL")) {
-          nodeType = NodeType.RETL;
-        } else if (nodeTypeTF.getText().equals("SERV")) {
-          nodeType = NodeType.SERV;
-        } else if (nodeTypeTF.getText().equals("STAI")) {
-          nodeType = NodeType.STAI;
-        } else if (nodeTypeTF.getText().equals("INFO")) {
-          nodeType = NodeType.RETL;
-        } else if (nodeTypeTF.getText().equals("BATH")) {
-          nodeType = NodeType.BATH;
-        } else {
+        try {
+          nodeType = NodeType.valueOf(nodeTypeTF.getText());
+        } catch (IllegalArgumentException e) {
           nodeTypeValid = false;
         }
+
         if (nodeTypeValid) {
 
           Location newLocation =
@@ -429,33 +401,12 @@ public class BetterMapEditorController {
       }
       if (locationExists) {
         // make sure nodeType is an enum and nodeTypeValid is true
-        if (nodeTypeTF.getText().equals("CONF")) {
-          nodeType = NodeType.CONF;
-        } else if (nodeTypeTF.getText().equals("DEPT")) {
-          nodeType = NodeType.DEPT;
-        } else if (nodeTypeTF.getText().equals("ELEV")) {
-          nodeType = NodeType.ELEV;
-        } else if (nodeTypeTF.getText().equals("EXIT")) {
-          nodeType = NodeType.EXIT;
-        } else if (nodeTypeTF.getText().equals("HALL")) {
-          nodeType = NodeType.HALL;
-        } else if (nodeTypeTF.getText().equals("LABS")) {
-          nodeType = NodeType.LABS;
-        } else if (nodeTypeTF.getText().equals("REST")) {
-          nodeType = NodeType.REST;
-        } else if (nodeTypeTF.getText().equals("RETL")) {
-          nodeType = NodeType.RETL;
-        } else if (nodeTypeTF.getText().equals("SERV")) {
-          nodeType = NodeType.SERV;
-        } else if (nodeTypeTF.getText().equals("STAI")) {
-          nodeType = NodeType.STAI;
-        } else if (nodeTypeTF.getText().equals("INFO")) {
-          nodeType = NodeType.RETL;
-        } else if (nodeTypeTF.getText().equals("BATH")) {
-          nodeType = NodeType.BATH;
-        } else {
+        try {
+          nodeType = NodeType.valueOf(nodeTypeTF.getText());
+        } catch (IllegalArgumentException e) {
           nodeTypeValid = false;
         }
+
         if (nodeTypeValid) {
           // maybe change the values at this node
           // then redo the table
@@ -522,70 +473,70 @@ public class BetterMapEditorController {
     mapPane.setContent(stackPane);
     mapPane.setMinScale(.0001);
 
-    final Floor[] current = {Floor.FloorL1};
+    AtomicReference<Floor> current = new AtomicReference<>(Floor.FloorL1);
 
     floorOneBTN.setOnMouseClicked(
         event -> {
           toFloor(Floor.Floor1);
-          current[0] = Floor.Floor1;
+          current.set(Floor.Floor1);
         });
     floorTwoBTN.setOnMouseClicked(
         event -> {
           toFloor(Floor.Floor2);
-          current[0] = Floor.Floor2;
+          current.set(Floor.Floor2);
         });
     floorThreeBTN.setOnMouseClicked(
         event -> {
           toFloor(Floor.Floor3);
-          current[0] = Floor.Floor3;
+          current.set(Floor.Floor3);
         });
     floorLowerOneBTN.setOnMouseClicked(
         event -> {
           toFloor(Floor.FloorL1);
-          current[0] = Floor.FloorL1;
+          current.set(Floor.FloorL1);
         });
     floorLowerTwoBTN.setOnMouseClicked(
         event -> {
           toFloor(Floor.FloorL2);
-          current[0] = Floor.FloorL2;
+          current.set(Floor.FloorL2);
         });
 
     addNodeBTN.setOnMouseClicked(
         event -> {
           doingNode = true;
           addNode();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
     removeNodeBTN.setOnMouseClicked(
         event -> {
           doingNode = true;
           removeNode();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
     editNodeBTN.setOnMouseClicked(
         event -> {
           doingNode = true;
           editNode();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
 
     addLocationBTN.setOnMouseClicked(
         event -> {
           doingNode = false;
           addLocation();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
     removeLocationBTN.setOnMouseClicked(
         event -> {
           doingNode = false;
           removeLocation();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
     editLocationBTN.setOnMouseClicked(
         event -> {
           doingNode = false;
           editLocation();
-          toFloor(current[0]);
+          toFloor(current.get());
         });
 
     theCircs = floor1Circles;
