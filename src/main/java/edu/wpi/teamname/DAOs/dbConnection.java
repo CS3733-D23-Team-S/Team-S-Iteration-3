@@ -50,6 +50,23 @@ public class dbConnection {
     return single_instance;
   }
 
+  public void reinitConnection() {
+    try {
+      Class.forName("org.postgresql.Driver");
+      String url = "jdbc:postgresql://database.cs.wpi.edu:5432/teamsdb";
+      String user = "teams";
+      String password = "teams160";
+      c = DriverManager.getConnection(url, user, password);
+      PreparedStatement stmt = c.prepareStatement("CREATE SCHEMA IF NOT EXISTS " + schemaName);
+      stmt.execute();
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.err.println(e.getClass().getName() + ": " + e.getMessage());
+      System.exit(0);
+    }
+    System.out.println("Opened database successfully");
+  }
+
   public Connection getConnection() {
     return c;
   }
