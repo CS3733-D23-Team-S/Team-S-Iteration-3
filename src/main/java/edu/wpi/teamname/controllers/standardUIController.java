@@ -27,19 +27,19 @@ public class standardUIController {
 
   public void initialize() {
 
-    Image homeIcon = new Image(Main.class.getResource("./images/homeicon.png").toString());
+    Image homeIcon = new Image(Main.class.getResource("images/homeicon.png").toString());
     homeicon.setImage(homeIcon);
 
-    Image userIcon = new Image(Main.class.getResource("./images/usericon.png").toString());
+    Image userIcon = new Image(Main.class.getResource("images/usericon.png").toString());
     usericon.setImage(userIcon);
 
-    Image helpIcon = new Image(Main.class.getResource("./images/helpicon.png").toString());
+    Image helpIcon = new Image(Main.class.getResource("images/helpicon.png").toString());
     helpicon.setImage(helpIcon);
 
-    Image bwhLogo = new Image(Main.class.getResource("./images/topbarLogo.png").toString());
+    Image bwhLogo = new Image(Main.class.getResource("images/topbarLogo.png").toString());
     topbarlogo.setImage(bwhLogo);
 
-    Image searchIcon = new Image(Main.class.getResource("./images/searchicon.png").toString());
+    Image searchIcon = new Image(Main.class.getResource("images/searchicon.png").toString());
     searchicon.setImage(searchIcon);
   }
 }

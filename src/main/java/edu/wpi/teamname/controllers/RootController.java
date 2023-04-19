@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.orms.Permission;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.animation.FadeTransition;
@@ -47,7 +48,10 @@ public class RootController {
     menunavigation.setOnMouseClicked(
         event -> {
           changeMenuItem(menunavigation);
-          Image i = new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/navinverted.png");
+          Image i =
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/navinverted.png")));
           navIcon.setImage(i);
           Navigation.navigate(Screen.PATHFINDING);
         });
@@ -56,7 +60,9 @@ public class RootController {
         event -> {
           changeMenuItem(menusignage);
           Image i =
-              new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/signageinverted.png");
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/signageinverted.png")));
           signageIcon.setImage(i);
           Navigation.navigate(Screen.SIGNAGE_PAGE);
         });
@@ -65,7 +71,9 @@ public class RootController {
         event -> {
           changeMenuItem(menumeal);
           Image i =
-              new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/mealinverted.png");
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/mealinverted.png")));
           mealIcon.setImage(i);
           Navigation.navigate(Screen.MEAL_DELIVERY1);
         });
@@ -74,7 +82,9 @@ public class RootController {
         event -> {
           changeMenuItem(menuroom);
           Image i =
-              new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/roominverted.png");
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/roominverted.png")));
           roomIcon.setImage(i);
           Navigation.navigate(Screen.ROOM_BOOKING);
         });
@@ -83,7 +93,9 @@ public class RootController {
         event -> {
           changeMenuItem(menuflower);
           Image i =
-              new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/flowerinverted.png");
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/flowerinverted.png")));
           flowerIcon.setImage(i);
           Navigation.navigate(Screen.FLOWER_DELIVERY);
         });
@@ -91,7 +103,10 @@ public class RootController {
     menuoffice.setOnMouseClicked(
         event -> {
           changeMenuItem(menuoffice);
-          Image i = new Image("@../../edu/wpi/teamname/templateIcons/invertedmenu/peninverted.png");
+          Image i =
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/peninverted.png")));
           officeIcon.setImage(i);
           Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
         });
@@ -161,17 +176,17 @@ public class RootController {
     menuoffice.getStyleClass().remove("selectedtab");
 
     // reset photos
-    Image h = new Image("@../../edu/wpi/teamname/templateIcons/navicon.png");
+    Image h = new Image(String.valueOf(Main.class.getResource("templateIcons/navicon.png")));
     navIcon.setImage(h);
-    Image j = new Image("@../../edu/wpi/teamname/templateIcons/signageicon.png");
+    Image j = new Image(String.valueOf(Main.class.getResource("templateIcons/signageicon.png")));
     signageIcon.setImage(j);
-    Image k = new Image("@../../edu/wpi/teamname/templateIcons/mealicon.png");
+    Image k = new Image(String.valueOf(Main.class.getResource("templateIcons/mealicon.png")));
     mealIcon.setImage(k);
-    Image l = new Image("@../../edu/wpi/teamname/templateIcons/roomicon.png");
+    Image l = new Image(String.valueOf(Main.class.getResource("templateIcons/roomicon.png")));
     roomIcon.setImage(l);
-    Image m = new Image("@../../edu/wpi/teamname/templateIcons/flowericon.png");
+    Image m = new Image(String.valueOf(Main.class.getResource("templateIcons/flowericon.png")));
     flowerIcon.setImage(m);
-    Image n = new Image("@../../edu/wpi/teamname/templateIcons/pen.png");
+    Image n = new Image(String.valueOf(Main.class.getResource("templateIcons/pen.png")));
     officeIcon.setImage(n);
   }
 
