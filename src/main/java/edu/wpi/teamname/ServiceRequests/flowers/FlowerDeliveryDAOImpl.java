@@ -66,6 +66,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
   }
 
   public void constructFromRemote() {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
@@ -197,6 +198,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
 
   @Override
   public void add(FlowerDelivery request) {
+    dbConnection connection = dbConnection.getInstance();
 
     requests.put(request.getID(), request);
     try {
@@ -234,7 +236,7 @@ public class FlowerDeliveryDAOImpl implements ISRDAO<FlowerDelivery, Integer> {
       preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderedBy());
-      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.setString(6, "Received");
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();

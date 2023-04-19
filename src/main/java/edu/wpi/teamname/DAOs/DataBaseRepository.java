@@ -12,7 +12,6 @@ import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDAOImpl;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDeliveryDAOImpl;
-import edu.wpi.teamname.ServiceRequests.flowers.*;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDAOImpl;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDeliveryDAOImpl;
 import edu.wpi.teamname.pathfinding.AStar;
@@ -64,8 +63,14 @@ public class DataBaseRepository {
   }
 
   public static synchronized DataBaseRepository getInstance() {
+    dbConnection connection = dbConnection.getInstance();
     if (single_instance == null) single_instance = new DataBaseRepository();
     return single_instance;
+  }
+
+  public void forceUpdate() {
+    moveDAO.constructFromRemote();
+    edgeDAO.constructFromRemote();
   }
 
   public void load() {
@@ -91,6 +96,7 @@ public class DataBaseRepository {
     edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+    userDAO.loadRemote("loading the remote");
 
     flowerDAO.initTable(connection.getFlowerTable());
     flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
@@ -101,6 +107,9 @@ public class DataBaseRepository {
 
     officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
     officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
+    //    for (Move move : moveDAO.getAll()) {
+    //      System.out.println(move);
+    //    }
   }
 
   public boolean login(String text, String text1) throws Exception {
@@ -213,5 +222,9 @@ public class DataBaseRepository {
 
   public int flowerGetNewDeliveryID() {
     return flowerDeliveryDAO.getAll().size();
+  }
+
+  public void forceGlobalUpdate() {
+    System.out.println("Eventually is going to force an update to all of the orms periodically");
   }
 }

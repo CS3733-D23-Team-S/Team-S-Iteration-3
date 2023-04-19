@@ -4,6 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
@@ -85,16 +86,9 @@ public class FlowerSubmissionController {
 
     String stat = "Recieved";
 
-    employeedrop.getItems().add("Nick Ho");
-    employeedrop.getItems().add("Nikesh Walling");
-    employeedrop.getItems().add("Prahladh Raja");
-    employeedrop.getItems().add("Tyler Brown");
-    employeedrop.getItems().add("Ryan Wright");
-    employeedrop.getItems().add("Jake Olsen");
-    employeedrop.getItems().add("Sarah Kogan");
-    employeedrop.getItems().add("Kashvi Singh");
-    employeedrop.getItems().add("Anthony Ticombe");
-    employeedrop.getItems().add("Nat Rubin");
+    for (User u : dbr.getUserDAO().getListOfUsers().values()) {
+      employeedrop.getItems().add(u.getFirstName() + " " + u.getLastName());
+    }
 
     submitbutton.setOnMouseClicked(
         event -> {

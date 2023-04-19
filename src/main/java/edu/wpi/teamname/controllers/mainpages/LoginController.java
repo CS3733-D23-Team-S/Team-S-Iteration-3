@@ -4,6 +4,7 @@ import static edu.wpi.teamname.navigation.Screen.*;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
@@ -82,7 +83,14 @@ public class LoginController {
           errorMessage = "";
           if (isfieldFilled() && isValid()) {
             // ActiveUser.getInstance().setCurrentUser(
-            Navigation.navigate(ADMIN_PAGE);
+            if (ActiveUser.getInstance()
+                .getCurrentUser()
+                .getPermission()
+                .equals(Permission.ADMIN)) {
+              Navigation.navigate(ADMIN_PAGE);
+            } else {
+              Navigation.navigate(STAFF);
+            }
           }
         });
   }

@@ -1,7 +1,6 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
-import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -34,8 +33,10 @@ public class UserProfileController {
   // TODO connect to database
   ActiveUser activeUser = ActiveUser.getInstance();
 
-  User user = new User("Michael O'Connor", "password", Permission.ADMIN);
-  String name = user.getUserName();
+  User user =
+      activeUser.getCurrentUser(); // new User("Michael O'Connor", "password", Permission.ADMIN);
+  // String name = user.getUserName();
+  String name = user.getFirstName() + " " + user.getLastName();
   String position = user.getTitle();
   String permissions = user.getPermission().toString();
   String email = user.getEmail();
@@ -49,6 +50,11 @@ public class UserProfileController {
     clearButton.setOnMouseClicked(event -> clearFields());
     updatePassField.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.USER_PROFILE_POPUP));
 
+    nameCell.setText(name);
+    permissionsCell.setText(permissions);
+    roleCell.setText(position);
+    emailCell.setText(email);
+
     int currentHour = LocalTime.now().getHour();
     if (currentHour >= 5 && currentHour <= 11) {
       timeString = "Good morning";
@@ -58,6 +64,7 @@ public class UserProfileController {
       timeString = "Good evening";
     }
 
+    System.out.println(name);
     welcomeText.setText(timeString + ", " + name + "!");
 
     // ROUND IMAGE

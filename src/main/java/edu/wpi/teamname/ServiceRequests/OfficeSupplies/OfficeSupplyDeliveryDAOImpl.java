@@ -68,6 +68,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   public void constructFromRemote() {
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
       ResultSet data = stmt.executeQuery(listOfFlowerDeliveries);
@@ -98,6 +99,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   @Override
   public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -198,8 +200,8 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   @Override
   public void add(OfficeSupplyDelivery request) {
-    System.out.println("Here in add");
-    requests.put(request.getDeliveryid(), request);
+    dbConnection connection = dbConnection.getInstance();
+
     try {
       PreparedStatement preparedStatement =
           connection
@@ -221,6 +223,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
       preparedStatement.setString(11, "Office");
+      requests.put(request.getDeliveryid(), request);
 
       PreparedStatement preparedStatement2 =
           connection
@@ -235,7 +238,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
       preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderedBy());
-      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.setString(6, "Received");
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();
