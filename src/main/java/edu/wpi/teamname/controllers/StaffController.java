@@ -78,22 +78,15 @@ public class StaffController {
     taskTable.getColumns().add(column3);
     taskTable.getColumns().add(column4);
 
-    DBR.getRequestDAO().loadFromRemote();
-
-    for (Request r : DBR.getRequestDAO().getRequests()) {
-      taskTable.getItems().add(r);
-    }
-
     // List<toDo> ToDo = new LinkedList<>();
     // ToDo.add(new toDo("Meal", "17.3.2023", "Complete", " "));
     // ToDo.add(new toDo("Room", "17.3.2023", "Complete", " "));
     // ToDo.add(new toDo("Flower", "17.3.2023", "Complete", " "));
 
-    status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
+    // status.setCellValueFactory((row) -> new
+    // SimpleStringProperty(row.getValue().getOrderStatus()));
 
-    status.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-    taskTable.getColumns().add(status);
+    // status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
     status.setCellFactory(
         column -> {
@@ -134,6 +127,8 @@ public class StaffController {
           };
         });
 
+    taskTable.getColumns().add(status);
+
     // final ObservableList<Request> observableMealList = FXCollections.observableList();
     // mealRequestsTable.setItems(observableMealList);
     // taskTable.getItems().addAll(observableMealList);
@@ -169,6 +164,12 @@ public class StaffController {
             mapView.zoomTo(0.01, new Point2D(2500, 1750));
           }
         });
+
+    // populate the table
+    DBR.getRequestDAO().loadFromRemote();
+    for (Request r : DBR.getRequestDAO().getRequests()) {
+      taskTable.getItems().add(r);
+    }
   }
 
   public void changeButtonColor() {
