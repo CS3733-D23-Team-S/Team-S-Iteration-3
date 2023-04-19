@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
@@ -54,17 +55,29 @@
                   <Insets right="30.0" />
                </GridPane.margin>
             </ComboBox>
-            <ToggleSwitch id="toggle" fx:id="showEdges" ellipsisString="" prefHeight="30.0" prefWidth="150.0" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" text="Show Edges" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Open Sans SemiBold" size="14.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets right="30.0" />
-               </padding>
-            </ToggleSwitch>
+            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ToggleSwitch id="toggle" fx:id="showEdges" ellipsisString="" prefHeight="25.0" prefWidth="150.0" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" text="Show Edges" textAlignment="CENTER">
+                     <font>
+                        <Font name="Open Sans SemiBold" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </ToggleSwitch>
+                  <ToggleSwitch fx:id="showNames" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" text="Show Names">
+                     <font>
+                        <Font name="Open Sans SemiBold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </ToggleSwitch>
+               </children>
+            </VBox>
             <MFXButton fx:id="addAndRemove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add/Remove" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Open Sans SemiBold" size="18.0" />

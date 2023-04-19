@@ -217,6 +217,9 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         }
         listOfMoves.add(thisMove);
       }
+      for (List<Move> list : locationsAtNodeID.values()) {
+        list.sort(new DateComparator());
+      }
       System.out.println("Successfully loaded from the moves remote");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -265,5 +268,11 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.US));
     // Parse the output string into a LocalDate object
     return LocalDate.parse(outputString);
+  }
+
+  private class DateComparator implements Comparator<Move> {
+    public int compare(Move o1, Move o2) {
+      return o1.getDate().compareTo(o2.getDate());
+    }
   }
 }
