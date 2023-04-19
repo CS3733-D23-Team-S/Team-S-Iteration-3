@@ -5,13 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 /*public class EdgeTest {
   // NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
   DataBaseRepository dbr = DataBaseRepository.getInstance();
-  Edge e1 = new Edge(dbr.getNodeDAO().get(2955), dbr.getNodeDAO().get(280));
+  Edge e1 = new Edge(dbr.getNodeDAO().getNodes().get(2955), dbr.getNodeDAO().getNodes().get(280));
 
   @Test
   public void startNodeTest() {
-    System.out.print("HERE");
-    System.out.println(e1);
-    assertEquals(e1.getStartNode().getNodeID(), 2955);
+    System.out.println("here");
+    assertEquals(e1, dbr.getNodeDAO().get(2955));
   }
 
   @Test
