@@ -1,5 +1,7 @@
 package edu.wpi.teamname.controllers.mainpages;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.fxml.FXML;
@@ -15,6 +17,16 @@ public class SignageController {
 
   public void initialize() {
     // label button
-    tapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+    tapButton.setOnMouseClicked(
+        event -> {
+          if (ActiveUser.getInstance().isLoggedIn()) {
+            System.out.println(ActiveUser.getInstance().getPermission().name());
+            if (ActiveUser.getInstance().getPermission() == Permission.ADMIN) {
+              Navigation.navigate(Screen.ADMIN_PAGE);
+            } else {
+              Navigation.navigate(Screen.STAFF);
+            }
+          } else Navigation.navigate(Screen.LOGIN_PAGE);
+        });
   }
 }

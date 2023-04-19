@@ -1,13 +1,13 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,36 +24,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import lombok.Getter;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
-
-class toDo {
-  @Getter public String serviceRequestType;
-  @Getter public String timeOrdered;
-  @Getter public String status;
-  private StringProperty category;
-  // private ComboBox dropComboBox;
-
-  toDo(String serviceRequestType, String timeOrdered, String status, String category) {
-    this.serviceRequestType = serviceRequestType;
-    this.timeOrdered = timeOrdered;
-    this.status = status;
-    this.category = new SimpleStringProperty(category);
-    // this.dropComboBox = new ComboBox<>();
-  }
-
-  public String getCategory() {
-    return category.get();
-  }
-
-  public void setCategory(String category) {
-    this.category.set(category);
-  }
-
-  public StringProperty categoryProperty() {
-    return category;
-  }
-}
 
 public class StaffController {
 
@@ -65,6 +38,7 @@ public class StaffController {
   @FXML GesturePane mapView;
   StackPane stackpane;
   AnchorPane anchorpane = new AnchorPane();
+  DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
 
@@ -75,38 +49,66 @@ public class StaffController {
   Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
 
   Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
+  // -----------------------------------------------------------------------------------------//
+  @FXML TableView<Request> taskTable;
 
-  @FXML TableView<toDo> toDoTable;
-  public ObservableList<toDo> data = FXCollections.observableArrayList();
-  @FXML TableColumn<toDo, String> serviceRequestType = new TableColumn<>("Service Request Type");
-  @FXML TableColumn<toDo, String> timeOrdered = new TableColumn<>("Time Ordered");
-  @FXML TableColumn<toDo, String> status = new TableColumn<>("Status");
+  public ObservableList<Request> data = FXCollections.observableArrayList();
+  @FXML TableColumn<Request, String> serviceRequestType = new TableColumn<>("Service Request Type");
+  @FXML TableColumn<Request, String> timeOrdered = new TableColumn<>("Time Ordered");
+  @FXML TableColumn<Request, String> status = new TableColumn<>("Update Status");
 
   @FXML
   public void initialize() {
+    status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
 
-    List<toDo> ToDo = new LinkedList<>();
-    ToDo.add(new toDo("Meal", "17.3.2023", "Complete", " "));
-    ToDo.add(new toDo("Room", "17.3.2023", "Complete", " "));
-    ToDo.add(new toDo("Flower", "17.3.2023", "Complete", " "));
+    TableColumn<Request, String> column1 = new TableColumn<>("Service Request Type");
+    column1.setCellValueFactory(new PropertyValueFactory<>("requestType"));
 
-    serviceRequestType.setCellValueFactory(
-        (row) -> new SimpleStringProperty(row.getValue().getServiceRequestType()));
-    timeOrdered.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().timeOrdered));
-    status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getStatus()));
+    TableColumn<Request, String> column2 = new TableColumn<>("Date Submitted");
+    column2.setCellValueFactory(new PropertyValueFactory<>("deliveryTime"));
+
+    TableColumn<Request, String> column3 = new TableColumn<>("Ordered By");
+    column3.setCellValueFactory(new PropertyValueFactory<>("orderedBy"));
+
+    TableColumn<Request, String> column4 = new TableColumn<>("Order Status");
+    column4.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
+
+    taskTable.getColumns().add(column1);
+    taskTable.getColumns().add(column2);
+    taskTable.getColumns().add(column3);
+    taskTable.getColumns().add(column4);
+
+    // List<toDo> ToDo = new LinkedList<>();
+    // ToDo.add(new toDo("Meal", "17.3.2023", "Complete", " "));
+    // ToDo.add(new toDo("Room", "17.3.2023", "Complete", " "));
+    // ToDo.add(new toDo("Flower", "17.3.2023", "Complete", " "));
+
+    // status.setCellValueFactory((row) -> new
+    // SimpleStringProperty(row.getValue().getOrderStatus()));
 
     // status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
     status.setCellFactory(
         column -> {
-          return new TableCell<toDo, String>() {
+          return new TableCell<Request, String>() {
             private final ComboBox<String> dropdown = new ComboBox<>();
 
             {
               dropdown.getItems().addAll("Recieved", "In Progress", "Complete");
+              // dropdown.setPromptText();
               dropdown.setOnAction(
                   event -> {
-                    toDo item = getTableView().getItems().get(getIndex());
-                    item.setCategory(dropdown.getSelectionModel().getSelectedItem());
+                    Request item = getTableView().getItems().get(getIndex());
+                    System.out.println(item);
+                    item.setOrderStatus(dropdown.getSelectionModel().getSelectedItem());
+
+                    DBR.getRequestDAO()
+                        .updateRequest(
+                            item.getOrderStatus(),
+                            item.getOrderedBy(),
+                            item.getDeliveryTime(),
+                            item.getRequestType());
+
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
                   });
@@ -125,9 +127,13 @@ public class StaffController {
           };
         });
 
-    final ObservableList<toDo> observableMealList = FXCollections.observableList(ToDo);
+    taskTable.getColumns().add(status);
+
+    // final ObservableList<Request> observableMealList = FXCollections.observableList();
     // mealRequestsTable.setItems(observableMealList);
-    toDoTable.getItems().addAll(observableMealList);
+    // taskTable.getItems().addAll(observableMealList);
+
+    // -------------------------------------------------------------------------------///
 
     stackpane = new StackPane();
     floorView =
@@ -158,6 +164,12 @@ public class StaffController {
             mapView.zoomTo(0.01, new Point2D(2500, 1750));
           }
         });
+
+    // populate the table
+    DBR.getRequestDAO().loadFromRemote();
+    for (Request r : DBR.getRequestDAO().getRequests()) {
+      taskTable.getItems().add(r);
+    }
   }
 
   public void changeButtonColor() {

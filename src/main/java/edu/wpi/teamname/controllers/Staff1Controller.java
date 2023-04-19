@@ -1,34 +1,66 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.Main;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import lombok.Getter;
 import net.kurobako.gesturefx.GesturePane;
 
-public class AdminController {
-  //  @FXML ImageView homeIcon;
+class toDo {
+  @Getter public String serviceRequestType;
+  @Getter public String timeOrdered;
+  @Getter public String status;
+  private StringProperty category;
+  // private ComboBox dropComboBox;
+
+  toDo(String serviceRequestType, String timeOrdered, String status, String category) {
+    this.serviceRequestType = serviceRequestType;
+    this.timeOrdered = timeOrdered;
+    this.status = status;
+    this.category = new SimpleStringProperty(category);
+    // this.dropComboBox = new ComboBox<>();
+  }
+
+  public String getCategory() {
+    return category.get();
+  }
+
+  public void setCategory(String category) {
+    this.category.set(category);
+  }
+
+  public StringProperty categoryProperty() {
+    return category;
+  }
+}
+
+public class Staff1Controller {
 
   @FXML MFXButton floorL2Button;
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floor1Button;
   @FXML MFXButton floor2Button;
   @FXML MFXButton floor3Button;
-  @FXML MFXButton mapEditorButton;
-  @FXML private MFXButton csvData;
   ImageView floorView;
   @FXML GesturePane mapView;
   StackPane stackpane;
@@ -44,24 +76,66 @@ public class AdminController {
 
   Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
 
-  private static final int maxCheckboxNumber = 5;
-  @FXML VBox vboxContainer;
-  @FXML CheckBox checkbox;
-  private int currentCheckboxNumber = 0;
+  @FXML TableView<toDo> toDoTable;
+  public ObservableList<toDo> data = FXCollections.observableArrayList();
+  @FXML TableColumn<toDo, String> serviceRequestType = new TableColumn<>("Service Request Type");
+  @FXML TableColumn<toDo, String> timeOrdered = new TableColumn<>("Time Ordered");
+  @FXML TableColumn<toDo, String> status = new TableColumn<>("Status");
 
   @FXML
   public void initialize() {
 
-    mapEditorButton.setOnMouseClicked(event -> goToMapEditorPage());
+    List<toDo> ToDo = new LinkedList<>();
+    ToDo.add(new toDo("Meal", "17.3.2023", "Complete", " "));
+    ToDo.add(new toDo("Room", "17.3.2023", "Complete", " "));
+    ToDo.add(new toDo("Flower", "17.3.2023", "Complete", " "));
+
+    serviceRequestType.setCellValueFactory(
+        (row) -> new SimpleStringProperty(row.getValue().getServiceRequestType()));
+    timeOrdered.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().timeOrdered));
+    status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getStatus()));
+
+    // status.setCellValueFactory(new PropertyValueFactory<>("status"));
+    status.setCellFactory(
+        column -> {
+          return new TableCell<toDo, String>() {
+            private final ComboBox<String> dropdown = new ComboBox<>();
+
+            {
+              dropdown.getItems().addAll("Recieved", "In Progress", "Complete");
+              dropdown.setOnAction(
+                  event -> {
+                    toDo item = getTableView().getItems().get(getIndex());
+                    item.setCategory(dropdown.getSelectionModel().getSelectedItem());
+                    System.out.println(
+                        "Selected:" + dropdown.getSelectionModel().getSelectedItem());
+                  });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+              super.updateItem(item, empty);
+              if (empty) {
+                setGraphic(null);
+              } else {
+                dropdown.getSelectionModel().select(item);
+                setGraphic(dropdown);
+              }
+            }
+          };
+        });
+
+    final ObservableList<toDo> observableMealList = FXCollections.observableList(ToDo);
+    // mealRequestsTable.setItems(observableMealList);
+    toDoTable.getItems().addAll(observableMealList);
 
     stackpane = new StackPane();
     floorView =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png"))));
     floorL2Button.setStyle("-fx-background-color: #1D2B94");
-    //    stackpane.setPrefSize(800, 522);
+    stackpane.setPrefSize(800, 522);
     mapView.setContent(stackpane);
-
     // stackpane.setBackground(Background.fill(Color.RED));
 
     floorView.setImage(floor1);
@@ -74,30 +148,16 @@ public class AdminController {
     floor1Button.setOnMouseClicked(event -> switchToFloor1());
     floor2Button.setOnMouseClicked(event -> switchToFloor2());
     floor3Button.setOnMouseClicked(event -> switchToFloor3());
-    csvData.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
     mapView.setMinScale(0.005);
     mapView.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-    mapView.zoomTo(.2, new Point2D(2500, 2500));
-    //    Platform.runLater({
-    //          mapView.zoomTo(0.01, new Point2D(2500, 1750))
-    //        }
-    //        );
-  }
-
-  public void toDoCheckbox() {
-    if (currentCheckboxNumber < maxCheckboxNumber) {
-      checkbox.setOnAction(event -> removeCheckbox(checkbox));
-      vboxContainer.getChildren().add(checkbox);
-      currentCheckboxNumber++;
-    } else {
-      System.out.println("Please complete one of the above tasks!");
-    }
-  }
-
-  public void removeCheckbox(CheckBox checkbox) {
-    vboxContainer.getChildren().remove(checkbox);
-    currentCheckboxNumber--;
+    Platform.runLater(
+        new Runnable() {
+          @Override
+          public void run() {
+            mapView.zoomTo(0.01, new Point2D(2500, 1750));
+          }
+        });
   }
 
   public void changeButtonColor() {
@@ -186,9 +246,5 @@ public class AdminController {
     floor1Points = new ArrayList<>();
     floor2Points = new ArrayList<>();
     floor3Points = new ArrayList<>();
-  }
-
-  public void goToMapEditorPage() {
-    Navigation.navigate(Screen.ADMIN_PAGE);
   }
 }

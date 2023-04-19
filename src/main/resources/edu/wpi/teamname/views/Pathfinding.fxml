@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -99,32 +98,27 @@
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="10" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="10">
          <children>
-            <SearchableComboBox fx:id="startingLocationList" prefHeight="50.0" prefWidth="400.0" promptText="Choose Starting Location" />
-            <MFXTextField fx:id="startingLocationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="415.0">
-               <textFill>
-                  <Color red="0.545098066329956" opacity="0.8700000047683716" />
-               </textFill>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
+            <SearchableComboBox fx:id="startingLocationList" maxHeight="40.0" prefHeight="40.0" prefWidth="400.0" promptText="Choose Starting Location">
                <VBox.margin>
                   <Insets top="10.0" />
-               </VBox.margin>
-            </MFXTextField>
-            <SearchableComboBox fx:id="destinationList" prefHeight="50.0" prefWidth="400.0" promptText="Choose Destination" style="-fx-border-radius: 5;">
-               <VBox.margin>
-                  <Insets top="30.0" />
                </VBox.margin>
             </SearchableComboBox>
-            <MFXTextField fx:id="destinationError" editable="false" minHeight="-Infinity" prefHeight="27.0" prefWidth="420.0">
-               <textFill>
-                  <Color red="0.545098066329956" opacity="0.8700000047683716" />
-               </textFill>
+            <Label fx:id="startingLocationError" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="349.0" textFill="RED" wrapText="true">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
-            </MFXTextField>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="120.0">
+            </Label>
+            <SearchableComboBox fx:id="destinationList" maxHeight="40.0" prefHeight="40.0" prefWidth="400.0" promptText="Choose Destination" style="-fx-border-radius: 5;">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </SearchableComboBox>
+            <Label fx:id="destinationError" alignment="TOP_CENTER" prefHeight="25.0" prefWidth="349.0" textFill="RED" wrapText="true">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="67.0" prefWidth="349.0" spacing="120.0">
                <children>
                   <MFXButton fx:id="findPathButton" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Show Path" textFill="WHITE">
                      <font>

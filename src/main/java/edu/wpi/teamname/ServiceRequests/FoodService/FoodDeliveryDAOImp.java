@@ -66,6 +66,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void add(FoodDelivery request) {
+    dbConnection connection = dbConnection.getInstance();
 
     try {
       PreparedStatement preparedStatement =
@@ -96,13 +97,12 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
                       + allRequestTable
                       + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
                       + " (?, ?, ?, ?, ?, ?)");
-      preparedStatement2.setString(1, "Room");
+      preparedStatement2.setString(1, "Food");
       preparedStatement2.setString(2, request.getLocation());
       preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderer());
-      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
-      preparedStatement2.executeUpdate();
+      preparedStatement2.setString(6, "Received");
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();
@@ -158,6 +158,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -175,6 +176,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   public void constructFromRemote() {
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 

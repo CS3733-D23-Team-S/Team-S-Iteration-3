@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
@@ -47,19 +48,29 @@ public class OrderDetailsController {
 
   @FXML
   public void initialize() {
+    submit.setDisable(true);
+
+    location1
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submit.setDisable(location1.getValue() == null || empNum.getValue() == null);
+            }));
+
+    empNum
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submit.setDisable(location1.getValue() == null || empNum.getValue() == null);
+            }));
 
     totalPrice.setText("$ " + String.format("%.02f", MealDeliveryController.cart.getTotalPrice()));
 
-    empNum.getItems().add("Nick Ho");
-    empNum.getItems().add("Nikesh Walling");
-    empNum.getItems().add("Prahladh Raja");
-    empNum.getItems().add("Tyler Brown");
-    empNum.getItems().add("Ryan Wright");
-    empNum.getItems().add("Jake Olsen");
-    empNum.getItems().add("Sarah Kogan");
-    empNum.getItems().add("Kashvi Singh");
-    empNum.getItems().add("Anthony Ticombe");
-    empNum.getItems().add("Nat Rubin");
+    for (User u : DBR.getUserDAO().getListOfUsers().values()) {
+      empNum.getItems().add(u.getFirstName() + " " + u.getLastName());
+    }
 
     clearFields2();
     addedOrder();

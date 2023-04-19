@@ -4,10 +4,11 @@ import edu.wpi.teamname.DAOs.dbConnection;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import lombok.Getter;
 
 public class RequestDAO {
   dbConnection connection = dbConnection.getInstance();
-  ArrayList<Request> requests;
+  @Getter ArrayList<Request> requests;
   public static final String allRequestTable = "hospitaldb." + "allRequests";
 
   public RequestDAO() {
@@ -40,7 +41,9 @@ public class RequestDAO {
 
   public void loadFromRemote() {
     ArrayList<Request> curr = new ArrayList<>();
+
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + allRequestTable);
 
@@ -48,7 +51,7 @@ public class RequestDAO {
         String requestType = rs.getString("requestType");
         String location = rs.getString("deliveryLocation");
         String orderStatus = rs.getString("orderStatus");
-        LocalTime ordertime = rs.getTime("ordertime").toLocalTime();
+        LocalTime ordertime = rs.getTime("requestTime").toLocalTime();
         String orderedBy = rs.getString("orderedBy");
         String assignedTo = rs.getString("assignedTo");
         Request newRequest =

@@ -20,11 +20,11 @@ public enum Screen {
   MEAL_DELIVERY_ORDER_CONFIRMATION("views/MealDelivery/MealDeliveryOrderConfirmation.fxml"),
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
-  MAP_EDITOR("views/MapEditor.fxml"),
+  MAP_EDITOR("views/NewMapEditor.fxml"),
   BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
   NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
-  ADMIN_PAGE("views/AdminPage.fxml"),
+  ADMIN_PAGE("views/newAdminPage.fxml"),
   SUBMITTED_MEAL_REQUESTS("views/MealDelivery/NewSubmittedMealRequests.fxml"),
   USER_PROFILE("views/UserProfile.fxml"),
   USER_PROFILE_POPUP("views/changePasswordPopup.fxml"),
@@ -43,10 +43,12 @@ public enum Screen {
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
   OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/officeSuppliesPopup.fxml"),
+  NEW_ADMIN_PAGE("views/newAdminPage.fxml"),
 
   NEW_USER("views/newUserPopUp.fxml"),
 
-  STAFF("views/StaffPage.fxml");
+  STAFF("views/StaffPage.fxml"),
+  STAFF1("views/staff1.fxml");
 
   private final String filename;
 

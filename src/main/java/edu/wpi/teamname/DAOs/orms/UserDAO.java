@@ -4,9 +4,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Getter;
 
 public class UserDAO {
-  private static final Map<String, User> users = new HashMap<>();
+  @Getter private static final Map<String, User> users = new HashMap<>();
   private static final Map<String, User> sessions = new HashMap<>();
   private static final SecureRandom random = new SecureRandom();
 
@@ -32,7 +33,7 @@ public class UserDAO {
       return null;
     }
     String sessionId = generateSessionId();
-    user.setSessionID(sessionId);
+    //    user.setSessionID(sessionId);
     sessions.put(sessionId, user);
     return sessionId;
   }
@@ -44,7 +45,7 @@ public class UserDAO {
   public static void removeSession(String sessionId) {
     User user = getUserBySession(sessionId);
     if (user != null) {
-      user.setSessionID(null);
+      //      user.setSessionID(null);
     }
     sessions.remove(sessionId);
   }

@@ -28,10 +28,17 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
   @Override
   public void initTable(String name) {
     this.name = name;
-    String edgeTable = "CREATE TABLE IF NOT EXISTS " + name + " (startNode int, endNode int)";
     try {
-      Statement stmt = connection.getConnection().createStatement();
-      stmt.execute(edgeTable);
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "CREATE TABLE IF NOT EXISTS "
+                      + name
+                      + " (startNode int, endNode int, "
+                      + "FOREIGN KEY (startNode) REFERENCES hospitaldb.nodes(nodeID)ON DELETE CASCADE ON UPDATE CASCADE, "
+                      + "FOREIGN KEY (endNode) REFERENCES hospitaldb.nodes(nodeID) ON DELETE CASCADE ON UPDATE CASCADE)");
+      stmt.execute();
       System.out.println("Created the edge table");
     } catch (SQLException e) {
       e.printStackTrace();
@@ -96,7 +103,11 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
 
   @Override
   public Edge get(Edge target) {
-    return null;
+    return target;
+  }
+
+  public HashSet<Integer> getNeighbors(int targetID) {
+    return neighbors.get(targetID);
   }
 
   /**
@@ -117,7 +128,31 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
    */
   @Override
   public void add(Edge addition) {
-    edges.add(addition);
+    //    edges.add(addition);
+    //    if (getNeighbors().get(addition.getStartNode().getNodeID()) == null)
+    //      add(addition.getStartNode());
+    //    if (getNeighbors().get(addition.getEndNode().getNodeID()) == null)
+    // add(addition.getEndNode());
+    //
+    // getNeighbors().get(addition.getStartNode().getNodeID()).add(addition.getEndNode().getNodeID());
+    //
+    // getNeighbors().get(addition.getEndNode().getNodeID()).add(addition.getStartNode().getNodeID());
+    //    getNeighbors()
+    //        .get(addition.getStartNode().getNodeID())
+    //        .remove(addition.getStartNode().getNodeID());
+    try {
+      PreparedStatement statement =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO " + name + " (startNode, endNode) " + "VALUES (?" + ",?)");
+      statement.setInt(1, addition.getStartNode().getNodeID());
+      statement.setInt(2, addition.getEndNode().getNodeID());
+      statement.executeUpdate();
+      System.out.println("Successfully added the edge: " + addition);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void add(Node stN, Node enN) {
@@ -125,7 +160,14 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
     add(addition);
   }
 
-  private void constructFromRemote() {
+  public void add(Node emptyEdge) {
+    HashSet<Integer> neighs = new HashSet<>();
+    neighbors.put(emptyEdge.getNodeID(), neighs);
+  }
+
+  void constructFromRemote() {
+    edges.clear();
+    neighbors.clear();
     try {
       PreparedStatement getNeighbors =
           connection.getConnection().prepareStatement("SELECT * FROM " + name);
@@ -149,6 +191,7 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
       for (int currentID : neighbors.keySet()) {
         neighbors.get(currentID).remove(currentID);
       }
+      System.out.println("Successfully loaded from the edges remote");
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
