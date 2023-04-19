@@ -1,9 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.ConferenceRoom;
 
-import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-import edu.wpi.teamname.DAOs.orms.Location;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -11,11 +9,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
@@ -109,21 +104,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     }
   }
 
-  public LinkedList<String> getConfRoomLocationsAlphabetically() {
-    LinkedList<String> locations = new LinkedList<>();
-    for (Location thisLocation : DataBaseRepository.getInstance().getLocationDAO().getAll()) {
-
-      Pattern pattern = Pattern.compile("Conf", Pattern.CASE_INSENSITIVE);
-      Matcher matcher = pattern.matcher(thisLocation.getLongName());
-      boolean matchFound = matcher.find();
-      if (matchFound) {
-        locations.add(thisLocation.getLongName());
-      }
-    }
-    ;
-    Collections.sort(locations);
-    return locations;
-  }
 
   public boolean hasConflicts(
       String location, LocalDate eventDate, LocalTime startTime, LocalTime endTime)
@@ -202,50 +182,6 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
     }
     return requestList;
   }
-
-  //  public List<ConfRoomRequest> filterRequestsByDate(LocalDate date) throws Exception {
-  //
-  //    List<ConfRoomRequest> requestList = new ArrayList<>();
-  //
-  //    try {
-  //
-  //      String checkTable = "SELECT * FROM " + roomReservationsTable + " WHERE dateOrdered = ?";
-  //      PreparedStatement preparedStatement =
-  // connection.getConnection().prepareStatement(checkTable);
-  //      preparedStatement.setDate(1, Date.valueOf(date));
-  //
-  //      ResultSet rs = preparedStatement.executeQuery();
-  //      while (rs.next()) {
-  //
-  //        LocalDate thisDate = rs.getDate("eventDate").toLocalDate();
-  //        LocalTime thisStartTime = rs.getTime("startTime").toLocalTime();
-  //        LocalTime thisEndTime = rs.getTime("endTime").toLocalTime();
-  //        String room = rs.getString("Room");
-  //        String user = rs.getString("reservedBy");
-  //        String eventName = rs.getString("EventName");
-  //        String eventDescription = rs.getString("EventDescription");
-  //        String assignedTo = rs.getString("AssignedTo");
-  //        Boolean isPrivate = rs.getBoolean("isPrivate");
-  //
-  //        ConfRoomRequest thisRequest =
-  //            new ConfRoomRequest(
-  //                thisDate,
-  //                thisStartTime,
-  //                thisEndTime,
-  //                room,
-  //                user,
-  //                eventName,
-  //                eventDescription,
-  //                assignedTo,
-  //                isPrivate);
-  //        requestList.add(thisRequest);
-  //      }
-  //    } catch (SQLException e) {
-  //      e.getMessage();
-  //      e.printStackTrace();
-  //    }
-  //    return requestList;
-  //  }
 
   public void deleteRequest(String orderedBy, LocalDate orderDate) {
     try {

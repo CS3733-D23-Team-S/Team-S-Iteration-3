@@ -104,7 +104,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getOrderer());
       preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
-      preparedStatement2.executeUpdate();
+
 
       preparedStatement.executeUpdate();
       preparedStatement2.executeUpdate();
@@ -178,6 +178,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   public void constructFromRemote() {
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 

@@ -69,6 +69,7 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
 
   public void constructFromRemote() {
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement stmt = connection.getConnection().createStatement();
       String listOfFlowerDeliveries = "SELECT * FROM " + name;
       ResultSet data = stmt.executeQuery(listOfFlowerDeliveries);

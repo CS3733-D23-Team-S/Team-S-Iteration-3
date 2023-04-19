@@ -1,5 +1,8 @@
 package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
+import static edu.wpi.teamname.controllers.servicerequests.officesupplies.OfficeSuppliesController.suppliesID;
+import static edu.wpi.teamname.navigation.Screen.*;
+
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
@@ -11,9 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-
-import static edu.wpi.teamname.controllers.servicerequests.officesupplies.OfficeSuppliesController.suppliesID;
-import static edu.wpi.teamname.navigation.Screen.*;
 
 public class OfficeSuppliesDetailsController {
   public static OfficeSupplyCart officeSuppliesCart = new OfficeSupplyCart(1);
