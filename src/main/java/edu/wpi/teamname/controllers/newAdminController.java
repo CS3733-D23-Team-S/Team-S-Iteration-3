@@ -13,12 +13,11 @@ import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDelivery;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
-import java.sql.Date;
-import java.sql.Time;
-
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Date;
+import java.sql.Time;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,6 +31,8 @@ public class newAdminController {
   @FXML TableView officeTable;
   @FXML TableView moveTable;
   @FXML TableView allTable;
+  @FXML MFXButton impexpButton;
+
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -41,6 +42,7 @@ public class newAdminController {
   public void initialize() {
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
+    impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
     TableColumn<Food, String> Mcolumn1 = new TableColumn<>("RequestID");
     Mcolumn1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));
