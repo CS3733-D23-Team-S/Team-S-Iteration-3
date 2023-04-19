@@ -98,7 +98,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
       preparedStatement2.setTime(3, Time.valueOf((request.getStartTime())));
       preparedStatement2.setString(4, request.getAssignedTo());
       preparedStatement2.setString(5, request.getReservedBy());
-      preparedStatement2.setString(6, String.valueOf(request.getOrderStatus()));
+      preparedStatement2.setString(6, "Received");
       preparedStatement2.executeUpdate();
       requests.add(request);
       //      preparedStatement.executeUpdate();
