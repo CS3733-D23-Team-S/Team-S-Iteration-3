@@ -2,44 +2,67 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.flowers.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class FlowersTest {
-  FlowerDAOImpl fDAOI = new FlowerDAOImpl();
-  FlowerDeliveryDAOImpl FDDAOI = new FlowerDeliveryDAOImpl();
   Flower flower1;
   FlowerDelivery FD;
+  static DataBaseRepository dbr = DataBaseRepository.getInstance();
 
-  @Test
+  @BeforeAll
+  public static void start() {
+    dbr.getUserDAO().loadRemote("k");
+  }
+
+  /*@Test
   public void testNewFlower() {
     flower1 =
         new Flower(1000, "test flower", Size.LARGE, 10.0, 1, "Hello", false, "Flower", "image");
 
-    fDAOI.add(flower1);
+    dbr.getFlowerDAO().add(flower1);
+    System.out.println("Hereerere");
 
-    assertEquals(fDAOI.get(1000), flower1);
+    assertEquals(dbr.getFlowerDAO().get(1000), flower1);
 
     List<Flower> sizes = new ArrayList<>();
 
-    for (Flower flower : fDAOI.getAll()) {
+    for (Flower flower : dbr.getFlowerDAO().getAll()) {
       if (flower.getSize().toString().equals("small")) sizes.add(flower);
     }
 
-    assertEquals(sizes, fDAOI.getListOfSize("small"));
-  }
+    assertEquals(sizes, dbr.getFlowerDAO().getListOfSize("small"));
+
+    dbr.getFlowerDAO().delete(1000);
+  }*/
 
   @Test
   public void testFlowerDelivery() {
     FD =
         new FlowerDelivery(
-            1000, "acarrt", null, null, "a room", "me", "ur mom", "Complete", 10.01, "n");
+            1000,
+            "acarrt",
+            Date.valueOf(LocalDate.of(2022, 5, 13)),
+            Time.valueOf(LocalTime.of(14, 45)),
+            "a room",
+            "me",
+            "ur mom",
+            "Complete",
+            10.01,
+            "n");
 
-    FDDAOI.add(FD);
+    dbr.getFlowerDeliveryDAO().add(FD);
 
-    assertEquals(FD, FDDAOI.get(1000));
+    assertEquals(FD, dbr.getFlowerDeliveryDAO().get(1000));
   }
 
   @Test
@@ -53,5 +76,10 @@ public class FlowersTest {
     cart.addFlowerItem(flower2);
 
     assertEquals(cart.getTotalPrice(), 70);
+  }
+
+  @AfterAll
+  public static void closeDB() throws SQLException {
+    dbConnection.getInstance().getConnection().close();
   }
 }

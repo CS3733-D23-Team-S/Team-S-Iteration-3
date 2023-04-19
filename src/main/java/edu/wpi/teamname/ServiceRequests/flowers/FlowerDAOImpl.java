@@ -102,6 +102,8 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   }
 
   public Flower get(int ID) {
+    System.out.println("herehere");
+    System.out.println(flowers);
     return flowers.get(ID);
   }
 

@@ -100,7 +100,6 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
 
   @Override
   public Node get(Integer target) {
-    System.out.println(get(target).toString());
     return nodes.get(target);
   }
 
