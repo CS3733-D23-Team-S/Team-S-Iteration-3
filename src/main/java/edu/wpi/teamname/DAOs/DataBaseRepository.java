@@ -109,9 +109,9 @@ public class DataBaseRepository {
 
     officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
     officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
-//    for (Move move : moveDAO.getAll()) {
-//      System.out.println(move);
-//    }
+    //    for (Move move : moveDAO.getAll()) {
+    //      System.out.println(move);
+    //    }
   }
 
   public boolean login(String text, String text1) throws Exception {

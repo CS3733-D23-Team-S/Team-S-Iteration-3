@@ -125,5 +125,10 @@
             <Font name="Open Sans Regular" size="24.0" />
          </font>
       </MFXButton>
+      <MFXButton fx:id="csvData" contentDisplay="TOP" prefHeight="60.0" prefWidth="190.0" styleClass="MapEditorButton" stylesheets="@../../../../Stylesheets/AdminPage.css" text="CSV Data" translateX="150.0" translateY="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="Open Sans Regular" size="24.0" />
+         </font>
+      </MFXButton>
     </children>
 </GridPane>
