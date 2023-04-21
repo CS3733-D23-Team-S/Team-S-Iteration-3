@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.HomeController">
+   <center>
+      <AnchorPane maxHeight="900.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="hospitalBg" fitHeight="900.0" fitWidth="1600.0" pickOnBounds="true">
+               <image>
+
+               </image>
+            </ImageView>
+            <Pane prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-opacity: 0.6;">
+               <children>
+                  <ImageView fx:id="helpIcon" fitHeight="47.0" fitWidth="47.0" layoutX="33.0" layoutY="838.0" onMouseClicked="#goToHelpPage" pickOnBounds="true" preserveRatio="true" style="-fx-image: 10;">
+
+                  </ImageView>
+                  <MFXButton fx:id="exportButton" layoutX="672.0" layoutY="838.0" style="-fx-background-color: #122E59;" text="Export" textFill="#fdfafa">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <VBox layoutX="137.0" layoutY="112.0" prefHeight="118.0" prefWidth="516.0">
+                     <children>
+                        <Label fx:id="welcomeLabel" alignment="CENTER" prefHeight="65.0" prefWidth="237.0" text="Welcome to " textFill="#1f1f1f">
+                           <font>
+                              <Font name="Open Sans Regular" size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="welcomeLabel2" text="Brigham and Women's Hospital!" translateX="10.0" translateY="-10.0">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <MFXButton fx:id="homeToPathfindingButton" alignment="TOP_LEFT" layoutX="118.0" layoutY="251.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Navigation" textFill="WHITE" translateX="30.0">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </MFXButton>
+                  <VBox alignment="CENTER" layoutX="182.0" layoutY="369.0" prefHeight="531.0" prefWidth="458.0" spacing="50.0">
+                     <children>
+                        <MFXButton fx:id="reserveRoomButton" prefHeight="75.0" prefWidth="431.0" style="-fx-background-color: D9D9D9;" text="Reserve a Room">
+                           <font>
+                              <Font name="Open Sans Regular" size="36.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="mealDeliveryButton" prefHeight="75.0" prefWidth="433.0" style="-fx-background-color: D9D9D9;" text="Meal Delivery">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="logoutButton" onAction="#goToLoginPage" style="-fx-background-color: #122E59;" text="Logout" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+                  <MFXButton alignment="TOP_LEFT" layoutX="432.0" layoutY="251.0" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #122E59;" text="Signage" textFill="#f8f8f8">
+                     <font>
+                        <Font size="24.0" />
+                     </font></MFXButton>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

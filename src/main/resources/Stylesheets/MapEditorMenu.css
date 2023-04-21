@@ -1,0 +1,22 @@
+.grid-pane{
+    -fx-background-top-left-radius: 20px;
+}
+.combo-box {
+    -fx-background-color: #1D3D94;
+    -fx-pref-width: 120;
+    -fx-cell-size: 120;
+}
+
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+.combo-box-popup .list-view .list-cell:hover, .list-cell:selected{
+    -fx-text-fill: white;
+    -fx-background-color: #1D3D94;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: black;
+}
