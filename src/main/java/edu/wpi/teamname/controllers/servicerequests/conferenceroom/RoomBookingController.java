@@ -64,17 +64,13 @@ public class RoomBookingController {
   public void initialize() throws SQLException {
 
     scrollPane.setStyle("-fx-box-border: transparent;");
-
-    // set navigation
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
 
     initializeRooms();
-    initializeFeatureFilter();
-
+    featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
     dateHeaderTextField.setText(
         LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
-    // filterDate(LocalDate.now());
 
     // add current requests to UI
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
@@ -146,39 +142,6 @@ public class RoomBookingController {
     DataBaseRepository.getInstance().addRoomRequest(newRequest); // TODO need this?
   }
 
-  /**
-   * filter existing list by features; show only room vboxes with the required features
-   *
-   * @param features ObservableList<String> of features
-   */
-  public void filterByFeature(ObservableList<String> features) {
-    for (int i = 0; i < roomList.size(); i++) {
-      roomListVBoxes.get(i).setVisible(false);
-      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
-    }
-    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
-    System.out.println(features);
-
-    if (features.isEmpty()) {
-      System.out.println("Features empty!!!");
-      for (int i = 0; i < roomList.size(); i++) {
-        roomListVBoxes.get(i).setVisible(true);
-      }
-    }
-
-    for (int i = 0; i < roomList.size(); i++) {
-      for (int f = 0; f < features.size(); f++) {
-        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
-          System.out.println(
-              roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
-          break;
-        }
-        roomListVBoxes.get(i).setVisible(true);
-      }
-    }
-    System.out.println("Set things to visible");
-  }
-
   // hard code ConfRoomLocation objects
   public void initializeRooms() {
     // hard coded in rooms
@@ -234,11 +197,6 @@ public class RoomBookingController {
     }
   }
 
-  // add items to feature filter
-  public void initializeFeatureFilter() {
-    featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
-  }
-
   /**
    * get vbox in conferenceRoomsHBox by its ID
    *
@@ -275,7 +233,39 @@ public class RoomBookingController {
     }
   }
 
-  /** clear VBoxes in the UI */
+  /**
+   * filter existing list by features; show only room vboxes with the required features
+   *
+   * @param features ObservableList<String> of features
+   */
+  public void filterByFeature(ObservableList<String> features) {
+    for (int i = 0; i < roomList.size(); i++) {
+      roomListVBoxes.get(i).setVisible(false);
+      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
+    }
+    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
+    System.out.println(features);
+
+    if (features.isEmpty()) {
+      System.out.println("Features empty!!!");
+      for (int i = 0; i < roomList.size(); i++) {
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+
+    for (int i = 0; i < roomList.size(); i++) {
+      for (int f = 0; f < features.size(); f++) {
+        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
+          System.out.println(
+              roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
+          break;
+        }
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+    System.out.println("Set things to visible");
+  }
+
   public void clearUI() {
     for (int i = 0; i < roomListVBoxes.size(); i++) {
       roomListVBoxes.get(i).getChildren().clear();
