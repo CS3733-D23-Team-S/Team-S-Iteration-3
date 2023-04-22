@@ -19,7 +19,7 @@ public class OfficeSuppliesController {
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML MFXScrollPane scrollpane;
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   private int cartID = 1;
   public static OfficeSupplyCart officeSupplyCart;

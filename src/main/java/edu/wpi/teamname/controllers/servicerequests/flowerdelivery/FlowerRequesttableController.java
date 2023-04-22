@@ -37,7 +37,7 @@ public class FlowerRequesttableController {
 
   @FXML private ImageView topbarlogo;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   @FXML private TableView requesttable;
 

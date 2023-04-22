@@ -17,7 +17,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   @Getter private final String CSVheader = "longName,shortName,nodeType";
   private final dbConnection connection;
 
-  @Getter private HashMap<String, Location> locationMap = new HashMap<>();
+  @Getter private final HashMap<String, Location> locationMap = new HashMap<>();
 
   public LocationDAOImpl() {
     connection = dbConnection.getInstance();

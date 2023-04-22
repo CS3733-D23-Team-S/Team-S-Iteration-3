@@ -30,7 +30,7 @@ class toDo {
   @Getter public String serviceRequestType;
   @Getter public String timeOrdered;
   @Getter public String status;
-  private StringProperty category;
+  private final StringProperty category;
   // private ComboBox dropComboBox;
 
   toDo(String serviceRequestType, String timeOrdered, String status, String category) {

@@ -169,7 +169,7 @@ public class RoomBookingDetailsController extends PopUpController {
     eventDescription = eventDescriptionText.getText();
     System.out.println("Took in inputs from RBD Controller");
     try {
-      rbc.addNewRequest(
+      RoomBookingController.addNewRequest(
           roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
       stage.close();
     } catch (Exception e) {

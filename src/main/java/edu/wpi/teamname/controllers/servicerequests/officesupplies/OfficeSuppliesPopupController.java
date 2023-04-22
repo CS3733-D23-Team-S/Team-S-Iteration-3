@@ -23,7 +23,7 @@ public class OfficeSuppliesPopupController extends PopUpController {
 
   @FXML Text PriceText;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
   public static int supplycounter;
 
   public void initialize() {

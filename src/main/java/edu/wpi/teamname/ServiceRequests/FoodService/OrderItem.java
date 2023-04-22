@@ -9,8 +9,8 @@ import lombok.Getter;
 */
 public class OrderItem {
   // This is the cart class
-  @Getter private int cartID;
-  private HashMap<Integer, Food> theCart;
+  @Getter private final int cartID;
+  private final HashMap<Integer, Food> theCart;
 
   public OrderItem(int cartID) {
     this.cartID = cartID;

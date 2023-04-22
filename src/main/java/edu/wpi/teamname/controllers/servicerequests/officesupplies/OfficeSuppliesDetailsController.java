@@ -41,7 +41,7 @@ public class OfficeSuppliesDetailsController {
 
   @FXML TextField recipientfield;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 

@@ -44,7 +44,7 @@ public class OrderDetailsController {
   // @FXML private MFXButton cancel;
   // @FXML private MFXButton homeButton;
 
-  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   @FXML
   public void initialize() {
@@ -172,7 +172,7 @@ public class OrderDetailsController {
       newItemName.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      newItemQuantity.setText(String.valueOf("Quantity: " + aFood.getQuantity() + "x"));
+      newItemQuantity.setText("Quantity: " + aFood.getQuantity() + "x");
 
       newItemQuantity.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans;");
@@ -181,7 +181,7 @@ public class OrderDetailsController {
       newItemPrice.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans");
 
-      newItemPrepTime.setText(String.valueOf(aFood.getFoodPrepTime() + " minutes"));
+      newItemPrepTime.setText(aFood.getFoodPrepTime() + " minutes");
       newItemPrepTime.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans");
 

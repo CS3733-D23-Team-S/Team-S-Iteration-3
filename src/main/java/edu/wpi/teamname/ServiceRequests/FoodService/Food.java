@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Food implements IDataPack {
-  @Getter private int FoodID;
+  @Getter private final int FoodID;
   @Getter @Setter private String FoodName;
-  @Getter private String FoodType;
+  @Getter private final String FoodType;
   @Getter @Setter private int FoodPrepTime;
-  @Getter private String FoodCuisine;
+  @Getter private final String FoodCuisine;
   @Getter @Setter private double FoodPrice;
   @Getter @Setter private String FoodDescription;
   @Getter @Setter private int quantity;

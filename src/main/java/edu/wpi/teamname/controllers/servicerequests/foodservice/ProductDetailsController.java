@@ -29,7 +29,7 @@ public class ProductDetailsController extends PopUpController {
   @FXML private MFXTextField quantity;
 
   @FXML private MFXTextField specialRequest;
-  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository DBR = DataBaseRepository.getInstance();
   @FXML public TextField2TableCell fName;
 
   @FXML public MFXButton add;
@@ -116,14 +116,14 @@ public class ProductDetailsController extends PopUpController {
   public void foodNamer() {
 
     productName.setId(selectedFood().getFoodDescription());
-    productName.setText(selectedFood().getFoodName().toString());
+    productName.setText(selectedFood().getFoodName());
     productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 36px; ");
   }
 
   public void foodDescription() {
 
     productDescription.setId(selectedFood().getFoodDescription());
-    productDescription.setText(selectedFood().getFoodDescription().toString());
+    productDescription.setText(selectedFood().getFoodDescription());
     productDescription.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
@@ -135,7 +135,7 @@ public class ProductDetailsController extends PopUpController {
 
   public void foodQuantity() {
     quantityLabel.setId(Double.toString(selectedFood().getFoodPrice()));
-    quantityLabel.setText("" + itemCount);
+    quantityLabel.setText(String.valueOf(itemCount));
   }
 
   public void addQuantity() {

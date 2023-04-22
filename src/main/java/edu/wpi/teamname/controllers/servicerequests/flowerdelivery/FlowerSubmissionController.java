@@ -40,7 +40,7 @@ public class FlowerSubmissionController {
   @FXML MFXButton submitbutton;
   @FXML Label totalprice;
   @FXML MFXScrollPane scroll;
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
 
@@ -181,7 +181,7 @@ public class FlowerSubmissionController {
       description.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
 
-      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
+      quantity.setText("Quantity: " + flower.getQuantity() + "x");
       quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
 
       price.setText("$ " + String.format("%.02f", flower.getPrice()));

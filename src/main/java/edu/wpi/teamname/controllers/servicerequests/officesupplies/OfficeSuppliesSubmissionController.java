@@ -40,7 +40,7 @@ public class OfficeSuppliesSubmissionController {
   @FXML MFXTextField requestfield;
   @FXML MFXButton submitbutton;
   @FXML MFXScrollPane scroll;
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public void initialize() {
     submitbutton.setDisable(true);
@@ -86,8 +86,7 @@ public class OfficeSuppliesSubmissionController {
       employeedrop.getItems().add(u.getFirstName() + " " + u.getLastName());
     }
 
-    pricey.setText(
-        "$ " + String.valueOf(OfficeSuppliesController.officeSupplyCart.getTotalPrice()));
+    pricey.setText("$ " + OfficeSuppliesController.officeSupplyCart.getTotalPrice());
 
     submitbutton.setOnMouseClicked(
         event -> {
@@ -177,10 +176,10 @@ public class OfficeSuppliesSubmissionController {
       description.setStyle(
           "-fx-text-fill: #000000; -fx-font-size: 18px; -fx-font-style: open sans; -fx-wrap-text: true;");
 
-      quantity.setText(String.valueOf(officeSupply.getQuantity() + "x"));
+      quantity.setText(officeSupply.getQuantity() + "x");
       quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px;");
 
-      price.setText(String.valueOf("$ " + officeSupply.getPrice()));
+      price.setText("$ " + officeSupply.getPrice());
       price.setStyle("-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-style: open sans");
 
       /*recipientLabel.setText(String.valueOf(recipient));

@@ -17,7 +17,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   @Getter private final String CSVheader = "nodeID,xcoord,ycoord,floor,building";
   private final dbConnection connection;
 
-  @Getter private HashMap<Integer, Node> nodes = new HashMap<>();
+  @Getter private final HashMap<Integer, Node> nodes = new HashMap<>();
 
   public NodeDAOImpl() {
     connection = dbConnection.getInstance();

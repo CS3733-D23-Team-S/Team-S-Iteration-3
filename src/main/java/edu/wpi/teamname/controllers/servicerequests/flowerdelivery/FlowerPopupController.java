@@ -24,7 +24,7 @@ public class FlowerPopupController extends PopUpController {
   @FXML Label PriceText;
   @FXML Label SizeText;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
   // public static Cart flowerCart = new Cart(1);
   public static String recipient;
 

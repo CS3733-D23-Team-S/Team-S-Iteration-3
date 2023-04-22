@@ -29,7 +29,7 @@ public class FlowerDelivery implements IDataPack {
       double cost,
       String n) {
     this.ID = ID;
-    this.cart = cart.toString();
+    this.cart = cart;
     this.date = date;
     this.time = time;
     this.room = room;

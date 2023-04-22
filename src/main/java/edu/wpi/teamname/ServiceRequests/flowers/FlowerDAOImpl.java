@@ -18,7 +18,7 @@ import lombok.Getter;
 public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   @Getter private String name;
   private final dbConnection connection;
-  @Getter private HashMap<Integer, Flower> flowers = new HashMap<>();
+  @Getter private final HashMap<Integer, Flower> flowers = new HashMap<>();
 
   public FlowerDAOImpl() {
     connection = dbConnection.getInstance();

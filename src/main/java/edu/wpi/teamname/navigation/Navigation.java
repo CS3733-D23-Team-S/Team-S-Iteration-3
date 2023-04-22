@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Navigation {
-  private BorderPane originalRootPane = App.getRootPane();
+  private final BorderPane originalRootPane = App.getRootPane();
   User user;
 
   public static void navigate(final Screen screen) {

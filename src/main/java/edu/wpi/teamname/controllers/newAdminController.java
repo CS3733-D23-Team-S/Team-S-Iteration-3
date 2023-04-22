@@ -33,7 +33,7 @@ public class newAdminController {
   @FXML TableView allTable;
   @FXML MFXButton impexpButton;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
 

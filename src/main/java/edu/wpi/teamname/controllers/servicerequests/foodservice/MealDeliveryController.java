@@ -51,7 +51,7 @@ public class MealDeliveryController {
   // @FXML MFXButton flowerbutton; // //ADdd path to flowerbutton
   // @FXML MFXButton homeButton;
   // @FXML MFXButton exit;
-  @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository DBR = DataBaseRepository.getInstance();
 
   public static int clickedFoodID;
 
