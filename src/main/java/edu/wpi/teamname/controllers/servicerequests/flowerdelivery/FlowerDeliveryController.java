@@ -128,22 +128,22 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(150);
-      view.setFitWidth(150);
+      view.setFitHeight(100);
+      view.setFitWidth(100);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(250);
-      btn1.setPrefHeight(200);
+      btn1.setPrefWidth(190);
+      btn1.setPrefHeight(150);
       btn1.setStyle("-fx-spacing: 10;");
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
       flowpane.getChildren().add(btn1);
-      flowpane.setHgap(25);
-      flowpane.setVgap(25);
+      flowpane.setHgap(20);
+      flowpane.setVgap(20);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -158,15 +158,15 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(150);
-      view.setFitWidth(150);
+      view.setFitHeight(100);
+      view.setFitWidth(100);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(250);
-      btn1.setPrefHeight(200);
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setPrefWidth(190);
+      btn1.setPrefHeight(150);
+      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -189,15 +189,15 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(150);
-      view.setFitWidth(150);
+      view.setFitHeight(100);
+      view.setFitWidth(100);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(250);
-      btn1.setPrefHeight(200);
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setPrefWidth(190);
+      btn1.setPrefHeight(150);
+      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -217,16 +217,16 @@ public class FlowerDeliveryController {
     for (Flower f : dbr.getFlowerDAO().getFlowers().values()) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(true);
-      view.setFitHeight(120);
-      view.setFitWidth(120);
+      view.setPreserveRatio(false);
+      view.setFitHeight(100);
+      view.setFitWidth(100);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(200);
+      btn1.setPrefWidth(190);
       btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 

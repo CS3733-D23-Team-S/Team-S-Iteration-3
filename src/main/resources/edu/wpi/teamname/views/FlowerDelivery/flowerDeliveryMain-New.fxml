@@ -67,7 +67,7 @@
                      <children>
                         <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                            <HBox.margin>
-                              <Insets />
+                              <Insets right="35.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Open Sans Regular" size="12.0" />
