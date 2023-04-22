@@ -186,7 +186,7 @@ public class PathfindingController {
       }
     }
     if (startingLocationList.getSelectionModel().isEmpty()) {
-      aCircle.setFill(Color.PURPLE);
+      aCircle.setFill(Color.BLUE);
       for (int i = 0; i < startingLocationList.getItems().size(); i++) {
         if (longName.equals(startingLocationList.getItems().get(i))) {
           startingLocationList.getSelectionModel().select(i);
@@ -237,6 +237,11 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor1Lines);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    anchorPane.getChildren().addAll(importantCirclesF1);
   }
 
   public void toFloor2() {
@@ -264,6 +269,11 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor2Lines);
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    anchorPane.getChildren().addAll(importantCirclesF2);
   }
 
   public void toFloor3() {
@@ -291,6 +301,11 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floor3Lines);
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    anchorPane.getChildren().addAll(importantCirclesF3);
   }
 
   public void toFloorL1() {
@@ -318,6 +333,11 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floor3Lines);
     anchorPane.getChildren().removeAll(floorL2Lines);
     anchorPane.getChildren().addAll(floorL1Lines);
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    anchorPane.getChildren().addAll(importantCirclesFL1);
   }
 
   public void toFloorL2() {
@@ -345,6 +365,11 @@ public class PathfindingController {
     anchorPane.getChildren().removeAll(floor3Lines);
     anchorPane.getChildren().removeAll(floorL1Lines);
     anchorPane.getChildren().addAll(floorL2Lines);
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().addAll(importantCirclesFL2);
   }
 
   DataBaseRepository dataBase = DataBaseRepository.getInstance();
@@ -355,6 +380,11 @@ public class PathfindingController {
   List<Node> floor3Nodes = new ArrayList<>();
   List<Node> floorL1Nodes = new ArrayList<>();
   List<Node> floorL2Nodes = new ArrayList<>();
+  List<Circle> importantCirclesF1 = new ArrayList<>();
+  List<Circle> importantCirclesF2 = new ArrayList<>();
+  List<Circle> importantCirclesF3 = new ArrayList<>();
+  List<Circle> importantCirclesFL1 = new ArrayList<>();
+  List<Circle> importantCirclesFL2 = new ArrayList<>();
   List<Circle> floor1Circles = new ArrayList<>();
   List<Circle> floor2Circles = new ArrayList<>();
   List<Circle> floor3Circles = new ArrayList<>();
@@ -372,6 +402,19 @@ public class PathfindingController {
 
   // test for showing paths method
   public void showPathTesting() {
+    importantCirclesF1.clear();
+    importantCirclesF2.clear();
+    importantCirclesF3.clear();
+    importantCirclesFL1.clear();
+    importantCirclesFL2.clear();
+    List<Circle> importantCirclesF1PH = new ArrayList<>();
+    List<Circle> importantCirclesF2PH = new ArrayList<>();
+    List<Circle> importantCirclesF3PH = new ArrayList<>();
+    List<Circle> importantCirclesFL1PH = new ArrayList<>();
+    List<Circle> importantCirclesFL2PH = new ArrayList<>();
+    Circle startCircle = new Circle();
+    Circle endCircle = new Circle();
+    Circle switchFloorsCircle = new Circle();
     // add lines to placeholders
     // set actual lines to placeholders at the end
     anchorPane.getChildren().removeAll(floor1Lines);
@@ -468,26 +511,67 @@ public class PathfindingController {
             }
           }
         }
-        /*
+        if (i == 0) {
+          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
+            toFloor1();
+          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
+            toFloor2();
+          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
+            toFloor3();
+          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
+            toFloorL1();
+          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
+            toFloorL2();
+          }
+        }
         if (i == 0) {
           for (int l = 0; l < circlesOnFloor.size(); l++) {
             if (circlesOnFloor.get(l).getCenterX() == startX
                 && circlesOnFloor.get(l).getCenterY() == startY) {
-              circlesOnFloor.get(l).setFill(Color.BLUE);
-              anchorPane.getChildren().add(circlesOnFloor.get(l));
+              startCircle =
+                  new Circle(
+                      circlesOnFloor.get(l).getCenterX(),
+                      circlesOnFloor.get(l).getCenterY(),
+                      10.0,
+                      Color.BLUE);
+              if (thisFloor.equals(Floor.Floor1)) {
+                importantCirclesF1PH.add(startCircle);
+              } else if (thisFloor.equals(Floor.Floor2)) {
+                importantCirclesF2PH.add(startCircle);
+              } else if (thisFloor.equals(Floor.Floor3)) {
+                importantCirclesF3PH.add(startCircle);
+              } else if (thisFloor.equals(Floor.FloorL1)) {
+                importantCirclesFL1PH.add(startCircle);
+              } else if (thisFloor.equals(Floor.FloorL2)) {
+                importantCirclesFL2PH.add(startCircle);
+              }
             }
           }
         }
-        if (i == pfe.getPathEntities().size() - 1) {
+        if (i == pfe.getPathEntities().size() - 2) {
           for (int l = 0; l < circlesOnFloor.size(); l++) {
             if (circlesOnFloor.get(l).getCenterX() == endX
                 && circlesOnFloor.get(l).getCenterY() == endY) {
-              circlesOnFloor.get(l).setFill(Color.GREEN);
-              anchorPane.getChildren().add(circlesOnFloor.get(l));
+              endCircle =
+                  new Circle(
+                      circlesOnFloor.get(l).getCenterX(),
+                      circlesOnFloor.get(l).getCenterY(),
+                      10.0,
+                      Color.GREEN);
+              if (thisFloor.equals(Floor.Floor1)) {
+                importantCirclesF1PH.add(endCircle);
+              } else if (thisFloor.equals(Floor.Floor2)) {
+                importantCirclesF2PH.add(endCircle);
+              } else if (thisFloor.equals(Floor.Floor3)) {
+                importantCirclesF3PH.add(endCircle);
+              } else if (thisFloor.equals(Floor.FloorL1)) {
+                importantCirclesFL1PH.add(endCircle);
+              } else if (thisFloor.equals(Floor.FloorL2)) {
+                importantCirclesFL2PH.add(endCircle);
+              }
             }
           }
         }
-        */
         Line line = new Line(startX, startY, endX, endY);
         line.setFill(Color.BLACK);
         line.setStrokeWidth(5.0);
@@ -536,19 +620,6 @@ public class PathfindingController {
         textDir =
             textDir + stepNum + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
         currDir = "";
-        if (i == 0) {
-          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
-            toFloor1();
-          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
-            toFloor2();
-          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
-            toFloor3();
-          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
-            toFloorL1();
-          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
-            toFloorL2();
-          }
-        }
       }
       textualDirections.setText(textDir);
       floor1Lines.addAll(floor1LinesPlaceholder);
@@ -556,16 +627,26 @@ public class PathfindingController {
       floor3Lines.addAll(floor3LinesPlaceholder);
       floorL1Lines.addAll(floorL1LinesPlaceholder);
       floorL2Lines.addAll(floorL2LinesPlaceholder);
+      importantCirclesF1.addAll(importantCirclesF1PH);
+      importantCirclesF2.addAll(importantCirclesF2PH);
+      importantCirclesF3.addAll(importantCirclesF3PH);
+      importantCirclesFL1.addAll(importantCirclesFL1PH);
+      importantCirclesFL2.addAll(importantCirclesFL2PH);
       if (floor.getImage().equals(floor1)) {
         anchorPane.getChildren().addAll(floor1Lines);
+        anchorPane.getChildren().addAll(importantCirclesF1);
       } else if (floor.getImage().equals(floor2)) {
         anchorPane.getChildren().addAll(floor2Lines);
+        anchorPane.getChildren().addAll(importantCirclesF2);
       } else if (floor.getImage().equals(floor3)) {
         anchorPane.getChildren().addAll(floor3Lines);
+        anchorPane.getChildren().addAll(importantCirclesF3);
       } else if (floor.getImage().equals(floorL1)) {
         anchorPane.getChildren().addAll(floorL1Lines);
+        anchorPane.getChildren().addAll(importantCirclesFL1);
       } else if (floor.getImage().equals(floorL2)) {
         anchorPane.getChildren().addAll(floorL2Lines);
+        anchorPane.getChildren().addAll(importantCirclesFL2);
       }
     }
   }
@@ -804,6 +885,16 @@ public class PathfindingController {
     floor3Lines.clear();
     floorL1Lines.clear();
     floorL2Lines.clear();
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    importantCirclesF1.clear();
+    importantCirclesF2.clear();
+    importantCirclesF3.clear();
+    importantCirclesFL1.clear();
+    importantCirclesFL2.clear();
     startingLocationList.getSelectionModel().clearSelection();
     startingLocationList.setButtonCell(
         new ListCell<String>() {
