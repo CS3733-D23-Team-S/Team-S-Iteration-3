@@ -27,28 +27,34 @@ public class FlowerDeliveryController {
   @FXML MenuItem sizelarge;
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
+  @FXML VBox cartBox;
   @FXML VBox cartPane;
+  @FXML MFXButton clearCart;
+  @FXML MFXButton proceed;
+  @FXML Label totalPrice;
+  @FXML VBox lowerCart;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   private int cartID = 1;
   public static int flowDevID;
   public static Cart flowerCart;
-  public boolean cartOpen = false;
 
   public void initialize() {
 
     flowerCart = new Cart(cartID++);
     flowDevID = dbr.flowerGetNewDeliveryID();
-    cartPane.setVisible(false);
+    lowerCart.setVisible(false);
 
     viewcartbutton.setOnMouseClicked(event -> openCart());
 
     sizesmall.setOnAction(event -> filterSmall());
     sizenormal.setOnAction(event -> filterMedium());
     sizelarge.setOnAction(event -> filterLarge());
+    proceed.setOnMouseClicked(event -> checkOutHandler());
 
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
+    clearCart.setOnMouseClicked(event -> flowerCart.removeAll());
 
     noFilter();
   }
@@ -173,14 +179,15 @@ public class FlowerDeliveryController {
   }
 
   public void openCart() {
-    if (!cartOpen) {
-      cartPane.setVisible(true);
-      displayCart();
-      cartOpen = true;
-    } else {
-      cartPane.setVisible(false);
+    if (!lowerCart.isVisible()) {
+      lowerCart.setVisible(true);
       cartPane.getChildren().clear();
-      cartOpen = false;
+      if (flowerCart.getTotalPrice() != 0) {
+        displayCart();
+      }
+    } else {
+      lowerCart.setVisible(false);
+      cartPane.getChildren().clear();
     }
   }
 
@@ -189,7 +196,14 @@ public class FlowerDeliveryController {
     Navigation.launchPopUp(FLOWER_POPUP);
   }
 
+  public void checkOutHandler() {
+    if (flowerCart.getTotalPrice() != 0) {
+      cartBox.getChildren().clear();
+    }
+  }
+
   public void displayCart() {
+    totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
     System.out.println("Displaying flowers");
     System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
 

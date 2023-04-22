@@ -33,6 +33,10 @@ public class Cart {
     cartItems.remove(flower);
   }
 
+  public void removeAll() {
+    cartItems.clear();
+  }
+
   @Override
   public String toString() {
     StringBuilder finale = new StringBuilder();
