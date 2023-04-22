@@ -32,6 +32,7 @@ public class Dijkstra implements IPathFinder {
    */
   @Override
   public ArrayList<Integer> findPath(int s, int e) {
+    System.out.println("Running Dijkstra's");
     this.start = this.nodeDAO.getNodes().get(s);
     this.end = this.nodeDAO.getNodes().get(e);
     final PriorityQueue<AStar.HeuristicNode> nodesYetToSearch =
@@ -75,12 +76,9 @@ public class Dijkstra implements IPathFinder {
       if (currentNode == move.getNode()) {
         if (move.getLocation().getNodeType() == NodeType.ELEV
             || move.getLocation().getNodeType() == NodeType.STAI) {
-          System.out.println("here");
           distance += 1000000000;
-          return distance;
-        } else {
-          return distance;
         }
+        return distance;
       }
     }
     return distance;

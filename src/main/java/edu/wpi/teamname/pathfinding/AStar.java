@@ -32,6 +32,7 @@ public class AStar implements IPathFinder {
    */
   @Override
   public ArrayList<Integer> findPath(int s, int e) {
+    System.out.println("Running AStar");
     this.start = this.nodeDAO.getNodes().get(s);
     this.end = this.nodeDAO.getNodes().get(e);
     final PriorityQueue<HeuristicNode> nodesYetToSearch =
@@ -86,7 +87,6 @@ public class AStar implements IPathFinder {
       if (currentNode == move.getNode()) {
         if (move.getLocation().getNodeType() == NodeType.ELEV
             || move.getLocation().getNodeType() == NodeType.STAI) {
-          System.out.println("here");
           distance += 1000000000;
           return distance;
         } else {
