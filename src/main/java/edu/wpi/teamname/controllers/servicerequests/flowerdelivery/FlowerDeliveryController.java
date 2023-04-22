@@ -266,7 +266,7 @@ public class FlowerDeliveryController {
       quantityChange.getChildren().add(qLabel);
       quantityChange.getChildren().add(increaseB);
 
-      decreaseB.setOnMouseClicked(
+      /*decreaseB.setOnMouseClicked(
           event -> {
             qLabel.setText(Integer.toString(flowercounter));
             if (flowercounter > 1) {
@@ -280,7 +280,7 @@ public class FlowerDeliveryController {
             flowercounter++;
             qLabel.setText(Integer.toString(flowercounter));
             System.out.println(flowercounter);
-          });
+          });*/
 
       HBox priceQ = new HBox();
       priceQ.setSpacing(5);
