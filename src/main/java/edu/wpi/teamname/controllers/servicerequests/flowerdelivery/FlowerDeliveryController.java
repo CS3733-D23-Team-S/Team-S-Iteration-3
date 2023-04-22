@@ -8,13 +8,15 @@ import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class FlowerDeliveryController {
   public static int flowerID;
@@ -25,19 +27,22 @@ public class FlowerDeliveryController {
   @FXML MenuItem sizelarge;
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
-  @FXML MFXScrollPane scrollpane;
+  @FXML VBox cartPane;
+
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   private int cartID = 1;
   public static int flowDevID;
   public static Cart flowerCart;
+  public boolean cartOpen = false;
 
   public void initialize() {
 
     flowerCart = new Cart(cartID++);
     flowDevID = dbr.flowerGetNewDeliveryID();
+    cartPane.setVisible(false);
 
-    viewcartbutton.setOnMouseClicked(event -> Navigation.navigate(FLOWER_CART));
+    viewcartbutton.setOnMouseClicked(event -> openCart());
 
     sizesmall.setOnAction(event -> filterSmall());
     sizenormal.setOnAction(event -> filterMedium());
@@ -167,8 +172,84 @@ public class FlowerDeliveryController {
     }
   }
 
+  public void openCart() {
+    if (!cartOpen) {
+      cartPane.setVisible(true);
+      displayCart();
+      cartOpen = true;
+    } else {
+      cartPane.setVisible(false);
+      cartPane.getChildren().clear();
+      cartOpen = false;
+    }
+  }
+
   public void store(int x) {
     flowerID = x;
     Navigation.launchPopUp(FLOWER_POPUP);
+  }
+
+  public void displayCart() {
+    System.out.println("Displaying flowers");
+    System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
+
+    for (Flower flower : FlowerDeliveryController.flowerCart.getCartItems()) {
+
+      System.out.println("works");
+
+      HBox newRow = new HBox();
+      newRow.setSpacing(50);
+      newRow.setMaxHeight(300);
+      newRow.setMaxWidth(1000);
+
+      ImageView flowerImage = new ImageView();
+      Image image = new Image(Main.class.getResource(flower.getImage()).toString());
+      flowerImage.setImage(image);
+      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      flowerImage.setFitHeight(160);
+      flowerImage.setFitWidth(160);
+      flowerImage.setPreserveRatio(false);
+
+      VBox itemInfo = new VBox();
+      itemInfo.setSpacing(20);
+      itemInfo.setPrefWidth(800);
+      itemInfo.setMaxHeight(300);
+
+      HBox priceQ = new HBox();
+      priceQ.setSpacing(30);
+      priceQ.setMaxWidth(1000);
+
+      Label name = new Label();
+      Label price = new Label();
+      Label description = new Label();
+      Label quantity = new Label();
+
+      name.setText(flower.getName());
+      name.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
+
+      description.setText(flower.getDescription());
+      description.setStyle(
+          "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
+
+      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
+
+      price.setText("$ " + String.format("%.02f", flower.getPrice()));
+      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
+
+      cartPane.getChildren().add(newRow);
+      cartPane.setSpacing(20);
+      newRow.getChildren().add(flowerImage);
+      newRow.getChildren().add(itemInfo);
+
+      itemInfo.getChildren().add(name);
+      itemInfo.getChildren().add(description);
+      itemInfo.getChildren().add(priceQ);
+
+      priceQ.getChildren().add(price);
+      priceQ.getChildren().add(quantity);
+    }
   }
 }

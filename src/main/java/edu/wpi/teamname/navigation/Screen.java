@@ -30,7 +30,7 @@ public enum Screen {
   USER_PROFILE_POPUP("views/changePasswordPopup.fxml"),
   // MAP_EDITOR("views/MapEditor.fxml"),
   // CSV_MANAGE("views/CSVPage.fxml"),
-  FLOWER_DELIVERY("views/FlowerDelivery/flowerDeliveryMain.fxml"),
+  FLOWER_DELIVERY("views/FlowerDelivery/flowerDeliveryMain-New.fxml"),
   FLOWER_ORDER("views/FlowerDelivery/flowerorderdetails.fxml"),
   FLOWER_CART("views/FlowerDelivery/flowersubmissiondetails.fxml"),
   FLOWER_REQTABLE("views/FlowerDelivery/flowerrequesttable.fxml"),
