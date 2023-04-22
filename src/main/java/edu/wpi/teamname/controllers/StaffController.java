@@ -67,8 +67,8 @@ public class StaffController {
     TableColumn<Request, String> column2 = new TableColumn<>("Date Submitted");
     column2.setCellValueFactory(new PropertyValueFactory<>("deliveryTime"));
 
-    TableColumn<Request, String> column3 = new TableColumn<>("Ordered By");
-    column3.setCellValueFactory(new PropertyValueFactory<>("orderedBy"));
+    TableColumn<Request, String> column3 = new TableColumn<>("Assignned To");
+    column3.setCellValueFactory(new PropertyValueFactory<>("assignedTo"));
 
     TableColumn<Request, String> column4 = new TableColumn<>("Order Status");
     column4.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
@@ -139,7 +139,8 @@ public class StaffController {
     floorView =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png"))));
-    floorL2Button.setStyle("-fx-background-color: #1D2B94");
+    floorL2Button.setStyle(
+        "-fx-background-color: #1D2B94;  -fx-text-fill: white; -fx-border-radius: 5 5 0 0 ");
     stackpane.setPrefSize(800, 522);
     mapView.setContent(stackpane);
     // stackpane.setBackground(Background.fill(Color.RED));
@@ -174,37 +175,42 @@ public class StaffController {
 
   public void changeButtonColor() {
     if (floorView.getImage().equals(floorL1)) {
-      floorL1Button.setStyle("-fx-background-color: #1D2B94");
-      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor1Button.setStyle("-fx-background-color: #CAD6F8");
-      floor2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL1Button.setStyle(
+          "-fx-background-color: #1D2B94;  -fx-text-fill: white;-fx-border-radius: 5 5 0 0");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
 
     } else if (floorView.getImage().equals(floorL2)) {
-      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
-      floorL2Button.setStyle("-fx-background-color: #1D2B94");
-      floor1Button.setStyle("-fx-background-color: #CAD6F8");
-      floor2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floorL2Button.setStyle(
+          "-fx-background-color: #1D2B94;  -fx-text-fill: white;-fx-border-radius: 5 5 0 0");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
 
     } else if (floorView.getImage().equals(floor1)) {
-      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
-      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor1Button.setStyle("-fx-background-color: #1D2B94");
-      floor2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor1Button.setStyle(
+          "-fx-background-color: #1D2B94;  -fx-text-fill: white;;-fx-border-radius: 5 5 0 0");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
     } else if (floorView.getImage().equals(floor2)) {
-      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
-      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor1Button.setStyle("-fx-background-color: #CAD6F8");
-      floor2Button.setStyle("-fx-background-color: #1D2B94");
-      floor3Button.setStyle("-fx-background-color: #CAD6F8");
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor2Button.setStyle(
+          "-fx-background-color: #1D2B94;  -fx-text-fill: white;;-fx-border-radius: 5 5 0 0");
+      floor3Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
     } else if (floorView.getImage().equals(floor3)) {
-      floorL1Button.setStyle("-fx-background-color: #CAD6F8");
-      floorL2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor1Button.setStyle("-fx-background-color: #CAD6F8");
-      floor2Button.setStyle("-fx-background-color: #CAD6F8");
-      floor3Button.setStyle("-fx-background-color: #1D2B94");
+      floorL1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floorL2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor1Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor2Button.setStyle("-fx-background-color: #CAD6F8;-fx-border-radius: 5 5 0 0");
+      floor3Button.setStyle(
+          "-fx-background-color: #1D2B94;  -fx-text-fill: white;-fx-border-radius: 5 5 0 0");
     }
   }
 
