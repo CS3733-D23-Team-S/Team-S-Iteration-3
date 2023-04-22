@@ -18,22 +18,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="900.0" minWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
     <center>
-        <GridPane minHeight="900.0" minWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" BorderPane.alignment="CENTER">
+        <GridPane prefHeight="800.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-            <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints percentWidth="25.0" />
-            <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints percentWidth="20.0" />
+            <ColumnConstraints minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="148.93106079101562" minHeight="10.0" percentHeight="5.0" prefHeight="148.93106079101562" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
@@ -44,7 +45,7 @@
                 <Blend />
             </effect>
          <children>
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
@@ -63,7 +64,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="0.0" spacing="20.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
+                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="257.0" prefHeight="40.0" prefWidth="257.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -79,7 +80,7 @@
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="150.0" />
+                              <Insets left="30.0" />
                            </HBox.margin>
                         </Text>
                         <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
@@ -123,13 +124,13 @@
                   </HBox>
                </children>
             </VBox>
-            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="670.0" prefWidth="1450.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
-            <MFXButton fx:id="viewcartbutton" alignment="CENTER" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE;" styleClass="viewcartbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="670.0" prefWidth="1450.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" GridPane.rowSpan="3" />
+            <MFXButton fx:id="viewcartbutton" alignment="CENTER" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE;" styleClass="viewcartbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <font>
                   <Font name="Open Sans Regular" size="20.0" />
                </font>
             </MFXButton>
-            <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.rowSpan="4">
+            <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.rowSpan="4">
                <content>
                   <VBox fx:id="cartPane" style="-fx-background-color: #B5C5EE;">
                      <padding>
