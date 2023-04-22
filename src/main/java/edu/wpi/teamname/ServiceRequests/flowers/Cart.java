@@ -29,6 +29,10 @@ public class Cart {
     cartItems.add(flower);
   }
 
+  public void removeFlowerItem(Flower flower) {
+    cartItems.remove(flower);
+  }
+
   @Override
   public String toString() {
     StringBuilder finale = new StringBuilder();

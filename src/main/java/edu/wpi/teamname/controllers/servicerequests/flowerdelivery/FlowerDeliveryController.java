@@ -50,7 +50,6 @@ public class FlowerDeliveryController {
 
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
-    cartPane.getChildren();
     noFilter();
   }
 
@@ -249,11 +248,14 @@ public class FlowerDeliveryController {
       cartPane.setSpacing(10);
       newRow.getChildren().add(flowerImage);
       newRow.getChildren().add(itemInfo);
+      newRow.getChildren().add(delete);
 
       itemInfo.getChildren().add(name);
       itemInfo.getChildren().add(priceQ);
 
       priceQ.getChildren().add(quantity);
+
+      delete.setOnMouseClicked(event -> flowerCart.removeFlowerItem(flower));
     }
   }
 }
