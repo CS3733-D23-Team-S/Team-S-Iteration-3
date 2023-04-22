@@ -217,6 +217,10 @@ public class FlowerDeliveryController {
       flowerImage.setFitWidth(60);
       flowerImage.setPreserveRatio(false);
 
+      delete.setFitHeight(20);
+      delete.setFitWidth(20);
+      delete.setPreserveRatio(false);
+
       VBox itemInfo = new VBox();
       itemInfo.setSpacing(5);
       itemInfo.setPrefWidth(300);
