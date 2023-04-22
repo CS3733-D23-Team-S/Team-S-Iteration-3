@@ -258,7 +258,7 @@ public class FlowerDeliveryController {
       Label qLabel = new Label();
       qLabel.setAlignment(CENTER);
       qLabel.setMinWidth(30);
-      qLabel.setText("1");
+      qLabel.setText(String.valueOf(flower.getQuantity()));
       qLabel.setStyle(
           "-fx-background-color: #FFFFFF; -fx-background-radius: 10 10 10 10; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
 
@@ -272,12 +272,14 @@ public class FlowerDeliveryController {
             if (flowercounter > 1) {
               flowercounter--;
             }
+            flower.setQuantity(flowercounter);
           });
 
       increaseB.setOnMouseClicked(
           event -> {
             flowercounter++;
             qLabel.setText(Integer.toString(flowercounter));
+            System.out.println(flowercounter);
           });
 
       HBox priceQ = new HBox();
@@ -309,7 +311,7 @@ public class FlowerDeliveryController {
       // itemInfo.getChildren().add(priceQ);
       itemInfo.getChildren().add(quantityChange);
 
-      priceQ.getChildren().add(quantity);
+      // priceQ.getChildren().add(quantity);
 
       delete.setOnMouseClicked(event -> flowerCart.removeFlowerItem(flower));
     }
