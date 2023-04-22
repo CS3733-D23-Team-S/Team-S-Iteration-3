@@ -1,8 +1,7 @@
 package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.orms.Floor;
-import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -14,9 +13,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,8 +22,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class PathfindingController {
 
@@ -60,6 +59,60 @@ public class PathfindingController {
   @FXML Label startingLocationError;
   @FXML Label destinationError;
   @FXML Label textualDirections;
+  @FXML ToggleSwitch displayLocationNamesToggle;
+  List<Text> locations = new ArrayList<>();
+
+  /*
+  private void showShortNames() {
+    if (!displayLocationNamesCheckBox.isSelected()) {
+      anchorPane.getChildren().removeAll(listOfShortNames);
+      listOfShortNames.clear();
+      return;
+    }
+    for (Circle circle : listOfCircles.keySet()) {
+      Node node = listOfCircles.get(circle);
+      if (node.getFloor() != currFloor) continue;
+      List<Move> list = repo.getMoveDAO().getLocationsAtNodeID().get(node.getNodeID());
+      if (list == null) continue;
+      for (Move move : list) {
+        if (move.getDate().isAfter(LocalDate.now())) break;
+        Location loc = move.getLocation();
+        if (loc.getNodeType() == NodeType.HALL) break;
+        Text newText = new Text(loc.getShortName());
+        //        System.out.println(loc.getShortName());
+        newText.setFill(Color.WHITE);
+        newText.setStroke(Color.BLACK);
+        newText.setX(circle.getCenterX() - 20);
+        newText.setY(circle.getCenterY() + 20);
+        listOfShortNames.add(newText);
+      }
+    }
+    anchorPane.getChildren().addAll(listOfShortNames);
+  }
+  */
+
+  public void showLocationNames() {
+    if (!displayLocationNamesToggle.isSelected()) {
+      anchorPane.getChildren().removeAll(locations);
+      locations.clear();
+      return;
+    } else {
+      anchorPane.getChildren().removeAll(locations);
+      locations.clear();
+      for (int i = 0; i < nodeList.size(); i++) {
+        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+          if (dataBase.getMoveDAO().getAll().get(j).getNodeID() == nodeList.get(i).getNodeID()) {
+            Text location = new Text();
+            location.setText(dataBase.getMoveDAO().getAll().get(j).getLocationName());
+            location.setX(circlesOnFloor.get(i).getCenterX());
+            location.setY(circlesOnFloor.get(i).getCenterY());
+            locations.add(location);
+          }
+        }
+      }
+    }
+    anchorPane.getChildren().addAll(locations);
+  }
 
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
@@ -157,6 +210,9 @@ public class PathfindingController {
     // makes sure circles don't show on the wrong floor
 
     generateFloor1Nodes();
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames();
+    }
     mapPane.setContent(stackPane);
 
     //    stackPane.getChildren().remove(anchorPane);
@@ -182,6 +238,9 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloor2Nodes();
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames();
+    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -206,6 +265,9 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloor3Nodes();
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames();
+    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -230,6 +292,9 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloorL1Nodes();
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames();
+    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -254,6 +319,9 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloorL2Nodes();
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames();
+    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -492,6 +560,8 @@ public class PathfindingController {
       Node aNode = floor1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
+    circlesOnFloor.clear();
+    circlesOnFloor = floor1Circles;
     anchorPane.getChildren().addAll(floor1Circles);
   }
 
@@ -520,6 +590,8 @@ public class PathfindingController {
       Node aNode = floor2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
+    circlesOnFloor.clear();
+    circlesOnFloor = floor2Circles;
     anchorPane.getChildren().addAll(floor2Circles);
   }
 
@@ -548,6 +620,8 @@ public class PathfindingController {
       Node aNode = floor3Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
+    circlesOnFloor.clear();
+    circlesOnFloor = floor3Circles;
     anchorPane.getChildren().addAll(floor3Circles);
   }
 
@@ -576,6 +650,8 @@ public class PathfindingController {
       Node aNode = floorL1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
+    circlesOnFloor.clear();
+    circlesOnFloor = floorL1Circles;
     anchorPane.getChildren().addAll(floorL1Circles);
   }
 
@@ -604,6 +680,8 @@ public class PathfindingController {
       Node aNode = floorL2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
+    circlesOnFloor.clear();
+    circlesOnFloor = floorL2Circles;
     anchorPane.getChildren().addAll(floorL2Circles);
   }
 
@@ -677,9 +755,10 @@ public class PathfindingController {
   }
 
   public void initialize() {
-
     algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+
+    displayLocationNamesToggle.setOnMouseClicked(event -> showLocationNames());
 
     dataBase = DataBaseRepository.getInstance();
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
