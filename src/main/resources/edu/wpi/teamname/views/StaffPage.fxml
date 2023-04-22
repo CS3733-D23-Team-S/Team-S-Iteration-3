@@ -14,8 +14,8 @@
 <GridPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffController">
             <columnConstraints>
                 <ColumnConstraints />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" percentWidth="45.0" prefWidth="618.6666259765625" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="757.9999999999999" minWidth="10.0" percentWidth="60.0" prefWidth="757.9999999999999" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.6666259765625" minWidth="10.0" percentWidth="60.0" prefWidth="600.1575317382812" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="757.9999999999999" minWidth="10.0" percentWidth="60.0" prefWidth="699.8424682617188" />
                 <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>

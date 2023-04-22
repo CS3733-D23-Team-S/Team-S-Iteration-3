@@ -73,20 +73,17 @@ public class StaffController {
     TableColumn<Request, String> column4 = new TableColumn<>("Order Status");
     column4.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
 
+
+
     taskTable.getColumns().add(column1);
     taskTable.getColumns().add(column2);
     taskTable.getColumns().add(column3);
     taskTable.getColumns().add(column4);
 
-    // List<toDo> ToDo = new LinkedList<>();
-    // ToDo.add(new toDo("Meal", "17.3.2023", "Complete", " "));
-    // ToDo.add(new toDo("Room", "17.3.2023", "Complete", " "));
-    // ToDo.add(new toDo("Flower", "17.3.2023", "Complete", " "));
 
-    // status.setCellValueFactory((row) -> new
-    // SimpleStringProperty(row.getValue().getOrderStatus()));
+    status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
 
-    // status.setCellValueFactory(new PropertyValueFactory<>("status"));
+    status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
     status.setCellFactory(
         column -> {
@@ -95,11 +92,11 @@ public class StaffController {
 
             {
               dropdown.getItems().addAll("Recieved", "In Progress", "Complete");
-              // dropdown.setPromptText();
+
               dropdown.setOnAction(
                   event -> {
                     Request item = getTableView().getItems().get(getIndex());
-                    System.out.println(item);
+
                     item.setOrderStatus(dropdown.getSelectionModel().getSelectedItem());
 
                     DBR.getRequestDAO()
@@ -111,6 +108,8 @@ public class StaffController {
 
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
+
+                    System.out.println(getTableView().getItems().get(getIndex()).getOrderStatus());
                   });
             }
 

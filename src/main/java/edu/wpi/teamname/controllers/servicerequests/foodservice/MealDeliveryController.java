@@ -21,12 +21,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.CheckComboBox;
 
 public class MealDeliveryController {
 
   // @FXML MFXButton backButton1;
   // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
+  @FXML CheckComboBox checkBox;
   // @FXML HBox picBox;
   // @FXML HBox wf;
   // @FXML HBox qd;
@@ -77,6 +79,8 @@ public class MealDeliveryController {
 
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
     // dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
+
+    checkBox.getItems().addAll("vegetarian","Gluten Free","Halal","Kosher","Vegan");
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
