@@ -29,6 +29,7 @@ public class FlowerDeliveryController {
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML VBox cartBox;
+  @FXML VBox checkOutBox;
   @FXML VBox cartPane;
   @FXML MFXButton clearCart;
   @FXML MFXButton proceed;
@@ -57,6 +58,7 @@ public class FlowerDeliveryController {
 
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
     clearCart.setOnMouseClicked(event -> flowerCart.removeAll());
+    checkOutBox.setVisible(false);
 
     noFilter();
   }
@@ -182,6 +184,7 @@ public class FlowerDeliveryController {
 
   public void openCart() {
     if (!lowerCart.isVisible()) {
+      totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
       lowerCart.setVisible(true);
       cartPane.getChildren().clear();
       if (flowerCart.getTotalPrice() != 0) {
@@ -200,12 +203,12 @@ public class FlowerDeliveryController {
 
   public void checkOutHandler() {
     if (flowerCart.getTotalPrice() != 0) {
+      checkOutBox.setVisible(true);
       cartBox.getChildren().clear();
     }
   }
 
   public void displayCart() {
-    totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
     System.out.println("Displaying flowers");
     System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
 
