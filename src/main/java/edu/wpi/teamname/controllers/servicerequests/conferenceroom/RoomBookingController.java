@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -295,11 +296,17 @@ public class RoomBookingController {
     rect.getStyleClass().add("room-request-rect");
 
     rect.setWidth(150);
-    rect.setHeight(85);
     rect.setArcHeight(15);
     rect.setArcWidth(15);
-    // rect.setStyle("-fx-background-radius: 15;");
     rect.setFill(Paint.valueOf("#B5C5EE"));
+
+    // change height based on meeting length
+    long timeBetween =
+        roomRequest.getStartTime().until(roomRequest.getEndTime(), ChronoUnit.MINUTES);
+
+    System.out.println("TIME: " + timeBetween);
+
+    rect.setHeight(85 + timeBetween / 2);
 
     VBox eventVBox = new VBox();
     eventVBox.setSpacing(2);
