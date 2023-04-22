@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 
 import static edu.wpi.teamname.navigation.Screen.*;
+import static javafx.geometry.Pos.CENTER;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
@@ -38,6 +39,7 @@ public class FlowerDeliveryController {
 
   private int cartID = 1;
   public static int flowDevID;
+  public static int flowercounter;
   public static Cart flowerCart;
 
   public void initialize() {
@@ -239,6 +241,45 @@ public class FlowerDeliveryController {
       itemInfo.setPrefWidth(300);
       itemInfo.setMaxHeight(300);
 
+      HBox quantityChange = new HBox();
+      quantityChange.setAlignment(CENTER);
+      quantityChange.setSpacing(5);
+
+      MFXButton increaseB = new MFXButton();
+      increaseB.setStyle(
+          "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+      increaseB.setText("+");
+
+      MFXButton decreaseB = new MFXButton();
+      decreaseB.setStyle(
+          "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+      decreaseB.setText("-");
+
+      Label qLabel = new Label();
+      qLabel.setAlignment(CENTER);
+      qLabel.setMinWidth(30);
+      qLabel.setText("1");
+      qLabel.setStyle(
+          "-fx-background-color: #FFFFFF; -fx-background-radius: 10 10 10 10; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+
+      quantityChange.getChildren().add(decreaseB);
+      quantityChange.getChildren().add(qLabel);
+      quantityChange.getChildren().add(increaseB);
+
+      decreaseB.setOnMouseClicked(
+          event -> {
+            qLabel.setText(Integer.toString(flowercounter));
+            if (flowercounter > 1) {
+              flowercounter--;
+            }
+          });
+
+      increaseB.setOnMouseClicked(
+          event -> {
+            flowercounter++;
+            qLabel.setText(Integer.toString(flowercounter));
+          });
+
       HBox priceQ = new HBox();
       priceQ.setSpacing(5);
       priceQ.setMaxWidth(300);
@@ -265,7 +306,8 @@ public class FlowerDeliveryController {
       newRow.getChildren().add(delete);
 
       itemInfo.getChildren().add(name);
-      itemInfo.getChildren().add(priceQ);
+      // itemInfo.getChildren().add(priceQ);
+      itemInfo.getChildren().add(quantityChange);
 
       priceQ.getChildren().add(quantity);
 
