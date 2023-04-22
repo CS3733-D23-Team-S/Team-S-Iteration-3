@@ -71,7 +71,7 @@ public class RootController {
     menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
     menuroom.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
     menuflower.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-    menugame.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    menugame.setOnMouseClicked(event -> Navigation.navigate(Screen.GAME_CENTER));
 
     menumeal.setOnMouseClicked(
         event -> {

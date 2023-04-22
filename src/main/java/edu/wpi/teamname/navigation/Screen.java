@@ -48,9 +48,9 @@ public enum Screen {
   NEW_USER("views/newUserPopUp.fxml"),
 
   STAFF("views/StaffPage.fxml"),
-  STAFF1("views/staff1.fxml");
-  NEW_USER("views/newUserPopUp.fxml"),
-  SNAKE_GAME("views/WelcomePage.fxml");
+  STAFF1("views/staff1.fxml"),
+  SNAKE_GAME("views/Games/SnakeGame.fxml"),
+  GAME_CENTER("views/Games/GameCenter.fxml");
 
   private final String filename;
 
