@@ -55,7 +55,6 @@ public class FlowerDeliveryController {
 
   private int cartID = 1;
   public static int flowDevID;
-  public static int flowercounter;
   public static Cart flowerCart;
 
   public void initialize() {
@@ -71,7 +70,7 @@ public class FlowerDeliveryController {
     sizelarge.setOnAction(event -> filterLarge());
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
-    clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
+    clearfilter.setOnMouseClicked(event -> noFilter());
     clearCart.setOnMouseClicked(event -> flowerCart.removeAll());
     checkOutBox.setVisible(false);
 
@@ -247,9 +246,7 @@ public class FlowerDeliveryController {
       totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
       lowerCart.setVisible(true);
       cartPane.getChildren().clear();
-      if (flowerCart.getTotalPrice() != 0) {
-        displayCart();
-      }
+      displayCart();
     } else {
       lowerCart.setVisible(false);
       cartPane.getChildren().clear();
@@ -270,112 +267,126 @@ public class FlowerDeliveryController {
 
   public void displayCart() {
     System.out.println("Displaying flowers");
-    System.out.println(FlowerDeliveryController.flowerCart.getCartItems().get(0));
+    cartPane.getChildren().clear();
+    totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
 
-    for (Flower flower : FlowerDeliveryController.flowerCart.getCartItems()) {
+    if (flowerCart.getCartItems().size() == 0) {
 
-      System.out.println("works");
+    } else {
+      for (Flower flower : flowerCart.getCartItems()) {
 
-      HBox newRow = new HBox();
-      newRow.setSpacing(20);
-      newRow.setMaxHeight(300);
-      newRow.setMaxWidth(300);
+        System.out.println("works");
 
-      ImageView flowerImage = new ImageView();
-      Image image = new Image(Main.class.getResource(flower.getImage()).toString());
-      flowerImage.setImage(image);
-      flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
+        HBox newRow = new HBox();
+        newRow.setSpacing(20);
+        newRow.setMaxHeight(300);
+        newRow.setMaxWidth(300);
 
-      ImageView delete = new ImageView();
-      Image imageDelete = new Image(String.valueOf(Main.class.getResource("images/TrashCan.png")));
-      delete.setImage(imageDelete);
-      delete.setStyle("-fx-background-radius: 10 10 10 10;");
+        ImageView flowerImage = new ImageView();
+        Image image = new Image(Main.class.getResource(flower.getImage()).toString());
+        flowerImage.setImage(image);
+        flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
 
-      flowerImage.setFitHeight(60);
-      flowerImage.setFitWidth(60);
-      flowerImage.setPreserveRatio(false);
+        ImageView delete = new ImageView();
+        Image imageDelete =
+            new Image(String.valueOf(Main.class.getResource("images/TrashCan.png")));
+        delete.setImage(imageDelete);
+        delete.setStyle("-fx-background-radius: 10 10 10 10;");
 
-      delete.setFitHeight(20);
-      delete.setFitWidth(20);
-      delete.setPreserveRatio(false);
+        flowerImage.setFitHeight(60);
+        flowerImage.setFitWidth(60);
+        flowerImage.setPreserveRatio(false);
 
-      VBox itemInfo = new VBox();
-      itemInfo.setSpacing(5);
-      itemInfo.setPrefWidth(300);
-      itemInfo.setMaxHeight(300);
+        delete.setFitHeight(20);
+        delete.setFitWidth(20);
+        delete.setPreserveRatio(false);
 
-      HBox quantityChange = new HBox();
-      quantityChange.setAlignment(CENTER);
-      quantityChange.setSpacing(5);
+        VBox itemInfo = new VBox();
+        itemInfo.setSpacing(5);
+        itemInfo.setPrefWidth(300);
+        itemInfo.setMaxHeight(300);
 
-      MFXButton increaseB = new MFXButton();
-      increaseB.setStyle(
-          "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
-      increaseB.setText("+");
+        HBox quantityChange = new HBox();
+        quantityChange.setAlignment(CENTER);
+        quantityChange.setSpacing(5);
 
-      MFXButton decreaseB = new MFXButton();
-      decreaseB.setStyle(
-          "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
-      decreaseB.setText("-");
+        MFXButton increaseB = new MFXButton();
+        increaseB.setStyle(
+            "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+        increaseB.setText("+");
 
-      Label qLabel = new Label();
-      qLabel.setAlignment(CENTER);
-      qLabel.setMinWidth(30);
-      qLabel.setText("1");
-      qLabel.setStyle(
-          "-fx-background-color: #FFFFFF; -fx-background-radius: 10 10 10 10; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+        MFXButton decreaseB = new MFXButton();
+        decreaseB.setStyle(
+            "-fx-background-color: transparent; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
+        decreaseB.setText("-");
 
-      quantityChange.getChildren().add(decreaseB);
-      quantityChange.getChildren().add(qLabel);
-      quantityChange.getChildren().add(increaseB);
+        Label qLabel = new Label();
+        qLabel.setAlignment(CENTER);
+        qLabel.setMinWidth(30);
+        qLabel.setText(String.valueOf(flower.getQuantity()));
+        qLabel.setStyle(
+            "-fx-background-color: #FFFFFF; -fx-background-radius: 10 10 10 10; -fx-font-family: 'Open Sans'; -fx-font-size: 16; -fx-text-fill:#1d3d94");
 
-      decreaseB.setOnMouseClicked(
-          event -> {
-            qLabel.setText(Integer.toString(flowercounter));
-            if (flowercounter > 1) {
-              flowercounter--;
-            }
-          });
+        quantityChange.getChildren().add(decreaseB);
+        quantityChange.getChildren().add(qLabel);
+        quantityChange.getChildren().add(increaseB);
 
-      increaseB.setOnMouseClicked(
-          event -> {
-            flowercounter++;
-            qLabel.setText(Integer.toString(flowercounter));
-          });
+        decreaseB.setOnMouseClicked(
+            event -> {
+              qLabel.setText(Integer.toString(flower.getQuantity()));
+              if (flower.getQuantity() > 1) {
+                flower.setQuantity(flower.getQuantity() - 1);
+              }
+              displayCart();
+            });
 
-      HBox priceQ = new HBox();
-      priceQ.setSpacing(5);
-      priceQ.setMaxWidth(300);
+        increaseB.setOnMouseClicked(
+            event -> {
+              flower.setQuantity(flower.getQuantity() + 1);
+              qLabel.setText(Integer.toString(flower.getQuantity()));
+              displayCart();
+            });
 
-      VBox deleteBox = new VBox();
-      deleteBox.setSpacing(5);
-      deleteBox.setPrefWidth(300);
-      deleteBox.setMaxHeight(300);
+        HBox priceQ = new HBox();
+        priceQ.setSpacing(5);
+        priceQ.setMaxWidth(300);
 
-      Label name = new Label();
-      Label quantity = new Label();
+        VBox deleteBox = new VBox();
+        deleteBox.setSpacing(5);
+        deleteBox.setPrefWidth(300);
+        deleteBox.setMaxHeight(300);
 
-      name.setText(flower.getName());
-      name.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-style: open sans");
+        Label name = new Label();
+        Label quantity = new Label();
 
-      quantity.setText(String.valueOf("QTY: " + flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-style: open sans;");
+        name.setText(flower.getName());
+        name.setStyle(
+            "-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      cartPane.getChildren().add(newRow);
-      cartPane.setSpacing(10);
-      newRow.getChildren().add(flowerImage);
-      newRow.getChildren().add(itemInfo);
-      newRow.getChildren().add(delete);
+        quantity.setText(String.valueOf("QTY: " + flower.getQuantity() + "x"));
+        quantity.setStyle(
+            "-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-style: open sans;");
 
-      itemInfo.getChildren().add(name);
-      // itemInfo.getChildren().add(priceQ);
-      itemInfo.getChildren().add(quantityChange);
+        cartPane.getChildren().add(newRow);
+        cartPane.setSpacing(10);
+        newRow.getChildren().add(flowerImage);
+        newRow.getChildren().add(itemInfo);
+        newRow.getChildren().add(delete);
 
-      priceQ.getChildren().add(quantity);
+        itemInfo.getChildren().add(name);
+        // itemInfo.getChildren().add(priceQ);
+        itemInfo.getChildren().add(quantityChange);
 
-      delete.setOnMouseClicked(event -> flowerCart.removeFlowerItem(flower));
+        priceQ.getChildren().add(quantity);
+
+        delete.setOnMouseClicked(event -> deleteFlower(flower));
+      }
     }
+  }
+
+  public void deleteFlower(Flower flower) {
+    flowerCart.removeFlowerItem(flower);
+    displayCart();
   }
 
   public void clearCheckoutFields() {
