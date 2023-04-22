@@ -514,62 +514,65 @@ public class PathfindingController {
         if (i == 0) {
           if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
             toFloor1();
+            circlesOnFloor = floor1Circles;
           } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
             toFloor2();
+            circlesOnFloor = floor2Circles;
           } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
             toFloor3();
+            circlesOnFloor = floor3Circles;
           } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
             toFloorL1();
+            circlesOnFloor = floorL1Circles;
           } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
             toFloorL2();
+            circlesOnFloor = floorL2Circles;
           }
         }
         if (i == 0) {
-          for (int l = 0; l < circlesOnFloor.size(); l++) {
-            if (circlesOnFloor.get(l).getCenterX() == startX
-                && circlesOnFloor.get(l).getCenterY() == startY) {
-              startCircle =
-                  new Circle(
-                      circlesOnFloor.get(l).getCenterX(),
-                      circlesOnFloor.get(l).getCenterY(),
-                      10.0,
-                      Color.BLUE);
-              if (thisFloor.equals(Floor.Floor1)) {
-                importantCirclesF1PH.add(startCircle);
-              } else if (thisFloor.equals(Floor.Floor2)) {
-                importantCirclesF2PH.add(startCircle);
-              } else if (thisFloor.equals(Floor.Floor3)) {
-                importantCirclesF3PH.add(startCircle);
-              } else if (thisFloor.equals(Floor.FloorL1)) {
-                importantCirclesFL1PH.add(startCircle);
-              } else if (thisFloor.equals(Floor.FloorL2)) {
-                importantCirclesFL2PH.add(startCircle);
-              }
-            }
+          startCircle = new Circle(startX, startY, 10.0, Color.BLUE);
+          if (thisFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(startCircle);
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(startCircle);
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(startCircle);
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(startCircle);
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(startCircle);
+          }
+        }
+        if (i == 0) {
+          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
+            toFloor1();
+            circlesOnFloor = floor1Circles;
+          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
+            toFloor2();
+            circlesOnFloor = floor2Circles;
+          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
+            toFloor3();
+            circlesOnFloor = floor3Circles;
+          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
+            toFloorL1();
+            circlesOnFloor = floorL1Circles;
+          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
+            toFloorL2();
+            circlesOnFloor = floorL2Circles;
           }
         }
         if (i == pfe.getPathEntities().size() - 2) {
-          for (int l = 0; l < circlesOnFloor.size(); l++) {
-            if (circlesOnFloor.get(l).getCenterX() == endX
-                && circlesOnFloor.get(l).getCenterY() == endY) {
-              endCircle =
-                  new Circle(
-                      circlesOnFloor.get(l).getCenterX(),
-                      circlesOnFloor.get(l).getCenterY(),
-                      10.0,
-                      Color.GREEN);
-              if (thisFloor.equals(Floor.Floor1)) {
-                importantCirclesF1PH.add(endCircle);
-              } else if (thisFloor.equals(Floor.Floor2)) {
-                importantCirclesF2PH.add(endCircle);
-              } else if (thisFloor.equals(Floor.Floor3)) {
-                importantCirclesF3PH.add(endCircle);
-              } else if (thisFloor.equals(Floor.FloorL1)) {
-                importantCirclesFL1PH.add(endCircle);
-              } else if (thisFloor.equals(Floor.FloorL2)) {
-                importantCirclesFL2PH.add(endCircle);
-              }
-            }
+          endCircle = new Circle(endX, endY, 10.0, Color.GREEN);
+          if (thisFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(endCircle);
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(endCircle);
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(endCircle);
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(endCircle);
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(endCircle);
           }
         }
         Line line = new Line(startX, startY, endX, endY);
