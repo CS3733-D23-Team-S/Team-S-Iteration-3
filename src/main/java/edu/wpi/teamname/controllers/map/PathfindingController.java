@@ -1,7 +1,9 @@
 package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.orms.*;
+import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -117,7 +119,10 @@ public class PathfindingController {
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-      allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation().getLongName());
+      // check if the location is a hallway
+      if (!dbr.getMoveDAO().getAll().get(i).getLocation().getNodeType().equals(NodeType.HALL)) {
+        allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation().getLongName());
+      }
     }
     // alphabetize
     Collections.sort(allLongNames);
@@ -210,9 +215,6 @@ public class PathfindingController {
     // makes sure circles don't show on the wrong floor
 
     generateFloor1Nodes();
-    if (displayLocationNamesToggle.isSelected()) {
-      showLocationNames();
-    }
     mapPane.setContent(stackPane);
 
     //    stackPane.getChildren().remove(anchorPane);
@@ -238,9 +240,6 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloor2Nodes();
-    if (displayLocationNamesToggle.isSelected()) {
-      showLocationNames();
-    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -265,9 +264,6 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloor3Nodes();
-    if (displayLocationNamesToggle.isSelected()) {
-      showLocationNames();
-    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -292,9 +288,6 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloorL1Nodes();
-    if (displayLocationNamesToggle.isSelected()) {
-      showLocationNames();
-    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -319,9 +312,6 @@ public class PathfindingController {
 
     stackPane.getChildren().add(floor);
     generateFloorL2Nodes();
-    if (displayLocationNamesToggle.isSelected()) {
-      showLocationNames();
-    }
     mapPane.setContent(stackPane);
 
     stackPane.getChildren().add(anchorPane);
@@ -548,8 +538,23 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
-        floor1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
@@ -560,8 +565,6 @@ public class PathfindingController {
       Node aNode = floor1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    circlesOnFloor.clear();
-    circlesOnFloor = floor1Circles;
     anchorPane.getChildren().addAll(floor1Circles);
   }
 
@@ -578,8 +581,21 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
-        floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor2Nodes.size(); i++) {
@@ -590,8 +606,6 @@ public class PathfindingController {
       Node aNode = floor2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    circlesOnFloor.clear();
-    circlesOnFloor = floor2Circles;
     anchorPane.getChildren().addAll(floor2Circles);
   }
 
@@ -608,8 +622,21 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor3)) {
-        floor3Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor3)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor3Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor3Nodes.size(); i++) {
@@ -620,8 +647,6 @@ public class PathfindingController {
       Node aNode = floor3Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    circlesOnFloor.clear();
-    circlesOnFloor = floor3Circles;
     anchorPane.getChildren().addAll(floor3Circles);
   }
 
@@ -638,8 +663,23 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL1)) {
-        floorL1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL1)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floorL1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floorL1Nodes.size(); i++) {
@@ -650,8 +690,6 @@ public class PathfindingController {
       Node aNode = floorL1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    circlesOnFloor.clear();
-    circlesOnFloor = floorL1Circles;
     anchorPane.getChildren().addAll(floorL1Circles);
   }
 
@@ -668,8 +706,23 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL2)) {
-        floorL2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL2)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floorL2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floorL2Nodes.size(); i++) {
@@ -680,8 +733,6 @@ public class PathfindingController {
       Node aNode = floorL2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    circlesOnFloor.clear();
-    circlesOnFloor = floorL2Circles;
     anchorPane.getChildren().addAll(floorL2Circles);
   }
 
@@ -755,10 +806,9 @@ public class PathfindingController {
   }
 
   public void initialize() {
+
     algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-
-    displayLocationNamesToggle.setOnMouseClicked(event -> showLocationNames());
 
     dataBase = DataBaseRepository.getInstance();
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
