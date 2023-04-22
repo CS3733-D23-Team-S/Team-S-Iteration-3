@@ -50,6 +50,7 @@ public class FlowerDeliveryController {
 
     clearfilter.setOnMouseClicked(event -> Navigation.navigate(FLOWER_DELIVERY));
 
+    cartPane.getChildren();
     noFilter();
   }
 
@@ -198,57 +199,56 @@ public class FlowerDeliveryController {
       System.out.println("works");
 
       HBox newRow = new HBox();
-      newRow.setSpacing(50);
+      newRow.setSpacing(20);
       newRow.setMaxHeight(300);
-      newRow.setMaxWidth(1000);
+      newRow.setMaxWidth(300);
 
       ImageView flowerImage = new ImageView();
       Image image = new Image(Main.class.getResource(flower.getImage()).toString());
       flowerImage.setImage(image);
       flowerImage.setStyle("-fx-background-radius: 10 10 10 10;");
 
-      flowerImage.setFitHeight(160);
-      flowerImage.setFitWidth(160);
+      ImageView delete = new ImageView();
+      Image imageDelete = new Image(String.valueOf(Main.class.getResource("images/TrashCan.png")));
+      delete.setImage(imageDelete);
+      delete.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      flowerImage.setFitHeight(60);
+      flowerImage.setFitWidth(60);
       flowerImage.setPreserveRatio(false);
 
       VBox itemInfo = new VBox();
-      itemInfo.setSpacing(20);
-      itemInfo.setPrefWidth(800);
+      itemInfo.setSpacing(5);
+      itemInfo.setPrefWidth(300);
       itemInfo.setMaxHeight(300);
 
       HBox priceQ = new HBox();
-      priceQ.setSpacing(30);
-      priceQ.setMaxWidth(1000);
+      priceQ.setSpacing(5);
+      priceQ.setMaxWidth(300);
+
+      VBox deleteBox = new VBox();
+      deleteBox.setSpacing(5);
+      deleteBox.setPrefWidth(300);
+      deleteBox.setMaxHeight(300);
 
       Label name = new Label();
-      Label price = new Label();
-      Label description = new Label();
       Label quantity = new Label();
 
       name.setText(flower.getName());
       name.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-style: open sans");
+          "-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-style: open sans");
 
-      description.setText(flower.getDescription());
-      description.setStyle(
-          "-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans; -fx-wrap-text: true; -fx-font-style: italic;");
-
-      quantity.setText(String.valueOf("Quantity: " + flower.getQuantity() + "x"));
-      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans;");
-
-      price.setText("$ " + String.format("%.02f", flower.getPrice()));
-      price.setStyle("-fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-style: open sans");
+      quantity.setText(String.valueOf("QTY: " + flower.getQuantity() + "x"));
+      quantity.setStyle("-fx-text-fill: #000000; -fx-font-size: 16px; -fx-font-style: open sans;");
 
       cartPane.getChildren().add(newRow);
-      cartPane.setSpacing(20);
+      cartPane.setSpacing(10);
       newRow.getChildren().add(flowerImage);
       newRow.getChildren().add(itemInfo);
 
       itemInfo.getChildren().add(name);
-      itemInfo.getChildren().add(description);
       itemInfo.getChildren().add(priceQ);
 
-      priceQ.getChildren().add(price);
       priceQ.getChildren().add(quantity);
     }
   }
