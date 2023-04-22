@@ -10,6 +10,7 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -32,13 +33,14 @@ public class RoomBookingDetailsController extends PopUpController {
   @FXML SearchableComboBox startTimeField;
   @FXML SearchableComboBox endTimeField;
   @FXML Label errorMessage;
-
+  @FXML MFXToggleButton privateToggle;
   @Setter @Getter String roomLocation;
   @Setter @Getter LocalDate eventDate;
   @Setter @Getter LocalTime startTime;
   @Setter @Getter LocalTime endTime;
   @Setter @Getter String eventTitle;
   @Setter @Getter String eventDescription;
+  @Setter @Getter boolean isPrivate;
   @FXML MFXButton navigationbutton;
   @FXML MFXButton navigationbutton1;
   @FXML MFXButton mealbutton;
@@ -156,13 +158,16 @@ public class RoomBookingDetailsController extends PopUpController {
   @FXML
   public void submitDetails(ActionEvent event) throws Exception {
 
-    boolean isPrivate = false;
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = (LocalTime) startTimeField.getValue();
     endTime = (LocalTime) endTimeField.getValue();
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
+    isPrivate = privateToggle.isSelected();
+
+    System.out.println("Private toggle selected!!!");
+    System.out.println(isPrivate);
 
     if (!catchBookingErrors(roomLocation, eventDate, startTime, endTime)) {
       System.out.println("Room booking cancelled because of faulty inputs");
@@ -170,8 +175,8 @@ public class RoomBookingDetailsController extends PopUpController {
     }
     ;
 
-    System.out.println("Took in inputs from RBD Controller");
     try {
+      System.out.println("Is private in rb details controller: " + isPrivate);
       rbc.addNewRequest(
           roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
       stage.close();
@@ -183,7 +188,6 @@ public class RoomBookingDetailsController extends PopUpController {
 
   public boolean catchBookingErrors(
       String roomLocation, LocalDate date, LocalTime startTime, LocalTime endTime) {
-    // negative / 0 start time
 
     if (startTime.isAfter(endTime)) {
       errorMessage.setText("Start time must be before end time.");

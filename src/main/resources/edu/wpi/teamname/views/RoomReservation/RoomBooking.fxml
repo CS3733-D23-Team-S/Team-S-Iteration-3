@@ -40,7 +40,8 @@
               </TextField2TableCell>
             <HBox alignment="CENTER_LEFT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="1280.0">
                <children>
-                    <TextFieldTableCell fx:id="dateHeaderTextField" editable="false" prefHeight="48.0" prefWidth="236.0" text="Monday, March 1" wrapText="true">
+                  <MFXButton fx:id="dateBackButton" text="&lt;" />
+                    <TextFieldTableCell fx:id="dateHeaderTextField" alignment="CENTER" editable="false" prefHeight="48.0" prefWidth="236.0" text="Monday, March 1" wrapText="true">
                         <font>
                             <Font name="Arial" size="26.0" />
                         </font>
@@ -48,6 +49,11 @@
                         <Insets />
                      </HBox.margin>
                     </TextFieldTableCell>
+                  <MFXButton fx:id="dateNextButton" text="&gt;">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </MFXButton>
                   <MFXDatePicker fx:id="DateFilterPicker" alignment="CENTER" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: #1D3D94;" text="Select Date">
                      <textFill>
                         <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
@@ -65,7 +71,7 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="scrollPane" prefWidth="1500.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+      <ScrollPane fx:id="scrollPane" prefWidth="1500.0" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
          <GridPane.margin>
             <Insets top="30.0" />
          </GridPane.margin>
