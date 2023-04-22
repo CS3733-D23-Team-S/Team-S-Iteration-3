@@ -71,7 +71,7 @@ public class FlowerDeliveryController {
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
     clearfilter.setOnMouseClicked(event -> noFilter());
-    clearCart.setOnMouseClicked(event -> flowerCart.removeAll());
+    clearCart.setOnMouseClicked(event -> clearCart());
     checkOutBox.setVisible(false);
 
     noFilter();
@@ -435,5 +435,10 @@ public class FlowerDeliveryController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void clearCart(){
+    flowerCart.removeAll();
+    displayCart();
   }
 }
