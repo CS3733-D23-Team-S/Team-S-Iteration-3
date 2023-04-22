@@ -3,13 +3,22 @@ package edu.wpi.teamname.controllers.servicerequests.flowerdelivery;
 import static edu.wpi.teamname.navigation.Screen.*;
 import static javafx.geometry.Pos.CENTER;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
+import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -18,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerDeliveryController {
   public static int flowerID;
@@ -35,6 +45,11 @@ public class FlowerDeliveryController {
   @FXML MFXButton proceed;
   @FXML Label totalPrice;
   @FXML VBox lowerCart;
+  @FXML SearchableComboBox employeedrop;
+  @FXML SearchableComboBox locationdrop;
+  @FXML MFXTextField requestfield;
+  @FXML MFXButton submitButton;
+  @FXML MFXButton clearSubmit;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
@@ -61,6 +76,51 @@ public class FlowerDeliveryController {
     checkOutBox.setVisible(false);
 
     noFilter();
+
+    submitButton.setDisable(true);
+
+    employeedrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitButton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    locationdrop
+        .valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitButton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    requestfield
+        .textProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              submitButton.setDisable(
+                  employeedrop.getValue() == null
+                      || locationdrop.getValue() == null
+                      || requestfield.getText().trim().isEmpty());
+            }));
+
+    for (User u : dbr.getUserDAO().getListOfUsers().values()) {
+      employeedrop.getItems().add(u.getFirstName() + " " + u.getLastName());
+    }
+
+    locationdrop.getItems().addAll(dbr.getListOfEligibleRooms());
+
+    clearSubmit.setOnMouseClicked(event -> clearCheckoutFields());
+
+    submitButton.setOnMouseClicked(event -> submitHandler());
   }
 
   public void filterSmall() {
@@ -317,6 +377,54 @@ public class FlowerDeliveryController {
       // priceQ.getChildren().add(quantity);
 
       delete.setOnMouseClicked(event -> flowerCart.removeFlowerItem(flower));
+    }
+  }
+
+  public void clearCheckoutFields() {
+    requestfield.clear();
+    employeedrop.valueProperty().set(null);
+    locationdrop.valueProperty().set(null);
+  }
+
+  public void submitHandler() {
+    try {
+      String Emp = employeedrop.getValue().toString();
+      String deliveryRoom = locationdrop.getValue().toString();
+
+      String n = requestfield.getText();
+
+      Date d = Date.valueOf(LocalDate.now());
+      Time t = Time.valueOf(LocalTime.now());
+
+      FlowerDelivery currentFlowDev =
+          new FlowerDelivery(
+              FlowerDeliveryController.flowDevID++,
+              FlowerDeliveryController.flowerCart.toString(),
+              d,
+              t,
+              deliveryRoom,
+              ActiveUser.getInstance().getCurrentUser().getUserName(),
+              Emp,
+              "Recieved",
+              FlowerDeliveryController.flowerCart.getTotalPrice(),
+              n);
+
+      dbr.getFlowerDeliveryDAO().add(currentFlowDev);
+
+      checkOutBox.getChildren().clear();
+
+      Label confirm = new Label();
+      Label thanks = new Label();
+      confirm.setText("Order Submitted!");
+      thanks.setText("Thank you for your order!\n\n\n\n\n\n");
+      confirm.setStyle("-fx-font-size: 30;");
+      thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
+      checkOutBox.setAlignment(Pos.CENTER);
+      checkOutBox.getChildren().add(confirm);
+      checkOutBox.getChildren().add(thanks);
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

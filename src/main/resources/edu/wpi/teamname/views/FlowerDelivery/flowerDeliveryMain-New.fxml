@@ -187,7 +187,7 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="checkOutBox" layoutX="1031.0" layoutY="114.0" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="5">
+            <VBox fx:id="checkOutBox" layoutX="1031.0" layoutY="114.0" prefWidth="236.0" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="5">
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE;">
                      <children>
@@ -249,7 +249,7 @@
                   </VBox>
                   <HBox alignment="CENTER" maxHeight="142.0" prefHeight="70.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE;">
                      <children>
-                        <MFXButton fx:id="sumbitButton" prefHeight="48.0" prefWidth="100.0" style="-fx-background-color: #1D3D94;" text="Proceed" textFill="WHITE">
+                        <MFXButton fx:id="submitButton" prefHeight="48.0" prefWidth="100.0" style="-fx-background-color: #1D3D94;" text="Submit" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
@@ -257,7 +257,7 @@
                               <Insets />
                            </HBox.margin>
                         </MFXButton>
-                        <MFXButton fx:id="clearSumbit" prefHeight="48.0" prefWidth="100.0" text="Clear">
+                        <MFXButton fx:id="clearSubmit" prefHeight="48.0" prefWidth="100.0" text="Clear">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
