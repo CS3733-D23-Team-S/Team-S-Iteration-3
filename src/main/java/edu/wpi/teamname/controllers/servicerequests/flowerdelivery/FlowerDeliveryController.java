@@ -246,9 +246,11 @@ public class FlowerDeliveryController {
       totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
       lowerCart.setVisible(true);
       cartPane.getChildren().clear();
+      viewcartbutton.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color:  #B5C5EE");
       displayCart();
     } else {
       lowerCart.setVisible(false);
+      viewcartbutton.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color:  #B5C5EE");
       cartPane.getChildren().clear();
     }
   }
@@ -437,7 +439,7 @@ public class FlowerDeliveryController {
     }
   }
 
-  public void clearCart(){
+  public void clearCart() {
     flowerCart.removeAll();
     displayCart();
   }
