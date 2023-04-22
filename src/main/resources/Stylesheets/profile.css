@@ -1,0 +1,29 @@
+* {
+    -fx-font-family: "Open Sans";
+}
+
+
+MFXTextField {
+    -fx-font-size: 20;
+    -fx-float-mode: BORDER;
+}
+
+MFXButton {
+    -fx-font-size: 18;
+}
+
+TextField2TableCell {
+    -fx-font-size: 20;
+}
+
+#nameCell {
+    -fx-font-weight: bold;
+}
+
+#permissionsCell {
+    -fx-font-style: italic;
+}
+
+MFXPasswordField {
+    -fx-font-size: 20px;
+}

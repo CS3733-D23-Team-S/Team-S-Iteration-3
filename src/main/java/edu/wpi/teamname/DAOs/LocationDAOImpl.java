@@ -100,7 +100,10 @@ public class LocationDAOImpl implements IDAO<Location, String> {
   @Override
   public Location get(String target) {
     if (locationMap.get(target) == null) {
-      System.out.println("This location is not in the database, so its contents cannot be printed");
+      System.out.println(
+          "This location("
+              + target
+              + ") is not in the database, so its contents cannot be printed");
       return null;
     }
     return locationMap.get(target);
@@ -116,6 +119,7 @@ public class LocationDAOImpl implements IDAO<Location, String> {
               .prepareStatement("DELETE FROM " + name + " WHERE longName = ?");
       stmt.setString(1, target);
       stmt.execute();
+      DataBaseRepository.getInstance().moveDAO.constructFromRemote();
     } catch (SQLException e) {
       e.printStackTrace();
     }

@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ public class AdminController {
   @FXML MFXButton floor2Button;
   @FXML MFXButton floor3Button;
   @FXML MFXButton mapEditorButton;
+  @FXML private MFXButton csvData;
   ImageView floorView;
   @FXML GesturePane mapView;
   StackPane stackpane;
@@ -57,8 +59,9 @@ public class AdminController {
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png"))));
     floorL2Button.setStyle("-fx-background-color: #1D2B94");
-    stackpane.setPrefSize(800, 522);
+    //    stackpane.setPrefSize(800, 522);
     mapView.setContent(stackpane);
+
     // stackpane.setBackground(Background.fill(Color.RED));
 
     floorView.setImage(floor1);
@@ -71,9 +74,11 @@ public class AdminController {
     floor1Button.setOnMouseClicked(event -> switchToFloor1());
     floor2Button.setOnMouseClicked(event -> switchToFloor2());
     floor3Button.setOnMouseClicked(event -> switchToFloor3());
+    csvData.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
     mapView.setMinScale(0.005);
     mapView.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+    mapView.zoomTo(.2, new Point2D(2500, 2500));
     //    Platform.runLater({
     //          mapView.zoomTo(0.01, new Point2D(2500, 1750))
     //        }
@@ -184,6 +189,6 @@ public class AdminController {
   }
 
   public void goToMapEditorPage() {
-    Navigation.navigate(Screen.BETTER_MAP_EDITOR);
+    Navigation.navigate(Screen.ADMIN_PAGE);
   }
 }

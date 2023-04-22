@@ -1,0 +1,43 @@
+.menustyling {
+    -fx-background-color: #122E59;
+    -fx-text-fill: #F4F4F4;
+}
+
+.menustyling:hover {
+    -fx-background-color: #F4F4F450;
+    -fx-cursor: hand;
+}
+
+.menubar {
+    -fx-background-color: #122E59;
+}
+
+.top {
+    -fx-background-color: #122E59;
+}
+
+.pane {
+    -fx-background-color: #122E59;
+}
+
+.topbar {
+    -fx-background-color: #E6E6E6;
+}
+
+.selectedtab {
+    -fx-background-color: #FFFFFF;
+    -fx-cursor: hand;
+}
+
+.selectedtab > * {
+    -fx-text-fill: #122E59;
+}
+
+.unselectedtab {
+    -fx-background-color: #122E59;
+}
+
+.unselectedtab > * {
+    -fx-text-fill: #122E59;
+}
+

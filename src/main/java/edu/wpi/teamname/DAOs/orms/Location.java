@@ -21,7 +21,7 @@ public class Location implements IDataPack {
   public String toString() {
     return "Location{notetype = "
         + this.nodeType.toString()
-        + ", longname =  "
+        + ", longname = "
         + this.longName
         + ", shortname = "
         + this.shortName

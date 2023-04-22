@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest {
 
-  User user = new User("admin", "admin", Permission.ADMIN);
+  User user = new User("GenericAdmin", "admin", Permission.ADMIN);
 
   @Test
   public void checkLoginTest() {
@@ -17,11 +17,11 @@ public class UserTest {
 
   @Test
   public void userTest() {
-    assertEquals(user.getUserName(), "admin");
+    assertEquals(user.getUserName(), "GenericAdmin");
   }
 
   @Test
   public void toCSVStringTest() {
-    assertEquals(user.toCSVString(), "admin,admin,0");
+    assertEquals(user.toCSVString(), "GenericAdmin,admin");
   }
 }

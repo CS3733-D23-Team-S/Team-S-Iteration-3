@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: WHITE;" stylesheets="@../../../../Stylesheets/profile.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.UserProfileController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="welcomeText" prefHeight="84.0" prefWidth="1512.0" text="Good morning, Michael!" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <font>
+                <Font name="Arial Bold" size="40.0" />
+            </font>
+        </Label>
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <children>
+                <Label alignment="TOP_LEFT" text="Profile Information">
+                    <font>
+                        <Font name="Arial" size="32.0" />
+                    </font>
+                </Label>
+            <MFXTextField fx:id="nameField" floatMode="BORDER" maxHeight="50.0" minHeight="40.0" prefHeight="50.0" prefWidth="700.0" promptText="Name" style="-fx-border-color: #000000;" styleClass="inputText">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="positionField" floatMode="ABOVE" graphicTextGap="5.0" maxHeight="50.0" minHeight="40.0" prefHeight="50.0" prefWidth="700.0" promptText="Position" style="-fx-border-color: #000000;" styleClass="inputText">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="emailField" floatMode="ABOVE" maxHeight="50.0" minHeight="40.0" prefHeight="50.0" prefWidth="700.0" promptText="Email" style="-fx-border-color: #000000;" styleClass="inputText">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </MFXTextField>
+            <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="928.0">
+               <children>
+                  <MFXPasswordField fx:id="passwordField" allowEdit="false" animated="false" caretVisible="false" floatMode="BORDER" maxHeight="50.0" prefHeight="50.0" prefWidth="550.0" selectable="false" style="-fx-border-color: #000000;" text="●●●●●●●●">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </MFXPasswordField>
+                  <MFXButton fx:id="updatePassField" minWidth="130.0" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #00000060; -fx-background-radius: 5; -fx-border-radius: 5; -fx-view-order: 10;" text="Change">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXButton fx:id="saveButton" minWidth="150.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 5;" text="Save" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="clearButton" minWidth="150.0" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" text="Clear">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+      <Line endX="-100.0" endY="-650.0" startX="-100.0" startY="-30.0" style="-fx-stroke-dash-array: 3;" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <children>
+            <ImageView fx:id="profileImage" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/michaelprofile.png" />
+               </image>
+            </ImageView>
+            <TextField2TableCell id="nameCell" fx:id="nameCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" style="-fx-font-weight: bold;" text="Michael O'Connor" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </TextField2TableCell>
+            <TextField2TableCell id="permissionsCell" fx:id="permissionsCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" text="Admin" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Italic" size="15.0" />
+               </font>
+            </TextField2TableCell>
+            <TextField2TableCell fx:id="roleCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" text="Doctor" textAlignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField2TableCell>
+            <TextField2TableCell fx:id="emailCell" alignment="TOP_CENTER" maxHeight="20.0" prefHeight="20.0" prefWidth="422.0" text="moconnor@bwh.harvard.edu" textAlignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField2TableCell>
+         </children>
+      </VBox>
+    </children>
+</GridPane>

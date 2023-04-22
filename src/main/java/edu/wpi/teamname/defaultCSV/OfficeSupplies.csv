@@ -1,0 +1,11 @@
+﻿officesupplyid,name,Price,Description,Quantity,isSoldOut,Image
+0,Pens,5.98,Pilot G2 Retractable Roller Gel Pen Bold 1.0mm Black 2Pack,0,FALSE,officesupplies/penpackage.png
+1,Highlighters,1.49,BIC Highlighter,0,False,officesupplies/highlighter.png
+2,Folders,2.98,Five Star 4Pocket Paper Folder Assorted Colors,0,FALSE,officesupplies/folders.png
+3,Stapler,6.99,Swingline Stapler. Light Duty Desktop Stapler. 20 Sheet Capacity. Black,0,FALSE,officesupplies/stapler.png
+4,Post-its,11.79,Post-it Super Sticky Notes. 3x3 in. 6 Pads. 2x the Sticking Power. Energy Boost Collection,0,False,officesupplies/post-it.png
+5,Scissors,13.99,JAM PAPER Multi-Purpose Precision Scissors - 8 Inch - Blue - Ergonomic Handle & Stainless Steel Blades - Sold Individually,0,FALSE,officesupplies/skizzors.png
+6,White Board,179.84,Rolling Magnetic Whiteboard 48 x 36 - Large Portable Dry Erase Board with Stand - Double Sided Easel Style Whiteboard with Wheels - Mobile Standing Whiteboard for Office Classroom & Home,0,FALSE,officesupplies/whiteBoard.png
+7,Dry Erase Markers,8.99,EXPO Low Odor Dry Erase Marker Starter Set,0,FALSE,officesupplies/dryEraseMarkers.png
+8,Rubix Cube,5.96,Shengshou 3x3x3 Puzzle Cube,0,FALSE,officesupplies/cube.png
+9,Pencils,3.78,Ticonderoga #2 Baby,0,False,officesupplies/Pencils.png

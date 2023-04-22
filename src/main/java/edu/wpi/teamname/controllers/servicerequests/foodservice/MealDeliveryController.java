@@ -1,35 +1,48 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 
 public class MealDeliveryController {
 
   // @FXML MFXButton backButton1;
   // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
-  @FXML HBox wf;
-  @FXML HBox qd;
+  // @FXML HBox picBox;
+  // @FXML HBox wf;
+  // @FXML HBox qd;
   @FXML SplitMenuButton dietaryButton;
-  @FXML SplitMenuButton cuisine;
-  @FXML SplitMenuButton price;
+  // @FXML CheckComboBox dietCheck;
+
+  // @FXML SplitMenuButton cuisine;
+  // @FXML SplitMenuButton price;
   @FXML HBox filter;
-  @FXML Text wfLabel;
-  @FXML Text qdLabel;
+  // @FXML Text wfLabel;
+  // @FXML Text qdLabel;
   @FXML MFXButton apply;
   @FXML MFXButton clearButton;
+
+  @FXML ScrollPane scrollPane;
+  @FXML FlowPane flowPane;
 
   // @FXML MFXButton signagePage1;
 
@@ -45,18 +58,15 @@ public class MealDeliveryController {
   public ArrayList<MenuItem> filters = new ArrayList<>();
   public ArrayList<String> filterList = new ArrayList<>();
 
+  public static int delID;
+  public static OrderItem cart;
+
   @FXML
   public void initialize() {
 
-    // homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    // backButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    // exit.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
-    //  signagePage1.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    // navigation1.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    //  flowerbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
+    delID = DBR.getLastFoodDevID();
 
-    //   mealbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    //  roomButton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
+    cart = new OrderItem(1);
 
     // Dietary Restriction
     MenuItem vegetarian = new MenuItem("Vegetarian");
@@ -66,6 +76,7 @@ public class MealDeliveryController {
     MenuItem v = new MenuItem("Vegan");
 
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
+    // dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
@@ -73,7 +84,7 @@ public class MealDeliveryController {
     MenuItem Mex = new MenuItem("Mexican");
     MenuItem Ind = new MenuItem("Indian");
 
-    cuisine.getItems().addAll(Am, It, Mex, Ind);
+    //  cuisine.getItems().addAll(Am, It, Mex, Ind);
 
     // add filters to filters hbox
     vegetarian.setOnAction(
@@ -131,35 +142,16 @@ public class MealDeliveryController {
 
     clearButton.setOnMouseClicked(
         event -> {
-          Navigation.launchPopUp(Screen.PRODUCT_DETAILS);
+          Navigation.navigate(Screen.MEAL_DELIVERY1);
           filters.clear();
         });
 
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
 
-    // navigationbutton1.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
-    // ///ADD NAVIGATION
-
-    //  homeicon1.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-
     walletFriendly();
-    quickDelivery();
-  }
-
-  public void noFilter() {
-
-    for (Food f : DBR.getFoodDAO().getFoods().values()) {
-      MFXButton btn1 = new MFXButton();
-
-      btn1.setId(f.toString());
-      btn1.setText(f.toString());
-
-      btn1.setMaxWidth(103);
-      btn1.setMaxHeight(87);
-
-      wf.getChildren().add(btn1);
-      btn1.setOnMouseClicked(event -> store(f.getFoodID()));
-    }
+    // quickDelivery();
+    noFilter();
+    // scrollFix();
   }
 
   public void walletFriendly() {
@@ -174,102 +166,291 @@ public class MealDeliveryController {
       btn1.setMaxWidth(103);
       btn1.setMaxHeight(87);
 
-      wf.getChildren().add(btn1);
+      // wf.getChildren().add(btn1);
 
       int finalII = i;
       btn1.setOnMouseClicked(
           event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalII).getFoodID()));
     }
   }
+  /*
+   public void quickDelivery() {
 
-  public void quickDelivery() {
+     for (int i = 0; i < DBR.getFoodDAO().getQuick().size(); i++) {
+       MFXButton btn = new MFXButton();
+       btn.setId(DBR.getFoodDAO().getQuick().get(i).toString());
+       btn.setText(DBR.getFoodDAO().getQuick().get(i).toString());
+       btn.setMaxWidth(103);
+       btn.setMaxHeight(87);
+       qd.getChildren().add(btn);
 
-    for (int i = 0; i < DBR.getFoodDAO().getQuick().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getQuick().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getQuick().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+       int finalI = i;
+       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getQuick().get(finalI).getFoodID()));
+     }
+   }
 
-      int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getQuick().get(finalI).getFoodID()));
+  */
+
+  public void noFilter() {
+    for (Food f : DBR.getFoodDAO().getFoods().values()) {
+
+      VBox food = new VBox();
+      food.setMaxWidth(50);
+      food.setMaxHeight(100);
+
+      Image pic = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView foodPic = new ImageView(pic);
+
+      foodPic.setPreserveRatio(true);
+      foodPic.setFitHeight(80);
+      foodPic.setFitWidth(80);
+
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(150);
+      btn1.setPrefHeight(100);
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(foodPic);
+
+      flowPane.setPrefWrapLength(10);
+      flowPane.setHgap(20);
+      flowPane.setVgap(20);
+      flowPane.getChildren().add(btn1);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
   }
 
-  public Method chooseVegetarian() {
-    for (int i = 0; i < DBR.getFoodDAO().getVegetarian().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getVegetarian().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getVegetarian().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
-      int finalI = i;
-      btn.setOnMouseClicked(
-          event -> store(DBR.getFoodDAO().getVegetarian().get(finalI).getFoodID()));
+  public void scrollFix() {
+    // Food f : DBR.getFoodDAO().getFoods().values()
+    for (Food f : DBR.getFoodDAO().getFoods().values()) {
+
+      VBox food = new VBox();
+      food.setMaxWidth(100);
+      food.setMaxHeight(200);
+
+      //   picBox.setSpacing(10);
+
+      Image pic = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView foodPic = new ImageView(pic);
+
+      foodPic.setPreserveRatio(true);
+      foodPic.setFitHeight(150);
+      foodPic.setFitWidth(150);
+
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(foodPic);
+
+      scrollPane = new ScrollPane(food);
+
+      // food.setPrefWrapLength(10);
+      // food.setHgap(20);
+      // food.setVgap(20);
+
+      food.getChildren().add(btn1);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
+  }
+
+  /*
+  public void filterFoods(ObservableList<String> features) {
+    for (Food f : DBR.getFoodDAO().getFoods().values()) {
+      food.get(i).setVisible(false);
+      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
+    }
+    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
+    System.out.println(features);
+
+    if (features.isEmpty()) {
+      System.out.println("Features empty!!!");
+      for (int i = 0; i < roomList.size(); i++) {
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+
+    for (int i = 0; i < roomList.size(); i++) {
+      for (int f = 0; f < features.size(); f++) {
+        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
+          System.out.println(
+                  roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
+          break;
+        }
+        roomListVBoxes.get(i).setVisible(true);
+      }
+    }
+    System.out.println("Set things to visible");
+  }
+
+
+  */
+
+  public Method chooseVegetarian() {
+    for (Food f : DBR.getFoodDAO().getVegetarian()) {
+      Image image = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView view = new ImageView(image);
+      view.setPreserveRatio(false);
+      view.setFitHeight(150);
+      view.setFitWidth(150);
+
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(view);
+
+      flowPane.getChildren().add(btn1);
+      flowPane.setHgap(25);
+      flowPane.setVgap(25);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
+    }
+
     return null;
   }
 
   public Method chooseVegan() {
-    for (int i = 0; i < DBR.getFoodDAO().getVegan().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getVegan().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getVegan().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+    for (Food f : DBR.getFoodDAO().getVegan()) {
+      Image image = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView view = new ImageView(image);
+      view.setPreserveRatio(false);
+      view.setFitHeight(150);
+      view.setFitWidth(150);
 
-      int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getVegan().get(finalI).getFoodID()));
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(view);
+
+      flowPane.getChildren().add(btn1);
+      flowPane.setHgap(25);
+      flowPane.setVgap(25);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
+
     return null;
   }
 
   public Method chooseGlutenFree() {
-    for (int i = 0; i < DBR.getFoodDAO().getGlutenFree().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getGlutenFree().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getGlutenFree().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+    for (Food f : DBR.getFoodDAO().getGlutenFree()) {
+      Image image = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView view = new ImageView(image);
+      view.setPreserveRatio(false);
+      view.setFitHeight(150);
+      view.setFitWidth(150);
 
-      int finalI = i;
-      btn.setOnMouseClicked(
-          event -> store(DBR.getFoodDAO().getGlutenFree().get(finalI).getFoodID()));
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(view);
+
+      flowPane.getChildren().add(btn1);
+      flowPane.setHgap(25);
+      flowPane.setVgap(25);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
+
     return null;
   }
 
   public Method chooseHalal() {
-    for (int i = 0; i < DBR.getFoodDAO().getHalal().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getHalal().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getHalal().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+    for (Food f : DBR.getFoodDAO().getHalal()) {
+      Image image = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView view = new ImageView(image);
+      view.setPreserveRatio(false);
+      view.setFitHeight(150);
+      view.setFitWidth(150);
 
-      int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getHalal().get(finalI).getFoodID()));
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(view);
+
+      flowPane.getChildren().add(btn1);
+      flowPane.setHgap(25);
+      flowPane.setVgap(25);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
+
     return null;
   }
 
   public Method chooseKosher() {
-    for (int i = 0; i < DBR.getFoodDAO().getKosher().size(); i++) {
-      MFXButton btn = new MFXButton();
-      btn.setId(DBR.getFoodDAO().getKosher().get(i).toString());
-      btn.setText(DBR.getFoodDAO().getKosher().get(i).toString());
-      btn.setMaxWidth(103);
-      btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+    for (Food f : DBR.getFoodDAO().getKosher()) {
+      Image image = new Image(Main.class.getResource(f.getImage()).toString());
+      ImageView view = new ImageView(image);
+      view.setPreserveRatio(false);
+      view.setFitHeight(150);
+      view.setFitWidth(150);
 
-      int finalI = i;
-      btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(f.toString());
+      btn1.setText(f.getFoodName());
+      btn1.setPrefWidth(250);
+      btn1.setPrefHeight(200);
+      btn1.setStyle("-fx-spacing: 10;");
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(view);
+
+      flowPane.getChildren().add(btn1);
+      flowPane.setHgap(25);
+      flowPane.setVgap(25);
+
+      btn1.setOnMouseClicked(
+          event -> {
+            store(f.getFoodID());
+          });
     }
+
     return null;
   }
 
@@ -280,7 +461,7 @@ public class MealDeliveryController {
       btn.setText(DBR.getFoodDAO().getAmerican().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+      flowPane.getChildren().add(btn);
 
       int finalI = i;
       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
@@ -295,7 +476,7 @@ public class MealDeliveryController {
       btn.setText(DBR.getFoodDAO().getItalian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+      flowPane.getChildren().add(btn);
 
       int finalI = i;
       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
@@ -310,7 +491,7 @@ public class MealDeliveryController {
       btn.setText(DBR.getFoodDAO().getMexican().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+      flowPane.getChildren().add(btn);
 
       int finalI = i;
       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getKosher().get(finalI).getFoodID()));
@@ -325,7 +506,7 @@ public class MealDeliveryController {
       btn.setText(DBR.getFoodDAO().getIndian().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
-      qd.getChildren().add(btn);
+      flowPane.getChildren().add(btn);
 
       btn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PRODUCT_DETAILS));
       int finalI = i;
@@ -356,10 +537,10 @@ public class MealDeliveryController {
   }
 
   public void clear1() {
-    wf.getChildren().clear();
-    qd.getChildren().clear();
-    qdLabel.setText("");
-    wfLabel.setText("");
+    // wf.getChildren().clear();
+    flowPane.getChildren().clear();
+    // qdLabel.setText("");
+    // wfLabel.setText("");
   }
 
   public void applyFilters() {

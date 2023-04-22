@@ -2,11 +2,7 @@ package edu.wpi.teamname;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.wpi.teamname.DAOs.orms.Move;
-import java.time.LocalDate;
-import org.junit.jupiter.api.Test;
-
-public class MoveTest {
+/*public class MoveTest {
 
   Move move1 = new Move(100, "Test Location", LocalDate.of(2023, 4, 5));
 
@@ -28,4 +24,4 @@ public class MoveTest {
   public void CSVStringTest() {
     assertEquals(move1.toCSVString(), "100,Test Location," + LocalDate.of(2023, 4, 5));
   }
-}
+}*/

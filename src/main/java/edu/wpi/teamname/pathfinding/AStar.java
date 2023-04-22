@@ -4,16 +4,18 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.EdgeDAOImpl;
 import edu.wpi.teamname.DAOs.MoveDAOImpl;
 import edu.wpi.teamname.DAOs.NodeDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.NodeType;
 import java.util.*;
-import lombok.Getter;
-import lombok.Setter;
 
-public class AStar {
-
-  @Getter @Setter NodeDAOImpl nodeDAO;
-  @Getter @Setter EdgeDAOImpl edgeDAO;
-  @Getter @Setter MoveDAOImpl moveDAO;
+public class AStar implements IPathFinder {
+  NodeDAOImpl nodeDAO;
+  EdgeDAOImpl edgeDAO;
+  MoveDAOImpl moveDAO;
+  Node start;
+  Node end;
+  DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   public AStar() {
     this.nodeDAO = DataBaseRepository.getInstance().getNodeDAO();
@@ -28,23 +30,17 @@ public class AStar {
    * @param e
    * @return
    */
+  @Override
   public ArrayList<Integer> findPath(int s, int e) {
-    Node start, end;
-    // try and catch shit
-    //        if (s.replaceAll("[a-zA-Z]+/g", "").isEmpty()) start =
-    //     nodeDAO.getNodes().get(Integer.parseInt(s));
-    //        else start = nodeDAO.getNodes().get(moveDAO.getListOfMoves().get(e).getNodeID());
-    //        if (e.replaceAll("[a-zA-Z]+/g", "").isEmpty()) end =
-    // nodeDAO.getNodes().get(Integer.parseInt(e));
-    //        else end = nodeDAO.getNodes().get(moveDao.getMoves().get(e).getNodeID());
-    start = this.nodeDAO.getNodes().get(s);
-    end = this.nodeDAO.getNodes().get(e);
+    System.out.println("Running AStar");
+    this.start = this.nodeDAO.getNodes().get(s);
+    this.end = this.nodeDAO.getNodes().get(e);
     final PriorityQueue<HeuristicNode> nodesYetToSearch =
         new PriorityQueue<>(10, new HeuristicNode(null, Double.MAX_VALUE));
     final HashSet<Node> visitedNodes = new HashSet<>();
     final Map<Node, Node> gotHereFrom = new HashMap<>();
 
-    HeuristicNode startHNode = new HeuristicNode(start, calculateWeight(start, end));
+    HeuristicNode startHNode = new HeuristicNode(start, calculateWeight(start));
     //    System.out.println(startHNode.node + "\t" + startHNode.weight);
     nodesYetToSearch.add(startHNode);
     HeuristicNode currentNode;
@@ -60,7 +56,7 @@ public class AStar {
         //        System.out.print(nodeToSearchID + "\t");
         Node nodeToSearch = this.nodeDAO.getNodes().get(nodeToSearchID);
         if (!visitedNodes.contains(nodeToSearch)) {
-          double weight = calculateWeight(nodeToSearch, end);
+          double weight = calculateWeight(nodeToSearch);
           nodesYetToSearch.add(new HeuristicNode(nodeToSearch, weight));
           gotHereFrom.put(nodeToSearch, currentNode.node);
         }
@@ -70,10 +66,35 @@ public class AStar {
     return new ArrayList<>();
   }
 
-  private double calculateWeight(Node start, Node target) {
-    return Math.sqrt(
-        Math.pow((start.getXCoord() - target.getXCoord()), 2)
-            + Math.pow((start.getYCoord() - target.getYCoord()), 2));
+  /**
+   * Calculate Weight: Finds the weight of the current path - in this case by taking the distance
+   * from start to current node and adding ot to the distance from the current node to the ending
+   * (destination) node
+   *
+   * @param currentNode
+   * @return
+   */
+  private double calculateWeight(Node currentNode) {
+    double distance =
+        Math.sqrt(
+                Math.pow((start.getXCoord() - currentNode.getXCoord()), 2)
+                    + Math.pow((start.getYCoord() - currentNode.getYCoord()), 2))
+            + Math.sqrt(
+                Math.pow((currentNode.getXCoord() - end.getXCoord()), 2)
+                    + Math.pow((currentNode.getYCoord() - end.getYCoord()), 2));
+
+    for (Move move : dbr.getMoveDAO().getAll()) {
+      if (currentNode == move.getNode()) {
+        if (move.getLocation().getNodeType() == NodeType.ELEV
+            || move.getLocation().getNodeType() == NodeType.STAI) {
+          distance += 1000000000;
+          return distance;
+        } else {
+          return distance;
+        }
+      }
+    }
+    return distance;
   }
 
   private ArrayList<Integer> constructShortestPath(Node currentNode, Map<Node, Node> gotHereFrom) {
@@ -84,12 +105,9 @@ public class AStar {
     }
     pathTaken.add(currentNode.getNodeID());
     Collections.reverse(pathTaken);
-    // for (int curr : pathTaken) System.out.println(curr);
     return pathTaken;
   }
 
-  //
-  // pathTaken.put(currentNode.getNodeID(),moveDao.getNodeToLoc().get(currentNode.getNodeID()).get(1));
   static class HeuristicNode implements Comparator<HeuristicNode> {
     Node node;
     double weight;

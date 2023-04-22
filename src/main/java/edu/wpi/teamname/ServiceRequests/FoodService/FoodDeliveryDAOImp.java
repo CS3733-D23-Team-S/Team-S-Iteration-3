@@ -1,5 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
+import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
+
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
 import java.sql.*;
@@ -36,6 +38,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               + "Status Varchar(100),"
               + "cost DOUBLE PRECISION,"
               + "notes Varchar(255),"
+              + "requestType varchar(100),"
               + "foreign key (location) references "
               + "hospitaldb.locations(longname) ON DELETE CASCADE)";
 
@@ -63,6 +66,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void add(FoodDelivery request) {
+    dbConnection connection = dbConnection.getInstance();
 
     try {
       PreparedStatement preparedStatement =
@@ -85,7 +89,23 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
 
+      PreparedStatement preparedStatement2 =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "INSERT INTO "
+                      + allRequestTable
+                      + " (requestType, deliveryLocation, requestTime, assignedto, orderedBy, orderstatus) VALUES"
+                      + " (?, ?, ?, ?, ?, ?)");
+      preparedStatement2.setString(1, "Food");
+      preparedStatement2.setString(2, request.getLocation());
+      preparedStatement2.setTime(3, Time.valueOf((request.getTime()).toLocalTime()));
+      preparedStatement2.setString(4, request.getAssignedTo());
+      preparedStatement2.setString(5, request.getOrderer());
+      preparedStatement2.setString(6, "Received");
+
       preparedStatement.executeUpdate();
+      preparedStatement2.executeUpdate();
 
       foodRequests.put(request.getDeliveryID(), request);
 
@@ -138,6 +158,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Override
   public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
     try {
       Statement stmt = connection.getConnection().createStatement();
       String checkTable = "SELECT * FROM " + name;
@@ -155,6 +176,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   public void constructFromRemote() {
     try {
+      dbConnection connection = dbConnection.getInstance();
       Statement st = connection.getConnection().createStatement();
       ResultSet rs = st.executeQuery("SELECT * FROM " + name);
 

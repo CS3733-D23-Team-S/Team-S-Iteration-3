@@ -7,16 +7,23 @@ import lombok.Setter;
 
 public class PathfindingEntity {
 
-  @Getter @Setter String startingLocation;
-  @Getter @Setter String destination;
-
+  @Getter @Setter int startingLocation;
+  @Getter @Setter int destination;
+  @Getter @Setter String alg;
   @Getter @Setter AStar aStar;
+  @Getter @Setter Dijkstra dijk;
+  @Getter @Setter BFS bfs;
+  @Getter @Setter DFS dfs;
   @Getter @Setter ArrayList<PathEntity> pathEntities;
 
-  public PathfindingEntity(String startingLocation, String destination) {
+  public PathfindingEntity(int startingLocation, int destination) {
     this.startingLocation = startingLocation;
     this.destination = destination;
+    this.alg = "AStar";
     this.aStar = new AStar();
+    this.dijk = new Dijkstra();
+    this.bfs = new BFS();
+    this.dfs = new DFS();
     this.pathEntities = new ArrayList<>();
   }
 
@@ -26,25 +33,15 @@ public class PathfindingEntity {
   // thus adds node IDs to this.pathEntities
   public void generatePath() {
     List<Integer> passedNodeIDs = new ArrayList<>();
-    passedNodeIDs.addAll(
-        this.aStar.findPath(
-            Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination)));
-    /*
-    for (int i = 0;
-        i
-            < this.aStar
-                .findPath(
-                    Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination))
-                .size();
-        i++) {
-      this.pathEntities.add(
-          new PathEntity(
-              this.aStar
-                  .findPath(
-                      Integer.parseInt(this.startingLocation), Integer.parseInt(this.destination))
-                  .get(i)));
-      // this.pathEntities.add(new PathEntity(i));
-      */
+    if (this.alg.equals("AStar")) {
+      passedNodeIDs.addAll(this.aStar.findPath(this.startingLocation, this.destination));
+    } else if (this.alg.equals("Dijkstra's")) {
+      passedNodeIDs.addAll(this.dijk.findPath(this.startingLocation, this.destination));
+    } else if (this.alg.equals("Breadth-first search")) {
+      passedNodeIDs.addAll(this.bfs.findPath(this.startingLocation, this.destination));
+    } else if (this.alg.equals("Depth-first search")) {
+      passedNodeIDs.addAll(this.dfs.findPath(this.startingLocation, this.destination));
+    }
     for (int i = 0; i < passedNodeIDs.size(); i++) {
       this.pathEntities.add(new PathEntity(passedNodeIDs.get(i)));
     }

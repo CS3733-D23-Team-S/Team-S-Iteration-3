@@ -53,7 +53,7 @@ public class FlowerDeliveryController {
     for (Flower f : dbr.getFlowerDAO().getListOfSize("small")) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(false);
+      view.setPreserveRatio(true);
       view.setFitHeight(150);
       view.setFitWidth(150);
 

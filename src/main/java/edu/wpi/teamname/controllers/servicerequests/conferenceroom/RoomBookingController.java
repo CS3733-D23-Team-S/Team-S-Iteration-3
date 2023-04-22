@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.servicerequests.conferenceroom;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
@@ -136,7 +137,7 @@ public class RoomBookingController {
             startTime,
             endTime,
             roomLocation,
-            "TestReserve",
+            ActiveUser.getInstance().getCurrentUser().getUserName(),
             eventTitle,
             eventDescription,
             "staff member",
@@ -306,7 +307,6 @@ public class RoomBookingController {
     Label title = new Label(); // create text
     title.setText(roomRequest.getEventName());
     title.setFont(Font.font("Open Sans", FontWeight.BOLD, 13));
-    title.setStyle("Bold");
     title.setTextFill(Paint.valueOf("#1D3D94"));
     title.setWrapText(false);
     title.maxWidth(130);

@@ -1,18 +1,17 @@
 package edu.wpi.teamname.controllers.servicerequests.foodservice;
 
-import static edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController.clickedFoodID;
-
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
-import edu.wpi.teamname.controllers.NewHomeController;
 import edu.wpi.teamname.controllers.PopUpController;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.awt.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.controlsfx.control.tableview2.cell.TextField2TableCell;
 
 public class ProductDetailsController extends PopUpController {
@@ -20,6 +19,7 @@ public class ProductDetailsController extends PopUpController {
   // @FXML private MFXButton homeButton;
 
   @FXML private MFXButton addCart;
+  @FXML private ImageView foodImage;
   @FXML private MFXButton clear;
   @FXML private Label quantityLabel;
 
@@ -63,7 +63,7 @@ public class ProductDetailsController extends PopUpController {
 
     // back3.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
 
-    Food currentFood = DBR.getFoodDAO().get(clickedFoodID);
+    Food currentFood = DBR.getFoodDAO().get(MealDeliveryController.clickedFoodID);
 
     add.setOnMouseClicked(event -> addQuantity());
     minus.setOnMouseClicked(event -> subtractQuantity());
@@ -75,10 +75,9 @@ public class ProductDetailsController extends PopUpController {
 
             currentFood.setNote(specialRequest.getText()); // bounds for if non string entered
 
-            OrderItem check = NewHomeController.cart;
-            NewHomeController.cart.addFoodItem(currentFood);
+            OrderItem check = MealDeliveryController.cart;
+            MealDeliveryController.cart.addFoodItem(currentFood);
 
-            Navigation.navigate(Screen.MEAL_DELIVERY1);
             stage.close();
 
           } catch (Exception e) {
@@ -95,6 +94,7 @@ public class ProductDetailsController extends PopUpController {
     foodDescription();
     foodPrice();
     foodDescription();
+    showImage();
   }
 
   public void count(String x) {
@@ -110,14 +110,14 @@ public class ProductDetailsController extends PopUpController {
 
   public Food selectedFood() {
     System.out.println("working selected");
-    return DBR.getFoodDAO().get(clickedFoodID);
+    return DBR.getFoodDAO().get(MealDeliveryController.clickedFoodID);
   }
 
   public void foodNamer() {
 
     productName.setId(selectedFood().getFoodDescription());
     productName.setText(selectedFood().getFoodName().toString());
-    productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 24px; ");
+    productName.setStyle("-fx-text-fill: #122e59; -fx-font-size: 36px; ");
   }
 
   public void foodDescription() {
@@ -129,7 +129,7 @@ public class ProductDetailsController extends PopUpController {
 
   public void foodPrice() {
     productPrice.setId(Double.toString(selectedFood().getFoodPrice()));
-    productPrice.setText("$ " + (selectedFood().getFoodPrice()));
+    productPrice.setText("$ " + String.format("%.02f", selectedFood().getFoodPrice()));
     productPrice.setStyle("-fx-text-fill: #122e59; -fx-font-size: 18px;");
   }
 
@@ -144,8 +144,15 @@ public class ProductDetailsController extends PopUpController {
   }
 
   public void subtractQuantity() {
-    itemCount--;
-    quantityLabel.setText(Integer.toString(itemCount));
+    if (itemCount > 1) {
+      itemCount--;
+      quantityLabel.setText(Integer.toString(itemCount));
+    }
+  }
+
+  public void showImage() {
+    Image fImage = new Image(Main.class.getResource(selectedFood().getImage()).toString());
+    foodImage.setImage(fImage);
   }
 
   /*
