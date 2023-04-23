@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -35,9 +36,6 @@ import javafx.scene.text.TextAlignment;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.CheckComboBox;
-
-// TODO take out filter by location
-// TODO add in 15% vbox
 
 public class RoomBookingController {
 
@@ -65,6 +63,7 @@ public class RoomBookingController {
     scrollPane.setStyle("-fx-box-border: transparent;");
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
+    addMeetingButton.setCursor(Cursor.HAND);
 
     initializeRooms();
     featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
@@ -178,6 +177,8 @@ public class RoomBookingController {
       roomVBox.setStyle("-fx-border-color: #00000000 #D8D8D8 #FFFFFF00 #D8D8D8");
       // #D8D8D8
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
+      roomVBox.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
+      roomVBox.setCursor(Cursor.HAND);
       roomListVBoxes.add(roomVBox);
 
       // text cell
@@ -333,8 +334,8 @@ public class RoomBookingController {
 
     // Image lockimage = new Image("images/lockicon.png");
     ImageView lockImage = new ImageView((String) "edu/wpi/teamname/images/lockicon.png");
-    lockImage.setFitHeight(10);
-    lockImage.setFitWidth(10);
+    lockImage.setFitHeight(15);
+    lockImage.setFitWidth(15);
 
     if (roomRequest.isPrivate()) {
       title.setText("Private Meeting");
@@ -346,7 +347,7 @@ public class RoomBookingController {
 
     eventVBox.setPadding(new Insets(10));
     if (roomRequest.isPrivate()) {
-      title.setPrefWidth(120);
+      title.setPrefWidth(110);
       HBox hbox = new HBox(title, lockImage);
       hbox.setAlignment(Pos.CENTER_LEFT);
       eventVBox.getChildren().add(hbox);

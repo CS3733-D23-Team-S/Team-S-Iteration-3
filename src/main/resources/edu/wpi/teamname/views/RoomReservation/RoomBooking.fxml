@@ -41,7 +41,7 @@
             <HBox alignment="CENTER_LEFT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="1280.0">
                <children>
                   <MFXButton fx:id="dateBackButton" text="&lt;" />
-                    <TextFieldTableCell fx:id="dateHeaderTextField" alignment="CENTER" editable="false" prefHeight="48.0" prefWidth="236.0" text="Monday, March 1" wrapText="true">
+                    <TextFieldTableCell fx:id="dateHeaderTextField" alignment="CENTER" editable="false" prefHeight="48.0" prefWidth="236.0" wrapText="true">
                         <font>
                             <Font name="Arial" size="26.0" />
                         </font>
