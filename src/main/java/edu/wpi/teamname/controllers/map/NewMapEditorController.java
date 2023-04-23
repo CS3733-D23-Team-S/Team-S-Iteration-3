@@ -6,11 +6,11 @@ import edu.wpi.teamname.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -26,6 +26,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -45,6 +46,8 @@ public class NewMapEditorController {
   PopOver popOver = new PopOver();
 
   @FXML ComboBox<String> floorSelect;
+  @FXML CheckComboBox<String> categorizeDropdown = new CheckComboBox<String>();
+  ObservableList catgories;
   @FXML MFXButton addAndRemove, moveNode, addLocation;
   @FXML GesturePane mapPane;
   @FXML ToggleSwitch showEdges, showNames;
@@ -134,7 +137,69 @@ public class NewMapEditorController {
           lines.clear();
           drawEdges();
         });
+
+    final ObservableList<String> categories =
+        FXCollections.observableArrayList(
+            "Conference Rooms", "Bathrooms", "Departments", "Labs");
+
+    categorizeDropdown.getItems().addAll(categories);
   }
+
+
+  public void categorizeLocations() {
+    anchorPane.getChildren().removeAll(listOfCircles.keySet());
+    listOfCircles.clear();
+    //private final CheckComboBox<String> categorizeDropdown = new CheckComboBox<>();
+    categorizeDropdown.setOnAction(event -> {
+      for(String item : categorizeDropdown.getItems()){
+        if(item.equals("Conference rooms")){
+          for(Location loc: repo.getLocationDAO().getAll()){
+            if(loc.getNodeType() == NodeType.CONF){
+              generateFloorNodes();
+              //generateConferenceNodes();
+            }
+          }
+        }
+        else if(item.equals("Departments")){
+          for(Location loc: repo.getLocationDAO().getAll()){
+            if(loc.getNodeType() == NodeType.DEPT){
+              generateFloorNodes();
+            }
+          }
+        }
+        else if(item.equals("Bathrooms")){
+          for(Location loc: repo.getLocationDAO().getAll()){
+            if(loc.getNodeType() == NodeType.BATH || loc.getNodeType() == NodeType.REST){
+              generateFloorNodes();
+            }
+          }
+        }
+        else if(item.equals("Labs")){
+          for(Location loc: repo.getLocationDAO().getAll()){
+            if(loc.getNodeType() == NodeType.LABS){
+              generateFloorNodes();
+            }
+          }
+        }
+    }
+    });
+  }
+
+  private void generateConferenceNodes() {
+    anchorPane.getChildren().removeAll(listOfCircles.keySet());
+    listOfCircles.clear();
+    for (Node floorNode : repo.getNodeDAO().getAll()) {
+      for (Location loc : repo.getLocationDAO().getAll()) {
+        if (!floorNode.getFloor().equals(currFloor) && loc.getNodeType() == NodeType.CONF) continue;
+        Circle newCircle = new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.RED);
+        initCircle(newCircle);
+        listOfCircles.put(newCircle, floorNode);
+        prevSelection = newCircle;
+      }
+      anchorPane.getChildren().addAll(listOfCircles.keySet());
+    }
+  }
+
 
   private void allowDelete() {
     Platform.runLater(
