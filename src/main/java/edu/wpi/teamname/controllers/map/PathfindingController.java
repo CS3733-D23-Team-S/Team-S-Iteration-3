@@ -402,6 +402,11 @@ public class PathfindingController {
 
   // test for showing paths method
   public void showPathTesting() {
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
     importantCirclesF1.clear();
     importantCirclesF2.clear();
     importantCirclesF3.clear();
