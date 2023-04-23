@@ -986,7 +986,7 @@ public class PathfindingController {
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
     displayAllNodesToggle.setOnMouseClicked(event -> showNodes());
-    ;
+    displayLocationNamesToggle.setOnMouseClicked(event -> showLocationNames());
 
     dataBase = DataBaseRepository.getInstance();
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
