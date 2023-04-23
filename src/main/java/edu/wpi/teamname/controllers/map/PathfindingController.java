@@ -543,22 +543,30 @@ public class PathfindingController {
             importantCirclesFL2PH.add(startCircle);
           }
         }
-        if (i == 0) {
-          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
-            toFloor1();
-            circlesOnFloor = floor1Circles;
-          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
-            toFloor2();
-            circlesOnFloor = floor2Circles;
-          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
-            toFloor3();
-            circlesOnFloor = floor3Circles;
-          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
-            toFloorL1();
-            circlesOnFloor = floorL1Circles;
-          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
-            toFloorL2();
-            circlesOnFloor = floorL2Circles;
+        // if floors are changing
+        if (thisFloor != nextFloor) {
+          switchFloorsCircle = new Circle(endX, endY, 10.0, Color.YELLOW);
+          if (thisFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(switchFloorsCircle);
+          }
+          if (nextFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(switchFloorsCircle);
           }
         }
         if (i == pfe.getPathEntities().size() - 2) {
