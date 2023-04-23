@@ -195,5 +195,6 @@
             </Label>
          </children>
       </HBox>
+      <Label fx:id="floorOrderLabel" prefHeight="41.0" prefWidth="886.0" GridPane.columnIndex="4" GridPane.rowIndex="16" />
    </children>
 </GridPane>

@@ -126,7 +126,8 @@ public class PathfindingController {
     }
   }
 
-  // function that sets the floor to the floor of the currently selected location in the starting location combo box
+  // function that sets the floor to the floor of the currently selected location in the starting
+  // location combo box
   /*
   public void goToStartingFloor() {
     for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
@@ -447,6 +448,7 @@ public class PathfindingController {
   List<Line> pathLines = new ArrayList<>();
   List<Circle> circlesOnFloor = new ArrayList<>();
   String textDir = "";
+  @FXML Label floorOrderLabel;
 
   /*
   public void changeIntermediateCircle(Floor currFloor, Floor nextFloor, Circle circle) {
@@ -476,8 +478,25 @@ public class PathfindingController {
   }
   */
 
+  public void displayFloorOrder(List<String> floors) {
+    floorOrderLabel.setText("");
+    for (int i = 0; i < floors.size() - 1; i++) {
+      if (!floors.get(i).equals(floors.get(i + 1))) {
+        floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(i) + " -> ");
+        /*
+        if (i != floors.size() - 2) {
+          floorOrderLabel.setText(floorOrderLabel.getText() + " -> ");
+        }
+        */
+      }
+    }
+    floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(floors.size() - 1));
+  }
+
   // test for showing paths method
   public void showPathTesting() {
+    List<String> los = new ArrayList<>();
+    String currFloor = "";
     anchorPane.getChildren().removeAll(importantCirclesF1);
     anchorPane.getChildren().removeAll(importantCirclesF2);
     anchorPane.getChildren().removeAll(importantCirclesF3);
@@ -508,17 +527,14 @@ public class PathfindingController {
     floor3Lines.clear();
     floorL1Lines.clear();
     floorL2Lines.clear();
-
     List<Line> floor1LinesPlaceholder = new ArrayList<>();
     List<Line> floor2LinesPlaceholder = new ArrayList<>();
     List<Line> floor3LinesPlaceholder = new ArrayList<>();
     List<Line> floorL1LinesPlaceholder = new ArrayList<>();
     List<Line> floorL2LinesPlaceholder = new ArrayList<>();
-
     String currLocationName = "";
     textDir = "";
     String currDir = "";
-
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
@@ -614,14 +630,19 @@ public class PathfindingController {
           startCircle = new Circle(startX, startY, 10.0, Color.BLUE);
           if (thisFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(startCircle);
+            los.add("Floor 1");
           } else if (thisFloor.equals(Floor.Floor2)) {
             importantCirclesF2PH.add(startCircle);
+            los.add("Floor 2");
           } else if (thisFloor.equals(Floor.Floor3)) {
             importantCirclesF3PH.add(startCircle);
+            los.add("Floor 3");
           } else if (thisFloor.equals(Floor.FloorL1)) {
             importantCirclesFL1PH.add(startCircle);
+            los.add("Floor L1");
           } else if (thisFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(startCircle);
+            los.add("Floor L2");
           }
         }
         // if floors are changing
@@ -643,15 +664,21 @@ public class PathfindingController {
           switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
           if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
+            currFloor = "Floor 1";
           } else if (nextFloor.equals(Floor.Floor2)) {
             importantCirclesF2PH.add(switchFloorsCircle);
+            currFloor = "Floor 2";
           } else if (nextFloor.equals(Floor.Floor3)) {
             importantCirclesF3PH.add(switchFloorsCircle);
+            currFloor = "Floor 3";
           } else if (nextFloor.equals(Floor.FloorL1)) {
             importantCirclesFL1PH.add(switchFloorsCircle);
+            currFloor = "Floor L1";
           } else if (nextFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(switchFloorsCircle);
+            currFloor = "Floor L2";
           }
+          los.add(currFloor);
         }
         if (i == pfe.getPathEntities().size() - 2) {
           endCircle = new Circle(endX, endY, 10.0, Color.GREEN);
@@ -744,6 +771,7 @@ public class PathfindingController {
         anchorPane.getChildren().addAll(importantCirclesFL2);
       }
     }
+    displayFloorOrder(los);
   }
 
   public void generateFloor1Nodes() {
@@ -968,6 +996,7 @@ public class PathfindingController {
   }
 
   public void clearFields() {
+    floorOrderLabel.setText("");
     anchorPane.getChildren().clear();
     anchorPane.getChildren().removeAll(floor1Lines);
     anchorPane.getChildren().removeAll(floor2Lines);
