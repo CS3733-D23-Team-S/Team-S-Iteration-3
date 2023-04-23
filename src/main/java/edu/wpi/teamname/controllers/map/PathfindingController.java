@@ -400,6 +400,34 @@ public class PathfindingController {
   List<Circle> circlesOnFloor = new ArrayList<>();
   String textDir = "";
 
+  /*
+  public void changeIntermediateCircle(Floor currFloor, Floor nextFloor, Circle circle) {
+    if (currFloor.equals(Floor.FloorL2)) {
+      circle.setFill(Color.ORANGE);
+    } else if (currFloor.equals(Floor.FloorL1)) {
+      if (nextFloor.equals(Floor.FloorL2)) {
+        circle.setFill(Color.YELLOW);
+      } else {
+        circle.setFill(Color.ORANGE);
+      }
+    } else if (currFloor.equals(Floor.Floor1)) {
+      if ((nextFloor.equals(Floor.FloorL2)) || (nextFloor.equals(Floor.FloorL1))) {
+        circle.setFill(Color.YELLOW);
+      } else {
+        circle.setFill(Color.ORANGE);
+      }
+    } else if (currFloor.equals(Floor.Floor2)) {
+      if (nextFloor.equals(Floor.Floor3)) {
+        circle.setFill(Color.ORANGE);
+      } else {
+        circle.setFill(Color.YELLOW);
+      }
+    } else if (currFloor.equals(Floor.Floor3)) {
+      circle.setFill(Color.YELLOW);
+    }
+  }
+  */
+
   // test for showing paths method
   public void showPathTesting() {
     anchorPane.getChildren().removeAll(importantCirclesF1);
@@ -551,7 +579,7 @@ public class PathfindingController {
         // if floors are changing
         if (thisFloor != nextFloor) {
           // displays yellow on last node on the current floor
-          switchFloorsCircle = new Circle(startX, startY, 10.0, Color.YELLOW);
+          switchFloorsCircle = new Circle(startX, startY, 6.0, Color.YELLOW);
           if (thisFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
           } else if (thisFloor.equals(Floor.Floor2)) {
@@ -564,7 +592,7 @@ public class PathfindingController {
             importantCirclesFL2PH.add(switchFloorsCircle);
           }
           // displays yellow on the first node of the next floor
-          switchFloorsCircle = new Circle(endX, endY, 10.0, Color.YELLOW);
+          switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
           if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
           } else if (nextFloor.equals(Floor.Floor2)) {
@@ -579,15 +607,15 @@ public class PathfindingController {
         }
         if (i == pfe.getPathEntities().size() - 2) {
           endCircle = new Circle(endX, endY, 10.0, Color.GREEN);
-          if (thisFloor.equals(Floor.Floor1)) {
+          if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(endCircle);
-          } else if (thisFloor.equals(Floor.Floor2)) {
+          } else if (nextFloor.equals(Floor.Floor2)) {
             importantCirclesF2PH.add(endCircle);
-          } else if (thisFloor.equals(Floor.Floor3)) {
+          } else if (nextFloor.equals(Floor.Floor3)) {
             importantCirclesF3PH.add(endCircle);
-          } else if (thisFloor.equals(Floor.FloorL1)) {
+          } else if (nextFloor.equals(Floor.FloorL1)) {
             importantCirclesFL1PH.add(endCircle);
-          } else if (thisFloor.equals(Floor.FloorL2)) {
+          } else if (nextFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(endCircle);
           }
         }
