@@ -80,7 +80,7 @@ public class MealDeliveryController {
     dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
     // dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
 
-    checkBox.getItems().addAll("vegetarian","Gluten Free","Halal","Kosher","Vegan");
+    checkBox.getItems().addAll("vegetarian", "Gluten Free", "Halal", "Kosher", "Vegan");
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
