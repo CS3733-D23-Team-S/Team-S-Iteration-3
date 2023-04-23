@@ -31,17 +31,11 @@ public enum Screen {
   // MAP_EDITOR("views/MapEditor.fxml"),
   // CSV_MANAGE("views/CSVPage.fxml"),
   FLOWER_DELIVERY("views/FlowerDelivery/flowerDeliveryMain-New.fxml"),
-  FLOWER_ORDER("views/FlowerDelivery/flowerorderdetails.fxml"),
   FLOWER_CART("views/FlowerDelivery/flowersubmissiondetails.fxml"),
-  FLOWER_REQTABLE("views/FlowerDelivery/flowerrequesttable.fxml"),
-  FLOWER_CONFIRMATION("views/FlowerDelivery/flowerconfirmationpage.fxml"),
   FLOWER_POPUP("views/FlowerDelivery/flowerPopup.fxml"),
 
   OFFICE_SUPPLIES_DELIVERY("views/OfficeSupplies/officeSuppliesMain-New.fxml"),
-  OFFICE_SUPPLIES_ORDER("views/officeSuppliesOrderDetails.fxml"),
-  OFFICE_SUPPLIES_CART("views/officeSuppliesSumbissionDetails.fxml"),
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
-  OFFICE_SUPPLIES_CONFIRMATION("views/officeSuppliesConfirmationPage.fxml"),
   OFFICE_SUPPLIES_POPUP("views/OfficeSupplies/officeSuppliesPopup.fxml"),
   NEW_ADMIN_PAGE("views/newAdminPage.fxml"),
 
