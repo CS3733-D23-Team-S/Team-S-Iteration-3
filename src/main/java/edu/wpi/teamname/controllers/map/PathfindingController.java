@@ -550,6 +550,7 @@ public class PathfindingController {
         }
         // if floors are changing
         if (thisFloor != nextFloor) {
+          // displays yellow on last node on the current floor
           switchFloorsCircle = new Circle(startX, startY, 10.0, Color.YELLOW);
           if (thisFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
@@ -562,6 +563,7 @@ public class PathfindingController {
           } else if (thisFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(switchFloorsCircle);
           }
+          // displays yellow on the first node of the next floor
           switchFloorsCircle = new Circle(endX, endY, 10.0, Color.YELLOW);
           if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
