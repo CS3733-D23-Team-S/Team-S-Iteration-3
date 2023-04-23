@@ -64,6 +64,7 @@ public class PathfindingController {
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
   private String direction;
+  private String prevDirection;
   List<Text> locations = new ArrayList<>();
 
   /*
@@ -670,7 +671,6 @@ public class PathfindingController {
           if (startY > endY) {
             if (currDir.equals("East")) {
               currDir = "Northeast";
-              if (Math.abs(startX - endX) < 100
             } else if (currDir.equals("West")) {
               currDir = "Northwest";
             } else {
@@ -685,10 +685,137 @@ public class PathfindingController {
               currDir = "South";
             }
           }
+          // if (direction == null) direction = "straight";
         }
 
+        if (prevDirection == null) {
+          direction = "straight";
+        } else if (prevDirection.equals("North")) {
+          switch (currDir) {
+            case "East":
+              direction = "right";
+              break;
+            case "West":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("South")) {
+          switch (currDir) {
+            case "East":
+              direction = "left";
+              break;
+            case "West":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("West")) {
+          switch (currDir) {
+            case "North":
+              direction = "right";
+              break;
+            case "South":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "right";
+              break;
+            case "Southeast":
+              direction = "left";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("East")) {
+          switch (currDir) {
+            case "North":
+              direction = "left";
+              break;
+            case "South":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "left";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "right";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("Northeast")) {
+          if (currDir.equals("North") || currDir.equals("Northwest") || currDir.equals("West")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Northwest")) {
+          if (currDir.equals("West") || currDir.equals("Southwest") || currDir.equals("South")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southwest")) {
+          if (currDir.equals("South") || currDir.equals("Southeast") || currDir.equals("East")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southeast")) {
+          if (currDir.equals("East") || currDir.equals("Northeast") || currDir.equals("North")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else {
+          direction = "straight";
+        }
+        prevDirection = currDir;
 
-        if (startY > endY && Math.abs(startX - endX) < 100) { // if Right angle going North
+        /*if (startY > endY && Math.abs(startX - endX) < 100) { // if Right angle going North
           System.out.println("Going North");
           if (currDir.equals("East")) {
             System.out.println("From East");
@@ -720,20 +847,27 @@ public class PathfindingController {
           } else if (currDir.equals("South")) {
             direction = "Left";
           }
+        }*/
+
+        String command;
+        if (direction.equals("straight")) {
+          command = ". Go " + direction;
+        } else {
+          command = " Turn " + direction + " and go straight";
         }
-
-
 
         int stepNum = i + 1;
         textDir =
             textDir
                 + stepNum
-                + ". Go "
-                + currDir
+                + command
+                // + ". Go "
+                // + currDir
+                // + direction
                 + " until you reach "
                 + currLocationName
-                + ".\n"
-                + direction;
+                + ".\n";
+        // + direction;
         currDir = "";
       }
       textualDirections.setText(textDir);
@@ -765,7 +899,6 @@ public class PathfindingController {
       }
     }
   }
-
 
   public void generateFloor1Nodes() {
     circlesOnFloor.clear();
@@ -1118,6 +1251,10 @@ public class PathfindingController {
     changeFloorButtonColors();
     // findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
     // findPathButton.setOnMouseClicked(event -> showPathAcrossFloors(nodeList, pathLines));
-    findPathButton.setOnMouseClicked(event -> showPathTesting());
+    findPathButton.setOnMouseClicked(
+        event -> {
+          showPathTesting();
+          prevDirection = null;
+        });
   }
 }
