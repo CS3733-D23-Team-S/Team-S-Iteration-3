@@ -8,13 +8,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -139,59 +140,74 @@ public class NewMapEditorController {
         });
 
     final ObservableList<String> categories =
-        FXCollections.observableArrayList(
-            "Conference Rooms", "Bathrooms", "Departments", "Labs");
+        FXCollections.observableArrayList("Conference Rooms", "Bathrooms", "Departments", "Labs");
 
     categorizeDropdown.getItems().addAll(categories);
   }
 
-
   public void categorizeLocations() {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
     listOfCircles.clear();
-    //private final CheckComboBox<String> categorizeDropdown = new CheckComboBox<>();
-    categorizeDropdown.setOnAction(event -> {
-      for(String item : categorizeDropdown.getItems()){
-        if(item.equals("Conference rooms")){
-          for(Location loc: repo.getLocationDAO().getAll()){
-            if(loc.getNodeType() == NodeType.CONF){
-              generateFloorNodes();
-              //generateConferenceNodes();
-            }
-          }
-        }
-        else if(item.equals("Departments")){
-          for(Location loc: repo.getLocationDAO().getAll()){
-            if(loc.getNodeType() == NodeType.DEPT){
-              generateFloorNodes();
-            }
-          }
-        }
-        else if(item.equals("Bathrooms")){
-          for(Location loc: repo.getLocationDAO().getAll()){
-            if(loc.getNodeType() == NodeType.BATH || loc.getNodeType() == NodeType.REST){
-              generateFloorNodes();
-            }
-          }
-        }
-        else if(item.equals("Labs")){
-          for(Location loc: repo.getLocationDAO().getAll()){
-            if(loc.getNodeType() == NodeType.LABS){
-              generateFloorNodes();
-            }
-          }
-        }
-    }
-    });
+    final CheckComboBox<String> categorizeDropdown = new CheckComboBox<>();
+    categorizeDropdown
+        .getCheckModel()
+        .getCheckedItems()
+        .addListener(
+            (ListChangeListener<? super String>)
+                event -> {
+                  ArrayList<Location> locations = new ArrayList<>();
+                  for (String item : categorizeDropdown.getItems()) {
+                    if (item.equals("Conference rooms")) {
+                      for (Location loc : repo.getLocationDAO().getAll()) {
+                        if (loc.getNodeType() == NodeType.CONF) {
+                          generateFloorNodes();
+                          locations.add(loc);
+                          // generateConferenceNodes();
+                        }
+                      }
+
+                    } else if (item.equals("Departments")) {
+                      for (Location loc : repo.getLocationDAO().getAll()) {
+                        if (loc.getNodeType() == NodeType.DEPT) {
+                          generateFloorNodes();
+                          locations.add(loc);
+                        }
+                      }
+                    } else if (item.equals("Bathrooms")) {
+                      for (Location loc : repo.getLocationDAO().getAll()) {
+                        if (loc.getNodeType() == NodeType.BATH
+                            || loc.getNodeType() == NodeType.REST) {
+                          generateFloorNodes();
+                          locations.add(loc);
+                        }
+                      }
+                    } else if (item.equals("Labs")) {
+                      for (Location loc : repo.getLocationDAO().getAll()) {
+                        if (loc.getNodeType() == NodeType.LABS) {
+                          generateFloorNodes();
+                          locations.add(loc);
+                        }
+                      }
+                    }
+                  }
+                });
   }
 
-  private void generateConferenceNodes() {
+  /* Conference rooms - blue
+     Departments - green
+     Bathrooms - yellow
+     Labs - Orange
+  */
+  ArrayList<Location> locations = new ArrayList<>();
+
+  public void generateConferenceNodes() {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
     listOfCircles.clear();
     for (Node floorNode : repo.getNodeDAO().getAll()) {
       for (Location loc : repo.getLocationDAO().getAll()) {
         if (!floorNode.getFloor().equals(currFloor) && loc.getNodeType() == NodeType.CONF) continue;
-        Circle newCircle = new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.RED);
+        Circle newCircle =
+            new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.BLUE);
         initCircle(newCircle);
         listOfCircles.put(newCircle, floorNode);
         prevSelection = newCircle;
@@ -200,6 +216,21 @@ public class NewMapEditorController {
     }
   }
 
+  public void generateLocationNodes(ArrayList<Location> locations) {
+    anchorPane.getChildren().removeAll(listOfCircles.keySet());
+    listOfCircles.clear();
+    for (Node floorNode : repo.getNodeDAO().getAll()) {
+      for (Location l : locations) {
+        if (!floorNode.getFloor().equals(currFloor)) continue;
+        Circle newCircle =
+            new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.BLUE);
+        initCircle(newCircle);
+        listOfCircles.put(newCircle, floorNode);
+        prevSelection = newCircle;
+      }
+      anchorPane.getChildren().addAll(listOfCircles.keySet());
+    }
+  }
 
   private void allowDelete() {
     Platform.runLater(
