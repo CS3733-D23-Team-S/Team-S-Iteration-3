@@ -1,7 +1,5 @@
 package edu.wpi.teamname.controllers.servicerequests.officesupplies;
 
-import static edu.wpi.teamname.navigation.Screen.*;
-
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.User;
@@ -86,8 +84,7 @@ public class OfficeSuppliesSubmissionController {
       employeedrop.getItems().add(u.getFirstName() + " " + u.getLastName());
     }
 
-    pricey.setText(
-        "$ " + String.valueOf(OfficeSuppliesController.officeSupplyCart.getTotalPrice()));
+    pricey.setText("$ " + String.valueOf(OfficeSuppliesController.Cart.getTotalPrice()));
 
     submitbutton.setOnMouseClicked(
         event -> {
@@ -102,15 +99,15 @@ public class OfficeSuppliesSubmissionController {
 
             OfficeSupplyDelivery currentOfficeSupply =
                 new OfficeSupplyDelivery(
-                    OfficeSuppliesController.officeSupplyID++,
-                    OfficeSuppliesController.officeSupplyCart.toString(),
+                    OfficeSuppliesController.suppliesID++,
+                    OfficeSuppliesController.Cart.toString(),
                     d,
                     t,
                     deliveryRoom,
                     ActiveUser.getInstance().getCurrentUser().getUserName(),
                     Emp,
                     stat,
-                    OfficeSuppliesController.officeSupplyCart.getTotalPrice(),
+                    OfficeSuppliesController.Cart.getTotalPrice(),
                     n);
 
             dbr.getOfficeSupplyDeliveryDAO().add(currentOfficeSupply);
@@ -139,7 +136,7 @@ public class OfficeSuppliesSubmissionController {
   public void displayCart() {
     System.out.println("Displaying office Supplies");
 
-    for (OfficeSupply officeSupply : OfficeSuppliesController.officeSupplyCart.getCartItems()) {
+    for (OfficeSupply officeSupply : OfficeSuppliesController.Cart.getCartItems()) {
 
       System.out.println("works");
 

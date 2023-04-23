@@ -45,4 +45,12 @@ public class OfficeSupplyCart {
 
     return finale.toString();
   }
+
+  public void removeOfficeSupplyItem(OfficeSupply flower) {
+    cartItems.remove(flower);
+  }
+
+  public void removeAll() {
+    cartItems.clear();
+  }
 }

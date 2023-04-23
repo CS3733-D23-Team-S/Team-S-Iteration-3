@@ -81,7 +81,7 @@
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </HBox.margin>
                         </Text>
                         <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
