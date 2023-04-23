@@ -126,6 +126,54 @@ public class PathfindingController {
     }
   }
 
+  // function that sets the floor to the floor of the currently selected location in the starting location combo box
+  /*
+  public void goToStartingFloor() {
+    for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
+      if (startingLocationList
+          .getSelectionModel()
+          .getSelectedItem()
+          .equals(dataBase.getMoveDAO().getAll().get(i).getLocationName())) {
+        if (dataBase.getMoveDAO().getAll().get(i).getNode().getFloor().equals(Floor.Floor1)) {
+          toFloor1();
+        } else if (dataBase
+            .getMoveDAO()
+            .getAll()
+            .get(i)
+            .getNode()
+            .getFloor()
+            .equals(Floor.Floor2)) {
+          toFloor2();
+        } else if (dataBase
+            .getMoveDAO()
+            .getAll()
+            .get(i)
+            .getNode()
+            .getFloor()
+            .equals(Floor.Floor3)) {
+          toFloor3();
+        } else if (dataBase
+            .getMoveDAO()
+            .getAll()
+            .get(i)
+            .getNode()
+            .getFloor()
+            .equals(Floor.FloorL1)) {
+          toFloorL1();
+        } else if (dataBase
+            .getMoveDAO()
+            .getAll()
+            .get(i)
+            .getNode()
+            .getFloor()
+            .equals(Floor.FloorL2)) {
+          toFloorL2();
+        }
+      }
+    }
+  }
+  */
+
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
@@ -993,7 +1041,12 @@ public class PathfindingController {
     setLocationLongNames();
 
     stackPane.setPrefSize(714, 313);
-
+    /*
+    // tried to make a function that sets the floor to the floor of the currently selected location in the starting location list
+    if (!startingLocationList.getSelectionModel().isEmpty()) {
+      startingLocationList.setOnAction(event -> goToStartingFloor());
+    }
+    */
     floor =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
