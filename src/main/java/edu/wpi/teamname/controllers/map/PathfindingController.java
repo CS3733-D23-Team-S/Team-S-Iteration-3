@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.map;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
@@ -63,7 +64,6 @@ public class PathfindingController {
   @FXML Label textualDirections;
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
-  private String direction;
   private String prevDirection;
   List<Text> locations = new ArrayList<>();
 
@@ -688,6 +688,7 @@ public class PathfindingController {
           // if (direction == null) direction = "straight";
         }
 
+        String direction;
         if (prevDirection == null) {
           direction = "straight";
         } else if (prevDirection.equals("North")) {
@@ -1211,6 +1212,9 @@ public class PathfindingController {
   }
 
   public void initialize() {
+    if (ActiveUser.getInstance().isLoggedIn()) {
+      pathfindingToLogin.setVisible(false);
+    }
 
     algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
