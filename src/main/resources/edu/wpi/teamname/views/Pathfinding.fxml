@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
@@ -161,5 +162,38 @@
             </MFXButton>
          </children>
       </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+         <children>
+            <Label prefHeight="25.0" prefWidth="41.0" text="Key: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="BLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="134.0" text="  = Starting Point">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="GREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="117.0" text="  = Destination">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="YELLOW" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="176.0" text="  = Go up/down a floor">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="ORANGE" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="225.0" text="  = Starting point on new floor">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </GridPane>
