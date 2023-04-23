@@ -21,7 +21,8 @@ public class ActiveUser {
 
   public void setCurrentUser(User user) {
     this.currentUser = user;
-    this.permission = user.getPermission();
+    if (user != null) this.permission = user.getPermission();
+    else this.permission = null;
   }
 
   public static synchronized ActiveUser getInstance() {

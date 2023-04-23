@@ -6,7 +6,6 @@ import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +35,7 @@ public class RootController {
   @FXML ImageView homeLogo2;
   @FXML ImageView homeIcon;
   @FXML ImageView userIcon;
-  @FXML ImageView exitIcon;
+  @FXML ImageView logoutIcon;
   @FXML ImageView backIcon;
 
   public void initialize() {
@@ -147,10 +146,14 @@ public class RootController {
           Navigation.navigate(Screen.USER_PROFILE);
           event.consume();
         });
-    exitIcon.addEventHandler(
+
+    // Logout Button
+    logoutIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
-          Platform.exit();
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          ActiveUser.getInstance().setCurrentUser(null);
+          ActiveUser.getInstance().setLoggedIn(false);
           event.consume();
         });
 

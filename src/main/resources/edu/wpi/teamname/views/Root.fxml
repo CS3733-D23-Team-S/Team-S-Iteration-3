@@ -169,7 +169,7 @@
                         <Image url="@../templateIcons/usericon.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="exitIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowSpan="2">
+                <ImageView fx:id="logoutIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowSpan="2">
                     <image>
                         <Image url="@../templateIcons/exiticon.png" />
                     </image>
