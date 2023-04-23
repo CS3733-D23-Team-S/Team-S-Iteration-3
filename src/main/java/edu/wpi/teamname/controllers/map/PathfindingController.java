@@ -63,6 +63,7 @@ public class PathfindingController {
   @FXML Label textualDirections;
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
+  private String direction;
   List<Text> locations = new ArrayList<>();
 
   /*
@@ -126,7 +127,8 @@ public class PathfindingController {
     }
   }
 
-  // function that sets the floor to the floor of the currently selected location in the starting location combo box
+  // function that sets the floor to the floor of the currently selected location in the starting
+  // location combo box
   /*
   public void goToStartingFloor() {
     for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
@@ -668,6 +670,7 @@ public class PathfindingController {
           if (startY > endY) {
             if (currDir.equals("East")) {
               currDir = "Northeast";
+              if (Math.abs(startX - endX) < 100
             } else if (currDir.equals("West")) {
               currDir = "Northwest";
             } else {
@@ -683,9 +686,54 @@ public class PathfindingController {
             }
           }
         }
+
+
+        if (startY > endY && Math.abs(startX - endX) < 100) { // if Right angle going North
+          System.out.println("Going North");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Left";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Right";
+          }
+        } else if (startY < endY && Math.abs(startX - endX) < 100) {
+          System.out.println("Going South");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Right";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Left";
+          }
+        } else if (startX > endX && Math.abs(startY - endY) < 100) {
+          System.out.println("Going ");
+          if (currDir.equals("North")) {
+            System.out.println("From North");
+            direction = "Left";
+          } else if (currDir.equals("South")) {
+            direction = "Right";
+          }
+        } else if (endX > startX && Math.abs(startY - endY) < 100) {
+          if (currDir.equals("North")) {
+            direction = "Right";
+          } else if (currDir.equals("South")) {
+            direction = "Left";
+          }
+        }
+
+
+
         int stepNum = i + 1;
         textDir =
-            textDir + stepNum + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
+            textDir
+                + stepNum
+                + ". Go "
+                + currDir
+                + " until you reach "
+                + currLocationName
+                + ".\n"
+                + direction;
         currDir = "";
       }
       textualDirections.setText(textDir);
@@ -717,6 +765,7 @@ public class PathfindingController {
       }
     }
   }
+
 
   public void generateFloor1Nodes() {
     circlesOnFloor.clear();
