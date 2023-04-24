@@ -1,0 +1,25 @@
+* {
+    -fx-font-family: "Open Sans";
+}
+
+.taskrectangle {
+    -fx-arc-height: 15;
+    -fx-arc-width: 15;
+    -fx-background-color: #b5c5ee;
+    -fx-width: 420;
+    -fx-height: 120;
+}
+
+.titlelabel {
+    -fx-font-size: 16;
+    -fx-font-style: bold;
+}
+
+.roomlabel {
+    -fx-font-size: 14;
+}
+
+.organizerlabel {
+    -fx-font-size: 14;
+    -fx-font-style: italic;
+}

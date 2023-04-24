@@ -48,7 +48,9 @@ public enum Screen {
   NEW_USER("views/newUserPopUp.fxml"),
 
   STAFF("views/StaffPage.fxml"),
-  STAFF1("views/staff1.fxml");
+  STAFF1("views/staff1.fxml"),
+
+  STAFFHOME("views/StaffHome.fxml");
 
   private final String filename;
 
