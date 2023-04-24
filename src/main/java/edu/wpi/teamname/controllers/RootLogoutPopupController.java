@@ -12,17 +12,17 @@ public class RootLogoutPopupController extends PopUpController {
 
   public void initialize() {
 
-      buttonYes.setOnMouseClicked(
-            event -> {
-                ActiveUser.getInstance().setCurrentUser(null);
-                ActiveUser.getInstance().setLoggedIn(false);
-                stage.close();
-                Navigation.navigate(Screen.SIGNAGE_PAGE);
-            });
+    buttonYes.setOnMouseClicked(
+        event -> {
+          ActiveUser.getInstance().setCurrentUser(null);
+          ActiveUser.getInstance().setLoggedIn(false);
+          stage.close();
+          Navigation.navigate(Screen.SIGNAGE_PAGE);
+        });
 
-      buttonNo.setOnMouseClicked(
-            event -> {
-              stage.close();
-            });
+    buttonNo.setOnMouseClicked(
+        event -> {
+          stage.close();
+        });
   }
 }
