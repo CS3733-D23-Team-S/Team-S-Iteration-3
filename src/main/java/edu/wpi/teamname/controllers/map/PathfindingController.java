@@ -1307,7 +1307,7 @@ public class PathfindingController {
       pathfindingToLogin.setVisible(false);
     }
 
-    algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
+    algList.getItems().addAll("AStar", "Dijkstra's", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
     displayAllNodesToggle.setOnMouseClicked(event -> showNodes());

@@ -87,9 +87,11 @@ public class LoginController {
                 .getCurrentUser()
                 .getPermission()
                 .equals(Permission.ADMIN)) {
+              System.out.println("Going to admin page!");
               Navigation.navigate(ADMIN_PAGE);
             } else {
-              Navigation.navigate(STAFF);
+              System.out.println("Going to staff pag!");
+              Navigation.navigate(STAFFHOME);
             }
           }
         });
