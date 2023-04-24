@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -119,6 +120,12 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
+            <HBox prefHeight="29.0" prefWidth="408.0">
+               <children>
+                  <MFXDatePicker fx:id="datePicker" prefHeight="38.0" prefWidth="204.0" />
+                  <Label fx:id="datePickerError" alignment="CENTER" prefHeight="52.0" prefWidth="204.0" textFill="RED" />
+               </children>
+            </HBox>
             <HBox prefHeight="67.0" prefWidth="349.0" spacing="120.0">
                <children>
                   <MFXButton fx:id="findPathButton" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Show Path" textFill="WHITE">
@@ -141,12 +148,12 @@
                   <Insets top="-20.0" />
                </VBox.margin>
             </SearchableComboBox>
-            <ToggleSwitch fx:id="displayAllNodesToggle" prefHeight="50.0" prefWidth="260.0" text="Display All Nodes">
+            <ToggleSwitch fx:id="displayAllNodesToggle" prefHeight="35.0" prefWidth="260.0" text="Display All Nodes">
                <font>
                   <Font size="18.0" />
                </font>
             </ToggleSwitch>
-            <ToggleSwitch fx:id="displayLocationNamesToggle" prefHeight="50.0" prefWidth="260.0" text="Display Location Names">
+            <ToggleSwitch fx:id="displayLocationNamesToggle" prefHeight="35.0" prefWidth="260.0" text="Display Location Names">
                <font>
                   <Font size="18.0" />
                </font>

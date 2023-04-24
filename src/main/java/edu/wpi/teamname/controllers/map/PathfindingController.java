@@ -10,6 +10,7 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +41,7 @@ public class PathfindingController {
   @FXML public ComboBox<String> destinationList = new SearchableComboBox<>();
   @FXML public ComboBox<String> algList = new SearchableComboBox<>();
   @FXML MFXButton pathfindingToLogin;
+  @FXML MFXDatePicker datePicker;
 
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
@@ -62,118 +64,12 @@ public class PathfindingController {
   @FXML Label startingLocationError;
   @FXML Label destinationError;
   @FXML Label textualDirections;
+  @FXML Label datePickerError;
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
   private String prevDirection;
   List<Text> locations = new ArrayList<>();
 
-  /*
-  public void showLocationNames() {
-    anchorPane.getChildren().removeAll();
-    locations.clear();
-    f1Locations.clear();
-    f2Locations.clear();
-    f3Locations.clear();
-    fL1Locations.clear();
-    fL2Locations.clear();
-    if (!displayLocationNamesToggle.isSelected()) {
-      anchorPane.getChildren().removeAll(f1Locations);
-      anchorPane.getChildren().removeAll(f2Locations);
-      anchorPane.getChildren().removeAll(f3Locations);
-      anchorPane.getChildren().removeAll(fL1Locations);
-      anchorPane.getChildren().removeAll(fL2Locations);
-      f1Locations.clear();
-      f2Locations.clear();
-      f3Locations.clear();
-      fL1Locations.clear();
-      fL2Locations.clear();
-      return;
-    } else {
-      for (int i = 0; i < nodeList.size(); i++) {
-        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
-          if (dataBase.getMoveDAO().getAll().get(j).getNodeID() == nodeList.get(i).getNodeID()) {
-            Text location = new Text();
-            location.setText(dataBase.getMoveDAO().getAll().get(j).getLocationName());
-            location.setX(circlesOnFloor.get(i).getCenterX());
-            location.setY(circlesOnFloor.get(i).getCenterY());
-            if (dataBase.getMoveDAO().getAll().get(j).getNode().getFloor().equals(Floor.Floor1)) {
-              f1Locations.add(location);
-            } else if (dataBase
-                .getMoveDAO()
-                .getAll()
-                .get(j)
-                .getNode()
-                .getFloor()
-                .equals(Floor.Floor2)) {
-              f2Locations.add(location);
-            } else if (dataBase
-                .getMoveDAO()
-                .getAll()
-                .get(j)
-                .getNode()
-                .getFloor()
-                .equals(Floor.Floor3)) {
-              f3Locations.add(location);
-            } else if (dataBase
-                .getMoveDAO()
-                .getAll()
-                .get(j)
-                .getNode()
-                .getFloor()
-                .equals(Floor.FloorL1)) {
-              fL1Locations.add(location);
-            } else if (dataBase
-                .getMoveDAO()
-                .getAll()
-                .get(j)
-                .getNode()
-                .getFloor()
-                .equals(Floor.FloorL2)) {
-              fL2Locations.add(location);
-            } else {
-              System.out.println("no floor");
-            }
-          }
-        }
-      }
-      if (floor.getImage().equals(floor1)) {
-        anchorPane.getChildren().addAll(f1Locations);
-      } else if (floor.getImage().equals(floor2)) {
-        anchorPane.getChildren().addAll(f2Locations);
-      } else if (floor.getImage().equals(floor3)) {
-        anchorPane.getChildren().addAll(f3Locations);
-      } else if (floor.getImage().equals(floorL1)) {
-        anchorPane.getChildren().addAll(fL1Locations);
-      } else if (floor.getImage().equals(floorL2)) {
-        anchorPane.getChildren().addAll(fL2Locations);
-      }
-    }
-  }
-  */
-  /*
-  // function that isn't adding and removing them properly
-  public void showLocations() {
-    if (!displayLocationNamesToggle.isSelected()) {
-      anchorPane.getChildren().removeAll(locations);
-    } else {
-      locations.clear();
-      for (int i = 0; i < nodeList.size(); i++) {
-        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
-          if (nodeList.get(i).getFloor() != currentFloor) {
-            if (dataBase.getMoveDAO().getAll().get(j).getNodeID() == nodeList.get(i).getNodeID()) {
-              Text location =
-                  new Text(dataBase.getMoveDAO().getAll().get(j).getLocation().getLongName());
-              location.setX(circlesOnFloor.get(i).getCenterX());
-              location.setY(circlesOnFloor.get(i).getCenterY());
-              locations.add(location);
-            }
-          }
-        }
-      }
-      anchorPane.getChildren().addAll(locations);
-    }
-  }
-  */
   public void showLocationNames2() {
     if (!displayLocationNamesToggle.isSelected()) {
       anchorPane.getChildren().removeAll(locations);
@@ -493,34 +389,6 @@ public class PathfindingController {
   String textDir = "";
   @FXML Label floorOrderLabel;
 
-  /*
-  public void changeIntermediateCircle(Floor currFloor, Floor nextFloor, Circle circle) {
-    if (currFloor.equals(Floor.FloorL2)) {
-      circle.setFill(Color.ORANGE);
-    } else if (currFloor.equals(Floor.FloorL1)) {
-      if (nextFloor.equals(Floor.FloorL2)) {
-        circle.setFill(Color.YELLOW);
-      } else {
-        circle.setFill(Color.ORANGE);
-      }
-    } else if (currFloor.equals(Floor.Floor1)) {
-      if ((nextFloor.equals(Floor.FloorL2)) || (nextFloor.equals(Floor.FloorL1))) {
-        circle.setFill(Color.YELLOW);
-      } else {
-        circle.setFill(Color.ORANGE);
-      }
-    } else if (currFloor.equals(Floor.Floor2)) {
-      if (nextFloor.equals(Floor.Floor3)) {
-        circle.setFill(Color.ORANGE);
-      } else {
-        circle.setFill(Color.YELLOW);
-      }
-    } else if (currFloor.equals(Floor.Floor3)) {
-      circle.setFill(Color.YELLOW);
-    }
-  }
-  */
-
   public void displayFloorOrder(List<String> floors) {
     floorOrderLabel.setText("");
     for (int i = 0; i < floors.size() - 1; i++) {
@@ -590,10 +458,15 @@ public class PathfindingController {
     if (destinationList.getSelectionModel().isEmpty()) {
       destinationError.setText("Error: you haven't filled in the destination");
     }
+    if (datePicker.getValue() == null) {
+      datePickerError.setText("Error: you haven't filled in the date");
+    }
     if (!startingLocationList.getSelectionModel().isEmpty()
-        && (!destinationList.getSelectionModel().isEmpty())) {
+        && (!destinationList.getSelectionModel().isEmpty())
+        && (datePicker.getValue() != (null))) {
       startingLocationError.setText("");
       destinationError.setText("");
+      datePickerError.setText("");
       // find node IDs through moves
       for (int i = 0; i < dbr.getMoveDAO().getListOfMoves().size(); i++) {
         if (dbr.getMoveDAO()
@@ -988,8 +861,8 @@ public class PathfindingController {
         anchorPane.getChildren().addAll(floorL2Lines);
         anchorPane.getChildren().addAll(importantCirclesFL2);
       }
+      displayFloorOrder(los);
     }
-    displayFloorOrder(los);
   }
 
   public void generateFloor1Nodes() {
@@ -1215,6 +1088,7 @@ public class PathfindingController {
 
   public void clearFields() {
     floorOrderLabel.setText("");
+    datePicker.setValue(null);
     anchorPane.getChildren().removeAll(floor1Lines);
     anchorPane.getChildren().removeAll(floor2Lines);
     anchorPane.getChildren().removeAll(floor3Lines);
