@@ -59,7 +59,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
 
   @Override
   public void add(ConfRoomRequest request) {
-    dbConnection connection = dbConnection.getInstance();
+    connection.reinitConnection();
     try {
       PreparedStatement preparedStatement =
           connection
