@@ -226,6 +226,10 @@ public class DataBaseRepository {
     return flowerDeliveryDAO.getAll().size();
   }
 
+  public int officeSupplyGetNewDeliveryID() {
+    return officeSupplyDAO.getAll().size();
+  }
+
   public void forceGlobalUpdate() {
     System.out.println("Eventually is going to force an update to all of the orms periodically");
   }
