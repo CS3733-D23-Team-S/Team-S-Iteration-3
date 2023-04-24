@@ -57,7 +57,6 @@ public class StaffController {
   @FXML TableColumn<Request, String> serviceRequestType = new TableColumn<>("Service Request Type");
   @FXML TableColumn<Request, String> timeOrdered = new TableColumn<>("Time Ordered");
   @FXML TableColumn<Request, String> status = new TableColumn<>("Update Status");
-  HashMap<Integer, String> map = new HashMap<>();
 
   @FXML
   public void initialize() {
@@ -78,7 +77,7 @@ public class StaffController {
     taskTable.getColumns().add(column1);
     taskTable.getColumns().add(column2);
     taskTable.getColumns().add(column3);
-    taskTable.getColumns().add(column4);
+    // taskTable.getColumns().add(column4);
 
     status.setCellValueFactory((row) -> new SimpleStringProperty(row.getValue().getOrderStatus()));
 
@@ -96,8 +95,6 @@ public class StaffController {
                   event -> {
                     Request item = getTableView().getItems().get(getIndex());
 
-                    map.put(getIndex(), getTableView().getItems().get(getIndex()).getOrderStatus());
-
                     item.setOrderStatus(dropdown.getSelectionModel().getSelectedItem());
 
                     DBR.getRequestDAO()
@@ -110,7 +107,6 @@ public class StaffController {
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
 
-                    System.out.println(getTableView().getItems().get(getIndex()).getOrderStatus());
                   });
             }
 
@@ -119,26 +115,12 @@ public class StaffController {
               super.updateItem(item, empty);
               if (empty) {
                 setGraphic(null);
-                dropdown.getSelectionModel().select(item);
-                // setGraphic(dropdown);
-                // dropdown.setValue("AAAA");
-                dropdown.setValue(item);
-                System.out.println(item);
-
               } else {
-                dropdown.getSelectionModel().select(item);
-                setGraphic(dropdown);
 
-                /*for (String s : dropdown.getItems()) {
-                  System.out.println(s);
-                }*/
-                /*for (var pair : map.entrySet()) {
-                  System.out.println(pair);
-                }*/
-                /*for (Integer key: map.keySet()) {
-                  if(key == item.get)
-                }*/
-                dropdown.setValue(map.get(getIndex()));
+                Request req = getTableView().getItems().get(getIndex());
+                dropdown.setValue(req.getOrderStatus());
+
+                setGraphic(dropdown);
               }
             }
           };
