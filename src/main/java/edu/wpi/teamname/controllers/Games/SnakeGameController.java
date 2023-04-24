@@ -18,8 +18,8 @@ public class SnakeGameController {
   private int food = 0;
   private int speed = 15;
   private int foodcolor = 0;
-  private int width;
-  private int height;
+  private double width;
+  private double height;
   private int foodX = 0;
   private int foodY = 0;
   private int cornersize = 25;
@@ -44,8 +44,8 @@ public class SnakeGameController {
     // canvas.setWidth(900);
     System.out.println(canvas.getWidth());
     System.out.println(canvas.getHeight());
-    this.height = 32;
-    this.width = 32;
+    this.height = 30.5;
+    this.width = 30;
     start();
     playAgain.setVisible(false);
     playAgain.setOnMouseClicked(
@@ -77,9 +77,9 @@ public class SnakeGameController {
   }
 
   public static class Corner {
-    int x, y;
+    double x, y;
 
-    public Corner(int x, int y) {
+    public Corner(double x, double y) {
       this.x = x;
       this.y = y;
     }
@@ -256,8 +256,8 @@ public class SnakeGameController {
   public void newFood() {
     start:
     while (true) {
-      foodX = rand.nextInt(width);
-      foodY = rand.nextInt(height);
+      foodX = rand.nextInt((int) width);
+      foodY = rand.nextInt((int) height);
 
       for (Corner c : snake) {
         if (c.x == foodX && c.y == foodY) {
