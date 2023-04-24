@@ -5,7 +5,6 @@ import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -106,7 +105,6 @@ public class StaffController {
 
                     System.out.println(
                         "Selected:" + dropdown.getSelectionModel().getSelectedItem());
-
                   });
             }
 
@@ -168,7 +166,8 @@ public class StaffController {
     // populate the table
     DBR.getRequestDAO().loadFromRemote();
     for (Request r : DBR.getRequestDAO().getRequests()) {
-      taskTable.getItems().add(r);
+      if (r.getOrderStatus() != null && !r.getOrderStatus().equals("Complete"))
+        taskTable.getItems().add(r);
     }
   }
 
