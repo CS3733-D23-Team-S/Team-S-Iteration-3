@@ -134,13 +134,9 @@ public class RootController {
         });
 
     // Logout Button
-    logoutIcon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+    logoutIcon.setOnMouseClicked(
         event -> {
-          Navigation.navigate(Screen.SIGNAGE_PAGE);
-          ActiveUser.getInstance().setCurrentUser(null);
-          ActiveUser.getInstance().setLoggedIn(false);
-          event.consume();
+          Navigation.launchPopUp(Screen.ROOT_LOGOUT_POPUP);
         });
 
     userIcon.setCursor(Cursor.HAND);
