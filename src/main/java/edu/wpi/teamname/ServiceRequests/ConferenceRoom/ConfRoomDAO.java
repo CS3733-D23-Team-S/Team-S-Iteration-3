@@ -6,6 +6,10 @@ import static edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO.sch
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.Location;
+import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -108,8 +112,23 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
   public void loadRemote(String pathToCSV) {}
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+      dropTable();
+      conferenceRooms.clear();
+      loadRemote(path);
+  }
 
   @Override
-  public void exportCSV(String path) throws IOException {}
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write(
+            "orderDate,eventDate,startTime,endTime,room,reservedBy," +
+                    "eventName,eventDescription,assignedTo,orderStatus,notes,isPrivate;");
+
+    for (ConfRoomLocation loc : conferenceRooms.values()) {
+      fileWriter.newLine();
+      fileWriter.write(loc.toCSVString());
+    }
+    fileWriter.close();
+  }
 }

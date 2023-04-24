@@ -1,8 +1,6 @@
 package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.DAOs.orms.Location;
-import edu.wpi.teamname.DAOs.orms.Move;
-import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.*;
 import java.io.*;
 import java.sql.*;
 import java.sql.Date;
@@ -259,6 +257,76 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
+  public void constructForGivenDate(LocalDate moveDate) {
+    ArrayList<Move> datedMoves = new ArrayList<>();
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
+    try {
+
+      String query =
+          "SELECT nodeid, location, max(date) FROM hospitaldb.moves "
+              + "where date <= ? "
+              + "group by location, nodeid";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+      preparedStatement.setDate(1, Date.valueOf(moveDate));
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        LocalDate date = rs.getDate("max").toLocalDate();
+        Node node = nodeDAO.get(rs.getInt("nodeID"));
+        Location loc = locationDAO.get(rs.getString("location"));
+        Move thisMove = new Move(node, loc, date);
+
+        datedMoves.add(thisMove);
+      }
+
+      System.out.println(datedMoves);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Error accessing the remote and constructing the list of moves");
+    }
+  }
+
+  public ArrayList<futureMoves> getFutureMoves() {
+    ArrayList<futureMoves> futureMoves = new ArrayList<>();
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
+    try {
+
+      String query =
+          "select  * "
+              + "from hospitaldb.moves natural join hospitaldb.nodes natural join hospitaldb.locations "
+              + "where date <= current_date";
+
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+      ResultSet rs = preparedStatement.executeQuery();
+      //      ResultSetMetaData rsdata = rs.getMetaData();
+      //      System.out.println(rsdata.getColumnName(5));
+
+      while (rs.next()) {
+        LocalDate date = rs.getDate("date").toLocalDate();
+        int node = rs.getInt("nodeid");
+        String loc = rs.getString("location");
+        NodeType nodeType = NodeType.values()[rs.getInt("nodetype")];
+        int xCoord = rs.getInt("xCoord");
+        int yCoord = rs.getInt("yCoord");
+        String floor = String.valueOf(Floor.values()[rs.getInt("Floor")]);
+
+        futureMoves thisMove = new futureMoves(node, loc, date, nodeType, xCoord, yCoord, floor);
+
+        futureMoves.add(thisMove);
+      }
+
+      System.out.println(futureMoves);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Could not create a view");
+    }
+    return futureMoves;
+  }
+
   private LocalDate parseDate(String dateString) {
     // Parse the input date string into a LocalDate object
     LocalDate date =
@@ -273,6 +341,33 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   private class DateComparator implements Comparator<Move> {
     public int compare(Move o1, Move o2) {
       return o1.getDate().compareTo(o2.getDate());
+    }
+  }
+
+  public class futureMoves {
+    int nodeId;
+    String locName;
+    LocalDate moveDate;
+    NodeType nodeType;
+    int xcoord;
+    int ycoord;
+    String floor;
+
+    public futureMoves(
+        int nodeId,
+        String locName,
+        LocalDate moveDate,
+        NodeType nodeType,
+        int xcoord,
+        int ycoord,
+        String floor) {
+      this.nodeId = nodeId;
+      this.locName = locName;
+      this.moveDate = moveDate;
+      this.nodeType = nodeType;
+      this.xcoord = xcoord;
+      this.ycoord = ycoord;
+      this.floor = floor;
     }
   }
 }
