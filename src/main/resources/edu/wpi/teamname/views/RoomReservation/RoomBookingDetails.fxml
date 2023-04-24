@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
-<?import org.controlsfx.control.tableview2.cell.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<Scene stylesheets="@../../../../Stylesheets/myDialogs.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingDetailsController">
+<Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingDetailsController">
    <root>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="700.0">
           <columnConstraints>
@@ -79,7 +87,7 @@
                               <Font name="Open Sans Regular" size="20.0" />
                           </font>
                       </TextField2TableCell>
-                      <MFXTextField fx:id="eventDescriptionText" floatMode="ABOVE" maxHeight="78.0" minHeight="40.0" prefHeight="78.0" prefWidth="631.0">
+                      <MFXTextField fx:id="eventDescriptionText" alignment="TOP_LEFT" floatMode="ABOVE" maxHeight="78.0" minHeight="40.0" prefHeight="78.0" prefWidth="631.0">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -93,6 +101,36 @@
                      </font>
                   </TextField2TableCell>
                   <SearchableComboBox fx:id="staffMemberComboBox" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="573.0">
+                           <children>
+                              <TextField2TableCell alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" minWidth="200.0" prefHeight="10.0" prefWidth="200.0" text="Private meeting" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="20.0" />
+                                 </font>
+                              </TextField2TableCell>
+                              <Label alignment="TOP_LEFT" prefHeight="7.0" prefWidth="550.0" text="Meeting details will be hidden from the calendar" textFill="#1d3d94" wrapText="true">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <MFXToggleButton fx:id="privateToggle" alignment="CENTER_RIGHT" contentDisplay="CENTER" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Label fx:id="errorMessage" textFill="RED">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                             <MFXButton fx:id="submitDetailsButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="150.0" minWidth="150.0" onAction="#submitDetails" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-border-radius: 10; -fx-background-radius: 10;" text="Submit" textFill="WHITE">
@@ -110,7 +148,7 @@
                         </MFXButton>
                      </children>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
                   </children>
