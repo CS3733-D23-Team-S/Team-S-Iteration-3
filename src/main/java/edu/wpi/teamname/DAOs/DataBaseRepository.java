@@ -98,6 +98,8 @@ public class DataBaseRepository {
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
     userDAO.loadRemote("loading the remote");
 
+    requestDAO.loadFromRemote();
+
     flowerDAO.initTable(connection.getFlowerTable());
     flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
     flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
