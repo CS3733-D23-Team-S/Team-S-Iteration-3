@@ -92,9 +92,9 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
 
   @Override
   public void exportCSV(String path) throws IOException {
-    BufferedWriter fileWriter;
-    fileWriter = new BufferedWriter(new FileWriter(path));
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
     fileWriter.write("ID,name,size,price,quantity,message,isSoldOut,description,image");
+
     for (Flower flower : flowers.values()) {
       fileWriter.newLine();
       fileWriter.write(flower.toCSVString());
@@ -102,7 +102,6 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
   }
 
   public Flower get(int ID) {
-    System.out.println("herehere");
     System.out.println(flowers);
     return flowers.get(ID);
   }

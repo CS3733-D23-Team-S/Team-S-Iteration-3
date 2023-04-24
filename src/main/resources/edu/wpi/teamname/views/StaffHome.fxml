@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: white;" stylesheets="@../../../../Stylesheets/Staff.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffHomeController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="34.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="headerGreetingLabel" text="Good morning, Sarah!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <VBox prefHeight="200.0" prefWidth="435.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="426.0">
+               <children>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="29.0" prefWidth="138.0" text="My Tasks">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="requestCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="13" textFill="#00000099">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#d7d7d7" thumbHoverColor="#c6c6c6" trackColor="#d7d7d7">
+               <content>
+                  <VBox fx:id="taskVBox" prefHeight="625.0" prefWidth="435.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
+               </content>
+            </MFXScrollPane>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <VBox prefHeight="742.0" prefWidth="436.0">
+               <children>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" text="My Locations">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="locationsVBox" prefHeight="403.0" prefWidth="454.0">
+                     <children>
+                        <GesturePane prefHeight="410.0" prefWidth="454.0" />
+                     </children></VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="598.0" prefWidth="423.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Announcements">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#dadada" thumbHoverColor="#c3c3c3" trackColor="#bfbfbf">
+               <content>
+                  <VBox fx:id="announcementVBox" alignment="TOP_CENTER" prefHeight="624.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
+               </content>
+            </MFXScrollPane>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Upcoming Moves">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Label>
+            <VBox fx:id="movesVBox" alignment="TOP_CENTER" prefHeight="723.0" prefWidth="436.0">
+               <children>
+                  <Pane prefHeight="212.0" prefWidth="454.0" style="-fx-border-color: #00000080; -fx-border-radius: 15;">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="13.0" layoutY="13.0" prefHeight="179.0" prefWidth="427.0">
+                           <content>
+                              <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="419.0">
+                                 <children>
+                                    <Label stylesheets="@../../../../Stylesheets/Staff.css" text="March 3, 2023">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </MFXScrollPane>
+                     </children></Pane>
+               </children></VBox>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
