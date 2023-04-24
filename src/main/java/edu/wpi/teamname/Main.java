@@ -9,8 +9,11 @@ public class Main {
   public static void main(String[] args) throws Exception {
     DataBaseRepository database = DataBaseRepository.getInstance();
     database.load();
-    thread = new ConnectionThread();
-    thread.start();
+    //    FoodDAOImpl foodDAO = database.getFoodDAO();
+    //    List<String> features = new ArrayList<>();
+    //    features.add("vegetarian");
+    //    features.add("glutenfree");
+    //    System.out.println(foodDAO.queriedFoods(features));
     App.launch(App.class, args);
     // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
