@@ -51,29 +51,29 @@ public class ConfRoomRequest {
     String finale;
 
     finale =
-            orderDate
-                    + ","
-                    + eventDate
-                    + ","
-                    + startTime
-                    + ","
-                    + endTime
-                    + ","
-                    + room
-                    + ","
-                    + reservedBy
-                    + ","
-                    + eventName
-                    + ","
-                    + eventDescription
-                    + ","
-                    + assignedTo
-                    + ","
-                    + orderStatus
-                    + ","
-                    + notes
-                    + ","
-                    + isPrivate;
+        orderDate
+            + ","
+            + eventDate
+            + ","
+            + startTime
+            + ","
+            + endTime
+            + ","
+            + room
+            + ","
+            + reservedBy
+            + ","
+            + eventName
+            + ","
+            + eventDescription
+            + ","
+            + assignedTo
+            + ","
+            + orderStatus
+            + ","
+            + notes
+            + ","
+            + isPrivate;
     return finale;
   }
 }

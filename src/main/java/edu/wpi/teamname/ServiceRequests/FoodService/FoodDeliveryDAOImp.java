@@ -3,9 +3,7 @@ package edu.wpi.teamname.ServiceRequests.FoodService;
 import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequestTable;
 
 import edu.wpi.teamname.DAOs.dbConnection;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomLocation;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -228,8 +226,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write(
-            "cart,date,time,location,orderer,assignedTo,orderStatus,cost,notes");
+    fileWriter.write("cart,date,time,location,orderer,assignedTo,orderStatus,cost,notes");
 
     for (FoodDelivery delivery : foodRequests.values()) {
       fileWriter.newLine();

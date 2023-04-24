@@ -2,7 +2,6 @@ package edu.wpi.teamname.ServiceRequests.GeneralRequest;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.User;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,8 +9,6 @@ import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
 import lombok.Getter;
 
 public class RequestDAO {
@@ -167,7 +164,7 @@ public class RequestDAO {
         String orderedBy = rs.getString("orderedBy");
         String assignedTo = rs.getString("assignedTo");
         Request newRequest =
-          new Request(requestType, ordertime, orderStatus, location, assignedTo, orderedBy);
+            new Request(requestType, ordertime, orderStatus, location, assignedTo, orderedBy);
 
         requests.add(newRequest);
       }
@@ -187,8 +184,7 @@ public class RequestDAO {
 
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write(
-            "requestType,deliveryTime,orderStatus,location,assignedTo,orderedBy");
+    fileWriter.write("requestType,deliveryTime,orderStatus,location,assignedTo,orderedBy");
 
     for (Request request : requests) {
       fileWriter.newLine();

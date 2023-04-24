@@ -4,7 +4,6 @@ import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequ
 
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -284,8 +283,7 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   @Override
   public void exportCSV(String path) throws IOException {
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
-    fileWriter.write(
-            "location,capacity,features");
+    fileWriter.write("location,capacity,features");
 
     for (ConfRoomRequest req : requests) {
       fileWriter.newLine();

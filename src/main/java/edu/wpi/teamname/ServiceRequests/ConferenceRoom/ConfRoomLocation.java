@@ -18,13 +18,7 @@ public class ConfRoomLocation {
   public String toCSVString() {
     String finale;
 
-    finale =
-            location
-                    + ","
-                    + capacity
-                    + ","
-                    + features
-                    + ",";
+    finale = location + "," + capacity + "," + features + ",";
 
     return finale;
   }
