@@ -4,6 +4,10 @@ import edu.wpi.teamname.DAOs.dbConnection;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+
+import edu.wpi.teamname.DAOs.orms.User;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import lombok.Getter;
 
 public class RequestDAO {
@@ -108,4 +112,15 @@ public class RequestDAO {
       e.printStackTrace();
     }
   }
+
+  public List<Request> getRequestsForUser(User thisUser){
+    List<Request> requestList = new ArrayList<>();
+    for (Request request: getRequests()){
+      if (request.assignedTo.equals(thisUser.getUserName()) ) requestList.add(request);
+    }
+
+    return requestList;
+  }
+
+
 }
