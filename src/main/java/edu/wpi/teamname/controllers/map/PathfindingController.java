@@ -678,7 +678,7 @@ public class PathfindingController {
 
   public void initialize() {
 
-    algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
+    algList.getItems().addAll("AStar", "Dijkstra's", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
     dataBase = DataBaseRepository.getInstance();

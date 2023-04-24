@@ -21,6 +21,7 @@ public class DFS implements IPathFinder {
   }
 
   public ArrayList<Integer> findPath(int s, int e) {
+    System.out.println("Running DFS");
     Node start, end;
     start = this.nodeDAO.getNodes().get(s);
     end = this.nodeDAO.getNodes().get(e);
