@@ -7,6 +7,7 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -110,21 +111,6 @@ public class RootController {
           Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
         });
 
-    // TOP BAR
-    homeLogo1.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.ADMIN_PAGE);
-          event.consume();
-        });
-
-    homeLogo2.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.ADMIN_PAGE);
-          event.consume();
-        });
-
     homeIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
@@ -134,7 +120,7 @@ public class RootController {
           }
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
             System.out.println("Going to Staff page");
-            Navigation.navigate(Screen.STAFF);
+            Navigation.navigate(Screen.STAFFHOME);
           }
 
           event.consume();
@@ -148,14 +134,14 @@ public class RootController {
         });
 
     // Logout Button
-    logoutIcon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+    logoutIcon.setOnMouseClicked(
         event -> {
-          Navigation.navigate(Screen.SIGNAGE_PAGE);
-          ActiveUser.getInstance().setCurrentUser(null);
-          ActiveUser.getInstance().setLoggedIn(false);
-          event.consume();
+          Navigation.launchPopUp(Screen.ROOT_LOGOUT_POPUP);
         });
+
+    userIcon.setCursor(Cursor.HAND);
+    homeIcon.setCursor(Cursor.HAND);
+    logoutIcon.setCursor(Cursor.HAND);
 
     // BACK ICON
     /*

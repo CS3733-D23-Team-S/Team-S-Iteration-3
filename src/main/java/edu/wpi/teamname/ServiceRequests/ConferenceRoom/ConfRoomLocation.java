@@ -14,4 +14,12 @@ public class ConfRoomLocation {
     this.capacity = capacity;
     this.features = features;
   }
+
+  public String toCSVString() {
+    String finale;
+
+    finale = location + "," + capacity + "," + features + ",";
+
+    return finale;
+  }
 }

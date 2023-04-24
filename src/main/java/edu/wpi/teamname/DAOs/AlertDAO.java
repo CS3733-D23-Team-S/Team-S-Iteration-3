@@ -29,7 +29,7 @@ public class AlertDAO implements IDAO<Alert, String> {
               .prepareStatement(
                   "CREATE TABLE IF NOT EXISTS "
                       + name
-                      + " (heading varchar(100), message varchar(200), date date");
+                      + " (heading varchar(100), message varchar(200), date date)");
 
       stmt.execute();
     } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class AlertDAO implements IDAO<Alert, String> {
   private void constructFromRemote() {
     try {
       Statement stmt = connection.getConnection().createStatement();
-      String alerts = "SELECT * FROM " + name;
+      String alerts = "SELECT * FROM " + name + " order by alertDate desc ";
       ResultSet rs = stmt.executeQuery(alerts);
       while (rs.next()) {
         String heading = rs.getString("heading");
@@ -104,6 +104,7 @@ public class AlertDAO implements IDAO<Alert, String> {
 
   @Override
   public List<Alert> getAll() {
+
     return listOfAlerts;
   }
 

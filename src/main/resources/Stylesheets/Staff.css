@@ -12,10 +12,10 @@
 
 .titlelabel {
     -fx-font-size: 16;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
 }
 
-.roomlabel {
+.locationlabel {
     -fx-font-size: 14;
 }
 
@@ -23,3 +23,10 @@
     -fx-font-size: 14;
     -fx-font-style: italic;
 }
+
+.announcementrect {
+    -fx-arc-height: 15;
+    -fx-arc-width: 15;
+    -fx-fill: #FFFFFF;
+}
+

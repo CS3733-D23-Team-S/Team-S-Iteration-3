@@ -52,6 +52,7 @@ public class RoomBookingController {
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   public ConfRoomDAO confRoomDAO = DataBaseRepository.getInstance().getConfRoomDAO();
   @Getter @Setter ArrayList<ConfRoomLocation> roomList = new ArrayList<>();
   ArrayList<VBox> roomListVBoxes = new ArrayList<>();

@@ -2,6 +2,10 @@ package edu.wpi.teamname.ServiceRequests.GeneralRequest;
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.User;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import edu.wpi.teamname.DAOs.orms.User;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -118,5 +122,75 @@ public class RequestDAO {
     }
 
     return requestList;
+  }
+
+  public void dropTable() {
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String drop = "DROP TABLE IF EXISTS " + allRequestTable + " CASCADE";
+      stmt.executeUpdate(drop);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void loadRemote(String pathToCSV) {
+    dbConnection connection = dbConnection.getInstance();
+    try {
+      Statement stmt = connection.getConnection().createStatement();
+      String checkTable = "SELECT * FROM " + allRequestTable;
+      ResultSet check = stmt.executeQuery(checkTable);
+      if (check.next()) {
+        System.out.println("Loading the requests from the server");
+        constructFromRemote();
+      } else {
+        System.out.println("Request table is empty");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void constructFromRemote() {
+    try {
+      dbConnection connection = dbConnection.getInstance();
+      Statement st = connection.getConnection().createStatement();
+      ResultSet rs = st.executeQuery("SELECT * FROM " + allRequestTable);
+
+      while (rs.next()) {
+        String requestType = rs.getString("requestType");
+        String location = rs.getString("deliveryLocation");
+        String orderStatus = rs.getString("orderStatus");
+        LocalTime ordertime = rs.getTime("requestTime").toLocalTime();
+        String orderedBy = rs.getString("orderedBy");
+        String assignedTo = rs.getString("assignedTo");
+        Request newRequest =
+            new Request(requestType, ordertime, orderStatus, location, assignedTo, orderedBy);
+
+        requests.add(newRequest);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getMessage());
+      System.out.println("Error accessing the remote and constructing the list of requests");
+    }
+  }
+
+  public void importCSV(String path) {
+    dropTable();
+    requests.clear();
+    loadRemote(path);
+  }
+
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("requestType,deliveryTime,orderStatus,location,assignedTo,orderedBy");
+
+    for (Request request : requests) {
+      fileWriter.newLine();
+      fileWriter.write(request.toCSVString());
+    }
+    fileWriter.close();
   }
 }

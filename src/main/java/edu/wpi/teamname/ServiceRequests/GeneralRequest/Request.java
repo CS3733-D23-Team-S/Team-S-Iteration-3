@@ -26,4 +26,21 @@ public class Request {
     this.assignedTo = assignedTo;
     this.orderedBy = orderedBy;
   }
+
+  public String toCSVString() {
+    String finale =
+        requestType
+            + ","
+            + deliveryTime.toString()
+            + ","
+            + orderStatus
+            + ","
+            + location
+            + ","
+            + assignedTo
+            + ","
+            + orderedBy;
+
+    return finale;
+  }
 }

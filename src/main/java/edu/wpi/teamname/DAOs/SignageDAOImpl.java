@@ -30,7 +30,7 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
               .prepareStatement(
                   "CREATE TABLE IF NOT EXISTS "
                       + name
-                      + " (kiosklocation varchar(200), direction varchar(20), referredLocation varchar(200)");
+                      + " (kiosklocation varchar(200), direction varchar(20), referredLocation varchar(200))");
 
       stmt.execute();
     } catch (SQLException e) {

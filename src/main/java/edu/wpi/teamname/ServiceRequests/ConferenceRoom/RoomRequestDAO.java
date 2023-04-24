@@ -4,6 +4,8 @@ import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequ
 
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -272,8 +274,21 @@ public class RoomRequestDAO implements IDAO<ConfRoomRequest, String> {
   public void loadRemote(String pathToCSV) {}
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    requests.clear();
+    loadRemote(path);
+  }
 
   @Override
-  public void exportCSV(String path) throws IOException {}
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("location,capacity,features");
+
+    for (ConfRoomRequest req : requests) {
+      fileWriter.newLine();
+      fileWriter.write(req.toCSVString());
+    }
+    fileWriter.close();
+  }
 }
