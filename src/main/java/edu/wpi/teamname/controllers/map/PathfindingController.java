@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.map;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
 import edu.wpi.teamname.DAOs.orms.Node;
@@ -46,7 +47,6 @@ public class PathfindingController {
   Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
   Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
   Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
-  Floor currentFloor = Floor.Floor1;
 
   @FXML MFXButton floor1Button;
   @FXML MFXButton floor2Button;
@@ -64,12 +64,8 @@ public class PathfindingController {
   @FXML Label textualDirections;
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
+  private String prevDirection;
   List<Text> locations = new ArrayList<>();
-  List<Text> f1Locations = new ArrayList<>();
-  List<Text> f2Locations = new ArrayList<>();
-  List<Text> f3Locations = new ArrayList<>();
-  List<Text> fL1Locations = new ArrayList<>();
-  List<Text> fL2Locations = new ArrayList<>();
 
   /*
   public void showLocationNames() {
@@ -154,7 +150,7 @@ public class PathfindingController {
     }
   }
   */
-
+  /*
   // function that isn't adding and removing them properly
   public void showLocations() {
     if (!displayLocationNamesToggle.isSelected()) {
@@ -177,7 +173,7 @@ public class PathfindingController {
       anchorPane.getChildren().addAll(locations);
     }
   }
-
+  */
   public void showLocationNames2() {
     if (!displayLocationNamesToggle.isSelected()) {
       anchorPane.getChildren().removeAll(locations);
@@ -339,7 +335,6 @@ public class PathfindingController {
 
   public void toFloor1() {
     floor.setImage(floor1);
-    currentFloor = Floor.Floor1;
 
     // sets image
 
@@ -371,7 +366,6 @@ public class PathfindingController {
 
   public void toFloor2() {
     floor.setImage(floor2);
-    currentFloor = Floor.Floor2;
 
     // clearFields();
     changeFloorButtonColors();
@@ -403,7 +397,6 @@ public class PathfindingController {
 
   public void toFloor3() {
     floor.setImage(floor3);
-    currentFloor = Floor.Floor3;
 
     // clearFields();
     changeFloorButtonColors();
@@ -427,7 +420,6 @@ public class PathfindingController {
 
   public void toFloorL1() {
     floor.setImage(floorL1);
-    currentFloor = Floor.FloorL1;
 
     // clearFields();
     changeFloorButtonColors();
@@ -452,7 +444,6 @@ public class PathfindingController {
 
   public void toFloorL2() {
     floor.setImage(floorL2);
-    currentFloor = Floor.FloorL2;
 
     // clearFields();
     changeFloorButtonColors();
@@ -784,10 +775,190 @@ public class PathfindingController {
               currDir = "South";
             }
           }
+          // if (direction == null) direction = "straight";
         }
+
+        String direction;
+        if (prevDirection == null) {
+          direction = "straight";
+        } else if (prevDirection.equals("North")) {
+          switch (currDir) {
+            case "East":
+              direction = "right";
+              break;
+            case "West":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("South")) {
+          switch (currDir) {
+            case "East":
+              direction = "left";
+              break;
+            case "West":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("West")) {
+          switch (currDir) {
+            case "North":
+              direction = "right";
+              break;
+            case "South":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "right";
+              break;
+            case "Southeast":
+              direction = "left";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("East")) {
+          switch (currDir) {
+            case "North":
+              direction = "left";
+              break;
+            case "South":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "left";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "right";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("Northeast")) {
+          if (currDir.equals("North") || currDir.equals("Northwest") || currDir.equals("West")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Northwest")) {
+          if (currDir.equals("West") || currDir.equals("Southwest") || currDir.equals("South")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southwest")) {
+          if (currDir.equals("South") || currDir.equals("Southeast") || currDir.equals("East")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southeast")) {
+          if (currDir.equals("East") || currDir.equals("Northeast") || currDir.equals("North")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else {
+          direction = "straight";
+        }
+        prevDirection = currDir;
+
+        /*if (startY > endY && Math.abs(startX - endX) < 100) { // if Right angle going North
+          System.out.println("Going North");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Left";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Right";
+          }
+        } else if (startY < endY && Math.abs(startX - endX) < 100) {
+          System.out.println("Going South");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Right";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Left";
+          }
+        } else if (startX > endX && Math.abs(startY - endY) < 100) {
+          System.out.println("Going ");
+          if (currDir.equals("North")) {
+            System.out.println("From North");
+            direction = "Left";
+          } else if (currDir.equals("South")) {
+            direction = "Right";
+          }
+        } else if (endX > startX && Math.abs(startY - endY) < 100) {
+          if (currDir.equals("North")) {
+            direction = "Right";
+          } else if (currDir.equals("South")) {
+            direction = "Left";
+          }
+        }*/
+
+        String command;
+        if (direction.equals("straight")) {
+          command = ". Go " + direction;
+        } else {
+          command = " Turn " + direction + " and go straight";
+        }
+
         int stepNum = i + 1;
         textDir =
-            textDir + stepNum + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
+            textDir
+                + stepNum
+                + command
+                // + ". Go "
+                // + currDir
+                // + direction
+                + " until you reach "
+                + currLocationName
+                + ".\n";
+        // + direction;
         currDir = "";
       }
       textualDirections.setText(textDir);
@@ -1132,6 +1303,10 @@ public class PathfindingController {
   }
 
   public void initialize() {
+    if (ActiveUser.getInstance().isLoggedIn()) {
+      pathfindingToLogin.setVisible(false);
+    }
+
     algList.getItems().addAll("AStar", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
 
@@ -1172,6 +1347,10 @@ public class PathfindingController {
     changeFloorButtonColors();
     // findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
     // findPathButton.setOnMouseClicked(event -> showPathAcrossFloors(nodeList, pathLines));
-    findPathButton.setOnMouseClicked(event -> showPathTesting());
+    findPathButton.setOnMouseClicked(
+        event -> {
+          showPathTesting();
+          prevDirection = null;
+        });
   }
 }
