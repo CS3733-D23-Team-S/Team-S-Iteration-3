@@ -140,6 +140,20 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
     return null;
   }
 
-  @Override
+  public void deleteSignage(Signage target){
+    try {
+      PreparedStatement stmt =
+              connection.getConnection().prepareStatement("DELETE FROM " + name + " WHERE kiosklocation= ? and direction = ? and referredlocation = ?");
+      stmt.setString(1, target.getKioskLocation().getLongName());
+      stmt.setString(2, String.valueOf(target.getDirection()));
+      stmt.setString(3, target.getSurroundingLocation());
+      stmt.execute();
+      System.out.println("Signage deleted from database");
+  } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+    @Override
   public void delete(String target) {}
 }
