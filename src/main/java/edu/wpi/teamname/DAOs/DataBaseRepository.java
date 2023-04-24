@@ -30,7 +30,8 @@ public class DataBaseRepository {
   @Getter MoveDAOImpl moveDAO;
   @Getter LocationDAOImpl locationDAO;
   @Getter EdgeDAOImpl edgeDAO;
-  @Getter RoomRequestDAO roomRequestDAO;
+  @Getter AlertDAO alertDAO;
+
   @Getter ConfRoomDAO confRoomDAO;
   @Getter FoodDAOImpl foodDAO;
 
@@ -42,10 +43,12 @@ public class DataBaseRepository {
   @Getter OfficeSupplyDAOImpl officeSupplyDAO;
 
   @Getter OfficeSupplyDeliveryDAOImpl officeSupplyDeliveryDAO;
-  @Getter UserDAOImpl userDAO;
+
+  @Getter RoomRequestDAO roomRequestDAO;
   @Getter RequestDAO requestDAO;
 
   @Getter SignageDAOImpl signageDAO;
+  @Getter UserDAOImpl userDAO;
 
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
@@ -63,6 +66,7 @@ public class DataBaseRepository {
     officeSupplyDeliveryDAO = new OfficeSupplyDeliveryDAOImpl();
     requestDAO = new RequestDAO();
     signageDAO = new SignageDAOImpl();
+    alertDAO = new AlertDAO();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -83,6 +87,7 @@ public class DataBaseRepository {
     // works correctly
     nodeDAO.initTable(connection.getNodeTable());
     edgeDAO.initTable(connection.getEdgesTable());
+
     locationDAO.initTable(connection.getLocationTable());
     moveDAO.initTable(connection.getMoveTable());
     roomRequestDAO.initTable(connection.getRoomReservationsTable());
@@ -101,7 +106,8 @@ public class DataBaseRepository {
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
     userDAO.loadRemote("loading the remote");
-
+    alertDAO.initTable(connection.getFoodTable());
+    alertDAO.loadRemote("Lorem Ipsum");
     flowerDAO.initTable(connection.getFlowerTable());
     flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
     flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());

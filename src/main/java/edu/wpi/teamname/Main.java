@@ -16,7 +16,7 @@ public class Main {
     //    moveDAO.getFutureMoves();
     thread = new ConnectionThread();
     thread.start();
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
     // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
     dbConnection.getInstance().getConnection().close();
