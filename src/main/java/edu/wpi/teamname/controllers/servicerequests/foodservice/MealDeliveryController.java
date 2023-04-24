@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.servicerequests.foodservice;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
+import edu.wpi.teamname.ServiceRequests.FoodService.FoodDAOImpl;
 import edu.wpi.teamname.ServiceRequests.FoodService.OrderItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -10,16 +11,17 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.CheckComboBox;
 
@@ -28,20 +30,21 @@ public class MealDeliveryController {
   // @FXML MFXButton backButton1;
   // @FXML MFXButton navigation1;
   @FXML MFXButton checkout;
+
   @FXML CheckComboBox checkBox;
   // @FXML HBox picBox;
   // @FXML HBox wf;
   // @FXML HBox qd;
-  @FXML SplitMenuButton dietaryButton;
+  // @FXML SplitMenuButton dietaryButton;
   // @FXML CheckComboBox dietCheck;
 
   // @FXML SplitMenuButton cuisine;
   // @FXML SplitMenuButton price;
-  @FXML HBox filter;
+  // @FXML HBox filter;
   // @FXML Text wfLabel;
   // @FXML Text qdLabel;
-  @FXML MFXButton apply;
-  @FXML MFXButton clearButton;
+  // @FXML MFXButton apply;
+  // @FXML MFXButton clearButton;
 
   @FXML ScrollPane scrollPane;
   @FXML FlowPane flowPane;
@@ -59,9 +62,20 @@ public class MealDeliveryController {
 
   public ArrayList<MenuItem> filters = new ArrayList<>();
   public ArrayList<String> filterList = new ArrayList<>();
+  public ArrayList<String> needFilters = new ArrayList<>();
 
   public static int delID;
   public static OrderItem cart;
+
+  public static boolean trueVeg;
+  public static boolean trueVegan;
+  public static boolean trueHalal;
+  public static boolean trueKosher;
+  public static boolean trueGF;
+
+  public static ArrayList<Food> allFood = new ArrayList<>();
+  public FoodDAOImpl foodDAO = DBR.getFoodDAO();
+  public static ArrayList<String> foodFilter = new ArrayList<>();
 
   @FXML
   public void initialize() {
@@ -77,10 +91,33 @@ public class MealDeliveryController {
     MenuItem k = new MenuItem("Kosher");
     MenuItem v = new MenuItem("Vegan");
 
-    dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
+    // dietaryButton.getItems().addAll(vegetarian, gf, h, k, v);
     // dietCheck.getItems().addAll("vegetarian", "gf", "h", "k", "v");
+    checkBox
+        .getItems()
+        .addAll(
+            "vegetarian",
+            "vegan",
+            "halal",
+            "kosher",
+            "glutenfree",
+            "american",
+            "indian",
+            "mexican");
 
-    checkBox.getItems().addAll("vegetarian", "Gluten Free", "Halal", "Kosher", "Vegan");
+    checkBox
+        .getCheckModel()
+        .getCheckedItems()
+        .addListener(
+            new InvalidationListener() {
+              @Override
+              public void invalidated(Observable observable) {
+                filterFood(checkBox.getCheckModel().getCheckedItems());
+
+                System.out.println(
+                    "\n SELECTED ITEMS: " + checkBox.getCheckModel().getCheckedItems());
+              }
+            });
 
     // Cuisine
     MenuItem Am = new MenuItem("American");
@@ -138,17 +175,21 @@ public class MealDeliveryController {
           if (!filterList.contains("Indian")) filterList.add("Indian");
         });
 
-    apply.setOnMouseClicked(
+    /* apply.setOnMouseClicked(
         event -> {
           clear1();
           applyFilters();
         });
 
-    clearButton.setOnMouseClicked(
-        event -> {
-          Navigation.navigate(Screen.MEAL_DELIVERY1);
-          filters.clear();
-        });
+    */
+
+    /*clearButton.setOnMouseClicked(
+       event -> {
+         Navigation.navigate(Screen.MEAL_DELIVERY1);
+         filters.clear();
+       });
+
+    */
 
     checkout.setOnMouseClicked(event -> Navigation.navigate(Screen.ORDER_DETAILS));
 
@@ -177,26 +218,10 @@ public class MealDeliveryController {
           event -> store(DBR.getFoodDAO().getWalletFriendlyFood().get(finalII).getFoodID()));
     }
   }
-  /*
-   public void quickDelivery() {
-
-     for (int i = 0; i < DBR.getFoodDAO().getQuick().size(); i++) {
-       MFXButton btn = new MFXButton();
-       btn.setId(DBR.getFoodDAO().getQuick().get(i).toString());
-       btn.setText(DBR.getFoodDAO().getQuick().get(i).toString());
-       btn.setMaxWidth(103);
-       btn.setMaxHeight(87);
-       qd.getChildren().add(btn);
-
-       int finalI = i;
-       btn.setOnMouseClicked(event -> store(DBR.getFoodDAO().getQuick().get(finalI).getFoodID()));
-     }
-   }
-
-  */
 
   public void noFilter() {
     for (Food f : DBR.getFoodDAO().getFoods().values()) {
+      allFood.add(f);
 
       VBox food = new VBox();
       food.setMaxWidth(50);
@@ -208,6 +233,7 @@ public class MealDeliveryController {
       foodPic.setPreserveRatio(true);
       foodPic.setFitHeight(80);
       foodPic.setFitWidth(80);
+      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 15);");
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -271,38 +297,6 @@ public class MealDeliveryController {
     }
   }
 
-  /*
-  public void filterFoods(ObservableList<String> features) {
-    for (Food f : DBR.getFoodDAO().getFoods().values()) {
-      food.get(i).setVisible(false);
-      roomListVBoxes.get(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
-    }
-    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
-    System.out.println(features);
-
-    if (features.isEmpty()) {
-      System.out.println("Features empty!!!");
-      for (int i = 0; i < roomList.size(); i++) {
-        roomListVBoxes.get(i).setVisible(true);
-      }
-    }
-
-    for (int i = 0; i < roomList.size(); i++) {
-      for (int f = 0; f < features.size(); f++) {
-        if (!(roomList.get(i).getFeatures().contains(features.get(f)))) {
-          System.out.println(
-                  roomList.get(i).getLocation().getLongName() + " does not contain " + features.get(f));
-          break;
-        }
-        roomListVBoxes.get(i).setVisible(true);
-      }
-    }
-    System.out.println("Set things to visible");
-  }
-
-
-  */
-
   public Method chooseVegetarian() {
     for (Food f : DBR.getFoodDAO().getVegetarian()) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
@@ -310,6 +304,9 @@ public class MealDeliveryController {
       view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
+      if (!allFood.contains(f)) {
+        allFood.add(f);
+      }
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -321,9 +318,9 @@ public class MealDeliveryController {
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
-      flowPane.getChildren().add(btn1);
-      flowPane.setHgap(25);
-      flowPane.setVgap(25);
+      //  flowPane.getChildren().add(btn1);
+      //  flowPane.setHgap(25);
+      //   flowPane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -341,6 +338,9 @@ public class MealDeliveryController {
       view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
+      if (!allFood.contains(f)) {
+        allFood.add(f);
+      }
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -352,9 +352,9 @@ public class MealDeliveryController {
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
-      flowPane.getChildren().add(btn1);
-      flowPane.setHgap(25);
-      flowPane.setVgap(25);
+      // flowPane.getChildren().add(btn1);
+      // flowPane.setHgap(25);
+      // flowPane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -372,6 +372,9 @@ public class MealDeliveryController {
       view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
+      if (!allFood.contains(f)) {
+        allFood.add(f);
+      }
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -383,9 +386,9 @@ public class MealDeliveryController {
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
-      flowPane.getChildren().add(btn1);
-      flowPane.setHgap(25);
-      flowPane.setVgap(25);
+      // flowPane.getChildren().add(btn1);
+      // flowPane.setHgap(25);
+      /// flowPane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -403,6 +406,9 @@ public class MealDeliveryController {
       view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
+      if (!allFood.contains(f)) {
+        allFood.add(f);
+      }
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -414,9 +420,9 @@ public class MealDeliveryController {
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
-      flowPane.getChildren().add(btn1);
-      flowPane.setHgap(25);
-      flowPane.setVgap(25);
+      // flowPane.getChildren().add(btn1);
+      // flowPane.setHgap(25);
+      // flowPane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -434,6 +440,9 @@ public class MealDeliveryController {
       view.setPreserveRatio(false);
       view.setFitHeight(150);
       view.setFitWidth(150);
+      if (!allFood.contains(f)) {
+        allFood.add(f);
+      }
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
@@ -445,9 +454,9 @@ public class MealDeliveryController {
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
-      flowPane.getChildren().add(btn1);
-      flowPane.setHgap(25);
-      flowPane.setVgap(25);
+      // flowPane.getChildren().add(btn1);
+      // flowPane.setHgap(25);
+      // flowPane.setVgap(25);
 
       btn1.setOnMouseClicked(
           event -> {
@@ -492,6 +501,7 @@ public class MealDeliveryController {
     for (int i = 0; i < DBR.getFoodDAO().getMexican().size(); i++) {
       MFXButton btn = new MFXButton();
       btn.setId(DBR.getFoodDAO().getMexican().get(i).toString());
+
       btn.setText(DBR.getFoodDAO().getMexican().get(i).toString());
       btn.setMaxWidth(103);
       btn.setMaxHeight(87);
@@ -536,7 +546,7 @@ public class MealDeliveryController {
     System.out.println(lbl.getText());
     if (!filters.contains(x)) {
       filters.add(x);
-      filter.getChildren().add(lbl);
+      // filter.getChildren().add(lbl);
     }
   }
 
@@ -579,6 +589,87 @@ public class MealDeliveryController {
       if (filterList.get(i) == "indian") {
         chooseIndian();
       }
+    }
+  }
+
+  public void filterByDiet(ObservableList<String> restrictions) {
+    for (int i = 0; i < allFood.size(); i++) {
+
+      // allFood.get(i).setVisible(false);
+      // flowPane.getChildren(i).managedProperty().bind(roomListVBoxes.get(i).visibleProperty());
+    }
+    System.out.println("\n\nFILTERING BY FEATURE!!!! FEATURES: ");
+    System.out.println(restrictions);
+
+    if (restrictions.isEmpty()) {
+      System.out.println("Features empty!!!");
+      noFilter();
+    }
+
+    for (int i = 0; i < allFood.size(); i++) {
+      for (int f = 0; f < restrictions.size(); f++) {
+        if (!(allFood.get(i).getFoodCuisine().contains(restrictions.get(f)))) {
+
+          System.out.println(
+              allFood.get(i).getFoodCuisine() + " does not contain " + restrictions.get(f));
+          break;
+        }
+        // allFood.get(i).setVisible(true);
+      }
+    }
+    System.out.println("Set things to visible");
+  }
+
+  public void filterFood(ObservableList<String> filterNeeds) {
+
+    flowPane.getChildren().clear();
+
+    /*
+    if (filterNeeds.isEmpty()) {
+      System.out.println("Features empty!!!");
+      noFilter();
+    }
+
+     */
+    System.out.println("veg" + trueVeg);
+
+    allFood = (ArrayList<Food>) foodDAO.queriedFoods(filterNeeds);
+
+    System.out.println(allFood);
+
+    for (int f = 0; f < allFood.size(); f++) {
+
+      VBox food = new VBox();
+      food.setMaxWidth(50);
+      food.setMaxHeight(100);
+
+      Image pic = new Image(Main.class.getResource(allFood.get(f).getImage()).toString());
+      ImageView foodPic = new ImageView(pic);
+
+      foodPic.setPreserveRatio(true);
+      foodPic.setFitHeight(80);
+      foodPic.setFitWidth(80);
+      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 15);");
+
+      MFXButton btn1 = new MFXButton();
+      btn1.setId(allFood.get(f).toString());
+      btn1.setText(allFood.get(f).getFoodName());
+      btn1.setPrefWidth(150);
+      btn1.setPrefHeight(100);
+      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setWrapText(true);
+      btn1.setGraphic(foodPic);
+
+      flowPane.setPrefWrapLength(10);
+      flowPane.setHgap(20);
+      flowPane.setVgap(20);
+      flowPane.getChildren().add(btn1);
+
+      int finalF = f;
+      btn1.setOnMouseClicked(
+          event -> {
+            store(allFood.get(finalF).getFoodID());
+          });
     }
   }
 }

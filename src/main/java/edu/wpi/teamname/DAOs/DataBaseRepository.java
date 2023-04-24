@@ -45,6 +45,8 @@ public class DataBaseRepository {
   @Getter UserDAOImpl userDAO;
   @Getter RequestDAO requestDAO;
 
+  @Getter SignageDAOImpl signageDAO;
+
   private DataBaseRepository() {
     nodeDAO = new NodeDAOImpl();
     moveDAO = new MoveDAOImpl();
@@ -60,6 +62,7 @@ public class DataBaseRepository {
     officeSupplyDAO = new OfficeSupplyDAOImpl();
     officeSupplyDeliveryDAO = new OfficeSupplyDeliveryDAOImpl();
     requestDAO = new RequestDAO();
+    signageDAO = new SignageDAOImpl();
   }
 
   public static synchronized DataBaseRepository getInstance() {
@@ -88,6 +91,7 @@ public class DataBaseRepository {
     foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
     userDAO.initTable(connection.getLoginTable());
     requestDAO.initTable("all Requests");
+    signageDAO.initTable(connection.getSignageTable());
 
     officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
     officeSupplyDeliveryDAO.initTable(connection.getOSuppliesRequestsTable());
@@ -107,9 +111,7 @@ public class DataBaseRepository {
 
     officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
     officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
-    //    for (Move move : moveDAO.getAll()) {
-    //      System.out.println(move);
-    //    }
+    signageDAO.loadRemote("Hello World");
   }
 
   public boolean login(String text, String text1) throws Exception {
