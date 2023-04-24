@@ -8,11 +8,10 @@ import javafx.scene.layout.Pane;
 public class GameCenterController {
 
   @FXML private Pane snakeGamePane;
-  @FXML private Pane minecraftPane;
+  @FXML private Pane smashPane;
 
   public void initialize() {
     snakeGamePane.setOnMouseClicked(event -> Navigation.navigate(Screen.SNAKE_GAME));
-    // minecraftPane.setOnMouseClicked(event -> runMinecraft());
-    minecraftPane.setVisible(false);
+    smashPane.setOnMouseClicked(event -> Navigation.navigate(Screen.SMASH_GAME));
   }
 }

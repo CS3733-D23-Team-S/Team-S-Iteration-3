@@ -49,8 +49,9 @@ public enum Screen {
 
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
+  GAME_CENTER("views/Games/GameCenter.fxml"),
   SNAKE_GAME("views/Games/SnakeGame.fxml"),
-  GAME_CENTER("views/Games/GameCenter.fxml");
+  SMASH_GAME("views/Games/SmashGame.fxml");
 
   private final String filename;
 
