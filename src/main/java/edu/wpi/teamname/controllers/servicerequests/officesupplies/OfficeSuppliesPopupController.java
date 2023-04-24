@@ -57,7 +57,7 @@ public class OfficeSuppliesPopupController extends PopUpController {
   private void createDelivery() {
     OfficeSupply officeSupply = dbr.getOfficeSupplyDAO().get(OfficeSuppliesController.suppliesID);
     officeSupply.setQuantity(supplycounter);
-    OfficeSuppliesController.officeSupplyCart.addOfficeSupplyItem(officeSupply);
+    OfficeSuppliesController.Cart.addOfficeSupplyItem(officeSupply);
     stage.close();
   }
 

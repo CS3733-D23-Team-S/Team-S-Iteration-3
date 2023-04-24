@@ -153,6 +153,7 @@ public class ProductDetailsController extends PopUpController {
   public void showImage() {
     Image fImage = new Image(Main.class.getResource(selectedFood().getImage()).toString());
     foodImage.setImage(fImage);
+    foodImage.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 15);");
   }
 
   /*
