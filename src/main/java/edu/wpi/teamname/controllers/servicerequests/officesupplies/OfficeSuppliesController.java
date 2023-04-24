@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -54,6 +55,13 @@ public class OfficeSuppliesController {
     Cart = new OfficeSupplyCart(cartID++);
     osDevID = dbr.officeSupplyGetNewDeliveryID();
     lowerCart.setVisible(false);
+
+    Cart.getCartItems()
+        .addListener(
+            (ListChangeListener<OfficeSupply>)
+                change -> {
+                  displayCart();
+                });
 
     viewcartbutton.setOnMouseClicked(event -> openCart());
 

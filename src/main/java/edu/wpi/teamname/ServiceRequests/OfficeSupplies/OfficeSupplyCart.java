@@ -1,6 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.OfficeSupplies;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,12 +9,14 @@ import lombok.Setter;
 public class OfficeSupplyCart {
   @Getter @Setter private int cartID;
   // @Getter @Setter private HashMap<Integer, Flower> cartItems;
-  @Getter @Setter private ArrayList<OfficeSupply> cartItems;
+  // @Getter @Setter private ArrayList<OfficeSupply> cartItems;
+
+  @Getter @Setter ObservableList<OfficeSupply> cartItems;
 
   public OfficeSupplyCart(int cartID) {
     this.cartID = cartID;
     // cartItems = new HashMap<Integer, Flower>();
-    cartItems = new ArrayList<OfficeSupply>();
+    cartItems = FXCollections.observableArrayList();
   }
 
   public double getTotalPrice() {

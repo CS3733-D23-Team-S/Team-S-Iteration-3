@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -62,6 +63,14 @@ public class FlowerDeliveryController {
     flowerCart = new Cart(cartID++);
     flowDevID = dbr.flowerGetNewDeliveryID();
     lowerCart.setVisible(false);
+
+    flowerCart
+        .getCartItems()
+        .addListener(
+            (ListChangeListener<Flower>)
+                change -> {
+                  displayCart();
+                });
 
     viewcartbutton.setOnMouseClicked(event -> openCart());
 

@@ -1,6 +1,7 @@
 package edu.wpi.teamname.ServiceRequests.flowers;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,12 +9,13 @@ import lombok.Setter;
 public class Cart {
   @Getter @Setter private int cartID;
   // @Getter @Setter private HashMap<Integer, Flower> cartItems;
-  @Getter @Setter private ArrayList<Flower> cartItems;
+  // @Getter @Setter private ArrayList<Flower> cartItems;
+  @Getter @Setter ObservableList<Flower> cartItems;
 
   public Cart(int cartID) {
     this.cartID = cartID;
     // cartItems = new HashMap<Integer, Flower>();
-    cartItems = new ArrayList<Flower>();
+    cartItems = FXCollections.observableArrayList();
   }
 
   public double getTotalPrice() {
