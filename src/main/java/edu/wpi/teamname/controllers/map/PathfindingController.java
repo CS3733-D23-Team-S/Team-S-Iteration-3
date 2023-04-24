@@ -1268,35 +1268,35 @@ public class PathfindingController {
         floor1Circles.get(i).setFill(Color.RED);
       }
       if (displayAllNodesToggle.isSelected()) {
-        anchorPane.getChildren().addAll(floor1Circles);
+        showLocationNames2();
       }
     } else if (floor.getImage().equals(floor2)) {
       for (int i = 0; i < floor2Circles.size(); i++) {
         floor2Circles.get(i).setFill(Color.RED);
       }
       if (displayAllNodesToggle.isSelected()) {
-        anchorPane.getChildren().addAll(floor2Circles);
+        showLocationNames2();
       }
     } else if (floor.getImage().equals(floor3)) {
       for (int i = 0; i < floor3Circles.size(); i++) {
         floor3Circles.get(i).setFill(Color.RED);
       }
       if (displayAllNodesToggle.isSelected()) {
-        anchorPane.getChildren().addAll(floor3Circles);
+        showLocationNames2();
       }
     } else if (floor.getImage().equals(floorL1)) {
       for (int i = 0; i < floorL1Circles.size(); i++) {
         floorL1Circles.get(i).setFill(Color.RED);
       }
       if (displayAllNodesToggle.isSelected()) {
-        anchorPane.getChildren().addAll(floorL1Circles);
+        showLocationNames2();
       }
     } else if (floor.getImage().equals(floorL2)) {
       for (int i = 0; i < floorL2Circles.size(); i++) {
         floorL2Circles.get(i).setFill(Color.RED);
       }
       if (displayAllNodesToggle.isSelected()) {
-        anchorPane.getChildren().addAll(floorL2Circles);
+        showLocationNames2();
       }
     }
     anchorPane.getChildren().removeAll(pathLines);
