@@ -31,6 +31,8 @@ import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.ToggleSwitch;
 
+// import static sun.nio.ch.DatagramChannelImpl.AbstractSelectableChannels.forEach;
+
 public class NewMapEditorController {
 
   enum MoveState {
@@ -143,7 +145,29 @@ public class NewMapEditorController {
         FXCollections.observableArrayList("Conference Rooms", "Bathrooms", "Departments", "Labs");
 
     categorizeDropdown.getItems().addAll(categories);
+    categorizeLocations();
   }
+
+  //  public void newCategorize() {
+  //    catgories.stream()
+  //            .filter(event -> //ArrayList<Location> locations = new ArrayList<>();
+  //
+  //            if(categorizeDropdown.getItems().equals("Conference Rooms")) {
+  //              for (Location loc : repo.getLocationDAO().getAll()) {
+  //                if (loc.getNodeType() == NodeType.CONF) {
+  //                  generateLocationNodes(locations);
+  //                  locations.add(loc);
+  //                  System.out.println("Conf room nodes!");
+  //                  // generateConferenceNodes();
+  //                }
+  //                System.out.println("Conf room nodes!");
+  //              }
+  //            }
+  //            )
+  //    forEach(String item : categorizeDropdown.getItems()) {
+  //
+  //      }
+  //    }
 
   public void categorizeLocations() {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
@@ -157,35 +181,40 @@ public class NewMapEditorController {
                 event -> {
                   ArrayList<Location> locations = new ArrayList<>();
                   for (String item : categorizeDropdown.getItems()) {
-                    if (item.equals("Conference rooms")) {
+                    if (item.equals("Conference Rooms")) {
                       for (Location loc : repo.getLocationDAO().getAll()) {
                         if (loc.getNodeType() == NodeType.CONF) {
-                          generateFloorNodes();
+                          generateLocationNodes(locations);
                           locations.add(loc);
+                          System.out.println("Conf room nodes!");
                           // generateConferenceNodes();
                         }
+                        System.out.println("Conf room nodes!");
                       }
 
                     } else if (item.equals("Departments")) {
                       for (Location loc : repo.getLocationDAO().getAll()) {
                         if (loc.getNodeType() == NodeType.DEPT) {
-                          generateFloorNodes();
+                          generateLocationNodes(locations);
                           locations.add(loc);
+                          System.out.println("Department nodes!");
                         }
                       }
                     } else if (item.equals("Bathrooms")) {
                       for (Location loc : repo.getLocationDAO().getAll()) {
                         if (loc.getNodeType() == NodeType.BATH
                             || loc.getNodeType() == NodeType.REST) {
-                          generateFloorNodes();
+                          generateLocationNodes(locations);
                           locations.add(loc);
+                          System.out.println("Bathroom nodes!");
                         }
                       }
                     } else if (item.equals("Labs")) {
                       for (Location loc : repo.getLocationDAO().getAll()) {
                         if (loc.getNodeType() == NodeType.LABS) {
-                          generateFloorNodes();
+                          generateLocationNodes(locations);
                           locations.add(loc);
+                          System.out.println("Lab nodes!");
                         }
                       }
                     }
@@ -199,22 +228,23 @@ public class NewMapEditorController {
      Labs - Orange
   */
   ArrayList<Location> locations = new ArrayList<>();
-
-  public void generateConferenceNodes() {
-    anchorPane.getChildren().removeAll(listOfCircles.keySet());
-    listOfCircles.clear();
-    for (Node floorNode : repo.getNodeDAO().getAll()) {
-      for (Location loc : repo.getLocationDAO().getAll()) {
-        if (!floorNode.getFloor().equals(currFloor) && loc.getNodeType() == NodeType.CONF) continue;
-        Circle newCircle =
-            new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.BLUE);
-        initCircle(newCircle);
-        listOfCircles.put(newCircle, floorNode);
-        prevSelection = newCircle;
-      }
-      anchorPane.getChildren().addAll(listOfCircles.keySet());
-    }
-  }
+  //
+  //  public void generateConferenceNodes() {
+  //    anchorPane.getChildren().removeAll(listOfCircles.keySet());
+  //    listOfCircles.clear();
+  //    for (Node floorNode : repo.getNodeDAO().getAll()) {
+  //      for (Location loc : repo.getLocationDAO().getAll()) {
+  //        if (!floorNode.getFloor().equals(currFloor) && loc.getNodeType() == NodeType.CONF)
+  // continue;
+  //        Circle newCircle =
+  //            new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.BLUE);
+  //        initCircle(newCircle);
+  //        listOfCircles.put(newCircle, floorNode);
+  //        prevSelection = newCircle;
+  //      }
+  //      anchorPane.getChildren().addAll(listOfCircles.keySet());
+  //    }
+  //  }
 
   public void generateLocationNodes(ArrayList<Location> locations) {
     anchorPane.getChildren().removeAll(listOfCircles.keySet());
