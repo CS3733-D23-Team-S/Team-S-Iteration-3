@@ -12,8 +12,7 @@ public class GameCenterController {
 
   public void initialize() {
     snakeGamePane.setOnMouseClicked(event -> Navigation.navigate(Screen.SNAKE_GAME));
-    //minecraftPane.setOnMouseClicked(event -> runMinecraft());
+    // minecraftPane.setOnMouseClicked(event -> runMinecraft());
+    minecraftPane.setVisible(false);
   }
-
-
 }

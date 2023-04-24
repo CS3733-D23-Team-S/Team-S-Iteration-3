@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -30,9 +31,11 @@ public class SnakeGameController {
   @FXML private Button playAgain;
   // private Button playAgainCopy;
   @FXML private Canvas canvas;
+  @FXML private AnchorPane anchorPane;
 
   @FXML
   public void initialize() {
+    // anchorPane.
     System.out.println(canvas.getHeight());
     System.out.println(canvas.getWidth());
     System.out.println("Playing Snake Game");
