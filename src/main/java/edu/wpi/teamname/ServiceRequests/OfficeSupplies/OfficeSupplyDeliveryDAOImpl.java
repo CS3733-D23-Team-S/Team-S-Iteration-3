@@ -4,9 +4,8 @@ import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequ
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
@@ -149,6 +148,23 @@ public class OfficeSupplyDeliveryDAOImpl implements ISRDAO<OfficeSupplyDelivery,
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public void importCSV(String path) {
+    dropTable();
+    requests.clear();
+    loadRemote(path);
+  }
+
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("deliveryid,cart,date,time,room,orderedBy,assignedTo,orderStatus,cost");
+
+    for (OfficeSupplyDelivery osd : requests.values()) {
+      fileWriter.newLine();
+      fileWriter.write(osd.toCSVString());
+    }
+    fileWriter.close();
   }
 
   /**
