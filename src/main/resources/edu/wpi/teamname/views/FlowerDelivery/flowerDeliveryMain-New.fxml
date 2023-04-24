@@ -20,15 +20,15 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+<BorderPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
     <center>
-        <GridPane prefHeight="800.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
+        <GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints percentWidth="25.0" />
+                <ColumnConstraints percentWidth="35.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
@@ -67,7 +67,7 @@
                      <children>
                         <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                            <HBox.margin>
-                              <Insets right="35.0" />
+                              <Insets right="20.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Open Sans Regular" size="12.0" />

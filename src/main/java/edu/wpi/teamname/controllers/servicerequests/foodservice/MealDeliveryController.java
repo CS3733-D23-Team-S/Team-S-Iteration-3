@@ -233,14 +233,15 @@ public class MealDeliveryController {
       foodPic.setPreserveRatio(true);
       foodPic.setFitHeight(80);
       foodPic.setFitWidth(80);
-      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 15);");
+      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 5);");
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getFoodName());
       btn1.setPrefWidth(150);
       btn1.setPrefHeight(100);
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.8), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(foodPic);
 
@@ -649,14 +650,15 @@ public class MealDeliveryController {
       foodPic.setPreserveRatio(true);
       foodPic.setFitHeight(80);
       foodPic.setFitWidth(80);
-      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 15);");
+      foodPic.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(26,26,21,0.8), 10, 0, 0, 5);");
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(allFood.get(f).toString());
       btn1.setText(allFood.get(f).getFoodName());
       btn1.setPrefWidth(150);
       btn1.setPrefHeight(100);
-      btn1.setStyle("-fx-background-radius:10 10 10 10;");
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.8), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(foodPic);
 

@@ -3,7 +3,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="400" prefHeight="900" prefWidth="1600" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600" minWidth="400" prefHeight="900" prefWidth="1600" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="90.0" prefWidth="100.0" />
@@ -24,7 +23,6 @@
       <RowConstraints maxHeight="155.39048767089844" minHeight="10.0" percentHeight="10.0" prefHeight="83.30475616455078" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="155.39048767089844" minHeight="10.0" percentHeight="15.0" prefHeight="83.30475616455078" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="15.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="70.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="5.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
@@ -36,24 +34,32 @@
 
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <MFXTextField prefHeight="51.0" prefWidth="340.0" promptText="Search for food...">
+            <MFXTextField prefHeight="51.0" prefWidth="340.0" promptText="Search for food..." stylesheets="@../../../../../Stylesheets/MealDelivery.css">
                <font>
                   <Font name="Open Sans Regular" size="18.0" />
                </font></MFXTextField>
-            <CheckComboBox fx:id="checkBox" prefHeight="51.0" prefWidth="500.0" style="-fx-border-radius: 5 5 5 5;" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="Filter by">
+               <font>
+                  <Font name="Open Sans Regular" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="170.0" />
+               </HBox.margin>
+            </Text>
+            <CheckComboBox fx:id="checkBox" prefHeight="51.0" prefWidth="500.0" style="-fx-border-radius: 5 5 5 5;" stylesheets="@../../../../../Stylesheets/MealDelivery.css" title="" />
          </children>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <FlowPane fx:id="flowPane" columnHalignment="RIGHT" prefHeight="512.0" prefWidth="1412.0" stylesheets="@../../../../../Stylesheets/MealDelivery.css" />
          </children>
       </VBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery">
                      <font>
                         <Font size="48.0" />
                      </font>
@@ -61,7 +67,7 @@
                         <Insets right="600.0" />
                      </HBox.margin>
                   </Text>
-                  <MFXButton fx:id="checkout" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: #1d3d94; -fx-background-radius: 10 10 10 10;" text="View Cart&gt;" textFill="WHITE">
+                  <MFXButton fx:id="checkout" prefHeight="57.0" prefWidth="187.0" style="-fx-background-color: #1D3D94;" text="View Cart&gt;" textFill="WHITE">
                      <font>
                         <Font name="Open Sans Regular" size="18.0" />
                      </font>
@@ -73,19 +79,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox fx:id="filter" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <Label alignment="CENTER" text="Filters:" textFill="#122e59">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" GridPane.rowSpan="6" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="6" />
    </children>
