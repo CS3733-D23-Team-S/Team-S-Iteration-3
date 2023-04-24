@@ -122,16 +122,20 @@ public class OfficeSuppliesController {
     for (OfficeSupply f : dbr.getOfficeSupplyDAO().getSupplies().values()) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(false);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+
+      view.setPreserveRatio(true);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
+      // When Actual Images like Food
+      // view.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 5);");
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(150);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 10; -fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 

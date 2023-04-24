@@ -241,7 +241,7 @@ public class MealDeliveryController {
       btn1.setPrefWidth(150);
       btn1.setPrefHeight(100);
       btn1.setStyle(
-          "-fx-background-radius:10 10 10 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.8), 10, 0, 0, 5);");
+          "-fx-background-radius:10 10 10 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(foodPic);
 

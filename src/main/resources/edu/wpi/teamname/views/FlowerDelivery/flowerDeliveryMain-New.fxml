@@ -28,7 +28,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints percentWidth="35.0" />
+                <ColumnConstraints percentWidth="25.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
@@ -97,7 +97,7 @@
                               <Insets />
                            </HBox.margin>
                         </MenuButton>
-                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
+                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff; -fx-border-color: #C0C0C0; -fx-border-radius: 10 10 10 10;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
                            <font>
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
@@ -185,7 +185,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <VBox prefHeight="580.0" prefWidth="234.0" style="-fx-background-color: #B5C5EE;">
+                  <VBox prefHeight="634.0" prefWidth="286.0" style="-fx-background-color: #B5C5EE;">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee:">
                            <font>
@@ -234,7 +234,7 @@
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <HBox alignment="CENTER" maxHeight="142.0" prefHeight="70.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
+                  <HBox alignment="CENTER" maxHeight="142.0" prefHeight="125.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
                      <children>
                         <MFXButton fx:id="submitButton" prefHeight="48.0" prefWidth="100.0" style="-fx-background-color: #1D3D94;" text="Submit" textFill="WHITE">
                            <font>
