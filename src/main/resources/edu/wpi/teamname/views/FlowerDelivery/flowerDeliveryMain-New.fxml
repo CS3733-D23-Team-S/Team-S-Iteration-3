@@ -81,27 +81,14 @@
                               <Font name="Open Sans Regular" size="20.0" />
                            </font>
                            <HBox.margin>
-                              <Insets />
+                              <Insets left="170.0" />
                            </HBox.margin>
                         </Text>
-                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
+                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-text-fill: #000000;" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
                            <items>
                               <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
                               <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
                               <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
-                           </items>
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </MenuButton>
-                        <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Price" textFill="WHITE">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="\$50" />
-                              <MenuItem mnemonicParsing="false" text="\$100" />
-                              <MenuItem mnemonicParsing="false" text="\$200" />
                            </items>
                            <font>
                               <Font size="20.0" />

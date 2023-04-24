@@ -4,8 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
@@ -76,35 +74,6 @@
                                         <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                                     </textFill>
                                 </MFXTextField>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="Filter by">
-                                    <font>
-                                        <Font name="Open Sans Regular" size="20.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="190.0" />
-                                    </HBox.margin>
-                                </Text>
-                                <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Price" textFill="WHITE">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="\$50" />
-                                        <MenuItem mnemonicParsing="false" text="\$100" />
-                                        <MenuItem mnemonicParsing="false" text="\$200" />
-                                    </items>
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                </MenuButton>
-                                <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
-                                    <font>
-                                        <Font name="Open Sans Regular" size="20.0" />
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets />
-                                    </HBox.margin>
-                                </MFXButton>
                             </children>
                             <VBox.margin>
                                 <Insets top="10.0" />

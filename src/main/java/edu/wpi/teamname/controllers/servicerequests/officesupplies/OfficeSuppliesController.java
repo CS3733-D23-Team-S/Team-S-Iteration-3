@@ -29,7 +29,6 @@ import org.controlsfx.control.SearchableComboBox;
 public class OfficeSuppliesController {
   public static int suppliesID;
   @FXML MFXButton viewcartbutton;
-  @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML VBox cartBox;
   @FXML VBox checkOutBox;
@@ -67,7 +66,6 @@ public class OfficeSuppliesController {
 
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
-    clearfilter.setOnMouseClicked(event -> noFilter());
     clearCart.setOnMouseClicked(event -> clearCart());
     checkOutBox.setVisible(false);
 
