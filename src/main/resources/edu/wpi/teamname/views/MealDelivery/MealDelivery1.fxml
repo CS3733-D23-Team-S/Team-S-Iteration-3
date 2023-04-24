@@ -27,7 +27,7 @@
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="70.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="5.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="15.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="286.5475311279297" minHeight="10.0" percentHeight="10.0" prefHeight="261.1952438354492" vgrow="SOMETIMES" />
       <RowConstraints />
    </rowConstraints>
    <children>
@@ -40,12 +40,12 @@
                <font>
                   <Font name="Open Sans Regular" size="18.0" />
                </font></MFXTextField>
-            <CheckComboBox fx:id="checkBox" prefHeight="26.0" prefWidth="387.0" />
+            <CheckComboBox fx:id="checkBox" prefHeight="51.0" prefWidth="500.0" style="-fx-border-radius: 5 5 5 5;" />
          </children>
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <FlowPane fx:id="flowPane" columnHalignment="RIGHT" prefHeight="615.0" prefWidth="1440.0" stylesheets="@../../../../../Stylesheets/MealDelivery.css" />
+            <FlowPane fx:id="flowPane" columnHalignment="RIGHT" prefHeight="512.0" prefWidth="1412.0" stylesheets="@../../../../../Stylesheets/MealDelivery.css" />
          </children>
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="840.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
