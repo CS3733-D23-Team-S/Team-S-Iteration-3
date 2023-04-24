@@ -11,6 +11,7 @@ import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -467,6 +468,22 @@ public class PathfindingController {
       startingLocationError.setText("");
       destinationError.setText("");
       datePickerError.setText("");
+      // remove selected nodes if they were selected via clicking on them
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        floor1Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        floor2Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        floor3Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        floorL1Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        floorL2Circles.get(i).setFill(Color.RED);
+      }
       // find node IDs through moves
       for (int i = 0; i < dbr.getMoveDAO().getListOfMoves().size(); i++) {
         if (dbr.getMoveDAO()
@@ -607,7 +624,7 @@ public class PathfindingController {
         }
         Line line = new Line(startX, startY, endX, endY);
         line.setFill(Color.BLACK);
-        line.setStrokeWidth(5.0);
+        line.setStrokeWidth(2.0);
         if (thisFloor != nextFloor) {
           // line stops at this point
         } else {
@@ -1088,7 +1105,7 @@ public class PathfindingController {
 
   public void clearFields() {
     floorOrderLabel.setText("");
-    datePicker.setValue(null);
+    datePicker.setValue(LocalDate.now());
     anchorPane.getChildren().removeAll(floor1Lines);
     anchorPane.getChildren().removeAll(floor2Lines);
     anchorPane.getChildren().removeAll(floor3Lines);
@@ -1180,6 +1197,8 @@ public class PathfindingController {
     if (ActiveUser.getInstance().isLoggedIn()) {
       pathfindingToLogin.setVisible(false);
     }
+
+    datePicker.setValue(LocalDate.now());
 
     algList.getItems().addAll("AStar", "Dijkstra's", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
