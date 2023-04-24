@@ -191,8 +191,8 @@ public class PathfindingController {
           if (dataBase.getMoveDAO().getAll().get(j).getNodeID() == nodeList.get(i).getNodeID()) {
             Text location = new Text();
             location.setText(dataBase.getMoveDAO().getAll().get(j).getLocationName());
-            location.setX(circlesOnFloor.get(i).getCenterX());
-            location.setY(circlesOnFloor.get(i).getCenterY());
+            location.setX(circlesOnFloor.get(i).getCenterX() - 20.0);
+            location.setY(circlesOnFloor.get(i).getCenterY() + 25.0);
             locations.add(location);
           }
         }
@@ -989,8 +989,6 @@ public class PathfindingController {
       Circle newCircle =
           new Circle(
               floorL1Nodes.get(i).getXCoord(), floorL1Nodes.get(i).getYCoord(), 10.0, Color.RED);
-      newCircle.setTranslateX(floorL1Nodes.get(i).getXCoord());
-      newCircle.setTranslateY(floorL1Nodes.get(i).getYCoord());
       floorL1Circles.add(newCircle);
       Node aNode = floorL1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
@@ -1036,8 +1034,6 @@ public class PathfindingController {
       Circle newCircle =
           new Circle(
               floorL2Nodes.get(i).getXCoord(), floorL2Nodes.get(i).getYCoord(), 10.0, Color.RED);
-      newCircle.setTranslateX(floorL2Nodes.get(i).getXCoord());
-      newCircle.setTranslateY(floorL2Nodes.get(i).getYCoord());
       floorL2Circles.add(newCircle);
       Node aNode = floorL2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
