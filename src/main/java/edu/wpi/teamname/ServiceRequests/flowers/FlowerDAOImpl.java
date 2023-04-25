@@ -153,7 +153,7 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       preparedStatement.setDouble(4, thisFlower.getPrice());
       preparedStatement.setInt(5, thisFlower.getQuantity());
       preparedStatement.setString(6, thisFlower.getMessage());
-      preparedStatement.setBoolean(7, thisFlower.getIsSoldOut());
+      preparedStatement.setBoolean(7, thisFlower.isSoldOut());
       preparedStatement.setString(8, thisFlower.getDescription());
       preparedStatement.setString(9, thisFlower.getImage());
 
@@ -176,13 +176,13 @@ public class FlowerDAOImpl implements IDAO<Flower, Integer> {
       String listOfFlowers = "SELECT * FROM " + name;
       ResultSet rs = stmt.executeQuery(listOfFlowers);
       while (rs.next()) {
-        Integer ID = rs.getInt("ID");
+        int ID = rs.getInt("ID");
         String name = rs.getString("flowerName");
         Size size = Size.valueOf(rs.getString("size"));
-        Double price = rs.getDouble("price");
-        Integer quantity = rs.getInt("quantity");
+        double price = rs.getDouble("price");
+        int quantity = rs.getInt("quantity");
         String message = rs.getString("message");
-        Boolean SoldOut = rs.getBoolean("SoldOut");
+        boolean SoldOut = rs.getBoolean("SoldOut");
         String description = rs.getString("description");
         String image = rs.getString("image");
 

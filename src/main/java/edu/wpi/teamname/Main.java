@@ -14,8 +14,8 @@ public class Main {
     //    //    thread.start();
     //    moveDAO.constructForGivenDate(LocalDate.now());
     //    moveDAO.getFutureMoves();
-    thread = new ConnectionThread();
-    thread.start();
+//    thread = new ConnectionThread();
+//    thread.start();
     App.launch(App.class, args);
     // dbConnection.getInstance().getConnection().close();
     System.out.println("Loaded everything");
