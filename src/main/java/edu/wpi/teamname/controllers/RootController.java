@@ -30,6 +30,7 @@ public class RootController {
   @FXML ImageView roomIcon;
   @FXML ImageView flowerIcon;
   @FXML ImageView officeIcon;
+  @FXML ImageView helpIcon;
 
   // top bar icons
   @FXML ImageView homeLogo1;
@@ -111,6 +112,14 @@ public class RootController {
           Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
         });
 
+    helpIcon.setOnMouseClicked(
+        event -> {
+          // changeMenuItem(menuoffice);
+          Image i = new Image(String.valueOf(Main.class.getResource("templateIcons/helpicon.png")));
+          helpIcon.setImage(i);
+          Navigation.navigate(Screen.HELP_PAGE);
+        });
+
     homeIcon.addEventHandler(
         javafx.scene.input.MouseEvent.MOUSE_CLICKED,
         event -> {
@@ -134,13 +143,9 @@ public class RootController {
         });
 
     // Logout Button
-    logoutIcon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
+    logoutIcon.setOnMouseClicked(
         event -> {
-          Navigation.navigate(Screen.SIGNAGE_PAGE);
-          ActiveUser.getInstance().setCurrentUser(null);
-          ActiveUser.getInstance().setLoggedIn(false);
-          event.consume();
+          Navigation.launchPopUp(Screen.ROOT_LOGOUT_POPUP);
         });
 
     userIcon.setCursor(Cursor.HAND);
