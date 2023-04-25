@@ -6,6 +6,7 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,7 +23,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -46,9 +46,9 @@ public class RoomBookingController {
   @FXML HBox conferenceRoomsHBox; // hbox containing all conference rooms and schedules
   @FXML CheckComboBox featureFilterComboBox;
   @FXML MFXDatePicker DateFilterPicker;
-  @FXML ScrollPane scrollPane;
   @FXML MFXButton dateBackButton;
   @FXML MFXButton dateNextButton;
+  @FXML MFXToggleButton meetingsToggle;
 
   public static RoomRequestDAO roomRequestDAO =
       DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -61,13 +61,14 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
-    scrollPane.setStyle("-fx-box-border: transparent;");
+    //  scrollPane.setStyle("-fx-box-border: transparent;");
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
     addMeetingButton.setCursor(Cursor.HAND);
 
     initializeRooms();
     featureFilterComboBox.getItems().addAll("Whiteboard", "DocCamera", "Projector");
+    featureFilterComboBox.setStyle("-fx-background-color: #FFFFFF");
     dateHeaderTextField.setText(
         //  LocalDate.now().format(DateTimeFormatter.ofPattern("EE, dd MMM yyyy")));
         LocalDate.now().toString());
@@ -102,7 +103,6 @@ public class RoomBookingController {
                   LocalDate oldValue,
                   LocalDate newValue) {
                 filterDate(newValue);
-                System.out.println("Filtering by new date: " + newValue);
               }
             });
 
@@ -110,7 +110,6 @@ public class RoomBookingController {
         event -> {
           LocalDate textDate = LocalDate.parse(dateHeaderTextField.getText());
           LocalDate newdate = textDate.minusDays(1);
-          System.out.println(newdate.toString());
           dateHeaderTextField.setText(newdate.toString());
           filterDate(newdate);
         });
@@ -119,9 +118,17 @@ public class RoomBookingController {
         event -> {
           LocalDate textDate = LocalDate.parse(dateHeaderTextField.getText());
           LocalDate newdate = textDate.plusDays(1);
-          System.out.println(newdate.toString());
           dateHeaderTextField.setText(newdate.toString());
           filterDate(newdate);
+        });
+
+    meetingsToggle.setOnAction(
+        event -> {
+          if (meetingsToggle.getText().equals("Your meetings")) {
+            meetingsToggle.setText("All meetings");
+          } else {
+            meetingsToggle.setText("Your meetings");
+          }
         });
   }
 
@@ -148,8 +155,6 @@ public class RoomBookingController {
             "staff member",
             isPrivate);
     DataBaseRepository.getInstance().addRoomRequest(newRequest); // TODO need this?
-
-    System.out.println("ISPRIVATE FROM NEWREQUEST: " + isPrivate);
   }
 
   public void initializeRooms() {
@@ -175,6 +180,7 @@ public class RoomBookingController {
       roomVBox.setMaxWidth(170);
       roomVBox.setSpacing(5);
       // roomVBox.setStyle("-fx-border-style: solid dashed double dotted");
+      roomVBox.setStyle("-fx-background-color: WHITE");
       roomVBox.setStyle("-fx-border-color: #00000000 #D8D8D8 #FFFFFF00 #D8D8D8");
       // #D8D8D8
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
@@ -226,7 +232,6 @@ public class RoomBookingController {
     for (ConfRoomRequest i : roomRequestDAO.getAll()) {
       if (i.getEventDate().equals(date)) {
         this.addToUI(i);
-        System.out.println("Added request " + i.getEventName());
       }
     }
   }
@@ -253,7 +258,6 @@ public class RoomBookingController {
         roomListVBoxes.get(i).setVisible(true);
       }
     }
-    System.out.println("Set things to visible");
   }
 
   public void clearUI() {
@@ -278,33 +282,33 @@ public class RoomBookingController {
         roomRequest.getStartTime().until(roomRequest.getEndTime(), ChronoUnit.MINUTES);
     rect.setHeight(85 + timeBetween / 2);
 
+    if (roomRequest
+        .getReservedBy()
+        .equals(ActiveUser.getInstance().getCurrentUser().getUserName())) {
+      System.out.println("This is your meeting!");
+      rect.getStyleClass().clear();
+    }
+
+    // TODO fix!!!!!!
+
+    meetingsToggle
+        .selectedProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              if (meetingsToggle.isSelected()) {
+                if (roomRequest
+                    .getReservedBy()
+                    .equals(ActiveUser.getInstance().getCurrentUser().getUserName())) {
+                  System.out.println("This is your meeting!");
+                  rect.setFill(Paint.valueOf("#E7D3FF"));
+                }
+              } else {
+                rect.setStyle("-fx-effect: NONE");
+              }
+            }));
+
     Label descriptionHover = new Label(roomRequest.getEventDescription());
     descriptionHover.setStyle("-fx-text-fill: #1D3D94");
-
-    /*
-    Label poTitle = new Label(roomRequest.getEventName());
-    poTitle.setStyle("-fx-font-weight: bold");
-    poTitle.setStyle("-fx-font-size: 20px");
-    Label poDescription = new Label(roomRequest.getEventDescription());
-    Label poRoom = new Label(roomRequest.getRoom());
-    Label poDate = new Label(roomRequest.getEventDate().toString());
-    Label poTimes =
-        new Label(
-            roomRequest.getStartTime().toString() + " - " + roomRequest.getEndTime().toString());
-    VBox poVBox = new VBox(poTitle, poDescription, poRoom, poDate, poTimes);
-
-    PopOver popover = new PopOver(poVBox);
-
-    rect.setOnMouseEntered(
-        mouseEvent -> {
-          popover.show(rect);
-        });
-    rect.setOnMouseExited(
-        mouseEvent -> {
-          popover.hide();
-        });
-
-     */
 
     VBox eventVBox = new VBox();
     eventVBox.setSpacing(2);
@@ -327,13 +331,6 @@ public class RoomBookingController {
     time.setFont(Font.font("Open Sans", 13));
     time.setFill(Paint.valueOf("#1D3D9450"));
 
-    System.out.println(
-        "Checking for room request in UI: "
-            + roomRequest.getEventName()
-            + " check: "
-            + roomRequest.isPrivate());
-
-    // Image lockimage = new Image("images/lockicon.png");
     ImageView lockImage = new ImageView((String) "edu/wpi/teamname/images/lockicon.png");
     lockImage.setFitHeight(15);
     lockImage.setFitWidth(15);

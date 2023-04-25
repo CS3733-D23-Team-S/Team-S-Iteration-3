@@ -1,6 +1,16 @@
-.room-request-rect {
-    -fx-background-color: #d9e4ff;
-    }
+* {
+    -fx-font-family: "Open Sans";
+}
+
+.filtercombobox {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 16;
+}
+
+.yourmeeting {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 5, 0.0, 0.0);
+}
+
 
 
     /*<Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c5ee" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="room-request-rect" width="187.0" />*/
