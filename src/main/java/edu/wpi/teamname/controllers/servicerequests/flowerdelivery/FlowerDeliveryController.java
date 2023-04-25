@@ -205,7 +205,7 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(150);
+      btn1.setPrefWidth(160);
       btn1.setPrefHeight(100);
       btn1.setStyle(
           "-fx-background-radius:10 10 10 10; -fx-font-size: 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
@@ -235,10 +235,10 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(150);
+      btn1.setPrefWidth(175);
       btn1.setPrefHeight(100);
       btn1.setStyle(
-          "-fx-background-radius:10 10 10 10; -fx-font-size: 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
