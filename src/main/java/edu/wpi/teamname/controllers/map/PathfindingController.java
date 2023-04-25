@@ -42,9 +42,13 @@ public class PathfindingController {
     message.setY(1700);
     anchorPane.getChildren().add(message);
     // test to see if it would add anything - it wouldn't
-//    Circle testC = new Circle(0.0, 0.0, 50.0, Color.BLACK);
-//    anchorPane.getChildren().addAll(floor1Circles);
-//    destinationError.setText("Test");
+    //    Circle testC = new Circle(0.0, 0.0, 50.0, Color.BLACK);
+    //    anchorPane.getChildren().addAll(floor1Circles);
+    //    destinationError.setText("Test");
+
+    // caused an error "cannot invoke Label.setText(String) because 'this.floorOrderLabel' is null"
+    // floorOrderLabel.setText("test");
+    // destinationError.setText("test");
   }
 
   @FXML MFXButton findPathButton;
