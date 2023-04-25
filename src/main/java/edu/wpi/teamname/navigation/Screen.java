@@ -44,7 +44,9 @@ public enum Screen {
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
 
-  STAFFHOME("views/StaffHome.fxml");
+  STAFFHOME("views/StaffHome.fxml"),
+
+  SIGNAGE_EDITOR("views/SignageEditor.fxml");
 
   private final String filename;
 

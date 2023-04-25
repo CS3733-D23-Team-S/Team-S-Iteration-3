@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SinageEditorController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.2962455749512" minWidth="10.0" percentWidth="2.0" prefWidth="116.99998474121094" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="823.3703765869141" minWidth="10.0" prefWidth="543.5555623372396" />
@@ -47,8 +47,8 @@
       </Text>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <children>
-            <SearchableComboBox maxHeight="50.0" maxWidth="70.0" minHeight="10.0" minWidth="9.0" prefHeight="140.0" prefWidth="83.0" promptText="&lt;&gt;" />
-            <SearchableComboBox maxHeight="50.0" maxWidth="400.0" prefWidth="400.0" promptText="Location">
+            <SearchableComboBox fx:id="DirectionCB" maxHeight="50.0" maxWidth="70.0" minHeight="10.0" minWidth="9.0" prefHeight="140.0" prefWidth="83.0" />
+            <SearchableComboBox fx:id="LocationCB" maxHeight="50.0" maxWidth="400.0" prefWidth="400.0" promptText="Location">
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
@@ -58,15 +58,23 @@
             <Insets />
          </GridPane.margin>
       </HBox>
-      <MFXDatePicker GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <MFXDatePicker fx:id="DateP" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <children>
-            <MFXButton prefHeight="59.0" prefWidth="115.0" styleClass="submitbutton" text="Add" textFill="WHITE">
+            <MFXButton fx:id="AUBTN" prefHeight="59.0" prefWidth="115.0" styleClass="submitbutton" text="Add/Update" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="RemBTN" prefHeight="56.0" prefWidth="115.0" styleClass="clearbutton" text="Remove">
                <font>
                   <Font size="20.0" />
                </font>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
             </MFXButton>
-            <MFXButton prefHeight="56.0" prefWidth="115.0" styleClass="clearbutton" text="Remove">
+            <MFXButton fx:id="ClearBTN" prefHeight="56.0" prefWidth="115.0" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" text="Clear">
                <font>
                   <Font size="20.0" />
                </font>
@@ -83,21 +91,21 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.1112060546875" minWidth="10.0" prefWidth="32.5555419921875" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="51.296288384331596" minHeight="0.0" percentHeight="2.0" prefHeight="0.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="161.62963104248047" minHeight="10.0" percentHeight="85.0" prefHeight="137.92594146728516" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="51.296288384331596" minHeight="0.0" percentHeight="7.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="161.62963104248047" minHeight="10.0" percentHeight="80.0" prefHeight="137.92594146728516" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="351.5185326470269" minHeight="10.0" percentHeight="13.0" prefHeight="233.6296140882704" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="983.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <VBox alignment="CENTER" prefHeight="178.0" prefWidth="1149.0">
+                  <VBox fx:id="UpBox" alignment="CENTER" prefHeight="0.0" prefWidth="369.0">
                      <children>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="← X-Ray" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="↑  X-Ray" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="← Radioncology" textAlignment="RIGHT" textFill="WHITE">
+                        <Label prefHeight="30.0" prefWidth="800.0" text="↑ Radioncology" textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
@@ -107,14 +115,14 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox fx:id="RightBox" alignment="CENTER">
                      <children>
-                        <Label contentDisplay="CENTER" prefHeight="80.0" prefWidth="800.0" text="↑ Information Desk" textAlignment="CENTER" textFill="WHITE">
+                        <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="369.0" text="→ Information Desk" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="80.0" prefWidth="800.0" text="↑ Emergency Room" textAlignment="CENTER" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="30.0" prefWidth="369.0" text="→ Emergency Room" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
@@ -127,9 +135,9 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="85.0" prefWidth="1149.0">
+                  <VBox fx:id="LeftBox" alignment="CENTER" prefHeight="25.0" prefWidth="369.0">
                      <children>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="↓ Orthidontist" textAlignment="CENTER" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="←Orthidontist" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
@@ -139,19 +147,19 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="247.0" prefWidth="1149.0">
+                  <VBox fx:id="DownBox" alignment="CENTER" prefHeight="98.0" prefWidth="369.0">
                      <children>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="→ Ears, Nose and Throat" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Ears, Nose and Throat" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="→ Ultrasound Labs " textAlignment="RIGHT" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Ultrasound Labs " textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="→ Restrooms " textAlignment="RIGHT" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Restrooms " textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
@@ -167,5 +175,13 @@
             </Label>
          </children>
       </GridPane>
+      <MFXButton prefHeight="58.0" prefWidth="161.0" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="6">
+         <font>
+            <Font size="22.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="500.0" />
+         </GridPane.margin>
+      </MFXButton>
    </children>
 </GridPane>

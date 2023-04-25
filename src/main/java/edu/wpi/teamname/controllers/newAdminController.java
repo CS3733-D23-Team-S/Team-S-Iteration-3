@@ -32,6 +32,7 @@ public class newAdminController {
   @FXML TableView moveTable;
   @FXML TableView allTable;
   @FXML MFXButton impexpButton;
+  @FXML MFXButton SignageEdit;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
@@ -43,6 +44,7 @@ public class newAdminController {
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
+    SignageEdit.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_EDITOR));
 
     TableColumn<Food, String> Mcolumn1 = new TableColumn<>("RequestID");
     Mcolumn1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));
