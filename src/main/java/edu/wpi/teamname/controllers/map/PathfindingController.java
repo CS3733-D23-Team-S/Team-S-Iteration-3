@@ -395,6 +395,11 @@ public class PathfindingController {
         new Point2D(importantCircles.get(0).getCenterX(), importantCircles.get(0).getCenterY()));
   }
 
+  public void checkCircles(Floor prev, Floor curr, Floor next, List<Circle> loc, Circle circle) {
+    if (!(!prev.equals(null) && prev != curr && prev != next)) {
+      loc.add(circle);
+    }
+  }
   // test for showing paths method
   public void showPathTesting() {
     List<String> los = new ArrayList<>();
@@ -445,6 +450,7 @@ public class PathfindingController {
     double startY = 0.0;
     double endX = 0.0;
     double endY = 0.0;
+    Floor prevFloor = null;
     Floor thisFloor = null;
     Floor nextFloor = null;
     if (startingLocationList.getSelectionModel().isEmpty()) {
@@ -500,7 +506,6 @@ public class PathfindingController {
       // go through list of nodes
       // find the floor the node is on
       // add a line to the list of lines for that floor
-
       for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
         for (int j = 0; j < dataBase.getNodeDAO().getAll().size(); j++) {
           // check if first node is same or whatever
@@ -567,33 +572,31 @@ public class PathfindingController {
           // displays yellow on last node on the current floor
           switchFloorsCircle = new Circle(startX, startY, 6.0, Color.YELLOW);
           if (thisFloor.equals(Floor.Floor1)) {
-            importantCirclesF1PH.add(switchFloorsCircle);
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH, switchFloorsCircle);
           } else if (thisFloor.equals(Floor.Floor2)) {
-            importantCirclesF2PH.add(switchFloorsCircle);
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH, switchFloorsCircle);
           } else if (thisFloor.equals(Floor.Floor3)) {
-            importantCirclesF3PH.add(switchFloorsCircle);
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH, switchFloorsCircle);
           } else if (thisFloor.equals(Floor.FloorL1)) {
-            importantCirclesFL1PH.add(switchFloorsCircle);
+            checkCircles(
+                prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
           } else if (thisFloor.equals(Floor.FloorL2)) {
-            importantCirclesFL2PH.add(switchFloorsCircle);
+            checkCircles(
+                prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
           }
-          // displays yellow on the first node of the next floor
           switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
           if (nextFloor.equals(Floor.Floor1)) {
-            importantCirclesF1PH.add(switchFloorsCircle);
-            // currFloor = "Floor 1";
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH, switchFloorsCircle);
           } else if (nextFloor.equals(Floor.Floor2)) {
-            importantCirclesF2PH.add(switchFloorsCircle);
-            // currFloor = "Floor 2";
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH, switchFloorsCircle);
           } else if (nextFloor.equals(Floor.Floor3)) {
-            importantCirclesF3PH.add(switchFloorsCircle);
-            // currFloor = "Floor 3";
+            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH, switchFloorsCircle);
           } else if (nextFloor.equals(Floor.FloorL1)) {
-            importantCirclesFL1PH.add(switchFloorsCircle);
-            // currFloor = "Floor L1";
+            checkCircles(
+                prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
           } else if (nextFloor.equals(Floor.FloorL2)) {
-            importantCirclesFL2PH.add(switchFloorsCircle);
-            // currFloor = "Floor L2";
+            checkCircles(
+                prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
           }
         }
         if (thisFloor.equals(Floor.Floor1)) {
@@ -645,6 +648,7 @@ public class PathfindingController {
             floorL2LinesPlaceholder.add(line);
           }
         }
+        prevFloor = thisFloor;
         if (startX != endX) {
           if (startX > endX) {
             currDir = "West";
