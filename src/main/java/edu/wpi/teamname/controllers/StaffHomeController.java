@@ -39,10 +39,9 @@ public class StaffHomeController {
 
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
 
-  //List<Alert> announcements = alertDAO.getAll();
+  // List<Alert> announcements = alertDAO.getAll();
 
   List<Alert> announcements = new ArrayList<Alert>();
-
 
   // announcements
 
