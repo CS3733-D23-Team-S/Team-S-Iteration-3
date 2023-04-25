@@ -395,8 +395,6 @@ public class PathfindingController {
         new Point2D(importantCircles.get(0).getCenterX(), importantCircles.get(0).getCenterY()));
   }
 
-  public void checkCircle(List<Circle> loc, Circle circle) {}
-
   // test for showing paths method
   public void showPathTesting() {
     List<String> los = new ArrayList<>();
