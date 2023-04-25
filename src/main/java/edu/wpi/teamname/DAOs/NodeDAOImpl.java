@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
@@ -96,6 +97,14 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
   @Override
   public List<Node> getAll() {
     return nodes.values().stream().toList();
+  }
+
+  public List<Integer> getAllNodeId() {
+    List<Integer> listOfEligibleNodes = new ArrayList<>();
+    for (int i = 0; i < getAll().size(); i++) {
+      listOfEligibleNodes.add(getAll().get(i).getNodeID());
+    }
+    return listOfEligibleNodes;
   }
 
   @Override
