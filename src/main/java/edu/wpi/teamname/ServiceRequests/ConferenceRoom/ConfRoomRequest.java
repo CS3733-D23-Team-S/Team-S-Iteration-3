@@ -46,4 +46,34 @@ public class ConfRoomRequest {
     this.orderStatus = Status.Received;
     this.isPrivate = isPrivate;
   }
+
+  public String toCSVString() {
+    String finale;
+
+    finale =
+        orderDate
+            + ","
+            + eventDate
+            + ","
+            + startTime
+            + ","
+            + endTime
+            + ","
+            + room
+            + ","
+            + reservedBy
+            + ","
+            + eventName
+            + ","
+            + eventDescription
+            + ","
+            + assignedTo
+            + ","
+            + orderStatus
+            + ","
+            + notes
+            + ","
+            + isPrivate;
+    return finale;
+  }
 }

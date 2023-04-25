@@ -34,13 +34,11 @@ public enum Screen {
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
   OFFICE_SUPPLIES_POPUP("views/OfficeSupplies/officeSuppliesPopup.fxml"),
   NEW_ADMIN_PAGE("views/newAdminPage.fxml"),
-
   NEW_USER("views/newUserPopUp.fxml"),
-
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
-
-  STAFFHOME("views/StaffHome.fxml");
+  STAFFHOME("views/StaffHome.fxml"),
+  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
 
   private final String filename;
 
