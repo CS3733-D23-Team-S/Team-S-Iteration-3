@@ -10,6 +10,9 @@ import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.enums.FloatMode;
@@ -37,12 +40,18 @@ public class StaffHomeController {
   @FXML Label requestCount;
   @FXML VBox taskVBox;
   @FXML VBox announcementVBox;
+
+  @FXML MFXButton aboutUsBtn;
+  @FXML MFXButton creditsBtn;
+  @FXML Group taskGroup;
+  @FXML Group announcementGroup;
   @FXML MFXScrollPane moveScrollPane;
   @FXML VBox movesVBox;
   @FXML GesturePane locationGesturePane;
 
   @FXML public static RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
-  ArrayList<Request> requests = requestDAO.getRequests();
+  List<Request> requests =
+      requestDAO.getRequestsForUser((ActiveUser.getInstance().getCurrentUser()));
   ArrayList<Request> newRequests = new ArrayList<Request>();
 
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
@@ -54,6 +63,11 @@ public class StaffHomeController {
   @FXML
   public void initialize() {
 
+    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
+    creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
+
+    System.out.println(requests);
+    // clean requests
     // requests
     for (int i = 0; i < requests.size(); i++) {
 

@@ -1,76 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Click the Home icon to go to the home page." wrappingWidth="678.91796875">
+            <Label text="General">
                <font>
-                  <Font size="25.0" />
+                  <Font size="28.0" />
                </font>
-            </Text>
-            <Text layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click the Profile icon to view your profile." wrappingWidth="678.9180908203125">
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="60.0" prefWidth="736.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/navinverted.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="158.0" text="Navigation" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="To navigate select start and end location and press navigate to see the path and directions to your destination." textFill="#5b5959">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Open Sans Regular" size="20.0" />
                </font>
-            </Text>
-            <Text layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click the Logout button to log out." wrappingWidth="678.9180908203125">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="-30.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="56.0" prefWidth="736.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/signageinverted.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="158.0" text="Signage" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Open Sans Regular" size="20.0" />
                </font>
-            </Text>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="-40.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="TOP_LEFT" prefHeight="38.0" prefWidth="158.0" text="Map Editor" textFill="#122e59">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
+               <font>
+                  <Font name="Open Sans Regular" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-40.0" />
+               </VBox.margin>
+            </Label>
          </children>
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="3">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="On the left side are service requests" wrappingWidth="678.91796875">
+            <Label text="Service Requests">
                <font>
-                  <Font size="25.0" />
+                  <Font size="28.0" />
                </font>
-            </Text>
-            <Text layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click a service request to get started with a service request" wrappingWidth="678.9180908203125">
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Service requests can be accessed using the menu bar on the right" textFill="#5b5959">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Open Sans Regular" size="20.0" />
                </font>
-            </Text>
-            <Text layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order." wrappingWidth="678.9180908203125">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="67.0" prefWidth="736.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/mealinverted.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="127.0" text="Meal Delivery" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/flowerinverted.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="158.0" text="Flower Delivery" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/peninverted.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="158.0" text="Office Supplies" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="282.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order.For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order." textFill="#5b5959">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Open Sans Regular" size="20.0" />
                </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="For Room Booking, click on the Add Meeting button. Fill out the boxes and then click on Submit when you are ready." wrappingWidth="678.9180908203125">
+               <VBox.margin>
+                  <Insets top="-30.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="55.0" prefWidth="760.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/invertedmenu/roominverted.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="38.0" prefWidth="221.0" text="Room Booking" textFill="#122e59">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Room Booking, click on the Add Meeting button. Fill out the boxes and then click on Submit when you are ready." textFill="#5b5959">
                <font>
-                  <Font size="25.0" />
+                  <Font name="Open Sans Regular" size="20.0" />
                </font>
-            </Text>
+            </Label>
          </children>
       </VBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Help Page" wrappingWidth="678.91796875" GridPane.columnIndex="1">
+      <Label text="User Guide" textFill="#122e59" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
-            <Font size="50.0" />
+            <Font name="Open Sans Regular" size="36.0" />
          </font>
-      </Text>
+      </Label>
    </children>
 </GridPane>

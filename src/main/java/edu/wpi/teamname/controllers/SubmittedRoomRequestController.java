@@ -13,8 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Getter;
 
 class RoomRequest {
-  @Getter private String roomBooked;
-  @Getter private String timeBooked;
+  @Getter private final String roomBooked;
+  @Getter private final String timeBooked;
 
   RoomRequest(String roomBooked, String timeBooked) {
     this.roomBooked = roomBooked;

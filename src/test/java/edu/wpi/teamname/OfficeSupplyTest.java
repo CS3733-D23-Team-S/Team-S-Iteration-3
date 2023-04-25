@@ -7,7 +7,7 @@ import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyCart;
 import org.junit.jupiter.api.Test;
 
 public class OfficeSupplyTest {
-  OfficeSupply os = new OfficeSupply(10000, "a name", 10.0, "me", 1, false, "none");;
+  OfficeSupply os = new OfficeSupply(10000, "a name", 10.0, "me", 1, false, "none");
 
   @Test
   public void testOffice1() {

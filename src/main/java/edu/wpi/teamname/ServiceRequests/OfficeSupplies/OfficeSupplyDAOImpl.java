@@ -14,7 +14,7 @@ import lombok.Getter;
 public class OfficeSupplyDAOImpl implements IDAO<OfficeSupply, Integer> {
   @Getter private String name;
   private final dbConnection connection;
-  @Getter private HashMap<Integer, OfficeSupply> supplies = new HashMap<>();
+  @Getter private final HashMap<Integer, OfficeSupply> supplies = new HashMap<>();
 
   public OfficeSupplyDAOImpl() {
     connection = dbConnection.getInstance();
