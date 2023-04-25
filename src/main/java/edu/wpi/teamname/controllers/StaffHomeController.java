@@ -3,10 +3,12 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.MoveDAOImpl;
 import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import java.text.DateFormat;
 import java.time.LocalTime;
@@ -16,6 +18,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -26,10 +29,9 @@ public class StaffHomeController {
   @FXML Label headerGreetingLabel;
   @FXML Label requestCount;
   @FXML VBox taskVBox;
-  @FXML VBox locationVBox;
   @FXML VBox announcementVBox;
-  @FXML Group taskGroup;
-  @FXML Group announcementGroup;
+  @FXML MFXScrollPane moveScrollPane;
+  @FXML VBox movesVBox;
 
   @FXML public static RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
   ArrayList<Request> requests = requestDAO.getRequests();
@@ -38,11 +40,13 @@ public class StaffHomeController {
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
   List<Alert> announcements = alertDAO.getListOfAlerts();
 
+  @FXML public static MoveDAOImpl moveDAO = DataBaseRepository.getInstance().getMoveDAO();
+  ArrayList<MoveDAOImpl.futureMoves> futureMovesList = moveDAO.getFutureMoves();
+
   @FXML
   public void initialize() {
 
-    System.out.println(requests);
-    // clean requests
+    // requests
     for (int i = 0; i < requests.size(); i++) {
 
       if (requests.get(i).getOrderStatus() == null) {
@@ -61,16 +65,23 @@ public class StaffHomeController {
       initializeTask(request);
     }
 
+    // announcements
     announcements.sort(
         Comparator.comparing(Alert::getDateOfAlert)
             .reversed()
             .thenComparing(Alert::getTimeOfAlert)
             .reversed());
 
-    System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
     for (int i = 0; i < announcements.size(); i++) {
       initializeAnnouncements(announcements.get(i));
-      System.out.println("Initializign announcement: " + announcements.get(i).getMessage());
+    }
+
+    // moves
+    System.out.println("MOVES LIST TEST");
+    System.out.println(futureMovesList.size() + " future moves size");
+    for (int i = 0; i < futureMovesList.size(); i++) {
+      // System.out.println("Adding move " + futureMovesList.get(i).getLocName());
+      //  initializeMoves(move);
     }
 
     getTimeString();
@@ -147,9 +158,6 @@ public class StaffHomeController {
 
     statusBox.setOnAction(
         event -> {
-          System.out.println(
-              "STATUS CHANGED: " + request.getRequestType() + " " + request.getOrderStatus());
-
           request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
 
           if (request.getOrderStatus().equals("Received")) {
@@ -169,12 +177,6 @@ public class StaffHomeController {
   }
 
   public void initializeAnnouncements(Alert announcement) {
-
-    System.out.println("First name: " + announcement.getUser().getFirstName());
-    System.out.println("Header: " + announcement.getHeading());
-    System.out.println("Text: " + announcement.getMessage());
-    System.out.println("Time: " + announcement.getTimeOfAlert());
-
     Group addAnnouncement = new Group();
 
     Rectangle annRect = new Rectangle();
@@ -223,6 +225,25 @@ public class StaffHomeController {
     announcementVBox.setAlignment(Pos.TOP_LEFT);
     announcementVBox.getChildren().add(addAnnouncement);
     announcementVBox.setSpacing(10);
+  }
+
+  public void initializeMoves(MoveDAOImpl.futureMoves move) {
+
+    Label dateLabel = new Label(move.getMoveDate().toString());
+    dateLabel.setAlignment(Pos.CENTER_LEFT);
+    dateLabel.setStyle("-fx-text-style: italic");
+    TextFieldTableCell moveText = new TextFieldTableCell();
+    moveText.setText(
+        move.getLocName()
+            + " relocating to node "
+            + move.getNodeId()
+            + " (floor "
+            + move.getFloor()
+            + ")");
+
+    HBox moveHBox = new HBox(dateLabel, moveText);
+
+    movesVBox.getChildren().add(moveHBox);
   }
 
   public String getTimeString() {

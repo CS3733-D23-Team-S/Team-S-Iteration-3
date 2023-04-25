@@ -296,8 +296,8 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
       String query =
           "select  * "
-              + "from hospitaldb.moves natural join hospitaldb.nodes natural join hospitaldb.locations "
-              + "where date <= current_date";
+              + "from hospitaldb.moves natural join hospitaldb.nodes on nodeID = hospitaldb.nodes.nodeID natural join hospitaldb.locations on location = hospitaldb.locations.longname "
+              + "where date >= current_date";
 
       PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
       ResultSet rs = preparedStatement.executeQuery();
@@ -318,7 +318,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         futureMoves.add(thisMove);
       }
 
-      System.out.println(futureMoves);
+      // System.out.println(futureMoves);
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
@@ -345,13 +345,13 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
   }
 
   public class futureMoves {
-    int nodeId;
-    String locName;
-    LocalDate moveDate;
-    NodeType nodeType;
-    int xcoord;
-    int ycoord;
-    String floor;
+    @Getter int nodeId;
+    @Getter String locName;
+    @Getter LocalDate moveDate;
+    @Getter NodeType nodeType;
+    @Getter int xcoord;
+    @Getter int ycoord;
+    @Getter String floor;
 
     public futureMoves(
         int nodeId,

@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -94,7 +93,7 @@
             </MFXScrollPane>
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
             <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Upcoming Moves">
                <font>
@@ -103,27 +102,15 @@
             </Label>
             <VBox fx:id="movesVBox" alignment="TOP_CENTER" prefHeight="723.0" prefWidth="436.0">
                <children>
-                  <Pane prefHeight="212.0" prefWidth="454.0" style="-fx-border-color: #00000080; -fx-border-radius: 15;">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="13.0" layoutY="13.0" prefHeight="154.0" prefWidth="337.0">
-                           <content>
-                              <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="294.0">
-                                 <children>
-                                    <Label stylesheets="@../../../../Stylesheets/Staff.css" text="March 3, 2023">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </content>
-                        </MFXScrollPane>
-                     </children></Pane>
+                  <MFXScrollPane fx:id="moveScrollPane" hbarPolicy="NEVER" hmax="0.0" prefHeight="222.0" prefWidth="427.0" style="-fx-border-radius: 15; -fx-border-color: BLACK;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="movesVBox" prefHeight="200.0" prefWidth="417.0" />
+                     </content></MFXScrollPane>
                </children></VBox>
          </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
       </VBox>
    </children>
 </GridPane>

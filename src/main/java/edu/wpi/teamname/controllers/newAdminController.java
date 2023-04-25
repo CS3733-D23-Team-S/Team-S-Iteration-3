@@ -89,6 +89,8 @@ public class newAdminController {
           initializeAnnouncements(alert);
 
           announcementText.clear();
+
+          Navigation.navigate(Screen.NEW_ADMIN_PAGE);
         });
 
     announcements.sort(
@@ -97,10 +99,8 @@ public class newAdminController {
             .thenComparing(Alert::getTimeOfAlert)
             .reversed());
 
-    System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
     for (int i = 0; i < announcements.size(); i++) {
       initializeAnnouncements(announcements.get(i));
-      System.out.println("Initializign announcement: " + announcements.get(i).getMessage());
     }
 
     initializeTables();
@@ -109,11 +109,6 @@ public class newAdminController {
   }
 
   public void initializeAnnouncements(Alert announcement) {
-
-    System.out.println("First name: " + announcement.getUser().getFirstName());
-    System.out.println("Header: " + announcement.getHeading());
-    System.out.println("Text: " + announcement.getMessage());
-    System.out.println("Time: " + announcement.getTimeOfAlert());
 
     Group addAnnouncement = new Group();
 

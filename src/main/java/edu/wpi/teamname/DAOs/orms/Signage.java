@@ -13,7 +13,8 @@ public class Signage implements IDataPack {
     up,
     down,
     left,
-    right
+    right,
+    stop
   }
 
   public Signage(Location kioskLocation, Direction direction, String surroundingLocation) {

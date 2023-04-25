@@ -54,12 +54,12 @@
                <children>
                   <MFXButton fx:id="impexpButton" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Import / Export">
                      <font>
-                        <Font name="Open Sans Regular" size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </MFXButton>
                   <MFXButton fx:id="toMapEditor" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Map Editor">
                      <font>
-                        <Font name="Open Sans Regular" size="20.0" />
+                        <Font size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets />
@@ -67,7 +67,7 @@
                   </MFXButton>
                   <MFXButton fx:id="toMapEditor1" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Edit Signage">
                      <font>
-                        <Font name="Open Sans Regular" size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </MFXButton>
                </children>
@@ -137,9 +137,9 @@
                         <VBox fx:id="announcementVBox" alignment="TOP_RIGHT" prefHeight="394.0" prefWidth="545.0" stylesheets="@../../../../Stylesheets/Staff.css" />
                      </content>
                   </MFXScrollPane>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextArea fx:id="announcementText" maxHeight="75.0" maxWidth="500.0" prefHeight="72.0" prefWidth="500.0" style="-fx-border-radius: 20;" wrapText="true">
+                        <TextArea fx:id="announcementText" maxHeight="75.0" maxWidth="500.0" prefHeight="75.0" prefWidth="407.0" style="-fx-border-radius: 20;" wrapText="true">
                            <font>
                               <Font name="Open Sans Regular" size="15.0" />
                            </font>
