@@ -18,6 +18,7 @@ import java.awt.*;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -39,10 +40,9 @@ import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealDeliveryController {
+  DecimalFormat df = new DecimalFormat("0.00");
   @FXML CheckComboBox checkBox;
-
   public static int mealDevID;
-  @FXML MFXButton viewcartbutton;
   @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML VBox cartBox;
@@ -83,7 +83,7 @@ public class MealDeliveryController {
                   displayCart();
                 });
 
-    viewcartbutton.setOnMouseClicked(event -> openCart());
+    openCart();
 
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
@@ -235,6 +235,7 @@ public class MealDeliveryController {
     for (String s : filterList) {
       filterList.remove(s);
     }
+    checkBox.getCheckModel().check(1);
     checkBox.getCheckModel().clearChecks();
   }
 
@@ -524,17 +525,10 @@ public class MealDeliveryController {
   }
 
   public void openCart() {
-    if (!lowerCart.isVisible()) {
-      totalPrice.setText(String.valueOf("Total Price: $" + mealCart.getTotalPrice()));
-      lowerCart.setVisible(true);
-      cartPane.getChildren().clear();
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color:  #B5C5EE");
-      displayCart();
-    } else {
-      lowerCart.setVisible(false);
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color:  #B5C5EE");
-      cartPane.getChildren().clear();
-    }
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(mealCart.getTotalPrice())));
+    lowerCart.setVisible(true);
+    cartPane.getChildren().clear();
+    displayCart();
   }
 
   public void checkOutHandler() {
@@ -547,7 +541,7 @@ public class MealDeliveryController {
   public void displayCart() {
     System.out.println("Displaying flowers");
     cartPane.getChildren().clear();
-    totalPrice.setText(String.valueOf("Total Price: $" + mealCart.getTotalPrice()));
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(mealCart.getTotalPrice())));
 
     if (mealCart.getCartItems().size() == 0) {
 

@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.collections.ListChangeListener;
@@ -27,8 +28,8 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
+  DecimalFormat df = new DecimalFormat("0.00");
   public static int suppliesID;
-  @FXML MFXButton viewcartbutton;
   @FXML FlowPane flowpane;
   @FXML VBox cartBox;
   @FXML VBox checkOutBox;
@@ -62,7 +63,7 @@ public class OfficeSuppliesController {
                   displayCart();
                 });
 
-    viewcartbutton.setOnMouseClicked(event -> openCart());
+    openCart();
 
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
@@ -151,17 +152,10 @@ public class OfficeSuppliesController {
   }
 
   public void openCart() {
-    if (!lowerCart.isVisible()) {
-      totalPrice.setText(String.valueOf("Total Price: $" + Cart.getTotalPrice()));
-      lowerCart.setVisible(true);
-      cartPane.getChildren().clear();
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color:  #B5C5EE");
-      displayCart();
-    } else {
-      lowerCart.setVisible(false);
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color:  #B5C5EE");
-      cartPane.getChildren().clear();
-    }
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(Cart.getTotalPrice())));
+    lowerCart.setVisible(true);
+    cartPane.getChildren().clear();
+    displayCart();
   }
 
   public void store(int x) {
@@ -179,7 +173,7 @@ public class OfficeSuppliesController {
   public void displayCart() {
     System.out.println("Displaying foods");
     cartPane.getChildren().clear();
-    totalPrice.setText(String.valueOf("Total Price: $" + Cart.getTotalPrice()));
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(Cart.getTotalPrice())));
 
     if (Cart.getCartItems().size() == 0) {
 
