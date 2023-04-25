@@ -61,7 +61,6 @@ public class PathfindingController {
   @FXML MFXButton floorL2Button;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
-
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
   @FXML ImageView homeIcon;
@@ -107,13 +106,6 @@ public class PathfindingController {
     }
   }
 
-  // small issue:
-  // take cafe as example: it has a move on the 26th(?) which moves it to floor 2
-  // if the locations are already toggled, then you move to floor 2, then you set the date to the
-  // 26th
-  // it doesn't display the location name on the right node
-  // can prolly be fixed by called showLocationNames2() if the toggle is selected and the date is
-  // changed
   public void showLocationNames2() {
     List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
     if (!displayLocationNamesToggle.isSelected()) {
@@ -199,28 +191,28 @@ public class PathfindingController {
   }
 
   public void colorEvent(Circle aCircle, Node node) {
-    DataBaseRepository dbr = DataBaseRepository.getInstance();
+    List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
     int id = node.getNodeID();
     String longName = "";
     // get location long name
-    for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-      if (id == dbr.getMoveDAO().getAll().get(i).getNodeID()) {
-        longName = dbr.getMoveDAO().getAll().get(i).getLocation().getLongName();
+    for (int i = 0; i < lom.size(); i++) {
+      if (id == lom.get(i).getNodeID()) {
+        longName = lom.get(i).getLocation().getLongName();
       }
     }
     if (startingLocationList.getSelectionModel().isEmpty()) {
-      aCircle.setFill(Color.BLUE);
       for (int i = 0; i < startingLocationList.getItems().size(); i++) {
         if (longName.equals(startingLocationList.getItems().get(i))) {
           startingLocationList.getSelectionModel().select(i);
+          aCircle.setFill(Color.BLUE);
         }
       }
     } else {
       if (destinationList.getSelectionModel().isEmpty()) {
-        aCircle.setFill(Color.GREEN);
         for (int i = 0; i < destinationList.getItems().size(); i++) {
           if (longName.equals(destinationList.getItems().get(i))) {
             destinationList.getSelectionModel().select(i);
+            aCircle.setFill(Color.GREEN);
           }
         }
       }
