@@ -50,7 +50,7 @@ public class NewUITemplateController {
   }
 
   public void gotoMealRequest() {
-    Navigation.navigate(Screen.MEAL_DELIVERY1);
+    Navigation.navigate(Screen.MEAL_DELIVERY);
   }
 
   public void gotoRoomBooking() {

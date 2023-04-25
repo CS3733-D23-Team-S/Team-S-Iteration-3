@@ -30,6 +30,7 @@ public class RootController {
   @FXML ImageView roomIcon;
   @FXML ImageView flowerIcon;
   @FXML ImageView officeIcon;
+  @FXML ImageView helpIcon;
 
   // top bar icons
   @FXML ImageView homeLogo1;
@@ -75,7 +76,7 @@ public class RootController {
                   String.valueOf(
                       Main.class.getResource("templateIcons/invertedmenu/mealinverted.png")));
           mealIcon.setImage(i);
-          Navigation.navigate(Screen.MEAL_DELIVERY1);
+          Navigation.navigate(Screen.MEAL_DELIVERY);
         });
 
     menuroom.setOnMouseClicked(
@@ -109,6 +110,14 @@ public class RootController {
                       Main.class.getResource("templateIcons/invertedmenu/peninverted.png")));
           officeIcon.setImage(i);
           Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
+        });
+
+    helpIcon.setOnMouseClicked(
+        event -> {
+          // changeMenuItem(menuoffice);
+          Image i = new Image(String.valueOf(Main.class.getResource("templateIcons/helpicon.png")));
+          helpIcon.setImage(i);
+          Navigation.navigate(Screen.HELP_PAGE);
         });
 
     homeIcon.addEventHandler(
