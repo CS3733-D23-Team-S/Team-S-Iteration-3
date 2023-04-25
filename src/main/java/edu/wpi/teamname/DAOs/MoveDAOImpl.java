@@ -296,11 +296,13 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
       String query =
           "select  * "
-              + "from hospitaldb.moves natural join hospitaldb.nodes on nodeID = hospitaldb.nodes.nodeID natural join hospitaldb.locations on location = hospitaldb.locations.longname "
+              + "from (hospitaldb.moves m join hospitaldb.nodes n2 on "
+              + "m.nodeid = n2.nodeid join hospitaldb.locations l on l.longname = m.location)  "
               + "where date >= current_date";
 
       PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
       ResultSet rs = preparedStatement.executeQuery();
+
       //      ResultSetMetaData rsdata = rs.getMetaData();
       //      System.out.println(rsdata.getColumnName(5));
 
@@ -368,6 +370,11 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       this.xcoord = xcoord;
       this.ycoord = ycoord;
       this.floor = floor;
+    }
+
+    @Override
+    public String toString() {
+      return "futureMoves{" + "moveDate=" + moveDate + '}' + "location name = " + locName + '}';
     }
   }
 }
