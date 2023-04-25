@@ -43,6 +43,8 @@ public class PathfindingController {
   @FXML MFXButton pathfindingToLogin;
   @FXML MFXDatePicker datePicker;
 
+  @FXML MFXButton addMoveBtn;
+
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
   Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
@@ -55,8 +57,8 @@ public class PathfindingController {
   @FXML MFXButton floor3Button;
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
-  @FXML MFXButton addMoveButton;
-  @FXML MFXButton addMessageButton;
+
+  // @FXML MFXButton addMessageButton;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
@@ -1157,12 +1159,12 @@ public class PathfindingController {
     if (ActiveUser.getInstance().isLoggedIn()) {
       pathfindingToLogin.setVisible(false);
       if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
-        addMoveButton.setVisible(false);
-        addMessageButton.setVisible(false);
+        addMoveBtn.setVisible(false);
+        // addMessageButton.setVisible(false);
       }
     } else {
-      addMoveButton.setVisible(false);
-      addMessageButton.setVisible(false);
+      addMoveBtn.setVisible(false);
+      // addMessageButton.setVisible(false);
     }
 
     datePicker.setValue(LocalDate.now());
@@ -1213,5 +1215,7 @@ public class PathfindingController {
           showPathTesting();
           prevDirection = null;
         });
+
+    addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
   }
 }
