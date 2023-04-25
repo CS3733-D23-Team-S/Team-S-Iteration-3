@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootLogoutPopupController">
    <root>
       <GridPane fx:id="rootLogoutPopup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0">
@@ -24,7 +23,7 @@
           <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="buttonYes" mnemonicParsing="false" prefHeight="44.0" prefWidth="80.0" text="Yes!" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Button fx:id="buttonYes" mnemonicParsing="false" prefHeight="44.0" prefWidth="80.0" style="-fx-background-color: #1D3D94;" text="Yes" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="22.0" />
                </font>
@@ -37,7 +36,7 @@
                   <Insets bottom="80.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="buttonNo" mnemonicParsing="false" prefHeight="44.0" prefWidth="80.0" text="No!" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Button fx:id="buttonNo" mnemonicParsing="false" prefHeight="44.0" prefWidth="80.0" text="No" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="22.0" />
                </font>

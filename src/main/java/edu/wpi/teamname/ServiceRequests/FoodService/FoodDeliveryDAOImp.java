@@ -78,8 +78,8 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes, requestType) "
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       preparedStatement.setInt(1, request.getDeliveryID());
       preparedStatement.setString(2, request.getCart());
@@ -91,6 +91,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement.setString(8, request.getOrderStatus());
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
+      preparedStatement.setString(11, "Food");
 
       PreparedStatement preparedStatement2 =
           connection
