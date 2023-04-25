@@ -1196,6 +1196,7 @@ public class PathfindingController {
 
     mapPane.setContent(stackPane);
     mapPane.setMinScale(.0001);
+    mapPane.zoomTo(0.15, 0.15, new Point2D(2500, 1700));
     floor1Button.setOnMouseClicked(event -> toFloor1());
     floor2Button.setOnMouseClicked(event -> toFloor2());
     floor3Button.setOnMouseClicked(event -> toFloor3());
