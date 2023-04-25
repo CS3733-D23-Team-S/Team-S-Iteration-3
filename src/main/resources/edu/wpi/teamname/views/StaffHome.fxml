@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: white;" stylesheets="@../../../../Stylesheets/Staff.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffHomeController">
   <columnConstraints>
@@ -70,7 +71,7 @@
                   </Label>
                   <VBox fx:id="locationsVBox" prefHeight="403.0" prefWidth="454.0">
                      <children>
-                        <GesturePane prefHeight="410.0" prefWidth="454.0" />
+                        <GesturePane fx:id="locationGesturePane" prefHeight="368.0" prefWidth="427.0" style="-fx-border-radius: 15;" />
                      </children></VBox>
                </children>
             </VBox>
@@ -99,12 +100,18 @@
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Label>
             <VBox fx:id="movesVBox" alignment="TOP_CENTER" prefHeight="723.0" prefWidth="436.0">
                <children>
                   <MFXScrollPane fx:id="moveScrollPane" hbarPolicy="NEVER" hmax="0.0" prefHeight="222.0" prefWidth="427.0" style="-fx-border-radius: 15; -fx-border-color: BLACK;" vbarPolicy="NEVER">
                      <content>
-                        <VBox fx:id="movesVBox" prefHeight="200.0" prefWidth="417.0" />
+                        <VBox fx:id="movesVBox" prefHeight="200.0" prefWidth="417.0">
+                           <children>
+                              <TextField2TableCell prefHeight="69.0" prefWidth="120.0" wrapText="true" />
+                           </children></VBox>
                      </content></MFXScrollPane>
                </children></VBox>
          </children>

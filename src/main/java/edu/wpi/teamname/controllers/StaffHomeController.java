@@ -5,8 +5,11 @@ import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.MoveDAOImpl;
 import edu.wpi.teamname.DAOs.orms.Alert;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.enums.FloatMode;
@@ -15,14 +18,18 @@ import java.time.LocalTime;
 import java.util.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import net.kurobako.gesturefx.GesturePane;
 
 public class StaffHomeController {
 
@@ -32,6 +39,7 @@ public class StaffHomeController {
   @FXML VBox announcementVBox;
   @FXML MFXScrollPane moveScrollPane;
   @FXML VBox movesVBox;
+  @FXML GesturePane locationGesturePane;
 
   @FXML public static RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
   ArrayList<Request> requests = requestDAO.getRequests();
@@ -76,13 +84,25 @@ public class StaffHomeController {
       initializeAnnouncements(announcements.get(i));
     }
 
+    futureMovesList.sort(Comparator.comparing(MoveDAOImpl.futureMoves::getMoveDate).reversed());
+
     // moves
     System.out.println("MOVES LIST TEST");
     System.out.println(futureMovesList.size() + " future moves size");
     for (int i = 0; i < futureMovesList.size(); i++) {
-      // System.out.println("Adding move " + futureMovesList.get(i).getLocName());
-      //  initializeMoves(move);
+      System.out.println("Adding move " + futureMovesList.get(i).getLocName());
+      initializeMoves(futureMovesList.get(i));
     }
+
+    ImageView content =
+        new ImageView(
+            new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
+
+    locationGesturePane.setContent(content);
+    locationGesturePane.setMinScale(.0001);
+    locationGesturePane.setFitHeight(true);
+    locationGesturePane.setFitWidth(true);
+    locationGesturePane.zoomTo(.15, .15, new Point2D(2500, 1700));
 
     getTimeString();
   }
@@ -154,7 +174,7 @@ public class StaffHomeController {
     taskVBox.setAlignment(Pos.TOP_LEFT);
 
     taskVBox.getChildren().add(addTask);
-    taskVBox.setSpacing(10);
+    taskVBox.setSpacing(5);
 
     statusBox.setOnAction(
         event -> {
@@ -174,6 +194,14 @@ public class StaffHomeController {
               request.getDeliveryTime(),
               request.getRequestType());
         });
+
+    statusBox
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              Navigation.navigate(Screen.STAFFHOME);
+            });
   }
 
   public void initializeAnnouncements(Alert announcement) {
@@ -184,18 +212,6 @@ public class StaffHomeController {
     annRect.setHeight(100);
     annRect.setStroke(Paint.valueOf("#b5c5ee"));
     annRect.getStyleClass().add("announcementrect");
-
-    /*
-    ImageView profile = new ImageView();
-    profile.setFitHeight(60);
-    profile.setFitWidth(60);
-    Image i =
-        new Image(
-            String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png").toString()));
-    profile.setImage(i);
-    System.out.println("Profile image: " + profile.getImage());
-
-     */
 
     Label nameLabel =
         new Label(
@@ -230,18 +246,31 @@ public class StaffHomeController {
   public void initializeMoves(MoveDAOImpl.futureMoves move) {
 
     Label dateLabel = new Label(move.getMoveDate().toString());
-    dateLabel.setAlignment(Pos.CENTER_LEFT);
+    dateLabel.setAlignment(Pos.TOP_CENTER);
+    dateLabel.setMinWidth(100);
     dateLabel.setStyle("-fx-text-style: italic");
+    dateLabel.setStyle("-fx-font-size: 16");
+    dateLabel.setPadding(new Insets(10));
     TextFieldTableCell moveText = new TextFieldTableCell();
+    moveText.setMinWidth(250);
+    moveText.setMinHeight(50);
+    moveText.setWrapText(true);
+    moveText.setStyle("-fx-font-size: 12");
+    moveText.setAlignment(Pos.TOP_CENTER);
+    dateLabel.setPadding(new Insets(15));
+
     moveText.setText(
         move.getLocName()
-            + " relocating to node "
+            + " is relocating to node "
             + move.getNodeId()
             + " (floor "
-            + move.getFloor()
+            + move.getFloor().substring(5)
             + ")");
 
     HBox moveHBox = new HBox(dateLabel, moveText);
+    moveHBox.setPadding(new Insets(5));
+    moveHBox.setPrefWidth(400);
+    moveHBox.setMaxWidth(400);
 
     movesVBox.getChildren().add(moveHBox);
   }

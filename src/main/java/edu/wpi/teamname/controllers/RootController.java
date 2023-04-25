@@ -17,7 +17,7 @@ public class RootController {
 
   // menu items
   @FXML Pane menunavigation;
-  @FXML Pane menusignage;
+  @FXML Pane menuhome;
   @FXML Pane menumeal;
   @FXML Pane menuroom;
   @FXML Pane menuflower;
@@ -38,7 +38,6 @@ public class RootController {
   @FXML ImageView homeIcon;
   @FXML ImageView userIcon;
   @FXML ImageView logoutIcon;
-  @FXML ImageView backIcon;
 
   public void initialize() {
 
@@ -57,15 +56,20 @@ public class RootController {
           Navigation.navigate(Screen.PATHFINDING);
         });
 
-    menusignage.setOnMouseClicked(
+    menuhome.setOnMouseClicked(
         event -> {
-          changeMenuItem(menusignage);
+          changeMenuItem(menuhome);
           Image i =
               new Image(
                   String.valueOf(
                       Main.class.getResource("templateIcons/invertedmenu/signageinverted.png")));
           signageIcon.setImage(i);
-          Navigation.navigate(Screen.SIGNAGE_PAGE);
+          if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.ADMIN) {
+            Navigation.navigate(Screen.NEW_ADMIN_PAGE);
+          } else if (ActiveUser.getInstance().getCurrentUser().getPermission()
+              == Permission.STAFF) {
+            Navigation.navigate(Screen.STAFFHOME);
+          }
         });
 
     menumeal.setOnMouseClicked(
@@ -151,23 +155,12 @@ public class RootController {
     userIcon.setCursor(Cursor.HAND);
     homeIcon.setCursor(Cursor.HAND);
     logoutIcon.setCursor(Cursor.HAND);
-
-    // BACK ICON
-    /*
-    backIcon.addEventHandler(
-        javafx.scene.input.MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.ADMIN_PAGE); // TODO fix!!
-          event.consume();
-        });
-
-       */
   }
 
   public void clearMenuClasses() {
     // clear menu items
     menunavigation.getStyleClass().remove("selectedtab");
-    menusignage.getStyleClass().remove("selectedtab");
+    menuhome.getStyleClass().remove("selectedtab");
     menumeal.getStyleClass().remove("selectedtab");
     menuroom.getStyleClass().remove("selectedtab");
     menuflower.getStyleClass().remove("selectedtab");

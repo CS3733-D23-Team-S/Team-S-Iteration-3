@@ -61,7 +61,6 @@ public class RoomBookingController {
   @FXML
   public void initialize() throws SQLException {
 
-    //  scrollPane.setStyle("-fx-box-border: transparent;");
     addMeetingButton.setOnMouseClicked(
         event -> Navigation.launchPopUp(Screen.ROOM_BOOKING_DETAILS));
     addMeetingButton.setCursor(Cursor.HAND);
@@ -291,19 +290,32 @@ public class RoomBookingController {
 
     // TODO fix!!!!!!
 
+    if (meetingsToggle.isSelected()) {
+      if (roomRequest
+          .getReservedBy()
+          .equals(ActiveUser.getInstance().getCurrentUser().getUserName())) {
+        rect.setFill(Paint.valueOf("#E7D3FF"));
+      }
+
+    } else if (!meetingsToggle.isSelected()) {
+      rect.setFill(Paint.valueOf("#B5C5EE"));
+    }
+
     meetingsToggle
         .selectedProperty()
         .addListener(
             ((observable, oldValue, newValue) -> {
               if (meetingsToggle.isSelected()) {
+                System.out.println("Meetings toggle SELECTED NOW!!!");
                 if (roomRequest
                     .getReservedBy()
                     .equals(ActiveUser.getInstance().getCurrentUser().getUserName())) {
-                  System.out.println("This is your meeting!");
+                  System.out.println("Hello your meetings is ON!!!!!");
                   rect.setFill(Paint.valueOf("#E7D3FF"));
                 }
               } else {
-                rect.setStyle("-fx-effect: NONE");
+                System.out.println("YOUR MEETINGS IS OOOOOOFFFF");
+                rect.setFill(Paint.valueOf("#B5C5EE"));
               }
             }));
 
