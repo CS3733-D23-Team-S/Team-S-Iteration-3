@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="22.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="510.33331298828125" minWidth="10.0" percentWidth="22.0" prefWidth="315.6666259765625" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.3333740234376" minWidth="10.0" percentWidth="22.0" prefWidth="718.3333740234376" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.3333740234376" minWidth="10.0" prefWidth="718.3333740234376" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="135.39048767089844" minHeight="10.0" percentHeight="12.0" prefHeight="104.16667175292969" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="140.8333282470703" minHeight="10.0" percentHeight="10.0" prefHeight="118.33332824707031" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="180.16665649414062" minHeight="10.0" percentHeight="17.0" prefHeight="160.16665649414062" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="118.33332824707031" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Text fill="#122e59" strokeType="OUTSIDE" strokeWidth="0.0" text="About Us" wrappingWidth="294.6666769981384" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets right="600.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Our Story" wrappingWidth="159.6708984375" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." wrappingWidth="1065.0042114257812" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Text>
+      <Line endX="1200.0" startX="-100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets top="15.0" />
+         </GridPane.margin>
+      </Line>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meet The Team" wrappingWidth="241.0042266845703" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <Line endX="1200.0" startX="-100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="50.0" />
+         </GridPane.margin>
+      </Line>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Professor">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Wilson Wong, Ph.D">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Michael O' Connor">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Nikesh Walling">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Leads">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Anthony Titcombe">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Kashvi Singh">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Sarah Kogan">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Nicholas Ho">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full-Time Engineers">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Jake Olsen">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Ryan Wright">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Tyler Brown">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Nathaniel Rubin">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
