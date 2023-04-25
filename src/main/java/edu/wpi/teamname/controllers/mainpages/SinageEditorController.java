@@ -139,7 +139,7 @@ public class SinageEditorController {
             } else if (DirectionCB.getValue().toString().equals("<-")) {
               LeftBox.getChildren().add(newLabel);
               dir = Signage.Direction.left;
-            } else if (DirectionCB.getValue().toString().equals("Stop here for")) {
+            } else if (DirectionCB.getValue().toString().equals("v")) {
               DownBox.getChildren().add(newLabel);
               dir = Signage.Direction.down;
             } else {
@@ -264,10 +264,10 @@ public class SinageEditorController {
 
         DownBox.getChildren().add(newLabel);
       } else {
-        newLabel.setText("Stop here for \n" + aSign.getSurroundingLocation().getLongName());
+        newLabel.setText("Stop here for " + aSign.getSurroundingLocation().getLongName());
         newLabel.setStyle("-fx-font-size: 16;");
 
-        DownBox.getChildren().add(newLabel);
+        RightBox.getChildren().add(newLabel);
       }
 
       newLabel.setOnMouseClicked(
