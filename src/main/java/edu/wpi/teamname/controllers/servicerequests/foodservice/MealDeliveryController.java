@@ -153,8 +153,8 @@ public class MealDeliveryController {
             "vegetarian",
             "vegan",
             "halal",
-            "kosher",
             "glutenfree",
+            "italian",
             "american",
             "indian",
             "mexican");
