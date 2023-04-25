@@ -45,7 +45,6 @@ public class PathfindingController {
   @FXML MFXDatePicker datePicker;
 
   @FXML MFXButton addMoveBtn;
-  @FXML MFXButton addMessageBtn;
 
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
@@ -74,20 +73,36 @@ public class PathfindingController {
   @FXML MFXTextField messageField;
   private String prevDirection;
   List<Text> locations = new ArrayList<>();
-  MFXTextField adminMessage = new MFXTextField();
+  Label adminMessage = new Label();
 
   public void addMessage() {
-    MFXTextField adminMessage = new MFXTextField();
-    if (!messageField.getText().equals("")) {
-      adminMessage.setText(messageField.getText());
-      //      adminMessage.setLayoutX(5000);
-      //      adminMessage.setLayoutY(50);
-      //      adminMessage.setStyle("-fx-font-size: 36");
-      adminMessage.setTranslateX(2500.0);
-      adminMessage.setTranslateY(1700.0);
-      adminMessage.setPrefSize(400, 50);
-      adminMessage.setStyle("-fx-font-size: 40");
-      anchorPane.getChildren().add(adminMessage);
+    if (!startingLocationList.getSelectionModel().isEmpty()
+        && !destinationList.getSelectionModel().isEmpty()) {
+      anchorPane.getChildren().remove(adminMessage);
+      if (!messageField.getText().equals("")) {
+        adminMessage.setText(messageField.getText());
+        adminMessage.setPrefSize(messageField.getText().length() * 30, 50);
+        adminMessage.setTranslateX(2500.0);
+        adminMessage.setTranslateY(1700.0);
+        if (floor.getImage().equals(floor1)) {
+          adminMessage.setTranslateX(importantCirclesF1.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF1.get(0).getCenterY());
+        } else if (floor.getImage().equals(floor2)) {
+          adminMessage.setTranslateX(importantCirclesF2.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF2.get(0).getCenterY());
+        } else if (floor.getImage().equals(floor3)) {
+          adminMessage.setTranslateX(importantCirclesF3.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF3.get(0).getCenterY());
+        } else if (floor.getImage().equals(floorL1)) {
+          adminMessage.setTranslateX(importantCirclesFL1.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesFL1.get(0).getCenterY());
+        } else if (floor.getImage().equals(floorL2)) {
+          adminMessage.setTranslateX(importantCirclesFL2.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesFL2.get(0).getCenterY());
+        }
+        adminMessage.setStyle("-fx-font-size: 40");
+        anchorPane.getChildren().add(adminMessage);
+      }
     }
   }
 
@@ -251,15 +266,8 @@ public class PathfindingController {
     //    mapPane.setContent(stackPane);
 
     // stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor1Lines);
-    anchorPane.getChildren().removeAll(floor3Lines);
-    anchorPane.getChildren().removeAll(floorL1Lines);
-    anchorPane.getChildren().removeAll(floorL2Lines);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floor2Lines);
-    anchorPane.getChildren().removeAll(importantCirclesF1);
-    anchorPane.getChildren().removeAll(importantCirclesF3);
-    anchorPane.getChildren().removeAll(importantCirclesFL1);
-    anchorPane.getChildren().removeAll(importantCirclesFL2);
     anchorPane.getChildren().addAll(importantCirclesF2);
   }
 
@@ -1083,6 +1091,8 @@ public class PathfindingController {
   }
 
   public void clearFields() {
+    adminMessage.setText("");
+    messageField.setText("");
     floorOrderLabel.setText("");
     datePicker.setValue(LocalDate.now());
     anchorPane.getChildren().removeAll(floor1Lines);
@@ -1177,11 +1187,11 @@ public class PathfindingController {
       pathfindingToLogin.setVisible(false);
       if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
         addMoveBtn.setVisible(false);
-        addMessageBtn.setVisible(false);
+        messageField.setVisible(false);
       }
     } else {
       addMoveBtn.setVisible(false);
-      addMessageBtn.setVisible(false);
+      messageField.setVisible(false);
     }
 
     datePicker.setValue(LocalDate.now());
@@ -1231,8 +1241,10 @@ public class PathfindingController {
         event -> {
           showPathTesting();
           prevDirection = null;
+          if (messageField.isVisible()) {
+            addMessage();
+          }
         });
-    addMessageBtn.setOnMouseClicked(event -> addMessage());
     addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
   }
 }
