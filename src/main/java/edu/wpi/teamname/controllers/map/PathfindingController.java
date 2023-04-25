@@ -2,10 +2,7 @@ package edu.wpi.teamname.controllers.map;
 
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.orms.Floor;
-import edu.wpi.teamname.DAOs.orms.Move;
-import edu.wpi.teamname.DAOs.orms.Node;
-import edu.wpi.teamname.DAOs.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
@@ -58,6 +55,8 @@ public class PathfindingController {
   @FXML MFXButton floor3Button;
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
+  @FXML MFXButton addMoveButton;
+  @FXML MFXButton addMessageButton;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
@@ -1157,6 +1156,13 @@ public class PathfindingController {
   public void initialize() {
     if (ActiveUser.getInstance().isLoggedIn()) {
       pathfindingToLogin.setVisible(false);
+      if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
+        addMoveButton.setVisible(false);
+        addMessageButton.setVisible(false);
+      }
+    } else {
+      addMoveButton.setVisible(false);
+      addMessageButton.setVisible(false);
     }
 
     datePicker.setValue(LocalDate.now());
