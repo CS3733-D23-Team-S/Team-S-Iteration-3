@@ -54,6 +54,9 @@ public class newAdminController {
   @FXML ImageView submitAnnouncement;
   @FXML TextArea announcementText;
   @FXML Label greetingHeader;
+  @FXML MFXButton aboutUsBtn;
+
+  // @FXML MFXButton aboutUSBtn;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
 
@@ -66,6 +69,8 @@ public class newAdminController {
   List<Alert> announcements = alertDAO.getListOfAlerts();
 
   public void initialize() {
+    //  aboutUSBtn.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT_US));
+    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));

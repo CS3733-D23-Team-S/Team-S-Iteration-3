@@ -38,7 +38,8 @@ public enum Screen {
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
   STAFFHOME("views/StaffHome.fxml"),
-  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
+  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml"),
+  ABOUT_US("views/aboutus.fxml");
 
   private final String filename;
 

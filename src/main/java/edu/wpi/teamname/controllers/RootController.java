@@ -38,6 +38,7 @@ public class RootController {
   @FXML ImageView homeIcon;
   @FXML ImageView userIcon;
   @FXML ImageView logoutIcon;
+
   @FXML ImageView backIcon;
 
   public void initialize() {

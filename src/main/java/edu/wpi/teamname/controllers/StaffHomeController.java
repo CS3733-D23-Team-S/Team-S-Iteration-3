@@ -6,6 +6,9 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.enums.FloatMode;
 import java.text.DateFormat;
@@ -28,6 +31,8 @@ public class StaffHomeController {
   @FXML VBox taskVBox;
   @FXML VBox locationVBox;
   @FXML VBox announcementVBox;
+
+  @FXML MFXButton aboutUsBtn;
   @FXML Group taskGroup;
   @FXML Group announcementGroup;
 
@@ -41,6 +46,8 @@ public class StaffHomeController {
 
   @FXML
   public void initialize() {
+
+    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
 
     System.out.println(requests);
     // clean requests
