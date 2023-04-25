@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.RootController">
     <left>
         <GridPane fx:id="menubargrid" prefHeight="900.0" prefWidth="240.0" styleClass="menubar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -127,7 +127,7 @@
         </GridPane>
     </left>
     <top>
-        <GridPane minWidth="400.0" prefHeight="90.0" prefWidth="1600.0" styleClass="topbar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
+        <GridPane minWidth="400.0" prefHeight="90.0" prefWidth="1600.0" style="-fx-background-color: WHITE;" styleClass="topbar" stylesheets="@../../../../Stylesheets/UITemplate.css" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" percentWidth="15.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="40.0" percentWidth="5.0" prefWidth="40.0" />
