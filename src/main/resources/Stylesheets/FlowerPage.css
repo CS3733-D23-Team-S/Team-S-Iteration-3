@@ -5,13 +5,13 @@
 
 .clearbutton {
     -fx-background-color: transparent;
-    -fx-border-color: #000000;
+    -fx-border-color: #C0C0C0;
     -fx-border-width: 2;
     -fx-border-radius: 10 10 10 10;
 }
 
 .searchelements{
-    -fx-background-color: #C0C0C0;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 10 10 10 10;
 }
 

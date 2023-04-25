@@ -15,6 +15,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.collections.ListChangeListener;
@@ -31,9 +32,9 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerDeliveryController {
+  DecimalFormat df = new DecimalFormat("0.00");
   public static int flowerID;
   @FXML MenuButton sizedrop;
-  @FXML MFXButton viewcartbutton;
   @FXML MenuItem sizesmall;
   @FXML MenuItem sizenormal;
   @FXML MenuItem sizelarge;
@@ -72,7 +73,7 @@ public class FlowerDeliveryController {
                   displayCart();
                 });
 
-    viewcartbutton.setOnMouseClicked(event -> openCart());
+    openCart();
 
     sizesmall.setOnAction(event -> filterSmall());
     sizenormal.setOnAction(event -> filterMedium());
@@ -137,16 +138,16 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-spacing: 10;");
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(175);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -167,15 +168,16 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(175);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -198,15 +200,16 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(true);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(175);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -227,15 +230,16 @@ public class FlowerDeliveryController {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
       view.setPreserveRatio(false);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(175);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -251,17 +255,10 @@ public class FlowerDeliveryController {
   }
 
   public void openCart() {
-    if (!lowerCart.isVisible()) {
-      totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
-      lowerCart.setVisible(true);
-      cartPane.getChildren().clear();
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color:  #B5C5EE");
-      displayCart();
-    } else {
-      lowerCart.setVisible(false);
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color:  #B5C5EE");
-      cartPane.getChildren().clear();
-    }
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(flowerCart.getTotalPrice())));
+    lowerCart.setVisible(true);
+    cartPane.getChildren().clear();
+    displayCart();
   }
 
   public void store(int x) {
@@ -279,7 +276,7 @@ public class FlowerDeliveryController {
   public void displayCart() {
     System.out.println("Displaying flowers");
     cartPane.getChildren().clear();
-    totalPrice.setText(String.valueOf("Total Price: $" + flowerCart.getTotalPrice()));
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(flowerCart.getTotalPrice())));
 
     if (flowerCart.getCartItems().size() == 0) {
 
@@ -289,9 +286,9 @@ public class FlowerDeliveryController {
         System.out.println("works");
 
         HBox newRow = new HBox();
-        newRow.setSpacing(20);
+        newRow.setSpacing(5);
         newRow.setMaxHeight(300);
-        newRow.setMaxWidth(300);
+        newRow.setMaxWidth(200);
 
         ImageView flowerImage = new ImageView();
         Image image = new Image(Main.class.getResource(flower.getImage()).toString());
@@ -314,7 +311,7 @@ public class FlowerDeliveryController {
 
         VBox itemInfo = new VBox();
         itemInfo.setSpacing(5);
-        itemInfo.setPrefWidth(300);
+        itemInfo.setPrefWidth(276);
         itemInfo.setMaxHeight(300);
 
         HBox quantityChange = new HBox();
@@ -360,11 +357,11 @@ public class FlowerDeliveryController {
 
         HBox priceQ = new HBox();
         priceQ.setSpacing(5);
-        priceQ.setMaxWidth(300);
+        priceQ.setMaxWidth(276);
 
         VBox deleteBox = new VBox();
         deleteBox.setSpacing(5);
-        deleteBox.setPrefWidth(300);
+        deleteBox.setPrefWidth(276);
         deleteBox.setMaxHeight(300);
 
         Label name = new Label();
@@ -434,13 +431,22 @@ public class FlowerDeliveryController {
       checkOutBox.getChildren().clear();
 
       Label confirm = new Label();
+      ImageView checkMark = new ImageView();
       Label thanks = new Label();
+      Image checkMark1 = new Image(String.valueOf(Main.class.getResource("images/checkMark.png")));
+      checkMark.setImage(checkMark1);
+      checkMark.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      checkMark.setFitHeight(180);
+      checkMark.setFitWidth(180);
+      checkMark.setPreserveRatio(false);
       confirm.setText("Order Submitted!");
-      thanks.setText("Thank you for your order!\n\n\n\n\n\n");
+      thanks.setText("Thank you for your order!");
       confirm.setStyle("-fx-font-size: 30;");
       thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
       checkOutBox.setAlignment(Pos.CENTER);
       checkOutBox.getChildren().add(confirm);
+      checkOutBox.getChildren().add(checkMark);
       checkOutBox.getChildren().add(thanks);
 
     } catch (Exception e) {

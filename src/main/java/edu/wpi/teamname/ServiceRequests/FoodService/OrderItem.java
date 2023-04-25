@@ -1,7 +1,9 @@
 package edu.wpi.teamname.ServiceRequests.FoodService;
 
-import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lombok.Getter;
+import lombok.Setter;
 
 /* TODO:
        add Java Docs
@@ -9,21 +11,19 @@ import lombok.Getter;
 */
 public class OrderItem {
   // This is the cart class
-  @Getter private final int cartID;
-  private final HashMap<Integer, Food> theCart;
+  @Getter private int cartID;
+  // private HashMap<Integer, Food> theCart;
+  @Getter @Setter ObservableList<Food> cartItems;
 
   public OrderItem(int cartID) {
     this.cartID = cartID;
-    theCart = new HashMap<Integer, Food>();
-  }
-
-  public HashMap<Integer, Food> getTheCart() {
-    return theCart;
+    // theCart = new HashMap<Integer, Food>();
+    cartItems = FXCollections.observableArrayList();
   }
 
   public double getTotalPrice() {
     double totalprice = 0.0;
-    for (Food aFood : theCart.values()) {
+    for (Food aFood : cartItems) {
       totalprice += aFood.getFoodPrice() * aFood.getQuantity();
     }
 
@@ -33,7 +33,7 @@ public class OrderItem {
   @Override
   public String toString() {
     String finale = "";
-    for (Food aFood : theCart.values()) {
+    for (Food aFood : cartItems) {
       finale += aFood.toString() + ", ";
     }
 
@@ -41,6 +41,14 @@ public class OrderItem {
   }
 
   public void addFoodItem(Food f) {
-    theCart.put(f.getFoodID(), f);
+    cartItems.add(f);
+  }
+
+  public void removeFoodItem(Food f) {
+    cartItems.remove(f);
+  }
+
+  public void removeAll() {
+    cartItems.clear();
   }
 }

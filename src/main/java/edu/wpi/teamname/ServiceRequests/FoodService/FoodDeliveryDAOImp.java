@@ -4,6 +4,9 @@ import static edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO.allRequ
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.ServiceRequests.ISRDAO;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
@@ -75,8 +78,8 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
               .prepareStatement(
                   "INSERT INTO "
                       + name
-                      + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes) "
-                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                      + " (deliveryid, Cart, orderDate, orderTime, location, orderer, assignedTo, status, cost, notes, requestType) "
+                      + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       preparedStatement.setInt(1, request.getDeliveryID());
       preparedStatement.setString(2, request.getCart());
@@ -88,6 +91,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       preparedStatement.setString(8, request.getOrderStatus());
       preparedStatement.setDouble(9, request.getCost());
       preparedStatement.setString(10, request.getNotes());
+      preparedStatement.setString(11, "Food");
 
       PreparedStatement preparedStatement2 =
           connection
@@ -213,5 +217,22 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
       System.out.println(e.getMessage());
       System.out.println("Error accessing the remote and constructing the list of foods");
     }
+  }
+
+  public void importCSV(String path) {
+    dropTable();
+    foodRequests.clear();
+    loadRemote(path);
+  }
+
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write("cart,date,time,location,orderer,assignedTo,orderStatus,cost,notes");
+
+    for (FoodDelivery delivery : foodRequests.values()) {
+      fileWriter.newLine();
+      fileWriter.write(delivery.toCSVString());
+    }
+    fileWriter.close();
   }
 }

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class OfficeSuppliesPopupController extends PopUpController {
-  @FXML MFXButton addcartbutton;
+  @FXML MFXButton addCart;
   @FXML MFXButton decrementbutton;
   @FXML ImageView officesupplyimage;
   @FXML MFXButton incrementbutton;
@@ -23,12 +23,16 @@ public class OfficeSuppliesPopupController extends PopUpController {
 
   @FXML Text PriceText;
 
-  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML MFXButton cancel;
+
+  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   public static int supplycounter;
 
   public void initialize() {
     showInfo();
-    addcartbutton.setOnMouseClicked(event -> createDelivery());
+    addCart.setOnMouseClicked(event -> createDelivery());
+
+    cancel.setOnMouseClicked(event -> stage.close());
 
     supplycounter = 1;
     incrementbutton.setOnMouseClicked(event -> addquantity());

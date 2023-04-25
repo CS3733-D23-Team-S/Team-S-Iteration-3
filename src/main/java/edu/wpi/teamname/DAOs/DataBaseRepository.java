@@ -24,22 +24,16 @@ import lombok.Getter;
 
 public class DataBaseRepository {
 
-	private static DataBaseRepository single_instance = null;
-	AStar pathFinder;
-	@Getter
-	NodeDAOImpl nodeDAO;
-	@Getter
-	MoveDAOImpl moveDAO;
-	@Getter
-	LocationDAOImpl locationDAO;
-	@Getter
-	EdgeDAOImpl edgeDAO;
-	@Getter
-	RoomRequestDAO roomRequestDAO;
-	@Getter
-	ConfRoomDAO confRoomDAO;
-	@Getter
-	FoodDAOImpl foodDAO;
+  private static DataBaseRepository single_instance = null;
+  AStar pathFinder;
+  @Getter NodeDAOImpl nodeDAO;
+  @Getter MoveDAOImpl moveDAO;
+  @Getter LocationDAOImpl locationDAO;
+  @Getter EdgeDAOImpl edgeDAO;
+  @Getter AlertDAO alertDAO;
+
+  @Getter ConfRoomDAO confRoomDAO;
+  @Getter FoodDAOImpl foodDAO;
 
 	@Getter
 	FoodDeliveryDAOImp foodDeliveryDAO;
@@ -52,29 +46,32 @@ public class DataBaseRepository {
 	@Getter
 	OfficeSupplyDAOImpl officeSupplyDAO;
 
-	@Getter
-	OfficeSupplyDeliveryDAOImpl officeSupplyDeliveryDAO;
-	@Getter
-	UserDAOImpl userDAO;
-	@Getter
-	RequestDAO requestDAO;
+  @Getter OfficeSupplyDeliveryDAOImpl officeSupplyDeliveryDAO;
 
-	private DataBaseRepository() {
-		nodeDAO = new NodeDAOImpl();
-		moveDAO = new MoveDAOImpl();
-		locationDAO = new LocationDAOImpl();
-		edgeDAO = new EdgeDAOImpl();
-		userDAO = new UserDAOImpl();
-		roomRequestDAO = new RoomRequestDAO();
-		confRoomDAO = new ConfRoomDAO();
-		foodDAO = new FoodDAOImpl();
-		foodDeliveryDAO = new FoodDeliveryDAOImp();
-		flowerDAO = new FlowerDAOImpl();
-		flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
-		officeSupplyDAO = new OfficeSupplyDAOImpl();
-		officeSupplyDeliveryDAO = new OfficeSupplyDeliveryDAOImpl();
-		requestDAO = new RequestDAO();
-	}
+  @Getter RoomRequestDAO roomRequestDAO;
+  @Getter RequestDAO requestDAO;
+
+  @Getter SignageDAOImpl signageDAO;
+  @Getter UserDAOImpl userDAO;
+
+  private DataBaseRepository() {
+    nodeDAO = new NodeDAOImpl();
+    moveDAO = new MoveDAOImpl();
+    locationDAO = new LocationDAOImpl();
+    edgeDAO = new EdgeDAOImpl();
+    userDAO = new UserDAOImpl();
+    roomRequestDAO = new RoomRequestDAO();
+    confRoomDAO = new ConfRoomDAO();
+    foodDAO = new FoodDAOImpl();
+    foodDeliveryDAO = new FoodDeliveryDAOImp();
+    flowerDAO = new FlowerDAOImpl();
+    flowerDeliveryDAO = new FlowerDeliveryDAOImpl();
+    officeSupplyDAO = new OfficeSupplyDAOImpl();
+    officeSupplyDeliveryDAO = new OfficeSupplyDeliveryDAOImpl();
+    requestDAO = new RequestDAO();
+    signageDAO = new SignageDAOImpl();
+    alertDAO = new AlertDAO();
+  }
 
 	public static synchronized DataBaseRepository getInstance() {
 		dbConnection connection = dbConnection.getInstance();
@@ -87,30 +84,36 @@ public class DataBaseRepository {
 		edgeDAO.constructFromRemote();
 	}
 
-	public void load() {
-		dbConnection connection = dbConnection.getInstance();
-		pathFinder = new AStar();
-		// Has to be in the order of Node, Edge, Location, Move so that loading the local databases
-		// works correctly
-		nodeDAO.initTable(connection.getNodeTable());
-		edgeDAO.initTable(connection.getEdgesTable());
-		locationDAO.initTable(connection.getLocationTable());
-		moveDAO.initTable(connection.getMoveTable());
-		roomRequestDAO.initTable(connection.getRoomReservationsTable());
-		confRoomDAO.initTable(connection.getConferenceRoomTables());
-		foodDAO.initTable(connection.getFoodTable());
-		foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
-		userDAO.initTable(connection.getLoginTable());
-		requestDAO.initTable("all Requests");
+  public void load() {
+    dbConnection connection = dbConnection.getInstance();
+    pathFinder = new AStar();
+    // Has to be in the order of Node, Edge, Location, Move so that loading the local databases
+    // works correctly
+    nodeDAO.initTable(connection.getNodeTable());
+    edgeDAO.initTable(connection.getEdgesTable());
+
+    locationDAO.initTable(connection.getLocationTable());
+    moveDAO.initTable(connection.getMoveTable());
+    roomRequestDAO.initTable(connection.getRoomReservationsTable());
+    confRoomDAO.initTable(connection.getConferenceRoomTables());
+    foodDAO.initTable(connection.getFoodTable());
+    foodDeliveryDAO.initTable(connection.getFoodRequestsTable());
+    userDAO.initTable(connection.getLoginTable());
+    requestDAO.initTable("all Requests");
+    signageDAO.initTable(connection.getSignageTable());
 
 		officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
 		officeSupplyDeliveryDAO.initTable(connection.getOSuppliesRequestsTable());
 
-		nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
-		edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
-		locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
-		moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
-		userDAO.loadRemote("loading the remote");
+    nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
+    edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
+    locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
+    moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+    userDAO.loadRemote("loading the remote");
+    alertDAO.initTable(connection.getFoodTable());
+    alertDAO.loadRemote("Lorem Ipsum");
+
+    requestDAO.loadFromRemote();
 
 		flowerDAO.initTable(connection.getFlowerTable());
 		flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
@@ -119,12 +122,10 @@ public class DataBaseRepository {
 		foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
 		foodDeliveryDAO.loadRemote("This means nothing");
 
-		officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
-		officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
-		//    for (Move move : moveDAO.getAll()) {
-		//      System.out.println(move);
-		//    }
-	}
+    officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
+    officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
+    signageDAO.loadRemote("Hello World");
+  }
 
 	public boolean login(String text, String text1) throws Exception {
 		return userDAO.login(text, text1);
@@ -238,9 +239,9 @@ public class DataBaseRepository {
 		return flowerDeliveryDAO.getAll().size();
 	}
 
-	public int officeSupplyGetNewDeliveryID() {
-		return officeSupplyDAO.getAll().size();
-	}
+  public int officeSupplyGetNewDeliveryID() {
+    return officeSupplyDeliveryDAO.getAll().size();
+  }
 
 
 	public void forceMapUpdate() {
