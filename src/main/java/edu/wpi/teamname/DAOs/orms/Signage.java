@@ -1,13 +1,15 @@
 package edu.wpi.teamname.DAOs.orms;
 
 import edu.wpi.teamname.DAOs.IDataPack;
+import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Signage implements IDataPack {
-  @Getter @Setter Location kioskLocation;
+  @Getter @Setter int kioskLocation;
   @Getter @Setter Direction direction;
-  @Getter @Setter String surroundingLocation;
+  @Getter @Setter Location surroundingLocation;
+  @Getter @Setter Date thedate;
 
   public enum Direction {
     up,
@@ -16,14 +18,21 @@ public class Signage implements IDataPack {
     right
   }
 
-  public Signage(Location kioskLocation, Direction direction, String surroundingLocation) {
+  public Signage(int kioskLocation, Direction direction, Location surroundingLocation, Date d) {
     this.direction = direction;
     this.kioskLocation = kioskLocation;
     this.surroundingLocation = surroundingLocation;
+    this.thedate = d;
   }
 
   @Override
   public String toCSVString() {
-    return kioskLocation + "," + direction.name() + "," + surroundingLocation;
+    return kioskLocation
+        + ","
+        + direction.name()
+        + ","
+        + surroundingLocation
+        + ","
+        + thedate.toString();
   }
 }

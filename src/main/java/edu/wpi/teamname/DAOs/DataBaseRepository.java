@@ -106,6 +106,7 @@ public class DataBaseRepository {
     locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
     moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
     userDAO.loadRemote("loading the remote");
+
     alertDAO.initTable(connection.getFoodTable());
     alertDAO.loadRemote("Lorem Ipsum");
 

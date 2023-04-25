@@ -9,6 +9,52 @@ import java.util.List;
 import lombok.Getter;
 
 public class AlertDAO implements IDAO<Alert, String> {
+  @Override
+  public void initTable(String name) {
+
+  }
+
+  @Override
+  public void dropTable() {
+
+  }
+
+  @Override
+  public void loadRemote(String pathToCSV) {
+
+  }
+
+  @Override
+  public void importCSV(String path) {
+
+  }
+
+  @Override
+  public void exportCSV(String path) throws IOException {
+
+  }
+
+  @Override
+  public List<Alert> getAll() {
+    return null;
+  }
+
+  @Override
+  public Alert get(String target) {
+    return null;
+  }
+
+  @Override
+  public void delete(String target) {
+
+  }
+
+  @Override
+  public void add(Alert addition) {
+
+  }
+
+  /*
   private final dbConnection connection;
 
   @Getter private ArrayList<Alert> listOfAlerts;
@@ -115,4 +161,6 @@ public class AlertDAO implements IDAO<Alert, String> {
 
   @Override
   public void delete(String target) {}
+
+   */
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -41,11 +41,20 @@
             <Font name="Open Sans Regular" size="36.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Preview" wrappingWidth="192.80340766906738" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <font>
-            <Font name="Open Sans Regular" size="36.0" />
-         </font>
-      </Text>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Preview:" wrappingWidth="151.02563667297363">
+               <font>
+                  <Font name="Open Sans Regular" size="36.0" />
+               </font>
+            </Text>
+            <Text fx:id="whichKiosk" strokeType="OUTSIDE" strokeWidth="0.0" text="Kiosk" wrappingWidth="206.13659286499023">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <children>
             <SearchableComboBox fx:id="DirectionCB" maxHeight="50.0" maxWidth="70.0" minHeight="10.0" minWidth="9.0" prefHeight="140.0" prefWidth="83.0" />
@@ -126,26 +135,31 @@
             </Label>
          </children>
       </GridPane>
-      <MFXButton prefHeight="58.0" prefWidth="161.0" text="Submit" GridPane.columnIndex="2" GridPane.rowIndex="6">
-         <font>
-            <Font size="22.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="500.0" />
-         </GridPane.margin>
-      </MFXButton>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <MFXDatePicker fx:id="DateP" />
-            <MFXComboBox floatMode="BORDER" text="Kiosk">
-               <HBox.margin>
-                  <Insets left="50.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </MFXComboBox>
          </children>
       </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+         <children>
+            <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <MFXRectangleToggleNode fx:id="Switch" prefHeight="45.0" prefWidth="170.0" text="Switch Kiosk">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXRectangleToggleNode>
+                  <MFXButton fx:id="SubmitBTN" prefHeight="58.0" prefWidth="161.0" text="Submit">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </MFXButton>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </GridPane>
