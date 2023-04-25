@@ -257,7 +257,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  public void constructForGivenDate(LocalDate moveDate) {
+  public List<Move> constructForGivenDate(LocalDate moveDate) {
     ArrayList<Move> datedMoves = new ArrayList<>();
     NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
     LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
@@ -286,6 +286,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
       System.out.println(e.getSQLState());
       System.out.println("Error accessing the remote and constructing the list of moves");
     }
+    return datedMoves;
   }
 
   public ArrayList<futureMoves> getFutureMoves() {
