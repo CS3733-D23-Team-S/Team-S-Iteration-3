@@ -16,9 +16,11 @@ public enum Screen {
   PRODUCT_DETAILS("views/MealDelivery/MealDeliveryPopup.fxml"),
   PATHFINDING("views/Pathfinding.fxml"),
   SIGNAGE_PAGE("views/SignagePage.fxml"),
-
-  MAP_EDITOR("views/NewMapEditor.fxml"),
-  BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
+  SUBMITTED_MEALS("views/ServiceRequestPages/SubmittedMeals.fxml"),
+  MEAL_DELIVERY_ORDER_CONFIRMATION("views/MealDelivery/MealDeliveryOrderConfirmation.fxml"),
+  // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
+  ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
+  MAP_EDITOR("views/NewestMapEditor.fxml"),
   NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
   ADMIN_PAGE("views/newAdminPage.fxml"),
@@ -38,8 +40,9 @@ public enum Screen {
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
   STAFFHOME("views/StaffHome.fxml"),
-  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml"),
-  ABOUT_US("views/aboutus.fxml");
+  ABOUT_US("views/aboutus.fxml"),
+  CREDITS_PAGE("views/Credits.fxml"),
+  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
 
   private final String filename;
 

@@ -130,19 +130,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Override
   public void add(Move addition) {
-    //    listOfMoves.add(addition);
-    //    ArrayList<Move> moveArrayList = new ArrayList<>();
-    //    moveArrayList.add(addition);
-    //    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
-    //      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
-    //    } else {
-    //      locationMoveHistory.get(addition.getLocationName()).add(addition);
-    //    }
-    //    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
-    //      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
-    //    } else {
-    //      locationsAtNodeID.get(addition.getNodeID()).add(addition);
-    //    }
     try {
       PreparedStatement stmt =
           connection
@@ -164,30 +151,10 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     this.add(newMove);
   }
 
-  public void addToJustDBandLoc(Move addition) {
-    // listOfMoves.add(addition);
-    try {
-      PreparedStatement stmt =
-          connection
-              .getConnection()
-              .prepareStatement("INSERT INTO " + name + " (nodeID, location, date) VALUES (?,?,?)");
-      stmt.setInt(1, addition.getNode().getNodeID());
-      stmt.setString(2, addition.getLocation().getLongName());
-      stmt.setDate(3, Date.valueOf(addition.getDate()));
-      stmt.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
   void constructFromRemote() {
     listOfMoves.clear();
     locationsAtNodeID.clear();
     locationMoveHistory.clear();
-    if (!listOfMoves.isEmpty()) {
-      System.out.println("There is already stuff in the orm database");
-      return;
-    }
     NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
     LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
     try {
@@ -234,8 +201,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
           LocalDate date = parseDate(fields[2]);
-
-          //          Move thisMove = new Move(Integer.parseInt(fields[0]), fields[1], date);
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -338,7 +303,7 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     return LocalDate.parse(outputString);
   }
 
-  private class DateComparator implements Comparator<Move> {
+  private static class DateComparator implements Comparator<Move> {
     public int compare(Move o1, Move o2) {
       return o1.getDate().compareTo(o2.getDate());
     }

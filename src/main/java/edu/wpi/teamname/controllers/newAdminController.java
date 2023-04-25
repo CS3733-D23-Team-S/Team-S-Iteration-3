@@ -55,6 +55,7 @@ public class newAdminController {
   @FXML TextArea announcementText;
   @FXML Label greetingHeader;
   @FXML MFXButton aboutUsBtn;
+  @FXML MFXButton creditsBtn;
 
   // @FXML MFXButton aboutUSBtn;
 
@@ -71,6 +72,7 @@ public class newAdminController {
   public void initialize() {
     //  aboutUSBtn.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT_US));
     aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
+    creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));

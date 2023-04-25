@@ -1,4 +1,4 @@
-package edu.wpi.teamname.controllers.map;
+package edu.wpi.teamname.controllers.mapEditor;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Location;
@@ -10,23 +10,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
 
-public class AddLocationController {
-  DataBaseRepository repo = DataBaseRepository.getInstance();
+public class AddLocationPopOverController {
 
-  @FXML private Button deleteLoc;
+  DataBaseRepository repo = DataBaseRepository.getInstance();
+  @Setter MapEditorController mainController;
+  @FXML @Setter BorderPane locationMenu;
+
+  @FXML private Button deleteLoc, submit;
+  @FXML private TextField longNameField, shortNameField;
 
   @FXML private SearchableComboBox<String> locationSelect;
 
-  @FXML private TextField longNameField;
-
   @FXML private ChoiceBox<String> nodeTypeSelect;
 
-  @FXML private TextField shortNameField;
-
-  @FXML private Button submit;
-
+  @FXML
   public void initialize() {
     for (NodeType type : NodeType.values()) {
       nodeTypeSelect.getItems().add(type.toString());
@@ -54,6 +55,11 @@ public class AddLocationController {
             repo.getLocationDAO().add(location);
           }
         });
+  }
+
+  public void launchPopup() {
+    mainController.popOver.setContentNode(this.locationMenu);
+    mainController.popOver.show(mainController.addLocation);
   }
 
   private boolean checkFilled() {

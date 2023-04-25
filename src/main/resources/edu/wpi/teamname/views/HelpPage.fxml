@@ -11,23 +11,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
             <Label text="General">
                <font>
@@ -53,6 +55,9 @@
                      </padding>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
             <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="To navigate select start and end location and press navigate to see the path and directions to your destination." textFill="#5b5959">
                <font>
@@ -78,6 +83,9 @@
                      </padding>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
             <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
                <font>
@@ -87,13 +95,13 @@
                   <Insets bottom="20.0" top="-40.0" />
                </VBox.margin>
             </Label>
-            <Label alignment="TOP_LEFT" prefHeight="38.0" prefWidth="167.0" text="Map Editor" textFill="#122e59">
+            <Label alignment="TOP_LEFT" prefHeight="38.0" prefWidth="158.0" text="Map Editor" textFill="#122e59">
                <font>
                   <Font size="20.0" />
                </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </Label>
             <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
                <font>

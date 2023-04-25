@@ -33,6 +33,7 @@ public class StaffHomeController {
   @FXML VBox announcementVBox;
 
   @FXML MFXButton aboutUsBtn;
+  @FXML MFXButton creditsBtn;
   @FXML Group taskGroup;
   @FXML Group announcementGroup;
 
@@ -48,6 +49,7 @@ public class StaffHomeController {
   public void initialize() {
 
     aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
+    creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
 
     System.out.println(requests);
     // clean requests

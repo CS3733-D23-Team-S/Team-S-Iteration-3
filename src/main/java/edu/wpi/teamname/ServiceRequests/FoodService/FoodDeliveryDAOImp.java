@@ -16,7 +16,7 @@ public class FoodDeliveryDAOImp implements ISRDAO<FoodDelivery, Integer> {
 
   @Getter private String name;
   private final dbConnection connection;
-  @Getter private HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
+  @Getter private final HashMap<Integer, FoodDelivery> foodRequests = new HashMap<>();
 
   public FoodDeliveryDAOImp() {
     connection = dbConnection.getInstance();
