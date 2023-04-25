@@ -17,11 +17,9 @@ public class PathfindingMovePopUpController extends PopUpController {
 
   @FXML MFXButton confirmAdd;
 
-
-
   public void initialize() {
 
     cancelAdd.setOnMouseClicked(event -> stage.close());
-    confirmAdd.setOnMouseClicked(event ->stage.close());
+    confirmAdd.setOnMouseClicked(event -> stage.close());
   }
 }
