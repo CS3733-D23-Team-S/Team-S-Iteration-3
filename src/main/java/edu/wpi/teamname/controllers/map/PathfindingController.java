@@ -572,31 +572,47 @@ public class PathfindingController {
           // displays yellow on last node on the current floor
           switchFloorsCircle = new Circle(startX, startY, 6.0, Color.YELLOW);
           if (thisFloor.equals(Floor.Floor1)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH,
+            // switchFloorsCircle);
+            importantCirclesF1PH.add(switchFloorsCircle);
           } else if (thisFloor.equals(Floor.Floor2)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH,
+            // switchFloorsCircle);
+            importantCirclesF2PH.add(switchFloorsCircle);
           } else if (thisFloor.equals(Floor.Floor3)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH,
+            // switchFloorsCircle);
+            importantCirclesF3PH.add(switchFloorsCircle);
           } else if (thisFloor.equals(Floor.FloorL1)) {
-            checkCircles(
-                prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           } else if (thisFloor.equals(Floor.FloorL2)) {
-            checkCircles(
-                prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            importantCirclesFL2PH.add(switchFloorsCircle);
           }
           switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
           if (nextFloor.equals(Floor.Floor1)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           } else if (nextFloor.equals(Floor.Floor2)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           } else if (nextFloor.equals(Floor.Floor3)) {
-            checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH, switchFloorsCircle);
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           } else if (nextFloor.equals(Floor.FloorL1)) {
-            checkCircles(
-                prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           } else if (nextFloor.equals(Floor.FloorL2)) {
-            checkCircles(
-                prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
           }
         }
         if (thisFloor.equals(Floor.Floor1)) {
