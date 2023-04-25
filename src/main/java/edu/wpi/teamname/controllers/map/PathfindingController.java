@@ -107,11 +107,13 @@ public class PathfindingController {
     }
   }
 
-  // issue with this:
-  // when the date is entered after switching floors it doesn't display it properly
-  // basically showLocationNames is dependent on the date
-  // so for moves like Cafe, when the date is before the move, it doesn't display it post move
-  // and this means that if the date is switched to 4/25 before entering
+  // small issue:
+  // take cafe as example: it has a move on the 26th(?) which moves it to floor 2
+  // if the locations are already toggled, then you move to floor 2, then you set the date to the
+  // 26th
+  // it doesn't display the location name on the right node
+  // can prolly be fixed by called showLocationNames2() if the toggle is selected and the date is
+  // changed
   public void showLocationNames2() {
     List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
     if (!displayLocationNamesToggle.isSelected()) {
@@ -874,6 +876,10 @@ public class PathfindingController {
         anchorPane.getChildren().addAll(importantCirclesFL2);
         centerOnPoint(importantCirclesFL2);
       }
+      if (displayLocationNamesToggle.isSelected()) {
+        showLocationNames2();
+        // showLocationNames2();
+      }
       displayFloorOrder(los);
     }
   }
@@ -1244,8 +1250,6 @@ public class PathfindingController {
     circlesOnFloor = floor1Circles;
     nodeList = floor1Nodes;
     changeFloorButtonColors();
-    // findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
-    // findPathButton.setOnMouseClicked(event -> showPathAcrossFloors(nodeList, pathLines));
     findPathButton.setOnMouseClicked(
         event -> {
           showPathTesting();
@@ -1255,5 +1259,22 @@ public class PathfindingController {
           }
         });
     addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
+    datePicker.setOnAction(
+        event -> {
+          if (displayLocationNamesToggle.isSelected()) {
+            showLocationNames2();
+          }
+          // remove path lines
+          anchorPane.getChildren().removeAll(floor1Lines);
+          anchorPane.getChildren().removeAll(floor2Lines);
+          anchorPane.getChildren().removeAll(floor3Lines);
+          anchorPane.getChildren().removeAll(floorL1Lines);
+          anchorPane.getChildren().removeAll(floorL2Lines);
+          anchorPane.getChildren().removeAll(importantCirclesF1);
+          anchorPane.getChildren().removeAll(importantCirclesF2);
+          anchorPane.getChildren().removeAll(importantCirclesF3);
+          anchorPane.getChildren().removeAll(importantCirclesFL1);
+          anchorPane.getChildren().removeAll(importantCirclesFL2);
+        });
   }
 }
