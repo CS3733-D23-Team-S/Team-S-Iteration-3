@@ -220,7 +220,7 @@ public class StaffHomeController {
     addAnnouncement.getChildren().add(annRect);
     addAnnouncement.getChildren().add(annhbox);
 
-    announcementVBox.setAlignment(Pos.CENTER);
+    announcementVBox.setAlignment(Pos.TOP_LEFT);
     announcementVBox.getChildren().add(addAnnouncement);
     announcementVBox.setSpacing(10);
   }

@@ -144,7 +144,10 @@ public class newAdminController {
             announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
     nameLabel.setStyle("-fx-font-weight: bold");
     Label announcementLabel = new Label(announcement.getMessage());
+    announcementLabel.setMaxWidth(250);
+    announcementLabel.setMaxHeight(80);
     announcementLabel.setWrapText(true);
+    announcementLabel.setEllipsisString("");
     VBox annInfo = new VBox(nameLabel, announcementLabel);
     annInfo.setPrefWidth(240);
     annInfo.setPadding(new Insets(20));
@@ -170,7 +173,7 @@ public class newAdminController {
             .thenComparing(Alert::getTimeOfAlert)
             .reversed());
 
-    announcementVBox.setAlignment(Pos.TOP_LEFT);
+    announcementVBox.setAlignment(Pos.TOP_CENTER);
     announcementVBox.getChildren().add(addAnnouncement);
     announcementVBox.setSpacing(10);
   }

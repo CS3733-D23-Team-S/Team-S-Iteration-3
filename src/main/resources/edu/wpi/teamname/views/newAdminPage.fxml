@@ -134,7 +134,7 @@
                <children>
                   <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="396.0" prefWidth="503.0" vbarPolicy="NEVER">
                      <content>
-                        <VBox fx:id="announcementVBox" alignment="TOP_RIGHT" prefHeight="394.0" prefWidth="476.0" stylesheets="@../../../../Stylesheets/Staff.css" />
+                        <VBox fx:id="announcementVBox" alignment="TOP_RIGHT" prefHeight="394.0" prefWidth="545.0" stylesheets="@../../../../Stylesheets/Staff.css" />
                      </content>
                   </MFXScrollPane>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
