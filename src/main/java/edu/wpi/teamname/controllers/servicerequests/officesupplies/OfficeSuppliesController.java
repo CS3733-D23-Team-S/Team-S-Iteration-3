@@ -310,7 +310,7 @@ public class OfficeSuppliesController {
       Date d = Date.valueOf(LocalDate.now());
       Time t = Time.valueOf(LocalTime.now());
 
-      OfficeSupplyDelivery currentFlowDev =
+      OfficeSupplyDelivery currentOSDev =
           new OfficeSupplyDelivery(
               OfficeSuppliesController.osDevID++,
               OfficeSuppliesController.Cart.toString(),
@@ -323,7 +323,7 @@ public class OfficeSuppliesController {
               OfficeSuppliesController.Cart.getTotalPrice(),
               n);
 
-      dbr.getOfficeSupplyDeliveryDAO().add(currentFlowDev);
+      dbr.getOfficeSupplyDeliveryDAO().add(currentOSDev);
 
       checkOutBox.getChildren().clear();
 

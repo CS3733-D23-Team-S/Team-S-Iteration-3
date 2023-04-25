@@ -225,7 +225,7 @@ public class DataBaseRepository {
   }
 
   public int officeSupplyGetNewDeliveryID() {
-    return officeSupplyDAO.getAll().size();
+    return officeSupplyDeliveryDAO.getAll().size();
   }
 
   public void forceGlobalUpdate() {
