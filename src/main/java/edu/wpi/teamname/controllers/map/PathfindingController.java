@@ -376,7 +376,11 @@ public class PathfindingController {
     floorOrderLabel.setText("");
     for (int i = 0; i < floors.size() - 1; i++) {
       if (!floors.get(i).equals(floors.get(i + 1))) {
-        floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(i) + " -> ");
+        if (i != 0 && i != floors.size() - 2 && !floors.get(i).equals(floors.get(i - 1))) {
+          // don't do anything
+        } else {
+          floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(i) + " -> ");
+        }
       }
     }
     floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(floors.size() - 1));
@@ -390,6 +394,8 @@ public class PathfindingController {
         1,
         new Point2D(importantCircles.get(0).getCenterX(), importantCircles.get(0).getCenterY()));
   }
+
+  public void checkCircle(List<Circle> loc, Circle circle) {}
 
   // test for showing paths method
   public void showPathTesting() {
@@ -577,36 +583,52 @@ public class PathfindingController {
           switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
           if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(switchFloorsCircle);
-            currFloor = "Floor 1";
+            // currFloor = "Floor 1";
           } else if (nextFloor.equals(Floor.Floor2)) {
             importantCirclesF2PH.add(switchFloorsCircle);
-            currFloor = "Floor 2";
+            // currFloor = "Floor 2";
           } else if (nextFloor.equals(Floor.Floor3)) {
             importantCirclesF3PH.add(switchFloorsCircle);
-            currFloor = "Floor 3";
+            // currFloor = "Floor 3";
           } else if (nextFloor.equals(Floor.FloorL1)) {
             importantCirclesFL1PH.add(switchFloorsCircle);
-            currFloor = "Floor L1";
+            // currFloor = "Floor L1";
           } else if (nextFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(switchFloorsCircle);
-            currFloor = "Floor L2";
+            // currFloor = "Floor L2";
           }
-          los.add(currFloor);
+        }
+        if (thisFloor.equals(Floor.Floor1)) {
+          currFloor = "Floor 1";
+        } else if (thisFloor.equals(Floor.Floor2)) {
+          currFloor = "Floor 2";
+        } else if (thisFloor.equals(Floor.Floor3)) {
+          currFloor = "Floor 3";
+        } else if (thisFloor.equals(Floor.FloorL1)) {
+          currFloor = "Floor L1";
+        } else if (thisFloor.equals(Floor.FloorL2)) {
+          currFloor = "Floor L2";
         }
         if (i == pfe.getPathEntities().size() - 2) {
           endCircle = new Circle(endX, endY, 10.0, Color.GREEN);
           if (nextFloor.equals(Floor.Floor1)) {
             importantCirclesF1PH.add(endCircle);
+            currFloor = "Floor 1";
           } else if (nextFloor.equals(Floor.Floor2)) {
             importantCirclesF2PH.add(endCircle);
+            currFloor = "Floor 2";
           } else if (nextFloor.equals(Floor.Floor3)) {
             importantCirclesF3PH.add(endCircle);
+            currFloor = "Floor 3";
           } else if (nextFloor.equals(Floor.FloorL1)) {
             importantCirclesFL1PH.add(endCircle);
+            currFloor = "Floor L1";
           } else if (nextFloor.equals(Floor.FloorL2)) {
             importantCirclesFL2PH.add(endCircle);
+            currFloor = "Floor L2";
           }
         }
+        los.add(currFloor);
         Line line = new Line(startX, startY, endX, endY);
         line.setFill(Color.BLACK);
         line.setStrokeWidth(2.0);
