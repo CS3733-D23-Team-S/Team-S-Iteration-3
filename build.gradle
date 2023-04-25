@@ -47,6 +47,8 @@ dependencies {
             'net.java.dev.jna:jna:5.12.1',
     )
     implementation 'com.englishtown.vertx:vertx-httpservlet:2.2.1'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'org.jetbrains:annotations:24.0.0'
     testImplementation 'junit:junit:4.13.2'
 
     String javaFxVersion = '19.0.2.1'

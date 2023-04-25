@@ -32,8 +32,8 @@ public class AddNodePopOverController {
                     (int) Math.round(potentialNodLoc.getY()),
                     mainController.currFloor,
                     buildingEnter.getText());
-            repo.addNode(node);
-            mainController.addToQueue(node);
+            mainController.queueManager.addToQueue(node);
+            mainController.generateFloorNodes();
           }
         });
   }

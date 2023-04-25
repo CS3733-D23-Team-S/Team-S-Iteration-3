@@ -176,6 +176,9 @@ public class EdgeDAOImpl implements IDAO<Edge, Edge> {
       while (data.next()) {
         int startNodeID = data.getInt("startNode");
         int endNodeID = data.getInt("endNode");
+        DataBaseRepository repo = DataBaseRepository.getInstance();
+        Edge edge = new Edge(repo.getNode(startNodeID), repo.getNode(endNodeID));
+        edges.add(edge);
         if (!neighbors.containsKey(startNodeID)) {
           HashSet<Integer> edges = new HashSet<>();
           neighbors.put(startNodeID, edges);

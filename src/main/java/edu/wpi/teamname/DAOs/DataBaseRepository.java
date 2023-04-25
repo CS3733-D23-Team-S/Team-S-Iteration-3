@@ -239,6 +239,18 @@ public class DataBaseRepository {
     return moveDAO.get(move);
   }
 
+  public List<Move> getAllMoves() {
+    return moveDAO.getAll();
+  }
+
+  public void addMove(Move move) {
+    moveDAO.add(move);
+  }
+
+  public void deleteMove(Move move) {
+    moveDAO.delete(move);
+  }
+
   // NodeDAO functions
   public List<Node> getAllNodes() {
     return nodeDAO.getAll();
@@ -258,6 +270,7 @@ public class DataBaseRepository {
 
   public void addNode(Node node) {
     nodeDAO.add(node);
+    edgeDAO.add(node);
   }
 
   // LocationDAO functions
@@ -267,6 +280,18 @@ public class DataBaseRepository {
 
   public Location getLocation(String target) {
     return locationDAO.get(target);
+  }
+
+  public void addLocation(Location location) {
+    locationDAO.add(location);
+  }
+
+  public void deleteLocation(Location location) {
+    locationDAO.delete(location.getLongName());
+  }
+
+  public void deleteLocation(String locationName) {
+    locationDAO.delete(locationName);
   }
 
   // EdgeDAO functions
@@ -280,5 +305,13 @@ public class DataBaseRepository {
 
   public Edge getEdge(Edge target) {
     return edgeDAO.get(target);
+  }
+
+  public void addEdge(Edge edge) {
+    edgeDAO.add(edge);
+  }
+
+  public void deleteEdge(Edge edge) {
+    edgeDAO.delete(edge);
   }
 }

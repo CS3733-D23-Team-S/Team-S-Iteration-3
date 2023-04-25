@@ -9,8 +9,6 @@ public class Edge implements IDataPack {
   @Getter @Setter private Node endNode;
 
   public Edge(Node sN, Node eN) {
-    System.out.println(sN);
-    System.out.println();
     startNode = sN;
     endNode = eN;
   }
