@@ -9,6 +9,7 @@ import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,24 +33,6 @@ import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.ToggleSwitch;
 
 public class PathfindingController {
-
-  public PathfindingController() {}
-
-  public void adminMessage(String adminMsg) {
-    Text message = new Text();
-    message.setText(adminMsg);
-    message.setX(2500.0);
-    message.setY(1700);
-    anchorPane.getChildren().add(message);
-    // test to see if it would add anything - it wouldn't
-    //    Circle testC = new Circle(0.0, 0.0, 50.0, Color.BLACK);
-    //    anchorPane.getChildren().addAll(floor1Circles);
-    //    destinationError.setText("Test");
-
-    // caused an error "cannot invoke Label.setText(String) because 'this.floorOrderLabel' is null"
-    // floorOrderLabel.setText("test");
-    // destinationError.setText("test");
-  }
 
   @FXML MFXButton findPathButton;
   @FXML MFXButton clearFieldsButton;
@@ -77,8 +60,6 @@ public class PathfindingController {
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
 
-  // @FXML MFXButton addMessageButton;
-
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
   StackPane stackPane = new StackPane();
@@ -90,8 +71,25 @@ public class PathfindingController {
   @FXML Label datePickerError;
   @FXML ToggleSwitch displayLocationNamesToggle;
   @FXML ToggleSwitch displayAllNodesToggle;
+  @FXML MFXTextField messageField;
   private String prevDirection;
   List<Text> locations = new ArrayList<>();
+  MFXTextField adminMessage = new MFXTextField();
+
+  public void addMessage() {
+    MFXTextField adminMessage = new MFXTextField();
+    if (!messageField.getText().equals("")) {
+      adminMessage.setText(messageField.getText());
+      //      adminMessage.setLayoutX(5000);
+      //      adminMessage.setLayoutY(50);
+      //      adminMessage.setStyle("-fx-font-size: 36");
+      adminMessage.setTranslateX(2500.0);
+      adminMessage.setTranslateY(1700.0);
+      adminMessage.setPrefSize(400, 50);
+      adminMessage.setStyle("-fx-font-size: 40");
+      anchorPane.getChildren().add(adminMessage);
+    }
+  }
 
   public void showLocationNames2() {
     if (!displayLocationNamesToggle.isSelected()) {
@@ -1234,8 +1232,7 @@ public class PathfindingController {
           showPathTesting();
           prevDirection = null;
         });
-    addMessageBtn.setOnMouseClicked(
-        event -> Navigation.launchPopUp(Screen.PATHFINDING_MESSAGE_POPUP));
+    addMessageBtn.setOnMouseClicked(event -> addMessage());
     addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
   }
 }

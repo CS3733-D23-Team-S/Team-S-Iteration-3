@@ -72,8 +72,7 @@ public class PathfindingMessagePopUpController extends PopUpController {
       startingLocationError.setText("");
       destinationError.setText("");
       // add message
-      pathfindingController.adminMessage(messageTF.getText());
-      messageSuccess.setText("Message Successfully Added");
+
     }
   }
 
