@@ -17,7 +17,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -38,10 +37,7 @@ public class StaffHomeController {
   ArrayList<Request> newRequests = new ArrayList<Request>();
 
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
-
-  // List<Alert> announcements = alertDAO.getAll();
-
-  List<Alert> announcements = new ArrayList<Alert>();
+  List<Alert> announcements = alertDAO.getListOfAlerts();
 
   // announcements
 
@@ -68,8 +64,10 @@ public class StaffHomeController {
       initializeTask(request);
     }
 
+    System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
     for (int i = 0; i < announcements.size(); i++) {
       initializeAnnouncements(announcements.get(i));
+      System.out.println("Initializign announcement: " + announcements.get(i).getMessage());
     }
 
     getTimeString();
@@ -114,25 +112,20 @@ public class StaffHomeController {
 
     if (request.getOrderStatus().equals("Received")) {
       statusBox.getSelectionModel().selectItem("Received");
-      System.out.println("Changed request status to received");
       statusBox.setStyle("-fx-background-color: #FECAC7");
     } else if (request.getOrderStatus().equals("In Progress")) {
       statusBox.getSelectionModel().selectItem("In Progress");
-      System.out.println("Changed request status to in progress");
       statusBox.setStyle("-fx-background-color: #FEF5C7");
     } else if (request.getOrderStatus().equals("Complete")) {
       statusBox.getSelectionModel().selectItem("Complete");
-      System.out.println("Changed request status to complete");
       statusBox.setStyle("-fx-background-color: #C7FECC");
 
     } else {
       statusBox.getSelectionModel().selectItem("Received");
-      System.out.println("Changed request status to received");
       statusBox.setStyle("-fx-background-color: #FECAC7");
     }
 
     request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
-    System.out.println("Selected:" + statusBox.getSelectionModel().getSelectedItem());
 
     statusBox.setFloatMode(FloatMode.ABOVE);
     statusBox.setStyle("-fx-border-color: #FFFFFF00");
@@ -155,8 +148,6 @@ public class StaffHomeController {
               "STATUS CHANGED: " + request.getRequestType() + " " + request.getOrderStatus());
 
           request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
-
-          System.out.println("Selected:" + statusBox.getSelectionModel().getSelectedItem());
 
           if (request.getOrderStatus().equals("Received")) {
             statusBox.setStyle("-fx-background-color: #E7D3FF");
@@ -189,21 +180,30 @@ public class StaffHomeController {
     annRect.setStroke(Paint.valueOf("#b5c5ee"));
     annRect.getStyleClass().add("announcementrect");
 
+    /*
     ImageView profile = new ImageView();
     profile.setFitHeight(60);
     profile.setFitWidth(60);
+    Image i =
+        new Image(
+            String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png").toString()));
+    profile.setImage(i);
+    System.out.println("Profile image: " + profile.getImage());
 
-    Label nameLabel = new Label("User");
-    Label headerLabel = new Label(announcement.getHeading());
-    headerLabel.setStyle("-fx-font-weight: bold");
+     */
+
+    Label nameLabel =
+        new Label(
+            announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
+    nameLabel.setStyle("-fx-font-weight: bold");
     Label announcementLabel = new Label(announcement.getMessage());
-    VBox annInfo = new VBox(nameLabel, headerLabel, announcementLabel);
+    VBox annInfo = new VBox(nameLabel, announcementLabel);
     annInfo.setPrefWidth(240);
-    annInfo.setPadding(new Insets(20, 0, 10, 0));
+    annInfo.setPadding(new Insets(10));
 
-    Label timeLabel = new Label(announcement.getDateOfAlert().toString());
+    Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
 
-    HBox annhbox = new HBox(profile, annInfo, timeLabel);
+    HBox annhbox = new HBox(annInfo, timeLabel);
     annhbox.setPrefWidth(350);
     annhbox.setPrefHeight(90);
     annhbox.setAlignment(Pos.CENTER_LEFT);

@@ -1,8 +1,13 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.MoveDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.DAOs.orms.User;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
@@ -18,10 +23,19 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 public class newAdminController {
   @FXML MFXButton toMapEditor;
@@ -32,17 +46,92 @@ public class newAdminController {
   @FXML TableView moveTable;
   @FXML TableView allTable;
   @FXML MFXButton impexpButton;
+  @FXML VBox announcementVBox;
+  @FXML ImageView submitAnnouncement;
+  @FXML TextArea announcementText;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
-
   MoveDAOImpl moverepo = DataBaseRepository.getInstance().getMoveDAO();
+
+  @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
+  public ActiveUser activeUser = ActiveUser.getInstance();
+
+  List<Alert> announcements = alertDAO.getListOfAlerts();
 
   public void initialize() {
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
+
+    Image i = new Image(String.valueOf(Main.class.getResource("images/send.png")));
+    submitAnnouncement.setImage(i);
+
+    System.out.println("ESTIENGE!!");
+    submitAnnouncement.setOnMouseClicked(
+        event -> {
+          String message = announcementText.getText();
+          User user = activeUser.getCurrentUser();
+
+          Alert alert = new Alert("", message, user);
+          alertDAO.add(alert);
+
+          System.out.println("Alert submitted!");
+          System.out.println(alertDAO.getListOfAlerts().size());
+          System.out.println(alertDAO.getListOfAlerts());
+
+          announcementText.clear();
+        });
+
+    initializeTables();
+  }
+
+  public void initializeAnnouncements(Alert announcement) {
+
+    System.out.println("First name: " + announcement.getUser().getFirstName());
+    System.out.println("Header: " + announcement.getHeading());
+    System.out.println("Text: " + announcement.getMessage());
+    System.out.println("Time: " + announcement.getTimeOfAlert());
+
+    Group addAnnouncement = new Group();
+
+    Rectangle annRect = new Rectangle();
+    annRect.setWidth(360);
+    annRect.setHeight(100);
+    annRect.setStroke(Paint.valueOf("#b5c5ee"));
+    annRect.getStyleClass().add("announcementrect");
+
+    // ImageView profile = new ImageView();
+    //  profile.setFitHeight(60);
+    // profile.setFitWidth(60);
+
+    Label nameLabel = new Label("User");
+    Label headerLabel = new Label(announcement.getHeading());
+    headerLabel.setStyle("-fx-font-weight: bold");
+    Label announcementLabel = new Label(announcement.getMessage());
+    VBox annInfo = new VBox(nameLabel, headerLabel, announcementLabel);
+    annInfo.setPrefWidth(240);
+    annInfo.setPadding(new Insets(20, 0, 10, 0));
+
+    Label timeLabel = new Label(announcement.getDateOfAlert().toString());
+
+    HBox annhbox = new HBox(annInfo, timeLabel);
+    annhbox.setPrefWidth(350);
+    annhbox.setPrefHeight(90);
+    annhbox.setAlignment(Pos.CENTER_LEFT);
+    annhbox.setPadding(new Insets(10, 0, 0, 0));
+
+    addAnnouncement.getChildren().add(annRect);
+    addAnnouncement.getChildren().add(annhbox);
+
+    announcementVBox.setAlignment(Pos.TOP_LEFT);
+    announcementVBox.getChildren().add(addAnnouncement);
+    announcementVBox.setSpacing(10);
+  }
+
+  public void initializeTables() {
 
     TableColumn<Food, String> Mcolumn1 = new TableColumn<>("RequestID");
     Mcolumn1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));

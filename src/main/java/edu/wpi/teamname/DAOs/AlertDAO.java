@@ -55,8 +55,11 @@ public class AlertDAO implements IDAO<Alert, String> {
       preparedStatement.setString(1, addition.getHeading());
       preparedStatement.setString(2, addition.getMessage());
       preparedStatement.setString(3, addition.getUser().getUserName());
-      preparedStatement.setDate(3, Date.valueOf(addition.getDateOfAlert()));
-      preparedStatement.setTime(4, Time.valueOf(addition.getTimeOfAlert()));
+      preparedStatement.setDate(4, Date.valueOf(addition.getDateOfAlert()));
+      preparedStatement.setTime(5, Time.valueOf(addition.getTimeOfAlert()));
+
+      preparedStatement.executeUpdate();
+
       listOfAlerts.add(addition);
 
     } catch (SQLException e) {
@@ -87,7 +90,7 @@ public class AlertDAO implements IDAO<Alert, String> {
     try {
       UserDAOImpl userDAO = DataBaseRepository.getInstance().getUserDAO();
       Statement stmt = connection.getConnection().createStatement();
-      String alerts = "SELECT * FROM " + name + " order by alertDate desc ";
+      String alerts = "SELECT * FROM " + name + " order by date desc ";
       ResultSet rs = stmt.executeQuery(alerts);
       while (rs.next()) {
         String heading = rs.getString("heading");
@@ -115,7 +118,6 @@ public class AlertDAO implements IDAO<Alert, String> {
 
   @Override
   public List<Alert> getAll() {
-
     return listOfAlerts;
   }
 
