@@ -74,7 +74,7 @@ public class RootController {
                   String.valueOf(
                       Main.class.getResource("templateIcons/invertedmenu/mealinverted.png")));
           mealIcon.setImage(i);
-          Navigation.navigate(Screen.MEAL_DELIVERY1);
+          Navigation.navigate(Screen.MEAL_DELIVERY);
         });
 
     menuroom.setOnMouseClicked(

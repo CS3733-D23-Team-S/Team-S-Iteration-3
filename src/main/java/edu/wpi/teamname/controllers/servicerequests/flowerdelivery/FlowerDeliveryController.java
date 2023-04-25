@@ -143,10 +143,10 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(150);
+      btn1.setPrefWidth(175);
       btn1.setPrefHeight(100);
       btn1.setStyle(
-          "-fx-background-radius:10 10 10 10; -fx-font-size: 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -173,10 +173,10 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(150);
+      btn1.setPrefWidth(175);
       btn1.setPrefHeight(100);
       btn1.setStyle(
-          "-fx-background-radius:10 10 10 10; -fx-font-size: 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -205,10 +205,10 @@ public class FlowerDeliveryController {
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(160);
+      btn1.setPrefWidth(175);
       btn1.setPrefHeight(100);
       btn1.setStyle(
-          "-fx-background-radius:10 10 10 10; -fx-font-size: 10;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -292,9 +292,9 @@ public class FlowerDeliveryController {
         System.out.println("works");
 
         HBox newRow = new HBox();
-        newRow.setSpacing(20);
+        newRow.setSpacing(5);
         newRow.setMaxHeight(300);
-        newRow.setMaxWidth(300);
+        newRow.setMaxWidth(200);
 
         ImageView flowerImage = new ImageView();
         Image image = new Image(Main.class.getResource(flower.getImage()).toString());
@@ -317,7 +317,7 @@ public class FlowerDeliveryController {
 
         VBox itemInfo = new VBox();
         itemInfo.setSpacing(5);
-        itemInfo.setPrefWidth(300);
+        itemInfo.setPrefWidth(276);
         itemInfo.setMaxHeight(300);
 
         HBox quantityChange = new HBox();
@@ -363,11 +363,11 @@ public class FlowerDeliveryController {
 
         HBox priceQ = new HBox();
         priceQ.setSpacing(5);
-        priceQ.setMaxWidth(300);
+        priceQ.setMaxWidth(276);
 
         VBox deleteBox = new VBox();
         deleteBox.setSpacing(5);
-        deleteBox.setPrefWidth(300);
+        deleteBox.setPrefWidth(276);
         deleteBox.setMaxHeight(300);
 
         Label name = new Label();
@@ -437,13 +437,22 @@ public class FlowerDeliveryController {
       checkOutBox.getChildren().clear();
 
       Label confirm = new Label();
+      ImageView checkMark = new ImageView();
       Label thanks = new Label();
+      Image checkMark1 = new Image(String.valueOf(Main.class.getResource("images/checkMark.png")));
+      checkMark.setImage(checkMark1);
+      checkMark.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      checkMark.setFitHeight(180);
+      checkMark.setFitWidth(180);
+      checkMark.setPreserveRatio(false);
       confirm.setText("Order Submitted!");
-      thanks.setText("Thank you for your order!\n\n\n\n\n\n");
+      thanks.setText("Thank you for your order!");
       confirm.setStyle("-fx-font-size: 30;");
       thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
       checkOutBox.setAlignment(Pos.CENTER);
       checkOutBox.getChildren().add(confirm);
+      checkOutBox.getChildren().add(checkMark);
       checkOutBox.getChildren().add(thanks);
 
     } catch (Exception e) {

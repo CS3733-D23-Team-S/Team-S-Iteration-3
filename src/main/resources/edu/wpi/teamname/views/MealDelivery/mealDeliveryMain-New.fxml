@@ -4,8 +4,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,9 +16,10 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckComboBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<BorderPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+<BorderPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController">
     <center>
         <GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -60,7 +59,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery" wrappingWidth="343.1953125">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery" wrappingWidth="343.1953125">
                            <font>
                               <Font name="Open Sans Regular" size="48.0" />
                            </font>
@@ -229,19 +228,7 @@
                         <Insets left="170.0" />
                      </HBox.margin>
                   </Text>
-                  <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-text-fill: #000000;" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
-                     <items>
-                        <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
-                        <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
-                        <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
-                     </items>
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MenuButton>
+                  <CheckComboBox fx:id="checkBox" minHeight="40.0" minWidth="170.0" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #B7B7B7; -fx-background-radius: 10 10 10 10;" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" />
                   <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff; -fx-border-color: #C0C0C0; -fx-border-radius: 10 10 10 10;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
                      <font>
                         <Font name="Open Sans Regular" size="20.0" />
