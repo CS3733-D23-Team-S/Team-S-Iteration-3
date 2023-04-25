@@ -39,7 +39,10 @@ public class SinageEditorController {
 
   int theKiosk = 1;
 
+  Signage oldSign = null;
+
   boolean update = false;
+  String[] p = null;
 
   @FXML
   public void initialize() {
@@ -119,43 +122,76 @@ public class SinageEditorController {
               DirectionCB.getValue().toString() + " " + LocationCB.getValue().toString());
           newLabel.setStyle("-fx-font-size: 16;");
 
-          Signage.Direction dir;
-
-          if (DirectionCB.getValue().toString().equals("^")) {
-            UpBox.getChildren().add(newLabel);
-            dir = Signage.Direction.up;
-          } else if (DirectionCB.getValue().toString().equals("->")) {
-            RightBox.getChildren().add(newLabel);
-            dir = Signage.Direction.right;
-          } else if (DirectionCB.getValue().toString().equals("<-")) {
-            LeftBox.getChildren().add(newLabel);
-            dir = Signage.Direction.left;
-          } else {
-            DownBox.getChildren().add(newLabel);
-            dir = Signage.Direction.down;
-          }
-
           Date d = Date.valueOf(DateP.getValue());
 
-          Signage theSign =
-              new Signage(
-                  theKiosk, dir, DBR.getLocationDAO().get(LocationCB.getValue().toString()), d);
+          if (update == false) {
 
-          DBR.getSignageDAO().add(theSign);
+            Signage.Direction dir;
+
+            if (DirectionCB.getValue().toString().equals("^")) {
+              UpBox.getChildren().add(newLabel);
+              dir = Signage.Direction.up;
+            } else if (DirectionCB.getValue().toString().equals("->")) {
+              RightBox.getChildren().add(newLabel);
+              dir = Signage.Direction.right;
+            } else if (DirectionCB.getValue().toString().equals("<-")) {
+              LeftBox.getChildren().add(newLabel);
+              dir = Signage.Direction.left;
+            } else {
+              DownBox.getChildren().add(newLabel);
+              dir = Signage.Direction.down;
+            }
+            Signage theSign =
+                new Signage(
+                    theKiosk, dir, DBR.getLocationDAO().get(LocationCB.getValue().toString()), d);
+
+            DBR.getSignageDAO().add(theSign);
+          } else {
+
+            Signage.Direction o;
+
+            if (p[0].equals("^")) {
+              o = Signage.Direction.up;
+            } else if (p[0].equals("->")) {
+              o = Signage.Direction.right;
+            } else if (p[0].equals("<-")) {
+              o = Signage.Direction.left;
+            } else {
+              o = Signage.Direction.down;
+            }
+
+            Signage.Direction w;
+
+            if (DirectionCB.getValue().toString().equals("^")) {
+              w = Signage.Direction.up;
+            } else if (DirectionCB.getValue().toString().equals("->")) {
+              w = Signage.Direction.right;
+            } else if (DirectionCB.getValue().toString().equals("<-")) {
+              w = Signage.Direction.left;
+            } else {
+              w = Signage.Direction.down;
+            }
+
+            Signage oldSign = new Signage(theKiosk, o, DBR.getLocationDAO().get(p[1]), d);
+
+            Signage newSign =
+                new Signage(
+                    theKiosk, w, DBR.getLocationDAO().get(LocationCB.getValue().toString()), d);
+
+            System.out.println(newSign.toCSVString());
+
+            DBR.getSignageDAO().update(oldSign, newSign);
+            constructPage(d, theKiosk);
+          }
 
           newLabel.setOnMouseClicked(
               e -> {
-                colorEvent(newLabel);
+                update = true;
+                p = colorEvent(newLabel);
               });
 
+          update = false;
           clearFields();
-        });
-
-    SubmitBTN.setOnMouseClicked(
-        event -> {
-          for (int i = 0; i < a.size(); i++) {
-            DBR.getSignageDAO().add(a.get(i));
-          }
         });
 
     RemBTN.setOnMouseClicked(
@@ -166,9 +202,14 @@ public class SinageEditorController {
           DBR.getSignageDAO().deleteSignage(d, loc, theKiosk);
 
           constructPage(d, theKiosk);
+          clearFields();
         });
 
-    ClearBTN.setOnMouseClicked(event -> clearFields());
+    ClearBTN.setOnMouseClicked(
+        event -> {
+          clearFields();
+          update = false;
+        });
   }
 
   private void clearFields() {
@@ -216,12 +257,13 @@ public class SinageEditorController {
 
       newLabel.setOnMouseClicked(
           event -> {
-            colorEvent(newLabel);
+            update = true;
+            p = colorEvent(newLabel);
           });
     }
   }
 
-  private void colorEvent(Label l) {
+  private String[] colorEvent(Label l) {
     clearFields();
     l.setTextFill(YELLOW);
 
@@ -230,5 +272,7 @@ public class SinageEditorController {
 
     DirectionCB.setValue(parts[0]);
     LocationCB.setValue(parts[1]);
+
+    return parts;
   }
 }

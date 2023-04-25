@@ -212,31 +212,29 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
     }
   }
 
-  public void update(Signage target)
-  {
+  public void update(Signage old, Signage target) {
     try {
       PreparedStatement preparedStatement =
-              connection
-                      .getConnection()
-                      .prepareStatement(
-                              "Update "
-                                      + name
-                                      + " SET direction = ?, referredLocation = ?"
-                                      + " WHERE kiosklocation = ? direction = ? referredLocation = ? date = ?");
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "UPDATE "
+                      + name
+                      + " SET direction = ?, referredLocation = ?"
+                      + " WHERE kiosklocation = ? and direction = ? and referredLocation = ? and date = ?");
 
       preparedStatement.setString(1, target.getDirection().name());
-      preparedStatement.setString(2 ,target.getSurroundingLocation().getLongName());
+      preparedStatement.setString(2, target.getSurroundingLocation().getLongName());
 
-      preparedStatement.setInt(3, target.getKioskLocation());
-      preparedStatement.setString(4, target.getDirection().name());
-      preparedStatement.setString(5 ,target.getSurroundingLocation().getLongName());
-      preparedStatement.setDate(6, target.getThedate());
+      preparedStatement.setInt(3, old.getKioskLocation());
+      preparedStatement.setString(4, old.getDirection().name());
+      preparedStatement.setString(5, old.getSurroundingLocation().getLongName());
+      preparedStatement.setDate(6, old.getThedate());
 
       preparedStatement.executeUpdate();
+      System.out.println("Signage updated");
 
-    }
-    catch(SQLException e)
-    {
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
@@ -269,7 +267,6 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
         t.add(ds);
       }
 
-      System.out.println("Signage deleted from database");
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
