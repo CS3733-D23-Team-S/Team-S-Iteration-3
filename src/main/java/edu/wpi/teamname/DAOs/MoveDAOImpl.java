@@ -17,7 +17,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   // List of all moves that have ever occurred
   @Getter ArrayList<Move> listOfMoves = new ArrayList<>();
-
   // List of moves for a location
   @Getter HashMap<String, List<Move>> locationMoveHistory = new HashMap<>();
   // Get the moves associated with the nodeID

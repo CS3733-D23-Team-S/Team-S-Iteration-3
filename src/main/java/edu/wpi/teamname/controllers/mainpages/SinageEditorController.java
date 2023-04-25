@@ -4,6 +4,7 @@ import static javafx.scene.paint.Color.WHITE;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -22,6 +23,8 @@ public class SinageEditorController {
   @FXML private MFXButton AUBTN;
   @FXML private MFXButton RemBTN;
   @FXML private MFXButton ClearBTN;
+  @FXML private MFXButton SubmitBTN;
+  @FXML private MFXComboBox KioskCB;
 
   DataBaseRepository DBR = DataBaseRepository.getInstance();
 
@@ -34,14 +37,44 @@ public class SinageEditorController {
         .addListener(
             ((observable, oldValue, newValue) -> {
               // check if textField1 is non-empty and enable/disable the button accordingly
-              AUBTN.setDisable(LocationCB.getValue() == null || DirectionCB.getValue() == null);
+              AUBTN.setDisable(
+                  LocationCB.getValue() == null
+                      || DirectionCB.getValue() == null
+                      || DateP.getValue() == null
+                      || KioskCB.getValue() == null);
             }));
 
     DirectionCB.valueProperty()
         .addListener(
             ((observable, oldValue, newValue) -> {
               // check if textField1 is non-empty and enable/disable the button accordingly
-              AUBTN.setDisable(LocationCB.getValue() == null || DirectionCB.getValue() == null);
+              AUBTN.setDisable(
+                  LocationCB.getValue() == null
+                      || DirectionCB.getValue() == null
+                      || DateP.getValue() == null
+                      || KioskCB.getValue() == null);
+            }));
+
+    DateP.valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              AUBTN.setDisable(
+                  LocationCB.getValue() == null
+                      || DirectionCB.getValue() == null
+                      || DateP.getValue() == null
+                      || KioskCB.getValue() == null);
+            }));
+
+    KioskCB.valueProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              // check if textField1 is non-empty and enable/disable the button accordingly
+              AUBTN.setDisable(
+                  LocationCB.getValue() == null
+                      || DirectionCB.getValue() == null
+                      || DateP.getValue() == null
+                      || KioskCB.getValue() == null);
             }));
 
     LocationCB.getItems().addAll(DBR.getListOfEligibleRooms());

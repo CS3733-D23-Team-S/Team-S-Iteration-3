@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -58,7 +59,6 @@
             <Insets />
          </GridPane.margin>
       </HBox>
-      <MFXDatePicker fx:id="DateP" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <children>
             <MFXButton fx:id="AUBTN" prefHeight="59.0" prefWidth="115.0" styleClass="submitbutton" text="Add/Update" textFill="WHITE">
@@ -99,35 +99,11 @@
             <VBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="983.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <VBox fx:id="UpBox" alignment="CENTER" prefHeight="0.0" prefWidth="369.0">
-                     <children>
-                        <Label alignment="TOP_LEFT" prefHeight="80.0" prefWidth="800.0" text="↑  X-Ray" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="30.0" prefWidth="800.0" text="↑ Radioncology" textAlignment="RIGHT" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
                   <VBox fx:id="RightBox" alignment="CENTER">
-                     <children>
-                        <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="369.0" text="→ Information Desk" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="30.0" prefWidth="369.0" text="→ Emergency Room" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <opaqueInsets>
                         <Insets bottom="10.0" />
                      </opaqueInsets>
@@ -136,36 +112,11 @@
                      </VBox.margin>
                   </VBox>
                   <VBox fx:id="LeftBox" alignment="CENTER" prefHeight="25.0" prefWidth="369.0">
-                     <children>
-                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="←Orthidontist" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox fx:id="DownBox" alignment="CENTER" prefHeight="98.0" prefWidth="369.0">
-                     <children>
-                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Ears, Nose and Throat" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Ultrasound Labs " textAlignment="RIGHT" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="369.0" text="↓ Restrooms " textAlignment="RIGHT" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Regular" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <VBox fx:id="DownBox" alignment="CENTER" prefHeight="98.0" prefWidth="369.0" />
                </children>
             </VBox>
             <Label fx:id="tapButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="435.0" text="Click To Begin!" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
@@ -183,5 +134,18 @@
             <Insets left="500.0" />
          </GridPane.margin>
       </MFXButton>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <MFXDatePicker fx:id="DateP" />
+            <MFXComboBox floatMode="BORDER" text="Kiosk">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </MFXComboBox>
+         </children>
+      </HBox>
    </children>
 </GridPane>
