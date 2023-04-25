@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.CheckComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mapEditor.MapEditorController">
+    <children>
+        <GesturePane fx:id="mapPane" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: &quot;000000&quot;;" StackPane.alignment="BOTTOM_RIGHT" />
+        <GridPane id=".menuPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: &quot;FFFFFF&quot;;" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" StackPane.alignment="BOTTOM_RIGHT">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" percentWidth="50.0" prefWidth="199.7777099609375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="83.2222900390625" />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="149.22222900390625" minHeight="10.0" percentHeight="30.0" prefHeight="64.33331298828125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="149.22222900390625" minHeight="10.0" percentHeight="25.0" prefHeight="33.77777099609375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="164.00002712673611" minHeight="10.0" percentHeight="25.0" prefHeight="65.00000678168402" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="118.88887532552084" minHeight="10.0" prefHeight="56.666632758246536" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editor" GridPane.halignment="CENTER">
+                    <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </Text>
+                <MFXButton fx:id="moveNode" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Move" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="18.0" />
+                    </font>
+                </MFXButton>
+                <MFXButton fx:id="addLocation" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add Location" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="18.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                </MFXButton>
+                <ComboBox fx:id="floorSelect" prefHeight="35.0" prefWidth="100.0" promptText="Floors" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets right="30.0" />
+                    </GridPane.margin>
+                </ComboBox>
+                <CheckComboBox fx:id="locationSelect" prefHeight="35.0" title="Locations" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="30.0" />
+                    </GridPane.margin>
+                </CheckComboBox>
+                <MFXButton fx:id="addAndRemove" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: &quot;1D3D94&quot;; -fx-background-radius: 5;" text="Add/Remove" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="18.0" />
+                    </font>
+                </MFXButton>
+                <ToggleSwitch id="toggle" fx:id="showEdges" ellipsisString="" prefHeight="25.0" prefWidth="150.0" stylesheets="@../../../../../../../../Team-S-Iteration-2/src/main/resources/Stylesheets/MapEditorMenu.css" text="Show Edges" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                    <font>
+                        <Font name="Open Sans SemiBold" size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets right="30.0" />
+                    </padding>
+                </ToggleSwitch>
+            </children>
+            <effect>
+                <DropShadow blurType="GAUSSIAN" />
+            </effect>
+        </GridPane>
+        <TitledPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" text="Update Queue" StackPane.alignment="TOP_LEFT">
+            <content>
+                <VBox alignment="CENTER">
+                    <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                            <content>
+                                <VBox fx:id="queuePane" style="-fx-background-color: &quot;FFFFFF&quot;;" />
+                            </content>
+                        </ScrollPane>
+                        <Button fx:id="sendUpdate" mnemonicParsing="false" stylesheets="@../../../../../../../../Team-S-Iteration-2/src/main/resources/Stylesheets/MapEditorMenu.css" text="Submit Update">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Button>
+                    </children>
+                </VBox>
+            </content>
+            <font>
+                <Font name="Open Sans SemiBold" size="12.0" />
+            </font>
+            <StackPane.margin>
+                <Insets left="50.0" top="50.0" />
+            </StackPane.margin>
+        </TitledPane>
+    </children>
+</StackPane>

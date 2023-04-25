@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<VBox prefHeight="390.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.EditNodeController">
+<VBox fx:id="editMenu" prefHeight="390.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mapEditor.EditNodePopOverController">
    <children>
       <HBox prefHeight="10.0" prefWidth="200.0" style="-fx-background-color: &quot;1D3D94&quot;;" />
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" style="-fx-background-color: &quot;FFFFFF&quot;;">

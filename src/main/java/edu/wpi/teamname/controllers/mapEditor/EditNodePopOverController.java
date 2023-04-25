@@ -5,21 +5,21 @@ import edu.wpi.teamname.DAOs.orms.Edge;
 import edu.wpi.teamname.DAOs.orms.Location;
 import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.DAOs.orms.Node;
-import edu.wpi.teamname.Main;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
 
 public class EditNodePopOverController {
   DataBaseRepository repo = DataBaseRepository.getInstance();
-  MapEditorController mainController;
+  @Setter MapEditorController mainController;
+  @FXML @Setter private VBox editMenu;
 
   @FXML private Button addEdge, addLocation, submitUpdate;
   @FXML private VBox edgeBox, locationBox, moveBox;
@@ -37,16 +37,7 @@ public class EditNodePopOverController {
   List<Integer> addedEdges = new ArrayList<>();
   List<Move> addedMoves = new ArrayList<>();
 
-  VBox editMenu;
-
-  void launchPopUp() {
-    mainController.popOver.setContentNode(editMenu);
-  }
-
-  public void initialize(MapEditorController controller) throws IOException {
-    this.mainController = controller;
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/EditNodePopOver.fxml"));
-    editMenu = loader.load();
+  public void initialize() {
     for (Location loc : repo.getLocationDAO().getAll()) {
       locationField.getItems().add(loc.getLongName());
     }
@@ -100,6 +91,11 @@ public class EditNodePopOverController {
           this.node.setNodeID(Integer.parseInt(nodeIDLabel.getText()));
           DataBaseRepository.getInstance().forceUpdate();
         });
+  }
+
+  public void launchPopup(Circle circle) {
+    mainController.popOver.setContentNode(this.editMenu);
+    mainController.popOver.show(circle);
   }
 
   private void update() {

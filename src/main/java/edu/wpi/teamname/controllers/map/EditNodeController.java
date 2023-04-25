@@ -123,7 +123,7 @@ public class EditNodeController {
     edgeField.getItems().removeAll();
     if (!showClosest) {
       edgeField.setPromptText("Nearest Nodes");
-      for (Node potentialEdge : repo.getNodeDAO().getAll()) {
+      for (Node potentialEdge : repo.getAllNodes()) {
         if (calcWeight(potentialEdge) < 60) edgeField.getItems().add(potentialEdge.getNodeID());
       }
     } else {

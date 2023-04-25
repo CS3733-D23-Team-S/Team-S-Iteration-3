@@ -134,7 +134,7 @@ public class NodeDAOImpl implements IDAO<Node, Integer> {
     nodes.put(addition.getNodeID(), addition);
     System.out.println("Node added to Local");
 
-    this.addToRemote(addition);
+    //    this.addToRemote(addition);
   }
 
   public void add(int nodeID, int xCoord, int yCoord, Floor floor, String building) {

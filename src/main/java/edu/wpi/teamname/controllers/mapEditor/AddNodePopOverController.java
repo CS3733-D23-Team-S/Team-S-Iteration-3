@@ -1,37 +1,47 @@
 package edu.wpi.teamname.controllers.mapEditor;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.Main;
-import java.io.IOException;
+import edu.wpi.teamname.DAOs.orms.Node;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
+import lombok.Setter;
 
 public class AddNodePopOverController {
 
   DataBaseRepository repo = DataBaseRepository.getInstance();
-  MapEditorController mainController;
+  @Setter MapEditorController mainController;
+  @FXML @Setter private GridPane addMenu;
   @FXML private Button addButton;
   @FXML private TextField buildingEnter, nodeIDEnter;
   @FXML private Label warning;
-  GridPane addNodeMenu;
+  private Point2D potentialNodLoc;
 
-  public void AddNodeController(MapEditorController controller) {
-    this.mainController = controller;
+  public void initialize() {
+    addButton.setOnMouseClicked(
+        event -> {
+          if (checkFieldsFilled()) {
+            Node node =
+                new Node(
+                    Integer.parseInt(nodeIDEnter.getText()),
+                    (int) Math.round(potentialNodLoc.getX()),
+                    (int) Math.round(potentialNodLoc.getY()),
+                    mainController.currFloor,
+                    buildingEnter.getText());
+            repo.addNode(node);
+            mainController.addToQueue(node);
+          }
+        });
   }
 
-  public void initialize(MapEditorController controller) throws IOException {
-    this.mainController = controller;
-    FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/addNodePopUp.fxml"));
-    addNodeMenu = loader.load();
-    mainController.popOver.setContentNode(addNodeMenu);
-  }
-
-  void launchPopUp() {
-    mainController.popOver.setContentNode(addNodeMenu);
+  public void launchPopup(ContextMenuEvent event) {
+    mainController.popOver.setContentNode(this.addMenu);
+    potentialNodLoc = new Point2D(event.getX(), event.getY());
+    mainController.popOver.show(mainController.anchorPane, event.getScreenX(), event.getScreenY());
   }
 
   public boolean checkFieldsFilled() {

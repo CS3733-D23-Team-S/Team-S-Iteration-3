@@ -1,9 +1,6 @@
 package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.DAOs.orms.Location;
-import edu.wpi.teamname.DAOs.orms.Move;
-import edu.wpi.teamname.DAOs.orms.Node;
-import edu.wpi.teamname.DAOs.orms.NodeType;
+import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
@@ -19,6 +16,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
 
@@ -230,5 +228,57 @@ public class DataBaseRepository {
 
   public void forceGlobalUpdate() {
     System.out.println("Eventually is going to force an update to all of the orms periodically");
+  }
+
+  // MoveDAO functions
+  public List<Move> getLocationsAtNode(int nodeID) {
+    return moveDAO.getLocationsAtNodeID().get(nodeID);
+  }
+
+  public Move getMove(Move move) {
+    return moveDAO.get(move);
+  }
+
+  // NodeDAO functions
+  public List<Node> getAllNodes() {
+    return nodeDAO.getAll();
+  }
+
+  public void updateNodeLocation(Node node) {
+    nodeDAO.updateNodeLocation(node);
+  }
+
+  public Node getNode(int nodeID) {
+    return nodeDAO.get(nodeID);
+  }
+
+  public void deleteNode(Node node) {
+    nodeDAO.delete(node);
+  }
+
+  public void addNode(Node node) {
+    nodeDAO.add(node);
+  }
+
+  // LocationDAO functions
+  public List<Location> getAllLocations() {
+    return locationDAO.getAll();
+  }
+
+  public Location getLocation(String target) {
+    return locationDAO.get(target);
+  }
+
+  // EdgeDAO functions
+  public List<Edge> getAllEdges() {
+    return edgeDAO.getAll();
+  }
+
+  public HashSet<Integer> getNeighborsOfONode(int nodeID) {
+    return edgeDAO.getNeighbors(nodeID);
+  }
+
+  public Edge getEdge(Edge target) {
+    return edgeDAO.get(target);
   }
 }

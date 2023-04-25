@@ -1,22 +1,88 @@
-.grid-pane{
+.grid-pane {
     -fx-background-top-left-radius: 20px;
+    -fx-background-color: "FFFFFF";
+    -fx-background-radius: 5;
 }
+
 .combo-box {
     -fx-background-color: #1D3D94;
     -fx-pref-width: 120;
     -fx-cell-size: 120;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.combo-box-base > .arrow-button {
+    -fx-background-color: #1D3D94;
+}
+
+.combo-box-base > .arrow-button > .arrow {
+    -fx-background-color: "FFFFFF";
 }
 
 
-.combo-box .list-cell {
+.combo-box > .list-cell {
     -fx-text-fill: white;
     -fx-background-radius: 5;
+    -fx-border-radius: 5;
 }
-.combo-box-popup .list-view .list-cell:hover, .list-cell:selected{
+
+.combo-box-popup > .list-view > .list-cell:hover,
+.list-cell:selected {
     -fx-text-fill: white;
     -fx-background-color: #1D3D94;
+    -fx-border-radius: 5;
 }
 
 .combo-box-popup .list-view .list-cell {
     -fx-text-fill: black;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.titled-pane > .title > .label {
+    -fx-text-fill: white;
+    -fx-background-color: #1D3D94;
+}
+
+.titled-pane {
+    -fx-pref-width: 200;
+    -fx-pref-height: 350;
+    -fx-background-radius: 5;
+    -fx-min-height: -fx-pref-height;
+    -fx-min-width: -fx-pref-width;
+    -fx-max-height: -fx-pref-height;
+    -fx-max-width: -fx-pref-width;
+}
+
+
+.titled-pane:focused {
+    -fx-text-fill: white;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #1D3D94;
+}
+
+.titled-pane > .title > .text {
+    -fx-fill: white;
+}
+
+.titled-pane:expanded > .title > .text, .arrow-button >.arrow {
+    -fx-text-fill: white;
+    -fx-background-color: white;
+}
+
+.titled-pane:focused > .title > .text, .arrow-button >.arrow {
+    -fx-text-fill: white;
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-radius: 5;
+    -fx-background-color: #1D3D94;
+}
+
+.button>.text{
+    -fx-fill: white;
 }
