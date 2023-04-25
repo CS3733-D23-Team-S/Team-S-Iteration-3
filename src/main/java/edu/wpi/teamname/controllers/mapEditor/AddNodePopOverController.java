@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.GridPane;
 import lombok.Setter;
+import org.controlsfx.control.PopOver;
 
 public class AddNodePopOverController {
 
@@ -41,6 +42,8 @@ public class AddNodePopOverController {
   public void launchPopup(ContextMenuEvent event) {
     mainController.popOver.setContentNode(this.addMenu);
     potentialNodLoc = new Point2D(event.getX(), event.getY());
+    mainController.popOver.setTitle("Adding Node");
+    mainController.popOver.setArrowLocation(PopOver.ArrowLocation.LEFT_TOP);
     mainController.popOver.show(mainController.anchorPane, event.getScreenX(), event.getScreenY());
   }
 

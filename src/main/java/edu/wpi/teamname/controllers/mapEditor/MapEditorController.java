@@ -107,7 +107,7 @@ public class MapEditorController {
 	@FXML
 	VBox queuePane;
 	@FXML
-	Button sendUpdate;
+	Button sendUpdate, clearButton;
 	AddLocationPopOverController addLocationPopOverController;
 	AddNodePopOverController addNodePopOverController;
 
@@ -117,18 +117,21 @@ public class MapEditorController {
 	public void initialize() throws IOException {
 		queueManager = new QueueManager(this);
 		sendUpdate.setOnMouseClicked(event -> queueManager.sendUpdates());
+		clearButton.setOnMouseClicked(event -> queueManager.reset());
 		initPopOver();
-		FXMLLoader loader = new FXMLLoader((Main.class.getResource("views/addLocation.fxml")));
 
+		FXMLLoader loader = new FXMLLoader((Main.class.getResource("views/addLocation.fxml")));
 		BorderPane temp = loader.load();
 		addLocationPopOverController = loader.getController();
 		addLocationPopOverController.setMainController(this);
 		addLocationPopOverController.setLocationMenu(temp);
+
 		loader = new FXMLLoader(Main.class.getResource("views/addNodePopUp.fxml"));
-		GridPane temptwo = loader.load();
+		GridPane tempTwo = loader.load();
 		addNodePopOverController = loader.getController();
 		addNodePopOverController.setMainController(this);
-		addNodePopOverController.setAddMenu(temptwo);
+		addNodePopOverController.setAddMenu(tempTwo);
+
 		loader = new FXMLLoader(Main.class.getResource("views/EditNodePopOver.fxml"));
 		VBox tempThree = loader.load();
 		editNodePopOverController = loader.getController();
@@ -423,9 +426,6 @@ public class MapEditorController {
 				event -> {
 					if (mode == MoveState.MOVE && listOfCircles.get(prevCircle) != null && currentlyDragging) {
 						queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
-						//						Node temp = listOfCircles.get(circle);
-						//						temp.setXCoord((int) Math.round(circle.getCenterX()));
-						//						temp.setYCoord((int) Math.round(circle.getCenterY()));
 						System.out.println("Sent node location update");
 						currentlyDragging = false;
 						event.consume();
@@ -443,7 +443,10 @@ public class MapEditorController {
 		line.setOnMouseClicked(
 				event -> {
 					System.out.println("Line has been clicked");
-					if (prevLine != null) {prevLine.setStroke(Color.BLACK); line.setStrokeWidth(5);}
+					if (prevLine != null) {
+						prevLine.setStroke(Color.BLACK);
+						line.setStrokeWidth(5);
+					}
 					line.setStroke(Color.FORESTGREEN);
 					line.setStrokeWidth(10);
 					prevLine = line;
@@ -605,8 +608,10 @@ public class MapEditorController {
 	}
 
 	private void undoAlign() {
-		anchorPane.getChildren().remove(alignmentLine);
-		alignmentLine = null;
+		if (alignmentLine != null) {
+			anchorPane.getChildren().remove(alignmentLine);
+			alignmentLine = null;
+		}
 		for (Circle circle : undoAlignment.keySet()) {
 			Point2D reference = undoAlignment.get(circle);
 			circle.setCenterX(reference.getX());
@@ -617,7 +622,7 @@ public class MapEditorController {
 		}
 		System.out.println("Clearing the line");
 		List<Node> temp = new ArrayList<>();
-		for (Circle circle: undoAlignment.keySet()) {
+		for (Circle circle : undoAlignment.keySet()) {
 			temp.add(listOfCircles.get(circle));
 		}
 		queueManager.deleteFromAlign(temp);
