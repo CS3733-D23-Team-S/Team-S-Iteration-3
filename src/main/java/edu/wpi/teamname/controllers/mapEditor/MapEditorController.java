@@ -5,7 +5,6 @@ import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.Main;
 import io.github.palexdev.materialfx.controls.MFXButton;
 
-import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -144,9 +143,6 @@ public class MapEditorController {
 						|| event.getCode().equals(KeyCode.BACK_SPACE) && mode == MoveState.ADD_REMOVE) {
 						deleteCircle(prevCircle);
 						deleteLine(prevLine);
-					} else if (event.getCode().equals(KeyCode.DELETE)
-							   || event.getCode().equals(KeyCode.BACK_SPACE)) {
-
 					}
 				});
 		allowAlignments();
@@ -173,9 +169,7 @@ public class MapEditorController {
 		showEdges.setOnMouseClicked(event -> drawEdges());
 
 		anchorPane.setOnContextMenuRequested(
-				event -> {
-					addNodePopOverController.launchPopup(event);
-				});
+				event -> addNodePopOverController.launchPopup(event));
 		addLocation.setOnMouseClicked(
 				event -> {
 					resetColors();
@@ -213,9 +207,7 @@ public class MapEditorController {
 					event.consume();
 				});
 		callAlign.setOnAction(
-				event -> {
-					mode = MoveState.MAKE_ALIGNMENT_LINE;
-				});
+				event -> mode = MoveState.MAKE_ALIGNMENT_LINE);
 	}
 
 	private void resetColors() {
@@ -455,14 +447,15 @@ public class MapEditorController {
 				event -> {
 					if (mode == MoveState.MOVE && listOfCircles.get(prevCircle) != null) {
 						queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
-						Node temp = listOfCircles.get(circle);
-						temp.setXCoord((int) Math.round(circle.getCenterX()));
-						temp.setYCoord((int) Math.round(circle.getCenterY()));
+//						Node temp = listOfCircles.get(circle);
+//						temp.setXCoord((int) Math.round(circle.getCenterX()));
+//						temp.setYCoord((int) Math.round(circle.getCenterY()));
 						System.out.println("Sent node location update");
 						event.consume();
 					}
 					if (mode == MoveState.ALIGN && alignmentLine != null) {
-						Node node = listOfCircles.get(circle);
+						queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
+						event.consume();
 					}
 				});
 	}
