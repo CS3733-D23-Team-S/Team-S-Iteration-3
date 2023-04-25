@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutUsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutUsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="22.0" prefWidth="100.0" />
@@ -37,7 +40,7 @@
       </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Our Story" wrappingWidth="159.6708984375" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <font>
-            <Font size="32.0" />
+            <Font name="System Bold" size="32.0" />
          </font>
       </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." wrappingWidth="1065.0042114257812" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
@@ -69,7 +72,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Wilson Wong, Ph.D" wrappingWidth="300.55078125">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach" wrappingWidth="276.248046875">
@@ -79,7 +82,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Michael O' Connor">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer">
@@ -89,12 +92,12 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Nikesh Walling">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@../../../../Stylesheets/AboutUsPage.css" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Leads">
                <font>
@@ -103,22 +106,22 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Anthony Titcombe">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Kashvi Singh">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="projManager" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: SEMI_BOLD;" text="Project Manager">
+            <Text fx:id="projManager" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager">
                <font>
                   <Font size="26.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Sarah Kogan">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text fx:id="prodOwner" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner">
@@ -128,7 +131,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Nicholas Ho">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
          </children>
@@ -142,7 +145,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Jake Olsen">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Ryan Wright">
@@ -152,7 +155,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" Tyler Brown">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text fx:id="scrums" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master">
@@ -162,7 +165,7 @@
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nathaniel Rubin">
                <font>
-                  <Font size="26.0" />
+                  <Font size="20.0" />
                </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
@@ -182,5 +185,24 @@
             <Insets bottom="125.0" />
          </GridPane.margin>
       </ImageView>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
+         <children>
+            <MFXButton fx:id="homeBtn" text=".">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../templateIcons/homeicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="300.0" top="15.0" />
+               </padding>
+            </MFXButton>
+         </children>
+      </HBox>
    </children>
 </GridPane>

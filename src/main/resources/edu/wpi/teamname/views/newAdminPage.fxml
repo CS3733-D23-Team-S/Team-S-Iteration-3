@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +18,7 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.newAdminController">
    <center>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
@@ -46,7 +48,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
                   <MFXButton fx:id="toMapEditor" stylesheets="@../../../../Stylesheets/NewAdminPage.css" text="Map Editor" textFill="WHITE">
                      <font>
@@ -60,6 +62,18 @@
                      <font>
                         <Font name="Open Sans Regular" size="22.0" />
                      </font>
+                  </MFXButton>
+                  <MFXButton prefWidth="82.0" text=".">
+                     <graphic>
+                        <ImageView fx:id="aboutUSBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/circleMenu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="700.0" />
+                     </HBox.margin>
                   </MFXButton>
                </children>
             </HBox>

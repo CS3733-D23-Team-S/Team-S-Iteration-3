@@ -33,6 +33,8 @@ public class newAdminController {
   @FXML TableView allTable;
   @FXML MFXButton impexpButton;
 
+  // @FXML MFXButton aboutUSBtn;
+
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
@@ -40,6 +42,7 @@ public class newAdminController {
   MoveDAOImpl moverepo = DataBaseRepository.getInstance().getMoveDAO();
 
   public void initialize() {
+    //  aboutUSBtn.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT_US));
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));

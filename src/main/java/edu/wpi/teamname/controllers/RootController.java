@@ -23,6 +23,8 @@ public class RootController {
   @FXML Pane menuflower;
   @FXML Pane menuoffice;
 
+  @FXML Pane menuAboutUs;
+
   // icons
   @FXML ImageView navIcon;
   @FXML ImageView signageIcon;
@@ -32,12 +34,15 @@ public class RootController {
   @FXML ImageView officeIcon;
   @FXML ImageView helpIcon;
 
+  @FXML ImageView aboutUsIcon;
+
   // top bar icons
   @FXML ImageView homeLogo1;
   @FXML ImageView homeLogo2;
   @FXML ImageView homeIcon;
   @FXML ImageView userIcon;
   @FXML ImageView logoutIcon;
+
   @FXML ImageView backIcon;
 
   public void initialize() {
@@ -112,6 +117,17 @@ public class RootController {
           Navigation.navigate(Screen.OFFICE_SUPPLIES_DELIVERY);
         });
 
+    menuAboutUs.setOnMouseClicked(
+        event -> {
+          changeMenuItem(menuAboutUs);
+          Image i =
+              new Image(
+                  String.valueOf(
+                      Main.class.getResource("templateIcons/invertedmenu/aboutUs_icon.png")));
+          aboutUsIcon.setImage(i);
+          Navigation.navigate(Screen.ABOUT_US);
+        });
+
     helpIcon.setOnMouseClicked(
         event -> {
           // changeMenuItem(menuoffice);
@@ -172,6 +188,7 @@ public class RootController {
     menuroom.getStyleClass().remove("selectedtab");
     menuflower.getStyleClass().remove("selectedtab");
     menuoffice.getStyleClass().remove("selectedtab");
+    menuAboutUs.getStyleClass().remove("selectedtab");
 
     // reset photos
     Image h = new Image(String.valueOf(Main.class.getResource("templateIcons/navicon.png")));
@@ -186,6 +203,10 @@ public class RootController {
     flowerIcon.setImage(m);
     Image n = new Image(String.valueOf(Main.class.getResource("templateIcons/pen.png")));
     officeIcon.setImage(n);
+
+    Image o =
+        new Image(String.valueOf(Main.class.getResource("templateIcons/invertedAboutUs_icon.png")));
+    aboutUsIcon.setImage(o);
   }
 
   public void hoverTransition(Pane pane) {
