@@ -10,10 +10,13 @@ import edu.wpi.teamname.DAOs.orms.Node;
 import java.util.*;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
 
 public class QueueManager {
 
 	DataBaseRepository repo = DataBaseRepository.getInstance();
+	boolean alternateColors = false;
 	MapEditorController controller;
 	List<IDataPack> queue;
 	List<IDataPack> deleteQueue;
@@ -30,26 +33,32 @@ public class QueueManager {
 	void addToDeleteQueue(IDataPack data) {
 		Label label = new Label();
 		String name = data.getClass().getSimpleName();
-		if (name.equals("Edge")) {
-			Edge edge = (Edge) data;
-			label.setText(
-					"Deleted "
-					+ name.toLowerCase()
-					+ " between "
-					+ edge.getStartNode().getNodeID()
-					+ " and "
-					+ edge.getEndNode().getNodeID());
-		} else if (name.equals("Move")) {
-			Move move = (Move) data;
-			label.setText("Deleted " + move);
-		} else if (name.equals("Node")) {
-			Node node = (Node) data;
-			label.setText("Deleted " + node);
-		} else if (name.equals("Location")) {
-			Location location = (Location) data;
-			label.setText("Deleted " + location);
-		} else {
-			return;
+		switch (name) {
+			case "Edge" -> {
+				Edge edge = (Edge) data;
+				label.setText(
+						"Deleted "
+						+ name.toLowerCase()
+						+ " between "
+						+ edge.getStartNode().getNodeID()
+						+ " and "
+						+ edge.getEndNode().getNodeID());
+			}
+			case "Move" -> {
+				Move move = (Move) data;
+				label.setText("Deleted " + move);
+			}
+			case "Node" -> {
+				Node node = (Node) data;
+				label.setText("Deleted " + node);
+			}
+			case "Location" -> {
+				Location location = (Location) data;
+				label.setText("Deleted " + location);
+			}
+			default -> {
+				return;
+			}
 		}
 		initQueueItem(label);
 		controller.queuePane.getChildren().add(label);
@@ -97,6 +106,7 @@ public class QueueManager {
 				return;
 			}
 		}
+		initQueueItem(label);
 		controller.queuePane.getChildren().add(label);
 		queue.add(data);
 		labelData.put(label, data);
@@ -106,6 +116,14 @@ public class QueueManager {
 
 	void initQueueItem(Label item) {
 		item.setViewOrder(0);
+		item.setWrapText(true);
+		if(alternateColors)
+			item.setBackground(Background.fill(Color.rgb(210,210,210)));
+		else
+			item.setBackground(Background.fill(Color.WHITE));
+
+		alternateColors = !alternateColors;
+		item.setMaxWidth(180);
 		item.setOnMouseClicked(
 				event -> {
 					if (selectedQueueItem != null)
@@ -141,16 +159,12 @@ public class QueueManager {
 
 	List<Node> getCurrentNodeChanges() {
 		List<Node> local = new ArrayList<>(List.copyOf(repo.getAllNodes()));
-		for (IDataPack data : queue) {
-			if (data.getClass().equals(Node.class)) {
+		for (IDataPack data : queue)
+			if (data.getClass().equals(Node.class))
 				local.add((Node) data);
-			}
-		}
-		for (IDataPack data : deleteQueue) {
-			if (data.getClass().equals(Node.class)) {
+		for (IDataPack data : deleteQueue)
+			if (data.getClass().equals(Node.class))
 				local.remove((Node) data);
-			}
-		}
 		return local;
 	}
 
@@ -170,6 +184,28 @@ public class QueueManager {
 				local.removeIf(edge -> edge.getStartNodeID() == node.getNodeID() || edge.getEndNodeID() == node.getNodeID());
 			}
 		}
+		return local;
+	}
+
+	List<Location> getCurrentLocationChanges() {
+		List<Location> local = new ArrayList<>(List.copyOf(repo.getAllLocations()));
+		for (IDataPack data : queue)
+			if (data.getClass().equals(Location.class))
+				local.add((Location) data);
+		for (IDataPack data : deleteQueue)
+			if (data.getClass().equals(Location.class))
+				local.remove((Location) data);
+		return local;
+	}
+
+	List<Move> getCurrentMoveChanges() {
+		List<Move> local = new ArrayList<>(List.copyOf(repo.getAllMoves()));
+		for (IDataPack data : queue)
+			if (data.getClass().equals(Move.class))
+				local.add((Move) data);
+		for (IDataPack data : deleteQueue)
+			if (data.getClass().equals(Move.class))
+				local.remove((Move) data);
 		return local;
 	}
 
@@ -201,6 +237,18 @@ public class QueueManager {
 		labelData.clear();
 		queue.clear();
 		deleteQueue.clear();
+		alternateColors = false;
+	}
+
+
+	synchronized void reset(){
+		controller.queuePane.getChildren().removeAll(labelData.keySet());
+		repo.forceMapUpdate();
+		labelData.clear();
+		queue.clear();
+		deleteQueue.clear();
+		controller.generateFloorNodes();
+		controller.drawEdges();
 	}
 
 }
