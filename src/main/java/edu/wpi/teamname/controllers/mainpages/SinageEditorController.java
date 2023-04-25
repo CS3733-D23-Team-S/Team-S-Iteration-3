@@ -43,6 +43,7 @@ public class SinageEditorController {
   Signage oldSign = null;
 
   boolean update = false;
+
   String[] p = null;
 
   @FXML

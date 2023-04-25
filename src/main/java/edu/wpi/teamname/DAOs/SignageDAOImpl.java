@@ -205,7 +205,7 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
 
       */
 
-      stmt.execute();
+      stmt.executeUpdate();
       System.out.println("Signage deleted from database");
     } catch (SQLException e) {
       throw new RuntimeException(e);
