@@ -15,7 +15,8 @@ public class Signage implements IDataPack {
     up,
     down,
     left,
-    right
+    right,
+    stop
   }
 
   public Signage(int kioskLocation, Direction direction, Location surroundingLocation, Date d) {

@@ -232,6 +232,17 @@ public class DataBaseRepository {
     return listOfEligibleRooms;
   }
 
+  public List<String> getAllLocations() {
+    List<String> listOfEligibleRooms = new ArrayList<>();
+    List<Location> locationList = locationDAO.getAll();
+
+    for (Location l : locationList) {
+      listOfEligibleRooms.add(l.getLongName());
+    }
+
+    return listOfEligibleRooms;
+  }
+
   public int flowerGetNewDeliveryID() {
     return flowerDeliveryDAO.getAll().size();
   }

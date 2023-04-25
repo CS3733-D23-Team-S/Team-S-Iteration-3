@@ -98,12 +98,13 @@ public class SinageEditorController {
               }
             });
 
-    LocationCB.getItems().addAll(DBR.getListOfEligibleRooms());
+    LocationCB.getItems().addAll(DBR.getAllLocations());
 
     DirectionCB.getItems().add("^");
     DirectionCB.getItems().add("->");
     DirectionCB.getItems().add("<-");
     DirectionCB.getItems().add("v");
+    DirectionCB.getItems().add("Stop here for");
 
     // Default to that day
     // Get calendar filter to work
@@ -138,10 +139,14 @@ public class SinageEditorController {
             } else if (DirectionCB.getValue().toString().equals("<-")) {
               LeftBox.getChildren().add(newLabel);
               dir = Signage.Direction.left;
-            } else {
+            } else if (DirectionCB.getValue().toString().equals("Stop here for")) {
               DownBox.getChildren().add(newLabel);
               dir = Signage.Direction.down;
+            } else {
+              RightBox.getChildren().add(newLabel);
+              dir = Signage.Direction.stop;
             }
+
             Signage theSign =
                 new Signage(
                     theKiosk, dir, DBR.getLocationDAO().get(LocationCB.getValue().toString()), d);
@@ -157,8 +162,10 @@ public class SinageEditorController {
               o = Signage.Direction.right;
             } else if (p[0].equals("<-")) {
               o = Signage.Direction.left;
-            } else {
+            } else if (p[0].equals("v")) {
               o = Signage.Direction.down;
+            } else {
+              o = Signage.Direction.stop;
             }
 
             Signage.Direction w;
@@ -169,8 +176,10 @@ public class SinageEditorController {
               w = Signage.Direction.right;
             } else if (DirectionCB.getValue().toString().equals("<-")) {
               w = Signage.Direction.left;
-            } else {
+            } else if (DirectionCB.getValue().toString().equals("v")) {
               w = Signage.Direction.down;
+            } else {
+              w = Signage.Direction.stop;
             }
 
             Signage oldSign = new Signage(theKiosk, o, DBR.getLocationDAO().get(p[1]), d);
@@ -249,8 +258,13 @@ public class SinageEditorController {
         newLabel.setStyle("-fx-font-size: 16;");
 
         LeftBox.getChildren().add(newLabel);
-      } else {
+      } else if (aSign.getDirection().name().equals("down")) {
         newLabel.setText("v " + aSign.getSurroundingLocation().getLongName());
+        newLabel.setStyle("-fx-font-size: 16;");
+
+        DownBox.getChildren().add(newLabel);
+      } else {
+        newLabel.setText("Stop here for \n" + aSign.getSurroundingLocation().getLongName());
         newLabel.setStyle("-fx-font-size: 16;");
 
         DownBox.getChildren().add(newLabel);
