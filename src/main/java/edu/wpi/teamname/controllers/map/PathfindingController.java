@@ -58,8 +58,6 @@ public class PathfindingController {
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
 
-  // @FXML MFXButton addMessageButton;
-
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
   StackPane stackPane = new StackPane();
