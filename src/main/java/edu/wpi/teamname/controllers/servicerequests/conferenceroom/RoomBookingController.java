@@ -300,7 +300,7 @@ public class RoomBookingController {
                     .getReservedBy()
                     .equals(ActiveUser.getInstance().getCurrentUser().getUserName())) {
                   System.out.println("This is your meeting!");
-                  rect.setStyle("-fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);");
+                  rect.setFill(Paint.valueOf("#E7D3FF"));
                 }
               } else {
                 rect.setStyle("-fx-effect: NONE");

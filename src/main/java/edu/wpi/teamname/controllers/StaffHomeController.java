@@ -8,10 +8,9 @@ import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.enums.FloatMode;
+import java.text.DateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,8 +38,6 @@ public class StaffHomeController {
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
   List<Alert> announcements = alertDAO.getListOfAlerts();
 
-  // announcements
-
   @FXML
   public void initialize() {
 
@@ -63,6 +60,12 @@ public class StaffHomeController {
     for (Request request : newRequests) {
       initializeTask(request);
     }
+
+    announcements.sort(
+        Comparator.comparing(Alert::getDateOfAlert)
+            .reversed()
+            .thenComparing(Alert::getTimeOfAlert)
+            .reversed());
 
     System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
     for (int i = 0; i < announcements.size(); i++) {
@@ -197,22 +200,27 @@ public class StaffHomeController {
             announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
     nameLabel.setStyle("-fx-font-weight: bold");
     Label announcementLabel = new Label(announcement.getMessage());
+    announcementLabel.setWrapText(true);
     VBox annInfo = new VBox(nameLabel, announcementLabel);
     annInfo.setPrefWidth(240);
     annInfo.setPadding(new Insets(10));
 
+    DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.DEFAULT, Locale.US);
+
     Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
+    timeLabel.setAlignment(Pos.CENTER_RIGHT);
+    timeLabel.setPrefWidth(100);
 
     HBox annhbox = new HBox(annInfo, timeLabel);
     annhbox.setPrefWidth(350);
     annhbox.setPrefHeight(90);
-    annhbox.setAlignment(Pos.CENTER_LEFT);
+    annhbox.setAlignment(Pos.CENTER);
     annhbox.setPadding(new Insets(10, 0, 0, 0));
 
     addAnnouncement.getChildren().add(annRect);
     addAnnouncement.getChildren().add(annhbox);
 
-    announcementVBox.setAlignment(Pos.TOP_LEFT);
+    announcementVBox.setAlignment(Pos.CENTER);
     announcementVBox.getChildren().add(addAnnouncement);
     announcementVBox.setSpacing(10);
   }
