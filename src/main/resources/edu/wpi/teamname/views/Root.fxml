@@ -124,20 +124,6 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="menuAboutUs" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="6">
-               <children>
-                  <Label fx:id="officeLabel1" layoutX="60.0" layoutY="27.5" text="About Us" textFill="WHITE">
-                     <font>
-                        <Font name="Open Sans" size="20.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="aboutUsIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../templateIcons/invertedAboutUs_icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
             </children>
         </GridPane>
     </left>
