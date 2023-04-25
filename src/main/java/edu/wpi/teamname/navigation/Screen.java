@@ -47,6 +47,7 @@ public enum Screen {
   STAFFHOME("views/StaffHome.fxml"),
 
   PATHFINDING_POPUP("views/pathfinderMovePopUp.fxml"),
+  PATHFINDING_MESSAGE_POPUP("views/pathfindingMessagePopUp.fxml"),
 
   ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
 

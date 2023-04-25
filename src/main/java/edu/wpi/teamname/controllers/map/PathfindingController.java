@@ -33,6 +33,20 @@ import org.controlsfx.control.ToggleSwitch;
 
 public class PathfindingController {
 
+  public PathfindingController() {}
+
+  public void adminMessage(String adminMsg) {
+    Text message = new Text();
+    message.setText(adminMsg);
+    message.setX(2500.0);
+    message.setY(1700);
+    anchorPane.getChildren().add(message);
+    // test to see if it would add anything - it wouldn't
+//    Circle testC = new Circle(0.0, 0.0, 50.0, Color.BLACK);
+//    anchorPane.getChildren().addAll(floor1Circles);
+//    destinationError.setText("Test");
+  }
+
   @FXML MFXButton findPathButton;
   @FXML MFXButton clearFieldsButton;
 
@@ -44,6 +58,7 @@ public class PathfindingController {
   @FXML MFXDatePicker datePicker;
 
   @FXML MFXButton addMoveBtn;
+  @FXML MFXButton addMessageBtn;
 
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
@@ -1160,11 +1175,11 @@ public class PathfindingController {
       pathfindingToLogin.setVisible(false);
       if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
         addMoveBtn.setVisible(false);
-        // addMessageButton.setVisible(false);
+        addMessageBtn.setVisible(false);
       }
     } else {
       addMoveBtn.setVisible(false);
-      // addMessageButton.setVisible(false);
+      addMessageBtn.setVisible(false);
     }
 
     datePicker.setValue(LocalDate.now());
@@ -1215,7 +1230,8 @@ public class PathfindingController {
           showPathTesting();
           prevDirection = null;
         });
-
+    addMessageBtn.setOnMouseClicked(
+        event -> Navigation.launchPopUp(Screen.PATHFINDING_MESSAGE_POPUP));
     addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
   }
 }
