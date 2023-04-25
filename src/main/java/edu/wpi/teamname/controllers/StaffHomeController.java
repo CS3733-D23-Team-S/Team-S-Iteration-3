@@ -1,6 +1,8 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -8,6 +10,7 @@ import io.github.palexdev.materialfx.enums.FloatMode;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,11 +36,21 @@ public class StaffHomeController {
   ArrayList<Request> requests = requestDAO.getRequests();
   ArrayList<Request> newRequests = new ArrayList<Request>();
 
+  @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
+
+  Alert alert1 = new Alert("Test Announcement", "Testing out the announcements!");
+  Alert alert2 = new Alert("Hello world!", "Wilson bilson bong");
+
+  List<Alert> announcements = alertDAO.getAll();
+
+  // announcements.
+
   @FXML
   public void initialize() {
 
     System.out.println(requests);
 
+    // clean requests
     for (int i = 0; i < requests.size(); i++) {
 
       if (requests.get(i).getOrderStatus() == null) {
@@ -51,16 +64,14 @@ public class StaffHomeController {
       }
       newRequests.sort(Comparator.comparing(Request::getDeliveryTime));
     }
-
     requestCount.setText(String.valueOf(newRequests.size()));
-
     for (Request request : newRequests) {
-      System.out.println(
-          "Processing request: " + request.getRequestType() + " " + request.getOrderStatus());
       initializeTask(request);
     }
 
-    initializeAnnouncements();
+    for (int i = 0; i < announcements.size(); i++) {
+      initializeAnnouncements(announcements.get(i));
+    }
 
     getTimeString();
   }
@@ -164,43 +175,42 @@ public class StaffHomeController {
         });
   }
 
-  public void initializeAnnouncements() {
+  public void initializeAnnouncements(Alert announcement) {
 
-    for (int i = 0; i < 3; i++) {
+    Group addAnnouncement = new Group();
 
-      Group addAnnouncement = new Group();
+    Rectangle annRect = new Rectangle();
+    annRect.setWidth(360);
+    annRect.setHeight(100);
+    annRect.setStroke(Paint.valueOf("#b5c5ee"));
+    annRect.getStyleClass().add("announcementrect");
 
-      Rectangle annRect = new Rectangle();
-      annRect.setWidth(360);
-      annRect.setHeight(100);
-      annRect.setStroke(Paint.valueOf("#b5c5ee"));
-      annRect.getStyleClass().add("announcementrect");
+    ImageView profile = new ImageView();
+    profile.setFitHeight(60);
+    profile.setFitWidth(60);
 
-      ImageView profile = new ImageView();
-      profile.setFitHeight(60);
-      profile.setFitWidth(60);
+    Label nameLabel = new Label("User");
+    Label headerLabel = new Label(announcement.getHeading());
+    headerLabel.setStyle("-fx-font-weight: bold");
+    Label announcementLabel = new Label(announcement.getMessage());
+    VBox annInfo = new VBox(nameLabel, headerLabel, announcementLabel);
+    annInfo.setPrefWidth(240);
+    annInfo.setPadding(new Insets(20, 0, 10, 0));
 
-      Label nameLabel = new Label("Wilson Bong");
-      Label announcementLabel = new Label("I am willy wongka");
-      VBox annInfo = new VBox(nameLabel, announcementLabel);
-      annInfo.setPrefWidth(240);
-      annInfo.setPadding(new Insets(20, 0, 10, 0));
+    Label timeLabel = new Label(announcement.getDateOfAlert().toString());
 
-      Label timeLabel = new Label("8:32am");
+    HBox annhbox = new HBox(profile, annInfo, timeLabel);
+    annhbox.setPrefWidth(350);
+    annhbox.setPrefHeight(90);
+    annhbox.setAlignment(Pos.CENTER_LEFT);
+    annhbox.setPadding(new Insets(10, 0, 0, 0));
 
-      HBox annhbox = new HBox(profile, annInfo, timeLabel);
-      annhbox.setPrefWidth(350);
-      annhbox.setPrefHeight(90);
-      annhbox.setAlignment(Pos.CENTER_LEFT);
-      annhbox.setPadding(new Insets(10, 0, 0, 0));
+    addAnnouncement.getChildren().add(annRect);
+    addAnnouncement.getChildren().add(annhbox);
 
-      addAnnouncement.getChildren().add(annRect);
-      addAnnouncement.getChildren().add(annhbox);
-
-      announcementVBox.setAlignment(Pos.TOP_LEFT);
-      announcementVBox.getChildren().add(addAnnouncement);
-      announcementVBox.setSpacing(10);
-    }
+    announcementVBox.setAlignment(Pos.TOP_LEFT);
+    announcementVBox.getChildren().add(addAnnouncement);
+    announcementVBox.setSpacing(10);
   }
 
   public String getTimeString() {

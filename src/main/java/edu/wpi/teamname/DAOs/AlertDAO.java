@@ -11,7 +11,7 @@ import lombok.Getter;
 public class AlertDAO implements IDAO<Alert, String> {
   private final dbConnection connection;
 
-  @Getter private ArrayList<Alert> listOfAlerts;
+  @Getter public ArrayList<Alert> listOfAlerts;
   @Getter private String name = "hospitaldb.alerts";
 
   public AlertDAO() {

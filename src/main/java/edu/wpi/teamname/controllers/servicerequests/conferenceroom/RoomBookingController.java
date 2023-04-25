@@ -175,6 +175,7 @@ public class RoomBookingController {
       roomVBox.setMaxWidth(170);
       roomVBox.setSpacing(5);
       // roomVBox.setStyle("-fx-border-style: solid dashed double dotted");
+      roomVBox.setStyle("-fx-background-color: WHITE");
       roomVBox.setStyle("-fx-border-color: #00000000 #D8D8D8 #FFFFFF00 #D8D8D8");
       // #D8D8D8
       roomVBox.setId(roomList.get(i).getLocation().getLongName().replaceAll(" ", ""));
