@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import lombok.Getter;
 
 public class Move implements IDataPack {
-  @Getter private Node node;
-  @Getter private Location location;
-  @Getter private LocalDate date;
+  @Getter private final Node node;
+  @Getter private final Location location;
+  @Getter private final LocalDate date;
 
   public Move(Node node, Location location, LocalDate date) {
     this.node = node;

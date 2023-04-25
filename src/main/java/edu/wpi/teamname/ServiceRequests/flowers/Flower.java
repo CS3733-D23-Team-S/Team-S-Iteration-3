@@ -37,9 +37,6 @@ public class Flower implements IDataPack {
     this.image = image;
   }
 
-  public boolean getIsSoldOut() {
-    return this.isSoldOut;
-  }
 
   @Override
   public String toString() {
