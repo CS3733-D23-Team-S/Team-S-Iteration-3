@@ -97,6 +97,7 @@ public class AlertDAO implements IDAO<Alert, String> {
         User thisUser = userDAO.get(rs.getString("username"));
         Alert thisAlert = new Alert(heading, message, thisUser);
         thisAlert.setDateOfAlert(date);
+        thisAlert.setTimeOfAlert(time);
         listOfAlerts.add(thisAlert);
       }
     } catch (SQLException e) {
