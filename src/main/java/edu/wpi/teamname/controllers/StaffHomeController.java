@@ -32,7 +32,8 @@ public class StaffHomeController {
   @FXML Group announcementGroup;
 
   @FXML public static RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
-  ArrayList<Request> requests = requestDAO.getRequests();
+  List<Request> requests =
+      requestDAO.getRequestsForUser((ActiveUser.getInstance().getCurrentUser()));
   ArrayList<Request> newRequests = new ArrayList<Request>();
 
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
