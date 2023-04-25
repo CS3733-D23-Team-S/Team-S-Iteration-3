@@ -184,7 +184,8 @@ public class CreditsController extends PopUpController {
         });
     Pens.setOnMouseClicked(
         event -> {
-          popup.setImage(new Image(Main.class.getResource("officesupplies/pen.png").toString()));
+          popup.setImage(
+              new Image(Main.class.getResource("officesupplies/penpackage.png").toString()));
         });
     Highlighters.setOnMouseClicked(
         event -> {
