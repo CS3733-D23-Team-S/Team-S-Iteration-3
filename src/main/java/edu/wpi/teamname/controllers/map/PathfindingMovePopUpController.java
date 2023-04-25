@@ -10,7 +10,9 @@ import edu.wpi.teamname.controllers.PopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.time.LocalDate;
+import java.util.Objects;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import org.controlsfx.control.SearchableComboBox;
 
 public class PathfindingMovePopUpController extends PopUpController {
@@ -22,6 +24,8 @@ public class PathfindingMovePopUpController extends PopUpController {
   @FXML MFXButton cancelAdd;
 
   @FXML MFXButton confirmAdd;
+
+  @FXML Label eLabel;
 
   @FXML private DataBaseRepository DBR = DataBaseRepository.getInstance();
   @FXML private NodeDAOImpl NDI = DBR.getNodeDAO();
@@ -39,10 +43,14 @@ public class PathfindingMovePopUpController extends PopUpController {
             LocalDate mapDate = datePick.getValue();
             MDI.add(nodeMap, mapLocation, mapDate);
           } catch (Exception e) {
+            if (Objects.equals(e.getMessage(), "Move already happened")) {
+              eLabel.setText("Move already happened. Change move date.");
+            } else {
+              stage.close();
+            }
             e.printStackTrace();
           }
           System.out.println("running");
-          stage.close();
         });
 
     locationBox.getItems().addAll(DBR.getListOfEligibleRooms());

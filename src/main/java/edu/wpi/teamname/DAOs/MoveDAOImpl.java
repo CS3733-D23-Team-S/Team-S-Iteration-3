@@ -159,7 +159,15 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  public void add(Node node, Location location, LocalDate date) {
+  public void add(Node node, Location location, LocalDate date) throws Exception {
+    for (Move thisMove : getListOfMoves()) {
+      if (thisMove.getLocation().equals(location)) {
+        if (thisMove.getDate().isEqual(date)) {
+          System.out.println("Move just hppened!!");
+          throw new NullPointerException("Move already happened");
+        }
+      }
+    }
     Move newMove = new Move(node, location, date);
     this.add(newMove);
   }
@@ -264,29 +272,53 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     try {
 
       String query =
-          "SELECT nodeid, location, max(date) FROM hospitaldb.moves "
+          "SELECT location, max(date) FROM hospitaldb.moves "
               + "where date <= ? "
-              + "group by location, nodeid";
+              + "group by location";
       PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
       preparedStatement.setDate(1, Date.valueOf(moveDate));
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
         LocalDate date = rs.getDate("max").toLocalDate();
-        Node node = nodeDAO.get(rs.getInt("nodeID"));
         Location loc = locationDAO.get(rs.getString("location"));
+        Node node = getMostRecentNode(moveDate, loc);
         Move thisMove = new Move(node, loc, date);
 
         datedMoves.add(thisMove);
       }
 
-      System.out.println(datedMoves);
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println(e.getSQLState());
       System.out.println("Error accessing the remote and constructing the list of moves");
     }
     return datedMoves;
+  }
+
+  public Node getMostRecentNode(LocalDate date, Location location) {
+    List<Move> locationMoves = new ArrayList<>();
+
+    for (Move thismove : listOfMoves) {
+      if (thismove.getLocation().equals(location)) {
+        locationMoves.add(thismove);
+      }
+    }
+    LocalDate maxDate = LocalDate.of(2023, 1, 1);
+    for (Move thismove : locationMoves) {
+      if (thismove.getDate().isAfter(maxDate)
+          && (thismove.getDate().isBefore(date) || thismove.getDate().isEqual(date))) {
+        maxDate = thismove.getDate();
+      }
+    }
+
+    for (Move thismove : locationMoves) {
+      if (thismove.getDate().isEqual(maxDate)) {
+        return thismove.getNode();
+      }
+    }
+
+    return null;
   }
 
   public ArrayList<futureMoves> getFutureMoves() {

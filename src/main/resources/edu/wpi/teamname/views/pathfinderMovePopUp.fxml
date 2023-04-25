@@ -19,7 +19,7 @@
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,33 +51,34 @@
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </SearchableComboBox>
-                  <SearchableComboBox fx:id="nodeCombo" prefHeight="26.0" prefWidth="314.0" promptText="Select Node to Move to " style="-fx-background-color: #ffffff; -fx-region-background: #ffffff;" stylesheets="@../../../../Stylesheets/pathfinding.css">
+                  <SearchableComboBox fx:id="nodeCombo" prefHeight="26.0" prefWidth="314.0" promptText="Select Location to Move" style="-fx-background-color: #ffffff; -fx-region-background: #ffffff;" stylesheets="@../../../../Stylesheets/pathfinding.css">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <padding>
-                        <Insets bottom="120.0" />
-                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="170.0" />
+                     </VBox.margin>
                   </SearchableComboBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <MFXButton fx:id="cancelAdd" prefHeight="50.0" prefWidth="80.0" style="-fx-border-color: #000000; -fx-border-radius: 5 5 5 5;" text="Cancel">
+                        <MFXButton fx:id="cancelAdd" prefHeight="50.0" prefWidth="104.0" style="-fx-border-color: #000000; -fx-border-radius: 5 5 5 5;" text="Cancel">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="confirmAdd" prefHeight="50.0" prefWidth="103.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 5 5 5 5;" text="Confirm" textFill="WHITE">
+                        <MFXButton fx:id="confirmAdd" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 5 5 5 5;" text="Confirm" textFill="WHITE">
                            <font>
                               <Font name="Open Sans Regular" size="16.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="220.0" />
+                              <Insets left="150.0" />
                            </HBox.margin>
                         </MFXButton>
                      </children>
                   </HBox>
                </children>
             </VBox>
+            <Label fx:id="eLabel" prefHeight="17.0" prefWidth="377.0" textFill="#ee0707" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </root>

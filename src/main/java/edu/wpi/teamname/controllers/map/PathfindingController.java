@@ -12,6 +12,7 @@ import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,7 +73,13 @@ public class PathfindingController {
   private String prevDirection;
   List<Text> locations = new ArrayList<>();
 
+  // issue with this:
+  // when the date is entered after switching floors it doesn't display it properly
+  // basically showLocationNames is dependent on the date
+  // so for moves like Cafe, when the date is before the move, it doesn't display it post move
+  // and this means that if the date is switched to 4/25 before entering
   public void showLocationNames2() {
+    List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
     if (!displayLocationNamesToggle.isSelected()) {
       anchorPane.getChildren().removeAll(locations);
       locations.clear();
@@ -80,11 +87,12 @@ public class PathfindingController {
     } else {
       anchorPane.getChildren().removeAll(locations);
       locations.clear();
+
       for (int i = 0; i < nodeList.size(); i++) {
-        for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
-          if (dataBase.getMoveDAO().getAll().get(j).getNodeID() == nodeList.get(i).getNodeID()) {
+        for (int j = 0; j < lom.size(); j++) {
+          if (lom.get(j).getNodeID() == nodeList.get(i).getNodeID()) {
             Text location = new Text();
-            location.setText(dataBase.getMoveDAO().getAll().get(j).getLocationName());
+            location.setText(lom.get(j).getLocationName());
             location.setX(circlesOnFloor.get(i).getCenterX() - 20.0);
             location.setY(circlesOnFloor.get(i).getCenterY() + 25.0);
             locations.add(location);
@@ -114,8 +122,9 @@ public class PathfindingController {
     }
     // alphabetize
     Collections.sort(allLongNames);
-    startingLocationList.getItems().addAll(allLongNames);
-    destinationList.getItems().addAll(allLongNames);
+    HashSet<String> allLocation = new HashSet<>(allLongNames);
+    startingLocationList.getItems().addAll(allLocation);
+    destinationList.getItems().addAll(allLocation);
   }
 
   // changing floor button colors depending on which is selected
