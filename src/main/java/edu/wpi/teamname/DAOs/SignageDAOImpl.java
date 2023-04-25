@@ -224,8 +224,15 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
                                       + " SET direction = ?, referredLocation = ?"
                                       + " WHERE kiosklocation = ? direction = ? referredLocation = ? date = ?");
 
-      //preparedStatement.setString();
-      preparedStatement.setString(1 ,target.getSurroundingLocation().getLongName());
+      preparedStatement.setString(1, target.getDirection().name());
+      preparedStatement.setString(2 ,target.getSurroundingLocation().getLongName());
+
+      preparedStatement.setInt(3, target.getKioskLocation());
+      preparedStatement.setString(4, target.getDirection().name());
+      preparedStatement.setString(5 ,target.getSurroundingLocation().getLongName());
+      preparedStatement.setDate(6, target.getThedate());
+
+      preparedStatement.executeUpdate();
 
     }
     catch(SQLException e)
