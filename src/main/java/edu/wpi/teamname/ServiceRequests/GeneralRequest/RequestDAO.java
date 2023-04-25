@@ -5,7 +5,6 @@ import edu.wpi.teamname.DAOs.orms.User;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import edu.wpi.teamname.DAOs.orms.User;
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package edu.wpi.teamname.controllers.map;
 import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Floor;
+import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.DAOs.orms.Node;
 import edu.wpi.teamname.DAOs.orms.NodeType;
 import edu.wpi.teamname.Main;
@@ -445,25 +446,17 @@ public class PathfindingController {
         floorL2Circles.get(i).setFill(Color.RED);
       }
       // find node IDs through moves
-      dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
-      for (int i = 0; i < dataBase.getMoveDAO().getListOfMoves().size(); i++) {
-        if (dataBase
-            .getMoveDAO()
-            .getListOfMoves()
-            .get(i)
-            .getLocation()
-            .getLongName()
-            .equals(startingLocationList.getValue())) {
-          startingID = dataBase.getMoveDAO().getListOfMoves().get(i).getNodeID();
+      List<Move> thisMoves = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
+      if (datePicker.getValue().getYear() < 2023) {
+        datePickerError.setText("Error: the date you entered is before any moves");
+        return;
+      }
+      for (int i = 0; i < thisMoves.size(); i++) {
+        if (thisMoves.get(i).getLocation().getLongName().equals(startingLocationList.getValue())) {
+          startingID = thisMoves.get(i).getNodeID();
         }
-        if (dataBase
-            .getMoveDAO()
-            .getListOfMoves()
-            .get(i)
-            .getLocation()
-            .getLongName()
-            .equals(destinationList.getValue())) {
-          endID = dataBase.getMoveDAO().getListOfMoves().get(i).getNodeID();
+        if (thisMoves.get(i).getLocation().getLongName().equals(destinationList.getValue())) {
+          endID = thisMoves.get(i).getNodeID();
         }
       }
       pfe = new PathfindingEntity(startingID, endID);
@@ -491,10 +484,10 @@ public class PathfindingController {
             nextFloor = dataBase.getNodeDAO().getAll().get(j).getFloor();
             endX = dataBase.getNodeDAO().getAll().get(j).getXCoord();
             endY = dataBase.getNodeDAO().getAll().get(j).getYCoord();
-            for (int k = 0; k < dataBase.getMoveDAO().getListOfMoves().size(); k++) {
-              if (dataBase.getMoveDAO().getListOfMoves().get(k).getNodeID()
+            for (int k = 0; k < thisMoves.size(); k++) {
+              if (thisMoves.get(k).getNodeID()
                   == dataBase.getNodeDAO().getAll().get(j).getNodeID()) {
-                currLocationName = dataBase.getMoveDAO().getListOfMoves().get(k).getLocationName();
+                currLocationName = thisMoves.get(k).getLocationName();
               }
             }
           }
