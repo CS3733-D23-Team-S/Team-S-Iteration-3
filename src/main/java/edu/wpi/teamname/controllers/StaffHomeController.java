@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Alert;
@@ -38,18 +39,17 @@ public class StaffHomeController {
 
   @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
 
-  Alert alert1 = new Alert("Test Announcement", "Testing out the announcements!");
-  Alert alert2 = new Alert("Hello world!", "Wilson bilson bong");
+  //List<Alert> announcements = alertDAO.getAll();
 
-  List<Alert> announcements = alertDAO.getAll();
+  List<Alert> announcements = new ArrayList<Alert>();
 
-  // announcements.
+
+  // announcements
 
   @FXML
   public void initialize() {
 
     System.out.println(requests);
-
     // clean requests
     for (int i = 0; i < requests.size(); i++) {
 
@@ -177,6 +177,11 @@ public class StaffHomeController {
 
   public void initializeAnnouncements(Alert announcement) {
 
+    System.out.println("First name: " + announcement.getUser().getFirstName());
+    System.out.println("Header: " + announcement.getHeading());
+    System.out.println("Text: " + announcement.getMessage());
+    System.out.println("Time: " + announcement.getTimeOfAlert());
+
     Group addAnnouncement = new Group();
 
     Rectangle annRect = new Rectangle();
@@ -215,7 +220,6 @@ public class StaffHomeController {
 
   public String getTimeString() {
     String timeString;
-    String name = "Sarah";
     int currentHour = LocalTime.now().getHour();
     if (currentHour >= 5 && currentHour <= 11) {
       timeString = "Good morning";
@@ -225,8 +229,8 @@ public class StaffHomeController {
       timeString = "Good evening";
     }
 
-    System.out.println(name);
-    headerGreetingLabel.setText(timeString + ", " + name + "!");
+    headerGreetingLabel.setText(
+        timeString + ", " + ActiveUser.getInstance().getCurrentUser().getFirstName() + "!");
 
     return timeString;
   }
