@@ -1,19 +1,24 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.enums.FloatMode;
+import java.text.DateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -26,6 +31,8 @@ public class StaffHomeController {
   @FXML VBox taskVBox;
   @FXML VBox locationVBox;
   @FXML VBox announcementVBox;
+
+  @FXML MFXButton aboutUsBtn;
   @FXML Group taskGroup;
   @FXML Group announcementGroup;
 
@@ -33,11 +40,16 @@ public class StaffHomeController {
   ArrayList<Request> requests = requestDAO.getRequests();
   ArrayList<Request> newRequests = new ArrayList<Request>();
 
+  @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
+  List<Alert> announcements = alertDAO.getListOfAlerts();
+
   @FXML
   public void initialize() {
 
-    System.out.println(requests);
+    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
 
+    System.out.println(requests);
+    // clean requests
     for (int i = 0; i < requests.size(); i++) {
 
       if (requests.get(i).getOrderStatus() == null) {
@@ -51,16 +63,22 @@ public class StaffHomeController {
       }
       newRequests.sort(Comparator.comparing(Request::getDeliveryTime));
     }
-
     requestCount.setText(String.valueOf(newRequests.size()));
-
     for (Request request : newRequests) {
-      System.out.println(
-          "Processing request: " + request.getRequestType() + " " + request.getOrderStatus());
       initializeTask(request);
     }
 
-    initializeAnnouncements();
+    announcements.sort(
+        Comparator.comparing(Alert::getDateOfAlert)
+            .reversed()
+            .thenComparing(Alert::getTimeOfAlert)
+            .reversed());
+
+    System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
+    for (int i = 0; i < announcements.size(); i++) {
+      initializeAnnouncements(announcements.get(i));
+      System.out.println("Initializign announcement: " + announcements.get(i).getMessage());
+    }
 
     getTimeString();
   }
@@ -104,25 +122,20 @@ public class StaffHomeController {
 
     if (request.getOrderStatus().equals("Received")) {
       statusBox.getSelectionModel().selectItem("Received");
-      System.out.println("Changed request status to received");
       statusBox.setStyle("-fx-background-color: #FECAC7");
     } else if (request.getOrderStatus().equals("In Progress")) {
       statusBox.getSelectionModel().selectItem("In Progress");
-      System.out.println("Changed request status to in progress");
       statusBox.setStyle("-fx-background-color: #FEF5C7");
     } else if (request.getOrderStatus().equals("Complete")) {
       statusBox.getSelectionModel().selectItem("Complete");
-      System.out.println("Changed request status to complete");
       statusBox.setStyle("-fx-background-color: #C7FECC");
 
     } else {
       statusBox.getSelectionModel().selectItem("Received");
-      System.out.println("Changed request status to received");
       statusBox.setStyle("-fx-background-color: #FECAC7");
     }
 
     request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
-    System.out.println("Selected:" + statusBox.getSelectionModel().getSelectedItem());
 
     statusBox.setFloatMode(FloatMode.ABOVE);
     statusBox.setStyle("-fx-border-color: #FFFFFF00");
@@ -146,8 +159,6 @@ public class StaffHomeController {
 
           request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
 
-          System.out.println("Selected:" + statusBox.getSelectionModel().getSelectedItem());
-
           if (request.getOrderStatus().equals("Received")) {
             statusBox.setStyle("-fx-background-color: #E7D3FF");
           } else if (request.getOrderStatus().equals("In Progress")) {
@@ -164,48 +175,65 @@ public class StaffHomeController {
         });
   }
 
-  public void initializeAnnouncements() {
+  public void initializeAnnouncements(Alert announcement) {
 
-    for (int i = 0; i < 3; i++) {
+    System.out.println("First name: " + announcement.getUser().getFirstName());
+    System.out.println("Header: " + announcement.getHeading());
+    System.out.println("Text: " + announcement.getMessage());
+    System.out.println("Time: " + announcement.getTimeOfAlert());
 
-      Group addAnnouncement = new Group();
+    Group addAnnouncement = new Group();
 
-      Rectangle annRect = new Rectangle();
-      annRect.setWidth(360);
-      annRect.setHeight(100);
-      annRect.setStroke(Paint.valueOf("#b5c5ee"));
-      annRect.getStyleClass().add("announcementrect");
+    Rectangle annRect = new Rectangle();
+    annRect.setWidth(360);
+    annRect.setHeight(100);
+    annRect.setStroke(Paint.valueOf("#b5c5ee"));
+    annRect.getStyleClass().add("announcementrect");
 
-      ImageView profile = new ImageView();
-      profile.setFitHeight(60);
-      profile.setFitWidth(60);
+    /*
+    ImageView profile = new ImageView();
+    profile.setFitHeight(60);
+    profile.setFitWidth(60);
+    Image i =
+        new Image(
+            String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png").toString()));
+    profile.setImage(i);
+    System.out.println("Profile image: " + profile.getImage());
 
-      Label nameLabel = new Label("Wilson Bong");
-      Label announcementLabel = new Label("I am willy wongka");
-      VBox annInfo = new VBox(nameLabel, announcementLabel);
-      annInfo.setPrefWidth(240);
-      annInfo.setPadding(new Insets(20, 0, 10, 0));
+     */
 
-      Label timeLabel = new Label("8:32am");
+    Label nameLabel =
+        new Label(
+            announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
+    nameLabel.setStyle("-fx-font-weight: bold");
+    Label announcementLabel = new Label(announcement.getMessage());
+    announcementLabel.setWrapText(true);
+    VBox annInfo = new VBox(nameLabel, announcementLabel);
+    annInfo.setPrefWidth(240);
+    annInfo.setPadding(new Insets(10));
 
-      HBox annhbox = new HBox(profile, annInfo, timeLabel);
-      annhbox.setPrefWidth(350);
-      annhbox.setPrefHeight(90);
-      annhbox.setAlignment(Pos.CENTER_LEFT);
-      annhbox.setPadding(new Insets(10, 0, 0, 0));
+    DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.DEFAULT, Locale.US);
 
-      addAnnouncement.getChildren().add(annRect);
-      addAnnouncement.getChildren().add(annhbox);
+    Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
+    timeLabel.setAlignment(Pos.CENTER_RIGHT);
+    timeLabel.setPrefWidth(100);
 
-      announcementVBox.setAlignment(Pos.TOP_LEFT);
-      announcementVBox.getChildren().add(addAnnouncement);
-      announcementVBox.setSpacing(10);
-    }
+    HBox annhbox = new HBox(annInfo, timeLabel);
+    annhbox.setPrefWidth(350);
+    annhbox.setPrefHeight(90);
+    annhbox.setAlignment(Pos.CENTER);
+    annhbox.setPadding(new Insets(10, 0, 0, 0));
+
+    addAnnouncement.getChildren().add(annRect);
+    addAnnouncement.getChildren().add(annhbox);
+
+    announcementVBox.setAlignment(Pos.CENTER);
+    announcementVBox.getChildren().add(addAnnouncement);
+    announcementVBox.setSpacing(10);
   }
 
   public String getTimeString() {
     String timeString;
-    String name = "Sarah";
     int currentHour = LocalTime.now().getHour();
     if (currentHour >= 5 && currentHour <= 11) {
       timeString = "Good morning";
@@ -215,8 +243,8 @@ public class StaffHomeController {
       timeString = "Good evening";
     }
 
-    System.out.println(name);
-    headerGreetingLabel.setText(timeString + ", " + name + "!");
+    headerGreetingLabel.setText(
+        timeString + ", " + ActiveUser.getInstance().getCurrentUser().getFirstName() + "!");
 
     return timeString;
   }

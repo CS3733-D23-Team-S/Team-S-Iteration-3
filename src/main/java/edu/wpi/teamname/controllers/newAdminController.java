@@ -1,8 +1,13 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.AlertDAO;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.MoveDAOImpl;
+import edu.wpi.teamname.DAOs.orms.Alert;
 import edu.wpi.teamname.DAOs.orms.Move;
+import edu.wpi.teamname.DAOs.orms.User;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
@@ -18,10 +23,23 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.time.LocalTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 public class newAdminController {
   @FXML MFXButton toMapEditor;
@@ -32,17 +50,137 @@ public class newAdminController {
   @FXML TableView moveTable;
   @FXML TableView allTable;
   @FXML MFXButton impexpButton;
+  @FXML VBox announcementVBox;
+  @FXML ImageView submitAnnouncement;
+  @FXML TextArea announcementText;
+  @FXML Label greetingHeader;
+  @FXML MFXButton aboutUsBtn;
+
+  // @FXML MFXButton aboutUSBtn;
 
   @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+
   FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
   RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
-
   MoveDAOImpl moverepo = DataBaseRepository.getInstance().getMoveDAO();
 
+  public ActiveUser activeUser = ActiveUser.getInstance();
+  @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
+  List<Alert> announcements = alertDAO.getListOfAlerts();
+
   public void initialize() {
+    //  aboutUSBtn.setOnMouseClicked(event -> Navigation.navigate(Screen.ABOUT_US));
+    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
+
+    Image sendimage = new Image(String.valueOf(Main.class.getResource("images/send.png")));
+    submitAnnouncement.setImage(sendimage);
+
+    System.out.println("ESTIENGE!!");
+    submitAnnouncement.setOnMouseClicked(
+        event -> {
+          String message = announcementText.getText();
+          User user = activeUser.getCurrentUser();
+
+          Alert alert = new Alert("", message, user);
+          alertDAO.add(alert);
+
+          System.out.println("Alert submitted!");
+          System.out.println(alertDAO.getListOfAlerts().size());
+          System.out.println(alertDAO.getListOfAlerts());
+
+          initializeAnnouncements(alert);
+
+          announcementText.clear();
+        });
+
+    announcements.sort(
+        Comparator.comparing(Alert::getDateOfAlert)
+            .reversed()
+            .thenComparing(Alert::getTimeOfAlert)
+            .reversed());
+
+    System.out.println("ANNOUNCEMENTS SIZZ:E" + announcements.size());
+    for (int i = 0; i < announcements.size(); i++) {
+      initializeAnnouncements(announcements.get(i));
+      System.out.println("Initializign announcement: " + announcements.get(i).getMessage());
+    }
+
+    initializeTables();
+
+    getTimeString();
+  }
+
+  public void initializeAnnouncements(Alert announcement) {
+
+    System.out.println("First name: " + announcement.getUser().getFirstName());
+    System.out.println("Header: " + announcement.getHeading());
+    System.out.println("Text: " + announcement.getMessage());
+    System.out.println("Time: " + announcement.getTimeOfAlert());
+
+    Group addAnnouncement = new Group();
+
+    Rectangle annRect = new Rectangle();
+    annRect.setWidth(400);
+    annRect.setHeight(100);
+    annRect.setStroke(Paint.valueOf("#b5c5ee"));
+    annRect.setFill(Paint.valueOf("#FFFFFF"));
+    annRect.getStyleClass().add("announcementrect");
+
+    annRect.setArcHeight(15);
+    annRect.setArcWidth(15);
+
+    /*
+    ImageView profile = new ImageView();
+    profile.setFitHeight(60);
+    profile.setFitWidth(60);
+    Image i =
+        new Image(
+            String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png").toString()));
+    profile.setImage(i);
+    System.out.println("Profile image: " + profile.getImage());
+
+     */
+
+    Label nameLabel =
+        new Label(
+            announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
+    nameLabel.setStyle("-fx-font-weight: bold");
+    Label announcementLabel = new Label(announcement.getMessage());
+    announcementLabel.setWrapText(true);
+    VBox annInfo = new VBox(nameLabel, announcementLabel);
+    annInfo.setPrefWidth(240);
+    annInfo.setPadding(new Insets(20));
+
+    DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.DEFAULT, Locale.US);
+
+    Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
+    timeLabel.setAlignment(Pos.CENTER_RIGHT);
+    timeLabel.setPrefWidth(150);
+
+    HBox annhbox = new HBox(annInfo, timeLabel);
+    annhbox.setPrefWidth(350);
+    annhbox.setPrefHeight(90);
+    annhbox.setAlignment(Pos.CENTER);
+    annhbox.setPadding(new Insets(10, 0, 0, 0));
+
+    addAnnouncement.getChildren().add(annRect);
+    addAnnouncement.getChildren().add(annhbox);
+
+    announcements.sort(
+        Comparator.comparing(Alert::getDateOfAlert)
+            .reversed()
+            .thenComparing(Alert::getTimeOfAlert)
+            .reversed());
+
+    announcementVBox.setAlignment(Pos.TOP_LEFT);
+    announcementVBox.getChildren().add(addAnnouncement);
+    announcementVBox.setSpacing(10);
+  }
+
+  public void initializeTables() {
 
     TableColumn<Food, String> Mcolumn1 = new TableColumn<>("RequestID");
     Mcolumn1.setCellValueFactory(new PropertyValueFactory<>("deliveryID"));
@@ -267,5 +405,22 @@ public class newAdminController {
     for (Move m : moverepo.getAll()) {
       moveTable.getItems().add(m);
     }
+  }
+
+  public String getTimeString() {
+    String timeString;
+    int currentHour = LocalTime.now().getHour();
+    if (currentHour >= 5 && currentHour <= 11) {
+      timeString = "Good morning";
+    } else if (currentHour > 11 && currentHour <= 17) {
+      timeString = "Good afternoon";
+    } else {
+      timeString = "Good evening";
+    }
+
+    greetingHeader.setText(
+        timeString + ", " + ActiveUser.getInstance().getCurrentUser().getFirstName() + "!");
+
+    return timeString;
   }
 }

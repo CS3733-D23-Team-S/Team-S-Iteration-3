@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,12 +19,13 @@
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="34.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" percentHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -52,7 +56,7 @@
                   </Label>
                </children>
             </HBox>
-            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#d7d7d7" thumbHoverColor="#c6c6c6" trackColor="#d7d7d7">
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#d7d7d7" thumbHoverColor="#c6c6c6" trackColor="#d7d7d7" vbarPolicy="NEVER" viewOrder="3.0">
                <content>
                   <VBox fx:id="taskVBox" prefHeight="625.0" prefWidth="435.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
                </content>
@@ -76,7 +80,7 @@
             </VBox>
          </children>
       </VBox>
-      <VBox prefHeight="598.0" prefWidth="423.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      <VBox prefHeight="598.0" prefWidth="423.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
          <children>
             <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Announcements">
                <font>
@@ -86,11 +90,24 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#dadada" thumbHoverColor="#c3c3c3" trackColor="#bfbfbf">
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#dadada" thumbHoverColor="#c3c3c3" trackColor="#bfbfbf" vbarPolicy="NEVER">
                <content>
                   <VBox fx:id="announcementVBox" alignment="TOP_CENTER" prefHeight="624.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
                </content>
             </MFXScrollPane>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXButton fx:id="aboutUsBtn" alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="423.0" text=".">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/circleMenu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -107,9 +124,9 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="13.0" layoutY="13.0" prefHeight="179.0" prefWidth="427.0">
+                        <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="13.0" layoutY="13.0" prefHeight="154.0" prefWidth="337.0">
                            <content>
-                              <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="419.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="294.0">
                                  <children>
                                     <Label stylesheets="@../../../../Stylesheets/Staff.css" text="March 3, 2023">
                                        <font>
