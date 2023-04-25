@@ -27,9 +27,17 @@
       <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <Label text="General">
+               <font>
+                  <Font size="28.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="60.0" prefWidth="736.0">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,15 +54,15 @@
                   </Label>
                </children>
             </HBox>
-            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="To navigate select start and end location and press navigate to see the path and directions to your destination.">
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="To navigate select start and end location and press navigate to see the path and directions to your destination." textFill="#5b5959">
                <font>
                   <Font name="Open Sans Regular" size="20.0" />
                </font>
                <VBox.margin>
-                  <Insets top="-40.0" />
+                  <Insets bottom="20.0" top="-30.0" />
                </VBox.margin>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="56.0" prefWidth="736.0">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -71,6 +79,30 @@
                   </Label>
                </children>
             </HBox>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
+               <font>
+                  <Font name="Open Sans Regular" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="-40.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="TOP_LEFT" prefHeight="38.0" prefWidth="167.0" text="Map Editor" textFill="#122e59">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="View  locations relative to where you are located using the signage view." textFill="#5b5959">
+               <font>
+                  <Font name="Open Sans Regular" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-40.0" />
+               </VBox.margin>
+            </Label>
          </children>
          <GridPane.margin>
             <Insets />
@@ -80,7 +112,7 @@
          <children>
             <Label text="Service Requests">
                <font>
-                  <Font name="Open Sans Regular" size="24.0" />
+                  <Font size="28.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="15.0" />
@@ -94,7 +126,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="67.0" prefWidth="736.0">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -143,7 +175,7 @@
                   </Label>
                </children>
             </HBox>
-            <Label prefHeight="282.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order.For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order.">
+            <Label prefHeight="282.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order.For Meal Delivery, Flower Delivery, and Office Supplies, simply click on the picture of what you would like to order, choose your quantity, and add it to your cart. Make sure to fill out any other necessairy boxes. Then, press the view cart button and then press proceed when you are ready to proceed with your order." textFill="#5b5959">
                <font>
                   <Font name="Open Sans Regular" size="20.0" />
                </font>
@@ -168,7 +200,7 @@
                   </Label>
                </children>
             </HBox>
-            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Room Booking, click on the Add Meeting button. Fill out the boxes and then click on Submit when you are ready.">
+            <Label prefHeight="91.0" prefWidth="760.0" style="-fx-wrap-text: true;" text="For Room Booking, click on the Add Meeting button. Fill out the boxes and then click on Submit when you are ready." textFill="#5b5959">
                <font>
                   <Font name="Open Sans Regular" size="20.0" />
                </font>
