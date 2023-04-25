@@ -44,6 +44,8 @@ public class PathfindingController {
   @FXML MFXButton pathfindingToLogin;
   @FXML MFXDatePicker datePicker;
 
+  @FXML MFXButton addMoveBtn;
+
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
   Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
@@ -1245,5 +1247,7 @@ public class PathfindingController {
           showPathTesting();
           prevDirection = null;
         });
+
+    addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
   }
 }
