@@ -25,6 +25,7 @@ public class SinageEditorController {
   @FXML private VBox RightBox;
   @FXML private VBox LeftBox;
   @FXML private VBox DownBox;
+  @FXML private VBox BigBox;
   @FXML private SearchableComboBox LocationCB;
   @FXML private SearchableComboBox DirectionCB;
   @FXML private MFXDatePicker DateP;
@@ -37,7 +38,7 @@ public class SinageEditorController {
 
   DataBaseRepository DBR = DataBaseRepository.getInstance();
 
-  int theKiosk = 1;
+  static int theKiosk = 1;
 
   Signage oldSign = null;
 

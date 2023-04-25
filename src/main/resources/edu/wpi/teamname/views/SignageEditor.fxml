@@ -105,7 +105,7 @@
           <RowConstraints maxHeight="351.5185326470269" minHeight="10.0" percentHeight="13.0" prefHeight="233.6296140882704" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="983.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox fx:id="BigBox" alignment="TOP_CENTER" prefHeight="153.0" prefWidth="983.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <VBox fx:id="UpBox" alignment="CENTER" prefHeight="0.0" prefWidth="369.0">
                      <VBox.margin>
