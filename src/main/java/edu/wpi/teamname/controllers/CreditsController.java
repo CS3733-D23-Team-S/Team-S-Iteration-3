@@ -1,6 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
+import edu.wpi.teamname.DAOs.orms.Permission;
 import edu.wpi.teamname.Main;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.io.IOException;
@@ -11,9 +15,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
-public class CreditsController {
+public class CreditsController extends PopUpController {
   @FXML private Hyperlink Bagel;
   @FXML private Hyperlink Blossom;
   @FXML private Hyperlink Burger;
@@ -62,37 +65,29 @@ public class CreditsController {
   @FXML private ImageView HomeIcon;
 
   @FXML
-  public void initialize() throws IOException {
+  public void initialize() {
 
     Image HomeButton = new Image(Main.class.getResource("./templateIcons/homeicon.png").toString());
     HomeIcon.setImage(HomeButton);
 
-    handleclick();
-    handleclose();
-    initializeBtns();
-
-    //            Hyperlink flowerLink1 = new
-    //     Hyperlink("http://nurserys.anshiliaofa.com/norwood-nursery/");
-
-    //            flowerLink1.setOnAction(this ::openLink);
-    //            flowerLink1.setOnAction(event -> {
-    //              openLink();
-    //            });
-    //            });
-    //        }
-
-  }
-
-  private void initializeBtns() {
     popupClose.setOnMouseClicked(
         event -> {
-          handleclose();
+          popup.setImage(null);
         });
-  }
 
-  private void handleclose() {
-    Stage stage = (Stage) popupClose.getScene().getWindow();
-    stage.close();
+    Screen current;
+    if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.STAFF) {
+      current = Screen.STAFFHOME;
+    } else {
+      current = Screen.NEW_ADMIN_PAGE;
+    }
+    ActiveUser.getInstance().getCurrentUser().getPermission();
+    HomeIcon.setOnMouseClicked(
+        event -> {
+          edu.wpi.teamname.navigation.Navigation.navigate(current);
+          stage.close();
+        });
+    handleclick();
   }
 
   private void handleclick() {

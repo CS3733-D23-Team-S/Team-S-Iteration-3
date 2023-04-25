@@ -173,6 +173,18 @@
             </VBox>
             <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
+                  <MFXButton fx:id="creditsBtn" prefHeight="27.0" prefWidth="88.0" text="." textAlignment="RIGHT">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/credits.png.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="-20.0" top="20.0" />
+                     </HBox.margin>
+                  </MFXButton>
                   <MFXButton fx:id="aboutUsBtn" prefHeight="27.0" prefWidth="88.0" text="." textAlignment="RIGHT">
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
