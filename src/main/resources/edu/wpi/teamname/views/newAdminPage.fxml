@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,25 +18,23 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.newAdminController">
    <center>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: WHITE;">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="7.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" percentHeight="1.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="BOTTOM_CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <HBox alignment="BOTTOM_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <children>
                   <Label alignment="CENTER" text="View All Service Requests">
                      <font>
@@ -63,13 +63,13 @@
                   </MFXButton>
                </children>
             </HBox>
-            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="3">
+            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="3">
               <tabs>
                   <Tab text="All Requests">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="allTable" prefHeight="556.0" prefWidth="1280.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
+                              <TableView fx:id="allTable" prefHeight="556.0" prefWidth="609.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -78,7 +78,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="mealTable" minHeight="550.0" minWidth="1280.0" prefHeight="550.0" prefWidth="1280.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
+                              <TableView fx:id="mealTable" minHeight="550.0" minWidth="613.0" prefHeight="550.0" prefWidth="613.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -87,7 +87,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="roomTable" prefHeight="556.0" prefWidth="1280.0" />
+                              <TableView fx:id="roomTable" prefHeight="556.0" prefWidth="609.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -96,7 +96,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="flowerTable" prefHeight="556.0" prefWidth="1280.0" />
+                              <TableView fx:id="flowerTable" prefHeight="556.0" prefWidth="609.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -105,7 +105,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="officeTable" prefHeight="556.0" prefWidth="1280.0" />
+                              <TableView fx:id="officeTable" prefHeight="556.0" prefWidth="611.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -114,13 +114,31 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="moveTable" prefHeight="556.0" prefWidth="1280.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
+                              <TableView fx:id="moveTable" prefHeight="556.0" prefWidth="600.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" />
                            </children>
                         </AnchorPane>
                     </content>
                   </Tab>
               </tabs>
             </TabPane>
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <children>
+                  <TextArea maxHeight="75.0" maxWidth="500.0" prefHeight="72.0" prefWidth="500.0" style="-fx-border-radius: 20;" wrapText="true">
+                     <font>
+                        <Font name="Open Sans Regular" size="15.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextArea>
+                  <MFXButton alignment="CENTER" contentDisplay="TOP" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: BLUE; -fx-border-radius: 60; -fx-background-radius: 60;" text="⇧">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </center>
