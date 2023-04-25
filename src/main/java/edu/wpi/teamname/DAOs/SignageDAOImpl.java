@@ -175,7 +175,7 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
     return null;
   }
 
-  public void deleteSignage(Signage target) {
+  public void deleteSignage(Date date, String loc, int k) {
     try {
       PreparedStatement stmt =
           connection
@@ -183,15 +183,53 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
               .prepareStatement(
                   "DELETE FROM "
                       + name
-                      + " WHERE kiosklocation= ? and direction = ? and referredlocation = ? and date = ?");
-      stmt.setInt(1, target.getKioskLocation());
-      stmt.setString(2, String.valueOf(target.getDirection()));
-      stmt.setString(3, target.getSurroundingLocation().getLongName());
-      stmt.setDate(4, target.getThedate());
+                      + " WHERE kiosklocation= ? and referredlocation = ? and date = ?");
+      stmt.setInt(1, k);
+      // stmt.setString(2, String.valueOf(target.getDirection()));
+      stmt.setString(2, loc);
+      stmt.setDate(3, date);
+      /*
+           if (k == 1) {
+             for (int a = 0; a < kiosk1.get(date).size(); a++) {
+               if (kiosk1.get(date).get(a).equals(loc)) {
+                 kiosk1.get(date).remove(a);
+               }
+             }
+           } else {
+             for (int a = 0; a < kiosk2.get(date).size(); a++) {
+               if (kiosk2.get(date).get(a).equals(loc)) {
+                 kiosk2.get(date).remove(a);
+               }
+             }
+           }
+
+      */
 
       stmt.execute();
       System.out.println("Signage deleted from database");
     } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void update(Signage target)
+  {
+    try {
+      PreparedStatement preparedStatement =
+              connection
+                      .getConnection()
+                      .prepareStatement(
+                              "Update "
+                                      + name
+                                      + " SET direction = ?, referredLocation = ?"
+                                      + " WHERE kiosklocation = ? direction = ? referredLocation = ? date = ?");
+
+      //preparedStatement.setString();
+      preparedStatement.setString(1 ,target.getSurroundingLocation().getLongName());
+
+    }
+    catch(SQLException e)
+    {
       throw new RuntimeException(e);
     }
   }

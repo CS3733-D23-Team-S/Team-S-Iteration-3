@@ -3,36 +3,23 @@ package edu.wpi.teamname.DAOs;
 import edu.wpi.teamname.DAOs.orms.Alert;
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 public class AlertDAO implements IDAO<Alert, String> {
   @Override
-  public void initTable(String name) {
-
-  }
+  public void initTable(String name) {}
 
   @Override
-  public void dropTable() {
-
-  }
+  public void dropTable() {}
 
   @Override
-  public void loadRemote(String pathToCSV) {
-
-  }
+  public void loadRemote(String pathToCSV) {}
 
   @Override
-  public void importCSV(String path) {
-
-  }
+  public void importCSV(String path) {}
 
   @Override
-  public void exportCSV(String path) throws IOException {
-
-  }
+  public void exportCSV(String path) throws IOException {}
 
   @Override
   public List<Alert> getAll() {
@@ -45,14 +32,10 @@ public class AlertDAO implements IDAO<Alert, String> {
   }
 
   @Override
-  public void delete(String target) {
-
-  }
+  public void delete(String target) {}
 
   @Override
-  public void add(Alert addition) {
-
-  }
+  public void add(Alert addition) {}
 
   /*
   private final dbConnection connection;

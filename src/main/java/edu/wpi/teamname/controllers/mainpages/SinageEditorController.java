@@ -1,6 +1,7 @@
 package edu.wpi.teamname.controllers.mainpages;
 
 import static javafx.scene.paint.Color.WHITE;
+import static javafx.scene.paint.Color.YELLOW;
 
 import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.Signage;
@@ -38,12 +39,16 @@ public class SinageEditorController {
 
   int theKiosk = 1;
 
+  boolean update = false;
+
   @FXML
   public void initialize() {
 
     ArrayList<Signage> a = new ArrayList<>();
 
     whichKiosk.setText("Kiosk 1");
+
+    DateP.setValue(LocalDate.now());
     constructPage(Date.valueOf(LocalDate.now()), theKiosk);
 
     AUBTN.setDisable(true);
@@ -52,20 +57,14 @@ public class SinageEditorController {
         .addListener(
             ((observable, oldValue, newValue) -> {
               // check if textField1 is non-empty and enable/disable the button accordingly
-              AUBTN.setDisable(
-                  LocationCB.getValue() == null
-                      || DirectionCB.getValue() == null
-                      || DateP.getValue() == null);
+              AUBTN.setDisable(LocationCB.getValue() == null || DirectionCB.getValue() == null);
             }));
 
     DirectionCB.valueProperty()
         .addListener(
             ((observable, oldValue, newValue) -> {
               // check if textField1 is non-empty and enable/disable the button accordingly
-              AUBTN.setDisable(
-                  LocationCB.getValue() == null
-                      || DirectionCB.getValue() == null
-                      || DateP.getValue() == null);
+              AUBTN.setDisable(LocationCB.getValue() == null || DirectionCB.getValue() == null);
             }));
 
     Switch.selectedProperty()
@@ -142,7 +141,12 @@ public class SinageEditorController {
               new Signage(
                   theKiosk, dir, DBR.getLocationDAO().get(LocationCB.getValue().toString()), d);
 
-          a.add(theSign);
+          DBR.getSignageDAO().add(theSign);
+
+          newLabel.setOnMouseClicked(
+              e -> {
+                colorEvent(newLabel);
+              });
 
           clearFields();
         });
@@ -152,6 +156,16 @@ public class SinageEditorController {
           for (int i = 0; i < a.size(); i++) {
             DBR.getSignageDAO().add(a.get(i));
           }
+        });
+
+    RemBTN.setOnMouseClicked(
+        event -> {
+          Date d = Date.valueOf(DateP.getValue());
+          String loc = LocationCB.getValue().toString();
+
+          DBR.getSignageDAO().deleteSignage(d, loc, theKiosk);
+
+          constructPage(d, theKiosk);
         });
 
     ClearBTN.setOnMouseClicked(event -> clearFields());
@@ -199,6 +213,22 @@ public class SinageEditorController {
 
         DownBox.getChildren().add(newLabel);
       }
+
+      newLabel.setOnMouseClicked(
+          event -> {
+            colorEvent(newLabel);
+          });
     }
+  }
+
+  private void colorEvent(Label l) {
+    clearFields();
+    l.setTextFill(YELLOW);
+
+    String theText = l.getText();
+    String[] parts = theText.split(" ", 2);
+
+    DirectionCB.setValue(parts[0]);
+    LocationCB.setValue(parts[1]);
   }
 }

@@ -34,7 +34,6 @@ public class PathfindingController {
 
   @FXML MFXButton findPathButton;
   @FXML MFXButton clearFieldsButton;
-
   @FXML GesturePane mapPane;
   @FXML public ComboBox<String> startingLocationList = new SearchableComboBox<>();
   @FXML public ComboBox<String> destinationList = new SearchableComboBox<>();
