@@ -143,13 +143,13 @@ jacocoTestCoverageVerification {
 
 check.dependsOn jacocoTestCoverageVerification
 jacocoTestCoverageVerification.dependsOn jacocoTestReport
-compileJava.dependsOn 'spotlessApply'
+//compileJava.dependsOn 'spotlessApply'
 
-spotless {
-    java {
-        googleJavaFormat()
-    }
-}
+//spotless {
+//    java {
+//        googleJavaFormat()
+//    }
+//}
 
 tasks.withType(Jar).all {
     duplicatesStrategy 'exclude'
