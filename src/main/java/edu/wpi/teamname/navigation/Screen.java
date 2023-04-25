@@ -46,8 +46,8 @@ public enum Screen {
 
   STAFFHOME("views/StaffHome.fxml"),
 
-  PATHFINDING_POPUP("views/pathfinderMovePopUp.fxml");
-  STAFFHOME("views/StaffHome.fxml"),
+  PATHFINDING_POPUP("views/pathfinderMovePopUp.fxml"),
+
   ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
 
   private final String filename;

@@ -57,8 +57,8 @@ public class PathfindingController {
   @FXML MFXButton floor3Button;
   @FXML MFXButton floorL1Button;
   @FXML MFXButton floorL2Button;
-  @FXML MFXButton addMoveButton;
-  @FXML MFXButton addMessageButton;
+
+  // @FXML MFXButton addMessageButton;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
 
@@ -1159,12 +1159,12 @@ public class PathfindingController {
     if (ActiveUser.getInstance().isLoggedIn()) {
       pathfindingToLogin.setVisible(false);
       if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
-        addMoveButton.setVisible(false);
-        addMessageButton.setVisible(false);
+        addMoveBtn.setVisible(false);
+        // addMessageButton.setVisible(false);
       }
     } else {
-      addMoveButton.setVisible(false);
-      addMessageButton.setVisible(false);
+      addMoveBtn.setVisible(false);
+      // addMessageButton.setVisible(false);
     }
 
     datePicker.setValue(LocalDate.now());
