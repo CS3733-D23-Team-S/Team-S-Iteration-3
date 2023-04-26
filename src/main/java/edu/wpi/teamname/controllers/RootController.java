@@ -88,11 +88,11 @@ public class RootController {
     menumeal.setOnMouseClicked(
         event -> {
           changeMenuItem(menumeal);
-          Image i =
-              new Image(
-                  String.valueOf(
-                      Main.class.getResource("templateIcons/invertedmenu/mealinverted.png")));
-          mealIcon.setImage(i);
+//          Image i =
+//              new Image(
+//                  String.valueOf(
+//                      Main.class.getResource("templateIcons/invertedmenu/mealinverted.png")));
+//          mealIcon.setImage(i);
           Navigation.navigate(Screen.MEAL_DELIVERY);
         });
 
@@ -161,9 +161,7 @@ public class RootController {
 
     // Logout Button
     logoutIcon.setOnMouseClicked(
-        event -> {
-          Navigation.launchPopUp(Screen.ROOT_LOGOUT_POPUP);
-        });
+        event -> Navigation.launchPopUp(Screen.ROOT_LOGOUT_POPUP));
 
     userIcon.setCursor(Cursor.HAND);
     homeIcon.setCursor(Cursor.HAND);

@@ -39,10 +39,10 @@ public class DataBaseRepository {
 	@Getter
 	ConfRoomDAO confRoomDAO;
 	@Getter
-	FoodDAOImpl foodDAO;
+	public FoodDAOImpl foodDAO;
 
 	@Getter
-	FoodDeliveryDAOImp foodDeliveryDAO;
+	public FoodDeliveryDAOImp foodDeliveryDAO;
 
 	@Getter
 	FlowerDAOImpl flowerDAO;
