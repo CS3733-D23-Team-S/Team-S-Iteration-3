@@ -51,7 +51,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1064.0" spacing="30.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1064.0" spacing="30.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <MFXButton fx:id="impexpButton" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Import / Export">
                      <font>
@@ -73,7 +73,7 @@
                   </MFXButton>
                </children>
             </HBox>
-            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="3">
+            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="4">
               <tabs>
                   <Tab text="All Requests">
                     <content>
