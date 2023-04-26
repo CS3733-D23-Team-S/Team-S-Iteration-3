@@ -8,6 +8,7 @@ import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.ServiceRequests.FoodService.*;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
 import edu.wpi.teamname.ServiceRequests.flowers.*;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -242,6 +243,17 @@ public class DataBaseRepository {
 		return listOfEligibleRooms;
 	}
 
+//  public List<String> getAllLocations() {
+//    List<String> listOfEligibleRooms = new ArrayList<>();
+//    List<Location> locationList = locationDAO.getAll();
+//
+//    for (Location l : locationList) {
+//      listOfEligibleRooms.add(l.getLongName());
+//    }
+//
+//    return listOfEligibleRooms;
+//  }
+
 	public int flowerGetNewDeliveryID() {
 		return flowerDeliveryDAO.getAll().size();
 	}
@@ -313,6 +325,16 @@ public class DataBaseRepository {
 	// LocationDAO functions
 	public List<Location> getAllLocations() {
 		return locationDAO.getAll();
+	}
+
+	public List<String> getAllLocationNames() {
+		List<String> names = new ArrayList<>();
+		for (Location loc : locationDAO.getAll()) {
+			names.add(loc.getLongName());
+		}
+		Collections.sort(names);
+		return names;
+
 	}
 
 	public Location getLocation(String target) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -7,60 +8,45 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageController">
+<GridPane fx:id="background" prefHeight="900.0" prefWidth="1597.0" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.0" />
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="42.0" />
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="42.0" />
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />
+        <ColumnConstraints hgrow="SOMETIMES" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="140.9998779296875" minHeight="10.0" percentHeight="15.0" prefHeight="140.9998779296875" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" percentHeight="15.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="2.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="171.111083984375" minHeight="10.0" percentHeight="85.0" prefHeight="148.88885498046875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="87.5556640625" minHeight="10.0" percentHeight="13.0" prefHeight="87.5556640625" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <Label fx:id="tapButton" alignment="CENTER" prefHeight="72.0" prefWidth="358.0" text="Click to begin!" textAlignment="CENTER" textFill="WHITE" translateX="320.0" translateY="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+      <VBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="983.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+         <children>
+            <VBox fx:id="UBox" alignment="CENTER" prefHeight="141.0" prefWidth="1149.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="RBox" alignment="CENTER" prefHeight="98.0" prefWidth="1149.0">
+               <opaqueInsets>
+                  <Insets bottom="10.0" />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="LBox" alignment="CENTER" prefHeight="132.0" prefWidth="1149.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="DBox" alignment="TOP_CENTER" prefHeight="139.0" prefWidth="1149.0" />
+         </children>
+      </VBox>
+      <Label fx:id="tapButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="358.0" text="Click to begin!" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <font>
             <Font name="Open Sans Bold" size="50.0" />
          </font>
       </Label>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-              <Label alignment="CENTER" text="← Information Desk" textAlignment="CENTER" textFill="WHITE">
-                  <font>
-                      <Font name="Open Sans Regular" size="59.0" />
-                  </font>
-              </Label>
-              <Label alignment="CENTER" text="← Emergency Room" textAlignment="CENTER" textFill="WHITE">
-                  <font>
-                      <Font name="Open Sans Regular" size="59.0" />
-                  </font>
-              </Label>
-         </children>
-      </VBox>
-      <VBox prefHeight="360.0" prefWidth="624.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <children>
-              <Label alignment="BASELINE_RIGHT" prefHeight="72.0" prefWidth="676.0" text="Ears, Nose and Throat →" textAlignment="RIGHT" textFill="WHITE">
-                  <font>
-                      <Font name="Open Sans Regular" size="59.0" />
-                  </font>
-              </Label>
-              <Label alignment="BASELINE_RIGHT" prefHeight="89.0" prefWidth="673.0" text="Ultrasound Labs →" textAlignment="RIGHT" textFill="WHITE">
-                  <font>
-                      <Font name="Open Sans Regular" size="59.0" />
-                  </font>
-              </Label>
-              <Label alignment="BASELINE_RIGHT" prefHeight="89.0" prefWidth="674.0" text="Restrooms →" textAlignment="RIGHT" textFill="WHITE">
-                  <font>
-                      <Font name="Open Sans Regular" size="59.0" />
-                  </font>
-              </Label>
-         </children>
-      </VBox>
     </children>
 </GridPane>

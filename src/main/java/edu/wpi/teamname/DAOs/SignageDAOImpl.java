@@ -7,17 +7,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import lombok.Getter;
 
 public class SignageDAOImpl implements IDAO<Signage, String> {
   private final dbConnection connection;
   @Getter private ArrayList<Signage> signages;
+  @Getter private HashMap<Date, ArrayList<Signage>> kiosk1;
+  @Getter private HashMap<Date, ArrayList<Signage>> kiosk2;
   @Getter private String name = "hospitaldb.signage";
 
   public SignageDAOImpl() {
     connection = dbConnection.getInstance();
     signages = new ArrayList<>();
+
+    kiosk1 = new HashMap<>();
+    kiosk2 = new HashMap<>();
   }
 
   @Override
@@ -30,7 +36,7 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
               .prepareStatement(
                   "CREATE TABLE IF NOT EXISTS "
                       + name
-                      + " (kiosklocation varchar(200), direction varchar(20), referredLocation varchar(200))");
+                      + " (kiosklocation int, direction varchar(20), referredLocation varchar(200), date Date)");
 
       stmt.execute();
     } catch (SQLException e) {
@@ -42,16 +48,44 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
   @Override
   public void add(Signage addition) {
     connection.reinitConnection();
+
     try {
       PreparedStatement preparedStatement =
           connection
               .getConnection()
               .prepareStatement(
-                  "INSERT INTO " + name + " (heading, message, alertDate) " + "VALUES (?, ?, ?)");
-      preparedStatement.setString(1, addition.getKioskLocation().getLongName());
+                  "INSERT INTO "
+                      + name
+                      + " (kiosklocation, direction, referredLocation, date)"
+                      + " VALUES (?, ?, ?, ?)");
+      preparedStatement.setInt(1, addition.getKioskLocation());
       preparedStatement.setString(2, String.valueOf(addition.getDirection()));
-      preparedStatement.setString(3, addition.getSurroundingLocation());
+      preparedStatement.setString(3, addition.getSurroundingLocation().getLongName());
+      preparedStatement.setDate(4, addition.getThedate());
+
+      preparedStatement.executeUpdate();
+
       signages.add(addition);
+
+      HashMap<Date, ArrayList<Signage>> pointer;
+
+      System.out.println(addition.toCSVString());
+
+      if (addition.getKioskLocation() == 1) {
+        pointer = kiosk1;
+      } else {
+        pointer = kiosk2;
+      }
+
+      if (pointer == null || pointer.get(addition.getThedate()) == null) {
+        ArrayList<Signage> temp = new ArrayList<>();
+        temp.add(addition);
+        pointer.put(addition.getThedate(), temp);
+      } else {
+        pointer.get(addition.getThedate()).add(addition);
+      }
+
+      System.out.println("Signage added");
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -92,11 +126,12 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
       String alerts = "SELECT * FROM " + name;
       ResultSet rs = stmt.executeQuery(alerts);
       while (rs.next()) {
-        Location kioskLocation = locationDAO.get(rs.getString("kioskLocation"));
+        int kioskLocation = rs.getInt("kioskLocation");
         String direction = rs.getString("direction");
-        String referredLocation = rs.getString("referredLocation");
+        Location referredLocation = locationDAO.get(rs.getString("referredLocation"));
+        Date d = rs.getDate("date");
         Signage thisSign =
-            new Signage(kioskLocation, Signage.Direction.valueOf(direction), referredLocation);
+            new Signage(kioskLocation, Signage.Direction.valueOf(direction), referredLocation, d);
         signages.add(thisSign);
       }
     } catch (SQLException e) {
@@ -140,7 +175,7 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
     return null;
   }
 
-  public void deleteSignage(Signage target) {
+  public void deleteSignage(Date date, String loc, int k) {
     try {
       PreparedStatement stmt =
           connection
@@ -148,15 +183,95 @@ public class SignageDAOImpl implements IDAO<Signage, String> {
               .prepareStatement(
                   "DELETE FROM "
                       + name
-                      + " WHERE kiosklocation= ? and direction = ? and referredlocation = ?");
-      stmt.setString(1, target.getKioskLocation().getLongName());
-      stmt.setString(2, String.valueOf(target.getDirection()));
-      stmt.setString(3, target.getSurroundingLocation());
-      stmt.execute();
+                      + " WHERE kiosklocation= ? and referredlocation = ? and date = ?");
+      stmt.setInt(1, k);
+      // stmt.setString(2, String.valueOf(target.getDirection()));
+      stmt.setString(2, loc);
+      stmt.setDate(3, date);
+      /*
+           if (k == 1) {
+             for (int a = 0; a < kiosk1.get(date).size(); a++) {
+               if (kiosk1.get(date).get(a).equals(loc)) {
+                 kiosk1.get(date).remove(a);
+               }
+             }
+           } else {
+             for (int a = 0; a < kiosk2.get(date).size(); a++) {
+               if (kiosk2.get(date).get(a).equals(loc)) {
+                 kiosk2.get(date).remove(a);
+               }
+             }
+           }
+
+      */
+
+      stmt.executeUpdate();
       System.out.println("Signage deleted from database");
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public void update(Signage old, Signage target) {
+    try {
+      PreparedStatement preparedStatement =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "UPDATE "
+                      + name
+                      + " SET direction = ?, referredLocation = ?"
+                      + " WHERE kiosklocation = ? and direction = ? and referredLocation = ? and date = ?");
+
+      preparedStatement.setString(1, target.getDirection().name());
+      preparedStatement.setString(2, target.getSurroundingLocation().getLongName());
+
+      preparedStatement.setInt(3, old.getKioskLocation());
+      preparedStatement.setString(4, old.getDirection().name());
+      preparedStatement.setString(5, old.getSurroundingLocation().getLongName());
+      preparedStatement.setDate(6, old.getThedate());
+
+      preparedStatement.executeUpdate();
+      System.out.println("Signage updated");
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public ArrayList<Signage> getForDateKiosk(Date d, int k) {
+    ArrayList<Signage> t = new ArrayList<>();
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().getLocationDAO();
+
+    try {
+      PreparedStatement stmt =
+          connection
+              .getConnection()
+              .prepareStatement(
+                  "SELECT * FROM "
+                      + name
+                      + " WHERE date = ? and kiosklocation = ? ORDER BY direction DESC");
+      stmt.setDate(1, d);
+      stmt.setInt(2, k);
+
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        int kl = rs.getInt("kiosklocation");
+        Signage.Direction dir = Signage.Direction.valueOf(rs.getString("direction"));
+        Location l = locationDAO.get(rs.getString("referredLocation"));
+        Date dt = rs.getDate("date");
+
+        Signage ds = new Signage(kl, dir, l, dt);
+
+        t.add(ds);
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+    return t;
   }
 
   @Override

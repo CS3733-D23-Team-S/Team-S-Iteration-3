@@ -15,7 +15,6 @@ import lombok.Getter;
 public class FoodDAOImpl implements IDAO<Food, Integer> {
   @Getter private String name;
   private static dbConnection connection;
-
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
 
   public FoodDAOImpl() {

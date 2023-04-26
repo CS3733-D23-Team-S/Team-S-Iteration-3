@@ -18,7 +18,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingDetailsController">
    <root>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="700.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="300.0" prefHeight="600.0" prefWidth="450.0">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -112,7 +112,7 @@
                               </TextField2TableCell>
                               <Label alignment="TOP_LEFT" prefHeight="7.0" prefWidth="550.0" text="Meeting details will be hidden from the calendar" textFill="#1d3d94" wrapText="true">
                                  <font>
-                                    <Font name="Open Sans Regular" size="16.0" />
+                                    <Font name="Open Sans Regular" size="14.0" />
                                  </font>
                               </Label>
                            </children>
