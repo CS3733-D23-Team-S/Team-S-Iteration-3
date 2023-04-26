@@ -117,7 +117,8 @@ public class RequestDAO {
   public List<Request> getRequestsForUser(User thisUser) {
     List<Request> requestList = new ArrayList<>();
     for (Request request : getRequests()) {
-      if (request.assignedTo.equals(thisUser.getUserName())) requestList.add(request);
+      // if (request.assignedTo.equals(thisUser.getUserName())) requestList.add(request);
+      if (request.assignedTo.equals(thisUser.getFullName())) requestList.add(request);
     }
 
     return requestList;

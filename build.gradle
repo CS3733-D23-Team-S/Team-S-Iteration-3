@@ -24,7 +24,7 @@ repositories {
 
 javafx {
     version = "19"
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media']
 }
 
 
@@ -47,6 +47,8 @@ dependencies {
             'net.java.dev.jna:jna:5.12.1',
     )
     implementation 'com.englishtown.vertx:vertx-httpservlet:2.2.1'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    implementation 'org.jetbrains:annotations:24.0.0'
     testImplementation 'junit:junit:4.13.2'
 
     String javaFxVersion = '19.0.2.1'
@@ -141,13 +143,13 @@ jacocoTestCoverageVerification {
 
 check.dependsOn jacocoTestCoverageVerification
 jacocoTestCoverageVerification.dependsOn jacocoTestReport
-compileJava.dependsOn 'spotlessApply'
+//compileJava.dependsOn 'spotlessApply'
 
-spotless {
-    java {
-        googleJavaFormat()
-    }
-}
+//spotless {
+//    java {
+//        googleJavaFormat()
+//    }
+//}
 
 tasks.withType(Jar).all {
     duplicatesStrategy 'exclude'

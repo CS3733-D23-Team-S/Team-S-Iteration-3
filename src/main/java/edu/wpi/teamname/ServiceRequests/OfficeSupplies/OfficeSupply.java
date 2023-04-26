@@ -6,7 +6,7 @@ import lombok.Setter;
 
 public class OfficeSupply implements IDataPack {
 
-  @Getter private int officesupplyid;
+  @Getter private final int officesupplyid;
   @Getter @Setter private String name;
   @Getter @Setter private double price;
   @Getter @Setter private String description;

@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.collections.ListChangeListener;
@@ -27,9 +28,8 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSuppliesController {
+  DecimalFormat df = new DecimalFormat("0.00");
   public static int suppliesID;
-  @FXML MFXButton viewcartbutton;
-  @FXML MFXButton clearfilter;
   @FXML FlowPane flowpane;
   @FXML VBox cartBox;
   @FXML VBox checkOutBox;
@@ -63,11 +63,10 @@ public class OfficeSuppliesController {
                   displayCart();
                 });
 
-    viewcartbutton.setOnMouseClicked(event -> openCart());
+    openCart();
 
     proceed.setOnMouseClicked(event -> checkOutHandler());
 
-    clearfilter.setOnMouseClicked(event -> noFilter());
     clearCart.setOnMouseClicked(event -> clearCart());
     checkOutBox.setVisible(false);
 
@@ -124,16 +123,20 @@ public class OfficeSuppliesController {
     for (OfficeSupply f : dbr.getOfficeSupplyDAO().getSupplies().values()) {
       Image image = new Image(Main.class.getResource(f.getImage()).toString());
       ImageView view = new ImageView(image);
-      view.setPreserveRatio(false);
-      view.setFitHeight(100);
-      view.setFitWidth(100);
+
+      view.setPreserveRatio(true);
+      view.setFitHeight(80);
+      view.setFitWidth(80);
+      // When Actual Images like Food
+      // view.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(14,14,12,0.8), 10, 0, 0, 5);");
 
       MFXButton btn1 = new MFXButton();
       btn1.setId(f.toString());
       btn1.setText(f.getName());
-      btn1.setPrefWidth(190);
-      btn1.setPrefHeight(150);
-      btn1.setStyle("-fx-background-radius:10 10 10 10; -fx-font-size: 10");
+      btn1.setPrefWidth(175);
+      btn1.setPrefHeight(100);
+      btn1.setStyle(
+          "-fx-background-radius:10 10 10 10; -fx-font-size: 12;-fx-effect: dropshadow(three-pass-box, rgba(42,42,38,0.35), 10, 0, 0, 5);");
       btn1.setWrapText(true);
       btn1.setGraphic(view);
 
@@ -149,17 +152,10 @@ public class OfficeSuppliesController {
   }
 
   public void openCart() {
-    if (!lowerCart.isVisible()) {
-      totalPrice.setText(String.valueOf("Total Price: $" + Cart.getTotalPrice()));
-      lowerCart.setVisible(true);
-      cartPane.getChildren().clear();
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 0 0; -fx-background-color:  #B5C5EE");
-      displayCart();
-    } else {
-      lowerCart.setVisible(false);
-      viewcartbutton.setStyle("-fx-background-radius: 5 5 5 5; -fx-background-color:  #B5C5EE");
-      cartPane.getChildren().clear();
-    }
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(Cart.getTotalPrice())));
+    lowerCart.setVisible(true);
+    cartPane.getChildren().clear();
+    displayCart();
   }
 
   public void store(int x) {
@@ -177,7 +173,7 @@ public class OfficeSuppliesController {
   public void displayCart() {
     System.out.println("Displaying foods");
     cartPane.getChildren().clear();
-    totalPrice.setText(String.valueOf("Total Price: $" + Cart.getTotalPrice()));
+    totalPrice.setText(String.valueOf("Total Price: $" + df.format(Cart.getTotalPrice())));
 
     if (Cart.getCartItems().size() == 0) {
 
@@ -187,9 +183,9 @@ public class OfficeSuppliesController {
         System.out.println("works");
 
         HBox newRow = new HBox();
-        newRow.setSpacing(20);
+        newRow.setSpacing(5);
         newRow.setMaxHeight(300);
-        newRow.setMaxWidth(300);
+        newRow.setMaxWidth(276);
 
         ImageView officeSupplyImage = new ImageView();
         Image image = new Image(Main.class.getResource(officeSupply.getImage()).toString());
@@ -314,7 +310,7 @@ public class OfficeSuppliesController {
       Date d = Date.valueOf(LocalDate.now());
       Time t = Time.valueOf(LocalTime.now());
 
-      OfficeSupplyDelivery currentFlowDev =
+      OfficeSupplyDelivery currentOSDev =
           new OfficeSupplyDelivery(
               OfficeSuppliesController.osDevID++,
               OfficeSuppliesController.Cart.toString(),
@@ -327,18 +323,27 @@ public class OfficeSuppliesController {
               OfficeSuppliesController.Cart.getTotalPrice(),
               n);
 
-      dbr.getOfficeSupplyDeliveryDAO().add(currentFlowDev);
+      dbr.getOfficeSupplyDeliveryDAO().add(currentOSDev);
 
       checkOutBox.getChildren().clear();
 
       Label confirm = new Label();
+      ImageView checkMark = new ImageView();
       Label thanks = new Label();
+      Image checkMark1 = new Image(String.valueOf(Main.class.getResource("images/checkMark.png")));
+      checkMark.setImage(checkMark1);
+      checkMark.setStyle("-fx-background-radius: 10 10 10 10;");
+
+      checkMark.setFitHeight(180);
+      checkMark.setFitWidth(180);
+      checkMark.setPreserveRatio(false);
       confirm.setText("Order Submitted!");
-      thanks.setText("Thank you for your order!\n\n\n\n\n\n");
+      thanks.setText("Thank you for your order!");
       confirm.setStyle("-fx-font-size: 30;");
       thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
       checkOutBox.setAlignment(Pos.CENTER);
       checkOutBox.getChildren().add(confirm);
+      checkOutBox.getChildren().add(checkMark);
       checkOutBox.getChildren().add(thanks);
 
     } catch (Exception e) {

@@ -24,14 +24,14 @@
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            <Pane fx:id="menunavigation" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <Pane fx:id="menunavigation" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <children>
                       <ImageView fx:id="navIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
@@ -45,9 +45,9 @@
                       </Label>
                </children>
             </Pane>
-            <Pane fx:id="menusignage" prefHeight="200.0" prefWidth="192.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <Pane fx:id="menuhome" prefHeight="200.0" prefWidth="192.0" styleClass="menustyling" GridPane.columnSpan="3">
                <children>
-                      <Label fx:id="signageLabel" layoutX="60.0" layoutY="27.5" text="Signage" textFill="WHITE">
+                      <Label fx:id="signageLabel" layoutX="60.0" layoutY="27.5" text="Home" textFill="WHITE">
                           <font>
                               <Font name="Open Sans" size="20.0" />
                           </font>

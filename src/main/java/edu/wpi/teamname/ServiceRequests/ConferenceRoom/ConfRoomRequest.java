@@ -15,16 +15,11 @@ public class ConfRoomRequest {
   @Getter @Setter String reservedBy;
   @Getter @Setter String eventName;
   @Getter @Setter String eventDescription;
-  @Getter @Setter String assignedTo = "NA";
+  @Getter @Setter String assignedTo;
   @Getter @Setter Status orderStatus;
   @Getter @Setter String notes;
   @Getter @Setter boolean isPrivate;
-
-  public boolean isPrivate() {
-    return isPrivate;
-  }
-
-  public ConfRoomRequest(
+    public ConfRoomRequest(
       LocalDate eventDate,
       LocalTime startTime,
       LocalTime endTime,

@@ -29,7 +29,7 @@ public class OfficeSupplyDelivery implements IDataPack {
       double cost,
       String n) {
     this.deliveryid = ID;
-    this.cart = cart.toString();
+    this.cart = cart;
     this.date = date;
     this.time = time;
     this.room = room;
