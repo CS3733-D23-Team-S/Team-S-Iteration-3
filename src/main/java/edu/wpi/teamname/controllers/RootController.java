@@ -32,6 +32,7 @@ public class RootController {
   @FXML ImageView flowerIcon;
   @FXML ImageView officeIcon;
   @FXML ImageView helpIcon;
+  @FXML ImageView gameIcon;
 
   // top bar icons
   @FXML ImageView homeLogo1;
@@ -72,12 +73,17 @@ public class RootController {
             Navigation.navigate(Screen.STAFFHOME);
           }
         });
-    menunavigation.setOnMouseClicked(event -> Navigation.navigate(Screen.PATHFINDING));
-    menusignage.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE_PAGE));
-    menumeal.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL_DELIVERY1));
-    menuroom.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
-    menuflower.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER_DELIVERY));
-    menugame.setOnMouseClicked(event -> Navigation.navigate(Screen.GAME_CENTER));
+
+    menugame.setOnMouseClicked(
+        event -> {
+            changeMenuItem(menugame);
+            Image i =
+                new Image(
+                        String.valueOf(
+                                Main.class.getResource("templateIcons/invertedmenu/controllerInverted.png")));
+            gameIcon.setImage(i);
+            Navigation.navigate(Screen.GAME_CENTER);
+    });
 
     menumeal.setOnMouseClicked(
         event -> {
@@ -172,6 +178,7 @@ public class RootController {
     menuroom.getStyleClass().remove("selectedtab");
     menuflower.getStyleClass().remove("selectedtab");
     menuoffice.getStyleClass().remove("selectedtab");
+    menugame.getStyleClass().remove("selectedtab");
 
     // reset photos
     Image h = new Image(String.valueOf(Main.class.getResource("templateIcons/navicon.png")));
@@ -186,6 +193,8 @@ public class RootController {
     flowerIcon.setImage(m);
     Image n = new Image(String.valueOf(Main.class.getResource("templateIcons/pen.png")));
     officeIcon.setImage(n);
+    Image o = new Image(String.valueOf(Main.class.getResource("templateIcons/controller.png")));
+    gameIcon.setImage(o);
   }
 
   public void hoverTransition(Pane pane) {

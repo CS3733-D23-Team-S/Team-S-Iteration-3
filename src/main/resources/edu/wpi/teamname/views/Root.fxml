@@ -19,6 +19,7 @@
                 <ColumnConstraints fx:id="menucol1" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="50.0" />
                 <ColumnConstraints fx:id="menucol2" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="30.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,6 +28,7 @@
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -106,7 +108,7 @@
                       </ImageView>
                </children>
             </Pane>
-                <ImageView fx:id="helpIcon" fitHeight="40.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
+                <ImageView fx:id="helpIcon" fitHeight="40.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="8">
                     <image>
                         <Image url="@../templateIcons/helpicon.png" />
                     </image>
@@ -135,9 +137,9 @@
                         <Font name="Open Sans" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="gameIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="gameIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../templateIcons/flowericon.png" />
+                        <Image url="@../templateIcons/controller.png" />
                      </image>
                   </ImageView>
                </children>

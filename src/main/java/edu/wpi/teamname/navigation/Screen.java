@@ -50,8 +50,8 @@ public enum Screen {
   SIGNAGE_EDITOR("views/SignageEditor.fxml"),
   ABOUT_US("views/aboutus.fxml"),
   CREDITS_PAGE("views/Credits.fxml"),
-  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
-  STAFF1("views/staff1.fxml"),
+  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml"),
+  //STAFF1("views/staff1.fxml"),
   GAME_CENTER("views/Games/GameCenter.fxml"),
   SNAKE_GAME("views/Games/SnakeGame.fxml"),
   SMASH_GAME("views/Games/SmashGame.fxml");
