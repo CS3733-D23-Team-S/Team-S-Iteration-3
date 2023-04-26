@@ -28,7 +28,7 @@
                   <Font size="22.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="280.0" text="Are you sure you want to logout?" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="280.0" text="Are you sure you want to logout?" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
