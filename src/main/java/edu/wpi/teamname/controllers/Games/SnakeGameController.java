@@ -18,8 +18,8 @@ public class SnakeGameController {
   private int food = 0;
   private int speed = 15;
   private int foodcolor = 0;
-  private double width;
-  private double height;
+  private int width;
+  private int height;
   private int foodX = 0;
   private int foodY = 0;
   private int cornersize = 25;
@@ -36,8 +36,8 @@ public class SnakeGameController {
   @FXML
   public void initialize() {
     canvas.setFocusTraversable(true);
-    this.height = canvas.getHeight() / cornersize;
-    this.width = canvas.getWidth() / cornersize;
+    this.height = (int) canvas.getHeight() / cornersize;
+    this.width = (int) canvas.getWidth() / cornersize;
     start();
     playAgain.setVisible(false);
     playAgain.setOnMouseClicked(
