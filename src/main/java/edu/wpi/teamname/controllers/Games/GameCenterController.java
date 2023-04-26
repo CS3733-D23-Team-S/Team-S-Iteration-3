@@ -12,6 +12,7 @@ public class GameCenterController {
 
   public void initialize() {
     snakeGamePane.setOnMouseClicked(event -> Navigation.navigate(Screen.SNAKE_GAME));
-    smashPane.setOnMouseClicked(event -> Navigation.navigate(Screen.SMASH_GAME));
+    // smashPane.setOnMouseClicked(event -> Navigation.navigate(Screen.SMASH_GAME));
+    smashPane.setVisible(false);
   }
 }

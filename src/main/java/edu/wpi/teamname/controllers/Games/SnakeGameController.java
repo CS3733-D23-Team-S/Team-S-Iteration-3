@@ -35,38 +35,15 @@ public class SnakeGameController {
 
   @FXML
   public void initialize() {
-    // anchorPane.
-    System.out.println(canvas.getHeight());
-    System.out.println(canvas.getWidth());
-    System.out.println("Playing Snake Game");
     canvas.setFocusTraversable(true);
-    // canvas.setHeight(900);
-    // canvas.setWidth(900);
-    System.out.println(canvas.getWidth());
-    System.out.println(canvas.getHeight());
-    this.height = 30.5;
-    this.width = 30;
+    this.height = canvas.getHeight() / cornersize;
+    this.width = canvas.getWidth() / cornersize;
     start();
     playAgain.setVisible(false);
     playAgain.setOnMouseClicked(
         event -> {
           Navigation.navigate(Screen.SNAKE_GAME);
-          // reset();
-          // start();
         });
-  }
-
-  private void reset() {
-    speed = 15;
-    foodcolor = 0;
-    foodX = 0;
-    foodY = 0;
-    cornersize = 0;
-    snake = new ArrayList<>();
-    direction = Dir.left;
-    lastDir = Dir.left;
-    gameOver = false;
-    playAgain.setVisible(false);
   }
 
   public enum Dir {
@@ -265,7 +242,6 @@ public class SnakeGameController {
         }
       }
       foodcolor = rand.nextInt(5);
-      // speed++;
       food++;
       break;
     }
