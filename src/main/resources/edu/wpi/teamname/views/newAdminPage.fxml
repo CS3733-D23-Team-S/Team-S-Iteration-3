@@ -71,11 +71,6 @@
                         <Font size="16.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="SignageEdit" stylesheets="@../../../../Stylesheets/NewAdminPage.css" text="Edit Signage" textFill="WHITE">
-                     <font>
-                        <Font name="Open Sans Regular" size="22.0" />
-                     </font>
-                  </MFXButton>
                </children>
             </HBox>
             <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../../Stylesheets/NewAdminPage.css" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="4">
