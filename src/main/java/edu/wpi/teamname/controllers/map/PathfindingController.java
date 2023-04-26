@@ -1,22 +1,25 @@
 package edu.wpi.teamname.controllers.map;
 
+import edu.wpi.teamname.DAOs.ActiveUser;
 import edu.wpi.teamname.DAOs.DataBaseRepository;
-import edu.wpi.teamname.DAOs.orms.Floor;
-import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.*;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.pathfinding.PathfindingEntity;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.geometry.Point2D;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,8 +28,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class PathfindingController {
 
@@ -38,6 +43,9 @@ public class PathfindingController {
   @FXML public ComboBox<String> destinationList = new SearchableComboBox<>();
   @FXML public ComboBox<String> algList = new SearchableComboBox<>();
   @FXML MFXButton pathfindingToLogin;
+  @FXML MFXDatePicker datePicker;
+
+  @FXML MFXButton addMoveBtn;
 
   ImageView floor;
   Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
@@ -53,23 +61,98 @@ public class PathfindingController {
   @FXML MFXButton floorL2Button;
 
   ObservableList<String> allLongNames = FXCollections.observableArrayList();
-
   StackPane stackPane = new StackPane();
   AnchorPane anchorPane = new AnchorPane();
   @FXML ImageView homeIcon;
   @FXML Label startingLocationError;
   @FXML Label destinationError;
   @FXML Label textualDirections;
+  @FXML Label datePickerError;
+  @FXML ToggleSwitch displayLocationNamesToggle;
+  @FXML ToggleSwitch displayAllNodesToggle;
+  @FXML MFXTextField messageField;
+  private String prevDirection;
+  List<Text> locations = new ArrayList<>();
+  Label adminMessage = new Label();
+
+  public void addMessage() {
+    if (!startingLocationList.getSelectionModel().isEmpty()
+        && !destinationList.getSelectionModel().isEmpty()) {
+      anchorPane.getChildren().remove(adminMessage);
+      if (!messageField.getText().equals("")) {
+        adminMessage.setText(messageField.getText());
+        adminMessage.setPrefSize(messageField.getText().length() * 30, 50);
+        adminMessage.setTranslateX(2500.0);
+        adminMessage.setTranslateY(1700.0);
+        if (floor.getImage().equals(floor1)) {
+          adminMessage.setTranslateX(importantCirclesF1.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF1.get(0).getCenterY());
+        } else if (floor.getImage().equals(floor2)) {
+          adminMessage.setTranslateX(importantCirclesF2.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF2.get(0).getCenterY());
+        } else if (floor.getImage().equals(floor3)) {
+          adminMessage.setTranslateX(importantCirclesF3.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesF3.get(0).getCenterY());
+        } else if (floor.getImage().equals(floorL1)) {
+          adminMessage.setTranslateX(importantCirclesFL1.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesFL1.get(0).getCenterY());
+        } else if (floor.getImage().equals(floorL2)) {
+          adminMessage.setTranslateX(importantCirclesFL2.get(0).getCenterX());
+          adminMessage.setTranslateY(importantCirclesFL2.get(0).getCenterY());
+        }
+        adminMessage.setStyle("-fx-font-size: 40");
+        anchorPane.getChildren().add(adminMessage);
+      }
+    }
+  }
+
+  public void showLocationNames2() {
+    List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
+    if (!displayLocationNamesToggle.isSelected()) {
+      anchorPane.getChildren().removeAll(locations);
+      locations.clear();
+      return;
+    } else {
+      anchorPane.getChildren().removeAll(locations);
+      locations.clear();
+
+      for (int i = 0; i < nodeList.size(); i++) {
+        for (int j = 0; j < lom.size(); j++) {
+          if (lom.get(j).getNodeID() == nodeList.get(i).getNodeID()) {
+            Text location = new Text();
+            location.setText(lom.get(j).getLocationName());
+            location.setX(circlesOnFloor.get(i).getCenterX() - 20.0);
+            location.setY(circlesOnFloor.get(i).getCenterY() + 25.0);
+            locations.add(location);
+          }
+        }
+      }
+    }
+    anchorPane.getChildren().addAll(locations);
+  }
+
+  public void showNodes() {
+    if (!displayAllNodesToggle.isSelected()) {
+      anchorPane.getChildren().removeAll(circlesOnFloor);
+      // circlesOnFloor.clear();
+    } else {
+      anchorPane.getChildren().addAll(circlesOnFloor);
+    }
+  }
 
   public void setLocationLongNames() {
     DataBaseRepository dbr = DataBaseRepository.getInstance();
     for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-      allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation().getLongName());
+      // check if the location is a hallway
+      if (!dbr.getMoveDAO().getAll().get(i).getLocation().getNodeType().equals(NodeType.HALL)) {
+        allLongNames.add(dbr.getMoveDAO().getAll().get(i).getLocation().getLongName());
+      }
     }
     // alphabetize
     Collections.sort(allLongNames);
-    startingLocationList.getItems().addAll(allLongNames);
-    destinationList.getItems().addAll(allLongNames);
+    HashSet<String> allLocation = new HashSet<>(allLongNames);
+    startingLocationList.getItems().addAll(allLocation);
+    destinationList.getItems().addAll(allLocation);
   }
 
   // changing floor button colors depending on which is selected
@@ -108,28 +191,28 @@ public class PathfindingController {
   }
 
   public void colorEvent(Circle aCircle, Node node) {
-    DataBaseRepository dbr = DataBaseRepository.getInstance();
+    List<Move> lom = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
     int id = node.getNodeID();
     String longName = "";
     // get location long name
-    for (int i = 0; i < dbr.getMoveDAO().getAll().size(); i++) {
-      if (id == dbr.getMoveDAO().getAll().get(i).getNodeID()) {
-        longName = dbr.getMoveDAO().getAll().get(i).getLocation().getLongName();
+    for (int i = 0; i < lom.size(); i++) {
+      if (id == lom.get(i).getNodeID()) {
+        longName = lom.get(i).getLocation().getLongName();
       }
     }
     if (startingLocationList.getSelectionModel().isEmpty()) {
-      aCircle.setFill(Color.PURPLE);
       for (int i = 0; i < startingLocationList.getItems().size(); i++) {
         if (longName.equals(startingLocationList.getItems().get(i))) {
           startingLocationList.getSelectionModel().select(i);
+          aCircle.setFill(Color.BLUE);
         }
       }
     } else {
       if (destinationList.getSelectionModel().isEmpty()) {
-        aCircle.setFill(Color.GREEN);
         for (int i = 0; i < destinationList.getItems().size(); i++) {
           if (longName.equals(destinationList.getItems().get(i))) {
             destinationList.getSelectionModel().select(i);
+            aCircle.setFill(Color.GREEN);
           }
         }
       }
@@ -149,23 +232,22 @@ public class PathfindingController {
     nodeList = floor1Nodes;
     // used for path generation
 
-    stackPane.getChildren().remove(floor);
-    stackPane.getChildren().add(floor);
-
-    anchorPane = new AnchorPane();
-
     // makes sure circles don't show on the wrong floor
 
     generateFloor1Nodes();
-    mapPane.setContent(stackPane);
+    if (displayAllNodesToggle.isSelected()) {
+      showNodes();
+    }
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames2();
+    }
+    //    mapPane.setContent(stackPane);
 
     //    stackPane.getChildren().remove(anchorPane);
-    stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor2Lines);
-    anchorPane.getChildren().removeAll(floor3Lines);
-    anchorPane.getChildren().removeAll(floorL1Lines);
-    anchorPane.getChildren().removeAll(floorL2Lines);
+    // stackPane.getChildren().add(anchorPane);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floor1Lines);
+    anchorPane.getChildren().addAll(importantCirclesF1);
   }
 
   public void toFloor2() {
@@ -177,19 +259,19 @@ public class PathfindingController {
     // circlesOnFloor = floor2Circles;
     nodeList = floor2Nodes;
 
-    stackPane.getChildren().remove(floor);
-    anchorPane = new AnchorPane();
-
-    stackPane.getChildren().add(floor);
     generateFloor2Nodes();
-    mapPane.setContent(stackPane);
+    if (displayAllNodesToggle.isSelected()) {
+      showNodes();
+    }
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames2();
+    }
+    //    mapPane.setContent(stackPane);
 
-    stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor1Lines);
-    anchorPane.getChildren().removeAll(floor3Lines);
-    anchorPane.getChildren().removeAll(floorL1Lines);
-    anchorPane.getChildren().removeAll(floorL2Lines);
+    // stackPane.getChildren().add(anchorPane);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floor2Lines);
+    anchorPane.getChildren().addAll(importantCirclesF2);
   }
 
   public void toFloor3() {
@@ -201,19 +283,18 @@ public class PathfindingController {
     // circlesOnFloor = floor3Circles;
     nodeList = floor3Nodes;
 
-    stackPane.getChildren().remove(floor);
-    anchorPane = new AnchorPane();
-
-    stackPane.getChildren().add(floor);
+    // stackPane.getChildren().add(floor);
     generateFloor3Nodes();
-    mapPane.setContent(stackPane);
+    if (displayAllNodesToggle.isSelected()) {
+      showNodes();
+    }
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames2();
+    }
 
-    stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor1Lines);
-    anchorPane.getChildren().removeAll(floor2Lines);
-    anchorPane.getChildren().removeAll(floorL1Lines);
-    anchorPane.getChildren().removeAll(floorL2Lines);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floor3Lines);
+    anchorPane.getChildren().addAll(importantCirclesF3);
   }
 
   public void toFloorL1() {
@@ -225,19 +306,19 @@ public class PathfindingController {
     // circlesOnFloor = floorL1Circles;
     nodeList = floorL1Nodes;
 
-    stackPane.getChildren().remove(floor);
-    anchorPane = new AnchorPane();
-
-    stackPane.getChildren().add(floor);
+    //    stackPane.getChildren().add(floor);
     generateFloorL1Nodes();
+    if (displayAllNodesToggle.isSelected()) {
+      showNodes();
+    }
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames2();
+    }
     mapPane.setContent(stackPane);
 
-    stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor1Lines);
-    anchorPane.getChildren().removeAll(floor2Lines);
-    anchorPane.getChildren().removeAll(floor3Lines);
-    anchorPane.getChildren().removeAll(floorL2Lines);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floorL1Lines);
+    anchorPane.getChildren().addAll(importantCirclesFL1);
   }
 
   public void toFloorL2() {
@@ -248,20 +329,18 @@ public class PathfindingController {
 
     // circlesOnFloor = floorL2Circles;
     nodeList = floorL2Nodes;
-
-    stackPane.getChildren().remove(floor);
-    anchorPane = new AnchorPane();
-
-    stackPane.getChildren().add(floor);
     generateFloorL2Nodes();
+    if (displayAllNodesToggle.isSelected()) {
+      showNodes();
+    }
+    if (displayLocationNamesToggle.isSelected()) {
+      showLocationNames2();
+    }
     mapPane.setContent(stackPane);
 
-    stackPane.getChildren().add(anchorPane);
-    anchorPane.getChildren().removeAll(floor1Lines);
-    anchorPane.getChildren().removeAll(floor2Lines);
-    anchorPane.getChildren().removeAll(floor3Lines);
-    anchorPane.getChildren().removeAll(floorL1Lines);
+    anchorPane.getChildren().removeAll();
     anchorPane.getChildren().addAll(floorL2Lines);
+    anchorPane.getChildren().addAll(importantCirclesFL2);
   }
 
   DataBaseRepository dataBase = DataBaseRepository.getInstance();
@@ -272,6 +351,11 @@ public class PathfindingController {
   List<Node> floor3Nodes = new ArrayList<>();
   List<Node> floorL1Nodes = new ArrayList<>();
   List<Node> floorL2Nodes = new ArrayList<>();
+  List<Circle> importantCirclesF1 = new ArrayList<>();
+  List<Circle> importantCirclesF2 = new ArrayList<>();
+  List<Circle> importantCirclesF3 = new ArrayList<>();
+  List<Circle> importantCirclesFL1 = new ArrayList<>();
+  List<Circle> importantCirclesFL2 = new ArrayList<>();
   List<Circle> floor1Circles = new ArrayList<>();
   List<Circle> floor2Circles = new ArrayList<>();
   List<Circle> floor3Circles = new ArrayList<>();
@@ -286,9 +370,58 @@ public class PathfindingController {
   List<Line> pathLines = new ArrayList<>();
   List<Circle> circlesOnFloor = new ArrayList<>();
   String textDir = "";
+  @FXML Label floorOrderLabel;
 
+  public void displayFloorOrder(List<String> floors) {
+    floorOrderLabel.setText("");
+    for (int i = 0; i < floors.size() - 1; i++) {
+      if (!floors.get(i).equals(floors.get(i + 1))) {
+        if (i != 0 && i != floors.size() - 2 && !floors.get(i).equals(floors.get(i - 1))) {
+          // don't do anything
+        } else {
+          floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(i) + " -> ");
+        }
+      }
+    }
+    floorOrderLabel.setText(floorOrderLabel.getText() + floors.get(floors.size() - 1));
+  }
+
+  public void centerOnPoint(List<Circle> importantCircles) {
+    mapPane.centreOnX(importantCircles.get(0).getCenterX());
+    mapPane.centreOnY(importantCircles.get(0).getCenterY());
+    mapPane.zoomTo(
+        1,
+        1,
+        new Point2D(importantCircles.get(0).getCenterX(), importantCircles.get(0).getCenterY()));
+  }
+
+  public void checkCircles(Floor prev, Floor curr, Floor next, List<Circle> loc, Circle circle) {
+    if (!(!prev.equals(null) && prev != curr && prev != next)) {
+      loc.add(circle);
+    }
+  }
   // test for showing paths method
   public void showPathTesting() {
+    List<String> los = new ArrayList<>();
+    String currFloor = "";
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    importantCirclesF1.clear();
+    importantCirclesF2.clear();
+    importantCirclesF3.clear();
+    importantCirclesFL1.clear();
+    importantCirclesFL2.clear();
+    List<Circle> importantCirclesF1PH = new ArrayList<>();
+    List<Circle> importantCirclesF2PH = new ArrayList<>();
+    List<Circle> importantCirclesF3PH = new ArrayList<>();
+    List<Circle> importantCirclesFL1PH = new ArrayList<>();
+    List<Circle> importantCirclesFL2PH = new ArrayList<>();
+    Circle startCircle = new Circle();
+    Circle endCircle = new Circle();
+    Circle switchFloorsCircle = new Circle();
     // add lines to placeholders
     // set actual lines to placeholders at the end
     anchorPane.getChildren().removeAll(floor1Lines);
@@ -301,18 +434,14 @@ public class PathfindingController {
     floor3Lines.clear();
     floorL1Lines.clear();
     floorL2Lines.clear();
-
     List<Line> floor1LinesPlaceholder = new ArrayList<>();
     List<Line> floor2LinesPlaceholder = new ArrayList<>();
     List<Line> floor3LinesPlaceholder = new ArrayList<>();
     List<Line> floorL1LinesPlaceholder = new ArrayList<>();
     List<Line> floorL2LinesPlaceholder = new ArrayList<>();
-
     String currLocationName = "";
     textDir = "";
     String currDir = "";
-
-    DataBaseRepository dbr = DataBaseRepository.getInstance();
     anchorPane.getChildren().removeAll(pathLines);
     pathLines.clear();
     int startingID = 0;
@@ -321,6 +450,7 @@ public class PathfindingController {
     double startY = 0.0;
     double endX = 0.0;
     double endY = 0.0;
+    Floor prevFloor = null;
     Floor thisFloor = null;
     Floor nextFloor = null;
     if (startingLocationList.getSelectionModel().isEmpty()) {
@@ -329,27 +459,43 @@ public class PathfindingController {
     if (destinationList.getSelectionModel().isEmpty()) {
       destinationError.setText("Error: you haven't filled in the destination");
     }
+    if (datePicker.getValue() == null) {
+      datePickerError.setText("Error: you haven't filled in the date");
+    }
     if (!startingLocationList.getSelectionModel().isEmpty()
-        && (!destinationList.getSelectionModel().isEmpty())) {
+        && (!destinationList.getSelectionModel().isEmpty())
+        && (datePicker.getValue() != (null))) {
       startingLocationError.setText("");
       destinationError.setText("");
+      datePickerError.setText("");
+      // remove selected nodes if they were selected via clicking on them
+      for (int i = 0; i < floor1Circles.size(); i++) {
+        floor1Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floor2Circles.size(); i++) {
+        floor2Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floor3Circles.size(); i++) {
+        floor3Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floorL1Circles.size(); i++) {
+        floorL1Circles.get(i).setFill(Color.RED);
+      }
+      for (int i = 0; i < floorL2Circles.size(); i++) {
+        floorL2Circles.get(i).setFill(Color.RED);
+      }
       // find node IDs through moves
-      for (int i = 0; i < dbr.getMoveDAO().getListOfMoves().size(); i++) {
-        if (dbr.getMoveDAO()
-            .getListOfMoves()
-            .get(i)
-            .getLocation()
-            .getLongName()
-            .equals(startingLocationList.getValue())) {
-          startingID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
+      List<Move> thisMoves = dataBase.getMoveDAO().constructForGivenDate(datePicker.getValue());
+      if (datePicker.getValue().getYear() < 2023) {
+        datePickerError.setText("Error: the date you entered is before any moves");
+        return;
+      }
+      for (int i = 0; i < thisMoves.size(); i++) {
+        if (thisMoves.get(i).getLocation().getLongName().equals(startingLocationList.getValue())) {
+          startingID = thisMoves.get(i).getNodeID();
         }
-        if (dbr.getMoveDAO()
-            .getListOfMoves()
-            .get(i)
-            .getLocation()
-            .getLongName()
-            .equals(destinationList.getValue())) {
-          endID = dbr.getMoveDAO().getListOfMoves().get(i).getNodeID();
+        if (thisMoves.get(i).getLocation().getLongName().equals(destinationList.getValue())) {
+          endID = thisMoves.get(i).getNodeID();
         }
       }
       pfe = new PathfindingEntity(startingID, endID);
@@ -360,7 +506,6 @@ public class PathfindingController {
       // go through list of nodes
       // find the floor the node is on
       // add a line to the list of lines for that floor
-
       for (int i = 0; i < pfe.getPathEntities().size() - 1; i++) {
         for (int j = 0; j < dataBase.getNodeDAO().getAll().size(); j++) {
           // check if first node is same or whatever
@@ -377,17 +522,133 @@ public class PathfindingController {
             nextFloor = dataBase.getNodeDAO().getAll().get(j).getFloor();
             endX = dataBase.getNodeDAO().getAll().get(j).getXCoord();
             endY = dataBase.getNodeDAO().getAll().get(j).getYCoord();
-            for (int k = 0; k < dataBase.getMoveDAO().getListOfMoves().size(); k++) {
-              if (dataBase.getMoveDAO().getListOfMoves().get(k).getNodeID()
+            for (int k = 0; k < thisMoves.size(); k++) {
+              if (thisMoves.get(k).getNodeID()
                   == dataBase.getNodeDAO().getAll().get(j).getNodeID()) {
-                currLocationName = dataBase.getMoveDAO().getListOfMoves().get(k).getLocationName();
+                currLocationName = thisMoves.get(k).getLocationName();
               }
             }
           }
         }
+        if (i == 0) {
+          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
+            toFloor1();
+            circlesOnFloor = floor1Circles;
+          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
+            toFloor2();
+            circlesOnFloor = floor2Circles;
+          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
+            toFloor3();
+            circlesOnFloor = floor3Circles;
+          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
+            toFloorL1();
+            circlesOnFloor = floorL1Circles;
+          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
+            toFloorL2();
+            circlesOnFloor = floorL2Circles;
+          }
+        }
+        if (i == 0) {
+          startCircle = new Circle(startX, startY, 10.0, Color.BLUE);
+          if (thisFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(startCircle);
+            los.add("Floor 1");
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(startCircle);
+            los.add("Floor 2");
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(startCircle);
+            los.add("Floor 3");
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(startCircle);
+            los.add("Floor L1");
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(startCircle);
+            los.add("Floor L2");
+          }
+        }
+        // if floors are changing
+        if (thisFloor != nextFloor) {
+          // displays yellow on last node on the current floor
+          switchFloorsCircle = new Circle(startX, startY, 6.0, Color.YELLOW);
+          if (thisFloor.equals(Floor.Floor1)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH,
+            // switchFloorsCircle);
+            importantCirclesF1PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.Floor2)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH,
+            // switchFloorsCircle);
+            importantCirclesF2PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.Floor3)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH,
+            // switchFloorsCircle);
+            importantCirclesF3PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.FloorL1)) {
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (thisFloor.equals(Floor.FloorL2)) {
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            importantCirclesFL2PH.add(switchFloorsCircle);
+          }
+          switchFloorsCircle = new Circle(endX, endY, 6.0, Color.ORANGE);
+          if (nextFloor.equals(Floor.Floor1)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF1PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.Floor2)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF2PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.Floor3)) {
+            // checkCircles(prevFloor, thisFloor, nextFloor, importantCirclesF3PH,
+            // switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.FloorL1)) {
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL1PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          } else if (nextFloor.equals(Floor.FloorL2)) {
+            // checkCircles(
+            // prevFloor, thisFloor, nextFloor, importantCirclesFL2PH, switchFloorsCircle);
+            importantCirclesFL1PH.add(switchFloorsCircle);
+          }
+        }
+        if (thisFloor.equals(Floor.Floor1)) {
+          currFloor = "Floor 1";
+        } else if (thisFloor.equals(Floor.Floor2)) {
+          currFloor = "Floor 2";
+        } else if (thisFloor.equals(Floor.Floor3)) {
+          currFloor = "Floor 3";
+        } else if (thisFloor.equals(Floor.FloorL1)) {
+          currFloor = "Floor L1";
+        } else if (thisFloor.equals(Floor.FloorL2)) {
+          currFloor = "Floor L2";
+        }
+        if (i == pfe.getPathEntities().size() - 2) {
+          endCircle = new Circle(endX, endY, 10.0, Color.GREEN);
+          if (nextFloor.equals(Floor.Floor1)) {
+            importantCirclesF1PH.add(endCircle);
+            currFloor = "Floor 1";
+          } else if (nextFloor.equals(Floor.Floor2)) {
+            importantCirclesF2PH.add(endCircle);
+            currFloor = "Floor 2";
+          } else if (nextFloor.equals(Floor.Floor3)) {
+            importantCirclesF3PH.add(endCircle);
+            currFloor = "Floor 3";
+          } else if (nextFloor.equals(Floor.FloorL1)) {
+            importantCirclesFL1PH.add(endCircle);
+            currFloor = "Floor L1";
+          } else if (nextFloor.equals(Floor.FloorL2)) {
+            importantCirclesFL2PH.add(endCircle);
+            currFloor = "Floor L2";
+          }
+        }
+        los.add(currFloor);
         Line line = new Line(startX, startY, endX, endY);
         line.setFill(Color.BLACK);
-        line.setStrokeWidth(5.0);
+        line.setStrokeWidth(2.0);
         if (thisFloor != nextFloor) {
           // line stops at this point
         } else {
@@ -403,6 +664,7 @@ public class PathfindingController {
             floorL2LinesPlaceholder.add(line);
           }
         }
+        prevFloor = thisFloor;
         if (startX != endX) {
           if (startX > endX) {
             currDir = "West";
@@ -428,24 +690,191 @@ public class PathfindingController {
               currDir = "South";
             }
           }
+          // if (direction == null) direction = "straight";
         }
+
+        String direction;
+        if (prevDirection == null) {
+          direction = "straight";
+        } else if (prevDirection.equals("North")) {
+          switch (currDir) {
+            case "East":
+              direction = "right";
+              break;
+            case "West":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("South")) {
+          switch (currDir) {
+            case "East":
+              direction = "left";
+              break;
+            case "West":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("West")) {
+          switch (currDir) {
+            case "North":
+              direction = "right";
+              break;
+            case "South":
+              direction = "left";
+              break;
+            case "Northeast":
+              direction = "right";
+              break;
+            case "Northwest":
+              direction = "right";
+              break;
+            case "Southeast":
+              direction = "left";
+              break;
+            case "Southwest":
+              direction = "left";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("East")) {
+          switch (currDir) {
+            case "North":
+              direction = "left";
+              break;
+            case "South":
+              direction = "right";
+              break;
+            case "Northeast":
+              direction = "left";
+              break;
+            case "Northwest":
+              direction = "left";
+              break;
+            case "Southeast":
+              direction = "right";
+              break;
+            case "Southwest":
+              direction = "right";
+              break;
+            default:
+              direction = "straight";
+              break;
+          }
+        } else if (prevDirection.equals("Northeast")) {
+          if (currDir.equals("North") || currDir.equals("Northwest") || currDir.equals("West")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Northwest")) {
+          if (currDir.equals("West") || currDir.equals("Southwest") || currDir.equals("South")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southwest")) {
+          if (currDir.equals("South") || currDir.equals("Southeast") || currDir.equals("East")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else if (prevDirection.equals("Southeast")) {
+          if (currDir.equals("East") || currDir.equals("Northeast") || currDir.equals("North")) {
+            direction = "left";
+          } else {
+            direction = "right";
+          }
+        } else {
+          direction = "straight";
+        }
+        prevDirection = currDir;
+
+        /*if (startY > endY && Math.abs(startX - endX) < 100) { // if Right angle going North
+          System.out.println("Going North");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Left";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Right";
+          }
+        } else if (startY < endY && Math.abs(startX - endX) < 100) {
+          System.out.println("Going South");
+          if (currDir.equals("East")) {
+            System.out.println("From East");
+            direction = "Right";
+          } else if (currDir.equals("West")) {
+            System.out.println("From West");
+            direction = "Left";
+          }
+        } else if (startX > endX && Math.abs(startY - endY) < 100) {
+          System.out.println("Going ");
+          if (currDir.equals("North")) {
+            System.out.println("From North");
+            direction = "Left";
+          } else if (currDir.equals("South")) {
+            direction = "Right";
+          }
+        } else if (endX > startX && Math.abs(startY - endY) < 100) {
+          if (currDir.equals("North")) {
+            direction = "Right";
+          } else if (currDir.equals("South")) {
+            direction = "Left";
+          }
+        }*/
+
+        String command;
+        if (direction.equals("straight")) {
+          command = ". Go " + direction;
+        } else {
+          command = " Turn " + direction + " and go straight";
+        }
+
         int stepNum = i + 1;
         textDir =
-            textDir + stepNum + ". Go " + currDir + " until you reach " + currLocationName + ".\n";
+            textDir
+                + stepNum
+                + command
+                // + ". Go "
+                // + currDir
+                // + direction
+                + " until you reach "
+                + currLocationName
+                + ".\n";
+        // + direction;
         currDir = "";
-        if (i == 0) {
-          if (thisFloor.equals(Floor.Floor1) && !floor.getImage().equals(floor1)) {
-            toFloor1();
-          } else if (thisFloor.equals(Floor.Floor2) && !floor.getImage().equals(floor2)) {
-            toFloor2();
-          } else if (thisFloor.equals(Floor.Floor3) && !floor.getImage().equals(floor3)) {
-            toFloor3();
-          } else if (thisFloor.equals(Floor.FloorL1) && !floor.getImage().equals(floorL1)) {
-            toFloorL1();
-          } else if (thisFloor.equals(Floor.FloorL2) && !floor.getImage().equals(floorL2)) {
-            toFloorL2();
-          }
-        }
       }
       textualDirections.setText(textDir);
       floor1Lines.addAll(floor1LinesPlaceholder);
@@ -453,21 +882,42 @@ public class PathfindingController {
       floor3Lines.addAll(floor3LinesPlaceholder);
       floorL1Lines.addAll(floorL1LinesPlaceholder);
       floorL2Lines.addAll(floorL2LinesPlaceholder);
+      importantCirclesF1.addAll(importantCirclesF1PH);
+      importantCirclesF2.addAll(importantCirclesF2PH);
+      importantCirclesF3.addAll(importantCirclesF3PH);
+      importantCirclesFL1.addAll(importantCirclesFL1PH);
+      importantCirclesFL2.addAll(importantCirclesFL2PH);
       if (floor.getImage().equals(floor1)) {
         anchorPane.getChildren().addAll(floor1Lines);
+        anchorPane.getChildren().addAll(importantCirclesF1);
+        centerOnPoint(importantCirclesF1);
       } else if (floor.getImage().equals(floor2)) {
         anchorPane.getChildren().addAll(floor2Lines);
+        anchorPane.getChildren().addAll(importantCirclesF2);
+        centerOnPoint(importantCirclesF2);
       } else if (floor.getImage().equals(floor3)) {
         anchorPane.getChildren().addAll(floor3Lines);
+        anchorPane.getChildren().addAll(importantCirclesF3);
+        centerOnPoint(importantCirclesF3);
       } else if (floor.getImage().equals(floorL1)) {
         anchorPane.getChildren().addAll(floorL1Lines);
+        anchorPane.getChildren().addAll(importantCirclesFL1);
+        centerOnPoint(importantCirclesFL1);
       } else if (floor.getImage().equals(floorL2)) {
         anchorPane.getChildren().addAll(floorL2Lines);
+        anchorPane.getChildren().addAll(importantCirclesFL2);
+        centerOnPoint(importantCirclesFL2);
       }
+      if (displayLocationNamesToggle.isSelected()) {
+        showLocationNames2();
+        // showLocationNames2();
+      }
+      displayFloorOrder(los);
     }
   }
 
   public void generateFloor1Nodes() {
+    circlesOnFloor.clear();
     floor1Nodes.clear();
     floor2Nodes.clear();
     floor3Nodes.clear();
@@ -480,8 +930,23 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
-        floor1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor1)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor1Nodes.size(); i++) {
@@ -492,10 +957,12 @@ public class PathfindingController {
       Node aNode = floor1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    anchorPane.getChildren().addAll(floor1Circles);
+    circlesOnFloor = floor1Circles;
+    // anchorPane.getChildren().addAll(floor1Circles);
   }
 
   public void generateFloor2Nodes() {
+    circlesOnFloor.clear();
     floor1Nodes.clear();
     floor2Nodes.clear();
     floor3Nodes.clear();
@@ -508,8 +975,21 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
-        floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor2)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor2Nodes.size(); i++) {
@@ -520,10 +1000,12 @@ public class PathfindingController {
       Node aNode = floor2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    anchorPane.getChildren().addAll(floor2Circles);
+    circlesOnFloor.addAll(floor2Circles);
+    // anchorPane.getChildren().addAll(floor2Circles);
   }
 
   public void generateFloor3Nodes() {
+    circlesOnFloor.clear();
     floor1Nodes.clear();
     floor2Nodes.clear();
     floor3Nodes.clear();
@@ -536,22 +1018,37 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor3)) {
-        floor3Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.Floor3)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floor3Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floor3Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
-      newCircle.setTranslateX(floor3Nodes.get(i).getXCoord());
-      newCircle.setTranslateY(floor3Nodes.get(i).getYCoord());
+      Circle newCircle =
+          new Circle(
+              floor3Nodes.get(i).getXCoord(), floor3Nodes.get(i).getYCoord(), 10.0, Color.RED);
       floor3Circles.add(newCircle);
       Node aNode = floor3Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    anchorPane.getChildren().addAll(floor3Circles);
+    circlesOnFloor.addAll(floor3Circles);
+    // anchorPane.getChildren().addAll(floor3Circles);
   }
 
   public void generateFloorL1Nodes() {
+    circlesOnFloor.clear();
     floor1Nodes.clear();
     floor2Nodes.clear();
     floor3Nodes.clear();
@@ -564,22 +1061,39 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL1)) {
-        floorL1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL1)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floorL1Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floorL1Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
-      newCircle.setTranslateX(floorL1Nodes.get(i).getXCoord());
-      newCircle.setTranslateY(floorL1Nodes.get(i).getYCoord());
+      Circle newCircle =
+          new Circle(
+              floorL1Nodes.get(i).getXCoord(), floorL1Nodes.get(i).getYCoord(), 10.0, Color.RED);
       floorL1Circles.add(newCircle);
       Node aNode = floorL1Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    anchorPane.getChildren().addAll(floorL1Circles);
+    circlesOnFloor = floorL1Circles;
+    // anchorPane.getChildren().addAll(floorL1Circles);
   }
 
   public void generateFloorL2Nodes() {
+    circlesOnFloor.clear();
     floor1Nodes.clear();
     floor2Nodes.clear();
     floor3Nodes.clear();
@@ -592,23 +1106,42 @@ public class PathfindingController {
     floorL1Circles = new ArrayList<>();
     floorL2Circles = new ArrayList<>();
     for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-      if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL2)) {
-        floorL2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+      // find the location that shares the node id
+      // if the node type of the location is a hallway, don't add it
+      for (int j = 0; j < dataBase.getMoveDAO().getAll().size(); j++) {
+        if (dataBase.getMoveDAO().getAll().get(j).getNode().getNodeID()
+            == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
+          if (dataBase.getNodeDAO().getAll().get(i).getFloor().equals(Floor.FloorL2)) {
+            if (!dataBase
+                .getMoveDAO()
+                .getAll()
+                .get(j)
+                .getLocation()
+                .getNodeType()
+                .equals(NodeType.HALL)) {
+              floorL2Nodes.add(dataBase.getNodeDAO().getAll().get(i));
+            }
+          }
+        }
       }
     }
     for (int i = 0; i < floorL2Nodes.size(); i++) {
-      Circle newCircle = new Circle(0.0, 0.0, 10.0, Color.RED);
-      newCircle.setTranslateX(floorL2Nodes.get(i).getXCoord());
-      newCircle.setTranslateY(floorL2Nodes.get(i).getYCoord());
+      Circle newCircle =
+          new Circle(
+              floorL2Nodes.get(i).getXCoord(), floorL2Nodes.get(i).getYCoord(), 10.0, Color.RED);
       floorL2Circles.add(newCircle);
       Node aNode = floorL2Nodes.get(i);
       newCircle.setOnMouseClicked(event -> colorEvent(newCircle, aNode));
     }
-    anchorPane.getChildren().addAll(floorL2Circles);
+    circlesOnFloor = floorL2Circles;
+    // anchorPane.getChildren().addAll(floorL2Circles);
   }
 
   public void clearFields() {
-    anchorPane.getChildren().clear();
+    adminMessage.setText("");
+    messageField.setText("");
+    floorOrderLabel.setText("");
+    datePicker.setValue(LocalDate.now());
     anchorPane.getChildren().removeAll(floor1Lines);
     anchorPane.getChildren().removeAll(floor2Lines);
     anchorPane.getChildren().removeAll(floor3Lines);
@@ -620,6 +1153,16 @@ public class PathfindingController {
     floor3Lines.clear();
     floorL1Lines.clear();
     floorL2Lines.clear();
+    anchorPane.getChildren().removeAll(importantCirclesF1);
+    anchorPane.getChildren().removeAll(importantCirclesF2);
+    anchorPane.getChildren().removeAll(importantCirclesF3);
+    anchorPane.getChildren().removeAll(importantCirclesFL1);
+    anchorPane.getChildren().removeAll(importantCirclesFL2);
+    importantCirclesF1.clear();
+    importantCirclesF2.clear();
+    importantCirclesF3.clear();
+    importantCirclesFL1.clear();
+    importantCirclesFL2.clear();
     startingLocationList.getSelectionModel().clearSelection();
     startingLocationList.setButtonCell(
         new ListCell<String>() {
@@ -651,42 +1194,73 @@ public class PathfindingController {
       for (int i = 0; i < floor1Circles.size(); i++) {
         floor1Circles.get(i).setFill(Color.RED);
       }
-      anchorPane.getChildren().addAll(floor1Circles);
+      if (displayAllNodesToggle.isSelected()) {
+        showLocationNames2();
+      }
     } else if (floor.getImage().equals(floor2)) {
       for (int i = 0; i < floor2Circles.size(); i++) {
         floor2Circles.get(i).setFill(Color.RED);
       }
-      anchorPane.getChildren().addAll(floor2Circles);
+      if (displayAllNodesToggle.isSelected()) {
+        showLocationNames2();
+      }
     } else if (floor.getImage().equals(floor3)) {
       for (int i = 0; i < floor3Circles.size(); i++) {
         floor3Circles.get(i).setFill(Color.RED);
       }
-      anchorPane.getChildren().addAll(floor3Circles);
+      if (displayAllNodesToggle.isSelected()) {
+        showLocationNames2();
+      }
     } else if (floor.getImage().equals(floorL1)) {
       for (int i = 0; i < floorL1Circles.size(); i++) {
         floorL1Circles.get(i).setFill(Color.RED);
       }
-      anchorPane.getChildren().addAll(floorL1Circles);
+      if (displayAllNodesToggle.isSelected()) {
+        showLocationNames2();
+      }
     } else if (floor.getImage().equals(floorL2)) {
       for (int i = 0; i < floorL2Circles.size(); i++) {
         floorL2Circles.get(i).setFill(Color.RED);
       }
-      anchorPane.getChildren().addAll(floorL2Circles);
+      if (displayAllNodesToggle.isSelected()) {
+        showLocationNames2();
+      }
     }
     anchorPane.getChildren().removeAll(pathLines);
   }
 
   public void initialize() {
+    if (ActiveUser.getInstance().isLoggedIn()) {
+      pathfindingToLogin.setVisible(false);
+      if (!ActiveUser.getInstance().getPermission().equals(Permission.ADMIN)) {
+        addMoveBtn.setVisible(false);
+        messageField.setVisible(false);
+      }
+    } else {
+      addMoveBtn.setVisible(false);
+      messageField.setVisible(false);
+    }
+
+    datePicker.setValue(LocalDate.now());
 
     algList.getItems().addAll("AStar", "Dijkstra's", "Breadth-first search", "Depth-first search");
     pathfindingToLogin.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN_PAGE));
+
+    displayAllNodesToggle.setOnMouseClicked(event -> showNodes());
+    // displayLocationNamesToggle.setOnMouseClicked(event -> showLocations());
+    displayLocationNamesToggle.setOnMouseClicked(event -> showLocationNames2());
 
     dataBase = DataBaseRepository.getInstance();
     clearFieldsButton.setOnMouseClicked(event -> clearFields());
     setLocationLongNames();
 
     stackPane.setPrefSize(714, 313);
-
+    /*
+    // tried to make a function that sets the floor to the floor of the currently selected location in the starting location list
+    if (!startingLocationList.getSelectionModel().isEmpty()) {
+      startingLocationList.setOnAction(event -> goToStartingFloor());
+    }
+    */
     floor =
         new ImageView(
             new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
@@ -698,6 +1272,7 @@ public class PathfindingController {
 
     mapPane.setContent(stackPane);
     mapPane.setMinScale(.0001);
+    mapPane.zoomTo(0.15, 0.15, new Point2D(2500, 1700));
     floor1Button.setOnMouseClicked(event -> toFloor1());
     floor2Button.setOnMouseClicked(event -> toFloor2());
     floor3Button.setOnMouseClicked(event -> toFloor3());
@@ -707,8 +1282,31 @@ public class PathfindingController {
     circlesOnFloor = floor1Circles;
     nodeList = floor1Nodes;
     changeFloorButtonColors();
-    // findPathButton.setOnMouseClicked(event -> showPathNew(nodeList, pathLines));
-    // findPathButton.setOnMouseClicked(event -> showPathAcrossFloors(nodeList, pathLines));
-    findPathButton.setOnMouseClicked(event -> showPathTesting());
+    findPathButton.setOnMouseClicked(
+        event -> {
+          showPathTesting();
+          prevDirection = null;
+          if (messageField.isVisible()) {
+            addMessage();
+          }
+        });
+    addMoveBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.PATHFINDING_POPUP));
+    datePicker.setOnAction(
+        event -> {
+          if (displayLocationNamesToggle.isSelected()) {
+            showLocationNames2();
+          }
+          // remove path lines
+          anchorPane.getChildren().removeAll(floor1Lines);
+          anchorPane.getChildren().removeAll(floor2Lines);
+          anchorPane.getChildren().removeAll(floor3Lines);
+          anchorPane.getChildren().removeAll(floorL1Lines);
+          anchorPane.getChildren().removeAll(floorL2Lines);
+          anchorPane.getChildren().removeAll(importantCirclesF1);
+          anchorPane.getChildren().removeAll(importantCirclesF2);
+          anchorPane.getChildren().removeAll(importantCirclesF3);
+          anchorPane.getChildren().removeAll(importantCirclesFL1);
+          anchorPane.getChildren().removeAll(importantCirclesFL2);
+        });
   }
 }

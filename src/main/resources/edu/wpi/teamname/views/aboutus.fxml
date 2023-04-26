@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutUsController">
+   <root>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #ffffff;">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="22.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="510.33331298828125" minWidth="10.0" percentWidth="22.0" prefWidth="315.6666259765625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.3333740234376" minWidth="10.0" percentWidth="22.0" prefWidth="718.3333740234376" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.3333740234376" minWidth="10.0" prefWidth="718.3333740234376" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.3333740234376" minWidth="10.0" percentWidth="5.0" prefWidth="718.3333740234376" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="135.39048767089844" minHeight="10.0" percentHeight="12.0" prefHeight="104.16667175292969" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="140.8333282470703" minHeight="10.0" percentHeight="10.0" prefHeight="118.33332824707031" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="180.16665649414062" minHeight="10.0" percentHeight="25.0" prefHeight="160.16665649414062" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="118.33332824707031" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Line endX="1100.0" startX="-100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Line>
+            <Line endX="750.0" startX="-100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="50.0" />
+               </GridPane.margin>
+            </Line>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Label prefHeight="37.0" prefWidth="140.0" text="Professor">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Wilson Wong, Ph.D" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Team Coach">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Michael O' Connor" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Lead Engineer">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Nikesh Walling" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@../../../../Stylesheets/AboutUsPage.css" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <children>
+                  <Label prefHeight="37.0" prefWidth="239.0" text="Assistant Leads">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Anthony Titcombe" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Kashvi Singh" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="37.0" prefWidth="239.0" text="Project Manager">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Sarah Kogan" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="37.0" prefWidth="239.0" text="Product Owner">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Nicholas Ho" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <children>
+                  <Label prefHeight="37.0" prefWidth="239.0" text="Full-Time Engineers">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Jake Olsen" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Ryan Wright" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Tyler Brown" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Prahladh Raja" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="37.0" prefWidth="239.0" text="Scrum Master">
+                     <font>
+                        <Font name="Open Sans Regular" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Nathaniel Rubin" textFill="#000000bf">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <ImageView fitHeight="394.0" fitWidth="394.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="125.0" />
+               </GridPane.margin>
+            </ImageView>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
+               <children>
+                  <MFXButton fx:id="homeBtn" text=".">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/homeicon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="300.0" top="15.0" />
+                     </padding>
+                  </MFXButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="TOP_LEFT" text="About Us" textFill="#122e59">
+                     <font>
+                        <Font name="Open Sans Regular" size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Our Story">
+                     <font>
+                        <Font name="Open Sans Regular" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <Label text="Meet the Team">
+                     <font>
+                        <Font name="Open Sans Regular" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
+               <children>
+                  <Label prefHeight="205.0" prefWidth="1266.0" style="-fx-wrap-text: true;" text="     This largely is a project for CS 3733 class at WPI. Our team of 10 students is comprised of talented and dedicated individuals who are passionate about software engineering. Over the course of 7 weeks, we have worked tirelessly to create a cutting-edge product that we are proud to present to the world. With a shared commitment to excellence, we have collaborated closely to ensure that every aspect of the project is executed with the utmost care and attention to detail. We believe that our hard work and dedication will result in a product that is not only functional and reliable, but also innovative and user-friendly. As a team, we are excited to showcase our skills and expertise and are confident that our software engineering project will make a lasting impact on the industry. We also thank Brigham and Women’s Hospital and their representative, AndrewShinn, for their time and input. ">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="-30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </root>
+</Scene>

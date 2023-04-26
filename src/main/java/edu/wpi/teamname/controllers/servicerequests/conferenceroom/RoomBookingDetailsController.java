@@ -10,13 +10,13 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import lombok.Getter;
 import lombok.Setter;
 import org.controlsfx.control.SearchableComboBox;
@@ -32,13 +32,15 @@ public class RoomBookingDetailsController extends PopUpController {
   @FXML MFXDatePicker roomBookingDate;
   @FXML SearchableComboBox startTimeField;
   @FXML SearchableComboBox endTimeField;
-
+  @FXML Label errorMessage;
+  @FXML MFXToggleButton privateToggle;
   @Setter @Getter String roomLocation;
   @Setter @Getter LocalDate eventDate;
   @Setter @Getter LocalTime startTime;
   @Setter @Getter LocalTime endTime;
   @Setter @Getter String eventTitle;
   @Setter @Getter String eventDescription;
+  @Setter @Getter boolean isPrivate;
   @FXML MFXButton navigationbutton;
   @FXML MFXButton navigationbutton1;
   @FXML MFXButton mealbutton;
@@ -67,8 +69,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || roomComboBox.valueProperty().toString().length() == 0
                       || startTimeField.valueProperty().toString().length() == 0
                       || endTimeField.valueProperty().toString().length() == 0
-                      || roomBookingDate.valueProperty().toString().length() == 0
-                      || staffMemberComboBox.getValue() == null);
+                      || roomBookingDate.valueProperty().toString().length() == 0);
             }));
 
     roomBookingDate
@@ -82,8 +83,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || roomComboBox.valueProperty().toString().length() == 0
                       || startTimeField.valueProperty().toString().length() == 0
                       || endTimeField.valueProperty().toString().length() == 0
-                      || roomBookingDate.valueProperty().toString().length() == 0
-                      || staffMemberComboBox.getValue() == null);
+                      || roomBookingDate.valueProperty().toString().length() == 0);
             }));
 
     eventTitleText
@@ -97,8 +97,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || roomComboBox.getValue() == null
                       || startTimeField.valueProperty().toString().length() == 0
                       || roomBookingDate.valueProperty().toString().length() == 0
-                      || endTimeField.valueProperty().toString().length() == 0
-                      || staffMemberComboBox.getValue() == null);
+                      || endTimeField.valueProperty().toString().length() == 0);
             }));
 
     roomComboBox
@@ -111,8 +110,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || eventDescriptionText.getText().trim().isEmpty()
                       || roomComboBox.getValue() == null
                       || startTimeField.valueProperty().toString().length() == 0
-                      || endTimeField.valueProperty().toString().length() == 0
-                      || staffMemberComboBox.getValue() == null);
+                      || endTimeField.valueProperty().toString().length() == 0);
             }));
 
     staffMemberComboBox
@@ -125,8 +123,7 @@ public class RoomBookingDetailsController extends PopUpController {
                       || eventDescriptionText.getText().trim().isEmpty()
                       || roomComboBox.getValue() == null
                       || startTimeField.valueProperty().toString().length() == 0
-                      || endTimeField.valueProperty().toString().length() == 0
-                      || staffMemberComboBox.getValue() == null);
+                      || endTimeField.valueProperty().toString().length() == 0);
             }));
 
     submitDetailsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ROOM_BOOKING));
@@ -160,33 +157,52 @@ public class RoomBookingDetailsController extends PopUpController {
   // submit details from controller
   @FXML
   public void submitDetails(ActionEvent event) throws Exception {
-    boolean isPrivate = false;
+
     roomLocation = roomComboBox.getValue().toString().replaceAll(" ", "");
     eventDate = roomBookingDate.getValue();
     startTime = (LocalTime) startTimeField.getValue();
     endTime = (LocalTime) endTimeField.getValue();
     eventTitle = eventTitleText.getText();
     eventDescription = eventDescriptionText.getText();
-    System.out.println("Took in inputs from RBD Controller");
+    isPrivate = privateToggle.isSelected();
+
+    System.out.println(isPrivate);
+
+    if (!catchBookingErrors(roomLocation, eventDate, startTime, endTime)) {
+      System.out.println("Room booking cancelled because of faulty inputs");
+      return;
+    }
+    ;
+
     try {
+      System.out.println("Is private in rb details controller: " + isPrivate);
       rbc.addNewRequest(
           roomLocation, eventDate, startTime, endTime, eventTitle, eventDescription, isPrivate);
       stage.close();
     } catch (Exception e) {
-      Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-      errorAlert.setTitle("Time Dialog");
-      errorAlert.setContentText("There's scheduling clashes");
-
-      DialogPane dialogPane = errorAlert.getDialogPane();
-      dialogPane.setStyle("-fx-background-color: #000000");
-      // dialogPane.getStylesheets().add("myDialogs.css");
-      // dialogPane.getStyleClass().add("myDialog");
-      errorAlert.showAndWait();
+      errorMessage.setText(roomComboBox.getValue().toString() + " is not available at this time.");
+      roomComboBox.setStyle("-fx-border-color: RED");
     }
-
-    // clearFields();
   }
 
+  public boolean catchBookingErrors(
+      String roomLocation, LocalDate date, LocalTime startTime, LocalTime endTime) {
+
+    if (startTime.isAfter(endTime)) {
+      errorMessage.setText("Start time must be before end time.");
+      startTimeField.setStyle("-fx-border-color: RED");
+      endTimeField.setStyle("-fx-border-color: RED");
+      return false;
+    }
+
+    if (startTime.equals(endTime)) {
+      errorMessage.setText("Start time must be different from end time.");
+      startTimeField.setStyle("-fx-border-color: RED");
+      endTimeField.setStyle("-fx-border-color: RED");
+      return false;
+    }
+    return true;
+  }
   // clear text fields
   public void clearFields() {
     roomComboBox.setValue("");
@@ -197,5 +213,9 @@ public class RoomBookingDetailsController extends PopUpController {
     eventDescriptionText.clear();
     staffMemberComboBox.valueProperty().set(null);
     eventDescriptionText.clear();
+    roomComboBox.setStyle("-fx-border-color: NONE");
+    startTimeField.setStyle("-fx-border-color: NONE");
+    endTimeField.setStyle("-fx-border-color: NONE");
+    errorMessage.setText(null);
   }
 }

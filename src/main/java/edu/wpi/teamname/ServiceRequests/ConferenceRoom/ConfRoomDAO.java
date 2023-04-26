@@ -6,6 +6,8 @@ import static edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO.sch
 import edu.wpi.teamname.DAOs.IDAO;
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.DAOs.orms.Location;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -82,13 +84,13 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
 
   public void initializeLocations() {
     HashMap<String, ConfRoomLocation> temp = new HashMap<>();
-    Location l1 = new Location("BTM Conference Center", "BTM Conference", CONF);
-    Location l2 = new Location("Duncan Reid Conference Room", "Conf B0102", CONF);
-    Location l3 = new Location("Anesthesia Conf Floor L1", "Conf C001L1", CONF);
-    Location l4 = new Location("Medical Records Conference Room Floor L1", "Conf C002L1", CONF);
-    Location l5 = new Location("Abrams Conference Room", "Conf C003L1", CONF);
-    Location l6 =
+    Location l1 = new Location("Abrams Conference Room", "Conf C003L1", CONF);
+    Location l2 = new Location("Anesthesia Conf Floor L1", "Conf C001L1", CONF);
+    Location l3 = new Location("BTM Conference Center", "BTM Conference", CONF);
+    Location l4 =
         new Location("Carrie M. Hall Conference Center Floor 2", "Conference Center", CONF);
+    Location l5 = new Location("Duncan Reid Conference Room", "Conf B0102", CONF);
+    Location l6 = new Location("Medical Records Conference Room Floor L1", "Conf C002L1", CONF);
     Location l7 = new Location("Shapiro Board Room MapNode 20 Floor 1", "Shapiro Board Room", CONF);
 
     temp.put(l1.getLongName(), new ConfRoomLocation(l1, 50, ""));
@@ -108,8 +110,23 @@ public class ConfRoomDAO implements IDAO<ConfRoomLocation, String> {
   public void loadRemote(String pathToCSV) {}
 
   @Override
-  public void importCSV(String path) {}
+  public void importCSV(String path) {
+    dropTable();
+    conferenceRooms.clear();
+    loadRemote(path);
+  }
 
   @Override
-  public void exportCSV(String path) throws IOException {}
+  public void exportCSV(String path) throws IOException {
+    BufferedWriter fileWriter = new BufferedWriter(new FileWriter(path));
+    fileWriter.write(
+        "orderDate,eventDate,startTime,endTime,room,reservedBy,"
+            + "eventName,eventDescription,assignedTo,orderStatus,notes,isPrivate;");
+
+    for (ConfRoomLocation loc : conferenceRooms.values()) {
+      fileWriter.newLine();
+      fileWriter.write(loc.toCSVString());
+    }
+    fileWriter.close();
+  }
 }

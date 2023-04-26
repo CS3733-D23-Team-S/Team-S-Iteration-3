@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.CreditsController">
+   <root>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: FFFFFF;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Credits" textFill="#1d3d94">
+                     <font>
+                        <Font name="Open Sans Regular" size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="HomeIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Images" textFill="#1d3d94">
+                           <font>
+                              <Font name="Open Sans Regular" size="36.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="30.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="573.0" prefWidth="590.0" spacing="30.0">
+                     <children>
+                        <Line endX="100.0" endY="-100.0" startX="100.0" startY="400.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Flowers:" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Hyperlink fx:id="Blossom" text="Blossom">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Magnolia" text="Magnolia">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Passion" text="Passion">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Pastel" text="Pastel">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Pink" text="Pink">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Rainforest" text="Rainforest">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Sapphire" text="Sapphire">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Spring" text="Spring">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Summer" text="Summer">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Winter" text="Winter">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </VBox>
+                        <Line endX="100.0" endY="-100.0" startX="100.0" startY="400.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Meals:" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Hyperlink fx:id="Burger" text="Burger">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="StirFry" text="Stir Fry">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Chicken" text="Chicken">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Tacos" text="Tacos">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Pasta" text="Pasta">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Bagel" text="Bagel">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Tea" text="Tea">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="OrangeChicken" text="Orange Chicken">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="FriedRice" text="Fried Rice">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="HotDog" text="Hot Dog">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="RiceAndBeans" text="Rice and Beans">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Quesadillas" text="Quesadillas">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </VBox>
+                        <Line endX="100.0" endY="-100.0" startX="100.0" startY="400.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label text="Office Supplies:" textFill="#1d3d94">
+                                 <font>
+                                    <Font name="Open Sans Regular" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Hyperlink fx:id="Pens" text="Pens">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Highlighters" text="Highlighters">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Folders" text="Folders">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Stapler" text="Stapler">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="PostIts" text="Post-Its">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Scissors" text="Scissors">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="WhiteBoard" text="White Board">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="DryEraseMarkers" text="Dry Erase Markers">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="RubixCube" text="Rubix Cube">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink fx:id="Pencils" text="Pencils">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Hyperlink>
+                           </children>
+                        </VBox>
+                        <Line endX="100.0" endY="-100.0" startX="100.0" startY="400.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="6">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label text="APIs" textFill="#1d3d94">
+                           <font>
+                              <Font name="Open Sans Regular" size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="117.0" prefWidth="256.0" spacing="20.0">
+                     <children>
+                        <Label text="Controls FX (SceneBuilder)" textFill="#1d3d94">
+                           <font>
+                              <Font name="Open Sans Regular" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Materials FX (SceneBuilder)" textFill="#1d3d94">
+                           <font>
+                              <Font name="Open Sans Regular" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <ImageView fx:id="popup" fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <MFXButton fx:id="popupClose" styleClass="clearbutton" stylesheets="@../../../../Stylesheets/FlowerPage.css" text="Close">
+                     <font>
+                        <Font name="Open Sans Regular" size="14.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.rowSpan="6">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Icons" textFill="#1d3d94">
+                           <font>
+                              <Font name="Open Sans Regular" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Hyperlink fx:id="Home" text="Home">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="Profile" text="Profile">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="Logout" text="Logout">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="Navigation" text="Navigation">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="Signage" text="Signage">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="MealRequest" text="Meal Request">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="RoomRequest" text="Room Request">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="FlowerRequest" text="Flower Request">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="OfficeRequest" text="Office Request">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="Help" text="Help">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                        <Hyperlink fx:id="HospitalLogo" text="Hospital Logo">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="10">
+               <children>
+                  <Label text="* All of our images have been taken from different sources" textFill="#1d3d94">
+                     <font>
+                        <Font name="Open Sans Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </root>
+</Scene>

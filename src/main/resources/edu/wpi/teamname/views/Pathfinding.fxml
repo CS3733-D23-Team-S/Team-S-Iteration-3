@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -9,12 +11,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
+<GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.PathfindingController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="3.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
@@ -88,7 +91,7 @@
             </Label>
             <ScrollPane prefHeight="256.0" prefWidth="444.0">
                <content>
-                  <Label fx:id="textualDirections" alignment="TOP_LEFT" prefHeight="306.0" prefWidth="396.0" />
+                  <Label fx:id="textualDirections" alignment="TOP_LEFT" prefHeight="227.0" prefWidth="464.0" />
                </content>
             </ScrollPane>
          </children>
@@ -118,16 +121,23 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <HBox prefHeight="67.0" prefWidth="349.0" spacing="120.0">
+            <HBox prefHeight="29.0" prefWidth="408.0">
                <children>
-                  <MFXButton fx:id="findPathButton" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Show Path" textFill="WHITE">
+                  <MFXDatePicker fx:id="datePicker" prefHeight="38.0" prefWidth="204.0" />
+                  <Label fx:id="datePickerError" alignment="CENTER" prefHeight="38.0" prefWidth="124.0" textFill="RED" />
+                  <MFXTextField fx:id="messageField" minHeight="-Infinity" prefHeight="38.0" prefWidth="153.0" promptText="Enter Message" />
+               </children>
+            </HBox>
+            <HBox prefHeight="67.0" prefWidth="349.0" spacing="181.0">
+               <children>
+                  <MFXButton fx:id="clearFieldsButton" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1D3D94; -fx-border-radius: 10;" text="Clear">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="clearFieldsButton" prefHeight="40.0" prefWidth="150.0" style="-fx-border-color: #1D3D94; -fx-border-radius: 10;" text="Clear">
+                  <MFXButton fx:id="findPathButton" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Show Path" textFill="WHITE">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="Open Sans Regular" size="16.0" />
                      </font>
                   </MFXButton>
                </children>
@@ -140,6 +150,16 @@
                   <Insets top="-20.0" />
                </VBox.margin>
             </SearchableComboBox>
+            <ToggleSwitch fx:id="displayAllNodesToggle" prefHeight="35.0" prefWidth="260.0" text="Display All Nodes">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </ToggleSwitch>
+            <ToggleSwitch fx:id="displayLocationNamesToggle" prefHeight="35.0" prefWidth="260.0" text="Display Location Names">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </ToggleSwitch>
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowSpan="2">
@@ -151,5 +171,52 @@
             </MFXButton>
          </children>
       </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+         <children>
+            <Label prefHeight="25.0" prefWidth="41.0" text="Key: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="BLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="134.0" text="  = Starting Point">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="GREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="117.0" text="  = Destination">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="YELLOW" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="176.0" text="  = Go up/down a floor">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Circle fill="ORANGE" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="25.0" prefWidth="225.0" text="  = Starting point on new floor">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label fx:id="floorOrderLabel" prefHeight="41.0" prefWidth="886.0" GridPane.columnIndex="4" GridPane.rowIndex="16" />
+      <Label fx:id="adminMessageLabel" prefHeight="24.0" prefWidth="1013.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <HBox prefHeight="45.0" prefWidth="450.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="16">
+         <children>
+            <MFXButton fx:id="addMoveBtn" prefHeight="45.0" prefWidth="111.0" style="-fx-background-color: #1D3D94; -fx-background-radius: 10;" text="Add Move" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans Regular" size="16.0" />
+               </font>
+            </MFXButton>
+         </children>
+         <GridPane.margin>
+            <Insets left="150.0" />
+         </GridPane.margin>
+      </HBox>
    </children>
 </GridPane>

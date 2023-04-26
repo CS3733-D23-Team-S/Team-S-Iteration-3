@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<VBox prefHeight="390.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.EditNodeController">
+<VBox fx:id="editMenu" prefHeight="390.0" prefWidth="250.0" stylesheets="@../../../../Stylesheets/MapEditorMenu.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.EditNodePopOverController">
    <children>
       <HBox prefHeight="10.0" prefWidth="200.0" style="-fx-background-color: &quot;1D3D94&quot;;" />
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" style="-fx-background-color: &quot;FFFFFF&quot;;">
@@ -32,14 +32,14 @@
             <Insets left="20.0" />
          </opaqueInsets>
       </HBox>
-      <Accordion fx:id="infoAccordian">
+      <Accordion fx:id="infoAccordian" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="350.0">
         <panes>
-          <TitledPane animated="false" style="-fx-animated: true;" text="Edges">
+          <TitledPane animated="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="300.0" style="-fx-animated: true;" text="Edges">
             <content>
-                  <VBox style="-fx-background-color: &quot;FFFFFF&quot;;">
+                  <VBox maxHeight="-Infinity" prefHeight="250.0" style="-fx-background-color: &quot;FFFFFF&quot;;">
                      <children>
-                        <VBox fx:id="edgeBox" prefHeight="200.0" prefWidth="100.0" />
-                        <HBox alignment="CENTER">
+                        <VBox fx:id="edgeBox" minHeight="-Infinity" prefHeight="230.0" />
+                        <HBox alignment="BOTTOM_CENTER">
                            <children>
                               <CheckBox fx:id="checkBox" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0" stylesheets="@../../../../Stylesheets/checkBox.css" />
                               <SearchableComboBox fx:id="edgeField" prefWidth="130.0" promptText="Nearest Nodes">
@@ -65,7 +65,7 @@
             <content>
                   <VBox style="-fx-background-color: &quot;FFFFFF&quot;;">
                      <children>
-                        <VBox fx:id="locationBox" prefHeight="180.0" />
+                        <VBox fx:id="locationBox" prefHeight="230.0" />
                         <HBox alignment="CENTER">
                            <children>
                               <VBox>
@@ -78,6 +78,9 @@
                                  <font>
                                     <Font name="Open Sans ExtraBold Italic" size="12.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </Button>
                            </children>
                         </HBox>
@@ -96,20 +99,5 @@
             </TitledPane>
         </panes>
       </Accordion>
-      <HBox alignment="BOTTOM_CENTER" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Button fx:id="submitUpdate" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: &quot;1D3D94&quot;;" text="Update Node" textFill="WHITE">
-               <font>
-                  <Font name="Open Sans SemiBold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="12.5" />
-         </padding>
-      </HBox>
    </children>
 </VBox>

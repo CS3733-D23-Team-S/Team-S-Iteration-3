@@ -1,8 +1,6 @@
 package edu.wpi.teamname.DAOs;
 
-import edu.wpi.teamname.DAOs.orms.Location;
-import edu.wpi.teamname.DAOs.orms.Move;
-import edu.wpi.teamname.DAOs.orms.Node;
+import edu.wpi.teamname.DAOs.orms.*;
 import java.io.*;
 import java.sql.*;
 import java.sql.Date;
@@ -19,7 +17,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   // List of all moves that have ever occurred
   @Getter ArrayList<Move> listOfMoves = new ArrayList<>();
-
   // List of moves for a location
   @Getter HashMap<String, List<Move>> locationMoveHistory = new HashMap<>();
   // Get the moves associated with the nodeID
@@ -132,19 +129,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
 
   @Override
   public void add(Move addition) {
-    //    listOfMoves.add(addition);
-    //    ArrayList<Move> moveArrayList = new ArrayList<>();
-    //    moveArrayList.add(addition);
-    //    if (!locationMoveHistory.containsKey(addition.getLocationName())) {
-    //      locationMoveHistory.put(addition.getLocationName(), moveArrayList);
-    //    } else {
-    //      locationMoveHistory.get(addition.getLocationName()).add(addition);
-    //    }
-    //    if (!locationsAtNodeID.containsKey(addition.getNodeID())) {
-    //      locationsAtNodeID.put(addition.getNodeID(), moveArrayList);
-    //    } else {
-    //      locationsAtNodeID.get(addition.getNodeID()).add(addition);
-    //    }
     try {
       PreparedStatement stmt =
           connection
@@ -161,35 +145,23 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
-  public void add(Node node, Location location, LocalDate date) {
+  public void add(Node node, Location location, LocalDate date) throws Exception {
+    for (Move thisMove : getListOfMoves()) {
+      if (thisMove.getLocation().equals(location)) {
+        if (thisMove.getDate().isEqual(date)) {
+          System.out.println("Move just hppened!!");
+          throw new NullPointerException("Move already happened");
+        }
+      }
+    }
     Move newMove = new Move(node, location, date);
     this.add(newMove);
-  }
-
-  public void addToJustDBandLoc(Move addition) {
-    // listOfMoves.add(addition);
-    try {
-      PreparedStatement stmt =
-          connection
-              .getConnection()
-              .prepareStatement("INSERT INTO " + name + " (nodeID, location, date) VALUES (?,?,?)");
-      stmt.setInt(1, addition.getNode().getNodeID());
-      stmt.setString(2, addition.getLocation().getLongName());
-      stmt.setDate(3, Date.valueOf(addition.getDate()));
-      stmt.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 
   void constructFromRemote() {
     listOfMoves.clear();
     locationsAtNodeID.clear();
     locationMoveHistory.clear();
-    if (!listOfMoves.isEmpty()) {
-      System.out.println("There is already stuff in the orm database");
-      return;
-    }
     NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
     LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
     try {
@@ -236,8 +208,6 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
         while ((line = reader.readLine()) != null) {
           String[] fields = line.split(",");
           LocalDate date = parseDate(fields[2]);
-
-          //          Move thisMove = new Move(Integer.parseInt(fields[0]), fields[1], date);
           PreparedStatement stmt =
               connection
                   .getConnection()
@@ -259,6 +229,103 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     }
   }
 
+  public List<Move> constructForGivenDate(LocalDate moveDate) {
+    ArrayList<Move> datedMoves = new ArrayList<>();
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
+    try {
+
+      String query =
+          "SELECT location, max(date) FROM hospitaldb.moves "
+              + "where date <= ? "
+              + "group by location";
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+      preparedStatement.setDate(1, Date.valueOf(moveDate));
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        LocalDate date = rs.getDate("max").toLocalDate();
+        Location loc = locationDAO.get(rs.getString("location"));
+        Node node = getMostRecentNode(moveDate, loc);
+        Move thisMove = new Move(node, loc, date);
+
+        datedMoves.add(thisMove);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Error accessing the remote and constructing the list of moves");
+    }
+    return datedMoves;
+  }
+
+  public Node getMostRecentNode(LocalDate date, Location location) {
+    List<Move> locationMoves = new ArrayList<>();
+
+    for (Move thismove : listOfMoves) {
+      if (thismove.getLocation().equals(location)) {
+        locationMoves.add(thismove);
+      }
+    }
+    LocalDate maxDate = LocalDate.of(2023, 1, 1);
+    for (Move thismove : locationMoves) {
+      if (thismove.getDate().isAfter(maxDate)
+          && (thismove.getDate().isBefore(date) || thismove.getDate().isEqual(date))) {
+        maxDate = thismove.getDate();
+      }
+    }
+
+    for (Move thismove : locationMoves) {
+      if (thismove.getDate().isEqual(maxDate)) {
+        return thismove.getNode();
+      }
+    }
+
+    return null;
+  }
+
+  public ArrayList<futureMoves> getFutureMoves() {
+    ArrayList<futureMoves> futureMoves = new ArrayList<>();
+    NodeDAOImpl nodeDAO = DataBaseRepository.getInstance().nodeDAO;
+    LocationDAOImpl locationDAO = DataBaseRepository.getInstance().locationDAO;
+    try {
+
+      String query =
+          "select  * "
+              + "from (hospitaldb.moves m join hospitaldb.nodes n2 on "
+              + "m.nodeid = n2.nodeid join hospitaldb.locations l on l.longname = m.location)  "
+              + "where date >= current_date";
+
+      PreparedStatement preparedStatement = connection.getConnection().prepareStatement(query);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      //      ResultSetMetaData rsdata = rs.getMetaData();
+      //      System.out.println(rsdata.getColumnName(5));
+
+      while (rs.next()) {
+        LocalDate date = rs.getDate("date").toLocalDate();
+        int node = rs.getInt("nodeid");
+        String loc = rs.getString("location");
+        NodeType nodeType = NodeType.values()[rs.getInt("nodetype")];
+        int xCoord = rs.getInt("xCoord");
+        int yCoord = rs.getInt("yCoord");
+        String floor = String.valueOf(Floor.values()[rs.getInt("Floor")]);
+
+        futureMoves thisMove = new futureMoves(node, loc, date, nodeType, xCoord, yCoord, floor);
+
+        futureMoves.add(thisMove);
+      }
+
+      // System.out.println(futureMoves);
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println(e.getSQLState());
+      System.out.println("Could not create a view");
+    }
+    return futureMoves;
+  }
+
   private LocalDate parseDate(String dateString) {
     // Parse the input date string into a LocalDate object
     LocalDate date =
@@ -270,9 +337,41 @@ public class MoveDAOImpl implements IDAO<Move, Move> {
     return LocalDate.parse(outputString);
   }
 
-  private class DateComparator implements Comparator<Move> {
+  private static class DateComparator implements Comparator<Move> {
     public int compare(Move o1, Move o2) {
       return o1.getDate().compareTo(o2.getDate());
+    }
+  }
+
+  public class futureMoves {
+    @Getter int nodeId;
+    @Getter String locName;
+    @Getter LocalDate moveDate;
+    @Getter NodeType nodeType;
+    @Getter int xcoord;
+    @Getter int ycoord;
+    @Getter String floor;
+
+    public futureMoves(
+        int nodeId,
+        String locName,
+        LocalDate moveDate,
+        NodeType nodeType,
+        int xcoord,
+        int ycoord,
+        String floor) {
+      this.nodeId = nodeId;
+      this.locName = locName;
+      this.moveDate = moveDate;
+      this.nodeType = nodeType;
+      this.xcoord = xcoord;
+      this.ycoord = ycoord;
+      this.floor = floor;
+    }
+
+    @Override
+    public String toString() {
+      return "futureMoves{" + "moveDate=" + moveDate + '}' + "location name = " + locName + '}';
     }
   }
 }

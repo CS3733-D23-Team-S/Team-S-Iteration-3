@@ -17,7 +17,7 @@ public class UserDAOImpl implements IDAO<User, String> {
 
   private final dbConnection connection;
 
-  @Getter private HashMap<String, User> listOfUsers;
+  @Getter private final HashMap<String, User> listOfUsers;
   @Getter private String name;
 
   public UserDAOImpl() {

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: white;" stylesheets="@../../../../Stylesheets/Staff.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.StaffHomeController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="32.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" percentHeight="2.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" percentHeight="12.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" percentHeight="3.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="headerGreetingLabel" text="Good morning, Sarah!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <VBox prefHeight="200.0" prefWidth="435.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="426.0">
+               <children>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="29.0" prefWidth="138.0" text="My Tasks">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="requestCount" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="13" textFill="#00000099">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#d7d7d7" thumbHoverColor="#c6c6c6" trackColor="#d7d7d7" vbarPolicy="NEVER" viewOrder="3.0">
+               <content>
+                  <VBox fx:id="taskVBox" prefHeight="625.0" prefWidth="435.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
+               </content>
+            </MFXScrollPane>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <VBox prefHeight="742.0" prefWidth="436.0">
+               <children>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" text="My Locations">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox fx:id="locationsVBox" prefHeight="403.0" prefWidth="454.0">
+                     <children>
+                        <GesturePane fx:id="locationGesturePane" prefHeight="368.0" prefWidth="427.0" style="-fx-border-radius: 15;" />
+                     </children></VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="598.0" prefWidth="423.0" style="-fx-background-color: WHITE;" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Announcements">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" thumbColor="#dadada" thumbHoverColor="#c3c3c3" trackColor="#bfbfbf" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="announcementVBox" alignment="TOP_CENTER" prefHeight="624.0" prefWidth="438.0" spacing="5.0" style="-fx-background-color: WHITE; -fx-border-color: WHITE;" />
+               </content>
+            </MFXScrollPane>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <MFXButton fx:id="creditsBtn" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="67.0" text=".">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/credits.png.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+                  <MFXButton fx:id="aboutUsBtn" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="67.0" text=".">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../templateIcons/circleMenu.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Upcoming Moves">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <VBox fx:id="movesVBox" alignment="TOP_CENTER" prefHeight="723.0" prefWidth="436.0">
+               <children>
+                  <MFXScrollPane fx:id="moveScrollPane" hbarPolicy="NEVER" hmax="0.0" prefHeight="222.0" prefWidth="427.0" style="-fx-border-radius: 15; -fx-border-color: BLACK;" vbarPolicy="NEVER">
+                     <content>
+                        <VBox fx:id="movesVBox" prefHeight="200.0" prefWidth="417.0">
+                           <children>
+                              <TextField2TableCell prefHeight="69.0" prefWidth="120.0" wrapText="true" />
+                           </children></VBox>
+                     </content></MFXScrollPane>
+               </children></VBox>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </VBox>
+   </children>
+</GridPane>

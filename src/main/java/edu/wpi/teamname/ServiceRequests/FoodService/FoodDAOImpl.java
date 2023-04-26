@@ -9,11 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import lombok.Getter;
 
 public class FoodDAOImpl implements IDAO<Food, Integer> {
   @Getter private String name;
-  private final dbConnection connection;
+  private static dbConnection connection;
   @Getter private HashMap<Integer, Food> foods = new HashMap<>();
 
   public FoodDAOImpl() {
@@ -342,6 +343,61 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
     }
   }
 
+  public List<Food> queriedFoods(List<String> features) {
+    List<Food> filteredFoods = new ArrayList<>();
+
+    StringBuilder query = new StringBuilder();
+    if (!features.isEmpty()) {
+      query.append("select * from hospitaldb.foods where ");
+      for (int i = 0; i < features.size(); i++) {
+        query.append(features.get(i)).append(" = true ");
+
+        if (i < features.size() - 1) {
+          query.append(" AND ");
+        }
+      }
+    } else {
+      query.append("select * from hospitaldb.foods");
+    }
+    try {
+      PreparedStatement preparedStatement =
+          connection.getConnection().prepareStatement(query.toString());
+
+      ResultSet rsFood = preparedStatement.executeQuery();
+      while (rsFood.next()) {
+        Food thisFood =
+            new Food(
+                rsFood.getInt("foodid"),
+                rsFood.getString("name"),
+                rsFood.getString("type"),
+                rsFood.getInt("preptime"),
+                rsFood.getString("cuisine"),
+                rsFood.getDouble("price"),
+                rsFood.getString("description"),
+                rsFood.getInt("quantity"),
+                rsFood.getBoolean("soldout"),
+                rsFood.getString("image"),
+                rsFood.getInt("calories"),
+                rsFood.getString("note"),
+                rsFood.getBoolean("italian"),
+                rsFood.getBoolean("american"),
+                rsFood.getBoolean("indian"),
+                rsFood.getBoolean("mexican"),
+                rsFood.getBoolean("vegetarian"),
+                rsFood.getBoolean("halal"),
+                rsFood.getBoolean("vegan"),
+                rsFood.getBoolean("glutenFree"),
+                rsFood.getBoolean("kosher"));
+
+        filteredFoods.add(thisFood);
+      }
+      return filteredFoods;
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public ArrayList<Food> getWalletFriendlyFood() {
     ArrayList<Food> wFriendlyFoods = new ArrayList<>();
 
@@ -367,6 +423,7 @@ public class FoodDAOImpl implements IDAO<Food, Integer> {
 
   public ArrayList<Food> getVegetarian() {
     ArrayList<Food> vegetarianFoods = new ArrayList<>();
+    System.out.print(vegetarianFoods);
     for (Food aFood : getAll()) {
       if (aFood.isVegetarian()) {
         vegetarianFoods.add(aFood);

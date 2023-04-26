@@ -15,12 +15,11 @@ public class ConfRoomRequest {
   @Getter @Setter String reservedBy;
   @Getter @Setter String eventName;
   @Getter @Setter String eventDescription;
-  @Getter @Setter String assignedTo = "NA";
+  @Getter @Setter String assignedTo;
   @Getter @Setter Status orderStatus;
   @Getter @Setter String notes;
-  @Getter @Setter boolean isPrivate = false;
-
-  public ConfRoomRequest(
+  @Getter @Setter boolean isPrivate;
+    public ConfRoomRequest(
       LocalDate eventDate,
       LocalTime startTime,
       LocalTime endTime,
@@ -29,7 +28,7 @@ public class ConfRoomRequest {
       String eventName,
       String eventDescription,
       String assignedTo,
-      Boolean isPrivate) {
+      boolean isPrivate) {
     this.orderDate = LocalDate.now();
     this.eventDate = eventDate;
     this.startTime = startTime;
@@ -40,5 +39,36 @@ public class ConfRoomRequest {
     this.eventDescription = eventDescription;
     this.assignedTo = assignedTo;
     this.orderStatus = Status.Received;
+    this.isPrivate = isPrivate;
+  }
+
+  public String toCSVString() {
+    String finale;
+
+    finale =
+        orderDate
+            + ","
+            + eventDate
+            + ","
+            + startTime
+            + ","
+            + endTime
+            + ","
+            + room
+            + ","
+            + reservedBy
+            + ","
+            + eventName
+            + ","
+            + eventDescription
+            + ","
+            + assignedTo
+            + ","
+            + orderStatus
+            + ","
+            + notes
+            + ","
+            + isPrivate;
+    return finale;
   }
 }

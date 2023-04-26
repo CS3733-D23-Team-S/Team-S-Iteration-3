@@ -1,767 +1,633 @@
-// package edu.wpi.teamname.controllers.map;
-//
-// import edu.wpi.teamname.DAOs.DataBaseRepository;
-// import edu.wpi.teamname.DAOs.orms.*;
-// import edu.wpi.teamname.navigation.Navigation;
-// import edu.wpi.teamname.navigation.Screen;
-// import edu.wpi.teamname.pathfinding.MapEditorEntity;
-// import io.github.palexdev.materialfx.controls.MFXButton;
-// import io.github.palexdev.materialfx.controls.MFXTextField;
-//
-// import java.sql.Date;
-// import java.time.LocalDate;
-// import java.util.ArrayList;
-//
-// import javafx.beans.property.SimpleObjectProperty;
-// import javafx.collections.FXCollections;
-// import javafx.collections.ObservableList;
-// import javafx.fxml.FXML;
-// import javafx.scene.control.TableColumn;
-// import javafx.scene.control.TableView;
-// import javafx.scene.control.cell.PropertyValueFactory;
-//
-// public class MapEditorController {}
-//
-//	DataBaseRepository dataBase;
-//	@FXML
-//	MFXButton mapEditorToHomeButton;
-//	@FXML
-//	TableView<Object> nodeTable;
-//	@FXML
-//	TableView<Object> locationTable;
-//	@FXML
-//	TableView<Edge> edgeTable;
-//	@FXML
-//	TableView<Object> moveTable;
-//	@FXML
-//	TableColumn<Object, Integer> ntNodeIDCol; // = new TableColumn<>("Node ID");
-//	@FXML
-//	TableColumn<Object, Integer> xCoordCol; // = new TableColumn<>("XCoord");
-//	@FXML
-//	TableColumn<Object, String> yCoordCol; // = new TableColumn<>("YCoord");
-//	@FXML
-//	TableColumn<Object, String> floorCol; // = new TableColumn<>("Floor");
-//	@FXML
-//	TableColumn<Object, String> buildingCol; // = new TableColumn<>("Building");
-//	@FXML
-//	TableColumn<Object, NodeType> nodeTypeCol; // = new TableColumn<>("Node Type");
-//	@FXML
-//	TableColumn<Object, String> longNameCol; // = new TableColumn<>("Long Name");
-//	@FXML
-//	TableColumn<Object, String> shortNameCol; // = new TableColumn<>("Short Name");
-//	@FXML
-//	TableColumn<Object, Date> recentMoveCol; // = new TableColumn<>("Most Recent Move");
-//	@FXML
-//	TableColumn<Edge, Node> startNodeCol; // = new TableColumn<>("Start Node");
-//	@FXML
-//	TableColumn<Edge, Node> endNodeCol; // = new TableColumn<>("End Node");
-//	@FXML
-//	TableColumn<Object, Integer> mtNodeIDCol; // = new TableColumn<>("Node ID");
-//	@FXML
-//	TableColumn<Object, String> locationCol; // = new TableColumn<>("Location");
-//	@FXML
-//	TableColumn<Object, ArrayList<LocalDate>> datesCol; // = new TableColumn<>("Dates");
-//	@FXML
-//	MFXTextField ntNodeIDTF;
-//	@FXML
-//	MFXTextField xCoordTF;
-//	@FXML
-//	MFXTextField yCoordTF;
-//	@FXML
-//	MFXTextField floorTF;
-//	@FXML
-//	MFXTextField buildingTF;
-//	@FXML
-//	MFXTextField nodeTypeTF;
-//	@FXML
-//	MFXTextField longNameTF;
-//	@FXML
-//	MFXTextField shortNameTF;
-//	@FXML
-//	MFXTextField recentMoveTF;
-//	@FXML
-//	MFXTextField nodeTF;
-//	@FXML
-//	MFXTextField startNodeTF;
-//	@FXML
-//	MFXTextField endNodeTF;
-//	@FXML
-//	MFXTextField mtNodeIDTF;
-//	@FXML
-//	MFXTextField locationTF;
-//	@FXML
-//	MFXButton addNodeButton;
-//	@FXML
-//	MFXButton removeNodeButton;
-//	@FXML
-//	MFXButton editNodeButton;
-//	@FXML
-//	MFXButton addLocationButton;
-//	@FXML
-//	MFXButton removeLocationButton;
-//	@FXML
-//	MFXButton editLocationButton;
-//	@FXML
-//	MFXButton addEdgeButton;
-//	@FXML
-//	MFXButton removeEdgeButton;
-//	@FXML
-//	MFXButton editEdgeButton;
-//	@FXML
-//	MFXButton addMoveButton;
-//	@FXML
-//	MFXButton removeMoveButton;
-//	@FXML
-//	MFXTextField mainNodeTF;
-//	@FXML
-//	MFXTextField mainLocationTF;
-//	@FXML
-//	MFXTextField mainEdgeTF;
-//	@FXML
-//	MFXTextField mainMoveTF;
-//	@FXML
-//	MFXTextField newStartNodeTF;
-//	@FXML
-//	MFXTextField newEndNodeTF;
-//
-//	public void initialize() {
-//		dataBase = DataBaseRepository.getInstance();
-//
-//		mapEditorToHomeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-//		addNodeButton.setOnMouseClicked(event -> addNode());
-//		removeNodeButton.setOnMouseClicked(event -> removeNode());
-//		editNodeButton.setOnMouseClicked(event -> editNode());
-//		addLocationButton.setOnMouseClicked(event -> addLocation());
-//		removeLocationButton.setOnMouseClicked(event -> removeLocation());
-//		editLocationButton.setOnMouseClicked(event -> editLocation());
-//		addEdgeButton.setOnMouseClicked(event -> addEdge());
-//		removeEdgeButton.setOnMouseClicked(event -> removeEdge());
-//		editEdgeButton.setOnMouseClicked(event -> editEdge());
-//		addMoveButton.setOnMouseClicked(event -> addMove());
-//		removeMoveButton.setOnMouseClicked(event -> removeMove());
-//
-//		ntNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
-//		xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
-//		yCoordCol.setCellValueFactory(new PropertyValueFactory<>("yCoord"));
-//		floorCol.setCellValueFactory(new PropertyValueFactory<>("floor"));
-//		buildingCol.setCellValueFactory(new PropertyValueFactory<>("building"));
-//
-//		nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
-//		shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
-//		longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
-//
-//		startNodeCol.setCellValueFactory(
-//				(edge) -> {
-//					return new SimpleObjectProperty(edge.getValue().getStartNodeID());
-//				});
-//		endNodeCol.setCellValueFactory(
-//				(edge) -> {
-//					return new SimpleObjectProperty(edge.getValue().getEndNodeID());
-//				});
-//
-//		mtNodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
-//		locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-//		datesCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-//
-//		createLists();
-//	}
-//
-//	public void addNode() {
-//		Boolean nodeExists = false;
-//		Boolean floorValid = true;
-//		int ntNodeID;
-//		int xCoord;
-//		int yCoord;
-//		Floor floor = null;
-//		// if fields are empty don't do it
-//		// if fields are inadequate (string in integer field or some shit) don't do it
-//		if ((ntNodeIDTF.getText().equals(""))
-//			|| (xCoordTF.getText().equals(""))
-//			|| (yCoordTF.getText().equals(""))
-//			|| (floorTF.getText().equals(""))
-//			|| (buildingTF.getText().equals(""))) {
-//			mainNodeTF.setText("Error: not all fields are filled in");
-//		} else {
-//			try {
-//				ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
-//				xCoord = Integer.parseInt(xCoordTF.getText());
-//				yCoord = Integer.parseInt(yCoordTF.getText());
-//				for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-//					if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
-//						nodeExists = true;
-//					}
-//				}
-//				if (nodeExists) {
-//					// no!!!
-//					mainNodeTF.setText("Error: the entered Node ID already exists in the database");
-//				} else {
-//					if (floorTF.getText().equals("Floor1")) {
-//						floor = Floor.Floor1;
-//					} else if (floorTF.getText().equals("Floor2")) {
-//						floor = Floor.Floor2;
-//					} else if (floorTF.getText().equals("Floor3")) {
-//						floor = Floor.Floor3;
-//					} else if (floorTF.getText().equals("FloorL1")) {
-//						floor = Floor.FloorL1;
-//					} else if (floorTF.getText().equals("FloorL2")) {
-//						floor = Floor.FloorL2;
-//					} else {
-//						floorValid = false;
-//					}
-//					if (floorValid) {
-//						// good!!!
-//						nodeTable
-//								.getItems()
-//								.removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//
-//						Node newNode = new Node(ntNodeID, xCoord, yCoord, floor, buildingTF.getText());
-//
-//						dataBase.getNodeDAO().add(newNode);
-//
-//						nodeTable
-//								.getItems()
-//								.addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//
-//						mainNodeTF.setText("Node successfully added");
-//					} else {
-//						// bad!!!
-//						mainNodeTF.setText(
-//								"Error: invalid floor - floor must be 'Floor1', 'Floor2', 'Floor3', 'FloorL1', or
-// 'FloorL2'");
-//					}
-//				}
-//			} catch (NumberFormatException e) {
-//				mainNodeTF.setText("Error: make sure the Node ID, XCoord, and YCoord fields are integers");
-//			}
-//		}
-//	}
-//
-//	public void removeNode() {
-//		Boolean nodeExists = false;
-//		int ntNodeID;
-//		// if node id field is empty don't remove it
-//		// if node id field is not an integer don't do it
-//		if (ntNodeIDTF.getText().equals("")) {
-//			mainNodeTF.setText("Error: Node ID field is not filled in");
-//		} else {
-//			try {
-//				ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
-//				for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-//					if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
-//						nodeExists = true;
-//					}
-//				}
-//				if (nodeExists) {
-//					nodeTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//					dataBase.getNodeDAO().delete(ntNodeID);
-//					nodeTable.getItems().addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//					mainNodeTF.setText("Node with Node ID: " + ntNodeID + " successfully removed");
-//				} else {
-//					mainNodeTF.setText("Error: Node ID not found");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainNodeTF.setText("Error: make sure the Node ID is an integer");
-//			}
-//		}
-//	}
-//
-//	public void editNode() {
-//		Boolean nodeExists = false;
-//		Boolean floorValid = true;
-//		// if fields are empty don't edit it
-//		// if certain fields aren't integers don't edit it
-//		// if node id can't be found don't edit it
-//		// if node id can be found edit it
-//		int ntNodeID;
-//		int xCoord;
-//		int yCoord;
-//		Floor floor = null;
-//		if ((ntNodeIDTF.getText().equals(""))
-//			|| (xCoordTF.getText().equals(""))
-//			|| (yCoordTF.getText().equals(""))
-//			|| (floorTF.getText().equals(""))
-//			|| (buildingTF.getText().equals(""))) {
-//			mainNodeTF.setText("Error: not all fields are filled in");
-//		} else {
-//			try {
-//				ntNodeID = Integer.parseInt(ntNodeIDTF.getText());
-//				xCoord = Integer.parseInt(xCoordTF.getText());
-//				yCoord = Integer.parseInt(yCoordTF.getText());
-//
-//				for (int i = 0; i < dataBase.getNodeDAO().getAll().size(); i++) {
-//					if (ntNodeID == dataBase.getNodeDAO().getAll().get(i).getNodeID()) {
-//						nodeExists = true;
-//					}
-//				}
-//				if (nodeExists) {
-//					// check if floor is valid
-//					if (floorTF.getText().equals("Floor1")) {
-//						floor = Floor.Floor1;
-//					} else if (floorTF.getText().equals("Floor2")) {
-//						floor = Floor.Floor2;
-//					} else if (floorTF.getText().equals("Floor3")) {
-//						floor = Floor.Floor3;
-//					} else if (floorTF.getText().equals("FloorL1")) {
-//						floor = Floor.FloorL1;
-//					} else if (floorTF.getText().equals("FloorL2")) {
-//						floor = Floor.FloorL2;
-//					} else {
-//						floorValid = false;
-//					}
-//					if (floorValid) {
-//						nodeTable
-//								.getItems()
-//								.removeAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//						dataBase.getNodeDAO().delete(ntNodeID);
-//						Node newNode = new Node(ntNodeID, xCoord, yCoord, floor, buildingTF.getText());
-//						dataBase.getNodeDAO().add(newNode);
-//						nodeTable
-//								.getItems()
-//								.addAll(FXCollections.observableList(dataBase.getNodeDAO().getAll()));
-//						mainNodeTF.setText("Successfully edited Node");
-//					} else {
-//						mainNodeTF.setText(
-//								"Error: invalid floor - floor must be 'Floor1', 'Floor2', 'Floor3', 'FloorL1', or
-// 'FloorL2'");
-//					}
-//				}
-//			} catch (NumberFormatException e) {
-//				mainNodeTF.setText("Error: make sure the Node ID is an integer");
-//			}
-//		}
-//	}
-//
-//	public void addLocation() {
-//		NodeType nodeType = null;
-//		boolean locationExists = false;
-//		// make sure all fields are filled in
-//		if ((longNameTF.getText().equals(""))
-//			|| (shortNameTF.getText().equals(""))
-//			|| (nodeTypeTF.getText().equals(""))) {
-//			mainLocationTF.setText("Error: not all fields are filled in");
-//
-//		} else {
-//			for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
-//				if (dataBase.getLocationDAO().get(i).getLongName().equals(longNameTF.getText()))
-//					locationExists = true;
-//			}
-//			if (locationExists) {
-//				mainLocationTF.setText(
-//						"Error: the Long Name you entered is already designated to a location");
-//			} else {
-//				// make sure nodeType is an enum and nodeTypeValid is true
-//				try {
-//					nodeType = NodeType.valueOf(nodeTypeTF.getText());
-//				} catch (IllegalArgumentException e) {
-//					mainLocationTF.setText(
-//							"Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
-//							+ "                + 'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
-//					e.printStackTrace();
-//				}
-//				locationTable
-//						.getItems()
-//						.removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//				Location newLocation =
-//						new Location(longNameTF.getText(), shortNameTF.getText(), nodeType);
-//				System.out.println(newLocation.toString());
-//				dataBase.getLocationDAO().add(newLocation);
-//				locationTable
-//						.getItems()
-//						.addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//				mainLocationTF.setText("Location successfully added");
-//			}
-//		}
-//	}
-//
-//	public void removeLocation() {
-//		Boolean locationExists = false;
-//		Location locationToRemove = null;
-//		if (longNameTF.getText().equals("")) {
-//			mainLocationTF.setText("Error: make sure the Long Name text field is entered");
-//		} else {
-//			// make sure it exists
-//			for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
-//				if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
-//					locationExists = true;
-//					locationToRemove = dataBase.getLocationDAO().getAll().get(i);
-//					// dataBase.getLocationDAO().delete(longNameTF.getText());
-//					// line above removes it from the table visually
-//
-//					// dataBase.getLocationDAO().getAll().remove(i);
-//					// something wrong with the line above
-//				}
-//			}
-//			if (locationExists) {
-//				locationTable
-//						.getItems()
-//						.removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//				dataBase.getLocationDAO().delete(longNameTF.getText());
-//				// dataBase.getLocationDAO().getAll().remove(locationToRemove);
-//
-//				locationTable
-//						.getItems()
-//						.addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//
-//				mainLocationTF.setText(
-//						"Location with long name: " + longNameTF.getText() + " successfully removed");
-//
-//			} else {
-//				mainLocationTF.setText(
-//						"Error: the Long Name of the location you're trying to remove doesn't exist");
-//			}
-//		}
-//	}
-//
-//	public void editLocation() {
-//		NodeType nodeType = null;
-//		boolean locationExists = false;
-//		// make sure all fields are filled in
-//		if ((longNameTF.getText().equals(""))
-//			|| (shortNameTF.getText().equals(""))
-//			|| (nodeTypeTF.getText().equals(""))) {
-//			mainLocationTF.setText("Error: not all fields are filled in");
-//		} else {
-//			// location exists
-//			for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
-//				if (dataBase.getLocationDAO().getAll().get(i).getLongName().equals(longNameTF.getText())) {
-//					locationExists = true;
-//				}
-//			}
-//			if (locationExists) {
-//				// make sure nodeType is an enum and nodeTypeValid is true
-//				try {
-//					nodeType = NodeType.valueOf(nodeTypeTF.getText());
-//				} catch (IllegalArgumentException e) {
-//					mainLocationTF.setText(
-//							"Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
-//							+ "                + 'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
-//					e.printStackTrace();
-//				}
-//				// maybe change the values at this node
-//				// then redo the table
-//				// worth a shot
-//				locationTable
-//						.getItems()
-//						.removeAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//				for (int i = 0; i < dataBase.getLocationDAO().getAll().size(); i++) {
-//					if (dataBase
-//							.getLocationDAO()
-//							.getAll()
-//							.get(i)
-//							.getLongName()
-//							.equals(longNameTF.getText())) {
-//
-//						dataBase.getLocationDAO().getAll().get(i).setLongName(shortNameTF.getText());
-//						dataBase.getLocationDAO().getAll().get(i).setShortName(shortNameTF.getText());
-//						dataBase.getLocationDAO().getAll().get(i).setNodeType(nodeType);
-//					}
-//				}
-//				locationTable
-//						.getItems()
-//						.addAll(FXCollections.observableList(dataBase.getLocationDAO().getAll()));
-//
-//				mainLocationTF.setText("Successfully edited Location");
-//			} else {
-//				mainLocationTF.setText(
-//						"Error: invalid Node Type - Node Type may be one of: 'CONF', 'DEPT', 'ELEV', 'EXIT', "
-//						+ "'HALL', 'LABS', 'REST', 'RETL', 'SERV', 'STAI', 'INFO', 'BATH'");
-//			}
-//		} else{
-//			mainLocationTF.setText(
-//					"Error: the Long Name of the location you're trying to remove doesn't exist");
-//		}
-//	}
-//
-//
-//	public void addEdge() {
-//		int startNodeID;
-//		int endNodeID;
-//		Boolean edgeExists = false;
-//		// make sure fields aren't empty
-//		if (startNodeTF.getText().equals("") || (endNodeTF.getText().equals(""))) {
-//			mainEdgeTF.setText("Error: make sure both the start node and end node fields are filled in");
-//		} else {
-//			// make sure IDs are valid
-//			try {
-//				startNodeID = Integer.parseInt(startNodeTF.getText());
-//				endNodeID = Integer.parseInt(endNodeTF.getText());
-//				// make sure edge doesn't already exist
-//				// make sure start node id and end node id aren't the same
-//				for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
-//					if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
-//						&& (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
-//						edgeExists = true;
-//					}
-//				}
-//				if (startNodeID == endNodeID) {
-//					// bad
-//					mainEdgeTF.setText("Error: the start node and end node IDs cannot be the same value");
-//				} else if (edgeExists) {
-//					// bad
-//					mainEdgeTF.setText(
-//							"Error: the start node and end node IDs are both attributed to an already existing edge");
-//				} else {
-//					// good
-//					edgeTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					dataBase.getEdgeDAO().getAll().add(new Edge(startNodeID, endNodeID));
-//					edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					mainEdgeTF.setText(
-//							"Edge with start node ID: "
-//							+ startNodeID
-//							+ " and end node ID: "
-//							+ endNodeID
-//							+ " successfully added");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
-//			}
-//		}
-//	}
-//
-//	public void removeEdge() {
-//		int startNodeID;
-//		int endNodeID;
-//		Boolean edgeExists = false;
-//		Edge edgeToRemove = null;
-//		// make sure fields aren't empty
-//		if (startNodeTF.getText().equals("") || (endNodeTF.getText().equals(""))) {
-//			mainEdgeTF.setText("Error: make sure both the start node and end node fields are filled in");
-//		} else {
-//			try {
-//				// make sure ids are integers
-//				startNodeID = Integer.parseInt(startNodeTF.getText());
-//				endNodeID = Integer.parseInt(endNodeTF.getText());
-//				// make sure edge exists
-//				for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
-//					if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
-//						&& (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
-//						edgeExists = true;
-//						edgeToRemove = dataBase.getEdgeDAO().getAll().get(i);
-//					}
-//				}
-//				if (startNodeID == endNodeID) {
-//					// bad
-//					mainEdgeTF.setText("Error: the start node and end node IDs cannot be the same value");
-//				} else if (!edgeExists) {
-//					// bad
-//					mainEdgeTF.setText("Error: the edge you're trying to remove does not exist");
-//				} else {
-//					// good
-//					edgeTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					dataBase.getEdgeDAO().getAll().remove(edgeToRemove);
-//					// dataBase.getEdgeDAO().delete(edgeToRemove);
-//					edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					mainEdgeTF.setText(
-//							"Edge with start node ID: "
-//							+ startNodeID
-//							+ " and end node ID: "
-//							+ endNodeID
-//							+ " successfully removed");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
-//			}
-//		}
-//	}
-//
-//	public void editEdge() {
-//		int startNodeID;
-//		int endNodeID;
-//		int newStartNodeID;
-//		int newEndNodeID;
-//		Boolean edgeExists = false;
-//		Boolean newEdgeExists = false;
-//		Edge edgeToEdit = null;
-//		// might not be necessary
-//		// make sure all fields aren't blank
-//		if (startNodeTF.getText().equals("")
-//			|| (endNodeTF.getText().equals(""))
-//			|| (newStartNodeTF.getText().equals(""))
-//			|| (newEndNodeTF.getText().equals(""))) {
-//			mainEdgeTF.setText("Error: make sure all text fields are filled in");
-//		} else {
-//			// make sure all fields are valid
-//			try {
-//				startNodeID = Integer.parseInt(startNodeTF.getText());
-//				endNodeID = Integer.parseInt(endNodeTF.getText());
-//				newStartNodeID = Integer.parseInt(newStartNodeTF.getText());
-//				newEndNodeID = Integer.parseInt(newEndNodeTF.getText());
-//				// make sure start and end node already exist
-//				// make sure new start and end node don't already exist
-//				for (int i = 0; i < dataBase.getEdgeDAO().getAll().size(); i++) {
-//					if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == startNodeID)
-//						&& (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == endNodeID)) {
-//						edgeExists = true;
-//						edgeToEdit = dataBase.getEdgeDAO().getAll().get(i);
-//					}
-//					if ((dataBase.getEdgeDAO().getAll().get(i).getStartNodeID() == newStartNodeID)
-//						&& (dataBase.getEdgeDAO().getAll().get(i).getEndNodeID() == newEndNodeID)) {
-//						newEdgeExists = true;
-//					}
-//				}
-//				if (newStartNodeID == newEndNodeID) {
-//					// bad
-//					mainEdgeTF.setText(
-//							"Error: the new start node and new end node IDs cannot be the same value");
-//				} else if (!edgeExists) {
-//					// bad
-//					mainEdgeTF.setText("Error: the edge you're trying to edit does not exist");
-//				} else if (newEdgeExists) {
-//					// bad
-//					mainEdgeTF.setText(
-//							"Error: the new start node and end node ID values are attributed to an already existing
-// edge");
-//				} else {
-//					edgeTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					edgeToEdit.updateEdge(newStartNodeID, newEndNodeID);
-//					edgeTable.getItems().addAll(FXCollections.observableList(dataBase.getEdgeDAO().getAll()));
-//					mainEdgeTF.setText(
-//							"Edge with previous start node ID: "
-//							+ startNodeID
-//							+ " and previous end node ID: "
-//							+ endNodeID
-//							+ " successfully edited");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainEdgeTF.setText("Error: make sure both the start node and end node fields are integers");
-//			}
-//		}
-//	}
-//
-//	public void addMove() {
-//		int nodeID;
-//		Boolean nodeIDExists = false;
-//		Boolean locationExists = false;
-//		// make sure fields aren't empty
-//		if ((mtNodeIDTF.getText().equals("")) || (locationTF.getText().equals(""))) {
-//			mainMoveTF.setText("Error: make sure all fields are filled in");
-//		} else {
-//			// make sure node ID is valid
-//			try {
-//				nodeID = Integer.parseInt(mtNodeIDTF.getText());
-//				// make sure node ID and location don't already exist
-//				for (int i = 0; i < dataBase.getMoveDAO().getAll().size(); i++) {
-//					if (dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID) {
-//						nodeIDExists = true;
-//					}
-//					if (dataBase.getMoveDAO().getAll().get(i).getLocation().equals(locationTF.getText())) {
-//						locationExists = true;
-//					}
-//				}
-//				if (nodeIDExists) {
-//					mainMoveTF.setText("Error: the node ID you entered already exists");
-//				} else if (locationExists) {
-//					mainMoveTF.setText("Error: the location name you entered already exists");
-//				} else {
-//					moveTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
-//					LocalDate today = LocalDate.now();
-//					dataBase.getMoveDAO().getAll().add(new Move(nodeID, locationTF.getText(), today));
-//					moveTable.getItems().addAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
-//					mainMoveTF.setText(
-//							"Move with node ID: "
-//							+ nodeID
-//							+ " and location: "
-//							+ locationTF.getText()
-//							+ " successfully added");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainMoveTF.setText(
-//						"Error: make sure node ID, month, day, and year fields are entered as integers");
-//			}
-//		}
-//	}
-//
-//	public void removeMove() {
-//		int nodeID;
-//		Boolean nodeIDExists = false;
-//		Boolean locationExists = false;
-//		Boolean moveExists = false;
-//		Move moveToRemove = null;
-//		// make sure fields aren't empty
-//		if (mtNodeIDTF.getText().equals("") || locationTF.getText().equals("")) {
-//			mainMoveTF.setText("Error: make sure all fields are filled in");
-//		} else {
-//			// make sure node ID is valid
-//			try {
-//				nodeID = Integer.parseInt(mtNodeIDTF.getText());
-//				// make sure node ID and location don't already exist
-//				for (int i = 0; i < dataBase.getMoveDAO().getAll().size(); i++) {
-//					if (dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID) {
-//						nodeIDExists = true;
-//					}
-//					if (dataBase.getMoveDAO().getAll().get(i).getLocation().equals(locationTF.getText())) {
-//						locationExists = true;
-//					}
-//					if ((dataBase.getMoveDAO().getAll().get(i).getNodeID() == nodeID)
-//						&& (dataBase
-//							.getMoveDAO()
-//							.getAll()
-//							.get(i)
-//							.getLocation()
-//							.equals(locationTF.getText()))) {
-//						moveExists = true;
-//						moveToRemove = dataBase.getMoveDAO().getAll().get(i);
-//					}
-//				}
-//				if (!nodeIDExists) {
-//					mainMoveTF.setText("Error: the node ID you entered doesn't exist");
-//				} else if (!locationExists) {
-//					mainMoveTF.setText("Error: the location name you entered already exists");
-//				} else if (!moveExists) {
-//					mainMoveTF.setText(
-//							"Error: a move with the node ID and location you entered could not be found");
-//				} else {
-//					moveTable
-//							.getItems()
-//							.removeAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
-//					dataBase.getMoveDAO().getAll().remove(moveToRemove);
-//					moveTable.getItems().addAll(FXCollections.observableList(dataBase.getMoveDAO().getAll()));
-//					mainMoveTF.setText(
-//							"Move with node ID: "
-//							+ nodeID
-//							+ " and location: "
-//							+ locationTF.getText()
-//							+ " successfully removed");
-//				}
-//			} catch (NumberFormatException e) {
-//				mainMoveTF.setText("Error: make sure node ID is entered as an integer");
-//			}
-//		}
-//	}
-//
-//	public void createLists() {
-//		final ObservableList nodeList = FXCollections.observableList(dataBase.getNodeDAO().getAll());
-//		final ObservableList edgeList = FXCollections.observableList(dataBase.getEdgeDAO().getAll());
-//		final ObservableList locationList =
-//				FXCollections.observableList(dataBase.getLocationDAO().getAll());
-//		final ObservableList moveList = FXCollections.observableList(dataBase.getMoveDAO().getAll());
-//
-//		MapEditorEntity mee = new MapEditorEntity();
-//
-//		nodeTable.getItems().addAll(nodeList);
-//
-//		edgeTable.getItems().addAll(edgeList);
-//
-//		locationTable.getItems().addAll(locationList);
-//
-//    /*
-//    for (int i = 0; i < locationList.size(); i++) {
-//      locationTable.getItems().add(locationList.get(i));
-//    }
-//
-//     */
-//		for (int i = 0; i < moveList.size(); i++) {
-//			moveTable.getItems().add(moveList.get(i));
-//		}
-//	}
-// }
+package edu.wpi.teamname.controllers.map;
+
+import edu.wpi.teamname.DAOs.DataBaseRepository;
+import edu.wpi.teamname.DAOs.orms.*;
+import edu.wpi.teamname.Main;
+import io.github.palexdev.materialfx.controls.MFXButton;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javafx.collections.ListChangeListener;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.PopupControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.CheckComboBox;
+import org.controlsfx.control.PopOver;
+import org.controlsfx.control.ToggleSwitch;
+import org.jetbrains.annotations.NotNull;
+
+public class MapEditorController {
+	DataBaseRepository repo = DataBaseRepository.getInstance();
+
+	// FXML elements for this page
+	@FXML
+	ComboBox<String> floorSelect;
+	@FXML
+	CheckComboBox<String> locationSelect;
+	@FXML
+	MFXButton addAndRemove, moveNode, addLocation;
+	@FXML
+	GesturePane mapPane;
+	@FXML
+	ToggleSwitch showEdges;
+	@FXML
+	MenuItem callAlign;
+
+	// ________________________________________________________________
+
+	// Map generation
+	ImageView floor;
+	StackPane stackPane = new StackPane();
+	AnchorPane anchorPane = new AnchorPane();
+	// ________________________________________________________________
+
+	enum MoveState {
+		DEFAULT,
+		ADD_REMOVE,
+		MOVE,
+		MAKE_ALIGNMENT_LINE,
+		ALIGN
+	}
+
+	// Keeps track of the current state of the application
+	MoveState mode = MoveState.DEFAULT;
+	// ________________________________________________________________
+
+	// Images
+	Image floor1 = new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png")));
+	Image floor2 = new Image(String.valueOf(Main.class.getResource("images/02_thesecondfloor.png")));
+	Image floor3 = new Image(String.valueOf(Main.class.getResource("images/03_thethirdfloor.png")));
+	Image floorL1 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel1.png")));
+	Image floorL2 = new Image(String.valueOf(Main.class.getResource("images/00_thelowerlevel2.png")));
+	Floor currFloor = Floor.Floor1;
+	// ________________________________________________________________
+
+	// Used to create edges when shift clicking
+	Circle edgeOne;
+	Node start;
+	Circle edgeTwo;
+	Node end;
+	// ________________________________________________________________
+	Circle prevCircle = null; // Facilitates the deleting of circles on the map
+	Line prevLine = null; // Facilitates deleting an edge
+	boolean currentlyDragging = false;
+
+	private Line alignmentLine;
+	private HashMap<Circle, Point2D> undoAlignment = new HashMap<>();
+
+	HashMap<Circle, Node> listOfCircles =
+			new HashMap<>(); // Linked a circle on the map to the associated node
+	HashMap<Line, Edge> lines = new HashMap<>(); // Stores the list of lines that represents edges
+	List<Text> listOfLabels = new ArrayList<>(); // Stores a list of all the node ID labels
+	List<Text> listOfShortNames = new ArrayList<>(); // Stores a list of all the short names of nodes
+
+	// Popover controllers
+	PopOver popOver = new PopOver();
+
+	// Update queue management
+	@FXML
+	VBox queuePane;
+	@FXML
+	Button sendUpdate, clearButton;
+	AddLocationPopOverController addLocationPopOverController;
+	AddNodePopOverController addNodePopOverController;
+
+	EditNodePopOverController editNodePopOverController;
+	QueueManager queueManager;
+
+	public void initialize() throws IOException {
+		queueManager = new QueueManager(this);
+		sendUpdate.setOnMouseClicked(event -> queueManager.sendUpdates());
+		clearButton.setOnMouseClicked(event -> queueManager.reset());
+		initPopOver();
+
+		FXMLLoader loader = new FXMLLoader((Main.class.getResource("views/addLocation.fxml")));
+		BorderPane temp = loader.load();
+		addLocationPopOverController = loader.getController();
+		addLocationPopOverController.setMainController(this);
+		addLocationPopOverController.setLocationMenu(temp);
+
+		loader = new FXMLLoader(Main.class.getResource("views/addNodePopUp.fxml"));
+		GridPane tempTwo = loader.load();
+		addNodePopOverController = loader.getController();
+		addNodePopOverController.setMainController(this);
+		addNodePopOverController.setAddMenu(tempTwo);
+
+		loader = new FXMLLoader(Main.class.getResource("views/EditNodePopOver.fxml"));
+		VBox tempThree = loader.load();
+		editNodePopOverController = loader.getController();
+		editNodePopOverController.setMainController(this);
+		editNodePopOverController.setEditMenu(tempThree);
+
+		floor = new ImageView(floor1);
+		floor.setImage(floor1);
+		stackPane.getChildren().addAll(floor, anchorPane);
+		anchorPane.setBackground(Background.fill(Color.TRANSPARENT));
+		mapPane.addEventHandler(KeyEvent.KEY_PRESSED,
+				event -> {
+//					System.out.println("What in the heck: " + mode.toString());
+					if (event.getCode().equals(KeyCode.DELETE) || event.getCode().equals(KeyCode.BACK_SPACE))
+						System.out.println("Detected the delete");
+					if (mode == MoveState.ADD_REMOVE) {
+						deleteCircle(prevCircle);
+						deleteLine(prevLine);
+					}
+				});
+		allowAlignments();
+		mapPane.setContent(stackPane);
+		mapPane.setMinScale(.0001);
+		mapPane.setMaxScale(0.9);
+		mapPane.zoomTo(.5, new Point2D(2000, 1500));
+		floorSelect.getItems().addAll("Lower 2", "Lower 1", "Floor 1", "Floor 2", "Floor 3");
+		locationSelect
+				.getItems()
+				.addAll(
+						"Conference",
+						"Department",
+						"Elevator",
+						"Exit",
+						"Lab",
+						"Restroom",
+						"Retailer",
+						"Service",
+						"Stairs",
+						"Info",
+						"Bathroom");
+
+		showEdges.setOnMouseClicked(event -> drawEdges());
+
+		anchorPane.setOnContextMenuRequested(event -> addNodePopOverController.launchPopup(event));
+		addLocation.setOnMouseClicked(
+				event -> {
+					resetColors();
+					addLocationPopOverController.launchPopup();
+				});
+		addAndRemove.setOnMouseClicked(
+				event -> {
+					resetColors();
+					addAndRemove.setStyle("-fx-background-color: #122E59");
+					mode = MoveState.ADD_REMOVE;
+				});
+		moveNode.setOnMouseClicked(
+				event -> {
+					resetColors();
+					moveNode.setStyle("-fx-background-color: #122E59");
+					mode = MoveState.MOVE;
+				});
+		generateFloorNodes();
+		floorSelect.setOnAction(
+				event -> {
+					int index = floorSelect.getSelectionModel().getSelectedIndex();
+					floor.setImage(swapFloor(index));
+					mapPane.centreOn(new Point2D(2000, 1500));
+					generateFloorNodes();
+					anchorPane.getChildren().removeAll(lines.keySet());
+					showShortNames();
+					drawEdges();
+					// Prevents there being an error with the
+					// clearing of the circles since the list of circles gets cleared
+					edgeOne = null;
+				});
+
+		locationSelect.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) c -> showShortNames());
+		callAlign.setOnAction(event -> mode = MoveState.MAKE_ALIGNMENT_LINE);
+	}
+
+	private void resetColors() {
+		addAndRemove.setStyle("-fx-background-color: #1D3D94");
+		moveNode.setStyle("-fx-background-color: #1D3D94");
+		addLocation.setStyle("-fx-background-color: #1D3D94");
+	}
+
+	private Image swapFloor(int index) {
+		switch (index) {
+			case 0 -> {
+				currFloor = Floor.FloorL1;
+				return floorL1;
+			}
+			case 1 -> {
+				currFloor = Floor.FloorL2;
+				return floorL2;
+			}
+			case 2 -> {
+				currFloor = Floor.Floor1;
+				return floor1;
+			}
+			case 3 -> {
+				currFloor = Floor.Floor2;
+				return floor2;
+			}
+			case 4 -> {
+				currFloor = Floor.Floor3;
+				return floor3;
+			}
+		}
+		return floor1;
+	}
+
+	/**
+	 * Creates all the circle representations of the nodes on the current floor. Then it initializes all the circles to
+	 * make them usable and then also stores them in a hashmap to associate the circle to the node it represents
+	 */
+	void generateFloorNodes() {
+		anchorPane.getChildren().removeAll(listOfCircles.keySet());
+		listOfCircles.clear();
+		for (Node floorNode : queueManager.getCurrentNodeChanges()) {
+			if (!floorNode.getFloor().equals(currFloor)) continue;
+			Circle newCircle = new Circle(floorNode.getXCoord(), floorNode.getYCoord(), 10.0, Color.RED);
+			initCircle(newCircle);
+			listOfCircles.put(newCircle, floorNode);
+			prevCircle = newCircle;
+		}
+		anchorPane.getChildren().addAll(listOfCircles.keySet());
+	}
+
+	void drawEdges() {
+		anchorPane.getChildren().removeAll(lines.keySet());
+		lines.clear();
+		if (!showEdges.isSelected()) {
+			return;
+		}
+		for (Edge currEdge : queueManager.getCurrentEdgeChanges()) {
+			Node start = currEdge.getStartNode();
+			Node end = currEdge.getEndNode();
+			if (!start.getFloor().equals(currFloor) || !end.getFloor().equals(currFloor)) continue;
+			Line line = new Line(start.getXCoord(), start.getYCoord(), end.getXCoord(), end.getYCoord());
+			line.setFill(Color.BLACK);
+			line.setStrokeWidth(5.0);
+			initLine(line);
+			lines.put(line, currEdge);
+		}
+		anchorPane.getChildren().addAll(lines.keySet());
+	}
+
+	/**
+	 * Draws the names of the displayed nodes the map
+	 */
+	private void showShortNames() {
+		anchorPane.getChildren().removeAll(listOfShortNames);
+		listOfShortNames.clear();
+		List<NodeType> toShow = getLocationTypesToShow();
+		for (Circle circle : listOfCircles.keySet()) {
+			Node node = listOfCircles.get(circle);
+			if (node.getFloor() != currFloor) continue;
+			List<Move> list = repo.getLocationsAtNode(node.getNodeID());
+			if (list == null) continue;
+			for (Move move : list) {
+				if (move.getDate().isAfter(LocalDate.now())) break;
+				Location loc = move.getLocation();
+				if (loc.getNodeType() == NodeType.HALL || !toShow.contains(loc.getNodeType())) break;
+				Text newText = new Text(loc.getShortName());
+				//        System.out.println(loc.getShortName());
+				newText.setFill(Color.WHITE);
+				newText.setStroke(Color.BLACK);
+				newText.setX(circle.getCenterX() - 20);
+				newText.setY(circle.getCenterY() + 20);
+				listOfShortNames.add(newText);
+			}
+		}
+		anchorPane.getChildren().addAll(listOfShortNames);
+	}
+
+	private List<NodeType> getLocationTypesToShow() {
+		List<NodeType> toShow = new ArrayList<>();
+		List<String> nodeTypes = locationSelect.getCheckModel().getCheckedItems();
+		for (String type : nodeTypes) {
+			switch (type) {
+				case "Conference" -> toShow.add(NodeType.CONF);
+				case "Department" -> toShow.add(NodeType.DEPT);
+				case "Elevator" -> toShow.add(NodeType.ELEV);
+				case "Exit" -> toShow.add(NodeType.EXIT);
+				case "Lab" -> toShow.add(NodeType.LABS);
+				case "Restroom" -> toShow.add(NodeType.REST);
+				case "Retailer" -> toShow.add(NodeType.RETL);
+				case "Service" -> toShow.add(NodeType.SERV);
+				case "Stairs" -> toShow.add(NodeType.STAI);
+				case "Info" -> toShow.add(NodeType.INFO);
+				case "Bathroom" -> toShow.add(NodeType.BATH);
+			}
+		}
+		return toShow;
+	}
+
+	/**
+	 * Sets all the lambda functions needed in order to make the circles actually responsive on the map
+	 *
+	 * @param circle the circle to initialize
+	 */
+	private void initCircle(@NotNull Circle circle) {
+		circle.setViewOrder(0);
+		circle.setStrokeWidth(3);
+		circle.setMouseTransparent(false);
+		circle.setOnContextMenuRequested(
+				event -> {
+					System.out.println("Circled clicked");
+
+					circle.setStroke(Color.YELLOW);
+					if (prevCircle != null) prevCircle.setStroke(Color.TRANSPARENT);
+					prevCircle = circle;
+					if (prevLine != null) prevLine.setFill(Color.BLACK);
+					prevLine = null;
+					editNodePopOverController.launchPopup(circle);
+					event.consume();
+				});
+		// Deals with highlighting nodes
+		circle.setOnMouseClicked(
+				event -> {
+					if (!event.isShiftDown() && start == null) {
+						circle.setStroke(Color.YELLOW);
+						if (prevCircle != null) prevCircle.setStroke(Color.TRANSPARENT);
+						prevCircle = circle;
+						prevLine = null;
+						event.consume();
+					}
+					// Deals with adding edges
+					if (mode == MoveState.ADD_REMOVE && event.isShiftDown()) {
+						if (start == null) {
+							edgeOne = circle;
+							start = listOfCircles.get(edgeOne);
+						} else if (end == null) {
+							edgeTwo = circle;
+							end = listOfCircles.get(edgeTwo);
+						}
+						circle.setFill(Color.BLUE);
+						if (edgeOne != null && edgeTwo != null) {
+							Edge addition = new Edge(start, end);
+							addEdgeLine(addition);
+							// done in case there is a floor switch
+							if (edgeOne != null) {
+								edgeOne.setFill(Color.RED);
+								edgeOne = null;
+							}
+							edgeTwo.setFill(Color.RED);
+							edgeTwo = null;
+							start = end = null;
+							queueManager.addToQueue(addition);
+						}
+						// Deals with aligning
+					} else if (mode == MoveState.ALIGN && alignmentLine != null) {
+						undoAlignment.put(circle, new Point2D(circle.getCenterX(), circle.getCenterY()));
+						moveCircleToLine(circle);
+						System.out.println("Should be moving to the line");
+						event.consume();
+					} else {
+						if (edgeOne != null) {
+							edgeOne.setFill(Color.RED);
+							edgeOne = null;
+						}
+						if (edgeTwo != null) edgeTwo.setFill(Color.RED);
+						edgeTwo = null;
+						start = end = null;
+					}
+					event.consume();
+				});
+		circle.setOnMouseDragged(
+				event -> {
+					if (mode == MoveState.MOVE) {
+						currentlyDragging = true;
+						prevCircle = circle;
+						circle.setCenterX((int) Math.round(event.getX()));
+						circle.setCenterY((int) Math.round(event.getY()));
+						circle.setStroke(Color.YELLOW);
+						circle.setStrokeWidth(3);
+						Node node = listOfCircles.get(circle);
+						node.setXCoord((int) Math.round(circle.getCenterX()));
+						node.setYCoord((int) Math.round(circle.getCenterY()));
+						drawEdges();
+						event.consume();
+					}
+					//          System.out.println("Why is this not dragging");
+					if (mode == MoveState.ALIGN && alignmentLine != null) {
+						moveCircleAlongLine(event, circle);
+						currentlyDragging = true;
+						event.consume();
+					}
+				});
+		circle.setOnMouseReleased(
+				event -> {
+					if (mode == MoveState.MOVE && listOfCircles.get(prevCircle) != null && currentlyDragging) {
+						queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
+						System.out.println("Sent node location update");
+						currentlyDragging = false;
+						event.consume();
+					}
+					if (mode == MoveState.ALIGN && alignmentLine != null) {
+						currentlyDragging = false;
+						queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
+						event.consume();
+					}
+				});
+	}
+
+	private void initLine(Line line) {
+		line.setViewOrder(1);
+		line.setOnMouseClicked(
+				event -> {
+					System.out.println("Line has been clicked");
+					if (prevLine != null) {
+						prevLine.setStroke(Color.BLACK);
+						line.setStrokeWidth(5);
+					}
+					line.setStroke(Color.FORESTGREEN);
+					line.setStrokeWidth(10);
+					prevLine = line;
+					if (prevCircle != null) prevCircle.setStroke(Color.TRANSPARENT);
+					prevCircle = null;
+				});
+	}
+
+	/**
+	 * Sets up the popover menu for the page before it gets set by other things
+	 */
+	private void initPopOver() {
+		popOver.setHeaderAlwaysVisible(true);
+		popOver.setAutoHide(true);
+		popOver.setOnAutoHide(
+				event -> {
+					anchorPane.getChildren().removeAll(listOfLabels);
+					listOfLabels.clear();
+					generateFloorNodes();
+				});
+		popOver.setPrefSize(10, 30);
+		popOver.setMaxSize(PopupControl.USE_PREF_SIZE, PopupControl.USE_PREF_SIZE);
+		popOver.setMinSize(PopupControl.USE_PREF_SIZE, PopupControl.USE_PREF_SIZE);
+		popOver.setDetachable(false);
+	}
+
+	private void deleteCircle(Circle circle) {
+		if (circle == null) return;
+		Node node = listOfCircles.get(circle);
+		queueManager.addToDeleteQueue(node);
+		queueManager.queue.remove(node);
+		listOfCircles.remove(circle);
+		anchorPane.getChildren().remove(circle);
+		prevCircle = null;
+	}
+
+	private void deleteLine(Line line) {
+		if (line == null) return;
+		Edge edge = lines.get(line);
+		queueManager.addToDeleteQueue(edge);
+		queueManager.queue.remove(edge);
+		lines.remove(line);
+		anchorPane.getChildren().remove(line);
+		prevLine = null;
+	}
+
+	private void addEdgeLine(Edge edge) {
+		Line line =
+				new Line(
+						edge.getStartNode().getXCoord(),
+						edge.getStartNode().getYCoord(),
+						edge.getEndNode().getXCoord(),
+						edge.getEndNode().getYCoord());
+		line.setStroke(Color.BLACK);
+		line.setStrokeWidth(5.0);
+		initLine(line);
+		lines.put(line, edge);
+		if (showEdges.isSelected()) anchorPane.getChildren().add(line);
+	}
+
+	private void moveCircleToLine(Circle circle) {
+		double slope =
+				(alignmentLine.getEndY() - alignmentLine.getStartY())
+				/ (alignmentLine.getEndX() - alignmentLine.getStartX());
+		Point2D lineStart = new Point2D(alignmentLine.getStartX(), alignmentLine.getStartY());
+		double currentShortest = Double.MAX_VALUE;
+		int xVal = 0;
+		int xDistance = (int) Math.round(Math.abs(alignmentLine.getEndX() - alignmentLine.getStartX()));
+		for (int i = 0; i < xDistance; i++) {
+			Point2D tempPoint = new Point2D(lineStart.getX() + i, lineStart.getY() + slope * i);
+			double temp =
+					Math.sqrt(
+							Math.pow((circle.getCenterX() - tempPoint.getX()), 2)
+							+ Math.pow((circle.getCenterY() - tempPoint.getY()), 2));
+			if (temp < currentShortest) {
+				currentShortest = temp;
+				xVal = i;
+			}
+		}
+		circle.setCenterX(lineStart.getX() + xVal);
+		circle.setCenterY(lineStart.getY() + slope * xVal);
+		Node node = listOfCircles.get(circle);
+		node.setXCoord((int) Math.round(circle.getCenterX()));
+		node.setYCoord((int) Math.round(circle.getCenterY()));
+		drawEdges();
+	}
+
+	private void moveCircleAlongLine(MouseEvent event, Circle circle) {
+		double slope =
+				(alignmentLine.getEndY() - alignmentLine.getStartY())
+				/ (alignmentLine.getEndX() - alignmentLine.getStartX());
+		double b = alignmentLine.getStartY();
+		// If it makes more sense to use the coordinate
+		if (slope > 45) {
+			double currentY = event.getY();
+			System.out.println(currentY + "currenty");
+			System.out.println(currentY);
+			circle.setCenterX(alignmentLine.getStartX() + (b - currentY) * 1 / slope);
+			circle.setCenterY(currentY);
+		} else {
+			double currentX = event.getX();
+			circle.setCenterX(currentX);
+			circle.setCenterY(b + (currentX - alignmentLine.getStartX()) * slope);
+		}
+
+		Node node = listOfCircles.get(circle);
+		node.setXCoord((int) Math.round(circle.getCenterX()));
+		node.setYCoord((int) Math.round(circle.getCenterY()));
+		drawEdges();
+	}
+
+	// Keeps all the functions needed for alignment in a single place to make it easier to find
+	private void allowAlignments() {
+		anchorPane.setOnMouseClicked(
+				event -> {
+					if (mode == MoveState.MAKE_ALIGNMENT_LINE) {
+						if (edgeOne == null) {
+							edgeOne = new Circle(event.getX(), event.getY(), 5, Color.BLACK);
+							event.consume();
+							return;
+						} else if (edgeTwo == null) {
+							edgeTwo = new Circle(event.getX(), event.getY(), 5, Color.BLACK);
+							event.consume();
+						}
+						alignmentLine =
+								new Line(
+										edgeOne.getCenterX(),
+										edgeOne.getCenterY(),
+										edgeTwo.getCenterX(),
+										edgeTwo.getCenterY());
+						alignmentLine.setStroke(Color.BLACK);
+						alignmentLine.setStrokeWidth(5);
+						alignmentLine.getStrokeDashArray().addAll(20d, 20d, 20d, 20d);
+						alignmentLine.setViewOrder(1);
+						anchorPane.getChildren().add(alignmentLine);
+						mode = MoveState.ALIGN;
+					} else if (alignmentLine != null && mode != MoveState.ALIGN) {
+						undoAlign();
+					}
+				});
+		mapPane.addEventHandler(KeyEvent.KEY_PRESSED,
+				event -> {
+					if ((mode == MoveState.ALIGN || mode == MoveState.MAKE_ALIGNMENT_LINE)
+						&& event.getCode().equals(KeyCode.ESCAPE)) {
+						undoAlign();
+					}
+					if ((mode == MoveState.ALIGN || mode == MoveState.MAKE_ALIGNMENT_LINE)
+						&& event.getCode().equals(KeyCode.ENTER)) {
+						anchorPane.getChildren().remove(alignmentLine);
+						alignmentLine = null;
+						for (Circle circle : undoAlignment.keySet()) {
+							queueManager.addNodeMoveToQueue(listOfCircles.get(circle));
+						}
+						edgeOne = edgeTwo = null;
+						undoAlignment.clear();
+						mode = MoveState.DEFAULT;
+					}
+				});
+	}
+
+	private void undoAlign() {
+		if (alignmentLine != null) {
+			anchorPane.getChildren().remove(alignmentLine);
+			alignmentLine = null;
+		}
+		for (Circle circle : undoAlignment.keySet()) {
+			Point2D reference = undoAlignment.get(circle);
+			circle.setCenterX(reference.getX());
+			circle.setCenterY(reference.getY());
+			Node node = listOfCircles.get(circle);
+			node.setXCoord((int) Math.round(circle.getCenterX()));
+			node.setYCoord((int) Math.round(circle.getCenterY()));
+		}
+		System.out.println("Clearing the line");
+		List<Node> temp = new ArrayList<>();
+		for (Circle circle : undoAlignment.keySet()) {
+			temp.add(listOfCircles.get(circle));
+		}
+		queueManager.deleteFromAlign(temp);
+		undoAlignment.clear();
+		edgeOne = edgeTwo = null;
+		mode = MoveState.DEFAULT;
+	}
+}

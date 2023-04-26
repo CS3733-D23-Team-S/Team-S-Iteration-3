@@ -2,24 +2,29 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.cell.TextFieldTableCell?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 <?import org.controlsfx.control.tableview2.cell.TextField2TableCell?>
 
-<GridPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
+<GridPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: WHITE;" stylesheets="@../../../../../../css/roombooking.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.conferenceroom.RoomBookingController">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="2.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1229.7825927734375" minWidth="10.0" percentWidth="80.0" prefWidth="1229.7825927734375" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.1992797851562" minWidth="10.0" percentWidth="16.0" prefWidth="306.2174072265625" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1229.7825927734375" minWidth="10.0" percentWidth="76.0" prefWidth="1229.7825927734375" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.1992797851562" minWidth="10.0" prefWidth="306.2174072265625" />
       <ColumnConstraints percentWidth="2.0" />
     </columnConstraints>
     <rowConstraints>
@@ -37,10 +42,14 @@
                   <font>
                       <Font name="Arial" size="42.0" />
                   </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
               </TextField2TableCell>
             <HBox alignment="CENTER_LEFT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="1280.0">
                <children>
-                    <TextFieldTableCell fx:id="dateHeaderTextField" editable="false" prefHeight="48.0" prefWidth="236.0" text="Monday, March 1" wrapText="true">
+                  <MFXButton fx:id="dateBackButton" text="&lt;" />
+                    <TextFieldTableCell fx:id="dateHeaderTextField" alignment="CENTER" editable="false" prefHeight="48.0" prefWidth="236.0" wrapText="true">
                         <font>
                             <Font name="Arial" size="26.0" />
                         </font>
@@ -48,6 +57,11 @@
                         <Insets />
                      </HBox.margin>
                     </TextFieldTableCell>
+                  <MFXButton fx:id="dateNextButton" text="&gt;">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </MFXButton>
                   <MFXDatePicker fx:id="DateFilterPicker" alignment="CENTER" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: #1D3D94;" text="Select Date">
                      <textFill>
                         <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
@@ -56,23 +70,42 @@
                         <Font size="16.0" />
                      </font>
                   </MFXDatePicker>
-                  <CheckComboBox fx:id="featureFilterComboBox" prefHeight="50.0" prefWidth="175.0" title="Filter By Feature">
+                  <Group>
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="51.0" stroke="BLACK" strokeType="INSIDE" width="175.0" />
+                        <CheckComboBox fx:id="featureFilterComboBox" layoutX="1.0" layoutY="1.0" prefHeight="48.0" prefWidth="173.0" style="-fx-border-radius: 5;" styleClass="filtercombobox" title="Filter By Feature">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <ColorAdjust contrast="0.83" />
+                           </effect>
+                        </CheckComboBox>
+                     </children>
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
-                  </CheckComboBox>
+                  </Group>
+                  <MFXToggleButton fx:id="meetingsToggle" contentDisposition="RIGHT" text="My Meetings">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </MFXToggleButton>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="scrollPane" prefWidth="1500.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
-         <GridPane.margin>
-            <Insets top="30.0" />
-         </GridPane.margin>
+      <MFXScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="1000.0" prefViewportHeight="600.0" prefWidth="1536.0" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <content>
-              <HBox fx:id="conferenceRoomsHBox" prefHeight="141.0" prefWidth="220.0" />
+              <HBox fx:id="conferenceRoomsHBox" prefHeight="949.0" prefWidth="220.0" />
          </content>
-      </ScrollPane>
+      </MFXScrollPane>
       <TextField2TableCell fx:id="currentDateText" GridPane.columnIndex="1" />
       <HBox alignment="CENTER_RIGHT" maxHeight="66.0" minHeight="66.0" prefHeight="66.0" prefWidth="419.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <children>
@@ -82,6 +115,9 @@
                   </font>
               </MFXButton>
          </children>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
       </HBox>
     </children>
 </GridPane>

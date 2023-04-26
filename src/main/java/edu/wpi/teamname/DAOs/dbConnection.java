@@ -25,6 +25,7 @@ public class dbConnection {
   @Getter final String conferenceRoomTables = schemaName + "." + "confRooms";
   @Getter final String officesuppliesTable = schemaName + "." + "officeSupplies";
   @Getter final String oSuppliesRequestsTable = schemaName + "." + "officeSuppliesRequests";
+  @Getter final String signageTable = schemaName + "." + "signage";
 
   private dbConnection() {
     try {

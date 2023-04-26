@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 public class FlowerPopupController extends PopUpController {
-  @FXML MFXButton addcartbutton;
+  @FXML MFXButton addCart;
   @FXML MFXButton decrementbutton;
   @FXML ImageView flowerimage;
   @FXML MFXButton incrementbutton;
@@ -23,14 +23,16 @@ public class FlowerPopupController extends PopUpController {
 
   @FXML Label PriceText;
   @FXML Label SizeText;
+  @FXML MFXButton cancel;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+  @FXML private final DataBaseRepository dbr = DataBaseRepository.getInstance();
   // public static Cart flowerCart = new Cart(1);
   public static String recipient;
 
   public void initialize() {
     showInfo();
-    addcartbutton.setOnMouseClicked(event -> createDelivery());
+    addCart.setOnMouseClicked(event -> createDelivery());
+    cancel.setOnMouseClicked(event -> stage.close());
     flowercounter = 1;
     incrementbutton.setOnMouseClicked(event -> addquantity());
     decrementbutton.setOnMouseClicked(event -> subtractquantity());
