@@ -38,7 +38,7 @@
                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-            <Pane fx:id="menunavigation" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+            <Pane fx:id="menunavigation" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                <children>
                       <ImageView fx:id="navIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
@@ -52,7 +52,7 @@
                       </Label>
                </children>
             </Pane>
-            <Pane fx:id="menuhome" prefHeight="200.0" prefWidth="192.0" styleClass="menustyling" GridPane.columnSpan="3">
+            <Pane fx:id="menuhome" prefHeight="200.0" prefWidth="192.0" styleClass="menustyling" GridPane.columnSpan="4">
                <children>
                       <Label fx:id="signageLabel" layoutX="60.0" layoutY="27.5" text="Home" textFill="WHITE">
                           <font>
@@ -66,7 +66,7 @@
                       </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="menumeal" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="2">
+            <Pane fx:id="menumeal" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.rowIndex="2">
                <children>
                       <ImageView fx:id="mealIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
@@ -80,7 +80,7 @@
                       </Label>
                </children>
             </Pane>
-            <Pane fx:id="menuroom" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="3">
+            <Pane fx:id="menuroom" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.rowIndex="3">
                <children>
                       <ImageView fx:id="roomIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
@@ -94,7 +94,7 @@
                       </Label>
                </children>
             </Pane>
-            <Pane fx:id="menuflower" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="4">
+            <Pane fx:id="menuflower" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.rowIndex="4">
                <children>
                       <Label fx:id="flowerLabel" layoutX="60.0" layoutY="27.5" text="Flower Delivery" textFill="WHITE">
                           <font>
@@ -108,15 +108,22 @@
                       </ImageView>
                </children>
             </Pane>
-                <ImageView fx:id="helpIcon" fitHeight="40.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="8">
-                    <image>
-                        <Image url="@../templateIcons/helpicon.png" />
-                    </image>
-                    <GridPane.margin>
-                        <Insets left="5.0" />
-                    </GridPane.margin>
-                </ImageView>
-            <Pane fx:id="menuoffice" layoutX="10.0" layoutY="334.0" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="5">
+            <HBox GridPane.rowIndex="11">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+               <children>
+                      <ImageView fx:id="helpIcon" fitHeight="40.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../templateIcons/helpicon.png" />
+                          </image>
+                      </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <Pane fx:id="menuoffice" layoutX="10.0" layoutY="334.0" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="officeLabel" layoutX="60.0" layoutY="27.5" text="Office Supplies" textFill="WHITE">
                      <font>
@@ -130,7 +137,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="menugame" prefHeight="81.0" prefWidth="248.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="6">
+            <Pane fx:id="menugame" prefHeight="81.0" prefWidth="248.0" styleClass="menustyling" GridPane.columnSpan="4" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="gameLabel" layoutX="60.0" layoutY="30.0" text="Game Center" textFill="WHITE">
                      <font>
