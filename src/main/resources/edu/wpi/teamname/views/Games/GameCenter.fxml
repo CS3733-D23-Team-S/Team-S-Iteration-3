@@ -30,7 +30,7 @@
                      <children>
                         <StackPane fx:id="snakeGamePane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #000000;">
                            <children>
-                              <ImageView fitHeight="240.0" fitWidth="388.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="imageViewSnake" fitHeight="240.0" fitWidth="388.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../gameImages/snakeGame/fixedSnake.png" />
                                  </image>

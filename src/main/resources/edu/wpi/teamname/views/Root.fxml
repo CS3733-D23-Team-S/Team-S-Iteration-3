@@ -125,7 +125,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="menugame" prefHeight="200.0" prefWidth="200.0" styleClass="menustyling" GridPane.rowIndex="6">
+            <Pane fx:id="menugame" prefHeight="81.0" prefWidth="248.0" styleClass="menustyling" GridPane.columnSpan="3" GridPane.rowIndex="6">
                <children>
                   <Label fx:id="gameLabel" layoutX="60.0" layoutY="30.0" text="Game Center" textFill="WHITE">
                      <font>

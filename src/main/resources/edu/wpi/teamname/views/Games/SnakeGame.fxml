@@ -22,9 +22,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane prefHeight="900.0" prefWidth="400.0" style="-fx-background-color: #000000;">
+            <Pane prefHeight="900.0" prefWidth="396.0" style="-fx-background-color: #000000;">
                <children>
-                  <ImageView fitHeight="419.0" fitWidth="399.0" layoutX="-1.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="image" fitHeight="427.0" fitWidth="401.0" layoutX="-1.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../gameImages/snakeGame/snakeIcon2.png" />
                      </image>
@@ -58,9 +58,9 @@
                   </GridPane>
                </children>
             </GridPane>
-            <Pane prefHeight="900.0" prefWidth="313.0" style="-fx-background-color: #000000;" GridPane.columnIndex="2">
+            <Pane prefHeight="900.0" prefWidth="396.0" style="-fx-background-color: #000000;" GridPane.columnIndex="2">
                <children>
-                  <ImageView fitHeight="424.0" fitWidth="400.0" layoutX="1.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageI" fitHeight="433.0" fitWidth="401.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../gameImages/snakeGame/snakeIcon2I.png" />
                      </image>

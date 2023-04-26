@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.Games;
 
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -31,10 +33,17 @@ public class SnakeGameController {
   @FXML private Button playAgain;
   // private Button playAgainCopy;
   @FXML private Canvas canvas;
-  @FXML private AnchorPane anchorPane;
+  @FXML ImageView image;
+  @FXML ImageView imageI;
+  Image snakeIcon2 =
+      new Image(String.valueOf(Main.class.getResource("gameImages/snakeGame/snakeIcon2.png")));
+  Image snakeIcon2I =
+      new Image(String.valueOf(Main.class.getResource("gameImages/snakeGame/snakeIcon2I.png")));
 
   @FXML
   public void initialize() {
+    image.setImage(snakeIcon2);
+    imageI.setImage(snakeIcon2I);
     canvas.setFocusTraversable(true);
     this.height = (int) canvas.getHeight() / cornersize;
     this.width = (int) canvas.getWidth() / cornersize;
@@ -145,7 +154,7 @@ public class SnakeGameController {
     if (gameOver) {
       gc.setFill(Color.RED);
       gc.setFont(new Font("", 50));
-      gc.fillText("GAME OVER", 250, 400);
+      gc.fillText("GAME OVER", 200, 400);
       playAgain.setVisible(true);
       return;
     }
@@ -199,7 +208,7 @@ public class SnakeGameController {
 
     gc.setFill(Color.BLACK);
     gc.setFont(new Font("", 30));
-    gc.fillText("Score: " + (food - 1), 10, 30);
+    gc.fillText("Score: " + (food - 1), 10, 50);
 
     Color cc = Color.WHITE;
 
