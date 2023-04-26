@@ -9,11 +9,11 @@ import edu.wpi.teamname.DAOs.orms.Move;
 import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.ConfRoomRequest;
-import edu.wpi.teamname.ServiceRequests.ConferenceRoom.RoomRequestDAO;
+import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.Status;
 import edu.wpi.teamname.ServiceRequests.FoodService.Food;
 import edu.wpi.teamname.ServiceRequests.FoodService.FoodDelivery;
-import edu.wpi.teamname.ServiceRequests.FoodService.FoodDeliveryDAOImp;
+import edu.wpi.teamname.ServiceRequests.FoodService.*;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupply;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.OfficeSupplyDelivery;
@@ -42,7 +42,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class newAdminController {
-  @FXML MFXButton toMapEditor;
+  @FXML MFXButton toMapEditor, toEditSignage;
   @FXML TableView mealTable;
   @FXML TableView flowerTable;
   @FXML TableView roomTable;
@@ -59,10 +59,10 @@ public class newAdminController {
 
   // @FXML MFXButton aboutUSBtn;
 
-  @FXML private DataBaseRepository dbr = DataBaseRepository.getInstance();
+DataBaseRepository dbr = DataBaseRepository.getInstance();
 
-  FoodDeliveryDAOImp repo = DataBaseRepository.getInstance().getFoodDeliveryDAO();
-  RoomRequestDAO roomrepo = DataBaseRepository.getInstance().getRoomRequestDAO();
+  FoodDeliveryDAOImp repo = dbr.getFoodDeliveryDAO();
+  RoomRequestDAO roomrepo = dbr.getRoomRequestDAO();
   MoveDAOImpl moverepo = DataBaseRepository.getInstance().getMoveDAO();
 
   public ActiveUser activeUser = ActiveUser.getInstance();
@@ -75,6 +75,7 @@ public class newAdminController {
     creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
 
     toMapEditor.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDITOR));
+    toEditSignage.setOnMouseClicked(repo-> Navigation.navigate(Screen.SIGNAGE_EDITOR));
     impexpButton.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CSV_MANAGE));
 
     Image sendimage = new Image(String.valueOf(Main.class.getResource("images/send.png")));

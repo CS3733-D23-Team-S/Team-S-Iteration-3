@@ -66,7 +66,7 @@
                         <Insets />
                      </HBox.margin>
                   </MFXButton>
-                  <MFXButton fx:id="toMapEditor1" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Edit Signage">
+                  <MFXButton fx:id="toEditSignage" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="Edit Signage">
                      <font>
                         <Font size="16.0" />
                      </font>

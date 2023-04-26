@@ -8,6 +8,7 @@ import edu.wpi.teamname.DAOs.DataBaseRepository;
 import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
+import edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -312,26 +313,7 @@ public class OfficeSuppliesController {
 
       dbr.getOfficeSupplyDeliveryDAO().add(currentOSDev);
 
-      checkOutBox.getChildren().clear();
-
-      Label confirm = new Label();
-      ImageView checkMark = new ImageView();
-      Label thanks = new Label();
-      Image checkMark1 = new Image(String.valueOf(Main.class.getResource("images/checkMark.png")));
-      checkMark.setImage(checkMark1);
-      checkMark.setStyle("-fx-background-radius: 10 10 10 10;");
-
-      checkMark.setFitHeight(180);
-      checkMark.setFitWidth(180);
-      checkMark.setPreserveRatio(false);
-      confirm.setText("Order Submitted!");
-      thanks.setText("Thank you for your order!");
-      confirm.setStyle("-fx-font-size: 30;");
-      thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
-      checkOutBox.setAlignment(Pos.CENTER);
-      checkOutBox.getChildren().add(confirm);
-      checkOutBox.getChildren().add(checkMark);
-      checkOutBox.getChildren().add(thanks);
+      MealDeliveryController.confirmOrder(checkOutBox);
 
     } catch (Exception e) {
       e.printStackTrace();

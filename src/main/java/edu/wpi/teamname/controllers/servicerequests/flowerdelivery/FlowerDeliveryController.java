@@ -10,6 +10,7 @@ import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.flowers.Cart;
 import edu.wpi.teamname.ServiceRequests.flowers.Flower;
 import edu.wpi.teamname.ServiceRequests.flowers.FlowerDelivery;
+import edu.wpi.teamname.controllers.servicerequests.foodservice.MealDeliveryController;
 import edu.wpi.teamname.navigation.Navigation;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -415,28 +416,9 @@ public class FlowerDeliveryController {
 
       dbr.getFlowerDeliveryDAO().add(currentFlowDev);
 
-      checkOutBox.getChildren().clear();
+		MealDeliveryController.confirmOrder(checkOutBox);
 
-      Label confirm = new Label();
-      ImageView checkMark = new ImageView();
-      Label thanks = new Label();
-      Image checkMark1 = new Image(String.valueOf(Main.class.getResource("images/checkMark.png")));
-      checkMark.setImage(checkMark1);
-      checkMark.setStyle("-fx-background-radius: 10 10 10 10;");
-
-      checkMark.setFitHeight(180);
-      checkMark.setFitWidth(180);
-      checkMark.setPreserveRatio(false);
-      confirm.setText("Order Submitted!");
-      thanks.setText("Thank you for your order!");
-      confirm.setStyle("-fx-font-size: 30;");
-      thanks.setStyle("-fx-font-size:18; -fx-font-style: italic;");
-      checkOutBox.setAlignment(Pos.CENTER);
-      checkOutBox.getChildren().add(confirm);
-      checkOutBox.getChildren().add(checkMark);
-      checkOutBox.getChildren().add(thanks);
-
-    } catch (Exception e) {
+	} catch (Exception e) {
       e.printStackTrace();
     }
   }
