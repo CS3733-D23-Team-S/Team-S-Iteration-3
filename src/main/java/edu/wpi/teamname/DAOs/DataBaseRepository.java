@@ -1,22 +1,25 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.*;
-
-import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
-import edu.wpi.teamname.pathfinding.AStar;
+import edu.wpi.teamname.Main;
 import edu.wpi.teamname.ServiceRequests.ConferenceRoom.*;
 import edu.wpi.teamname.ServiceRequests.FoodService.*;
-import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
-import edu.wpi.teamname.ServiceRequests.flowers.*;
 
-import java.io.*;
+import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
+import edu.wpi.teamname.ServiceRequests.OfficeSupplies.*;
+
+import edu.wpi.teamname.ServiceRequests.flowers.*;
+import edu.wpi.teamname.pathfinding.AStar;
+import lombok.Getter;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
-import lombok.Getter;
 
 public class DataBaseRepository {
 
@@ -113,10 +116,10 @@ public class DataBaseRepository {
 		officeSupplyDAO.initTable(connection.getOfficesuppliesTable());
 		officeSupplyDeliveryDAO.initTable(connection.getOSuppliesRequestsTable());
 
-		nodeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Node.csv");
-		edgeDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Edge.csv");
-		locationDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/LocationName.csv");
-		moveDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Move.csv");
+		nodeDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/Node.csv")));
+		edgeDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/Edge.csv")));
+		locationDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/LocationName.csv")));
+		moveDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/Move.csv")));
 		userDAO.loadRemote("loading the remote");
 		alertDAO.initTable(connection.getFoodTable());
 		alertDAO.loadRemote("Lorem Ipsum");
@@ -124,13 +127,13 @@ public class DataBaseRepository {
 		requestDAO.loadFromRemote();
 
 		flowerDAO.initTable(connection.getFlowerTable());
-		flowerDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Flower.csv");
+		flowerDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/Flower.csv")));
 		flowerDeliveryDAO.initTable(connection.getFlowerDeliveryTable());
 		flowerDeliveryDAO.loadRemote("flowersssssss!?");
-		foodDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/Foods.csv");
+		foodDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/Foods.csv")));
 		foodDeliveryDAO.loadRemote("This means nothing");
 
-		officeSupplyDAO.loadRemote("src/main/java/edu/wpi/teamname/defaultCSV/OfficeSupplies.csv");
+		officeSupplyDAO.loadRemote(String.valueOf(Main.class.getResource("defaultCSV/OfficeSupplies.csv")));
 		officeSupplyDeliveryDAO.loadRemote("This shouldnt matter");
 		signageDAO.loadRemote("Hello World");
 	}
