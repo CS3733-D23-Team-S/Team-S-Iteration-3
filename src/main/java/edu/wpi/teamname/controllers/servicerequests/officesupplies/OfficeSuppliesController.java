@@ -81,8 +81,7 @@ public class OfficeSuppliesController {
               // check if textField1 is non-empty and enable/disable the button accordingly
               submitButton.setDisable(
                   employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
+                      || locationdrop.getValue() == null);
             }));
 
     locationdrop
@@ -92,19 +91,7 @@ public class OfficeSuppliesController {
               // check if textField1 is non-empty and enable/disable the button accordingly
               submitButton.setDisable(
                   employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
-            }));
-
-    requestfield
-        .textProperty()
-        .addListener(
-            ((observable, oldValue, newValue) -> {
-              // check if textField1 is non-empty and enable/disable the button accordingly
-              submitButton.setDisable(
-                  employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
+                      || locationdrop.getValue() == null);
             }));
 
     for (User u : dbr.getUserDAO().getListOfUsers().values()) {

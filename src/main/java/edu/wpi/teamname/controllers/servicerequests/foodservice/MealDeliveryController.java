@@ -102,8 +102,7 @@ public class MealDeliveryController {
               // check if textField1 is non-empty and enable/disable the button accordingly
               submitButton.setDisable(
                   employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
+                      || locationdrop.getValue() == null);
             }));
 
     locationdrop
@@ -113,20 +112,9 @@ public class MealDeliveryController {
               // check if textField1 is non-empty and enable/disable the button accordingly
               submitButton.setDisable(
                   employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
+                      || locationdrop.getValue() == null);
             }));
 
-    requestfield
-        .textProperty()
-        .addListener(
-            ((observable, oldValue, newValue) -> {
-              // check if textField1 is non-empty and enable/disable the button accordingly
-              submitButton.setDisable(
-                  employeedrop.getValue() == null
-                      || locationdrop.getValue() == null
-                      || requestfield.getText().trim().isEmpty());
-            }));
 
     for (User u : dbr.getUserDAO().getListOfUsers().values()) {
       employeedrop.getItems().add(u.getFirstName() + " " + u.getLastName());
