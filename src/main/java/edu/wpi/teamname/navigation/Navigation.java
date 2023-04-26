@@ -2,20 +2,18 @@ package edu.wpi.teamname.navigation;
 
 import edu.wpi.teamname.App;
 import edu.wpi.teamname.DAOs.ActiveUser;
-import edu.wpi.teamname.DAOs.orms.User;
 import edu.wpi.teamname.controllers.PopUpController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-
 public class Navigation {
-	private final BorderPane originalRootPane = App.getRootPane();
-	User user;
+//	private final BorderPane originalRootPane = App.getRootPane();
+//	User user;
 
 	public static void navigate(final Screen screen) {
 		final String filename = screen.getFilename();
@@ -50,6 +48,8 @@ public class Navigation {
 				if (event.getCode().equals(KeyCode.ESCAPE))
 					stage.close();
 			});
+			stage.setAlwaysOnTop(true);
+			stage.getIcons().add(new Image(String.valueOf(App.class.getResource("images/bwlogo.png"))));
 
 			stage.initOwner(App.getPrimaryStage());
 			stage.setScene(loader.load());

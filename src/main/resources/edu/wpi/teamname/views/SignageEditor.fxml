@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SinageEditorController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" stylesheets="@../../../../Stylesheets/FlowerPage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mainpages.SignageEditorController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="728.2962455749512" minWidth="10.0" percentWidth="2.0" prefWidth="116.99998474121094" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="823.3703765869141" minWidth="10.0" prefWidth="543.5555623372396" />

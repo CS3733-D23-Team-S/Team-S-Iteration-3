@@ -10,15 +10,15 @@ import edu.wpi.teamname.ServiceRequests.GeneralRequest.Request;
 import edu.wpi.teamname.ServiceRequests.GeneralRequest.RequestDAO;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import io.github.palexdev.materialfx.enums.FloatMode;
+
 import java.text.DateFormat;
 import java.time.LocalTime;
 import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
@@ -36,273 +36,283 @@ import net.kurobako.gesturefx.GesturePane;
 
 public class StaffHomeController {
 
-  @FXML Label headerGreetingLabel;
-  @FXML Label requestCount;
-  @FXML VBox taskVBox;
-  @FXML VBox announcementVBox;
+	@FXML
+	Label headerGreetingLabel;
+	@FXML
+	Label requestCount;
+	@FXML
+	VBox taskVBox;
+	@FXML
+	VBox announcementVBox;
 
-  @FXML MFXButton aboutUsBtn;
-  @FXML MFXButton creditsBtn;
-  @FXML Group taskGroup;
-  @FXML Group announcementGroup;
-  @FXML MFXScrollPane moveScrollPane;
-  @FXML VBox movesVBox;
-  @FXML GesturePane locationGesturePane;
+	@FXML
+	MFXButton aboutUsBtn;
+	@FXML
+	MFXButton creditsBtn;
+	@FXML
+	Group taskGroup;
+	@FXML
+	Group announcementGroup;
+	@FXML
+	MFXScrollPane moveScrollPane;
+	@FXML
+	VBox movesVBox;
+	@FXML
+	GesturePane locationGesturePane;
 
-  @FXML public static RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
-  List<Request> requests =
-      requestDAO.getRequestsForUser((ActiveUser.getInstance().getCurrentUser()));
-  ArrayList<Request> newRequests = new ArrayList<Request>();
+	@FXML
+	RequestDAO requestDAO = DataBaseRepository.getInstance().getRequestDAO();
+	List<Request> requests =
+			requestDAO.getRequestsForUser((ActiveUser.getInstance().getCurrentUser()));
+	ArrayList<Request> newRequests = new ArrayList<>();
 
-  @FXML public static AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
-  List<Alert> announcements = alertDAO.getListOfAlerts();
+	AlertDAO alertDAO = DataBaseRepository.getInstance().getAlertDAO();
 
-  @FXML public static MoveDAOImpl moveDAO = DataBaseRepository.getInstance().getMoveDAO();
-  ArrayList<MoveDAOImpl.futureMoves> futureMovesList = moveDAO.getFutureMoves();
+	List<Alert> announcements = alertDAO.getListOfAlerts();
 
-  @FXML
-  public void initialize() {
+	MoveDAOImpl moveDAO = DataBaseRepository.getInstance().getMoveDAO();
+	ArrayList<MoveDAOImpl.futureMoves> futureMovesList = moveDAO.getFutureMoves();
 
-    aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
-    creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
+	@FXML
+	public void initialize() {
 
-    System.out.println(requests);
-    // clean requests
-    // requests
-    for (int i = 0; i < requests.size(); i++) {
+		aboutUsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.ABOUT_US));
+		creditsBtn.setOnMouseClicked(event -> Navigation.launchPopUp(Screen.CREDITS_PAGE));
 
-      if (requests.get(i).getOrderStatus() == null) {
-        requests.get(i).setOrderStatus("");
-      }
+		System.out.println(requests);
+		// clean requests
+		// requests
+		for (Request value : requests) {
 
-      if (!(requests.get(i).getRequestType().equals("Room"))
-          && !(requests.get(i).getOrderStatus().equals(""))
-          && !(requests.get(i).getOrderStatus().equals("Complete"))) {
-        newRequests.add(requests.get(i));
-      }
-      newRequests.sort(Comparator.comparing(Request::getDeliveryTime));
-    }
-    requestCount.setText(String.valueOf(newRequests.size()));
-    for (Request request : newRequests) {
-      initializeTask(request);
-    }
+			if (value.getOrderStatus() == null) {
+				value.setOrderStatus("");
+			}
 
-    // announcements
-    announcements.sort(
-        Comparator.comparing(Alert::getDateOfAlert)
-            .reversed()
-            .thenComparing(Alert::getTimeOfAlert)
-            .reversed());
+			if (!(value.getRequestType().equals("Room"))
+				&& !(value.getOrderStatus().equals(""))
+				&& !(value.getOrderStatus().equals("Complete"))) {
+				newRequests.add(value);
+			}
+			newRequests.sort(Comparator.comparing(Request::getDeliveryTime));
+		}
+		requestCount.setText(String.valueOf(newRequests.size()));
+		for (Request request : newRequests) {
+			initializeTask(request);
+		}
 
-    for (int i = 0; i < announcements.size(); i++) {
-      initializeAnnouncements(announcements.get(i));
-    }
+		// announcements
+		announcements.sort(
+				Comparator.comparing(Alert::getDateOfAlert)
+						.reversed()
+						.thenComparing(Alert::getTimeOfAlert)
+						.reversed());
 
-    futureMovesList.sort(Comparator.comparing(MoveDAOImpl.futureMoves::getMoveDate).reversed());
+		for (Alert announcement : announcements) {
+			initializeAnnouncements(announcement);
+		}
 
-    // moves
-    System.out.println("MOVES LIST TEST");
-    System.out.println(futureMovesList.size() + " future moves size");
-    for (int i = 0; i < futureMovesList.size(); i++) {
-      System.out.println("Adding move " + futureMovesList.get(i).getLocName());
-      initializeMoves(futureMovesList.get(i));
-    }
+		futureMovesList.sort(Comparator.comparing(MoveDAOImpl.futureMoves::getMoveDate).reversed());
 
-    ImageView content =
-        new ImageView(
-            new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
+		// moves
+		System.out.println("MOVES LIST TEST");
+		System.out.println(futureMovesList.size() + " future moves size");
+		for (MoveDAOImpl.futureMoves futureMoves : futureMovesList) {
+			System.out.println("Adding move " + futureMoves.getLocName());
+			initializeMoves(futureMoves);
+		}
 
-    locationGesturePane.setContent(content);
-    locationGesturePane.setMinScale(.0001);
-    locationGesturePane.setFitHeight(true);
-    locationGesturePane.setFitWidth(true);
-    locationGesturePane.zoomTo(.15, .15, new Point2D(2500, 1700));
+		ImageView content =
+				new ImageView(
+						new Image(String.valueOf(Main.class.getResource("images/01_thefirstfloor.png"))));
 
-    getTimeString();
-  }
+		locationGesturePane.setContent(content);
+		locationGesturePane.setMinScale(.0001);
+		locationGesturePane.setFitHeight(true);
+		locationGesturePane.setFitWidth(true);
+		locationGesturePane.zoomTo(.15, .15, new Point2D(2500, 1700));
 
-  public void initializeTask(Request request) {
+		getTimeString();
+	}
 
-    String title = request.getRequestType();
-    String location = request.getLocation();
-    String organizer = request.getOrderedBy();
-    String orderstatus = request.getOrderStatus();
+	public void initializeTask(Request request) {
 
-    Group addTask = new Group();
+		String title = request.getRequestType();
+		String location = request.getLocation();
+		String organizer = request.getOrderedBy();
+		String orderstatus = request.getOrderStatus();
 
-    // rectangle styling
-    Rectangle taskRect = new Rectangle();
-    taskRect.setWidth(360);
-    taskRect.setHeight(120);
-    taskRect.setFill(Paint.valueOf("#b5c5ee"));
-    taskRect.getStyleClass().add("taskrectangle");
+		Group addTask = new Group();
 
-    // labels
-    Label titleLabel = new Label(title + " Delivery");
-    titleLabel.setAlignment(Pos.CENTER_LEFT);
-    titleLabel.getStyleClass().add("titlelabel");
+		// rectangle styling
+		Rectangle taskRect = new Rectangle();
+		taskRect.setWidth(360);
+		taskRect.setHeight(120);
+		taskRect.setFill(Paint.valueOf("#b5c5ee"));
+		taskRect.getStyleClass().add("taskrectangle");
 
-    Label locationLabel = new Label(location);
-    locationLabel.getStyleClass().add("locationlabel");
+		// labels
+		Label titleLabel = new Label(title + " Delivery");
+		titleLabel.setAlignment(Pos.CENTER_LEFT);
+		titleLabel.getStyleClass().add("titlelabel");
 
-    Label organizerLabel = new Label("Organized by " + organizer);
-    organizerLabel.getStyleClass().add("organizerlabel");
+		Label locationLabel = new Label(location);
+		locationLabel.getStyleClass().add("locationlabel");
 
-    VBox infoVBox = new VBox(titleLabel, locationLabel, organizerLabel);
-    infoVBox.setPadding(new Insets(10));
-    infoVBox.setMinHeight(110);
-    infoVBox.setAlignment(Pos.CENTER_LEFT);
+		Label organizerLabel = new Label("Organized by " + organizer);
+		organizerLabel.getStyleClass().add("organizerlabel");
 
-    // status box
-    MFXComboBox statusBox = new MFXComboBox();
+		VBox infoVBox = new VBox(titleLabel, locationLabel, organizerLabel);
+		infoVBox.setPadding(new Insets(10));
+		infoVBox.setMinHeight(110);
+		infoVBox.setAlignment(Pos.CENTER_LEFT);
 
-    statusBox.getItems().addAll("Received", "In Progress", "Complete");
+		// status box
+		MFXComboBox<String> statusBox = new MFXComboBox<>();
 
-    if (request.getOrderStatus().equals("Received")) {
-      statusBox.getSelectionModel().selectItem("Received");
-      statusBox.setStyle("-fx-background-color: #FECAC7");
-    } else if (request.getOrderStatus().equals("In Progress")) {
-      statusBox.getSelectionModel().selectItem("In Progress");
-      statusBox.setStyle("-fx-background-color: #FEF5C7");
-    } else if (request.getOrderStatus().equals("Complete")) {
-      statusBox.getSelectionModel().selectItem("Complete");
-      statusBox.setStyle("-fx-background-color: #C7FECC");
+		statusBox.getItems().addAll("Received", "In Progress", "Complete");
 
-    } else {
-      statusBox.getSelectionModel().selectItem("Received");
-      statusBox.setStyle("-fx-background-color: #FECAC7");
-    }
+		switch (request.getOrderStatus()) {
+			case "In Progress" -> {
+				statusBox.getSelectionModel().selectItem("In Progress");
+				statusBox.setStyle("-fx-background-color: #FEF5C7");
+			}
+			case "Complete" -> {
+				statusBox.getSelectionModel().selectItem("Complete");
+				statusBox.setStyle("-fx-background-color: #C7FECC");
+			}
+			default -> {
+				statusBox.getSelectionModel().selectItem("Received");
+				statusBox.setStyle("-fx-background-color: #FECAC7");
+			}
+		}
 
-    request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
+		request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem());
 
-    statusBox.setFloatMode(FloatMode.ABOVE);
-    statusBox.setStyle("-fx-border-color: #FFFFFF00");
+		statusBox.setFloatMode(FloatMode.ABOVE);
+		statusBox.setStyle("-fx-border-color: #FFFFFF00");
 
-    addTask.getChildren().add(taskRect);
-    addTask.getChildren().add(infoVBox);
-    addTask.getChildren().add(statusBox);
+		addTask.getChildren().add(taskRect);
+		addTask.getChildren().add(infoVBox);
+		addTask.getChildren().add(statusBox);
 
-    statusBox.setLayoutX(230);
-    statusBox.setLayoutY(45);
+		statusBox.setLayoutX(230);
+		statusBox.setLayoutY(45);
 
-    taskVBox.setAlignment(Pos.TOP_LEFT);
+		taskVBox.setAlignment(Pos.TOP_LEFT);
 
-    taskVBox.getChildren().add(addTask);
-    taskVBox.setSpacing(5);
+		taskVBox.getChildren().add(addTask);
+		taskVBox.setSpacing(5);
 
-    statusBox.setOnAction(
-        event -> {
-          request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem().toString());
+		statusBox.setOnAction(
+				event -> {
+					request.setOrderStatus(statusBox.getSelectionModel().getSelectedItem());
 
-          if (request.getOrderStatus().equals("Received")) {
-            statusBox.setStyle("-fx-background-color: #E7D3FF");
-          } else if (request.getOrderStatus().equals("In Progress")) {
-            statusBox.setStyle("-fx-background-color: #FEF5C7");
-          } else if (request.getOrderStatus().equals("Complete")) {
-            statusBox.setStyle("-fx-background-color: #C7FECC");
-          }
+					switch (request.getOrderStatus()) {
+						case "Received" -> statusBox.setStyle("-fx-background-color: #E7D3FF");
+						case "In Progress" -> statusBox.setStyle("-fx-background-color: #FEF5C7");
+						case "Complete" -> statusBox.setStyle("-fx-background-color: #C7FECC");
+					}
 
-          requestDAO.updateRequest(
-              request.getOrderStatus(),
-              request.getOrderedBy(),
-              request.getDeliveryTime(),
-              request.getRequestType());
-        });
+					requestDAO.updateRequest(
+							request.getOrderStatus(),
+							request.getOrderedBy(),
+							request.getDeliveryTime(),
+							request.getRequestType());
+				});
 
-    statusBox
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (options, oldValue, newValue) -> {
-              Navigation.navigate(Screen.STAFFHOME);
-            });
-  }
+		statusBox
+				.getSelectionModel()
+				.selectedItemProperty()
+				.addListener(
+						(options, oldValue, newValue) -> {
+							Navigation.navigate(Screen.STAFFHOME);
+						});
+	}
 
-  public void initializeAnnouncements(Alert announcement) {
-    Group addAnnouncement = new Group();
+	public void initializeAnnouncements(Alert announcement) {
+		Group addAnnouncement = new Group();
 
-    Rectangle annRect = new Rectangle();
-    annRect.setWidth(360);
-    annRect.setHeight(100);
-    annRect.setStroke(Paint.valueOf("#b5c5ee"));
-    annRect.getStyleClass().add("announcementrect");
+		Rectangle annRect = new Rectangle();
+		annRect.setWidth(360);
+		annRect.setHeight(100);
+		annRect.setStroke(Paint.valueOf("#b5c5ee"));
+		annRect.getStyleClass().add("announcementrect");
 
-    Label nameLabel =
-        new Label(
-            announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
-    nameLabel.setStyle("-fx-font-weight: bold");
-    Label announcementLabel = new Label(announcement.getMessage());
-    announcementLabel.setWrapText(true);
-    VBox annInfo = new VBox(nameLabel, announcementLabel);
-    annInfo.setPrefWidth(240);
-    annInfo.setPadding(new Insets(10));
+		Label nameLabel =
+				new Label(
+						announcement.getUser().getFirstName() + " " + announcement.getUser().getLastName());
+		nameLabel.setStyle("-fx-font-weight: bold");
+		Label announcementLabel = new Label(announcement.getMessage());
+		announcementLabel.setWrapText(true);
+		VBox annInfo = new VBox(nameLabel, announcementLabel);
+		annInfo.setPrefWidth(240);
+		annInfo.setPadding(new Insets(10));
 
-    DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.DEFAULT, Locale.US);
+		DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.DEFAULT, Locale.US);
 
-    Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
-    timeLabel.setAlignment(Pos.CENTER_RIGHT);
-    timeLabel.setPrefWidth(100);
+		Label timeLabel = new Label(announcement.getTimeOfAlert().toString());
+		timeLabel.setAlignment(Pos.CENTER_RIGHT);
+		timeLabel.setPrefWidth(100);
 
-    HBox annhbox = new HBox(annInfo, timeLabel);
-    annhbox.setPrefWidth(350);
-    annhbox.setPrefHeight(90);
-    annhbox.setAlignment(Pos.CENTER);
-    annhbox.setPadding(new Insets(10, 0, 0, 0));
+		HBox annhbox = new HBox(annInfo, timeLabel);
+		annhbox.setPrefWidth(350);
+		annhbox.setPrefHeight(90);
+		annhbox.setAlignment(Pos.CENTER);
+		annhbox.setPadding(new Insets(10, 0, 0, 0));
 
-    addAnnouncement.getChildren().add(annRect);
-    addAnnouncement.getChildren().add(annhbox);
+		addAnnouncement.getChildren().add(annRect);
+		addAnnouncement.getChildren().add(annhbox);
 
-    announcementVBox.setAlignment(Pos.TOP_LEFT);
-    announcementVBox.getChildren().add(addAnnouncement);
-    announcementVBox.setSpacing(10);
-  }
+		announcementVBox.setAlignment(Pos.TOP_LEFT);
+		announcementVBox.getChildren().add(addAnnouncement);
+		announcementVBox.setSpacing(10);
+	}
 
-  public void initializeMoves(MoveDAOImpl.futureMoves move) {
+	public void initializeMoves(MoveDAOImpl.futureMoves move) {
 
-    Label dateLabel = new Label(move.getMoveDate().toString());
-    dateLabel.setAlignment(Pos.TOP_CENTER);
-    dateLabel.setMinWidth(100);
-    dateLabel.setStyle("-fx-text-style: italic");
-    dateLabel.setStyle("-fx-font-size: 16");
-    dateLabel.setPadding(new Insets(10));
-    TextFieldTableCell moveText = new TextFieldTableCell();
-    moveText.setMinWidth(250);
-    moveText.setMinHeight(50);
-    moveText.setWrapText(true);
-    moveText.setStyle("-fx-font-size: 12");
-    moveText.setAlignment(Pos.TOP_CENTER);
-    dateLabel.setPadding(new Insets(15));
+		Label dateLabel = new Label(move.getMoveDate().toString());
+		dateLabel.setAlignment(Pos.TOP_CENTER);
+		dateLabel.setMinWidth(100);
+		dateLabel.setStyle("-fx-text-style: italic");
+		dateLabel.setStyle("-fx-font-size: 16");
+		dateLabel.setPadding(new Insets(10));
+		TextFieldTableCell<String, String> moveText = new TextFieldTableCell<>();
+		moveText.setMinWidth(250);
+		moveText.setMinHeight(50);
+		moveText.setWrapText(true);
+		moveText.setStyle("-fx-font-size: 12");
+		moveText.setAlignment(Pos.TOP_CENTER);
+		dateLabel.setPadding(new Insets(15));
 
-    moveText.setText(
-        move.getLocName()
-            + " is relocating to node "
-            + move.getNodeId()
-            + " (floor "
-            + move.getFloor().substring(5)
-            + ")");
+		moveText.setText(
+				move.getLocName()
+				+ " is relocating to node "
+				+ move.getNodeId()
+				+ " (floor "
+				+ move.getFloor().substring(5)
+				+ ")");
 
-    HBox moveHBox = new HBox(dateLabel, moveText);
-    moveHBox.setPadding(new Insets(5));
-    moveHBox.setPrefWidth(400);
-    moveHBox.setMaxWidth(400);
+		HBox moveHBox = new HBox(dateLabel, moveText);
+		moveHBox.setPadding(new Insets(5));
+		moveHBox.setPrefWidth(400);
+		moveHBox.setMaxWidth(400);
 
-    movesVBox.getChildren().add(moveHBox);
-  }
+		movesVBox.getChildren().add(moveHBox);
+	}
 
-  public String getTimeString() {
-    String timeString;
-    int currentHour = LocalTime.now().getHour();
-    if (currentHour >= 5 && currentHour <= 11) {
-      timeString = "Good morning";
-    } else if (currentHour > 11 && currentHour <= 17) {
-      timeString = "Good afternoon";
-    } else {
-      timeString = "Good evening";
-    }
+	public void getTimeString() {
+		String timeString;
+		int currentHour = LocalTime.now().getHour();
+		if (currentHour >= 5 && currentHour <= 11) {
+			timeString = "Good morning";
+		} else if (currentHour > 11 && currentHour <= 17) {
+			timeString = "Good afternoon";
+		} else {
+			timeString = "Good evening";
+		}
 
-    headerGreetingLabel.setText(
-        timeString + ", " + ActiveUser.getInstance().getCurrentUser().getFirstName() + "!");
+		headerGreetingLabel.setText(
+				timeString + ", " + ActiveUser.getInstance().getCurrentUser().getFirstName() + "!");
 
-    return timeString;
-  }
+	}
 }
