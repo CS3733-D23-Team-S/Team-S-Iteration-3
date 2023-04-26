@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<BorderPane fx:id="locationMenu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.mapEditor.AddLocationPopOverController">
+<BorderPane fx:id="locationMenu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.map.AddLocationPopOverController">
    <top>
       <HBox prefHeight="10.0" prefWidth="200.0" style="-fx-background-color: &quot;1D3D94&quot;;" BorderPane.alignment="CENTER" />
    </top>
