@@ -1,8 +1,12 @@
 package edu.wpi.teamname.DAOs;
 
 import edu.wpi.teamname.DAOs.orms.Alert;
+import edu.wpi.teamname.DAOs.orms.User;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlertDAO implements IDAO<Alert, String> {
@@ -40,7 +44,7 @@ public class AlertDAO implements IDAO<Alert, String> {
   /*
   private final dbConnection connection;
 
-  @Getter private ArrayList<Alert> listOfAlerts;
+  @Getter public ArrayList<Alert> listOfAlerts;
   @Getter private String name = "hospitaldb.alerts";
 
   public AlertDAO() {
@@ -58,7 +62,7 @@ public class AlertDAO implements IDAO<Alert, String> {
               .prepareStatement(
                   "CREATE TABLE IF NOT EXISTS "
                       + name
-                      + " (heading varchar(100), message varchar(200), date date)");
+                      + " (heading varchar(100), message varchar(200), username varchar(200), date date, time time)");
 
       stmt.execute();
     } catch (SQLException e) {
@@ -75,10 +79,18 @@ public class AlertDAO implements IDAO<Alert, String> {
           connection
               .getConnection()
               .prepareStatement(
-                  "INSERT INTO " + name + " (heading, message, alertDate) " + "VALUES (?, ?, ?)");
+                  "INSERT INTO "
+                      + name
+                      + " (heading, message, username, date, time) "
+                      + "VALUES (?, ?, ?, ?, ?)");
       preparedStatement.setString(1, addition.getHeading());
       preparedStatement.setString(2, addition.getMessage());
-      preparedStatement.setDate(3, Date.valueOf(addition.getDateOfAlert()));
+      preparedStatement.setString(3, addition.getUser().getUserName());
+      preparedStatement.setDate(4, Date.valueOf(addition.getDateOfAlert()));
+      preparedStatement.setTime(5, Time.valueOf(addition.getTimeOfAlert()));
+
+      preparedStatement.executeUpdate();
+
       listOfAlerts.add(addition);
 
     } catch (SQLException e) {
@@ -107,15 +119,19 @@ public class AlertDAO implements IDAO<Alert, String> {
 
   private void constructFromRemote() {
     try {
+      UserDAOImpl userDAO = DataBaseRepository.getInstance().getUserDAO();
       Statement stmt = connection.getConnection().createStatement();
-      String alerts = "SELECT * FROM " + name + " order by alertDate desc ";
+      String alerts = "SELECT * FROM " + name + " order by date desc ";
       ResultSet rs = stmt.executeQuery(alerts);
       while (rs.next()) {
         String heading = rs.getString("heading");
         String message = rs.getString("message");
-        LocalDate date = rs.getDate("alertDate").toLocalDate();
-        Alert thisAlert = new Alert(heading, message);
+        LocalDate date = rs.getDate("date").toLocalDate();
+        LocalTime time = rs.getTime("time").toLocalTime();
+        User thisUser = userDAO.get(rs.getString("username"));
+        Alert thisAlert = new Alert(heading, message, thisUser);
         thisAlert.setDateOfAlert(date);
+        thisAlert.setTimeOfAlert(time);
         listOfAlerts.add(thisAlert);
       }
     } catch (SQLException e) {
@@ -133,7 +149,6 @@ public class AlertDAO implements IDAO<Alert, String> {
 
   @Override
   public List<Alert> getAll() {
-
     return listOfAlerts;
   }
 

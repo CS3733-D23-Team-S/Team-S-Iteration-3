@@ -1,6 +1,6 @@
 package edu.wpi.teamname;
 
-import static edu.wpi.teamname.Main.thread;
+
 
 import edu.wpi.teamname.DAOs.dbConnection;
 import edu.wpi.teamname.navigation.Navigation;
@@ -51,7 +51,7 @@ public class App extends Application {
 
   @Override
   public void stop() throws SQLException, InterruptedException {
-    thread.join(100);
+//    thread.join(100);
     dbConnection.getInstance().getConnection().close();
     log.info("Shutting Down");
   }

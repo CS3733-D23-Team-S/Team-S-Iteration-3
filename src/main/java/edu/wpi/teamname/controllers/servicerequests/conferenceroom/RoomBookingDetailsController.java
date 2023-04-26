@@ -166,7 +166,6 @@ public class RoomBookingDetailsController extends PopUpController {
     eventDescription = eventDescriptionText.getText();
     isPrivate = privateToggle.isSelected();
 
-    System.out.println("Private toggle selected!!!");
     System.out.println(isPrivate);
 
     if (!catchBookingErrors(roomLocation, eventDate, startTime, endTime)) {

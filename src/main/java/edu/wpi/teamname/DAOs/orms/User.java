@@ -64,4 +64,8 @@ public class User implements IDataPack {
 
     return userName + "," + password;
   }
+
+  public String getFullName() {
+    return firstName + " " + lastName;
+  }
 }

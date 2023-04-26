@@ -20,20 +20,22 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
+<BorderPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.servicerequests.flowerdelivery.FlowerDeliveryController">
     <center>
-        <GridPane prefHeight="800.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
+        <GridPane minHeight="600.0" minWidth="400.0" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+            <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                 <ColumnConstraints percentWidth="25.0" />
             <ColumnConstraints minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" percentHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="0.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" percentHeight="40.0" vgrow="SOMETIMES" />
@@ -46,13 +48,21 @@
                 <Blend />
             </effect>
          <children>
+            <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Open Sans Regular" size="12.0" />
+               </font>
+               <textFill>
+                  <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
+               </textFill>
+            </MFXTextField>
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <HBox alignment="CENTER_LEFT" minWidth="200.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery">
+                        <Text fill="#1d3d94" strokeType="OUTSIDE" strokeWidth="0.0" text="Flower Delivery" wrappingWidth="343.1953125">
                            <font>
-                              <Font name="Open Sans Regular" size="48.0" />
+                              <Font size="42.0" />
                            </font>
                            <HBox.margin>
                               <Insets right="880.0" />
@@ -63,88 +73,31 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" spacing="20.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <MFXTextField fx:id="searchbar" minHeight="40.0" minWidth="370.0" prefHeight="40.0" prefWidth="370.0" promptText="Search" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
-                           <HBox.margin>
-                              <Insets right="35.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Open Sans Regular" size="12.0" />
-                           </font>
-                           <textFill>
-                              <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
-                           </textFill>
-                        </MFXTextField>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="Filter by">
-                           <font>
-                              <Font name="Open Sans Regular" size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Text>
-                        <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
-                           <items>
-                              <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
-                              <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
-                              <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
-                           </items>
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </MenuButton>
-                        <MenuButton fx:id="pricedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Price" textFill="WHITE">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="\$50" />
-                              <MenuItem mnemonicParsing="false" text="\$100" />
-                              <MenuItem mnemonicParsing="false" text="\$200" />
-                           </items>
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </MenuButton>
-                        <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
-                           <font>
-                              <Font name="Open Sans Regular" size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </MFXButton>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
                </children>
             </VBox>
-            <FlowPane fx:id="flowpane" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" />
-            <VBox fx:id="cartBox" style="-fx-background-radius: 5 5 5 5;" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="5">
+            <FlowPane fx:id="flowpane" columnHalignment="CENTER" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="3" />
+            <VBox fx:id="cartBox" prefHeight="713.6" prefWidth="276.0" style="-fx-background-radius: 5 5 5 5;" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
                <children>
-                  <MFXButton fx:id="viewcartbutton" alignment="CENTER" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 5 5 5 5;" styleClass="viewcartbutton" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="View Cart" textAlignment="CENTER">
+                  <Label alignment="TOP_CENTER" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 5 5 0 0;" text="Cart">
                      <font>
-                        <Font name="Open Sans Bold" size="20.0" />
+                        <Font name="Open Sans Bold" size="18.0" />
                      </font>
-                  </MFXButton>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
                   <VBox fx:id="lowerCart" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="654.0" prefWidth="234.0">
                            <content>
-                              <VBox fx:id="cartPane" prefHeight="511.0" prefWidth="232.0" style="-fx-background-color: #B5C5EE;">
+                              <VBox fx:id="cartPane" prefHeight="613.2" prefWidth="232.0" style="-fx-background-color: #B5C5EE;">
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                                  </padding>
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <VBox fx:id="bottomButtons" prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="bottomButtons" prefHeight="117.0" prefWidth="286.0">
                            <children>
                               <HBox alignment="CENTER" style="-fx-background-color: #B5C5EE;">
                                  <VBox.margin>
@@ -158,7 +111,7 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="82.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
+                              <HBox alignment="CENTER" minHeight="80.0" prefHeight="80.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
                                  <children>
                                     <MFXButton fx:id="proceed" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #1D3D94;" text="Proceed" textFill="WHITE">
                                        <font>
@@ -187,18 +140,24 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="checkOutBox" layoutX="1031.0" layoutY="114.0" prefWidth="236.0" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="5">
+            <VBox fx:id="checkOutBox" prefHeight="713.6" prefWidth="276.0" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.rowSpan="5">
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 5 5 0 0;">
                      <children>
-                        <Label alignment="TOP_CENTER" text="Checkout">
+                        <Label alignment="CENTER" text="Checkout">
                            <font>
                               <Font name="Open Sans Bold" size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
-                  <VBox prefHeight="580.0" prefWidth="234.0" style="-fx-background-color: #B5C5EE;">
+                  <VBox prefHeight="666.0" prefWidth="286.0" style="-fx-background-color: #B5C5EE;">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assigned Employee:">
                            <font>
@@ -234,9 +193,9 @@
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                         </Text>
-                        <MFXTextField fx:id="requestfield" alignment="TOP_LEFT" minHeight="300.0" minWidth="214.0" prefHeight="342.0" prefWidth="266.0" promptText="type here" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
+                        <MFXTextField fx:id="requestfield" alignment="TOP_LEFT" minHeight="300.0" minWidth="214.0" prefHeight="414.0" prefWidth="266.0" promptText="type here" styleClass="searchelements" stylesheets="@../../../../../Stylesheets/FlowerPage.css">
                            <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <font>
                               <Font name="Open Sans Regular" size="20.0" />
@@ -247,7 +206,7 @@
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <HBox alignment="CENTER" maxHeight="142.0" prefHeight="70.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
+                  <HBox alignment="CENTER" maxHeight="142.0" minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="234.0" spacing="10.0" style="-fx-background-color: #B5C5EE; -fx-background-radius: 0 0 5 5;">
                      <children>
                         <MFXButton fx:id="submitButton" prefHeight="48.0" prefWidth="100.0" style="-fx-background-color: #1D3D94;" text="Submit" textFill="WHITE">
                            <font>
@@ -269,6 +228,39 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="0.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic;" text="Filter by">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="170.0" />
+                     </HBox.margin>
+                  </Text>
+                  <MenuButton fx:id="sizedrop" minHeight="40.0" minWidth="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-text-fill: #000000;" styleClass="button" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Size" textFill="WHITE">
+                     <items>
+                        <MenuItem fx:id="sizesmall" mnemonicParsing="false" text="Small" />
+                        <MenuItem fx:id="sizenormal" mnemonicParsing="false" text="Normal" />
+                        <MenuItem fx:id="sizelarge" mnemonicParsing="false" text="Large" />
+                     </items>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MFXButton fx:id="clearfilter" alignment="CENTER" minHeight="40.0" minWidth="85.0" prefHeight="40.0" prefWidth="85.0" rippleColor="WHITE" style="-fx-background-color: #ffffff; -fx-border-color: #C0C0C0; -fx-border-radius: 10 10 10 10;" stylesheets="@../../../../../Stylesheets/FlowerPage.css" text="Clear">
+                     <font>
+                        <Font name="Open Sans Regular" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+            </HBox>
          </children>
         </GridPane>
     </center>

@@ -5,7 +5,7 @@ public enum Screen {
   WELCOME_PAGE("views/WelcomePage.fxml"),
   LOGIN_PAGE("views/LoginPage.fxml"),
   HOME("views/NewHomepage.fxml"),
-  MEAL_DELIVERY1("views/MealDelivery/MealDelivery1.fxml"),
+  MEAL_DELIVERY("views/MealDelivery/MealDeliveryMain-New.fxml"),
   SERVICE_REQUEST("views/ServiceRequestPages/ServiceRequest.fxml"),
   ROOM_BOOKING("views/RoomReservation/RoomBooking.fxml"),
   ROOM_BOOKING_DETAILS("views/RoomReservation/RoomBookingDetails.fxml"),
@@ -13,19 +13,17 @@ public enum Screen {
   SUBMITTED_ROOM_REQUESTS("views/RoomReservation/SubmittedRoomRequests.fxml"),
   ORDER_DETAILS("views/OrderDetails.fxml"),
   HELP_PAGE("views/HelpPage.fxml"),
-  PRODUCT_DETAILS("views/ProductDetails.fxml"),
+  PRODUCT_DETAILS("views/MealDelivery/MealDeliveryPopup.fxml"),
   PATHFINDING("views/Pathfinding.fxml"),
   SIGNAGE_PAGE("views/SignagePage.fxml"),
   SUBMITTED_MEALS("views/ServiceRequestPages/SubmittedMeals.fxml"),
   MEAL_DELIVERY_ORDER_CONFIRMATION("views/MealDelivery/MealDeliveryOrderConfirmation.fxml"),
   // ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
   ORDER_CONFIRMATION("views/OrderConfirmation.fxml"),
-  MAP_EDITOR("views/NewMapEditor.fxml"),
-  BETTER_MAP_EDITOR("views/BetterMapEditor.fxml"),
+  MAP_EDITOR("views/NewestMapEditor.fxml"),
   NODE_DETAILS("views/NodeDetails.fxml"),
   CSV_MANAGE("views/CSVPage.fxml"),
   ADMIN_PAGE("views/newAdminPage.fxml"),
-  SUBMITTED_MEAL_REQUESTS("views/MealDelivery/NewSubmittedMealRequests.fxml"),
   USER_PROFILE("views/UserProfile.fxml"),
   USER_PROFILE_POPUP("views/changePasswordPopup.fxml"),
   // MAP_EDITOR("views/MapEditor.fxml"),
@@ -38,15 +36,16 @@ public enum Screen {
   OFFICE_SUPPLIES_REQTABLE("views/officeSuppliesRequestTable.fxml"),
   OFFICE_SUPPLIES_POPUP("views/OfficeSupplies/officeSuppliesPopup.fxml"),
   NEW_ADMIN_PAGE("views/newAdminPage.fxml"),
-
   NEW_USER("views/newUserPopUp.fxml"),
-
   STAFF("views/StaffPage.fxml"),
   STAFF1("views/staff1.fxml"),
 
   STAFFHOME("views/StaffHome.fxml"),
 
-  SIGNAGE_EDITOR("views/SignageEditor.fxml");
+  SIGNAGE_EDITOR("views/SignageEditor.fxml"),
+  ABOUT_US("views/aboutus.fxml"),
+  CREDITS_PAGE("views/Credits.fxml"),
+  ROOT_LOGOUT_POPUP("views/RootLogoutPopup.fxml");
 
   private final String filename;
 
