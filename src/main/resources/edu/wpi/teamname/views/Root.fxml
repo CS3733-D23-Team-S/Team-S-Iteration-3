@@ -61,7 +61,7 @@
                       </Label>
                       <ImageView fx:id="signageIcon" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="30.5" pickOnBounds="true" preserveRatio="true">
                           <image>
-                              <Image url="@../templateIcons/signageicon.png" />
+                              <Image url="@../templateIcons/homewhite.png" />
                           </image>
                       </ImageView>
                </children>

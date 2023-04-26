@@ -64,7 +64,7 @@ public class RootController {
           Image i =
               new Image(
                   String.valueOf(
-                      Main.class.getResource("templateIcons/invertedmenu/signageinverted.png")));
+                      Main.class.getResource("templateIcons/homeicon.png")));
           signageIcon.setImage(i);
           if (ActiveUser.getInstance().getCurrentUser().getPermission() == Permission.ADMIN) {
             Navigation.navigate(Screen.NEW_ADMIN_PAGE);
@@ -181,7 +181,7 @@ public class RootController {
     // reset photos
     Image h = new Image(String.valueOf(Main.class.getResource("templateIcons/navicon.png")));
     navIcon.setImage(h);
-    Image j = new Image(String.valueOf(Main.class.getResource("templateIcons/signageicon.png")));
+    Image j = new Image(String.valueOf(Main.class.getResource("templateIcons/homewhite.png")));
     signageIcon.setImage(j);
     Image k = new Image(String.valueOf(Main.class.getResource("templateIcons/mealicon.png")));
     mealIcon.setImage(k);
@@ -193,6 +193,7 @@ public class RootController {
     officeIcon.setImage(n);
     Image o = new Image(String.valueOf(Main.class.getResource("templateIcons/controller.png")));
     gameIcon.setImage(o);
+    Image p = new Image(String.valueOf(Main.class.getResource("templateIcons/homeicon.png")));
   }
 
   public void hoverTransition(Pane pane) {

@@ -17,6 +17,7 @@ public class RoomBookingTest {
   static DataBaseRepository dbr = DataBaseRepository.getInstance();
 
   ConfRoomRequest confRoomRequest = null;
+  ConfRoomRequest confRoomRequest2 = null;
 
   @Test
   public void addRequestTest() {
@@ -35,8 +36,25 @@ public class RoomBookingTest {
     assertEquals(1, dbr.getRoomRequestDAO().getRequests().size());
   }
 
-  @Test
-  public void initializingLocationsTest() {
+  @Test public void requestErrorsTest() {
+    confRoomRequest =
+            new ConfRoomRequest(
+                    LocalDate.of(2022, 5, 13),
+                    LocalTime.of(14, 45),
+                    LocalTime.of(15, 10),
+                    "BTM Conference Center",
+                    "staff",
+                    "nothing",
+                    "Yes",
+                    "staff",
+                    true);
+    dbr.getRoomRequestDAO().add(confRoomRequest);
+    assertEquals(1, dbr.getRoomRequestDAO().getRequests().size());
+    confRoomRequest2 = new ConfRoomRequest(LocalDate.of(2022, 5, 13), LocalTime.of(14, 45, ))
+  }
+
+
+  @Test public void initializingLocationsTest() {
     // confRoomDAO.initializeLocations();
     // assertEquals(7, confRoomDAO.conferenceRooms.size());
   }
