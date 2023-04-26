@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<Scene xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutUsController">
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.AboutUsController">
    <root>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="700.0" prefHeight="810.0" prefWidth="1360.0" style="-fx-background-color: #ffffff;">
         <columnConstraints>
@@ -209,7 +204,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
                <children>
-                  <Label prefHeight="205.0" prefWidth="1266.0" style="-fx-wrap-text: true;" text="     Our team of 10 students is comprised of talented and dedicated individuals who are passionate about software engineering. Over the course of 7 weeks, we have worked tirelessly to create a cutting-edge product that we are proud to present to the world. With a shared commitment to excellence, we have collaborated closely to ensure that every aspect of the project is executed with the utmost care and attention to detail. We believe that our hard work and dedication will result in a product that is not only functional and reliable, but also innovative and user-friendly. As a team, we are excited to showcase our skills and expertise and are confident that our software engineering project will make a lasting impact on the industry. We also thank Brigham and Women’s Hospital and their representative, AndrewShinn, for their time and input. ">
+                  <Label prefHeight="205.0" prefWidth="1266.0" style="-fx-wrap-text: true;" text="     This largely is a project for CS 3733 class at WPI. Our team of 10 students is comprised of talented and dedicated individuals who are passionate about software engineering. Over the course of 7 weeks, we have worked tirelessly to create a cutting-edge product that we are proud to present to the world. With a shared commitment to excellence, we have collaborated closely to ensure that every aspect of the project is executed with the utmost care and attention to detail. We believe that our hard work and dedication will result in a product that is not only functional and reliable, but also innovative and user-friendly. As a team, we are excited to showcase our skills and expertise and are confident that our software engineering project will make a lasting impact on the industry. We also thank Brigham and Women’s Hospital and their representative, AndrewShinn, for their time and input. ">
                      <font>
                         <Font size="20.0" />
                      </font>
