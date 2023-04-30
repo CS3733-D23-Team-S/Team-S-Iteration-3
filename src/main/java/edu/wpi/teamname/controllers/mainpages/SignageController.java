@@ -43,7 +43,7 @@ public class SignageController {
 	//  }
 
 	public void initialize() {
-		// label button
+
 		Platform.runLater(() ->
 				background.setOnMouseClicked(
 						event -> {
@@ -93,7 +93,7 @@ public class SignageController {
 					LBox.getChildren().add(newLabel);
 				}
 				default -> {
-					newLabel.setText("v " + aSign.getSurroundingLocation().getLongName());
+					newLabel.setText("Stop here for " + aSign.getSurroundingLocation().getLongName());
 					newLabel.setStyle("-fx-font-size: 48;");
 					DBox.getChildren().add(newLabel);
 				}

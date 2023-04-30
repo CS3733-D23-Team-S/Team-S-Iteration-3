@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -120,12 +119,12 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox fx:id="LeftBox" alignment="CENTER" prefHeight="25.0" prefWidth="369.0">
+                  <VBox fx:id="LeftBox" alignment="CENTER" prefHeight="0.0" prefWidth="369.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox fx:id="DownBox" alignment="CENTER" prefHeight="98.0" prefWidth="369.0" />
+                  <VBox fx:id="DownBox" alignment="CENTER" prefHeight="0.0" prefWidth="369.0" />
                </children>
             </VBox>
             <Label fx:id="tapButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="435.0" text="Click To Begin!" textAlignment="CENTER" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
@@ -144,18 +143,10 @@
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <MFXRectangleToggleNode fx:id="Switch" prefHeight="45.0" prefWidth="170.0" text="Switch Kiosk">
+                  <MFXButton fx:id="Switch" prefHeight="50.0" prefWidth="140.0" text="Switch Kiosk">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
-                  </MFXRectangleToggleNode>
-                  <MFXButton fx:id="SubmitBTN" prefHeight="58.0" prefWidth="161.0" text="Submit">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
                   </MFXButton>
                </children>
             </VBox>
